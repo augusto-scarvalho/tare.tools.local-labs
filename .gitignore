@@ -1,0 +1,26 @@
+# Python bytecode / build
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Virtual envs (the sglang venv lives in WSL, outside this tree, but guard anyway)
+.venv/
+venv/
+env/
+
+# The SQLite store is a BINARY, secondary record. The durable evidence is the JSON in
+# runs/ (each run's raw record, which STATUS.md's provenance depends on); the .db is
+# derived from those and is git-hostile (binary diffs, merge conflicts). Keep it out.
+runs/*.db
+runs/*.db-journal
+runs/*.db-wal
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp

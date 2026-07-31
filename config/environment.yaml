@@ -1,0 +1,197 @@
+# environment.yaml — the machine, as MEASURED (not assumed).
+#
+# Phase 1 of the architecture plan calls for "identificação do ambiente". Everything
+# below was measured over SSH on 2026-07-25 and is the reason this file exists first:
+# every later phase (fit estimation, gates, planner, promotion) reads these numbers,
+# and a single guessed value here poisons all of them.
+#
+# Rule for this file: a value that was not measured carries `measured: false` and a
+# note saying what would measure it. No silent estimates.
+
+schema_version: 1
+measured_at: "2026-07-25T09:00-03:00"
+
+host:
+  name: aaaaa
+  role: desktop            # the workstation under test
+  os: Windows 11
+  # "Harness" means three different things in this project. Disambiguated once, here,
+  # because the word already caused a misunderstanding:
+  #   1. THE RIG -- src/model_lifecycle/ plus the experiment scripts. Starts the server,
+  #      measures, guards, records. "a harness failure" in residency_sweep.py means this.
+  #   2. THE RESEARCH PLAYBOOK -- an EXTERNAL methodology document, cited by
+  #      ab_isolate.py and optimize_config.py for the noise-floor and lexicographic
+  #      rules. Not present in this repository.
+  #   3. THE AGENT -- whatever drives the work. See below.
+  #
+  # CORRECTED 2026-07-31. This previously stated that the agent runs on a SEPARATE
+  # notebook (192.168.15.21) and called the split "load-bearing". The agent now runs ON
+  # this desktop. What was load-bearing was never the notebook -- it was the rule that
+  # survives the move:
+  #
+  #   Every measurement that matters is a DESKTOP measurement. A probe run anywhere else
+  #   describes the wrong hardware.
+  #
+  # The rig has ALWAYS run on the Windows side of this desktop, driving the distro
+  # through `wsl -d` interop; there is not one line of ssh in the codebase. Remote
+  # operation was only ever how the operator REACHED the box, never where the rig ran.
+  agent_location: desktop        # was: notebook, until 2026-07-31
+  network:
+    # ADDRESS IS NOT AN IDENTITY. DHCP already moved this host once (.107 -> .66) and
+    # will again; the interface is WiFi and both PrefixOrigin and SuffixOrigin are Dhcp.
+    # Reach the desktop by NAME, never by the address below, which is recorded as an
+    # observation and not as configuration.
+    hostname_mdns: aaaaa.local        # measured 2026-07-31: resolves to 192.168.15.66
+    # mDNS re-resolves per query, so a DHCP move repairs itself with no action. Requires
+    # a resolver on the CLIENT (Windows 11, macOS, avahi -- native on all three) and does
+    # not cross subnets. Bonjour Service is Running on this host.
+    resolution: mDNS
+    address: 192.168.15.66           # observed 2026-07-31, expected to change
+    address_previously: 192.168.15.107   # DHCP moved it; same host key, verified
+    interface: WiFi                  # NOT ethernet -- see measurement note below
+    # WiFi jitter lands on CLIENT-measured metrics only: ttft_s, total_s, wall_s and
+    # load_seconds. It does NOT touch prompt_tps or gen_tps, which are computed from
+    # llama.cpp's own server-side `timings` block (collectors/request.py). A remote A/B
+    # of prefill or generation stays valid; anything reading TTFT or load time does not.
+    ssh:
+      port: 22
+      banner: OpenSSH_for_Windows_9.5
+      # Port 22 lands on WINDOWS, not inside WSL. Remote work is two hops:
+      # ssh -> Windows, then `wsl -d Ubuntu-24.04`.
+      key: ~/.ssh/id_ed25519
+      host_key_sha256: Cte84bNUTjrLay85IvSHIU8Gh420foIPNLZgD6TfHcI
+
+gpu:
+  model: NVIDIA GeForce RTX 3090
+  vram_total_mb: 24576
+  vram_idle_used_mb: 1307      # baseline with no model loaded
+  measured: true
+
+memory:
+  ram_total_gb: 63.8
+  ram_available_idle_mb: 47452
+  measured: true
+  # Read via Win32_PerfRawData_PerfOS_Memory.AvailableMBytes, NOT
+  # Get-Counter '\Memory\Available MBytes': counter PATHS are localised and that one
+  # does not exist on this pt-BR host. It returned null, which became 0, which made a
+  # guard believe the machine had no RAM. CIM property names are always English.
+  reader: Win32_PerfRawData_PerfOS_Memory.AvailableMBytes
+
+# The safety envelope. OWNER-DECLARED, not derived: this desktop is a working machine.
+# A configuration that beats every other on tokens/s and takes the box down produced a
+# NEGATIVE result. Headroom is a hard constraint, never a tunable.
+envelope:
+  reserve_vram_mb: 4096        # owner, 2026-07-25
+  reserve_ram_mb: 16384        # owner, 2026-07-25
+  usable_vram_mb: 20480        # 24576 - 4096
+  usable_ram_mb: 48742         # ~63.8 GB - 16 GB
+  # Peak, never average: a mean that looks fine while a spike hit 23.5 GB is a
+  # configuration that kills the desktop on a bad day.
+  enforce_on: peak
+  # The gap this once flagged -- the guard could not tell LOAD-TRANSIENT pressure
+  # (streaming a 21 GB file, plus the previous model's page cache not yet released) from
+  # steady-state cost, and rejected configs whose GPU was never touched -- is now closed
+  # IN CODE. Both demanded fixes exist in control_plane/guard.py:
+  #   * sustained-breach over K samples  -> Envelope.breach_samples (=3); Watch.observe
+  #     only breaches after breach_samples consecutive reads.
+  #   * load-phase exemption             -> Watch.mark_healthy() flips enforce_ram ON only
+  #     AFTER the model is loaded, so the 21 GB stream itself cannot trip a RAM breach.
+  #   * wait-for-recovery between configs -> guard.wait_for_recovery() blocks until the
+  #     host is back past reserve + margin before the next config starts.
+  # Status is IMPLEMENTED, not battle-tested: no run has yet been staged that deliberately
+  # induces a load-transient breach to confirm the guard rides through it. The Nemotron
+  # B1 rejections (12/12) are believed REAL (a .wslconfig cap vs envelope conflict; see
+  # STATUS.md §B1), i.e. the RAM enforcement working, not a transient artifact -- but that
+  # is a hypothesis, not the adversarial validation. Flip to RESOLVED only after that test.
+  transient_handling: IMPLEMENTED_UNVALIDATED
+
+runtime:
+  kind: llama.cpp
+  fork: https://github.com/thecodacus/llama.cpp.git
+  commit: 5e7f6271c
+  # HEAD subject: "docs(readme): add usage + benchmark instructions for the MoE-offload"
+  reason: MoE-offload support (-ncmoe / --n-cpu-moe)
+  location: /home/augus/src/llama.cpp
+  binaries:
+    server: /home/augus/src/llama.cpp/build/bin/llama-server
+    bench: /home/augus/src/llama.cpp/build/bin/llama-bench
+  wsl:
+    distro: Ubuntu-24.04
+    # NOT the default distro. Default is `Ubuntu` and it is Stopped; a bare `wsl`
+    # command lands in the wrong place.
+    is_default: false
+  serving:
+    # llama-server MUST bind 0.0.0.0 or it is invisible outside the distro.
+    required_flag: --host 0.0.0.0
+    # REWRITTEN 2026-07-31, twice, and the second time matters more than the first.
+    #
+    # The ORIGINAL claim -- that the LAN reached the server through a `netsh portproxy`
+    # of unknown persistence -- is dead: `netsh interface portproxy show all` is EMPTY
+    # and .wslconfig sets networkingMode=mirrored.
+    #
+    # The REPLACEMENT claim was also wrong, and is the more instructive error: it said a
+    # 0.0.0.0 bind inside WSL is "already on the LAN by construction", reasoning from
+    # `ip -4 -o addr show` showing eth0 = the same address as the Windows adapter. Shared
+    # ADDRESSING is not shared REACHABILITY. Do not repeat that inference.
+    lan_bridge: none (networkingMode=mirrored)
+
+    # What is actually measured, 2026-07-31, with a real llama-server up:
+    reachability:
+      loopback: 200 OK          # http://127.0.0.1:8080/health, from the desktop
+      # The desktop CANNOT test its own LAN address: connecting to 192.168.15.66:8080
+      # from Windows timed out, which is the EXPECTED mirrored-mode behaviour when
+      # `[experimental] hostAddressLoopback=true` is absent from .wslconfig -- and it is
+      # absent. A host reaching WSL by the host's own IP is a different path from a LAN
+      # peer reaching it, so this timeout is NOT evidence that the notebook will fail.
+      desktop_to_own_lan_ip: timeout (expected; hostAddressLoopback not set)
+      # UNVERIFIED, and only the notebook can settle it. This is the one open question.
+      notebook_to_desktop: UNTESTED
+    # Windows does NOT show the listener: `Get-NetTCPConnection -LocalPort 8080` is empty
+    # while the server is up and answering. The socket lives in the WSL container.
+    windows_tcp_table_shows_listener: false
+
+    hyperv_firewall:
+      # Inbound to the WSL container is DENY-BY-DEFAULT. This gate is invisible to
+      # `netsh advfirewall` and to the Windows Defender UI -- it is a separate policy.
+      default_inbound_action: Block
+      vm_creator_id: "{40E0AC32-46A5-438A-A0B2-2B479E8F2E90}"
+      # An allow rule for this port already exists and inspects as correct.
+      rule: llama-server-wsl
+      rule_detail: TCP / LocalPorts 8080 / RemoteAddresses LocalSubnet / Enabled
+      enforcement_status: OK
+      # Adding or changing these requires ADMIN. Read-only inspection does not.
+
+    # OPEN RISK for the notebook, not yet hit because nothing has connected yet.
+    # `aaaaa.local` resolves to AAAA records BEFORE the A record (one link-local
+    # fe80:: and one public 2804:...). `--host 0.0.0.0` binds IPv4 ONLY, so a client
+    # that honours the AAAA first will connect to an address nothing is listening on.
+    # If the notebook fails, test the IPv4 literal before blaming the firewall.
+    ipv6_caveat: mDNS returns AAAA first; server binds IPv4 only
+
+models_present:
+  # Measured on disk 2026-07-25. Sizes are `ls -lh`, not estimates.
+  - path: /home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
+    size_gb: 21
+    quant: Q4_K_M
+  - path: /home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q5_K_M.gguf
+    size_gb: 25
+    quant: Q5_K_M
+  - path: /home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q6_K.gguf
+    size_gb: 28
+    quant: Q6_K
+  - path: /home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-Q8_0.gguf
+    size_gb: 35
+    quant: Q8_0
+  - hf_repo: ggml-org/gemma-3-4b-it-GGUF
+    cache: ~/.cache/huggingface/hub (WSL Ubuntu-24.04)
+    note: first occupant of the fully-resident band; size not yet measured
+    measured: false
+
+not_yet_searched:
+  # Recorded so "not found" is never mistaken for "not there".
+  - C:\ Windows-side HuggingFace cache (likely home of the Nemotron the owner recalls)
+  - the stopped `Ubuntu` distro beyond ~/models
+  - the prior benchmark's own scripts: no *.ps1 exists anywhere under Downloads;
+    search instead by its unique strings (WorkstationScore, PreferredRate,
+    workstation-ultrasafe, quality-q8-cache). The `hermes-full-context-launcher-v3.sh`
+    files in ~/.local/state/llama.cpp/ are almost certainly relatives of it.

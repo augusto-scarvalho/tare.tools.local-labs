@@ -1,0 +1,17 @@
+# This project straddles Windows and WSL. A file authored on Windows with CRLF that is
+# then executed by a Linux interpreter fails with a `\r`-tainted error -- exactly the
+# breakage seen in the setup scripts. Normalise to LF in the repository so a WSL checkout
+# is always clean; PowerShell scripts keep CRLF, which some Windows tooling still prefers.
+* text=auto eol=lf
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+
+# Data records: text, LF, but never touched by line-ending magic on content.
+*.json text eol=lf
+*.jsonl text eol=lf
+
+# Binary — never diff or convert.
+*.db binary
+*.gguf binary
+*.png binary
+*.jpg binary

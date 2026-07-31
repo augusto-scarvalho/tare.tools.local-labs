@@ -1,0 +1,57 @@
+[
+  {
+    "case": "single",
+    "pass": true,
+    "calls": [
+      {
+        "name": "get_weather",
+        "args": {
+          "city": "Lisbon"
+        },
+        "args_valid": true,
+        "raw": "{\"city\":\"Lisbon\"}"
+      }
+    ],
+    "error": null,
+    "seconds": 4.9
+  },
+  {
+    "case": "enum",
+    "pass": true,
+    "calls": [
+      {
+        "name": "get_weather",
+        "args": {
+          "city": "Tokyo",
+          "unit": "fahrenheit"
+        },
+        "args_valid": true,
+        "raw": "{\"city\":\"Tokyo\",\"unit\":\"fahrenheit\"}"
+      }
+    ],
+    "error": null,
+    "seconds": 4.2
+  },
+  {
+    "case": "choose",
+    "pass": false,
+    "calls": [],
+    "error": null,
+    "seconds": 6.2
+  },
+  {
+    "case": "followup",
+    "pass": true,
+    "calls": [],
+    "text": "The weather in Porto is currently 19\u00b0C with clear skies.",
+    "error": null,
+    "seconds": 4.1
+  },
+  {
+    "case": "refrain",
+    "pass": true,
+    "calls": [],
+    "error": null,
+    "seconds": 3.7
+  }
+]

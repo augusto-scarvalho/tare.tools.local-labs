@@ -1,0 +1,67 @@
+[
+  {
+    "case": "single",
+    "pass": true,
+    "calls": [
+      {
+        "name": "get_weather",
+        "args": {
+          "city": "Lisbon",
+          "unit": "celsius"
+        },
+        "args_valid": true,
+        "raw": "{\"city\": \"Lisbon\", \"unit\": \"celsius\"}"
+      }
+    ],
+    "error": null,
+    "seconds": 4.9
+  },
+  {
+    "case": "enum",
+    "pass": true,
+    "calls": [
+      {
+        "name": "get_weather",
+        "args": {
+          "city": "Tokyo",
+          "unit": "fahrenheit"
+        },
+        "args_valid": true,
+        "raw": "{\"city\": \"Tokyo\", \"unit\": \"fahrenheit\"}"
+      }
+    ],
+    "error": null,
+    "seconds": 4.1
+  },
+  {
+    "case": "choose",
+    "pass": true,
+    "calls": [
+      {
+        "name": "get_stock_price",
+        "args": {
+          "ticker": "NVDA"
+        },
+        "args_valid": true,
+        "raw": "{\"ticker\": \"NVDA\"}"
+      }
+    ],
+    "error": null,
+    "seconds": 3.7
+  },
+  {
+    "case": "followup",
+    "pass": true,
+    "calls": [],
+    "text": "The current weather in Porto is 19\u00b0C with clear skies. A perfect day to enjoy outdoor activities! \ud83c\udf1e",
+    "error": null,
+    "seconds": 5.6
+  },
+  {
+    "case": "refrain",
+    "pass": true,
+    "calls": [],
+    "error": null,
+    "seconds": 8.2
+  }
+]

@@ -1,0 +1,63 @@
+{
+  "config_id": "ab__pinpf__ncmoe24__r4",
+  "verdict": "OK",
+  "reason": null,
+  "load_seconds": 3.547000000005937,
+  "pass_rate": 1.0,
+  "answer_rate": 0.0,
+  "requests": 2,
+  "failures": [
+    "starved: budget spent on reasoning (finish_reason=length, reasoning_chars=4303, completion_tokens=1500) - raise max_tokens",
+    "starved: budget spent on reasoning (finish_reason=length, reasoning_chars=4637, completion_tokens=1500) - raise max_tokens"
+  ],
+  "ttft": null,
+  "total": {
+    "n": 2,
+    "min": 32.703000000008615,
+    "max": 32.921999999991385,
+    "mean": 32.8125,
+    "median": 32.8125,
+    "p90": 32.90009999999311,
+    "p95": 32.911049999992244,
+    "p99": 32.91980999999156,
+    "stdev": 0.15485638506767083,
+    "cv": 0.004719432687776635,
+    "ci95_low": 32.597880000016886,
+    "ci95_high": 33.027119999983114
+  },
+  "gen_tps": {
+    "n": 2,
+    "min": 43.006150567629575,
+    "max": 43.28558606144106,
+    "mean": 43.14586831453532,
+    "median": 43.14586831453532,
+    "p90": 43.25764251205991,
+    "p95": 43.271614286750484,
+    "p99": 43.28279170650294,
+    "stdev": 0.19759073257831158,
+    "cv": 0.00457959800780613,
+    "ci95_low": 42.872021530600065,
+    "ci95_high": 43.419715098470576
+  },
+  "prompt_tps": {
+    "n": 2,
+    "min": 331.9063319210181,
+    "max": 335.5550243425868,
+    "mean": 333.73067813180245,
+    "median": 333.73067813180245,
+    "p90": 335.19015510042993,
+    "p95": 335.3725897215084,
+    "p99": 335.5185374183711,
+    "stdev": 2.580015153755221,
+    "cv": 0.007730830045945847,
+    "ci95_low": 330.1549595586651,
+    "ci95_high": 337.3063967049398
+  },
+  "min_free_vram_mb": 12595,
+  "min_available_ram_mb": 24755,
+  "load_min_ram_mb": 24894,
+  "host_recovered": true,
+  "gen_tps_lower_bound_count": 0,
+  "cached_prefill_count": 0,
+  "stderr_tail": []
+}
