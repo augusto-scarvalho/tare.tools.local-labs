@@ -226,6 +226,7 @@ for _set in ARM_SETS.values():
             _set[_name] = (_spec[0], _spec[1], ())
 
 ARMS = ARM_SETS["switches"]      # replaced by main() from --arms
+DENSE = False                    # set in main() from geometry: True when n_expert == 0
 
 # The three gates, all default-closed, found by reading the patch after three A/B runs
 # had already compared upstream against a fork that never executed:
@@ -307,8 +308,17 @@ def verify_linkage() -> None:
         print(f"  linkage OK: {arm} -> {len(libs)} libs, all under {own}")
 
 
-def _profile(ncmoe: int, extra: tuple[str, ...] = ()) -> ServerProfile:
-    return ServerProfile(model_path=MODEL, port=8080, n_cpu_moe=ncmoe,
+def _profile(offload: int, extra: tuple[str, ...] = ()) -> ServerProfile:
+    # DENSE control: a dense model has no experts to stream, so there is no --n-cpu-moe
+    # axis. It is offloaded with -ngl instead, and the `offload` value is read as
+    # n_gpu_layers (layers kept ON the GPU; the rest compute on the CPU). This is the
+    # negative control for STATUS §B1: dense CPU layers compute in place, nothing streams
+    # over PCIe, so pinning has nothing to accelerate and pin-vs-base must read as null.
+    if DENSE:
+        return ServerProfile(model_path=MODEL, port=8080, n_gpu_layers=offload,
+                             ctx_size=8192, cache_type_k="q8_0", cache_type_v="q8_0",
+                             no_mmap=False, extra_args=extra)
+    return ServerProfile(model_path=MODEL, port=8080, n_cpu_moe=offload,
                          ctx_size=8192, cache_type_k="q8_0", cache_type_v="q8_0",
                          no_mmap=False, extra_args=extra)
 
@@ -357,8 +367,9 @@ def main() -> int:
               f"balance. Use an even number.")
         return 2
 
-    global MODEL, NCMOE
+    global MODEL, NCMOE, DENSE
     gguf, blocks, n_expert, n_used = MODELS[args.model]
+    DENSE = (n_expert == 0)               # dense control -> -ngl offload, no --n-cpu-moe
     if args.gguf:
         gguf = args.gguf                      # explicit quant; geometry stays from --model
     elif "*" in gguf:
@@ -379,8 +390,12 @@ def main() -> int:
         # 60% of layers, the same dose fraction every earlier run used on the 40-layer
         # model. A fixed integer would mean a different offload fraction per model.
         NCMOE = [max(1, round(blocks * 0.6))]
-    print(f"model={args.model} ({blocks}L, {n_expert}/{n_used} experts, gate at "
-          f"{max(1, -(-2 * n_expert // n_used))} tok)  ncmoe={NCMOE}")
+    if DENSE:
+        print(f"model={args.model} ({blocks}L, DENSE) -- offloaded with -ngl; the dose "
+              f"values are n_gpu_layers (layers ON gpu)  ngl={NCMOE}")
+    else:
+        print(f"model={args.model} ({blocks}L, {n_expert}/{n_used} experts, gate at "
+              f"{max(1, -(-2 * n_expert // n_used))} tok)  ncmoe={NCMOE}")
 
     global ARMS
     ARMS = ARM_SETS[args.arms]

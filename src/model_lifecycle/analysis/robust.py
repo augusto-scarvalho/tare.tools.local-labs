@@ -212,6 +212,85 @@ def format_contributions(rows: list[dict]) -> str:
     return "\n".join(lines)
 
 
+def _slope(xs: list[float], ys: list[float]) -> float:
+    """Least-squares slope of ys on xs."""
+    xm = _mean(xs)
+    denom = sum((x - xm) ** 2 for x in xs)
+    if denom == 0:
+        return 0.0
+    ym = _mean(ys)
+    return sum((xs[i] - xm) * (ys[i] - ym) for i in range(len(xs))) / denom
+
+
+def _spearman(xs: list[float], ys: list[float]) -> float:
+    """Spearman rank correlation (ties broken by position -- fine for distinct ordered doses)."""
+    def rank(v):
+        order = sorted(range(len(v)), key=lambda i: v[i])
+        r = [0.0] * len(v)
+        for pos, i in enumerate(order):
+            r[i] = pos
+        return r
+    n = len(xs)
+    if n < 2:
+        return 0.0
+    rx, ry = rank(xs), rank(ys)
+    d2 = sum((rx[i] - ry[i]) ** 2 for i in range(n))
+    return 1.0 - 6.0 * d2 / (n * (n * n - 1))
+
+
+def trend_slope_ci(doses: list[float], deltas_by_dose: list[list[float]], *,
+                   iterations: int = 10000, alpha: float = 0.05,
+                   seed: int = 20260801) -> dict:
+    """Dose-response test: is the paired delta a MONOTONE function of an ordered dose?
+
+    A single positive delta is weak; a delta that RISES with the mechanism's driver is strong.
+    §B1's driver is active experts/token; §B2's is context length. Each dose is its own A/B
+    (independent), so this fits a slope to (dose -> median paired delta) and bootstraps a CI by
+    resampling within each dose's rounds. A CI excluding zero is a real trend; the Spearman rho
+    gives the monotone direction without assuming linearity.
+
+    `deltas_by_dose[i]` is the list of paired deltas measured at `doses[i]`.
+    """
+    if len(doses) != len(deltas_by_dose) or len(doses) < 2:
+        raise ValueError("need >=2 doses, aligned with deltas_by_dose")
+    meds = [_median(d) for d in deltas_by_dose]
+    rng = random.Random(seed)
+    slopes = []
+    for _ in range(iterations):
+        bmeds = []
+        for d in deltas_by_dose:
+            n = len(d)
+            bmeds.append(_median([d[rng.randrange(n)] for _ in range(n)]))
+        slopes.append(_slope(doses, bmeds))
+    slopes.sort()
+    lo = slopes[max(0, int(alpha / 2 * iterations) - 1)]
+    hi = slopes[min(iterations - 1, int((1 - alpha / 2) * iterations))]
+    return {"slope": _slope(doses, meds), "ci95": [lo, hi],
+            "spearman": _spearman(doses, meds), "n_doses": len(doses),
+            "positive_trend": lo > 0, "negative_trend": hi < 0}
+
+
+def non_inferiority(deltas: list[float], margin: float, *, better: str = "higher",
+                    alpha: float = 0.05, seed: int = 20260801) -> dict:
+    """One-sided non-inferiority: is `new` NOT MEANINGFULLY WORSE than `base` within `margin`?
+
+    For the KV-quant trade (q4 vs q8 KV): we do not need q4 to be BETTER on quality, only within
+    a pre-declared margin while it is faster/leaner. `deltas` are paired `new - base`.
+      better='higher' (quality, higher is better): non-inferior if the one-sided lower bound of
+        the delta stays above `-margin`.
+      better='lower'  (latency, lower is better):  non-inferior if the one-sided upper bound of
+        the delta stays below `+margin`.
+    The margin is fixed BEFORE data (pre-registration); tightening is free, loosening is not.
+    """
+    lo, hi = bootstrap_ci(deltas, alpha=2 * alpha, seed=seed)   # one-sided bound at `alpha`
+    med = _median(deltas)
+    if better == "higher":
+        return {"median_delta": med, "one_sided_bound": lo, "margin": margin,
+                "better": better, "non_inferior": lo > -margin}
+    return {"median_delta": med, "one_sided_bound": hi, "margin": margin,
+            "better": better, "non_inferior": hi < margin}
+
+
 if __name__ == "__main__":
     clean = [80.0, 81.0, 79.5, 80.5]
     dirty = clean + [40.0]                      # one cold-start style outlier
@@ -246,6 +325,20 @@ if __name__ == "__main__":
     top = contrib[0]
     assert top["factor"] == "A" and top["pct"] > 99.0, contrib
     assert next(c for c in contrib if c["factor"] == "B")["pct"] < 1.0
+
+    # Dose-response trend: a delta that clearly RISES with dose has a positive slope CI and
+    # a monotone Spearman; a flat dose-response does not read as a trend.
+    _doses = [4.0, 8.0, 10.0]
+    _rising = [[-0.1, 0.0, -0.05], [0.5, 0.6, 0.55], [1.0, 1.1, 0.9]]
+    _t = trend_slope_ci(_doses, _rising, iterations=2000)
+    assert _t["positive_trend"] and _t["spearman"] > 0.9, _t
+    _flat = [[0.1, -0.1, 0.0], [0.0, 0.1, -0.1], [-0.05, 0.05, 0.0]]
+    assert not trend_slope_ci(_doses, _flat, iterations=2000)["positive_trend"]
+
+    # Non-inferiority: delta hovering at -1 is non-inferior within margin 3, not within 0.5.
+    _near = [-1.0, -0.8, -1.2, -0.9, -1.1, -1.0]
+    assert non_inferiority(_near, 3.0, better="higher")["non_inferior"]
+    assert not non_inferiority(_near, 0.5, better="higher")["non_inferior"]
 
     print("robust stats self-check OK")
     print(f"  mean(dirty)={_mean(dirty):.1f}  HL={hodges_lehmann(dirty):.1f}  "

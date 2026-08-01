@@ -50,8 +50,16 @@ class ModelSpec:
 # and runs/residency_nemotron-120b.json is kept as the evidence.
 _GEOM = {
     "qwen36-35b":    (40, 256, 8),
-    "qwen3-30b":     (48, 128, 8),
     "gpt-oss-20b":   (24, 32, 4),
+    # --- siege triangulation (2026-08-01), geometry read from GGUF metadata ---
+    # MoE (test transfer-bound pinning-generation; n_expert>0 drives -ncmoe offload):
+    "granite-4.0-h":    (40, 72, 10),   # granitehybrid; 10 active = most transfer/token here
+    "gemma-4-moe":      (30, 128, 8),   # gemma4
+    "ernie-4.5-21b":    (28, 64, 6),    # ernie4_5-moe
+    # DENSE controls (n_expert=0 -> ab_isolate offloads with -ngl, not -ncmoe; expect null):
+    "mistral-24b":      (40, 0, 0),     # llama arch
+    "qwen36-27b-dense": (65, 0, 0),     # qwen35 DENSE -- same family as qwen36-35b MoE
+    "thinkingcap-27b":  (65, 0, 0),     # qwen35 DENSE (ThinkingCap finetune)
     # Laguna-S-2.1 was tried and DISCARDED 2026-08-01. It loads, but testing PINNING needs
     # mmap, and mmap holds the whole GGUF resident in RAM; even the Q2_K_XL (39.7 GB) leaves
     # Windows at 5.5 GB available from a clean 44 GB baseline -- below the 16 GB reserve. The
@@ -67,11 +75,30 @@ _FILES = {
         ("q6", "/home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q6_K.gguf", "Q6_K"),
         ("q8", "/home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-Q8_0.gguf", "Q8_0"),
     ],
-    "qwen3-30b": [
-        ("q4", "/home/augus/models/qwen3-30b-a3b/Qwen3-30B-A3B-Q4_K_M.gguf", "Q4_K_M"),
-    ],
+    # qwen3-30b (Qwen3) and Qwen3.5-122B discarded 2026-08-01 as too-old architectures;
+    # files deleted. Their historical prefill data stays in runs/ab-*-qwen3-30b/.
     "gpt-oss-20b": [
         ("q4", "/home/augus/models/gpt-oss-20b/gpt-oss-20b-Q4_K_M.gguf", "Q4_K_M"),
+    ],
+    "granite-4.0-h": [
+        ("q4", "/home/augus/models/granite-4.0-h-small/granite-4.0-h-small-Q4_K_M.gguf", "Q4_K_M"),
+    ],
+    "gemma-4-moe": [
+        ("q4", "/home/augus/models/gemma-4-26b-a4b/gemma-4-26B_q4_0-it.gguf", "q4_0"),
+    ],
+    "ernie-4.5-21b": [
+        ("q4", "/home/augus/models/ernie-4.5-21b/ERNIE-4.5-21B-A3B-PT-Q4_K_M.gguf", "Q4_K_M"),
+    ],
+    "mistral-24b": [
+        ("q4", "/home/augus/models/mistral-small-24b/"
+               "mistralai_Mistral-Small-3.2-24B-Instruct-2506-Q4_K_M.gguf", "Q4_K_M"),
+    ],
+    "qwen36-27b-dense": [
+        ("q4", "/home/augus/models/qwen36-27b-dense/Qwen_Qwen3.6-27B-Q4_K_M.gguf", "Q4_K_M"),
+    ],
+    "thinkingcap-27b": [
+        ("q4", "/home/augus/models/thinkingcap-27b/"
+               "bottlecapai_ThinkingCap-Qwen3.6-27B-Q4_K_M.gguf", "Q4_K_M"),
     ],
     # laguna-s and nemotron-120b removed -- see the _GEOM notes above for why both were
     # discarded (no high-active MoE quant fits a pinning test's file<=26GB rule on this box).

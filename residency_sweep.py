@@ -40,12 +40,8 @@ LOCAL_BIN = "/home/augus/src/llama.cpp-local/build/bin/llama-server"
 # key -> (gguf, block_count, approx GiB on disk). The big two are Q3_K_M in three shards;
 # llama.cpp takes the first shard's path and finds the rest.
 MODELS = {
-    "qwen35-122b": ("/home/augus/models/llama-cache/models--unsloth--Qwen3.5-122B-A10B-GGUF/"
-                    "snapshots/*/Qwen3.5-122B-A10B-Q3_K_M-00001-of-00003.gguf", 0, 53),
-    # nemotron-120b DISCARDED 2026-07-31: no quant fits the envelope (measured -- IQ1_S loads
-    # only at ncmoe=50 with 594 MB VRAM / 2.0 GB Windows free, both inside the reserves). See
-    # models.py for the full note; files deleted.
-    # laguna-s discarded 2026-08-01 (pinning needs mmap needs file<=26GB; Q2_K_XL is 39.7 GB).
+    # Discarded (files deleted): nemotron-120b & laguna-s (no fitting pinning quant, 2026-07/08),
+    # qwen35-122b (Qwen3.5) & qwen3-30b (Qwen3) as too-old architectures (2026-08-01).
     "qwen36-35b": ("/home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf", 40, 20),
 }
 
