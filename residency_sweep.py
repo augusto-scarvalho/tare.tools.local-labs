@@ -45,6 +45,7 @@ MODELS = {
     # nemotron-120b DISCARDED 2026-07-31: no quant fits the envelope (measured -- IQ1_S loads
     # only at ncmoe=50 with 594 MB VRAM / 2.0 GB Windows free, both inside the reserves). See
     # models.py for the full note; files deleted.
+    # laguna-s discarded 2026-08-01 (pinning needs mmap needs file<=26GB; Q2_K_XL is 39.7 GB).
     "qwen36-35b": ("/home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf", 40, 20),
 }
 
@@ -182,6 +183,9 @@ def probe(model_key: str, ncmoe: int, ctx: int, *, settle_s: float,
         tot, avail = wsl_mem_gb()
         rec.update({
             "vram_free_mb": s.vram_free_mb,
+            # The GUARD's own metric (Windows AvailableMBytes, incl. reclaimable standby),
+            # which is looser than windows_free below. This is what the A/B actually enforces.
+            "windows_available_mb_guard": s.ram_available_mb,
             "wsl_ram_total_gb": tot,
             "wsl_ram_avail_gb": avail,
             "windows_free_gb_before": before_win,

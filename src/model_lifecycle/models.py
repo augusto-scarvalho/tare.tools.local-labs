@@ -52,6 +52,11 @@ _GEOM = {
     "qwen36-35b":    (40, 256, 8),
     "qwen3-30b":     (48, 128, 8),
     "gpt-oss-20b":   (24, 32, 4),
+    # Laguna-S-2.1 was tried and DISCARDED 2026-08-01. It loads, but testing PINNING needs
+    # mmap, and mmap holds the whole GGUF resident in RAM; even the Q2_K_XL (39.7 GB) leaves
+    # Windows at 5.5 GB available from a clean 44 GB baseline -- below the 16 GB reserve. The
+    # binding rule: a pinning test needs the file <= ~26 GB, and every Laguna-S / Nemotron
+    # quant that is also high-active (transfer-bound) is larger. Files deleted. See STATUS §B1.
 }
 
 # arch -> {quant-suffix: (path, quant-name)}. The default quant per arch is the FIRST.
@@ -68,7 +73,8 @@ _FILES = {
     "gpt-oss-20b": [
         ("q4", "/home/augus/models/gpt-oss-20b/gpt-oss-20b-Q4_K_M.gguf", "Q4_K_M"),
     ],
-    # nemotron-120b removed here too -- see the _GEOM note above for why it was discarded.
+    # laguna-s and nemotron-120b removed -- see the _GEOM notes above for why both were
+    # discarded (no high-active MoE quant fits a pinning test's file<=26GB rule on this box).
 }
 
 MODELS: dict[str, ModelSpec] = {}

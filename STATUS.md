@@ -150,9 +150,35 @@ interact with the prefetch, and the L18's non-monotonic ordering was confounding
     tuning change here. The historical evidence is kept in `runs/ab-genpin-nemotron-120b/`
     and `runs/residency_nemotron-120b.json`.
 
-  The reachable *mechanism* proxy remains open: qwen36-35B-Q8 at maximum offload (ncmoe=40)
-  fits with margin and is transfer-*influenced*, but at 3B active it cannot reproduce the
-  12B-active severity that makes §B1 interesting.
+  **The general constraint, found while chasing this (2026-08-01).** Testing pinning needs
+  mmap on, because the fork's `register_host()` only fires when mmap is in use. But mmap holds
+  the whole GGUF resident in RAM, so the *file* — not the offloaded slice — must fit under the
+  reserve: on a clean 44 GB baseline, `file <= ~26 GB` to keep Windows above the 16 GB reserve.
+  This was confirmed on **Laguna-S-2.1** (poolside, ~117B MoE, 6-7B active): its Q2_K_XL loads
+  but leaves Windows at **5.5 GB available** from a clean baseline — the whole 39.7 GB file sits
+  in RAM regardless of ncmoe. Every MoE quant that is *also* high-active (transfer-bound) is
+  larger than 26 GB; the ones that fit (Laguna-XS, qwen3-30b) are ~3B active, no more
+  transfer-bound than qwen36. **High-active and small-file are mutually exclusive here.**
+  Laguna-S was discarded (files deleted); Laguna-XS not worth downloading.
+
+  **The reachable proxy — ANSWERED (2026-08-01): pinning DOES move generation, but only when
+  transfer-bound, and only ~2%.** qwen36-35B-Q4 (22 GB, fits pinning+mmap) at maximum offload
+  (ncmoe=40), all 40 expert layers streaming over PCIe, genpin `pin - base`, n=12:
+
+  | metric | Δ median | sign_p | Cliff's δ | reading |
+  |---|---|---|---|---|
+  | gen_tps | **+0.58 t/s (+2.14%)** | **0.039** | +0.72 | CI95 [+0.28, +0.88], excludes zero |
+  | prompt_tps | +171.1 (+123.7%) | 0.000 | +1.00 | pinning still ~doubles prefill |
+
+  10 of 12 rounds favour pinning; the 2 that don't are r0/r1 (cold-start, base runs fast while
+  the machine warms) — from r2 on it is 10 straight positives. This is the project's **first
+  positive generation result**, and it settles the SHAPE of §B1: near-resident (ncmoe=24)
+  generation does not move (Δ ~0.2%, noise); transfer-bound (ncmoe=40) it moves +2.1%,
+  distribution-free significant. Two honest caveats: (1) the effect is SMALL — pinning's
+  headline value is still prefill; generation gets a modest transfer-bound bonus. (2) This is a
+  **lower bound**: at 3B active it cannot show the 12B-active severity of Nemotron/Laguna-S,
+  where ~4x the per-token transfer could make it larger — but that regime is unreachable here.
+  Raw records: `runs/ab-genpin-qwen36-35b-maxoff12/` (n=12) and `-maxoff/` (n=6, corroborating).
 
 - **The −10.4% no-mmap residual.** One of the three historically disputed deltas. Not
   covered by any `ab-*` directory here; **still open**, needs its own clean paired A/B.
