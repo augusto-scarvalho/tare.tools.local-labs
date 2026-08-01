@@ -26,7 +26,7 @@ from dataclasses import dataclass
 @dataclass(frozen=True)
 class ModelSpec:
     key: str            # quant-keyed id, e.g. "qwen36-35b-q4"
-    path: str           # GGUF path inside the distro (a glob for the sharded Nemotron)
+    path: str           # GGUF path inside the distro
     arch: str           # architecture id, e.g. "qwen36-35b"
     quant: str          # e.g. "Q4_K_M"
     block_count: int    # layers; the offload axis is a fraction of this
@@ -41,11 +41,17 @@ class ModelSpec:
 
 # Geometry per architecture, asserted once so a typo in a quant entry cannot silently
 # introduce a second, disagreeing value for the same architecture.
+# Nemotron-120B (88, 512, 22) was DISCARDED 2026-07-31: no quant of it fits this box within
+# the safety envelope. Measured, not guessed -- even bartowski IQ1_S (46.4 GB, the smallest
+# quant either quantiser makes) loads only at ncmoe=50 with 594 MB VRAM free (reserve 4 GB)
+# and 2.0 GB Windows free (reserve 16 GB); every other ncmoe blows one envelope or the other.
+# The 12B-active transfer-bound regime (STATUS §B1) is unreachable here without 128 GB RAM.
+# Both model files were deleted. The historical rejection data in runs/ab-genpin-nemotron-120b/
+# and runs/residency_nemotron-120b.json is kept as the evidence.
 _GEOM = {
     "qwen36-35b":    (40, 256, 8),
     "qwen3-30b":     (48, 128, 8),
     "gpt-oss-20b":   (24, 32, 4),
-    "nemotron-120b": (88, 512, 22),
 }
 
 # arch -> {quant-suffix: (path, quant-name)}. The default quant per arch is the FIRST.
@@ -62,13 +68,7 @@ _FILES = {
     "gpt-oss-20b": [
         ("q4", "/home/augus/models/gpt-oss-20b/gpt-oss-20b-Q4_K_M.gguf", "Q4_K_M"),
     ],
-    "nemotron-120b": [
-        # Sharded; the HF cache buries the quant under a snapshot hash, so this is a glob
-        # resolved at run time, not a fixed path. ab_isolate.resolve() expands it.
-        ("q3", "/home/augus/models/llama-cache/"
-               "models--unsloth--NVIDIA-Nemotron-3-Super-120B-A12B-GGUF/snapshots/*/"
-               "*/NVIDIA-Nemotron-3-Super-120B-A12B-UD-Q3_K_M-00001-of-00003.gguf", "Q3_K_M"),
-    ],
+    # nemotron-120b removed here too -- see the _GEOM note above for why it was discarded.
 }
 
 MODELS: dict[str, ModelSpec] = {}
@@ -97,6 +97,5 @@ if __name__ == "__main__":
     assert MODELS["qwen36-35b-q4"].path.endswith("UD-Q4_K_M.gguf")
     assert ab_models()["gpt-oss-20b"] == (
         "/home/augus/models/gpt-oss-20b/gpt-oss-20b-Q4_K_M.gguf", 24, 32, 4)
-    assert ab_models()["nemotron-120b"][1:] == (88, 512, 22)
     print(f"models registry OK: {len(MODELS)} quant entries, "
           f"{len(ARCH_DEFAULTS)} architectures")

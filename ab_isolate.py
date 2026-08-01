@@ -334,6 +334,17 @@ def main() -> int:
     ap.add_argument("--max-tokens", type=int, default=1500)
     ap.add_argument("--arms", choices=sorted(ARM_SETS), default="switches")
     ap.add_argument("--model", choices=sorted(MODELS), default="qwen36-35b")
+    # Explicit file override, keeping --model's GEOMETRY. The design is arch-keyed on
+    # purpose (offload is a fraction of layers; quant varies separately), so a quant that
+    # is not the arch default is run by naming it here -- e.g. Nemotron IQ1_S, the only
+    # quant that fits resident+pinned inside the RAM reserve, where the arch default Q3
+    # (61.7 GB) cannot.
+    ap.add_argument("--gguf", help="override the model file; keep --model's geometry")
+    # A re-run at a different quant/dose must NOT overwrite an earlier run's raw records
+    # (immutability is the one promise here). The output dir is ab-{arms}-{model}; --tag
+    # suffixes it, so e.g. the Nemotron IQ1_S genpin run writes ab-genpin-nemotron-120b-iq1s
+    # and leaves the earlier ab-genpin-nemotron-120b (the rejected Q3) intact.
+    ap.add_argument("--tag", default="", help="suffix for the output dir, keeps re-runs separate")
     # One dose, when the question is about an INTERACTION rather than a dose-response.
     # The 2x2 in --arms stack needs four arms per cell; running it at three doses would
     # triple a run whose answer does not depend on the dose.
@@ -348,7 +359,9 @@ def main() -> int:
 
     global MODEL, NCMOE
     gguf, blocks, n_expert, n_used = MODELS[args.model]
-    if "*" in gguf:
+    if args.gguf:
+        gguf = args.gguf                      # explicit quant; geometry stays from --model
+    elif "*" in gguf:
         # HF cache paths carry a snapshot hash and a quant directory. Resolving by
         # basename rather than globbing a guessed layout: a glob written from memory
         # matched nothing once and 24 configurations were reported as "did not fit"
@@ -380,7 +393,8 @@ def main() -> int:
     # `rebased` run silently destroyed the `versions` run's raw data. Raw records are
     # the one thing this platform promises to keep -- scores are recomputable, runs
     # are not.
-    out_dir = pathlib.Path(__file__).parent / "runs" / f"ab-{args.arms}-{args.model}"
+    _suffix = f"-{args.tag}" if args.tag else ""
+    out_dir = pathlib.Path(__file__).parent / "runs" / f"ab-{args.arms}-{args.model}{_suffix}"
     out_dir.mkdir(parents=True, exist_ok=True)
     env = Envelope()
     records: list[dict] = []

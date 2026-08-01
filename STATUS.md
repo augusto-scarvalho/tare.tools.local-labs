@@ -130,12 +130,29 @@ interact with the prefetch, and the L18's non-monotonic ordering was confounding
 
 ## OPEN — as prominent as the answers, on purpose
 
-- **§B1 — transfer-bound generation.** The one regime that would test whether pinning
-  helps *generation* (Nemotron-120B at ncmoe=99, ~0.64 t/s, 22 experts/token over PCIe)
-  returned **12/12 REJECTED** — `ram ~4-5 GB < 16384 MB`. Prime suspect: `.wslconfig`
-  caps WSL at 44 GB of 63.8, leaving ~19.8 GB for Windows against a 16 GB reserve, so the
-  guard rejects the moment WSL claims its cap. This is a `.wslconfig` × envelope conflict,
-  not a property of the model. **Unresolved — B1 is unanswered.**
+- **§B1 — transfer-bound generation — CLOSED as UNREACHABLE on this hardware (2026-07-31).**
+  The one regime that would test whether pinning helps *generation* is a big model whose
+  experts stream over PCIe (Nemotron-120B-A12B: 12B active/token, ~0.64 t/s at ncmoe=99).
+  It cannot be measured on this box, and this is now a *measured* fact rather than the
+  earlier `.wslconfig` guess:
+  - Nemotron-Q3 is **61.7 GB** — resident + the 16 GB Windows reserve alone exceeds the
+    63.8 GB of physical RAM. The old 12/12 REJECTED run was correct; the 0.64 t/s seen once
+    was **disk-thrash** (model > the 44 GB WSL cap, `swap=0`, mmap paging from the GGUF),
+    not clean PCIe transfer, and pinning cannot even be applied to a model larger than the cap.
+  - The smallest quant either quantiser publishes — bartowski **IQ1_S, 46.4 GB** — was
+    downloaded and probed. It loads **only at ncmoe=50**, and there leaves **594 MB VRAM free**
+    (reserve 4 GB) *and* **2.0 GB Windows free** (reserve 16 GB): both envelopes blown at once.
+    Raising ncmoe relieves VRAM but starves RAM; lowering it relieves RAM but OOMs VRAM. **No
+    ncmoe satisfies both** — the 46.4 GB model + 24 GB GPU + 64 GB RAM + a live desktop has no
+    room for the reserves.
+  - **Nemotron was discarded**: both quant files deleted, removed from the model registries.
+    Answering §B1 needs different hardware (128 GB RAM makes Nemotron-Q3 trivial), not a
+    tuning change here. The historical evidence is kept in `runs/ab-genpin-nemotron-120b/`
+    and `runs/residency_nemotron-120b.json`.
+
+  The reachable *mechanism* proxy remains open: qwen36-35B-Q8 at maximum offload (ncmoe=40)
+  fits with margin and is transfer-*influenced*, but at 3B active it cannot reproduce the
+  12B-active severity that makes §B1 interesting.
 
 - **The −10.4% no-mmap residual.** One of the three historically disputed deltas. Not
   covered by any `ab-*` directory here; **still open**, needs its own clean paired A/B.

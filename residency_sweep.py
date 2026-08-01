@@ -42,9 +42,9 @@ LOCAL_BIN = "/home/augus/src/llama.cpp-local/build/bin/llama-server"
 MODELS = {
     "qwen35-122b": ("/home/augus/models/llama-cache/models--unsloth--Qwen3.5-122B-A10B-GGUF/"
                     "snapshots/*/Qwen3.5-122B-A10B-Q3_K_M-00001-of-00003.gguf", 0, 53),
-    "nemotron-120b": ("/home/augus/models/llama-cache/"
-                      "models--unsloth--NVIDIA-Nemotron-3-Super-120B-A12B-GGUF/snapshots/*/"
-                      "NVIDIA-Nemotron-3-Super-120B-A12B-UD-Q3_K_M-00001-of-00003.gguf", 0, 58),
+    # nemotron-120b DISCARDED 2026-07-31: no quant fits the envelope (measured -- IQ1_S loads
+    # only at ncmoe=50 with 594 MB VRAM / 2.0 GB Windows free, both inside the reserves). See
+    # models.py for the full note; files deleted.
     "qwen36-35b": ("/home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf", 40, 20),
 }
 
@@ -147,11 +147,12 @@ def resolve(pattern: str) -> str | None:
         return None
 
 
-def probe(model_key: str, ncmoe: int, ctx: int, *, settle_s: float) -> dict:
+def probe(model_key: str, ncmoe: int, ctx: int, *, settle_s: float,
+          gguf_override: str | None = None) -> dict:
     """One load attempt. Returns a record whether it succeeded or not: a configuration that
     does NOT fit is the primary result of this sweep, not an error to be swallowed."""
     gguf_pattern, _blocks, _gib = MODELS[model_key]
-    gguf = resolve(gguf_pattern)
+    gguf = gguf_override or resolve(gguf_pattern)
     rec = {"model": model_key, "ncmoe": ncmoe, "ctx": ctx, "loaded": False}
     if not gguf:
         # NOT the same as "did not fit", and the distinction is the whole point of the
@@ -206,6 +207,10 @@ def probe(model_key: str, ncmoe: int, ctx: int, *, settle_s: float) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", choices=sorted(MODELS), required=True)
+    ap.add_argument("--gguf", help="override the model file; keep --model's geometry "
+                                   "(e.g. Nemotron IQ1_S, not the arch-default Q3)")
+    ap.add_argument("--ctx", type=int, help="probe only this context, not the full "
+                                            "CONTEXTS sweep (match the A/B's ctx)")
     ap.add_argument("--ncmoe", type=int, action="append", required=True,
                     help="offload levels to try, repeatable")
     ap.add_argument("--settle", type=float, default=90.0,
@@ -241,8 +246,9 @@ def main() -> int:
                 break
         # Descending contexts: stop at the first that loads. That IS the ceiling for this
         # offload level, and every larger context has already been shown not to fit.
-        for ctx in CONTEXTS:
-            r = probe(args.model, ncmoe, ctx, settle_s=args.settle)
+        for ctx in ([args.ctx] if args.ctx else CONTEXTS):
+            r = probe(args.model, ncmoe, ctx, settle_s=args.settle,
+                      gguf_override=args.gguf)
             records.append(r)
             if r["loaded"]:
                 print(f"  ncmoe={ncmoe:<3} ctx={ctx:<7} LOADED  "
