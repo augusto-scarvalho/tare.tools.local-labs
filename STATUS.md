@@ -8,8 +8,16 @@ never means — this host produces cold-start outliers and a mean was trusted on
 
 Regenerate everything here with:
 
-    python analyze_ab.py            # human report
+    python analyze_ab.py            # human report, straight off disk
     python analyze_ab.py --json     # provenance blob
+    python -m model_lifecycle.cli report -o reports/EVIDENCE.md   # same numbers, from the Store
+
+The number tables below are **authored prose citing regenerable evidence**. That evidence —
+the noise floor and every paired comparison — is regenerated into [`reports/EVIDENCE.md`](reports/EVIDENCE.md)
+by `model_lifecycle.reports.status`, reading the A/B records out of the Store (where the
+backfill unified them). The disk reader (`analyze_ab.py`) and the Store reader share one
+pairing core and produce byte-identical numbers, so this prose can be checked against the
+data at any time and can never again quietly drift from it.
 
 ---
 

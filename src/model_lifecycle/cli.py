@@ -3,6 +3,7 @@
     python -m model_lifecycle.cli plan    --quants Q4_K_M,Q5_K_M --ncmoe 8,10
     python -m model_lifecycle.cli run     --plan-id sweep-1
     python -m model_lifecycle.cli analyze --plan-id sweep-1 --role infra
+    python -m model_lifecycle.cli report  -o reports/EVIDENCE.md
 """
 from __future__ import annotations
 
@@ -108,6 +109,18 @@ def cmd_analyze(args) -> int:
     return 0
 
 
+def cmd_report(args) -> int:
+    """The A/B evidence spine, regenerated from the Store. Thin front-door wrapper over
+    reports.status so `plan / run / analyze / report` are one consistent surface."""
+    from .reports.status import main as report_main
+    argv = ["--db", args.db]
+    if args.json:
+        argv.append("--json")
+    if args.out:
+        argv += ["-o", args.out]
+    return report_main(argv)
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="model_lifecycle")
     p.add_argument("--db", default=str(DEFAULT_DB))
@@ -132,6 +145,11 @@ def main(argv: list[str] | None = None) -> int:
     sa.add_argument("--role", default="infra", choices=sorted(ROLE_WEIGHTS))
     sa.add_argument("--json", action="store_true")
     sa.set_defaults(func=cmd_analyze)
+
+    sr = sub.add_parser("report")
+    sr.add_argument("-o", "--out", help="write markdown here (default: stdout)")
+    sr.add_argument("--json", action="store_true")
+    sr.set_defaults(func=cmd_report)
 
     args = p.parse_args(argv)
     return args.func(args)
