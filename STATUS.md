@@ -1,5 +1,9 @@
 # STATUS — what this project has settled, and what it has not
 
+> **New here / post-context-reset? Read [`DEPLOY.md`](DEPLOY.md) first** — the one-page consolidated
+> best config, the decode-lever stack (placement +268%, CUDA graphs +27%, MTP +27–83%), the safety
+> envelope, the machine baseline, and the remaining optional experiments.
+
 Referenced from `collectors/host.py` and implied across the experiment scripts; this is
 its actual home. Every number below was produced by `python analyze_ab.py` over the
 `runs/ab-*/records.json` directories, paired by `(round, ncmoe)`, using the project's own
