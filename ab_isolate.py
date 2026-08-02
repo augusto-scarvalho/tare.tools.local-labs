@@ -66,12 +66,15 @@ STACK_BIN  = "/home/augus/src/llama.cpp-stack/build/bin/llama-server"    # all 8
 LOCAL_BIN  = "/home/augus/src/llama.cpp-local/build/bin/llama-server"    # ours
 IK_BIN     = "/home/augus/src/ik_llama.cpp/build/bin/llama-server"       # ikawrakow, §E2
 
-# THE consolidated fork (2026-08-02). The llama.cpp-master repo is now on branch `lifecycle`
-# = upstream 720d7fa40 + the §B2b KV-host-pin patch (env GGML_KV_PIN_HOST, INERT by default),
-# so this one binary is BOTH the pristine-upstream baseline (no env -> every historical
-# arm-set still reproduces) AND the fork (with the env). Pinned to 720d7fa40, NOT fresh master:
-# f5919bf45 regressed draft-mtp token-exactness on qwen3.6moe (base != mtp; #25832 ruled out,
-# culprit unbisected) -- see LANDSCAPE §1c. Blessed: MTP exact, §B2b engages, output coherent.
+# THE consolidated fork (2026-08-02). The llama.cpp-master repo is on branch `lifecycle` =
+# upstream 720d7fa40 + four runtime-gated non-upstream levers (all OFF by default, so this one
+# binary is BOTH the pristine baseline -- every historical arm-set still reproduces -- AND the
+# fork): §B2b KV-host-pin (env GGML_KV_PIN_HOST), Fable prefetch (env GGML_SCHED_PREFETCH_EXPERTS)
+# + CPU-weight pinning (env GGML_CUDA_REGISTER_HOST), and the MoE expert cache (flags
+# --moe-cache-slots/--moe-cache-profile, + the bundled llama-moe-trace profiler). Pinned to
+# 720d7fa40 NOT fresh master (f5919bf45 regressed draft-mtp exactness; LANDSCAPE §1c). Turbo/
+# TurboQuant excluded (multi-backend surgery, unused KV format, null). Blessed 3/3 (bless_fork.sh:
+# MTP exact, §B2b engages, coherent). Full lever manual: FORK.md.
 LIFECYCLE_BIN = MASTER_BIN
 
 BOTH_SWITCHES = {"GGML_SCHED_PREFETCH_EXPERTS": "3", "GGML_CUDA_REGISTER_HOST": "1"}

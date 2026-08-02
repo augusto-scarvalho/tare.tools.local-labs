@@ -129,8 +129,31 @@ worktree was dropped. Fresh master remains re-testable for a future upstream rep
 
 **Future R&D, explicitly not now:** #20757's expert cache would only pay on a *concentrated-routing*
 model (not Qwen3-family); §B2b currently pins ~25% of KV tensors and could pin all layers if long-context
-becomes a priority. The 5 dead build trees (base/fork/rebase/stack/local) are retired **after** the fork
-is built and blessed.
+becomes a priority. The 5 dead build trees (base/fork/rebase/stack/local) are **kept for now** (owner's
+call).
+
+---
+
+## 1d. Anthology: gather every portable lever, runtime-gated (2026-08-02)
+
+Per the owner's call, the fork was extended past "only validated wins" into a **capabilities superset**:
+every lever from the forks we tested that (a) ports cleanly and (b) wins in *some* regime, each
+**runtime-gated OFF by default** so the deploy default stays byte-identical to `720d7fa40`. Ported onto
+`lifecycle` by cherry-pick, **re-blessing after each** (G2 confirmed the default path stays MTP-exact,
+blessed 3/3):
+
+- **§B2b KV-host-pin** (env `GGML_KV_PIN_HOST`) — ours; long-context/`-nkvo`, +up to 17%.
+- **Fable prefetch** (env `GGML_SCHED_PREFETCH_EXPERTS`) + **CPU-weight pinning** (env
+  `GGML_CUDA_REGISTER_HOST`) — 3 commits, base is exactly `720d7fa40` → conflict-free; +58% prefill /
+  −22% decode (prefill / small-card lever).
+- **MoE expert cache** (`--moe-cache-slots`/`--moe-cache-profile` + bundled `llama-moe-trace`) — ~22
+  commits; cherry-picked clean (the 15 divergence commits are UI/httplib only, no file overlap); null on
+  Qwen3 load-balanced routing (§E5) but kept for concentrated-routing models.
+
+**Turbo/TurboQuant EXCLUDED** after attempting it: not a cherry-pick but **CPU+CUDA+Metal+Vulkan surgery**
+(new `GGML_OP_TURBO_WHT`, 4k-line rotation tables, per-backend quant kernels), conflicts on
+quantization-kernel files (hand-merge = silent-corruption risk), and it only serves the `turbo2/3/4` KV
+format we never use (decode measured null, §6). Stays in the `stack` build. Full lever manual: **`FORK.md`**.
 
 ---
 

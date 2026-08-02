@@ -1,0 +1,21 @@
+/mnt/c/projects/local-model-lifecycle/bless_fork.sh: line 27:  2472 Killed                G1 PASS
+
+########## G2  draft-mtp token-identity (#23335) ##########
+  [base] predicted_per_second = 94.81053078342387
+  [mtp] predicted_per_second = 139.60798514047508
+      draft_n = 241
+      draft_n_accepted = 194
+  base chars=945  mtp chars=945  IDENTICAL=True
+  G2 PASS
+
+########## G3  coherence + -nkvo (#20140) ##########
+  [kv_on_gpu] 830 chars, longest_run=3, uniq_ratio=0.06, degenerate=False
+  [kv_on_gpu] head: "\n\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Task 1:** Explain why the sky is blue in exactl"
+  [nkvo] 839 chars, longest_run=3, uniq_ratio=0.06, degenerate=False
+  [nkvo] head: "\n\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Task 1:** Explain why the sky is blue in exactl"
+  G3 PASS (both coherent)
+
+============================================================
+FORK BLESSING: 3 passed, 0 failed
+-> BLESSED. Fork is deploy-ready.
+============================================================
