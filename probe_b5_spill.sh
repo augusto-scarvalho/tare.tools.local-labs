@@ -1,23 +1,24 @@
 #!/usr/bin/env bash
-# §B5 precondition probe — does the MoE spill experts to DISK during decode on THIS box?
+# §B5 precondition probe (v2, STEADY-STATE) — does the MoE spill experts to DISK during
+# decode on THIS box, IN STEADY STATE?
 #
-# `--pin-hot-experts` (PRs #25932 closed / #26414 open, both UNMERGED) exists to stop the
-# OS page cache from EVICTING mmap'd expert weights to disk when a MoE model EXCEEDS RAM.
-# Its own PR says: minor benefit when the model fits in RAM; the value is disk-paging under
-# over-capacity. This box has 64 GB RAM and qwen36-35B's experts are ~18 GB, so the premise
-# may never engage. Rather than build an experimental branch to measure a foregone null,
-# measure the PRECONDITION directly: at the HEAVIEST placement (ncmoe=40, every expert layer
-# resident on the CPU), does sustained decode take MAJOR PAGE FAULTS or read from disk?
+# --pin-hot-experts (PRs #25932 closed / #26414 open, both UNMERGED) exists to stop the OS
+# page cache from EVICTING mmap'd expert weights to disk when a MoE EXCEEDS RAM. Its own PR:
+# minor benefit when the model fits in RAM; value is disk-paging under over-capacity. This
+# box has 64 GB RAM and qwen36-35B's experts are ~18 GB, so the premise may never engage.
 #
-#   majflt ~ 0  AND  disk-read ~ 0  during steady decode  =>  no eviction, experts stay
-#   resident, and the lever --pin-hot-experts protects has nothing to protect here.
+# v1 saw 23 major faults over one 1500-tok decode of a FRESH-loaded model. That is the
+# lazy-mmap fault-in tail (llama.cpp mmaps but faults expert pages in on first touch), NOT
+# steady-state eviction: 23 faults against ~480k expert-accesses (1500 tok x 40 layers x 8
+# experts) is ~0. The discriminating test is back-to-back decodes on the SAME warm server:
 #
-# No root, no install, no build: /proc/<pid>/stat majflt and /proc/diskstats are always
-# there. vmtouch residency is printed too when available (bonus, not required).
+#   decode 1 majflt > 0, decodes 2..N majflt ~ 0  =>  cold fault-in only; everything now
+#     resident and STAYS resident -> no eviction -> the flag has nothing to protect here.
+#   decode 2..N majflt stays high              =>  experts genuinely round-trip to disk
+#     between uses -> eviction is real -> --pin-hot-experts (#26414) could be worth building.
 #
-# Run entirely inside WSL (a real script file, so shell variables expand normally -- the
-# $VAR-empties-out gotcha only bites `wsl.exe -- bash -lc '$VAR'` one-liners):
-#   wsl.exe -d Ubuntu-24.04 -- bash /mnt/c/projects/local-model-lifecycle/probe_b5_spill.sh
+# No root/install/build: /proc/<pid>/stat field 12 = cumulative major faults.
+#   MSYS_NO_PATHCONV=1 wsl.exe -d Ubuntu-24.04 -- bash /mnt/c/projects/local-model-lifecycle/probe_b5_spill.sh
 set -u
 
 BIN=/home/augus/src/llama.cpp-master/build/bin/llama-server
@@ -25,12 +26,11 @@ MODEL=/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
 PORT=8091
 NCMOE=40
 MAXTOK=1500
+DECODES=3
 
-command -v "$BIN" >/dev/null 2>&1 || { echo "REFUSING: no binary at $BIN"; exit 2; }
+[ -x "$BIN" ] || { echo "REFUSING: no binary at $BIN"; exit 2; }
 [ -f "$MODEL" ] || { echo "REFUSING: no model at $MODEL"; exit 2; }
-
-pkill -9 -f "port $PORT" 2>/dev/null
-sleep 1
+pkill -9 -f "port $PORT" 2>/dev/null; sleep 1
 
 echo "== launching ncmoe=$NCMOE server (all experts on CPU = max resident footprint) =="
 "$BIN" -m "$MODEL" -fa on --n-cpu-moe "$NCMOE" --ctx-size 8192 \
@@ -38,55 +38,45 @@ echo "== launching ncmoe=$NCMOE server (all experts on CPU = max resident footpr
   > /tmp/b5_server.log 2>&1 &
 SRV=$!
 trap 'kill -9 $SRV 2>/dev/null' EXIT
-
-# wait until /health is ok (up to 180s)
 for i in $(seq 1 180); do
-  if curl -s "http://127.0.0.1:$PORT/health" 2>/dev/null | grep -q '"ok"\|"status":"ok"'; then
-    break
-  fi
-  kill -0 $SRV 2>/dev/null || { echo "SERVER DIED; tail:"; tail -20 /tmp/b5_server.log; exit 1; }
+  curl -s "http://127.0.0.1:$PORT/health" 2>/dev/null | grep -q 'ok' && break
+  kill -0 $SRV 2>/dev/null || { echo "SERVER DIED:"; tail -20 /tmp/b5_server.log; exit 1; }
   sleep 1
 done
-echo "== server healthy (pid $SRV) =="
-
-# RSS + resident footprint before decode
 rss_kb=$(awk '/VmRSS/{print $2}' /proc/$SRV/status)
-echo "server VmRSS: $((rss_kb/1024)) MB"
-command -v vmtouch >/dev/null 2>&1 && { echo "-- vmtouch model residency --"; vmtouch "$MODEL" | sed 's/^/   /'; } || echo "(vmtouch not installed; relying on majflt + diskstats)"
+echo "== server healthy (pid $SRV), VmRSS $((rss_kb/1024)) MB =="
+echo
 
-# baselines
-majflt0=$(awk '{print $12}' /proc/$SRV/stat)          # field 12 = majflt (cumulative major faults)
-minflt0=$(awk '{print $10}' /proc/$SRV/stat)          # field 10 = minflt
-# sum sectors READ across real disks (sd*/nvme*), field 6 of /proc/diskstats
-read0=$(awk '$3 ~ /^(sd[a-z]+|nvme[0-9]+n[0-9]+|vd[a-z]+)$/ {s+=$6} END{print s+0}' /proc/diskstats)
+PROMPT='Explain in detail, step by step with worked numbers, why memory bandwidth rather than raw compute limits token generation on a single consumer GPU, covering arithmetic intensity, batch-size-one, mixture-of-experts routing, PCIe transfer of offloaded experts, and KV-cache growth. Be concrete and long.'
 
-echo "== sustained decode ($MAXTOK tokens, greedy) =="
-t0=$(date +%s.%N)
-curl -s "http://127.0.0.1:$PORT/completion" -H 'Content-Type: application/json' \
-  -d "{\"prompt\":\"Explain in detail, step by step with worked numbers, why memory bandwidth rather than raw compute limits token generation on a single consumer GPU, covering arithmetic intensity, batch-size-one, mixture-of-experts routing, PCIe transfer of offloaded experts, and KV-cache growth.\",\"n_predict\":$MAXTOK,\"temperature\":0,\"cache_prompt\":false}" \
-  > /tmp/b5_decode.json 2>/dev/null
-t1=$(date +%s.%N)
+printf '%-9s %-8s %-8s %-8s\n' "decode" "majflt" "minflt" "wall_s"
+prev_maj=$(awk '{print $12}' /proc/$SRV/stat)
+prev_min=$(awk '{print $10}' /proc/$SRV/stat)
+maj2plus=0
+for d in $(seq 1 $DECODES); do
+  t0=$(date +%s.%N)
+  curl -s "http://127.0.0.1:$PORT/completion" -H 'Content-Type: application/json' \
+    -d "{\"prompt\":\"[pass $d] $PROMPT\",\"n_predict\":$MAXTOK,\"temperature\":0,\"cache_prompt\":false}" \
+    > /tmp/b5_decode.json 2>/dev/null
+  t1=$(date +%s.%N)
+  maj=$(awk '{print $12}' /proc/$SRV/stat); min=$(awk '{print $10}' /proc/$SRV/stat)
+  dmaj=$((maj - prev_maj)); dmin=$((min - prev_min))
+  printf '%-9s %-8s %-8s %-8s\n' "$d" "$dmaj" "$dmin" "$(awk "BEGIN{printf \"%.1f\", $t1-$t0}")"
+  [ "$d" -ge 2 ] && maj2plus=$((maj2plus + dmaj))
+  prev_maj=$maj; prev_min=$min
+done
 
-majflt1=$(awk '{print $12}' /proc/$SRV/stat)
-minflt1=$(awk '{print $10}' /proc/$SRV/stat)
-read1=$(awk '$3 ~ /^(sd[a-z]+|nvme[0-9]+n[0-9]+|vd[a-z]+)$/ {s+=$6} END{print s+0}' /proc/diskstats)
-
-ntok=$(grep -o '"tokens_predicted":[0-9]*' /tmp/b5_decode.json | head -1 | grep -o '[0-9]*')
-dt=$(awk "BEGIN{print $t1-$t0}")
 echo
 echo "============================================================"
-echo "§B5 PRECONDITION RESULT (ncmoe=$NCMOE, heaviest placement)"
+echo "§B5 STEADY-STATE VERDICT (ncmoe=$NCMOE, model fits in 64 GB)"
 echo "============================================================"
-echo "decode wall:        ${dt}s   tokens: ${ntok:-?}"
-echo "MAJOR page faults:  $((majflt1 - majflt0))   <- disk-backed faults during decode"
-echo "minor page faults:  $((minflt1 - minflt0))   (resident, no disk)"
-echo "disk sectors READ:  $((read1 - read0))       (x512B; whole system, so an upper bound)"
-echo
-if [ "$((majflt1 - majflt0))" -le 8 ] && [ "$((read1 - read0))" -le 4096 ]; then
-  echo "VERDICT: NO disk spill during decode. The eviction the flag prevents does not"
-  echo "         occur here (model fits in 64 GB with margin). --pin-hot-experts has"
-  echo "         nothing to protect on this box; revisit only for a model that EXCEEDS RAM."
+echo "major faults across steady-state decodes 2..$DECODES: $maj2plus"
+if [ "$maj2plus" -le 4 ]; then
+  echo "-> NO steady-state disk spill. The cold fault-in tail aside, experts stay resident"
+  echo "   and DO NOT round-trip to disk. The eviction --pin-hot-experts prevents does not"
+  echo "   occur here; the lever has nothing to protect. Revisit only for a MoE that"
+  echo "   EXCEEDS this box's RAM. No experimental build (#26414) warranted."
 else
-  echo "VERDICT: disk activity during decode is NON-TRIVIAL -- the eviction premise MAY"
-  echo "         engage here. --pin-hot-experts could be worth building (#26414). Inspect."
+  echo "-> experts DO round-trip to disk in steady state ($maj2plus major faults). The"
+  echo "   eviction premise engages here; building #26414 to pin hot experts could pay off."
 fi

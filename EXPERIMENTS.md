@@ -247,7 +247,12 @@ GGUF, expert placement, context, and prompt fixed across arms. Metric everywhere
   default**, so every number here already banks it — no untapped SGLang-style win. **Pinning-enables-
   graphs FALSIFIED**: graphs gave +27% on plain MASTER_BIN with no pinning (gated by arch+op, not
   host-memory pinning). STATUS §B4; arm-set `b4graph`.
-- **§B5** `--pin-hot-experts` (upstream #25932) — selective vs blanket pin on the generation side.
+- **§B5** `--pin-hot-experts` (#25932) — **ANSWERED 2026-08-02: N/A on this box.** The flag is
+  unmerged/experimental (#25932 closed, successor #26414 open) and its mechanism is anti-disk-eviction
+  for a MoE that EXCEEDS RAM, not VRAM expert-pinning. Precondition measured ABSENT: `probe_b5_spill.sh`
+  at ncmoe=40 (all ~18 GB experts on CPU) shows 23 cold fault-ins then **0 major faults** on steady-state
+  decodes 2–3 — experts stay resident, never spill to disk (model fits 64 GB with margin). No win, no
+  build warranted; revisit only for a model exceeding RAM. STATUS §B5.
 - **§B2** pinned KV in RAM — **novel for llama.cpp** (no prior art); do carefully, no upstream
   baseline to lean on.
 

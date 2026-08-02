@@ -384,6 +384,38 @@ set by where on this curve the card operates.
 
 ---
 
+## §B5 — `--pin-hot-experts`: N/A on this box, and the precondition is measured absent (2026-08-02)
+
+`--pin-hot-experts` is a proposed lever that `mlock()`s the hottest MoE experts so the OS page cache
+cannot evict mmap'd expert weights **to disk when the model exceeds RAM**. The PR's own summary: *minor
+benefit when the model fits in RAM; the value is disk-paging under over-capacity.* Two reasons it is a
+non-lever here, one structural and one measured:
+
+1. **Unmerged and experimental.** PR #25932 is **closed** (superseded); its successor **#26414 is open,
+   not merged**. No built binary in this project has the flag. Testing it means building an experimental
+   branch — justified only if the precondition holds.
+2. **The precondition does NOT hold on this box — measured, not assumed.** `probe_b5_spill.sh` launches
+   the deploy model at the **heaviest** placement (ncmoe=40, all ~18 GB of experts resident on the CPU,
+   VmRSS 21.2 GB) and counts major page faults across back-to-back steady-state decodes:
+
+   | decode | major faults |
+   |---:|---:|
+   | 1 (cold) | 23 |
+   | 2 | **0** |
+   | 3 | **0** |
+
+   The 23 first-pass faults are the one-time lazy-mmap fault-in tail (~0 against ~480k expert-accesses
+   per decode); decodes 2–3 take **zero** disk-backed faults. Experts fault in once and **stay resident**
+   — they never round-trip to disk. qwen36-35B fits in 64 GB with margin, so the eviction the flag
+   prevents simply does not occur.
+
+**Verdict:** no win available and no experimental build warranted. Revisit `--pin-hot-experts` (#26414)
+only for a MoE that **exceeds this box's RAM** (the too-big-to-place regime — same door as §E2's "revisit
+at 128 GB"). This is the §B3/§E2/§E3 thesis again from the RAM side: a box with abundant RAM and a strong
+GPU gets nothing from a lever built to survive RAM over-capacity. Probe: `probe_b5_spill.sh`.
+
+---
+
 ## OPEN — as prominent as the answers, on purpose
 
 - **§B1 — transfer-bound generation — CLOSED as UNREACHABLE on this hardware (2026-07-31).**
