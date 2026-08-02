@@ -211,7 +211,13 @@ GGUF, expert placement, context, and prompt fixed across arms. Metric everywhere
   report the config gap honestly (a lane gap, never smoothed over). **dependency** — install the
   framework (Python, heavier); confirm it serves our model class.
 
-### §E4 — MTP / speculative decode (amortize the movement)
+### §E4 — MTP / speculative decode (amortize the movement) — **ANSWERED (MoE) 2026-08-02**
+- **result** — CONFIRMED on qwen36-35B-A3B MoE. `draft-mtp` is EXACT (token-identical, verified) at
+  **80.5% accept** (194/241) — matches upstream's ~82%. Decode **+26.75%** at matched placement
+  (ncmoe=8, n=4, Cliff +1.0), **+54%** on structured code (greedy 139.6 vs 90.4 t/s), +16% deployable
+  at the optimum (mtp holds ~116 t/s at ncmoe 6 AND 8; at ncmoe=6 it breaks the 4 GB VRAM reserve —
+  draft context ~1.15 GB). It **decouples decode from placement** and stacks on §E1. Turn ON for the
+  agentic deployment. 27B "dense" is a Gated Delta Net hybrid — placement still open. STATUS §E4.
 - **hypothesis** — running the MTP/`nextn` head as a draft (`--spec-type draft-mtp`) amortizes
   weight *and* KV movement → higher decode t/s in the memory-bound regime, scaling with accept rate.
 - **metric/baseline** — `gen_tps` AND accept rate, draft-mtp on vs off. **success** — decode t/s

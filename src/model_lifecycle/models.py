@@ -51,6 +51,12 @@ class ModelSpec:
 _GEOM = {
     "qwen36-35b":    (40, 256, 8),
     "gpt-oss-20b":   (24, 32, 4),
+    # --- §E4 MTP spec-decode (2026-08-02): same geometry as their non-MTP twins, but the
+    # GGUF carries the multi-token-prediction head so `--spec-type draft-mtp` can self-draft.
+    # Kept as separate arch keys (not new quants) because the FILE differs (MTP tensors at
+    # Q8_0, ~+2 GB) and the offload axis / envelope reasoning carries over unchanged.
+    "qwen36-35b-mtp":   (40, 256, 8),   # MoE twin of qwen36-35b; -ncmoe offload
+    "qwen36-27b-mtp":   (65, 0, 0),     # DENSE twin of qwen36-27b-dense; -ngl offload
     # --- siege triangulation (2026-08-01), geometry read from GGUF metadata ---
     # MoE (test transfer-bound pinning-generation; n_expert>0 drives -ncmoe offload):
     "granite-4.0-h":    (40, 72, 10),   # granitehybrid; 10 active = most transfer/token here
@@ -99,6 +105,16 @@ _FILES = {
     "thinkingcap-27b": [
         ("q4", "/home/augus/models/thinkingcap-27b/"
                "bottlecapai_ThinkingCap-Qwen3.6-27B-Q4_K_M.gguf", "Q4_K_M"),
+    ],
+    # §E4 MTP twins. Same weights as the non-MTP entries above plus an MTP head; loaded in
+    # BOTH arms of the e4mtp A/B (the base arm just does not pass --spec-type, so the head
+    # sits unused). Downloaded from unsloth/Qwen3.6-*-MTP-GGUF into their own dirs so the
+    # MoE file does not collide with the identically-named non-MTP qwen36-35b baseline.
+    "qwen36-35b-mtp": [
+        ("q4", "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf", "Q4_K_M"),
+    ],
+    "qwen36-27b-mtp": [
+        ("q4", "/home/augus/models/qwen36-27b-mtp/Qwen3.6-27B-Q4_K_M.gguf", "Q4_K_M"),
     ],
     # laguna-s and nemotron-120b removed -- see the _GEOM notes above for why both were
     # discarded (no high-active MoE quant fits a pinning test's file<=26GB rule on this box).

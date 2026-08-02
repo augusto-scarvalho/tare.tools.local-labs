@@ -184,6 +184,23 @@ ARM_SETS = {
         "base": (LOCAL_BIN, {}, ("-fa", "on")),
         "ik":   (IK_BIN, {}, ("--defer-experts", "-fa", "on")),
     },
+    # §E4, THE spec-decode lever: multi-token prediction as a SELF-draft. Not two builds and
+    # not two switches on the weights -- ONE model (an MTP GGUF, --model qwen36-*-mtp) loaded
+    # in BOTH arms, differing only by whether the server self-drafts with the model's own MTP
+    # head. Spec-decode is EXACT (token-identical to the base decode by construction), so this
+    # is a pure SPEED A/B: base and mtp must emit the same text, and the only question is
+    # gen_tps. MASTER_BIN, not LOCAL_BIN -- `--spec-type` is upstream (#25980) and the fork's
+    # pinning is orthogonal here. -fa on for both (matches every other E-series arm; keeps the
+    # attention path from being a hidden second variable). --spec-draft-n-max 4: draft 4
+    # tokens/step (upstream default 3; 4 is the value cited for Qwen3.6). The MTP head is
+    # embedded in the GGUF, so no external -md draft model is needed. Expected (published):
+    # ~+17% on the 35B-A3B MoE, ~+73% (1.73x) on the 27B dense -- the lever grows as the model
+    # gets more expensive per token. Target to beat: upstream #25642 (+30% t/s, ~82% accept).
+    "e4mtp": {
+        "base": (MASTER_BIN, {}, ("-fa", "on")),                        # MTP head present, unused
+        "mtp":  (MASTER_BIN, {}, ("-fa", "on", "--spec-type", "draft-mtp",
+                                  "--spec-draft-n-max", "4")),          # self-draft via MTP head
+    },
     # Question 6: the fork's OTHER half. Everything measured so far is prefill; generation
     # has never moved -- `ncmoe` explains 99.8% of its variance and every other factor sits
     # at the noise floor. `turbo-mma-decode` is the fork author's own attempt at exactly

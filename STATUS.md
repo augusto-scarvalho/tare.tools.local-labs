@@ -232,6 +232,59 @@ the steady-state compute RSS): the RAM wall is hard, not a load-phase artifact. 
 `runs/ab-e2iknr-qwen36-35b-e2-iknr-ncmoe40-swap/` (the ncmoe=40 point, `swap=16GB`). Arm-sets
 `e2ik`/`e2iknr`/`e2ikdef` and `--reset-between` in `ab_isolate.py`.
 
+## §E4 — MTP speculative decode: EXACT, ~80% accept, and it decouples decode from placement (2026-08-02)
+
+The Tier-2 lever, and the first that moves decode *without* touching placement. `--spec-type
+draft-mtp` self-drafts from the model's own multi-token-prediction head (no external draft model):
+the head proposes N tokens, the model verifies them in one forward pass, accepted tokens are free.
+**Exact by construction** — verified byte-identical below — so this is pure speed, quality-neutral.
+
+Needed the MTP weights: our on-disk Q4 GGUFs ship no MTP head, so `unsloth/Qwen3.6-35B-A3B-MTP-GGUF`
+(22.7 GB, `qwen35moe.nextn_predict_layers=1`, `blk.40.nextn.*`) was downloaded to its own dir.
+MASTER_BIN (commit `720d7fa40`, carries the #25980 MTP infra) loads and runs it. Arm-set `e4mtp`:
+one model in both arms, differing only by `--spec-type draft-mtp --spec-draft-n-max 4`.
+
+**The clean A/B (ncmoe=8, n=4, both arms inside the envelope):**
+
+| metric | base | mtp | Δ |
+|---|---:|---:|---|
+| decode | ~92 t/s | ~116.5 t/s | **+26.75%** (Cliff δ +1.00, CI95 [+23.8,+25.3], 4/4) |
+| prefill | ~549 t/s | ~523 t/s | −4.5% (within noise; the draft processes the prompt too) |
+
+**Verification (greedy, temp=0, a structured coding prompt) — `verify_mtp.py`:**
+
+| quantity | value |
+|---|---|
+| token-identical (base vs mtp) | **TRUE** — 945 chars, byte-for-byte. Exact, quality-neutral. |
+| accept rate | **194/241 drafted = 80.5%** — matches upstream #25642's ~82% target |
+| decode on THIS prompt | base 90.4 → mtp **139.6 t/s = +54%** |
+
+**The speedup is content-dependent** (as spec-decode must be): +27% on the free-form reasoning
+benchmark, **+54% on structured code** where the head predicts well. The **accept rate is the
+invariant**; the t/s follows how predictable the text is.
+
+**MTP decouples decode from placement.** The `mtp` arm holds ~116 t/s at BOTH ncmoe=6 and ncmoe=8,
+while `base` falls 100→92 as experts move to CPU — MTP amortizes the forward pass, so the slower the
+pass, the more it saves. Envelope consequence: at the optimal ncmoe=6 mtp hits **116 t/s (+16% over
+base's 100)** but leaves only **3316 MB VRAM free < the 4 GB reserve** (the draft context costs
+~1.15 GB), so the guard REJECTS it; at ncmoe=8 both fit. **Net deployable: ~116 t/s with MTP inside
+the safe envelope (ncmoe=8) vs base's best safe 100 t/s (ncmoe=6) — +16% deployable, +27% at matched
+placement, +54% on code, output identical.** The biggest *safe* single-stream decode win since §E1's
+placement, and it **stacks on** placement rather than trading against it.
+
+**Beats the target where it counts:** #25642 is +30% t/s / ~82% accept; we match the accept (80.5%)
+and beat +30% on structured content, land just under (+27%) on reasoning. **Actionable: turn
+draft-mtp ON for the agentic long-context deployment** (tool-call-heavy, structured output is exactly
+the high-accept regime), at ncmoe=8 to seat the draft context. Raw:
+`runs/ab-e4mtp-qwen36-35b-mtp-e4-mtp-moe-ncmoe8/` (clean n=4) and `-ncmoe6/` (the +16%/rejected optimum).
+Arm-set `e4mtp`, models `qwen36-35b-mtp`/`qwen36-27b-mtp` in `models.py`; greedy check in `verify_mtp.py`.
+
+**OPEN — the 27B "dense" MTP.** `unsloth/Qwen3.6-27B-MTP-GGUF` (17.1 GB, MTP head present) was
+downloaded to test the published +73% dense figure, but Qwen3.6-27B is a **Gated Delta Net hybrid**,
+not a plain dense transformer — auto-fit placement stumbled (`resolve_fused_ops: layer 0 assigned to
+CPU but fused Gated Delta Net is on CUDA0`). Needs its own placement handling (or a newer build); the
+MoE result above stands on its own.
+
 ---
 
 ## OPEN — as prominent as the answers, on purpose
