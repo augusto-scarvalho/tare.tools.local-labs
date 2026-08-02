@@ -1,0 +1,23 @@
+diff --git a/src/llama-kv-cache.cpp b/src/llama-kv-cache.cpp
+index e25464c59..84f0dc0a0 100644
+--- a/src/llama-kv-cache.cpp
++++ b/src/llama-kv-cache.cpp
+@@ -216,6 +216,18 @@ llama_kv_cache::llama_kv_cache(
+             buft = ggml_backend_dev_buffer_type(dev);
+ 
+             dev_name = ggml_backend_dev_name(dev);
++        } else if (getenv("GGML_KV_PIN_HOST")) {
++            // [B2b] KV in system RAM (--no-kv-offload): the per-token host->GPU KV copy is
++            // bounce-buffered out of a pageable CPU buffer. Pin it (device host buffer =
++            // cudaHostRegister'd) so the copy is a direct DMA. Env-gated so both A/B arms are
++            // one binary, differing only by this var; falls back to plain CPU when the layer's
++            // device exposes no host buffer type (e.g. CPU-resident layers).
++            auto * dev = model.dev_layer(il);
++            ggml_backend_buffer_type_t hbuft = dev ? ggml_backend_dev_host_buffer_type(dev) : nullptr;
++            if (hbuft) {
++                buft = hbuft;
++                dev_name = "CUDA_Host(B2b)";
++            }
+         }
+ 
+         LLAMA_LOG_DEBUG("%s: layer %3d: dev = %s\n", __func__, il, dev_name);

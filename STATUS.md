@@ -416,6 +416,57 @@ GPU gets nothing from a lever built to survive RAM over-capacity. Probe: `probe_
 
 ---
 
+## §B2 — pinning the KV cache in RAM: precondition CONFIRMED, and a patch that recovers up to +17% (2026-08-02)
+
+The only optional whose precondition holds, and the only one that produced a working patch. Two stages,
+in the §B5 discipline (measure the precondition before building):
+
+**§B2a — is KV-in-RAM a transfer-bound regime here?** YES, and it scales with context. `probe_b2_kvram.sh`
+compares default (KV offloaded to GPU VRAM) vs `--no-kv-offload` (KV in system RAM, read over PCIe each
+token) at the deploy placement (ncmoe=6, so expert-streaming is identical across arms and cancels — the
+delta is purely KV placement). Decode t/s vs context depth:
+
+| depth (tok) | base (KV on GPU) | nokv (KV in RAM) | penalty |
+|---:|---:|---:|---:|
+| ~800  | 99.1 t/s | 30.0 t/s | **−69.7%** |
+| ~4000 | 98.1 t/s | 25.9 t/s | **−73.6%** |
+| ~8000 | 94.2 t/s | 21.6 t/s | **−77.1%** |
+
+Base holds ~95 t/s; nokv is crushed to 22–30 t/s and **worsens monotonically with depth** (30→26→22) as
+the KV that must cross PCIe each token grows. This is the "second transfer-bound regime" the §B2 card
+predicted — the twin of §B1's expert streaming, on the KV side.
+
+**§B2b — does pinning the KV host buffer recover it?** YES, partially, and the recovery grows with depth.
+Source (`src/llama-kv-cache.cpp:212`) showed the no-offload KV lands in a **pageable**
+`ggml_backend_cpu_buffer_type()` — so the per-token host→GPU copy is bounce-buffered, exactly the
+condition pinning fixes. A small **env-gated patch** (`GGML_KV_PIN_HOST`, `patches/b2b-kv-host-pin.patch`)
+swaps it for the device host buffer (`ggml_backend_dev_host_buffer_type` = `cudaHostRegister`'d), so the
+copy is a direct DMA. Both arms are ONE binary (`--no-kv-offload`), differing only by the env var — the
+project's matched-control idiom; the patch is inert without the var, so the deploy binary's default is
+unchanged. **Verified engaged**: `--verbose` shows 20 of 80 KV tensors on `CUDA_Host(B2b)` in the pin arm
+(the layers whose device exposes a host buffer type), 0 in base. Decode, pin vs pageable:
+
+| depth (tok) | base (pageable) | pin (`CUDA_Host`) | recovery |
+|---:|---:|---:|---:|
+| ~800  | 30.3 t/s | 31.0 t/s | +2.5% |
+| ~4000 | 27.5 t/s | 30.2 t/s | +9.7% |
+| ~8000 | 24.1 t/s | 28.2 t/s | **+16.8%** |
+
+The recovery **rises with depth** (2.5→9.7→16.8%) — the pinned DMA's advantage grows with the KV volume
+moved per token, the dose-response §B2 pre-registered. And it is a **lower bound**: only 20/80 KV tensors
+were pinned (the patch uses `model.dev_layer(il)`, which returns a host-buffer-capable device for a
+subset); pinning all layers would recover more.
+
+**Practical framing — a lever held in reserve, not for the current deploy.** Even fully recovered,
+KV-in-RAM (~28 t/s at 8k) stays far below KV-on-GPU (~94 t/s): **keep the KV on the GPU whenever it fits**,
+which at the deploy's 8k ctx with q8_0 it easily does. The KV-host-pin matters only in the VRAM-starved
+**long-context** regime — the 128k agentic case where KV would spill and `--no-kv-offload` becomes forced.
+There, this patch is a **novel-for-llama.cpp** lever (no prior art) worth carrying: +up-to-17% and growing
+on a regime that is otherwise −77%. Probes: `probe_b2_kvram.sh` (§B2a), `probe_b2b_pin.sh` (§B2b),
+`confirm_b2b.sh` (buffer-flip verification); raw in `runs/b2-kvram/`.
+
+---
+
 ## OPEN — as prominent as the answers, on purpose
 
 - **§B1 — transfer-bound generation — CLOSED as UNREACHABLE on this hardware (2026-07-31).**

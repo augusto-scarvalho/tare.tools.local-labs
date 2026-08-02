@@ -1,0 +1,15 @@
+/mnt/c/projects/local-model-lifecycle/probe_b2b_pin.sh: line 66:   358 Killed                  env $envp "$BIN" -m "$MODEL" -fa on --n-cpu-moe "$NCMOE" --no-kv-offload --ctx-size "$CTX" --cache-type-k q8_0 --cache-type-v q8_0 --host 127.0.0.1 --port "$PORT" > /tmp/b2b_server.log 2>&1
+/mnt/c/projects/local-model-lifecycle/probe_b2b_pin.sh: line 66:   443 Killed                  env $envp "$BIN" -m "$MODEL" -fa on --n-cpu-moe "$NCMOE" --no-kv-offload --ctx-size "$CTX" --cache-type-k q8_0 --cache-type-v q8_0 --host 127.0.0.1 --port "$PORT" > /tmp/b2b_server.log 2>&1
+28.18    t/s
+
+============================================================
+§B2b  KV-host PIN vs pageable, in the --no-kv-offload regime (ncmoe=6)
+============================================================
+depth    base(pageable) pin(CUDA_Host) recover%  
+800      30.28        31.04        +2.5      
+4000     27.50        30.16        +9.7      
+8000     24.12        28.18        +16.8     
+
+recover% = pin decode gain over pageable. Positive & growing with depth => pinning the KV
+host buffer is a real lever in the KV-in-RAM regime. ~0 => llama.cpp's copy path already
+avoids the pageable penalty (pinning has nothing to add); document as null.

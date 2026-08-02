@@ -97,17 +97,25 @@ VRAM is the binding constraint for the MoE; system RAM for the dense and for com
 
 ## Campaign status — done vs remaining optionals
 
-**DONE & committed** (`b06fb54` → `cd9e975` → `ccab4f3` → `00820e4` → `4707354`):
-§E1 placement · §E2 ik engine · §E4 MTP (MoE + dense) · §B4 CUDA graphs · §B1 pinning dose-response
-(earlier). The big, safe decode levers are settled.
+**DONE & committed** (§E1 placement · §E2 ik · §E4 MTP MoE+dense · §B4 CUDA graphs · §B1 pinning · plus
+the three optionals below): the big, safe decode levers are settled.
 
-**Remaining OPTIONAL (lower value, pick after the context compaction):**
-- **§B3** — GPU-idle% instrumentation: explains the prefetch tax vs the 3060's win; cheap, adds a
-  discriminating metric to the harness.
-- **§B5** — `--pin-hot-experts` (upstream #25932): selective vs blanket pin on the generation side.
-- **§B2** — pinned KV in RAM: novel for llama.cpp; a context-length dose-response (needs a small patch).
-- **Consolidate a build** (LANDSCAPE §1b): upstream master + pinning gated-off + whichever decode
-  lever survives, − prefetch. Only worth it once a non-upstream lever is proven; so far the winners
-  (placement, graphs, MTP) are ALL upstream — arguably no fork is needed at all.
-- **Quality axis** (long-standing OPEN): `quality_bench` starves the thinking model on HumanEval+;
-  no pass@1 until the token-budget/thinking issue is fixed.
+**Optionals — ALL THREE DONE (2026-08-02):**
+- **§B3** — GPU-idle% instrumentation: **DONE.** Harness now reports serving-window %busy/idle. Idle
+  tracks the placement penalty (39%→63% as ncmoe 6→24); the 3090 sits ~40% idle even at the optimum
+  (batch-1 A3B is bandwidth-bound). Reconciles the prefetch tax vs the 3060's win. STATUS §B3.
+- **§B5** — `--pin-hot-experts`: **DONE — N/A here.** Flag unmerged/experimental (#25932 closed, #26414
+  open); mechanism is anti-disk-eviction for a MoE exceeding RAM. Precondition measured absent (0
+  steady-state major faults at ncmoe=40) — experts never spill. No build warranted. STATUS §B5.
+- **§B2** — pinned KV in RAM: **DONE — precondition confirmed, patch works.** `--no-kv-offload` is a
+  −70%→−77% transfer-bound regime scaling with context; an env-gated patch (`GGML_KV_PIN_HOST`,
+  `patches/b2b-kv-host-pin.patch`) pins the KV host buffer and recovers +2.5%→+16.8% (rising with depth,
+  lower bound). Held in reserve for the **128k long-context / VRAM-starved** case; KV-on-GPU still wins
+  at 8k. STATUS §B2.
+
+**Still open (not pursued):**
+- **Consolidate a build** (LANDSCAPE §1b): the decode winners (placement, graphs, MTP) are ALL upstream —
+  arguably no fork is needed. The one non-upstream lever now proven is the §B2b KV-host-pin patch, which
+  matters only in the long-context regime; carry it as a patch, not a fork, if/when 128k is deployed.
+- **Quality axis** (long-standing OPEN): `quality_bench` starves the thinking model on HumanEval+; no
+  pass@1 until the token-budget/thinking issue is fixed.

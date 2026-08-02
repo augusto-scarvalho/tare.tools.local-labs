@@ -253,8 +253,15 @@ GGUF, expert placement, context, and prompt fixed across arms. Metric everywhere
   at ncmoe=40 (all ~18 GB experts on CPU) shows 23 cold fault-ins then **0 major faults** on steady-state
   decodes 2–3 — experts stay resident, never spill to disk (model fits 64 GB with margin). No win, no
   build warranted; revisit only for a model exceeding RAM. STATUS §B5.
-- **§B2** pinned KV in RAM — **novel for llama.cpp** (no prior art); do carefully, no upstream
-  baseline to lean on.
+- **§B2** pinned KV in RAM — **novel for llama.cpp**, **ANSWERED 2026-08-02: precondition CONFIRMED,
+  patch works.** §B2a (`probe_b2_kvram.sh`): `--no-kv-offload` at ncmoe=6 is a large context-scaling
+  transfer-bound regime — decode −69.7% (~800 tok) → −77.1% (~8000 tok) vs KV-on-GPU (~95 t/s), nokv
+  falling 30→22 t/s as KV grows. §B2b: KV lands in a PAGEABLE `ggml_backend_cpu_buffer_type()`
+  (`llama-kv-cache.cpp:212`); an env-gated patch (`GGML_KV_PIN_HOST`, `patches/b2b-kv-host-pin.patch`)
+  swaps it for the pinned `CUDA_Host` buffer. Verified engaged (20/80 KV tensors on `CUDA_Host(B2b)`).
+  Pin vs pageable recovers **+2.5% → +16.8%** (800→8000 tok), rising with depth — a lower bound (only
+  25% of tensors pinned). Held in reserve: KV-on-GPU (~94) still dominates, so this is a **128k
+  long-context / VRAM-starved** lever, not for the 8k deploy. STATUS §B2; `runs/b2-kvram/`.
 
 ---
 
