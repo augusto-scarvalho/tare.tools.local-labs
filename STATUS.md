@@ -193,7 +193,12 @@ is near-deterministic):
 | 6 | 93.5 | 95.3 | +2.0% | +64% |
 | 16 | 64.6 | 68.0 | **+5.3%** | +116% |
 | 28 | 39.7 | 43.5 | **+9.6%** | +122% |
-| 40 | 27.7 | *crash* | — | — |
+| 40 | 31.3† | 36.4† | **+16.5%** | +146%† |
+
+†ncmoe=40 re-measured 2026-08-02 with `swap=16GB` (see failure-mode §3 below); both arms ran in one
+session, so the **within-run Δ is clean**, but the absolute t/s are post-XMP (DDR5-5600) and ~13% above
+the pre-XMP 6/16/28 rows — expected, since offloaded experts compute on the CPU over RAM bandwidth. The
+**trend** (2.0→5.3→9.6→16.5%) is what carries, not the absolute rates across sessions.
 
 So philosophy (b) degrades **less** than (a) as experts move to the CPU — for a model FORCED into
 heavy offload (too big to place well; the 128 GB future), ik would win decode. **But ik cannot run
@@ -205,8 +210,15 @@ cleanly there on this box, three ways:**
 2. **ik's host-RAM footprint breaches the 16 GB Windows reserve** at moderate offload even without
    `-rtr`: ncmoe16 → 15.3 GB free, ncmoe28 → 9.6 GB free (both REJECTED by the guard). Stream-to-GPU
    keeps experts GPU-side and stays within the reserve.
-3. **ncmoe=40 generation crashes ik outright** (loads fine, dies running the workload with all 40
-   expert layers computing on CPU).
+3. **ncmoe=40 is RAM-bound, not a hard crash — re-measured 2026-08-02.** The earlier "crashes
+   outright" was `swap=0` (no headroom). With `swap=16GB` added to `.wslconfig` (memory kept at 44 GB,
+   backup saved), ik at ncmoe=40 loads in 8 s and **completes generation at 36.4 t/s — +16.5% vs
+   stock's 31.3**, filling the offload curve's missing point and continuing its monotone growth. It is
+   still **REJECTED by the guard**: Windows-available fell to **11.3 GB, sustained under the 16 GB
+   reserve** (`reason: ram 11283MB < 16384MB for 3 samples`). So the RAM wall is *measured*, not
+   inferred from a crash — and severe enough that the sustained pressure OOM-killed the orchestrator
+   twice mid-run (the iGPU desktop-app move, which now renders from system RAM, compounds it). Net
+   unchanged: ik's heavy-offload decode edge is real but unreachable inside the 64 GB safety envelope.
 
 **Net for our hardware:** the engine swap is a **decode tie** at the placement we use and is
 **RAM-unsafe at the offload depths where it would help** — its advantage lives exactly in the
@@ -216,8 +228,9 @@ offload-scaling decode edge become reachable. **The `--defer-experts` squeeze FA
 (all 4 rounds at ncmoe16/28 still REJECTED on RAM — deferring load-time residency does not shrink
 the steady-state compute RSS): the RAM wall is hard, not a load-phase artifact. Raw:
 `runs/ab-e2ik-qwen36-35b-e2-ik-ncmoe6/` (clean n=4), `runs/ab-e2ikdef-qwen36-35b-e2-ikdef/`,
-`runs/ab-e2iknr-qwen36-35b-e2-iknr-sweep/` (the offload curve). Arm-sets `e2ik`/`e2iknr`/`e2ikdef`
-and `--reset-between` in `ab_isolate.py`.
+`runs/ab-e2iknr-qwen36-35b-e2-iknr-sweep/` (the offload curve) and
+`runs/ab-e2iknr-qwen36-35b-e2-iknr-ncmoe40-swap/` (the ncmoe=40 point, `swap=16GB`). Arm-sets
+`e2ik`/`e2iknr`/`e2ikdef` and `--reset-between` in `ab_isolate.py`.
 
 ---
 
