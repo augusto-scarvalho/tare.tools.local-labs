@@ -241,7 +241,13 @@ the steady-state compute RSS): the RAM wall is hard, not a load-phase artifact. 
 The Tier-2 lever, and the first that moves decode *without* touching placement. `--spec-type
 draft-mtp` self-drafts from the model's own multi-token-prediction head (no external draft model):
 the head proposes N tokens, the model verifies them in one forward pass, accepted tokens are free.
-**Exact by construction** — verified byte-identical below — so this is pure speed, quality-neutral.
+**Quality-neutral, and NOT bit-identical to non-spec decode over long generations** (corrected 2026-08-02,
+§Q). The single-prompt byte-identity check below is real but prompt-specific: over 40 HumanEval thinking
+generations (against a *deterministic* base — base==base2, 40/40) MTP diverges on 24/40, and
+`verify_mtp_long.py` reproduces it (first diff by ~150 tok, e.g. base `l.copy()` vs mtp `l[:]` — lateral,
+equal-quality). Mechanism: the batched draft-VERIFY forward pass is not bit-identical on CUDA to the
+sequential base pass, so greedy near-ties flip. So MTP is "exact" relative to *its own* forward pass, and
+**quality-neutral (pass@1 unchanged, §Q) — but do NOT expect byte-identical output to non-spec decode.**
 
 Needed the MTP weights: our on-disk Q4 GGUFs ship no MTP head, so `unsloth/Qwen3.6-35B-A3B-MTP-GGUF`
 (22.7 GB, `qwen35moe.nextn_predict_layers=1`, `blk.40.nextn.*`) was downloaded to its own dir.
@@ -259,7 +265,7 @@ one model in both arms, differing only by `--spec-type draft-mtp --spec-draft-n-
 
 | quantity | value |
 |---|---|
-| token-identical (base vs mtp) | **TRUE** — 945 chars, byte-for-byte. Exact, quality-neutral. |
+| token-identical **on this one prompt** | TRUE — 945 chars (but prompt-specific; MTP is NOT bit-exact in general — §Q, and the correction above) |
 | accept rate | **194/241 drafted = 80.5%** — matches upstream #25642's ~82% target |
 | decode on THIS prompt | base 90.4 → mtp **139.6 t/s = +54%** |
 
@@ -273,7 +279,7 @@ pass, the more it saves. Envelope consequence: at the optimal ncmoe=6 mtp hits *
 base's 100)** but leaves only **3316 MB VRAM free < the 4 GB reserve** (the draft context costs
 ~1.15 GB), so the guard REJECTS it; at ncmoe=8 both fit. **Net deployable: ~116 t/s with MTP inside
 the safe envelope (ncmoe=8) vs base's best safe 100 t/s (ncmoe=6) — +16% deployable, +27% at matched
-placement, +54% on code, output identical.** The biggest *safe* single-stream decode win since §E1's
+placement, +54% on code, quality-neutral (pass@1 unchanged; equivalent output, not byte-identical — §Q).** The biggest *safe* single-stream decode win since §E1's
 placement, and it **stacks on** placement rather than trading against it.
 
 **Beats the target where it counts:** #25642 is +30% t/s / ~82% accept; we match the accept (80.5%)
@@ -294,7 +300,7 @@ breach — `ram 11948MB < 16384MB`: the 17 GB mmap + draft + iGPU RAM sit near t
 |---|---:|---:|---|
 | decode (benchmark) | ~33.3 t/s | ~49.8 t/s | **+49.4%** (Cliff +1.0, CI95 [+16.40,+16.52], MAD 0.08) |
 | decode (greedy code) | 34.4 t/s | **63.0 t/s** | **+83%** |
-| accept rate | — | 190/258 = **73.6%** | token-identical ✓ |
+| accept rate | — | 190/258 = **73.6%** | quality-neutral (short-prompt check; not bit-exact over long gens — §Q) |
 
 **Bigger than the MoE's uplift despite a LOWER accept rate (73.6 vs 80.5%).** Mechanism: a 27B *dense*
 forward pass (all weights every token) is far more expensive than the MoE's 3B-active pass, so each
@@ -503,6 +509,47 @@ VRAM-efficiently than simply lowering `--n-cpu-moe`. **Verdict: NULL/redundant o
 only win with concentrated routing (a few dominant experts); Qwen3.6 is deliberately load-balanced. Not
 housed in the fork. (Same door as §E2/§B5: revisit only if a differently-routed model appears.) Raw:
 `runs/e5-moe-cache/`; the cache lives in the `stack` build, not carried forward.
+
+---
+
+## §Q — levers × quality: no lever costs quality; q4 KV is lossless; MTP is not bit-exact (2026-08-02)
+
+Do the speed/context levers cost output QUALITY? Benchmark: HumanEval+ (seeded 40-subset), **thinking,
+temp=0**, evalplus-scored (`/home/augus/evalplus-venv`, subset-padded so it scores <164), on the
+**lifecycle fork**. `quality_bench.py` gained lever knobs (`--spec`, `--moe-cache-slots/-profile`) and its
+budget was fixed (**1024→4096**: the thinking model spent 1024 entirely in `<think>` and never emitted
+code — 33/40 starved; at 4096 only ~5/40 still starve, which caps pass@1 near 33/40 = the ~5 empties
+count as fails). Scored via `score_subset.py` / `score_matrix.py`.
+
+**Determinism control first (the methodology fix):** `base` re-run identical (`base==base2`, **40/40
+byte-identical**, pass@1 33==33). So generation is DETERMINISTIC → every cross-config difference below is
+REAL, not run-to-run noise.
+
+| config (ncmoe=8, thinking) | pass@1 (HumanEval+) | completions ≠ base | verdict |
+|---|---:|---:|---|
+| base / base2 (q8_0) | 33/40 | 0/40 | deterministic reference |
+| **q4_0 KV** | 33/40 | 28/40 | **lossless** (== q8 == f16) |
+| f16 KV | 33/40 | 25/40 | reference |
+| **MoE expert cache** (slots 32) | 33/40 | 25/40 | quality-neutral (lateral) |
+| **MTP** (draft-mtp) | 34/40 | 24/40 | quality-neutral (+1), **NOT bit-exact** |
+
+**Three findings:**
+1. **No lever costs quality.** pass@1 is flat at 33–34/40 (±1 = the resolution of a 40-set). Every lever
+   changes *which* tokens are produced (completions differ 24–28/40) but **laterally** — different valid
+   output, same correctness. The speed/context levers are quality-free.
+2. **q4_0 KV is lossless here** (== f16 == q8 at 33/40) — confirms the hybrid-arch "linear layers absorb
+   KV-quant noise" claim (#21385). **Direct payoff for context: q4 KV ~doubles context at no quality
+   cost.** (Long-context depth still to test — CONTEXT_PLAN Phase C.)
+3. **MTP is quality-neutral but NOT bit-identical** to non-spec decode. Against the deterministic base it
+   diverges on 24/40; `verify_mtp_long.py` reproduces it (first diff by ~150 tok, e.g. `l.copy()` vs
+   `l[:]`). The batched draft-verify forward pass isn't bit-identical on CUDA to the sequential base pass,
+   so greedy near-ties flip. **Corrects the §E4 "token-identical/exact" claim** (true only for the one
+   short prompt tested): MTP is exact relative to its *own* forward pass, quality-neutral, but not
+   byte-for-byte equal to non-spec output.
+
+Caveat: pass@1 33/40 (82.5%) is dragged by the ~5 thinking-starved empties; of the ~35 answered, ~33 are
+correct (~94%). Raw: `runs/quality/qm-*`; tooling `quality_bench.py`, `score_subset.py`, `score_matrix.py`,
+`compare_base2.py`, `verify_mtp_long.py`.
 
 ---
 

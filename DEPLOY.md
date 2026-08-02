@@ -19,7 +19,8 @@ records. This is the durable handoff — read it first after a context reset.
   --host 0.0.0.0 --port 8080
 ```
 
-**Delivers ~116 t/s decode inside the safe envelope, output identical to greedy.** This single
+**Delivers ~116 t/s decode inside the safe envelope, quality-neutral (pass@1 unchanged; equivalent
+output, not byte-identical to non-spec — §Q).** This single
 command already banks three independent wins — placement, CUDA graphs, and MTP — stacked.
 
 Knobs:
@@ -32,7 +33,8 @@ Knobs:
 - **No pinning** (`GGML_CUDA_REGISTER_HOST`) — null at this placement (§E1); only helps forced heavy
   offload.
 - **MTP shines on structured/tool-heavy output** (higher accept → up to +54% on code); on free-form
-  reasoning it is ~+27%. Always exact, so it is free to leave on.
+  reasoning it is ~+27%. **Quality-neutral** (pass@1 unchanged, §Q) so free to leave on — but note it is
+  NOT byte-identical to non-spec decode over long generations (batched-verify numerics flip greedy ties).
 
 ---
 

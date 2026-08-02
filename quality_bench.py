@@ -40,7 +40,9 @@ from model_lifecycle.models import MODELS                          # noqa: E402
 from model_lifecycle.servers.llama_cpp import (                    # noqa: E402
     LlamaCppAdapter, ServerProfile)
 
-LOCAL_BIN = "/home/augus/src/llama.cpp-local/build/bin/llama-server"
+# The consolidated fork (branch `lifecycle` = 720d7fa40 + §B2b + prefetch + expert-cache), so
+# quality is measured on the SAME binary we deploy and the lever knobs below actually engage.
+LOCAL_BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
 
 # MODELS is the shared registry (model_lifecycle.models), quant-keyed. Quantisations of the
 # same weights stay separate entries on purpose: quant is a FACTOR in the screen, not a
@@ -118,20 +120,32 @@ def extract_code(text: str) -> str:
 
 def run(model_key: str, *, subset: int, ncmoe: int, ctx: int, ubatch: int | None,
         kv: str, flash: str | None, prefetch: str, max_tokens: int,
+        spec: str, cache_slots: int, cache_profile: str,
         tag: str) -> list[dict]:
     gguf, blocks = MODELS[model_key].path, MODELS[model_key].block_count
     env = {"GGML_CUDA_REGISTER_HOST": "1"}
     if prefetch and prefetch != "0":
         env["GGML_SCHED_PREFETCH_EXPERTS"] = prefetch
 
+    # The lever knobs, threaded as server flags so the SAME quality machinery measures each
+    # config. --jinja is mandatory (thinking-model chat template). spec=draft-mtp is the MTP
+    # self-draft (EXACT by construction -> a quality-neutrality CHECK); the MoE expert cache
+    # changes compute (hot/cold split) -> a real quality test. Off by default = pristine.
+    extra = ["--jinja"]
+    if spec:
+        extra += ["--spec-type", spec, "--spec-draft-n-max", "4"]
+    if cache_slots > 0 and cache_profile:
+        extra += ["--moe-cache-slots", str(cache_slots), "--moe-cache-profile", cache_profile]
+
     adapter = LlamaCppAdapter(server_bin=LOCAL_BIN, env=env)
     profile = ServerProfile(model_path=gguf, port=8080, n_cpu_moe=ncmoe, ctx_size=ctx,
                             ubatch=ubatch, cache_type_k=kv, cache_type_v=kv,
-                            flash_attn=flash, extra_args=("--jinja",))
+                            flash_attn=flash, extra_args=tuple(extra))
 
     problems = pick_subset(load_problems(), subset)
     print(f"  {len(problems)} problems, config: ncmoe={ncmoe} ctx={ctx} ub={ubatch} "
-          f"kv={kv} fa={flash} prefetch={prefetch}", flush=True)
+          f"kv={kv} fa={flash} prefetch={prefetch} spec={spec or 'off'} "
+          f"cache_slots={cache_slots}", flush=True)
 
     records: list[dict] = []
     h = adapter.start(profile)
@@ -159,6 +173,7 @@ def run(model_key: str, *, subset: int, ncmoe: int, ctx: int, ubatch: int | None
                 "tag": tag, "model": model_key, "task_id": p["task_id"],
                 "ncmoe": ncmoe, "ctx": ctx, "ubatch": ubatch, "kv": kv,
                 "flash": flash, "prefetch": prefetch,
+                "spec": spec or "off", "cache_slots": cache_slots,
                 "completion": completion,
                 "answered": r.answered, "ok": r.ok, "error": r.error,
                 "fenced": "```" in (text or ""),
@@ -189,7 +204,15 @@ def main() -> int:
     ap.add_argument("--kv", default="q8_0")
     ap.add_argument("--flash", default=None)
     ap.add_argument("--prefetch", default="0")
-    ap.add_argument("--max-tokens", type=int, default=1024)
+    # 4096, not 1024: Qwen3.6 is a THINKING model -- at 1024 it spends the whole budget in
+    # <think> and never emits code (33/40 starved). 4096 clears think+code with headroom
+    # (diagnostic: pred_n 1090-3475, none hit the ceiling).
+    ap.add_argument("--max-tokens", type=int, default=4096)
+    # Lever knobs for the config x quality matrix (all off by default = pristine fork path).
+    ap.add_argument("--spec", default="", help="e.g. draft-mtp (MTP self-draft; EXACT)")
+    ap.add_argument("--moe-cache-slots", type=int, default=0)
+    ap.add_argument("--moe-cache-profile", default="",
+                    help="routing profile CSV from llama-moe-trace (with --moe-cache-slots)")
     ap.add_argument("--tag", required=True,
                     help="run label; the DOE cell id, so records can be joined to a design")
     args = ap.parse_args()
@@ -198,7 +221,9 @@ def main() -> int:
     ncmoe = args.ncmoe if args.ncmoe is not None else max(1, round(blocks * 0.6))
     recs = run(args.model, subset=args.subset, ncmoe=ncmoe, ctx=args.ctx,
                ubatch=args.ubatch, kv=args.kv, flash=args.flash,
-               prefetch=args.prefetch, max_tokens=args.max_tokens, tag=args.tag)
+               prefetch=args.prefetch, max_tokens=args.max_tokens,
+               spec=args.spec, cache_slots=args.moe_cache_slots,
+               cache_profile=args.moe_cache_profile, tag=args.tag)
 
     out = pathlib.Path(__file__).parent / "runs" / "quality"
     out.mkdir(parents=True, exist_ok=True)

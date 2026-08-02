@@ -1,0 +1,8 @@
+
+===== draft-mtp vs base, LONG generation =====
+prompt 0: DIVERGE  base=520ch(~147tok) mtp=525ch(~147tok)  first-diff @char 359 (69% through base)
+    base: ...'e original list\n    result = l.copy()\n    # Replace every th'
+    mtp : ...'e original list\n    result = l[:]\n    # Place the sorted thi'
+prompt 1: DIVERGE  base=901ch(~244tok) mtp=824ch(~216tok)  first-diff @char 223 (25% through base)
+    base: ...'  \n    # The encoding process splits the string into groups '
+    mtp : ...'  \n    # The encoding process groups characters into chunks '

@@ -23,6 +23,10 @@ llama.log
 # Driver stdout redirects (the report is regenerable from runs/<dir>/records.json)
 runs_*.log
 
+# evalplus scoring intermediates (derived from the samples.jsonl; regenerable via score_subset.py)
+runs/quality/*.padded.jsonl
+runs/quality/*_eval_results.json
+
 # OS / editor cruft
 .DS_Store
 Thumbs.db
