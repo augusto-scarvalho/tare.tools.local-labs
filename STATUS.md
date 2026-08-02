@@ -301,6 +301,40 @@ constraint here is the **16 GB Windows RAM reserve, not VRAM**. A newer build wi
 Net kernel would raise base decode and likely shrink the ratio. Raw:
 `runs/ab-e4mtp-qwen36-27b-mtp-e4-mtp-dense-ngl65/`.
 
+## §B4 — CUDA-graph capture is a +27% decode lever, and llama.cpp already has it ON (2026-08-02)
+
+SGLang's Paged-Experts got 8→197 t/s "largely from CUDA-graph capture over the streamed decode path"
+(LANDSCAPE §4) — because its offload path had graphs OFF (#23664) and re-enabling them was the win.
+§B4 asked whether llama.cpp leaves the same lever on the table, and whether *pinning* is what enables
+graph capture (the fork's suspected hidden value). Source inspection said graphs are compiled in
+(`GGML_CUDA_GRAPHS=ON`), the 3090 (Ampere > Volta) is not arch-blocked, and the compatibility check
+keeps them ON for quantized MoE decode at batch=1 — so they should already be active. The A/B (one
+binary MASTER_BIN, toggled only by `GGML_CUDA_DISABLE_GRAPHS`, qwen36-35B at ncmoe=6, n=4) measures
+exactly what they buy:
+
+| CUDA graphs | decode |
+|---|---:|
+| OFF (`GGML_CUDA_DISABLE_GRAPHS=1`) | ~79 t/s |
+| ON (default) | ~100 t/s |
+| **Δ** | **+26.8%** (Cliff +1.0, CI95 [+20.5,+21.8], MAD 0.73) |
+
+**Two settled facts:**
+1. **CUDA graphs are a +27% decode lever here** — as big as MTP's benchmark gain, and the same kind of
+   win SGLang reported (killing per-kernel launch overhead matters a lot at batch=1 decode).
+2. **llama.cpp has them ON by default**, so every decode number in this project — §E1's ~102 t/s, §E4's
+   MTP ~116 t/s — ALREADY banks it. The SGLang-style graph win is **not an untapped lever here; it is
+   already captured.** The +27% is what you would LOSE by disabling graphs, not a gain waiting to be
+   claimed.
+
+**The pinning-enables-graphs hypothesis is FALSIFIED for llama.cpp.** Graphs delivered +27% on plain
+MASTER_BIN with **no pinning** (`GGML_CUDA_REGISTER_HOST` unset) — graph capture is gated by GPU arch
+and op-compatibility, not host-memory pinning; and pinning is null at ncmoe=6 anyway (§E1), so there
+is no pin×graph interaction to chase at the operating point. Prefill unmoved (−1.1%, within noise —
+compute-bound, large batch, nothing for graphs to save). This also reframes the engine race: part of
+why stock llama.cpp (stream-to-GPU) stays competitive is that **its CUDA graphs are already working at
+our placement** — a rival engine must beat a 100 t/s that already banks the graph win. Raw:
+`runs/ab-b4graph-qwen36-35b-b4-cudagraph-ncmoe6/`, arm-set `b4graph` in `ab_isolate.py`.
+
 ---
 
 ## OPEN — as prominent as the answers, on purpose

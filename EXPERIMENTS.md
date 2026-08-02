@@ -234,9 +234,11 @@ GGUF, expert placement, context, and prompt fixed across arms. Metric everywhere
 ### Companion / lower-tier (from the research, kept for completeness)
 - **§B3** prefetch reconciliation via **GPU-idle%** instrumentation — explains our tax vs the
   3060's win; cheap, and adds the discriminating metric to the harness.
-- **§B4** CUDA-graph × pinning — does pinning's real payoff come from *enabling graph capture*
-  (SGLang's 8→197 t/s was largely graph)? Test if llama.cpp CUDA-graph + our pinned buffers beats
-  pinning alone.
+- **§B4** CUDA-graph × pinning — **ANSWERED 2026-08-02.** CUDA graphs are a **+27% decode lever**
+  (ncmoe=6, n=4, Cliff +1.0: graphs-off ~79 → graphs-on ~100 t/s) but llama.cpp has them **ON by
+  default**, so every number here already banks it — no untapped SGLang-style win. **Pinning-enables-
+  graphs FALSIFIED**: graphs gave +27% on plain MASTER_BIN with no pinning (gated by arch+op, not
+  host-memory pinning). STATUS §B4; arm-set `b4graph`.
 - **§B5** `--pin-hot-experts` (upstream #25932) — selective vs blanket pin on the generation side.
 - **§B2** pinned KV in RAM — **novel for llama.cpp** (no prior art); do carefully, no upstream
   baseline to lean on.

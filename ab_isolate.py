@@ -201,6 +201,20 @@ ARM_SETS = {
         "mtp":  (MASTER_BIN, {}, ("-fa", "on", "--spec-type", "draft-mtp",
                                   "--spec-draft-n-max", "4")),          # self-draft via MTP head
     },
+    # §B4 — is CUDA-graph capture a hidden decode lever here? SGLang's Paged-Experts got
+    # 8→197 t/s "largely from CUDA-graph capture over the streamed decode path" (LANDSCAPE §4),
+    # because its offload path DISABLED graphs (#23664) and re-enabling them was the win. The
+    # question for us: does llama.cpp leave the same lever on the table? Source says NO — graphs
+    # are compiled in (GGML_CUDA_GRAPHS=ON), the 3090 (Ampere > Volta) is not arch-blocked, and
+    # the compatibility check keeps them ON for quantized MoE decode at batch=1. So our ~102 t/s
+    # should ALREADY include the graph benefit. This A/B proves it: one binary (MASTER_BIN),
+    # graphs toggled only by `GGML_CUDA_DISABLE_GRAPHS`. `base` = graphs OFF (the reference),
+    # `graph` = graphs ON (default). A large positive delta would mean an untapped lever; a small
+    # one confirms graphs are already working and there is no SGLang-style 20× hiding here.
+    "b4graph": {
+        "base":  (MASTER_BIN, {"GGML_CUDA_DISABLE_GRAPHS": "1"}, ("-fa", "on")),  # graphs OFF
+        "graph": (MASTER_BIN, {}, ("-fa", "on")),                                 # graphs ON (default)
+    },
     # Question 6: the fork's OTHER half. Everything measured so far is prefill; generation
     # has never moved -- `ncmoe` explains 99.8% of its variance and every other factor sits
     # at the noise floor. `turbo-mma-decode` is the fork author's own attempt at exactly
