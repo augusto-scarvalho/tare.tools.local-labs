@@ -60,11 +60,19 @@ MODEL = MODELS["qwen36-35b"][0]      # replaced by main() from --model
 
 BASE_BIN   = "/home/augus/src/llama.cpp-base/build/bin/llama-server"     # 4fc4ec554
 FORK_BIN   = "/home/augus/src/llama.cpp/build/bin/llama-server"          # 5e7f6271c
-MASTER_BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"   # upstream today
+MASTER_BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"   # upstream 720d7fa40
 REBASE_BIN = "/home/augus/src/llama.cpp-rebase/build/bin/llama-server"   # fork rebased on it
 STACK_BIN  = "/home/augus/src/llama.cpp-stack/build/bin/llama-server"    # all 8 branches
 LOCAL_BIN  = "/home/augus/src/llama.cpp-local/build/bin/llama-server"    # ours
 IK_BIN     = "/home/augus/src/ik_llama.cpp/build/bin/llama-server"       # ikawrakow, §E2
+
+# THE consolidated fork (2026-08-02). The llama.cpp-master repo is now on branch `lifecycle`
+# = upstream 720d7fa40 + the §B2b KV-host-pin patch (env GGML_KV_PIN_HOST, INERT by default),
+# so this one binary is BOTH the pristine-upstream baseline (no env -> every historical
+# arm-set still reproduces) AND the fork (with the env). Pinned to 720d7fa40, NOT fresh master:
+# f5919bf45 regressed draft-mtp token-exactness on qwen3.6moe (base != mtp; #25832 ruled out,
+# culprit unbisected) -- see LANDSCAPE §1c. Blessed: MTP exact, §B2b engages, output coherent.
+LIFECYCLE_BIN = MASTER_BIN
 
 BOTH_SWITCHES = {"GGML_SCHED_PREFETCH_EXPERTS": "3", "GGML_CUDA_REGISTER_HOST": "1"}
 

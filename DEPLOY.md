@@ -87,9 +87,13 @@ VRAM is the binding constraint for the MoE; system RAM for the dense and for com
 - **WSL** Ubuntu-24.04, `.wslconfig`: `memory=44GB`, **`swap=16GB`** (added this session — turned the
   ik ncmoe=40 hard-crash into a measurable REJECTED; near-zero SSD wear), `processors=20`,
   `autoMemoryReclaim=gradual`. Backup at `~/.wslconfig.bak-*`.
-- **Builds** llama.cpp at `/home/augus/src/llama.cpp-{master,local,base,rebase,stack}`; ik at
-  `/home/augus/src/ik_llama.cpp`. MTP + CUDA graphs confirmed in `-master` (commit `720d7fa40`,
-  `GGML_CUDA_GRAPHS=ON`). Models in WSL at `/home/augus/models/`.
+- **THE fork / deploy binary** (2026-08-02): `/home/augus/src/llama.cpp-master`, branch **`lifecycle`**
+  (commit `0e4e2d897`) = upstream **`720d7fa40`** + the **§B2b** KV-host-pin patch (env `GGML_KV_PIN_HOST`,
+  **inert by default** → same binary is baseline and fork). **BLESSED** (`bless_fork.sh`): draft-mtp
+  token-exact, §B2b engages, output coherent. Pinned to `720d7fa40`, **not** fresh master — `f5919bf45`
+  regressed draft-mtp exactness (LANDSCAPE §1c). `GGML_CUDA_GRAPHS=ON`, `FA_ALL_QUANTS=OFF`, `sm_86`.
+- **Other builds** (historical / rival): `llama.cpp-{local,base,rebase,stack}`, ik at
+  `/home/augus/src/ik_llama.cpp`. Models in WSL at `/home/augus/models/`.
 - **Gotcha** simple `$VAR` in `wsl.exe -- bash -lc '...'` via the Bash tool expands EMPTY — use
   literal paths or a script file (see the `verify_mtp.py` pattern).
 

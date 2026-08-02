@@ -105,13 +105,26 @@ else.** Exactly one non-upstream win, per §1b's rule ("only validated non-upstr
 anthology"). prefetch (−22% decode tax), turbo-mma-decode (null, STATUS §6), and the expert cache (§E5
 null) are all excluded on evidence.
 
-**Base + hardening (from the correctness scan):**
-- **Rebase §B2b onto fresh upstream master**, past **#26135** (the `--load-mode` no-mmap+pin fix that
-  prevents a `--n-cpu-moe` swap-thrash decode cliff) — our snapshot `720d7fa40` (Jul 25) predates it.
-- **Build with `-DGGML_CUDA_FA_ALL_QUANTS=ON`** (#24485: avoid a silent FA→CPU fallback for quantized KV).
-- **Blessing gates:** (1) re-verify `draft-mtp` token-identity at `--spec-draft-n-max 4` (#23335 flags an
-  open divergence bug — already **refuted on our build in §E4** via `verify_mtp.py`; re-confirm on the
-  fork); (2) coherence / `-nkvo` spot-check (#20140 — low risk, §E4 output was coherent + token-identical).
+**Base — pinned to `720d7fa40`, NOT fresh master (the blessing gate earned its keep).** The plan was to
+rebase §B2b onto fresh upstream master (`f5919bf45`, +102 commits, includes #26135). It built and §B2b
+applied clean — but the **`draft-mtp` token-identity gate FAILED on fresh master**: base ≠ mtp
+(929 vs 945 chars, deterministic mid-stream divergence at char 729), while `720d7fa40` is exact
+(base == mtp). One of the 102 commits regressed spec-decode exactness for qwen3.6moe — a live instance
+of open issue **#23335**. Diagnosis without a bisect: CUDA attention/softmax/argsort kernels were
+**unchanged** in range (class ruled out); the base-decode shift under `-fa`+`--n-cpu-moe` pointed at
+**#25832** (FLASH_ATTN_EXT op-offload scheduling) — but a **revert-and-rebuild test refuted it** (still
+diverges), so the culprit is elsewhere and unbisected. Decision: **house the fork on the VALIDATED
+`720d7fa40` + §B2b** (branch `lifecycle`, commit `0e4e2d897`); MTP exactness is load-bearing (it's what
+makes the +27% lever "free"), and #26135 is immaterial for our mmap-default config. The fresh-master
+worktree was dropped. Fresh master remains re-testable for a future upstream report on #23335.
+
+**Hardening applied:**
+- **Blessing gates (`bless_fork.sh`), all PASS on the 720d7fa40 binary:** G1 §B2b engages (KV on
+  `CUDA_Host(B2b)`); G2 `draft-mtp` token-identity at `--spec-draft-n-max 4` (IDENTICAL, 80.5% accept);
+  G3 coherence + `-nkvo` (both non-degenerate, KV-on-GPU == `-nkvo` output → #20140 not triggered).
+- **`FA_ALL_QUANTS` left OFF** (matches the validated build): the whole campaign ran FA-on-GPU at that
+  setting with q8_0 KV, so the kernel is present (#24485 fallback not a risk for our config); turn it ON
+  only if other KV quant combos are ever needed.
 - The 27B "fused Gated Delta Net disabled" warning is **cosmetic** (correctness-safe fallback), no guard.
 
 **Future R&D, explicitly not now:** #20757's expert cache would only pay on a *concentrated-routing*

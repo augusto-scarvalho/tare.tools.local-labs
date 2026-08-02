@@ -7,12 +7,16 @@ records the emitted text + server timings. Spec-decode is exact, so base and mtp
 emit byte-identical text; the timings expose the draft accept rate and the real t/s.
 """
 import json
+import os
 import subprocess
 import sys
 import time
 import urllib.request
 
-BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+# Default the master baseline (§E4), but allow MTP_BIN to point the same identity check at
+# another build -- used to BLESS the consolidated fork (fresh master + §B2b) before deploy.
+BIN = os.environ.get("MTP_BIN",
+                     "/home/augus/src/llama.cpp-master/build/bin/llama-server")
 # argv[1]: model GGUF path (default the MoE MTP). argv[2]: placement flag+value as one
 # string, e.g. "--n-cpu-moe 8" (MoE) or "-ngl 65" (dense). Lets one tool verify both.
 MODEL = sys.argv[1] if len(sys.argv) > 1 else \
