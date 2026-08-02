@@ -64,6 +64,7 @@ MASTER_BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"   # upstr
 REBASE_BIN = "/home/augus/src/llama.cpp-rebase/build/bin/llama-server"   # fork rebased on it
 STACK_BIN  = "/home/augus/src/llama.cpp-stack/build/bin/llama-server"    # all 8 branches
 LOCAL_BIN  = "/home/augus/src/llama.cpp-local/build/bin/llama-server"    # ours
+IK_BIN     = "/home/augus/src/ik_llama.cpp/build/bin/llama-server"       # ikawrakow, §E2
 
 BOTH_SWITCHES = {"GGML_SCHED_PREFETCH_EXPERTS": "3", "GGML_CUDA_REGISTER_HOST": "1"}
 
@@ -138,6 +139,50 @@ ARM_SETS = {
     "genpin": {
         "base": (LOCAL_BIN, {}),                                 # no pinning
         "pin":  (LOCAL_BIN, {"GGML_CUDA_REGISTER_HOST": "1"}),   # pinning only
+    },
+    # §E2, THE Tier-1 head-to-head: two ENGINES, not two switches. `base` is our stock
+    # llama.cpp -- philosophy (a), experts stream to the GPU per token (the same binary and
+    # no-env baseline §E1 measured at 101.7 t/s at ncmoe=6, so its number carries over). `ik`
+    # is ikawrakow/ik_llama.cpp -- philosophy (b), experts stay in RAM and are COMPUTED on the
+    # CPU with fused-MoE (default on) + run-time-repack (-rtr) for fast CPU GEMM. NO -ser: that
+    # skips low-probability experts and changes the output, so it is a quality knob, not a
+    # clean speed comparison -- it gets its own flagged arm later if this one is close.
+    #
+    # Matched at the OPTIMAL placement (ncmoe=6, KV q8_0): the point of §E1 is that both
+    # engines must be judged where you would actually run them, not at max offload. Caveat
+    # kept honest in the write-up: ik's HEAD is current while our base is 4fc4ec554, so a
+    # small part of any gap is three weeks of upstream, not the engine philosophy.
+    # -fa on for BOTH arms, not just ik. ik REQUIRES explicit flash-attention for a
+    # quantized (q8_0) KV cache -- without it the server aborts at load (measured: base
+    # loaded, ik errored with 23.7 GB VRAM free = never placed the model). Our base ran
+    # §E1 at -fa auto, which already enabled FA for q8_0 on Ampere (hence its 101.7 t/s),
+    # so forcing it on changes nothing for base and makes the attention path identical
+    # across arms -- the KV/attention path must not be a hidden second variable in an
+    # engine head-to-head.
+    "e2ik": {
+        "base": (LOCAL_BIN, {}, ("-fa", "on")),                  # (a) stream-to-GPU, stock
+        "ik":   (IK_BIN, {}, ("-rtr", "-fa", "on")),             # (b) compute-on-CPU, fmoe+rtr
+    },
+    # §E2b, heavy-offload regime -- ik WITHOUT -rtr. Measured: `-rtr` repacks every CPU-
+    # resident expert layer, and at ncmoe=40 that is all 40 (~18 GB of experts), whose
+    # repacked copy blows the WSL RAM cap and OOM-kills the load (twice, reproducibly). ik
+    # loads fine at ncmoe=40 without it (~20 GB, healthy in 2 s), so this arm-set answers
+    # "does compute-on-CPU beat stream-to-GPU at heavy offload" -- with ik handicapped to
+    # standard Q4_K CPU GEMM, because its fast-repack mode is not viable here. That
+    # handicap IS the finding for this box: ik's speed mode needs offline _R4 quants, not
+    # run-time repack, once offload is heavy.
+    "e2iknr": {
+        "base": (LOCAL_BIN, {}, ("-fa", "on")),                  # (a) stream-to-GPU, stock
+        "ik":   (IK_BIN, {}, ("-fa", "on")),                     # (b) fmoe only, NO -rtr
+    },
+    # §E2b squeeze: ik's compute-on-CPU footprint breaches the 16 GB Windows reserve at
+    # moderate offload (ncmoe16 -> 15.3 GB, ncmoe28 -> 9.6 GB free, both REJECTED). ik's
+    # `--defer-experts` defers expert mmap residency, which should shrink RSS enough to
+    # clear the reserve while keeping the decode advantage. Tests whether philosophy (b) is
+    # OPERABLE within our envelope at the offload depths where it actually wins decode.
+    "e2ikdef": {
+        "base": (LOCAL_BIN, {}, ("-fa", "on")),
+        "ik":   (IK_BIN, {}, ("--defer-experts", "-fa", "on")),
     },
     # Question 6: the fork's OTHER half. Everything measured so far is prefill; generation
     # has never moved -- `ncmoe` explains 99.8% of its variance and every other factor sits
@@ -227,6 +272,12 @@ for _set in ARM_SETS.values():
 
 ARMS = ARM_SETS["switches"]      # replaced by main() from --arms
 DENSE = False                    # set in main() from geometry: True when n_expert == 0
+# KV cache format, held identical across all arms of a run and set from --kv. It is a
+# RUN-level factor, not an arm-level one: §E1 asks whether q4_0 (which frees VRAM and keeps
+# Ampere's flash-attention fast path) beats q8_0 at a fixed placement, so the two formats
+# are separate runs (--tag), never two arms of one A/B -- keeping the paired machinery
+# measuring exactly one thing.
+KV_TYPE = "q8_0"
 
 # The three gates, all default-closed, found by reading the patch after three A/B runs
 # had already compared upstream against a fork that never executed:
@@ -294,7 +345,13 @@ def verify_linkage() -> None:
     """
     import subprocess
     for arm, (binary, _env, _extra) in ARMS.items():
-        own = str(pathlib.PurePosixPath(binary).parent)
+        # The BUILD dir (parent of bin/), not bin/ itself: our forks put libggml under
+        # build/bin, but ik_llama puts it under build/ggml/src and build/src. Both share
+        # the binary's `.../build` prefix, and every build tree has a distinct full path
+        # (`.../llama.cpp-master/build` vs `.../ik_llama.cpp/build`), so an arm loading a
+        # DIFFERENT build's libraries via LD_LIBRARY_PATH is still caught -- which is the
+        # whole point of this precondition.
+        own = str(pathlib.PurePosixPath(binary).parent.parent)
         out = subprocess.run(["wsl", "-d", "Ubuntu-24.04", "--", "ldd", binary],
                              capture_output=True, text=True, timeout=120)
         libs = [ln for ln in out.stdout.splitlines()
@@ -308,18 +365,18 @@ def verify_linkage() -> None:
         print(f"  linkage OK: {arm} -> {len(libs)} libs, all under {own}")
 
 
-def _profile(offload: int, extra: tuple[str, ...] = ()) -> ServerProfile:
+def _profile(offload: int, extra: tuple[str, ...] = (), port: int = 8080) -> ServerProfile:
     # DENSE control: a dense model has no experts to stream, so there is no --n-cpu-moe
     # axis. It is offloaded with -ngl instead, and the `offload` value is read as
     # n_gpu_layers (layers kept ON the GPU; the rest compute on the CPU). This is the
     # negative control for STATUS §B1: dense CPU layers compute in place, nothing streams
     # over PCIe, so pinning has nothing to accelerate and pin-vs-base must read as null.
     if DENSE:
-        return ServerProfile(model_path=MODEL, port=8080, n_gpu_layers=offload,
-                             ctx_size=8192, cache_type_k="q8_0", cache_type_v="q8_0",
+        return ServerProfile(model_path=MODEL, port=port, n_gpu_layers=offload,
+                             ctx_size=8192, cache_type_k=KV_TYPE, cache_type_v=KV_TYPE,
                              no_mmap=False, extra_args=extra)
-    return ServerProfile(model_path=MODEL, port=8080, n_cpu_moe=offload,
-                         ctx_size=8192, cache_type_k="q8_0", cache_type_v="q8_0",
+    return ServerProfile(model_path=MODEL, port=port, n_cpu_moe=offload,
+                         ctx_size=8192, cache_type_k=KV_TYPE, cache_type_v=KV_TYPE,
                          no_mmap=False, extra_args=extra)
 
 
@@ -360,6 +417,20 @@ def main() -> int:
     # triple a run whose answer does not depend on the dose.
     ap.add_argument("--ncmoe", type=int, action="append",
                     help="override the dose axis (repeatable)")
+    # §E1's KV-format factor. Run-level (all arms share it), not an arm: the two formats
+    # are separate --tag runs so the pairing stays one-factor. q4_0 halves KV VRAM vs q8_0
+    # and stays on Ampere's flash-attention fast path.
+    ap.add_argument("--kv", choices=["q8_0", "q4_0", "f16"], default="q8_0")
+    # Reset the WSL VM before every config, for a clean ~47 GB baseline each time. Needed
+    # for ENGINE A/Bs where one arm has a much larger host footprint: ik_llama with -rtr
+    # leaves WSL holding pages that reclaim slowly, so the NEXT arm's 22 GB load transiently
+    # drives Windows-available below the 16 GB reserve and is REJECTED -- a verdict about
+    # queue position, not the config. A per-config reset removes the cross-arm contamination
+    # entirely. Costs ~10 s boot + a cold reload per config; both arms then start equally
+    # cold, which is fine because decode here is near-deterministic (CV ~0.006) so the
+    # warmed-cache balancing the interleave provides is not needed.
+    ap.add_argument("--reset-between", action="store_true",
+                    help="wsl --shutdown before each config (clean baseline for engine A/Bs)")
     args = ap.parse_args()
 
     if args.rounds % 2:
@@ -367,7 +438,8 @@ def main() -> int:
               f"balance. Use an even number.")
         return 2
 
-    global MODEL, NCMOE, DENSE
+    global MODEL, NCMOE, DENSE, KV_TYPE
+    KV_TYPE = args.kv
     gguf, blocks, n_expert, n_used = MODELS[args.model]
     DENSE = (n_expert == 0)               # dense control -> -ngl offload, no --n-cpu-moe
     if args.gguf:
@@ -399,7 +471,7 @@ def main() -> int:
 
     global ARMS
     ARMS = ARM_SETS[args.arms]
-    print(f"arm set '{args.arms}': " + ", ".join(ARMS))
+    print(f"arm set '{args.arms}': " + ", ".join(ARMS) + f"   KV={KV_TYPE}")
 
     print("checking that the arms are actually different arms ...")
     verify_linkage()
@@ -435,13 +507,31 @@ def main() -> int:
                 arms.reverse()
             for arm, (binary, arm_env, arm_extra) in arms:
                 cid = f"ab__{arm}__ncmoe{ncmoe}__r{rnd}"
+                if args.reset_between:
+                    # Clean slate: kill the VM so no predecessor footprint survives into
+                    # this config's load-phase envelope. The Python orchestrator runs on
+                    # Windows and survives the shutdown; the next adapter call boots a
+                    # fresh distro.
+                    import subprocess
+                    print(f"    [reset] wsl --shutdown before {cid}", flush=True)
+                    subprocess.run(["wsl.exe", "--shutdown"], capture_output=True, timeout=60)
+                    time.sleep(8)
                 adapter = LlamaCppAdapter(server_bin=binary, env=arm_env)
-                if not adapter.is_port_free(8080):
-                    print(f"{cid}: port 8080 busy - aborting rather than measuring "
+                # Each arm gets its OWN port, keyed by name (stable across the round-flip).
+                # `stop()` does pkill -9, which leaves the socket in TIME_WAIT ~60 s; a
+                # server that binds BEFORE loading the model and without SO_REUSEADDR
+                # (ik_llama's older server does exactly this) then fails to bind if the
+                # NEXT arm reuses the same port seconds later -- measured: base loaded, ik
+                # died "couldn't bind ... port=8080". Distinct ports mean an arm only ever
+                # contends with its OWN prior instance, which is a full flipped cycle (~80 s
+                # > 60 s) earlier. Port number does not touch inference speed.
+                port = 8080 + sorted(ARMS).index(arm)
+                if not adapter.is_port_free(port):
+                    print(f"{cid}: port {port} busy - aborting rather than measuring "
                           f"someone else's server")
                     return 2
                 print(f"[{time.strftime('%H:%M:%S')}] {cid} ...", flush=True)
-                r = run_config(adapter, _profile(ncmoe, arm_extra), config_id=cid,
+                r = run_config(adapter, _profile(ncmoe, arm_extra, port), config_id=cid,
                                prompt=PROMPT, repetitions=args.repetitions,
                                max_tokens=args.max_tokens, envelope=env)
                 rec = {"round": rnd, "arm": arm, "ncmoe": ncmoe,

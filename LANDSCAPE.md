@@ -47,6 +47,39 @@ it → prefetch wins). Both correct, different operating points. → instrument 
 
 ---
 
+## 1b. "Should we build a new fork cherry-picking what we liked?" — decided NO (for now), 2026-08-01
+
+Asked directly after §E1. The answer is **not yet, and maybe not as a fork** — and the reasoning
+is a guard against the exact trap this project already fell into (running three A/Bs against a fork
+whose feature gates were all closed):
+
+- **What we'd cherry-pick is thin.** Of the fork's 3 commits: **pinning is already upstream**
+  (slaren #6206 — a flag, off by default) and, per §E1, is **null at the optimal placement**
+  (helps only forced-heavy-offload); **prefetch is a −22% tax on the 3090** (drop it);
+  prefetch-fix only exists to support prefetch. Nothing there is both ours and worth new code.
+- **"First fork + our changes on today's upstream" already exists** — it is the `rebase` build
+  (the patch replayed onto master with zero conflicts, identical diffstat). It is on disk.
+- **Our actual changes are harness (Python), not inference C++** — the model registry, `robust.py`,
+  the `--kv/--gguf/--tag/--dense` flags, `ab_isolate`. Those belong in `local-model-lifecycle`,
+  not in a llama.cpp fork. We have not written new inference C++ to collect.
+- **It is premature.** §E1 showed the fork's mechanisms are null at the placement we would actually
+  run. The decode levers that *do* move at good placement are still **unmeasured**: §E2 (ik_llama,
+  compute-on-CPU — could moot a llama.cpp fork entirely), §E3 (KTransformers), §E4 / the fork
+  author's own **`turbo-mma-decode`** branch (a fused flash-attention *decode* path — the one that
+  targets decode instead of prefill, still unmeasured, sitting behind `GGML_TURBO_MMA_FUSED` in the
+  `stack` build). Assembling a fork now = curating parts before knowing which work.
+
+**The version that IS worth doing, and when.** After §E2–§E4 identify which levers win decode at
+good placement and are *not* upstream, consolidate a build we control: base = today's upstream
+master (already has `--n-cpu-moe`, `--spec-type draft-mtp`, EAGLE3); + pinning rebased and gated
+off (for the forced-offload regime); + whichever decode lever survives (candidate #1: turbo-mma-
+decode); − prefetch. A fork that houses **only validated, non-upstream decode wins** — not an
+anthology of everything tested. Until then, §E2–§E4 run against **current upstream at ncmoe=6** as
+the philosophy-(a) baseline (`MASTER_BIN`/`REBASE_BIN` already built — no new fork needed to
+proceed). See `[[placement-is-the-decode-lever]]`.
+
+---
+
 ## 2. Upstream `ggml-org/llama.cpp`
 
 - **Expert placement is already in mainline:** `--n-cpu-moe N` (PR #15077, merged) and
@@ -103,11 +136,21 @@ draft (#29971, tested on a 16 GB 5070 Ti under WSL2) decode went **8.1 → 197 t
 ## 5. Priority — ranked by expected inference-speed gain (the deliverable)
 
 **Tier 1 — biggest decode wins, test first:**
-1. **Optimize expert placement in stock llama.cpp** (free, today): sweep `--n-cpu-moe` to fill
-   24 GB VRAM without spilling; add `-ctk q4_0 -ctv q4_0` to keep Flash Attention on Ampere's fast
-   path. Often the single biggest lever, no fork.
-2. **ik_llama.cpp head-to-head** (engine swap, same GGUF): `-fmoe -rtr -ser` vs our stock build,
-   same expert placement. Tests philosophy-(b) fast-CPU-compute vs our (a) pinned-stream.
+1. **Optimize expert placement in stock llama.cpp** (free) — **DONE 2026-08-01, the project's
+   biggest decode win.** qwen36-35B-Q4: sweeping `--n-cpu-moe` from 40 (max offload, our whole
+   campaign's placement, 21 GB VRAM idle) down to **6** took decode **27.6 → 101.7 t/s (+268%,
+   3.7×)**, respecting the 4 GB VRAM reserve (ncmoe=4 breaks it). **KV `q4_0` vs `q8_0` was a null
+   lever at 8 k ctx** (±2%, frees ~46 MB) — its payoff is long-context only. **New stock baseline
+   for every later A/B: ~102 t/s at ncmoe=6, not 27 t/s.** See STATUS.md §E1. Pinning is null at
+   this optimum — the fork only helps in forced-heavy-offload. Next Tier-1 is the engine swap.
+2. **ik_llama.cpp head-to-head** — **DONE 2026-08-02.** At the operating point (ncmoe=6, matched
+   GGUF/KV/`-fa`, n=4 clean): **decode TIE** (+0.29%, within noise), ik **+75% prefill**. Sweeping
+   ncmoe shows ik's decode edge GROWS with offload (+2%→+5.3%→+9.6% at 6→16→28) — philosophy (b)
+   degrades less than (a) — **but ik is unusable there on 64 GB**: `-rtr` OOMs at heavy offload,
+   ik's RSS breaches the 16 GB reserve at ncmoe16+ (15.3/9.6 GB free), ncmoe40 generation crashes.
+   **Engine swap is a decode tie where we run and RAM-unsafe where it would win.** Revisit at 128 GB
+   + a model too big to place. See STATUS.md §E2. Needed a `--reset-between` (per-config WSL reset)
+   and per-arm ports to measure cleanly.
 3. **KTransformers head-to-head** (engine swap): the purpose-built rival; CUDA-graph decode +
    Marlin/AMX kernels. Decide which offload engine wins before more fork-tuning.
 

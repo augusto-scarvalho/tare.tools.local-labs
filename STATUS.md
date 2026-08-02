@@ -128,6 +128,99 @@ interact with the prefetch, and the L18's non-monotonic ordering was confounding
 
 ---
 
+## TIER-1 — the speed pivot: §E1 placement is the biggest decode win in the project (2026-08-01)
+
+After §B1 closed, the pivot to engine/placement levers (`LANDSCAPE.md` §5) paid off on the
+first experiment. **Every A/B this project ran used *maximum* offload (`ncmoe=40`, all 40 expert
+layers on the CPU) — the single worst decode placement** — while **21.2 GB of the 24 GB card sat
+idle** (qwen36-35B-Q4 uses only ~2.8 GB at max offload). §E1 sweeps `ncmoe` DOWN, bringing
+experts back onto the GPU until the VRAM reserve binds. Stock llama.cpp, no fork, no build:
+
+| ncmoe | decode t/s (stock) | VRAM free | status |
+|---:|---:|---:|---|
+| **40** | **27.6** | 20.7 GB | the campaign's placement — worst case |
+| 28 | 40.8 | 15.1 GB | |
+| 16 | 70.4 | 9.5 GB | |
+| 8 | 93.1 | 5.8 GB | |
+| **6** | **101.7** | 4.9 GB | **← recommended optimum (respects the 4 GB VRAM reserve)** |
+| 4 | 113.4 | 3.9 GB | REJECTED — 3.9 GB free < 4 GB reserve |
+
+**Decode 27.6 → 101.7 t/s = +268% (3.7×), free**, purely by expert placement. The 4 GB VRAM
+reserve is the binding constraint (ncmoe=4 would give ~113 t/s but breaks it). Decode is
+near-deterministic here (CV ~0.006), so n=2 resolves the curve; the reserve boundary is sharp.
+
+**The KV-format factor (q4_0 vs q8_0) is a NULL lever at this context.** At ctx=8192, q4_0
+decode matches q8_0 within noise (±2%) and frees only **~46 MB** of VRAM — the KV cache is tiny
+relative to weights at 8 k, and Ampere's flash-attention fast path is already active for both.
+q4_0's payoff is reserved for **long context** (the 128 k agentic case, `[[agentic-local-model-plan]]`),
+where KV VRAM dominates and would otherwise force `ncmoe` back up. Untested here; flagged for §E4.
+
+**What this does to the pinning story.** The `pin` arm ran free alongside (genpin), giving the
+within-model dose-response: pin's gen benefit **rises with offload** (ncmoe8 ~0% → ncmoe40 +5%)
+and is **null at the optimal placement** (ncmoe≤8, near-resident). So *at the operating point you
+would actually use*, the fork's pinning is irrelevant — the win is 100% placement. Pinning earns
+its keep only in the **forced-heavy-offload** regime (a model too big to place well, or a smaller
+GPU), which is exactly the §B1 finding seen from the speed side. **The stock baseline every later
+Tier-1 A/B must beat is now ~102 t/s at ncmoe=6, not the 27 t/s at ncmoe=40 we had been citing.**
+Raw records: `runs/ab-genpin-qwen36-35b-e1-place-q8/` and `-e1-place-q4/`; the `--kv` flag and the
+placement axis are in `ab_isolate.py`.
+
+## §E2 — ik_llama.cpp vs stock: TIE on decode at the operating point; ik wins only where our envelope won't let it run (2026-08-02)
+
+The Tier-1 head-to-head: philosophy **(a) stream-to-GPU** (our stock llama.cpp) vs **(b)
+compute-on-CPU** (`ikawrakow/ik_llama.cpp`, fused-MoE + optional run-time-repack). Same GGUF
+(qwen36-35B-Q4), same KV (q8_0), `-fa on` both arms, matched placement. **Swept ncmoe** (per the
+sweep-first rule — the two philosophies converge at low offload and diverge as experts leave the
+GPU, so a single point would mislead). Envelope-clean via a new `--reset-between` (per-config WSL
+reset — ik's larger host footprint otherwise contaminates the next arm's load).
+
+**At the operating point (ncmoe=6, where a well-fitting model actually runs), n=4 clean:**
+
+| metric | stock (a) | ik (b) | Δ |
+|---|---:|---:|---|
+| decode | ~95.3 t/s | ~95.5 t/s | **+0.29% — within noise** (\|Δ\|<1.4%) |
+| prefill | ~568 t/s | ~992 t/s | **+75% — ik faster** |
+
+**The engine swap does NOT speed up decode where you would run.** ik's only decode-relevant win is
+prefill (compute-bound → its fast CPU/fused kernels help). Mechanically expected: at ncmoe=6, 34 of
+40 expert layers are already on the GPU for BOTH engines, so decode is nearly the same computation.
+
+**Sweeping ncmoe reveals ik's decode advantage GROWS with offload** (r0, single-shot — decode here
+is near-deterministic):
+
+| ncmoe | stock decode | ik decode | Δ decode | Δ prefill |
+|---:|---:|---:|---:|---:|
+| 6 | 93.5 | 95.3 | +2.0% | +64% |
+| 16 | 64.6 | 68.0 | **+5.3%** | +116% |
+| 28 | 39.7 | 43.5 | **+9.6%** | +122% |
+| 40 | 27.7 | *crash* | — | — |
+
+So philosophy (b) degrades **less** than (a) as experts move to the CPU — for a model FORCED into
+heavy offload (too big to place well; the 128 GB future), ik would win decode. **But ik cannot run
+cleanly there on this box, three ways:**
+
+1. **`-rtr` (ik's fast CPU-GEMM repack) OOMs at heavy offload** — repacking all 40 expert layers
+   (~18 GB) blows the WSL RAM cap and kills the load (reproduced twice). Its speed mode needs
+   *offline* `_R4` quants, not run-time repack, once offload is heavy.
+2. **ik's host-RAM footprint breaches the 16 GB Windows reserve** at moderate offload even without
+   `-rtr`: ncmoe16 → 15.3 GB free, ncmoe28 → 9.6 GB free (both REJECTED by the guard). Stream-to-GPU
+   keeps experts GPU-side and stays within the reserve.
+3. **ncmoe=40 generation crashes ik outright** (loads fine, dies running the workload with all 40
+   expert layers computing on CPU).
+
+**Net for our hardware:** the engine swap is a **decode tie** at the placement we use and is
+**RAM-unsafe at the offload depths where it would help** — its advantage lives exactly in the
+regime our safety envelope forbids on 64 GB. Revisit ik when **128 GB RAM** lands (relieves the
+reserve breach) AND a model too big for GPU-placement is in play; then its +75% prefill and
+offload-scaling decode edge become reachable. **The `--defer-experts` squeeze FAILED to rescue it**
+(all 4 rounds at ncmoe16/28 still REJECTED on RAM — deferring load-time residency does not shrink
+the steady-state compute RSS): the RAM wall is hard, not a load-phase artifact. Raw:
+`runs/ab-e2ik-qwen36-35b-e2-ik-ncmoe6/` (clean n=4), `runs/ab-e2ikdef-qwen36-35b-e2-ikdef/`,
+`runs/ab-e2iknr-qwen36-35b-e2-iknr-sweep/` (the offload curve). Arm-sets `e2ik`/`e2iknr`/`e2ikdef`
+and `--reset-between` in `ab_isolate.py`.
+
+---
+
 ## OPEN — as prominent as the answers, on purpose
 
 - **§B1 — transfer-bound generation — CLOSED as UNREACHABLE on this hardware (2026-07-31).**
@@ -179,6 +272,54 @@ interact with the prefetch, and the L18's non-monotonic ordering was confounding
   **lower bound**: at 3B active it cannot show the 12B-active severity of Nemotron/Laguna-S,
   where ~4x the per-token transfer could make it larger — but that regime is unreachable here.
   Raw records: `runs/ab-genpin-qwen36-35b-maxoff12/` (n=12) and `-maxoff/` (n=6, corroborating).
+
+  **The cross-architecture dose-response — mechanism confirmed, and a pre-registered reframe
+  FALSIFIED (2026-08-01).** To locate the dose variable we ran genpin across **5 MoE
+  architectures** (all at maximum offload, n=12 each) plus **3 dense controls** (n=4-12). The
+  dense controls are the clean negative: gen Δ ~0, prefill strongly positive — the generation
+  benefit is **expert-streaming-specific**, not a generic pin effect. The sharpest isolation is
+  same-architecture: **Qwen3.6-27B-dense (Δ +0.74%, CI crosses 0) vs Qwen3.6-35B-MoE (+2.1%)**.
+
+  | dense control | gen Δ | prefill Δ |
+  |---|---|---|
+  | Mistral-24B (ngl20, n=12) | −0.13% (\|Δ\|<0.04) | +90.1% |
+  | Qwen3.6-27B-dense (ngl40, n=4) | +0.74% (CI∋0) | +58.6% |
+  | ThinkingCap-27B (ngl40, n=4) | +0.23% (sign p=1.0) | +64.0% |
+
+  The 5 MoE, sorted by active-expert count:
+
+  | model | active | expert size | **bytes/token** | gen Δ | base tps |
+  |---|---:|---:|---:|---:|---:|
+  | gpt-oss | 4 | 13.2M | 1269M | +0.01% | 23.0 |
+  | ernie | 6 | 7.65M | 1239M | +0.84% | 23.7 |
+  | gemma | 8 | 3.35M | 803M | +1.99% | 25.2 |
+  | qwen36 | 8 | 1.90M | 608M | +1.95% | 27.1 |
+  | granite* | 10 | 6.12M | 2448M | −0.19% | 11.2 |
+
+  *granite = Granite-4.0-H, a Mamba-hybrid; base tps ~half the others → **compute-bound, not
+  transfer-bound**.
+
+  We had pre-registered a **"corrected dose = per-token expert-transfer bytes"** hypothesis
+  (built to explain why granite looked off-curve on the raw active-count axis). Recomputing the
+  bytes/token from GGUF geometry and correlating against the measured Δ **falsifies it**:
+
+  - Δ% vs **bytes/token**: Pearson **r = −0.84** — *wrong sign*. gpt-oss moves ~2× qwen's bytes
+    and is null; qwen moves the least and gains +2%. More bytes ⇒ **less** benefit. Dead.
+  - Δ% vs **active-expert count** (the original axis): clean monotone **4→6→8**, and the
+    decisive discriminator — **gemma and qwen share active=8 and give the same Δ (~1.97%)
+    despite experts differing 1.76× in size**. Same count → same gain, size-independent.
+
+  **Two conclusions.** (1) The benefit scales with the **number of discrete per-token expert
+  H2D transfers**, not the bytes moved — consistent with pinning removing **per-transfer
+  overhead/latency** (staging setup, sync), *not* bandwidth-time; at decode the bandwidth term
+  does not dominate. The original active-count axis was correct; the bytes "correction" is
+  discarded. (2) **Granite was never "off-curve by dose"** — it is off-curve because a
+  Mamba-hybrid is compute-bound (tps ~11 vs 23-27) and sits **outside the transfer-bound
+  regime** where pinning can act. Architectural exception, not a miscalibrated dose. The
+  headline is unchanged and now mechanistically grounded: transfer-bound-only, active-count-
+  scaled, ~2% ceiling on this hardware. Analysis: `scratchpad/dose_bytes.py`; raw records:
+  `runs/ab-genpin-{gpt-oss,ernie-4.5-21b,gemma-4-moe,granite-4.0-h,qwen36-35b}-*/` and the
+  dense controls `runs/ab-genpin-{mistral-24b,qwen36-27b-dense,thinkingcap-27b}-*/`.
 
 - **The −10.4% no-mmap residual.** One of the three historically disputed deltas. Not
   covered by any `ab-*` directory here; **still open**, needs its own clean paired A/B.

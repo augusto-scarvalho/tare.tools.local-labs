@@ -169,7 +169,12 @@ in tuning our fork. Each card's **engine/build is a hard-to-change whole-plot fa
 GGUF, expert placement, context, and prompt fixed across arms. Metric everywhere is `gen_tps`
 (decode), floor-checked; `prompt_tps` reported alongside.
 
-### §E1 — expert placement + KV format (stock llama.cpp, FREE, do first)
+### §E1 — expert placement + KV format (stock llama.cpp, FREE, do first) — **ANSWERED 2026-08-01**
+- **result** — CONFIRMED and then some. qwen36-35B-Q4 decode **27.6 t/s (ncmoe=40, our campaign
+  placement) → 101.7 t/s (ncmoe=6) = +268% (3.7×)**, respecting the 4 GB VRAM reserve; ncmoe=4
+  (~113 t/s) breaks it. **KV q4_0 vs q8_0 = null at 8 k ctx** (±2%, frees ~46 MB) — long-context
+  lever only. Pin is null at the optimum (win is placement, not the fork). New stock baseline for
+  §E2–§E4: **~102 t/s at ncmoe=6**. Full write-up: STATUS.md §E1; `[[placement-is-the-decode-lever]]`.
 - **hypothesis** — decode t/s is maximized by keeping as many expert layers on the GPU as fit
   before VRAM spills (our runs used *max* offload, likely past the optimum), and by a KV format
   that stays on Ampere's flash-attention fast path.
@@ -180,7 +185,13 @@ GGUF, expert placement, context, and prompt fixed across arms. Metric everywhere
 - **how** — reuse `ab_isolate`'s dose axis: sweep `ncmoe` from smallest-that-fits up to max, plus
   a KV-format arm. No fork, no build — the cheapest Tier-1 win, and it recalibrates every later A/B.
 
-### §E2 — ik_llama.cpp vs our stock (philosophy (b) vs (a)) — the key head-to-head
+### §E2 — ik_llama.cpp vs our stock (philosophy (b) vs (a)) — **ANSWERED 2026-08-02**
+- **result** — at the operating point (ncmoe=6, n=4 clean): decode **TIE** (+0.29%, within noise),
+  ik **+75% prefill**. Swept ncmoe: ik's decode edge grows with offload (+2%→+5.3%→+9.6% at
+  6→16→28) — (b) degrades less than (a) — but ik is unusable at that offload on 64 GB: `-rtr` OOMs,
+  RSS breaches the 16 GB reserve at ncmoe16+, ncmoe40 gen crashes. **Verdict: no decode win where we
+  run; RAM-unsafe where it would win. Revisit at 128 GB + a too-big-to-place model.** Full write-up:
+  STATUS.md §E2; `[[ik-ties-stock-decode]]`.
 - **hypothesis** — for offloaded-MoE decode on the 3090, `ik_llama.cpp` (`-fmoe` fused MoE, `-rtr`
   run-time-repack, `-ser` smart-expert-reduction, fast CPU GEMM) beats our stream-to-GPU path by a
   margin worth the engine swap.
@@ -223,7 +234,11 @@ GGUF, expert placement, context, and prompt fixed across arms. Metric everywhere
 
 ---
 
-_Status: §B1 campaign running (5 MoE done/in-flight + 3 dense controls). §B2–§B5 and §E1–§E4
-designed and pre-registered here; not started — the campaign runs to completion first, then the
-pivot is Tier-1 (§E1 → §E2 → §E3/§E4), ordered by inference-speed payoff. `robust.py` now carries
-`trend_slope_ci` (dose-response) and `non_inferiority` for the synthesis and the quality A/Bs._
+_Status (2026-08-01): §B1 campaign **CLOSED** — 5 MoE + 3 dense controls done. Result: the
+generation benefit scales with **active-expert count**, not transfer bytes (the pre-registered
+bytes/token reframe was **falsified**, r=−0.84); granite is a compute-bound Mamba exception, not
+a dose miscalibration. See STATUS.md §B1 and `[[pin-dose-active-count]]`. **§E1 DONE — the biggest
+decode win in the project:** placement (ncmoe 40→6) took qwen36-35B decode **27.6 → 101.7 t/s
+(+268%)**; KV q4_0 null at 8 k. New stock baseline **~102 t/s at ncmoe=6**. **Next: §E2 (ik_llama.cpp
+head-to-head)** — build it on the idle GPU, then A/B at matched placement (ncmoe=6). `robust.py`
+carries `trend_slope_ci` and `non_inferiority` for the synthesis and quality A/Bs._
