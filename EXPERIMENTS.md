@@ -262,6 +262,14 @@ GGUF, expert placement, context, and prompt fixed across arms. Metric everywhere
   Pin vs pageable recovers **+2.5% → +16.8%** (800→8000 tok), rising with depth — a lower bound (only
   25% of tensors pinned). Held in reserve: KV-on-GPU (~94) still dominates, so this is a **128k
   long-context / VRAM-starved** lever, not for the 8k deploy. STATUS §B2; `runs/b2-kvram/`.
+- **§E5** MoE expert cache (`--moe-cache-slots`/`--moe-cache-profile`, in the `stack` build; = Fable's
+  post-snapshot `moe-expert-cache` / upstream #20757) — **ANSWERED 2026-08-02: NULL/redundant on this
+  model.** Routing skew (from a real `llama-moe-trace`, `analyze_moe_skew.py`) is only mild — top-8
+  experts = 28% of decode accesses, top-64 = 79% (Qwen3 load-balancing aux-loss). Measured at ncmoe=40
+  vs static `--n-cpu-moe` at matched VRAM (`probe_e5_cache.sh`, `probe_e5b_static.sh`): static equals or
+  beats the cache at every budget (~6.3 GB: static 38.9 vs cache 38.5; ~8.8 GB: ~45.4 vs 45.8 tie). The
+  cache recovers heavy-offload decode only +23% (to ~46 t/s) and no more VRAM-efficiently than lowering
+  ncmoe. Not housed in the fork; revisit only for a concentrated-routing model. STATUS §E5; `runs/e5-moe-cache/`.
 
 ---
 

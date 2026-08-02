@@ -1,0 +1,11 @@
+/mnt/c/projects/local-model-lifecycle/probe_e5b_static.sh: line 32:   379 Killed                  "$BIN" -m "$MODEL" -fa on --n-36       38.92      6153      
+32       43.51      8011      
+28       47.93      9867      
+24       56.27      11723     
+
+Overlay vs cache: cache s64=45.8 t/s @ 8823 MiB, s32=38.5 @ 6491. If a static ncmoe hits
+the SAME VRAM with >= the t/s, the cache is redundant with placement for this load-balanced
+model (top-8 only 28% hit). If the cache beats static at equal VRAM, it earns the fork.
+jects/local-model-lifecycle/probe_e5b_static.sh: line 32:   525 Killed                  "$BIN" -m "$MODEL" -fa on --n-cpu-moe "$NC" --ctx-size "$CTX" --cache-type-k q8_0 --cache-type-v q8_0 --host 127.0.0.1 --port "$PORT" > /tmp/e5b_$NC.log 2>&1
+/mnt/c/projects/local-model-lifecycle/probe_e5b_static.sh: line 32:   587 Killed                  "$BIN" -m "$MODEL" -fa on --n-cpu-moe "$NC" --ctx-size "$CTX" --cache-type-k q8_0 --cache-type-v q8_0 --host 127.0.0.1 --port "$PORT" > /tmp/e5b_$NC.log 2>&1
+/mnt/c/projects/local-model-lifecycle/probe_e5b_static.sh: line 32:   652 Killed                  "$BIN" -m "$MODEL" -fa on --n-cpu-moe "$NC" --ctx-size "$CTX" --cache-type-k q8_0 --cache-type-v q8_0 --host 127.0.0.1 --port "$PORT" > /tmp/e5b_$NC.log 2>&1

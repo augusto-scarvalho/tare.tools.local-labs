@@ -80,6 +80,47 @@ proceed). See `[[placement-is-the-decode-lever]]`.
 
 ---
 
+## 1c. Build consolidation — DECIDED YES (2026-08-02): the fork is upstream master + §B2b, nothing more
+
+§1b said "not yet, and only once a non-upstream lever is proven." §E1–§E5 and §B1–§B5 now close that
+condition, and a **due-diligence scan** (4 parallel research agents over ggml-org issues/PRs, rival
+forks, the Fable fork's current state, and correctness footguns for our exact deploy) ran BEFORE building,
+to make sure no lever was missed. What it found:
+
+- **Every validated decode WINNER is upstream:** placement (`--n-cpu-moe`), CUDA graphs (default on),
+  MTP (`--spec-type draft-mtp`). **EAGLE3** (#18039, merged) is *inferior* to MTP for offloaded MoE
+  (parallel verify amplifies expert H2D) — stay on `draft-mtp`.
+- **The one candidate non-upstream decode lever — the MoE expert cache** (Fable's post-snapshot
+  `fable5/moe-expert-cache`; upstream #20757's PoC; an early copy already in our `stack` build) — was
+  **tested (§E5) and is NULL/redundant** with static placement, because Qwen3.6's load-balanced routing
+  isn't concentrated enough (top-8 = 28% hit). At every VRAM budget, static `--n-cpu-moe` ≥ the cache.
+- **No other engine/fork beats stock decode here:** KTransformers still AMX-gated (even with its new
+  AVX2 path), ik redundant, vLLM/#20757 caches are 8 GB-targeted, research papers ship no consumer path.
+- **The only genuinely novel, validated, non-upstream lever the whole campaign produced is §B2b**
+  (KV-host-pin, `patches/b2b-kv-host-pin.patch`) — and it only pays in the VRAM-starved long-context
+  (`--no-kv-offload`) regime.
+
+**DECISION: the consolidated fork = FRESH upstream master + the §B2b patch (env-gated), and nothing
+else.** Exactly one non-upstream win, per §1b's rule ("only validated non-upstream decode wins, not an
+anthology"). prefetch (−22% decode tax), turbo-mma-decode (null, STATUS §6), and the expert cache (§E5
+null) are all excluded on evidence.
+
+**Base + hardening (from the correctness scan):**
+- **Rebase §B2b onto fresh upstream master**, past **#26135** (the `--load-mode` no-mmap+pin fix that
+  prevents a `--n-cpu-moe` swap-thrash decode cliff) — our snapshot `720d7fa40` (Jul 25) predates it.
+- **Build with `-DGGML_CUDA_FA_ALL_QUANTS=ON`** (#24485: avoid a silent FA→CPU fallback for quantized KV).
+- **Blessing gates:** (1) re-verify `draft-mtp` token-identity at `--spec-draft-n-max 4` (#23335 flags an
+  open divergence bug — already **refuted on our build in §E4** via `verify_mtp.py`; re-confirm on the
+  fork); (2) coherence / `-nkvo` spot-check (#20140 — low risk, §E4 output was coherent + token-identical).
+- The 27B "fused Gated Delta Net disabled" warning is **cosmetic** (correctness-safe fallback), no guard.
+
+**Future R&D, explicitly not now:** #20757's expert cache would only pay on a *concentrated-routing*
+model (not Qwen3-family); §B2b currently pins ~25% of KV tensors and could pin all layers if long-context
+becomes a priority. The 5 dead build trees (base/fork/rebase/stack/local) are retired **after** the fork
+is built and blessed.
+
+---
+
 ## 2. Upstream `ggml-org/llama.cpp`
 
 - **Expert placement is already in mainline:** `--n-cpu-moe N` (PR #15077, merged) and

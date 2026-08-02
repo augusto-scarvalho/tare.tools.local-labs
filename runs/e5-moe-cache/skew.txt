@@ -1,0 +1,14 @@
+layers=40  n_expert=256  n_used=8
+  topN  mean hit%     min     max   (fraction of decode accesses captured)
+     4      17.9%    5.6%   30.4%
+     8      28.4%   10.5%   44.5%
+    16      41.6%   19.0%   59.0%
+    32      59.0%   33.0%   74.5%
+    64      78.8%   52.2%   89.2%
+   128      95.1%   77.8%   99.0%
+
+top8: mean hit 28.4%  vs uniform 3.1%  -> skew x9.07
+top32: mean hit 59.0%  vs uniform 12.5%  -> skew x4.72
+
+Verdict guide: for the cache to pay, top-N (N = a few x n_used, fitting spare VRAM)
+must capture MOST accesses. Near-uniform (skew ~1x) => cache cannot help this model.

@@ -1,0 +1,18 @@
+/mnt/c/projects/local-model-lifecycle/probe_e5_cache.sh: line 41:   363== arm=s8 (ncmoe=40 --moe-cache-slots 8 --moe-cache-profile /home/augus/models/qwen36-35b-moe-trace.csv) ==
+  decode=35.93    t/s   vram_used=4741   MiB
+== arm=s32 (ncmoe=40 --moe-cache-slots 3/mnt/c/projects/local-model-lifecycle/probe_e5_cache.sh: line 41:   44  decode=38.52    t/s   vram_used=6491   MiB
+== arm=s64 (ncmoe=40 --moe-cache-slots 64 --moe-cache-profile /home/augus/models/qwen36-35b-moe-trace.csv) ==
+  decode=45.76    t/s   vram_used=8823   MiB
+
+============================================================
+§E5  MoE expert cache at ncmoe=40 (baseline off ~31 t/s; resident ncmoe=6 ~98 t/s)
+============================================================
+arm    decode t/s vram MiB     gain vs off
+off    37.24      4229         +0.0%     
+s8     35.93      4741         -3.5%     
+s32    38.52      6491         +3.4%     
+s64    45.76      8823         +22.9%    
+
+Rising decode with slots => cache recovers heavy-offload decode (real lever, at VRAM cost).
+Compare the VRAM used to what static ncmoe=6 costs (~19 GB) for ~98 t/s: is dynamic caching
+more VRAM-efficient than static placement? That is the fork question.

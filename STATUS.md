@@ -467,6 +467,45 @@ on a regime that is otherwise −77%. Probes: `probe_b2_kvram.sh` (§B2a), `prob
 
 ---
 
+## §E5 — MoE expert cache: redundant with static placement on this (load-balanced) model (2026-08-02)
+
+Surfaced during the build-consolidation due-diligence (LANDSCAPE §1b): the Fable author's post-snapshot
+work and upstream #20757 both propose a **hot-expert cache** — keep the N most-routed experts per layer
+resident in VRAM (dual hot/cold `mul_mat_id`), so hits skip the per-token H2D. Our `stack` build already
+carries an early version (`--moe-cache-slots N` + `--moe-cache-profile`, `llama-moe-trace`), never
+exercised. The one candidate lever that might have justified our own fork — so it was tested properly.
+
+**Precondition (routing skew), from a real trace.** `llama-moe-trace` on Qwen3.6-35B-A3B (400 decode
+tokens) → `analyze_moe_skew.py`. The cache's ceiling is the decode-access fraction the top-N experts
+capture per layer:
+
+| top-N / layer | hit% (mean) | vs uniform |
+|---:|---:|---:|
+| 8  | 28.4% | 9.1× |
+| 32 | 59.0% | 4.7× |
+| 64 | 78.8% | — |
+
+Skewed (9× at top-8) but NOT concentrated: you need top-64 to catch ~79%. That is the load-balancing
+aux-loss Qwen3-MoE trains with, working as designed — and it caps what a hot-expert cache can do.
+
+**The measurement (`probe_e5_cache.sh` + `probe_e5b_static.sh`, stack build, ncmoe=40, depth 256).**
+Cache slots vs static `--n-cpu-moe`, overlaid at matched VRAM — the fair comparison (same build, depth):
+
+| VRAM | cache (slots) | static (--n-cpu-moe) | winner |
+|---:|---|---|---|
+| ~4.7 GB | s8 → 35.9 t/s | ncmoe40 → 37.2 t/s | **static** |
+| ~6.3 GB | s32 → 38.5 t/s | ncmoe36 → 38.9 t/s | **static** |
+| ~8.8 GB | s64 → 45.8 t/s | ncmoe~31 → ~45.4 t/s | tie |
+
+**At every VRAM budget static placement equals or beats the cache.** The cache recovers heavy-offload
+decode only modestly (+22.9% at s64, to ~46 t/s — nowhere near resident ncmoe=6's ~98) and no more
+VRAM-efficiently than simply lowering `--n-cpu-moe`. **Verdict: NULL/redundant on this model.** It would
+only win with concentrated routing (a few dominant experts); Qwen3.6 is deliberately load-balanced. Not
+housed in the fork. (Same door as §E2/§B5: revisit only if a differently-routed model appears.) Raw:
+`runs/e5-moe-cache/`; the cache lives in the `stack` build, not carried forward.
+
+---
+
 ## OPEN — as prominent as the answers, on purpose
 
 - **§B1 — transfer-bound generation — CLOSED as UNREACHABLE on this hardware (2026-07-31).**
