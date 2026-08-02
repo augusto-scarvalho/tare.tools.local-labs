@@ -232,8 +232,16 @@ GGUF, expert placement, context, and prompt fixed across arms. Metric everywhere
   upstream #25642 — +30% t/s, ~82% accept.** Biggest single-stream lever for the long-context agent.
 
 ### Companion / lower-tier (from the research, kept for completeness)
-- **§B3** prefetch reconciliation via **GPU-idle%** instrumentation — explains our tax vs the
-  3060's win; cheap, and adds the discriminating metric to the harness.
+- **§B3** prefetch reconciliation via **GPU-idle%** instrumentation — **ANSWERED 2026-08-02.** The
+  harness now samples `utilization.gpu` over the serving window (`HostSample.gpu_util_pct` →
+  `Watch.gpu_util_mean` → `RunResult.gpu_util_mean`, printed per config in `ab_isolate`). Null-arms
+  placement sweep (ncmoe 6/24/40, reproducible to ~1pp): idle climbs **39%→63%** as offload deepens
+  6→24 (decode 98→53 t/s) — the +24pp is the PCIe expert-transfer stall §E1 removes. **Even at the
+  optimum the 3090 sits ~40% idle** (batch-1 A3B is bandwidth-bound), so prefetch has little
+  expert-idle to fill at ncmoe=6 → a tax; a 16 GB card forced to ncmoe≥32 sits in the high-idle regime
+  → prefetch wins. Same mechanism, opposite sign. Limit: `utilization.gpu` floors ~37% for ncmoe≥24
+  (coarse duty, not SM-occupancy), so it resolves the deploy range but not the heavy tail. STATUS §B3;
+  `runs/ab-null-qwen36-35b-b3idle/`.
 - **§B4** CUDA-graph × pinning — **ANSWERED 2026-08-02.** CUDA graphs are a **+27% decode lever**
   (ncmoe=6, n=4, Cliff +1.0: graphs-off ~79 → graphs-on ~100 t/s) but llama.cpp has them **ON by
   default**, so every number here already banks it — no untapped SGLang-style win. **Pinning-enables-

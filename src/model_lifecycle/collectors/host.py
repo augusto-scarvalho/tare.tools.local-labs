@@ -24,6 +24,12 @@ class HostSample:
     vram_total_mb: int
     vram_used_mb: int
     ram_available_mb: int
+    # GPU core utilisation, percent busy over nvidia-smi's sampling window (§B3). The
+    # ENVELOPE never reads this -- it is instrumentation, not a reserve -- so it carries a
+    # default and construction sites that only care about memory (the guard self-check)
+    # need not supply it. `sample()` always populates it from a real read; the default is
+    # for hand-built samples only, and 0 there means "not measured", never a silent floor.
+    gpu_util_pct: int = 0
 
     @property
     def vram_free_mb(self) -> int:
@@ -56,13 +62,19 @@ _NVIDIA_SMI = "nvidia-smi.exe"
 _POWERSHELL = "powershell.exe"
 
 
-def read_gpu() -> tuple[int, int]:
-    """(total_mb, used_mb) for GPU 0."""
-    out = _run([_NVIDIA_SMI, "--query-gpu=memory.total,memory.used",
+def read_gpu() -> tuple[int, int, int]:
+    """(total_mb, used_mb, util_pct) for GPU 0.
+
+    `utilization.gpu` is percent of the last sampling window a kernel was resident on the
+    SMs. In the bandwidth-bound decode regime it is the DISCRIMINATING signal for §B3: at a
+    good placement the card computes back-to-back (util high, idle low); at heavy offload it
+    stalls on PCIe waiting for the next expert (util low, idle high). One extra CSV column
+    on a query the guard already runs every second -- free instrumentation."""
+    out = _run([_NVIDIA_SMI, "--query-gpu=memory.total,memory.used,utilization.gpu",
                 "--format=csv,noheader,nounits"])
     line = out.strip().splitlines()[0]
-    total, used = (int(x.strip()) for x in line.split(","))
-    return total, used
+    total, used, util = (int(x.strip()) for x in line.split(","))
+    return total, used, util
 
 
 def read_ram_available_mb() -> int:
@@ -86,13 +98,15 @@ def read_ram_available_mb() -> int:
 
 
 def sample() -> HostSample:
-    total, used = read_gpu()
+    total, used, util = read_gpu()
     return HostSample(vram_total_mb=total, vram_used_mb=used,
-                      ram_available_mb=read_ram_available_mb())
+                      ram_available_mb=read_ram_available_mb(), gpu_util_pct=util)
 
 
 if __name__ == "__main__":  # self-check: python -m model_lifecycle.collectors.host
     s = sample()
-    print(f"vram {s.vram_free_mb}/{s.vram_total_mb} MB free | ram {s.ram_available_mb} MB available")
+    print(f"vram {s.vram_free_mb}/{s.vram_total_mb} MB free | ram {s.ram_available_mb} MB "
+          f"available | gpu {s.gpu_util_pct}% busy")
     assert s.vram_total_mb > 0 and s.ram_available_mb > 0, "host readings must be positive"
+    assert 0 <= s.gpu_util_pct <= 100, "gpu utilisation must be a percent"
     print("host collector self-check OK")

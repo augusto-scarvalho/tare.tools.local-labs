@@ -341,6 +341,49 @@ our placement** — a rival engine must beat a 100 t/s that already banks the gr
 
 ---
 
+## §B3 — GPU-idle instrumentation: the placement penalty is a stall, and it's now a harness metric (2026-08-02)
+
+Every decode number in this project is a black box on WHY a placement costs what it does. §B3 adds the
+missing instrument: the harness now samples `utilization.gpu` every second during the serving window and
+reports mean **%busy** (idle% is its complement) alongside t/s, per config. Serving-window only — the
+accumulator is gated on `mark_healthy()`, so the load transient (card near-idle while 21 GB streams in)
+never dilutes the mean. One extra CSV column on the query the guard already runs; code in
+`collectors/host.py` (`HostSample.gpu_util_pct`), `control_plane/guard.py` (`Watch.gpu_util_mean`),
+`workloads/throughput.py` (`RunResult.gpu_util_mean`). Validated on a null-arms placement sweep
+(MASTER, ncmoe {6,24,40}, n=2), `runs/ab-null-qwen36-35b-b3idle/`:
+
+| ncmoe | GPU busy | GPU idle | decode |
+|---:|---:|---:|---:|
+| 6  | ~60% | ~40% | ~98 t/s |
+| 24 | ~37% | ~63% | ~53 t/s |
+| 40 | ~37% | ~63% | ~31 t/s |
+
+(base vs the identical `same` arm agree within ~1pp at every dose — the metric is reproducible.)
+
+**Three facts:**
+1. **Idle% tracks the placement transition.** Idle climbs 39%→63% as offload deepens 6→24, exactly
+   mirroring the 98→53 t/s halving. That **+24pp of idle is the PCIe expert-transfer stall** that §E1's
+   placement lever removes by bringing experts back onto the card — the mechanism, now measured, not
+   inferred.
+2. **Even at the OPTIMUM the 3090 sits ~40% idle.** Batch-1 A3B decode activates only ~3B params/token;
+   the card finishes each token's math and waits on memory. So ~40% of decode is intrinsic
+   bandwidth-bound idle present even at ncmoe=6 (little of it PCIe — most weights are resident there),
+   and the offload penalty stacks PCIe-stall idle ON TOP. This is why a prefetch that fills
+   *expert-transfer* idle can only ever recover a slice, and why it is a **tax at ncmoe=6**: at the good
+   placement there is barely any expert-transfer idle to fill, only VRAM/KV-bandwidth idle it cannot touch.
+3. **The metric floors in deep offload.** ~37% busy at BOTH ncmoe 24 and 40 though decode halves again
+   (53→31 t/s). `utilization.gpu` is a coarse "was a kernel resident this window" duty, not SM-occupancy,
+   so it resolves the **deploy-relevant** 6↔24 range cleanly but saturates in the heavy-offload tail —
+   finer resolution there needs DCGM/Nsight SM-activity counters, not the nvidia-smi field. Recorded as a
+   known limit of the instrument, not smoothed over.
+
+**Reconciles §B1's tax vs the 3060's win:** a 16 GB card is forced to ncmoe≥32, deep in the high-idle
+regime where the GPU genuinely stalls on expert transfers — prefetch has idle to fill, so it wins. Our
+3090 runs at ncmoe=6 with little fillable expert-idle — prefetch is a tax. Same mechanism, opposite sign,
+set by where on this curve the card operates.
+
+---
+
 ## OPEN — as prominent as the answers, on purpose
 
 - **§B1 — transfer-bound generation — CLOSED as UNREACHABLE on this hardware (2026-07-31).**

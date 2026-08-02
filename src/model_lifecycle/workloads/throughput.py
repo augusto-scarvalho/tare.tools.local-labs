@@ -35,6 +35,8 @@ class RunResult:
     min_free_vram_mb: int | None = None
     min_available_ram_mb: int | None = None
     load_min_ram_mb: int | None = None   # pressure during LOAD: recorded, never enforced
+    gpu_util_mean: float | None = None   # §B3: mean GPU-core % busy over the serving window
+    gpu_util_samples: int = 0            # how many util reads backed that mean
     host_recovered: bool = True          # False => the NEXT run started in a shrunken envelope
     gen_tps_lower_bound_count: int = 0   # how many rates are UNDERSTATED (no TTFT boundary)
     cached_prefill_count: int = 0        # prefills served from KV cache: NOT real prefill
@@ -178,6 +180,8 @@ def run_config(adapter: LlamaCppAdapter, profile: ServerProfile, *, config_id: s
             min_free_vram_mb=watch.min_free_vram_mb,
             min_available_ram_mb=watch.min_available_ram_mb,
             load_min_ram_mb=watch.load_min_ram_mb,
+            gpu_util_mean=watch.gpu_util_mean,
+            gpu_util_samples=watch._util_n,
             gen_tps_lower_bound_count=lower_bound_tps,
             cached_prefill_count=cached_prefills,
         )

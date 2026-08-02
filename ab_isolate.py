@@ -572,6 +572,11 @@ def main() -> int:
                        "prompt_tps": _metric(r, "prompt_tps"),
                        "total_s": _metric(r, "total"),
                        "min_free_vram_mb": r.min_free_vram_mb,
+                       # §B3: mean GPU-core %busy over the serving window; idle% is its
+                       # complement. Recorded per config so the placement dose-response in
+                       # idle% sits beside the t/s it explains.
+                       "gpu_util": r.gpu_util_mean,
+                       "gpu_util_n": r.gpu_util_samples,
                        "host_recovered": r.host_recovered,
                        # Both are validity flags, not statistics. A non-zero
                        # cached_prefill means the prefill numbers describe the KV cache;
@@ -581,8 +586,9 @@ def main() -> int:
                 records.append(rec)
                 (out_dir / f"{cid}.json").write_text(
                     json.dumps(r.as_dict(), indent=2, default=str), encoding="utf-8")
+                _util = f"{r.gpu_util_mean:.0f}%busy" if r.gpu_util_mean is not None else "gpu?"
                 print(f"    {r.verdict:9} gen={rec['gen_tps']} prompt={rec['prompt_tps']} "
-                      f"load={r.load_seconds}s vram_free={r.min_free_vram_mb}MB"
+                      f"load={r.load_seconds}s vram_free={r.min_free_vram_mb}MB {_util}"
                       f"{'' if r.host_recovered else '  [HOST DID NOT RECOVER]'}",
                       flush=True)
 
@@ -812,6 +818,33 @@ def report(records: list[dict]) -> None:
                       f"{d.mean:+6.2f}%  boot95[{blo:+.2f},{bhi:+.2f}]")
                 print(f"  {'':<11} -> floor {floor:.2f}%: a measured effect smaller than "
                       f"this is NOT evidence.  {verdict}")
+
+    # §B3 GPU-idle instrumentation. The serving-window utilisation, averaged over rounds,
+    # per (arm, ncmoe). It is not a paired delta -- it EXPLAINS the deltas above: decode t/s
+    # tracks how busy the card stays, and idle% (100 - busy) is the fraction of decode the
+    # SMs spent waiting on PCIe for the next expert. Read DOWN a column: as offload deepens,
+    # idle% should climb and t/s fall, which is the placement mechanism made visible and the
+    # reason a prefetch that fills idle time is a win on a small card and a tax at our
+    # placement (little idle to fill). Only printed when any run carried a utilisation read.
+    have_util = [r for r in records if r.get("gpu_util") is not None]
+    if have_util:
+        print("\n" + "=" * 72)
+        print("GPU UTILISATION (§B3; serving window, mean %busy / idle% = 100-busy)")
+        print("=" * 72)
+        for arm in ARMS:
+            for ncmoe in sorted({r["ncmoe"] for r in records}):
+                us = [r["gpu_util"] for r in records
+                      if r["arm"] == arm and r["ncmoe"] == ncmoe
+                      and r["verdict"] == "OK" and r.get("gpu_util") is not None]
+                gs = [r["gen_tps"] for r in records
+                      if r["arm"] == arm and r["ncmoe"] == ncmoe
+                      and r["verdict"] == "OK" and r.get("gen_tps") is not None]
+                if not us:
+                    continue
+                busy = sum(us) / len(us)
+                gtxt = f"gen~{sum(gs) / len(gs):5.1f} t/s" if gs else "gen n/a"
+                print(f"  {arm:<8} ncmoe={ncmoe:<3} n={len(us):<2} "
+                      f"busy={busy:5.1f}%  idle={100 - busy:5.1f}%   {gtxt}")
 
     for r in unrecovered:
         print(f"  SUSPECT (no recovery): round {r['round']} arm {r['arm']} "

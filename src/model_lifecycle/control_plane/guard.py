@@ -67,6 +67,20 @@ class Watch:
     load_min_ram_mb: int | None = None
     _vram_strikes: int = field(default=0, repr=False)
     _ram_strikes: int = field(default=0, repr=False)
+    # §B3 GPU-utilisation accumulator. Summed only AFTER mark_healthy(), for the same
+    # reason the RAM floor is: during load the card sits near-idle while a 21 GB GGUF
+    # streams in, and folding that into the mean would report the load transient as decode
+    # idle. Post-healthy is the serving window (warm-up + timed reps), which for a 1500-tok
+    # budget is decode-dominated -- exactly the bandwidth-bound regime §B3 asks about.
+    _util_sum: float = field(default=0.0, repr=False)
+    _util_n: int = field(default=0, repr=False)
+
+    @property
+    def gpu_util_mean(self) -> float | None:
+        """Mean GPU-core utilisation over the serving window, or None if never sampled.
+        Idle% is its complement (100 - this): the fraction of decode the SMs spent
+        waiting, which is what rises with offload depth."""
+        return self._util_sum / self._util_n if self._util_n else None
 
     def mark_healthy(self) -> None:
         """The server answered /health: loading is over, steady state begins."""
@@ -78,6 +92,9 @@ class Watch:
         """Feed one sample. Returns True while the run may continue."""
         self.min_free_vram_mb = min(self.min_free_vram_mb, s.vram_free_mb)
         self.min_available_ram_mb = min(self.min_available_ram_mb, s.ram_available_mb)
+        if self.enforce_ram:               # serving window only (post-healthy); see above
+            self._util_sum += s.gpu_util_pct
+            self._util_n += 1
 
         if s.vram_free_mb < self.envelope.reserve_vram_mb:
             self._vram_strikes += 1
@@ -176,4 +193,19 @@ if __name__ == "__main__":
     assert not w2.observe(vram_gone), "VRAM must disqualify even during load"
     assert not w2.enforce_ram, "and it must do so without waiting for health"
     print("guard: vram fires during load    ->", w2.breach)
+
+    # §B3: GPU utilisation is accumulated only in the serving window. Before mark_healthy
+    # nothing is summed (load transient excluded); after it, the mean tracks the samples.
+    w3 = start_watch(env)
+    healthy = HostSample(vram_total_mb=24576, vram_used_mb=6000,
+                         ram_available_mb=40000, gpu_util_pct=90)
+    w3.observe(healthy)                       # pre-healthy: must NOT count toward the mean
+    assert w3.gpu_util_mean is None, "load-phase utilisation must be excluded"
+    w3.mark_healthy()
+    for u in (80, 100, 60):
+        w3.observe(HostSample(vram_total_mb=24576, vram_used_mb=6000,
+                              ram_available_mb=40000, gpu_util_pct=u))
+    assert abs(w3.gpu_util_mean - 80.0) < 1e-9, w3.gpu_util_mean   # (80+100+60)/3
+    print(f"guard: gpu util serving-window   -> {w3.gpu_util_mean:.0f}% busy "
+          f"({100 - w3.gpu_util_mean:.0f}% idle)")
     print("guard self-check OK")
