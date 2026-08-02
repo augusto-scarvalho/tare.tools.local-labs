@@ -57,11 +57,28 @@ quant* (q8→q4 doubles ctx). KV-in-RAM (§B2b) is the fallback for >256k or to 
 
 (Numbers are first-order; compute buffers + fragmentation eat extra — Phase A measures the true frontier.)
 
-## Phase A — map the real VRAM frontier
-For each (model, ncmoe/ngl, kv-format), find the TRUE max context that loads + serves (not just the KV
-arithmetic — the compute/graph buffers and the guard's 4 GB reserve bite). Method: load at a target ctx,
-check it serves a short decode without breaching the envelope; binary-search the ceiling. Deliver: the
-corrected max-ctx table + where each config's wall actually is. Reuse the guard/envelope machinery.
+## Phase A — the real VRAM frontier — **DONE 2026-08-02** (`phase_a_ctx.sh`, `runs/context/`)
+Loaded each model at 8k/65k/131k/262k (KV is allocated in full at load, so loading reveals the wall);
+read VRAM used, no MTP (isolates KV). VRAM used (free):
+
+| model / KV | 8k | 65k | 131k | 262k (native) | measured KV |
+|---|---|---|---|---|---|
+| **MoE** q8 (ncmoe=8) | ~18.5 G | 20.0 (4.3) | 20.8 (3.5) | **22.6 (1.7)** | **~13 MiB/1k** |
+| **MoE** q4 (ncmoe=8) | | | | **21.3 (3.0)** | ~6.5 MiB/1k |
+| **Dense** q8 (ngl=99) | 17.9 (6.4) | 20.1 (4.3) | 22.6 (1.8) | **24.2 (0.1!)** | **~25 MiB/1k** |
+| **Dense** q4 (ngl=99) | 17.6 (6.7) | 18.9 (5.4) | 20.4 (3.9) | **23.3 (1.0)** | ~22 MiB/1k |
+
+**Result — the hybrid "KV is cheap" claim is CONFIRMED** (MoE ~13, dense ~25 MiB/1k, 2-3× under naive):
+1. **Both physically reach native 262k in VRAM** at the deploy placement — MoE comfortably; **dense at the
+   ragged edge (100 MiB free @ q8 → would OOM once decode scratch allocates; ~1 GB @ q4 = marginal).**
+2. **§B2b (KV-in-RAM) is UNNECESSARY for the MoE** (context free to native). For the dense it only matters
+   to reach the *top* of the range (≳200k) safely; a small `ngl` cut frees room otherwise. §B2b's niche
+   narrowed to "dense at max context."
+3. **q4 barely helps the DENSE** (23.3 vs 24.2 G @262k, not ~half) — its growing memory is not fully
+   covered by `--cache-type` (likely the **Gated-DeltaNet recurrent state**, stored full-precision). Flag.
+4. **Envelope-safe ceilings** (≥4 GB free, deploy placement): MoE ~90k (q8) / ~140k (q4); dense ~55k (q8)
+   / ~110k (q4). To reach full 262k *safely*: MoE → ncmoe↑ a little or accept the reserve; dense → offload
+   a few layers (ngl<65) or KV-in-RAM. **Deploy takeaway: the MoE jumps from 8k to ~100k+ safely, for free.**
 
 ## Phase B — context × decode-speed (the lever tradeoff)
 At fixed target contexts {32k, 128k, 256k}, measure decode t/s across the placement/KV levers:

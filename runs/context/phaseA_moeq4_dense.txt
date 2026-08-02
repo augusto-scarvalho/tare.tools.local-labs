@@ -1,0 +1,25 @@
+/mnt/c/projects/local-model-lifecycle/phase_a_ctx.sh: line 19:   392 Killed                  "$BIN" -m "$MODEL" -fa on "${PLACE[@]}" --cache-type-k "$KV" --cache-type-v "$KV" -c "$CTX" --host 127.0.0.1 --port 65536    yes     19686MiB  /mnt/c/projects/local-model-lifecycle/p131072   yes     20198MiB    4125MiB     0            envelope-OK
+262144   yes     21302MiB    3021MiB     0            under-4GB-reserve
+
+##### DENSE q8_0 (ngl=99) #####
+== Phase A: dense  placement=-ngl 99  kv=q8_0 ==
+ctx      loaded  vram_used   vram_free   KV_MiB       note
+8192     yes     17890MiB    6433MiB     0            envelope-OK
+65536    yes     20064MiB    4259MiB     0            envelope-OK
+131072   yes     22560MiB    1763MiB     0            under-4GB-reserve
+262144   yes     24223MiB    100MiB      0            under-4GB-reserve
+
+##### DENSE q4_0 (ngl=99) #####
+== Phase A: dense  placement=-ngl 99  kv=q4_0 ==
+ctx      loaded  vram_used   vram_free   KV_MiB       note
+8192     yes     17633MiB    6690MiB     0            envelope-OK
+65536    yes     18911MiB    5412MiB     0            envelope-OK
+131072   yes     20383MiB    3940MiB     0            under-4GB-reserve
+262144   yes     23327MiB    996MiB      0            under-4GB-reserve
+0 Killed                  "$BIN" -m "$MODEL" -fa on "${PLACE[@]}" --cache-type-k "$KV" --cache-type-v "$KV" -c "$CTX" --host 127.0.0.1 --port "$PORT" > /tmp/pa.log 2>&1
+/mnt/c/projects/local-model-lifecycle/phase_a_ctx.sh: line 19:   805 Killed                  "$BIN" -m "$MODEL" -fa on "${PLACE[@]}" --cache-type-k "$KV" --cache-type-v "$KV" -c "$CTX" --host 127.0.0.1 --port "$PORT" > /tmp/pa.log 2>&1
+/mnt/c/projects/local-model-lifecycle/phase_a_ctx.sh: line 19:   860 Killed                  "$BIN" -m "$MODEL" -fa on "${PLACE[@]}" --cache-type-k "$KV" --cache-type-v "$KV" -c "$CTX" --host 127.0.0.1 --port "$PORT" > /tmp/pa.log 2>&1
+/mnt/c/projects/local-model-lifecycle/phase_a_ctx.sh: line 19:   925 Killed                  "$BIN" -m "$MODEL" -fa on "${PLACE[@]}" --cache-type-k "$KV" --cache-type-v "$KV" -c "$CTX" --host 127.0.0.1 --port "$PORT" > /tmp/pa.log 2>&1
+/mnt/c/projects/local-model-lifecycle/phase_a_ctx.sh: line 19:   983 Killed                  "$BIN" -m "$MODEL" -fa on "${PLACE[@]}" --cache-type-k "$KV" --cache-type-v "$KV" -c "$CTX" --host 127.0.0.1 --port "$PORT" > /tmp/pa.log 2>&1
+/mnt/c/projects/local-model-lifecycle/phase_a_ctx.sh: line 19:  1044 Killed                  "$BIN" -m "$MODEL" -fa on "${PLACE[@]}" --cache-type-k "$KV" --cache-type-v "$KV" -c "$CTX" --host 127.0.0.1 --port "$PORT" > /tmp/pa.log 2>&1
+/mnt/c/projects/local-model-lifecycle/phase_a_ctx.sh: line 19:  1102 Killed                  "$BIN" -m "$MODEL" -fa on "${PLACE[@]}" --cache-type-k "$KV" --cache-type-v "$KV" -c "$CTX" --host 127.0.0.1 --port "$PORT" > /tmp/pa.log 2>&1
