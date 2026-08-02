@@ -217,7 +217,10 @@ GGUF, expert placement, context, and prompt fixed across arms. Metric everywhere
   (ncmoe=8, n=4, Cliff +1.0), **+54%** on structured code (greedy 139.6 vs 90.4 t/s), +16% deployable
   at the optimum (mtp holds ~116 t/s at ncmoe 6 AND 8; at ncmoe=6 it breaks the 4 GB VRAM reserve —
   draft context ~1.15 GB). It **decouples decode from placement** and stacks on §E1. Turn ON for the
-  agentic deployment. 27B "dense" is a Gated Delta Net hybrid — placement still open. STATUS §E4.
+  agentic deployment. **27B Gated Delta Net hybrid (dense) also DONE: +49.4% (bench) / +83% (code),
+  73.6% accept — the biggest uplift, because a dense forward pass is costliest per token (payoff scales
+  with forward-pass cost, not accept rate). Fused delta-net kernel disabled by this build (non-fatal).**
+  STATUS §E4.
 - **hypothesis** — running the MTP/`nextn` head as a draft (`--spec-type draft-mtp`) amortizes
   weight *and* KV movement → higher decode t/s in the memory-bound regime, scaling with accept rate.
 - **metric/baseline** — `gen_tps` AND accept rate, draft-mtp on vs off. **success** — decode t/s

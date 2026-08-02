@@ -279,11 +279,27 @@ the high-accept regime), at ncmoe=8 to seat the draft context. Raw:
 `runs/ab-e4mtp-qwen36-35b-mtp-e4-mtp-moe-ncmoe8/` (clean n=4) and `-ncmoe6/` (the +16%/rejected optimum).
 Arm-set `e4mtp`, models `qwen36-35b-mtp`/`qwen36-27b-mtp` in `models.py`; greedy check in `verify_mtp.py`.
 
-**OPEN — the 27B "dense" MTP.** `unsloth/Qwen3.6-27B-MTP-GGUF` (17.1 GB, MTP head present) was
-downloaded to test the published +73% dense figure, but Qwen3.6-27B is a **Gated Delta Net hybrid**,
-not a plain dense transformer — auto-fit placement stumbled (`resolve_fused_ops: layer 0 assigned to
-CPU but fused Gated Delta Net is on CUDA0`). Needs its own placement handling (or a newer build); the
-MoE result above stands on its own.
+**The 27B "dense" (Gated Delta Net hybrid) — ANSWERED, the biggest MTP uplift in the project.**
+Qwen3.6-27B is a Gated Delta Net *hybrid*, not a plain dense transformer; this build DISABLES the fused
+delta-net kernel (`resolve_fused_ops: ... not supported, set to disabled`) — **non-fatal**: it loads and
+serves at `-ngl 65` (all layers on GPU), the warning only means the fused fast-path is off, so base
+decode is a modest 33 t/s. draft-mtp on the same GGUF, n=3 (one round dropped as a *transient* RAM-reserve
+breach — `ram 11948MB < 16384MB`: the 17 GB mmap + draft + iGPU RAM sit near the 16 GB reserve):
+
+| metric | base | mtp | Δ |
+|---|---:|---:|---|
+| decode (benchmark) | ~33.3 t/s | ~49.8 t/s | **+49.4%** (Cliff +1.0, CI95 [+16.40,+16.52], MAD 0.08) |
+| decode (greedy code) | 34.4 t/s | **63.0 t/s** | **+83%** |
+| accept rate | — | 190/258 = **73.6%** | token-identical ✓ |
+
+**Bigger than the MoE's uplift despite a LOWER accept rate (73.6 vs 80.5%).** Mechanism: a 27B *dense*
+forward pass (all weights every token) is far more expensive than the MoE's 3B-active pass, so each
+amortized pass saves more absolute time. This is the §E4 thesis at its cleanest — **the MTP payoff
+scales with per-token forward-pass cost, not with accept rate.** It straddles the published +73% (under
+it on reasoning, over it on code). Both arms fit VRAM (base 7.0 / mtp 4.5 GB free); the binding
+constraint here is the **16 GB Windows RAM reserve, not VRAM**. A newer build with the fused Gated Delta
+Net kernel would raise base decode and likely shrink the ratio. Raw:
+`runs/ab-e4mtp-qwen36-27b-mtp-e4-mtp-dense-ngl65/`.
 
 ---
 

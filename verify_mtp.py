@@ -8,17 +8,22 @@ emit byte-identical text; the timings expose the draft accept rate and the real 
 """
 import json
 import subprocess
+import sys
 import time
 import urllib.request
 
 BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
-MODEL = "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf"
+# argv[1]: model GGUF path (default the MoE MTP). argv[2]: placement flag+value as one
+# string, e.g. "--n-cpu-moe 8" (MoE) or "-ngl 65" (dense). Lets one tool verify both.
+MODEL = sys.argv[1] if len(sys.argv) > 1 else \
+    "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf"
+PLACEMENT = (sys.argv[2].split() if len(sys.argv) > 2 else ["--n-cpu-moe", "8"])
 PORT = 8095
 PROMPT = ("Write a Python function `fib(n)` that returns the nth Fibonacci number "
           "using iteration, then list three properties of the Fibonacci sequence.")
 
 COMMON = ["-m", MODEL, "--host", "127.0.0.1", "--port", str(PORT), "-fa", "on",
-          "--n-cpu-moe", "8", "--ctx-size", "8192"]
+          *PLACEMENT, "--ctx-size", "8192"]
 MODES = {
     "base": COMMON,
     "mtp":  COMMON + ["--spec-type", "draft-mtp", "--spec-draft-n-max", "4"],
