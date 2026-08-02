@@ -80,28 +80,38 @@ read VRAM used, no MTP (isolates KV). VRAM used (free):
    / ~110k (q4). To reach full 262k *safely*: MoE → ncmoe↑ a little or accept the reserve; dense → offload
    a few layers (ngl<65) or KV-in-RAM. **Deploy takeaway: the MoE jumps from 8k to ~100k+ safely, for free.**
 
-## Phase B — context × decode-speed (the lever tradeoff)
-At fixed target contexts {32k, 128k, 256k}, measure decode t/s across the placement/KV levers:
-- **KV-on-GPU** (raise ncmoe until KV fits) vs **KV-in-RAM + §B2b** (low ncmoe, KV in 64 GB RAM). Which
-  gives better decode at each context? §B2a showed KV-in-RAM is −70%+ and *grows with depth*; §B2b
-  recovers up to +17%. This phase is where §B2b earns or loses its place for long context.
-- **MTP at depth**: draft context costs ~1.15 GB VRAM (−max-ctx), and #23658 reports MTP accept collapses
-  at KV-slot boundaries at high ctx — measure MTP accept vs context, decide if MTP stays on past ~32k.
-- Decode-at-depth curve: even KV-on-GPU, decode slows as KV grows (more KV read per token) — quantify.
+## Phase B — decode speed at depth — **DONE** (`context_probe.py`, `multihop_probe.py`)
+Decode t/s vs context depth (MoE, ncmoe=8, KV-on-GPU), from the probe runs:
 
-## Phase C — context × quality (does long context actually work?)
-Two independent quality risks:
-1. **KV-quant error at depth**: q4 KV may degrade *more* at long context (error accumulates). Test q8 vs
-   q4 (vs f16) at {8k, 32k, 128k, 256k}.
-2. **Effective vs advertised context**: 256k native (≈1M YaRN) ≠ usable. Research anchor (Qwen3 RULER):
-   holds ~64–128k then declines — so **expect usable ≈ 64–128k, not 256k**. And the hybrid q4-lossless
-   claim (#21385) predicts **q4 KV ≈ q8 quality even at depth** — a headline to confirm/refute.
-- **Metric — two probes, because NIAH alone lies**: (a) **needle-in-a-haystack / passkey** (inject a key
-  at depth d in filler of length L, exact-match over an (L,d) grid) — cheap, but SATURATES near-perfect
-  and hides the real limit; (b) a **multi-hop / aggregation** probe (RULER-style: e.g. "find all values
-  matching X and sum", or variable-tracking) — this is what actually degrades and reveals the *usable*
-  ceiling. temp=0 deterministic. Build a small harness on the serve+request machinery. Sweep (L ∈ {8k,
-  32k, 64k, 128k, 256k}) × (KV ∈ {q8_0, q4_0, iq4_nl}) → the **usable-context × KV-format** frontier.
+| context (tokens) | ~8k | ~33k | ~67k | ~104k | ~136k |
+|---|---|---|---|---|---|
+| **MoE q8** decode | 86 | 85 | 70 | 66 | **60 t/s** |
+| **MoE q4** decode | 93 | 83 | 68 | 61 | **57 t/s** |
+
+- **Graceful ~30% slowdown 8k→136k** — the MoE stays *fast* at long context. Prefill flat ~1500 t/s.
+- **KV-in-RAM / §B2b was never needed** (KV fits on GPU to native), so KV-on-GPU wins by default — no
+  PCIe transfer. §B2b's long-context rationale does **not** apply to the MoE. (Only the compute-limited
+  dense would ever reach for it — and even there `ngl<65` is the simpler lever.)
+- MTP was left OFF here to isolate KV; folding MTP in trades ~1.15 GB VRAM for its decode boost.
+
+## Phase C — is long context USABLE? — **DONE** (the headline: yes, far past the pessimism)
+Two probes (single-needle NIAH *and* an 8-fact aggregation "find-the-max" that forces attention over ALL
+needles — the RULER-style test NIAH can't fake), temp=0, 3 trials/point:
+
+| MoE (ncmoe=8) | ~8k | ~33k | ~67k | ~104k | ~136k |
+|---|---|---|---|---|---|
+| single-needle NIAH | 100% | 100% | 100% | 100% | 100% |
+| **8-fact aggregation, q8** | 3/3 | 3/3 | 3/3 | 3/3 | **3/3** |
+| **8-fact aggregation, q4** | 3/3 | 3/3 | 3/3 | 3/3 | **3/3** |
+
+- **100% on the HARD multi-hop task at every depth to ~136k** — *contradicts* the research's "usable
+  ≈64–128k, degrades past that." Qwen3.6-35B-A3B is genuinely strong at long context (untested >136k only
+  because that's near the ctx we allocated, not a failure).
+- **q4 KV == q8 KV, everywhere** (incl. multi-hop at 136k) → **q4 is lossless for the MoE even at depth →
+  it doubles the context headroom at ZERO quality/speed cost.** Confirms the §Q 8k finding out to 136k.
+- **Dense**: servable only at modest ctx (~48–64k; OOMs on compute scratch if `-c` is oversized — set it
+  to what you use), slower, and noisier on aggregation (~2/3, with a per-trial empty-answer artifact). The
+  harder model; long context on it needs care. Raw: `runs/context/`.
 
 ## Phase D — external solutions (research done 2026-08-02)
 
@@ -131,10 +141,26 @@ SnapKV, PyramidKV, Ada-KV, H2O, Scissorhands (eviction/sparsity); KIVI, KVQuant 
 GGML's unified contiguous block-quant KV fights all of these — only uniform per-tensor quant + arch-native
 SWA actually ship. PagedAttention/ring-attention = vLLM/multi-GPU, N/A here.
 
-## The deliverable — a context operating-point table
-A decision matrix: **want context X at quality ≥ Q → config C (model, ncmoe/ngl, kv-format, KV placement,
-MTP on/off) → decode D t/s, load L**. So a target (e.g., "128k agentic at usable quality") maps to one
-concrete serve command and its speed. This is the context-axis analogue of DEPLOY.md's decode stack.
+## The deliverable — context operating-point table (MoE = deploy model, 3090)
+
+| target ctx | KV | placement | fits? | decode | usable quality | verdict |
+|---|---|---|---|---|---|---|
+| 8k (old default) | q8 | ncmoe=8 | ✅ 18.5 G | ~90 t/s | 100% | baseline |
+| **64k** | q8 | ncmoe=8 | ✅ 4.3 G free | ~72 t/s | 100% | comfortable |
+| **128k** | **q4** | ncmoe=8 | ✅ within reserve | ~60 t/s | 100% | **★ long-context sweet spot** |
+| 128k | q8 | ncmoe=8 | ⚠️ 3.5 G free (breaches 4 GB reserve) | ~60 | 100% | fine if you relax the reserve |
+| 256k (native) | q4 | ncmoe=8 | ⚠️ physical, ~3 G free | ~50 (extrap) | untested >136k | possible; verify quality |
+| 256k safe | q4 | ncmoe≈16 | ✅ | ~55 | — | raise ncmoe a touch for headroom |
+
+**Recommended long-context deploy config (MoE):**
+```bash
+llama-server -m Qwen3.6-35B-A3B-...-mtp.gguf -fa on --n-cpu-moe 8 -c 131072 \
+  --cache-type-k q4_0 --cache-type-v q4_0 --spec-type draft-mtp --spec-draft-n-max 4 \
+  --host 0.0.0.0 --port 8080
+```
+**128k context, 100% multi-hop accuracy, ~60 t/s decode — a 16× context jump over the 8k default at zero
+quality cost.** q4 KV is the enabler (lossless here). §B2b / KV-in-RAM is NOT needed. (Dense: cap ~48–64k,
+`-c` matched to use, `-ngl` for headroom; it's the harder/slower path.)
 
 ## Sequencing
 Runs AFTER the levers×quality matrix (in flight). Phase A is cheap (loads only). Phase C's NIAH needs a

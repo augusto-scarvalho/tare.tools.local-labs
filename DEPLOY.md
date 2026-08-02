@@ -28,8 +28,10 @@ Knobs:
   (~1.15 GB VRAM) pushes it under the 4 GB VRAM reserve. ncmoe=8 seats the draft and MTP still holds
   ~116 t/s (it decouples decode from placement — see §E4).
 - **Do NOT set `GGML_CUDA_DISABLE_GRAPHS`.** Graphs are ON by default and worth +27% (§B4).
-- **KV `q8_0`** at ≤8k ctx. For the 128k agentic case switch to **`q4_0`** (frees VRAM; null on
-  quality/speed at short ctx, load-bearing at long ctx) and raise `--n-cpu-moe` if VRAM binds.
+- **KV `q8_0`** at ≤8k ctx. **Long context is now MEASURED (CONTEXT_PLAN): the MoE runs at `-c 131072`
+  with `q4_0` KV at ncmoe=8 — 100% multi-hop accuracy, ~60 t/s, within the envelope (a 16× jump over 8k
+  at zero quality cost).** q4 KV is lossless here (hybrid arch) and doubles headroom; native 262k fits
+  physically. §B2b / KV-in-RAM turned out UNNECESSARY for the MoE. For 128k+ just set `-c` and use `q4_0`.
 - **No pinning** (`GGML_CUDA_REGISTER_HOST`) — null at this placement (§E1); only helps forced heavy
   offload.
 - **MTP shines on structured/tool-heavy output** (higher accept → up to +54% on code); on free-form

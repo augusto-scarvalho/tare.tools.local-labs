@@ -1,0 +1,16 @@
+== context_probe: moe placement=['--n-cpu-moe', '8'] kv=q8_0 ctx=131072 ==
+ L_target  prompt_n     d  found prefill_tps decode_tps
+     8000      6003  0.25   True      1474.5      85.21
+     8000      6003  0.75   True      1525.6      94.18
+    32000     23779  0.25   True      1569.0      81.10
+    32000     23779  0.75   True      1579.5      85.05
+    65000     48221  0.25   True      1575.8      76.56
+    65000     48221  0.75   True      1612.3      75.56
+   120000     88965  0.25   True      1534.8      68.76
+   120000     88965  0.75   True      1486.7      68.18
+
+== summary ==
+L~   8000 (prompt_n    6003): NIAH   100%  decode  89.70 t/s
+L~  32000 (prompt_n   23779): NIAH   100%  decode  83.07 t/s
+L~  65000 (prompt_n   48221): NIAH   100%  decode  76.06 t/s
+L~ 120000 (prompt_n   88965): NIAH   100%  decode  68.47 t/s

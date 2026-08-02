@@ -1,0 +1,23 @@
+== multihop: moe ['--n-cpu-moe', '8'] kv=q8_0 ctx=196608 N=8 facts, aggregation(max) ==
+  L~  11000 pn=   8670 trial0 exp=1970 'HIT'
+  L~  11000 pn=   8671 trial1 exp=2078 'HIT'
+  L~  11000 pn=   8671 trial2 exp=2186 'HIT'
+  L~  43000 pn=  33370 trial0 exp=2002 'HIT'
+  L~  43000 pn=  33371 trial1 exp=2110 'HIT'
+  L~  43000 pn=  33371 trial2 exp=2218 'HIT'
+  L~  87000 pn=  67320 trial0 exp=2046 'HIT'
+  L~  87000 pn=  67321 trial1 exp=2154 'HIT'
+  L~  87000 pn=  67321 trial2 exp=2262 'HIT'
+  L~ 135000 pn= 104345 trial0 exp=2094 'HIT'
+  L~ 135000 pn= 104346 trial1 exp=2202 'HIT'
+  L~ 135000 pn= 104346 trial2 exp=2310 'HIT'
+  L~ 176000 pn= 135995 trial0 exp=2135 'HIT'
+  L~ 176000 pn= 135996 trial1 exp=2243 'HIT'
+  L~ 176000 pn= 135996 trial2 exp=2351 'HIT'
+
+== summary (multi-hop aggregation accuracy vs context) ==
+L~  11000 (prompt_n    8671): 3/3 correct  decode  86.29 t/s
+L~  43000 (prompt_n   33371): 3/3 correct  decode  85.39 t/s
+L~  87000 (prompt_n   67321): 3/3 correct  decode  70.02 t/s
+L~ 135000 (prompt_n  104346): 3/3 correct  decode  66.00 t/s
+L~ 176000 (prompt_n  135996): 3/3 correct  decode  59.91 t/s
