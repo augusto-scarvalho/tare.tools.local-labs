@@ -23,6 +23,11 @@ records. This is the durable handoff — read it first after a context reset.
 > 512 leaves half the prefill speed on the table. For multi-turn on a shared long context, keep
 > `cache_prompt` on: a follow-up query REUSES the prefix KV → **~15× faster follow-up TTFT** (prefill the
 > doc once, then sub-second). (Fable prefetch is NULL for prefill at ncmoe=8 — only heavy offload; §PF.)
+>
+> **Serving mode (§CC):** single/low-concurrency (N≤2) → `-np 1` + **MTP ON** (lowest latency, ~116 t/s).
+> Multi-user throughput → `-np 8` + **MTP OFF** → **~217 t/s aggregate (2.5×)**, ~30 t/s/user, +0.6 GB
+> VRAM. **MTP flips at N≈4** — it HALVES aggregate throughput at N=8 (and costs VRAM), so drop `--spec-type`
+> for high concurrency. Concurrency is nearly free on VRAM (q4 KV per slot is tiny).
 
 **Delivers ~116 t/s decode inside the safe envelope, quality-neutral (pass@1 unchanged; equivalent
 output, not byte-identical to non-spec — §Q).** This single

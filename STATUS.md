@@ -581,6 +581,32 @@ default `--ubatch 512` takes ~79 s (time-to-first-token). Swept the prefill leve
 
 ---
 
+## §CC — concurrency / multi-slot: 2.5× aggregate ~free, and MTP flips at N≈4 (2026-08-02)
+
+Single-stream was the only mode measured until now; a real deploy serves N concurrent requests, which
+llama.cpp BATCHES (weights read once per batch). Swept `-np N` (each slot 4k ctx), MoE ncmoe=8 q4 KV
+ub2048, N streams × 200 decode tokens, `concurrency_probe.py`:
+
+| N slots | aggregate t/s | per-stream t/s | VRAM (no-MTP) | aggregate WITH MTP |
+|---:|---:|---:|---:|---:|
+| 1 | 85 | 92 | 18995 MiB | **112** (MTP +31%) |
+| 2 | 119 (1.4×) | 67 | 19083 | 125 |
+| 4 | 156 (1.8×) | 43 | 19291 | 157 (tie) |
+| 8 | **217 (2.54×)** | 30 | **19633** | **104** (MTP −52%) |
+
+1. **Aggregate scales 2.5× to N=8** (85→217 t/s) — batched decode amortizes weight reads. Per-stream drops
+   to ~30 t/s (8 users), still readable. Sub-linear (2.5×, not 8×): a MoE batch activates the **union** of
+   the N streams' expert routes → more expert compute per batch caps scaling (a dense model would scale
+   better).
+2. **Concurrency is nearly FREE on VRAM** (+638 MiB for 8 slots) — q4 KV per 4k slot is tiny on the hybrid
+   arch. So many slots fit without VRAM pressure.
+3. **MTP FLIPS at N≈4.** Spec-decode's draft-verify compute competes with batching: MTP wins single-stream
+   (N=1: 112 vs 85, +31% — its usual decode lever) but **HALVES aggregate at N=8** (104 vs 217) *and*
+   costs +2.4 GB VRAM (per-slot draft contexts). **Deploy rule: MTP ON for N≤2 (latency); MTP OFF for N≥4
+   (throughput).** Raw: `runs/concurrency/`.
+
+---
+
 ## OPEN — as prominent as the answers, on purpose
 
 - **§B1 — transfer-bound generation — CLOSED as UNREACHABLE on this hardware (2026-07-31).**

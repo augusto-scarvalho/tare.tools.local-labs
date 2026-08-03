@@ -1,0 +1,12 @@
+== concurrency: MoE ncmoe=8 kv=q4_0 ub2048 MTP=on ==
+  N   agg_tps  per_stream  scaling  vram_MiB
+  1     111.6      123.27    1.00x     19620
+  2     124.6       72.42    1.12x     19968
+  4     156.6       44.39    1.40x     20664
+  8     104.3       14.30    0.93x     22044
+
+== throughput scaling ==
+  N=1: aggregate   111.6 t/s (1.00x)  per-stream  123.3 t/s  vram 19620 MiB
+  N=2: aggregate   124.6 t/s (1.12x)  per-stream   72.4 t/s  vram 19968 MiB
+  N=4: aggregate   156.6 t/s (1.40x)  per-stream   44.4 t/s  vram 20664 MiB
+  N=8: aggregate   104.3 t/s (0.93x)  per-stream   14.3 t/s  vram 22044 MiB
