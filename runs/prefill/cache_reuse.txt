@@ -1,0 +1,4 @@
+== prompt-cache reuse (shared long prefix, ub2048), cache_probe.py ==
+query 1 (cold): prompt_n=41412 cache_n=0     prompt_ms=13517  (13.5s TTFT)
+query 2 (reuse): prompt_n=2051  cache_n=39364 prompt_ms=878   (0.88s TTFT)
+-> follow-up TTFT 15x faster: the 39364-token prefix was REUSED, only 2051 new tokens prefilled.

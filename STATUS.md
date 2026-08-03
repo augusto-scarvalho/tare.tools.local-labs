@@ -553,6 +553,34 @@ correct (~94%). Raw: `runs/quality/qm-*`; tooling `quality_bench.py`, `score_sub
 
 ---
 
+## §PF — prefill / TTFT at long context: `--ubatch 2048` doubles it; cache reuse is 15× (2026-08-02)
+
+Enabling 128k context (CONTEXT_PLAN) exposed the real latency wall: **prefill**. A 128k prompt at the
+default `--ubatch 512` takes ~79 s (time-to-first-token). Swept the prefill levers (MoE, ncmoe=8, q4 KV,
+~41k-token prompt), `prefill_probe.py`:
+
+| config | prefill t/s | 128k TTFT | vs default |
+|---|---:|---:|---|
+| `--ubatch 512` (default) | 1663 | 78.8 s | — |
+| `--ubatch 1024` | 2578 | 50.8 s | +55% |
+| **`--ubatch 2048`** | **3441** | **38.1 s** | **+107%** |
+| 512 + Fable prefetch | 1737 | 75.5 s | +4.5% |
+| 2048 + Fable prefetch | 3372 | 38.9 s | (prefetch slightly HURTS) |
+
+1. **`--ubatch 2048` ~doubles prefill (+107%)** — the biggest free win for long-context TTFT (79→38 s at
+   128k). The default 512 under-utilises the GPU on the large prefill matmuls. Costs a bigger compute
+   buffer (fits at our contexts). This is now in the deploy config.
+2. **Fable prefetch is NULL for prefill at ncmoe=8** (+4.5%, and it *slightly hurts* with ub2048). The
+   "+58% prefill" only holds at HEAVY offload (many CPU-expert layers to overlap on the 2nd stream); at
+   light ncmoe=8 there is almost no H2D to hide. **The §B3/§E1 thesis once more: the prefetch is a
+   forced-heavy-offload lever, never a deploy lever — not even for prefill.**
+3. **Prompt-cache reuse = the dominant multi-turn win** (`cache_probe.py`): with `cache_prompt` on, a
+   follow-up query on a shared long prefix REUSES the prefix KV — measured **13.5 s → 0.88 s TTFT (15×)**,
+   only the 2051 new tokens re-prefilled (39364 reused). **Agentic pattern: prefill the long doc once
+   (~38 s), then every follow-up is sub-second.** Raw: `runs/prefill/`.
+
+---
+
 ## OPEN — as prominent as the answers, on purpose
 
 - **§B1 — transfer-bound generation — CLOSED as UNREACHABLE on this hardware (2026-07-31).**

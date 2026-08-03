@@ -1,0 +1,14 @@
+== prefill_probe: MoE ncmoe=8 kv=q4_0 ==
+arm           prompt_n  prefill_tps  128k_prefill_s
+ub512            37675       1663.1           78.8s
+ub1024           37675       2578.3           50.8s
+ub2048           37675       3440.9           38.1s
+ub512+pf         37675       1737.1           75.5s
+ub2048+pf        37675       3372.4           38.9s
+
+== vs ub512 baseline ==
+  ub512          1663.1 t/s  (  +0.0%)  128k prefill 78.8s
+  ub1024         2578.3 t/s  ( +55.0%)  128k prefill 50.8s
+  ub2048         3440.9 t/s  (+106.9%)  128k prefill 38.1s
+  ub512+pf       1737.1 t/s  (  +4.5%)  128k prefill 75.5s
+  ub2048+pf      3372.4 t/s  (+102.8%)  128k prefill 38.9s

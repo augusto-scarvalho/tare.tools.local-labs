@@ -16,8 +16,13 @@ records. This is the durable handoff — read it first after a context reset.
   --ctx-size 8192 \
   --cache-type-k q8_0 --cache-type-v q8_0 \
   --spec-type draft-mtp --spec-draft-n-max 4 \
+  --batch 2048 --ubatch 2048 \
   --host 0.0.0.0 --port 8080
 ```
+> **`--ubatch 2048`** (§PF) roughly **doubles prefill** (128k prompt TTFT 79s→38s) — free; the default
+> 512 leaves half the prefill speed on the table. For multi-turn on a shared long context, keep
+> `cache_prompt` on: a follow-up query REUSES the prefix KV → **~15× faster follow-up TTFT** (prefill the
+> doc once, then sub-second). (Fable prefetch is NULL for prefill at ncmoe=8 — only heavy offload; §PF.)
 
 **Delivers ~116 t/s decode inside the safe envelope, quality-neutral (pass@1 unchanged; equivalent
 output, not byte-identical to non-spec — §Q).** This single
