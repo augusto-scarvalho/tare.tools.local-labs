@@ -607,6 +607,28 @@ ub2048, N streams × 200 decode tokens, `concurrency_probe.py`:
 
 ---
 
+## §QN — quant sweep: Q4_K_M is the sweet spot; bigger quant is strictly worse on 24 GB (2026-08-02)
+
+On a 24 GB card a bigger weight-quant must OFFLOAD more experts to CPU to fit → slower decode, for a
+quality gain that (measured) is zero. Swept the MoE at Q4/Q5/Q6/Q8 (`quant_probe.py` for placement/speed;
+`quality_bench` for pass@1). File sizes: Q4 21 GB · Q5 25 GB · Q6 28 GB · Q8 35 GB.
+
+| quant | file | min-fit ncmoe | decode | pass@1 (20-subset) | ctx headroom | verdict |
+|---|---:|---:|---:|---:|---:|---|
+| **Q4_K_M** | 21 GB | **8** | **97 t/s** | **17/20** | **~119k** | **★ sweet spot** |
+| Q5_K_M | 25 GB | 16 | 69 t/s (−29%) | — | ~204k* | worse decode |
+| Q6_K | 28 GB | (heavy) | — | — | — | worse |
+| Q8_0 | 35 GB | 40 (all experts CPU) | **24 t/s (−75%)** | **16/20** | least | strictly worse |
+
+**Verdict: Q4_K_M wins on every axis.** Q8 is **4× slower** (24 vs 97 t/s, forced to ncmoe=40) for **no
+quality gain** (16/20 vs Q4's 17/20 — Q4 nominally ahead, within ±1 noise). Consistent with §Q
+(everything quality-neutral) and K-quant lore (Q4_K_M ≈ Q8 for these models). Bigger quants only make sense
+if you had far more VRAM. (\*Q5's headroom looks larger only because more experts sit on CPU at ncmoe=16;
+`quant_probe.py`'s VRAM read glitched for Q6/Q8 — their decode came from the pass@1 run's timings instead.)
+Raw: `runs/quality/qn-*`, `runs/quality/quant_speed_placement.txt`.
+
+---
+
 ## OPEN — as prominent as the answers, on purpose
 
 - **§B1 — transfer-bound generation — CLOSED as UNREACHABLE on this hardware (2026-07-31).**
