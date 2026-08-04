@@ -36,10 +36,16 @@ Follow-ups on the same context are **sub-second** (prompt-cache reuse).
 > **137.8 s @ ub512 → 67.9 s @ ub2048 = 2.03× (the `--ubatch-size 2048` doubling holds exactly)**; decode
 > at depth **61.8 → 67.6 t/s** (MTP on; MTP costs only ~5.5% of prefill and gives +46% decode: 46.3→67.6);
 > warm reuse TTFT **0.24 s (273×**, only 4 new tokens prefilled); needle at 124.5k answered correctly.
-> Absolute TTFT is ~1.8× the §PF `llama-bench` figures below (68 s vs 38 s) — the gap is the server path +
-> the 1800 MHz clock-lock, **not** MTP/XMP (XMP confirmed active @ 5600); the 2× *ratio* is what matters and
-> it reproduces. **Envelope caveat:** ub2048 at 128k leaves only **~1.6 GB VRAM free** (22932/24576 MiB) —
-> under the 4 GB reserve; drop to ub1024 or accept the tighter margin for long-context serving.
+> **⚠ Prefill regression vs 08-02 (open):** absolute TTFT is ~1.8× the §PF `llama-bench` figures (68 s vs
+> 38 s). It is **NOT** a measurement-path artifact — `llama-bench` on this binary reproduces it exactly
+> (pp131072: **926 t/s @ ub512, 1888 t/s @ ub2048** vs §PF's 1663/3441 → a systemic ~1.80×). Ruled out:
+> MTP (~5.5%), XMP (active @ 5600), power plan (High performance), GPU clock-lock (−4% only). **Decode is
+> UNaffected** (even faster than 08-02), so it's the host/CPU-bound offloaded-expert prefill path. **Leading
+> suspect: Memory Integrity / HVCI-VBS is now ON** (`VBS status=2`, `HVCI=1`) — WSL2 runs in a Hyper-V VM and
+> VBS taxes guest memory GEMMs; likely toggled on at the 08-03 reboot. Confirm by A/B with Memory Integrity
+> off (needs reboot; same feature that blocks the CPU undervolt). The 2× ubatch *ratio* is intact regardless.
+> **Envelope caveat:** ub2048 at 128k leaves only **~1.6 GB VRAM free** (22932/24576 MiB) — under the 4 GB
+> reserve; drop to ub1024 or accept the tighter margin for long-context serving.
 
 **3. Many users, max throughput** (multi-tenant)
 ```bash
@@ -58,7 +64,7 @@ llama-server -m Qwen3.6-35B-A3B-mtp.gguf -fa on --n-cpu-moe 8 -c 32768 -np 8 \
 | **Quality** | every lever quality-neutral (pass@1 flat); q4 KV lossless | Q |
 | **Context** | native 262k fits in VRAM; **usable ≥136k @ 100% multi-hop**; §B2b unneeded | ctx A–C |
 | **Decode at depth** | ~86→60 t/s (8k→136k) — graceful | ctx B |
-| **Prefill** | `--ubatch-size 2048` → **2× confirmed** (llama-bench 79→38 s; server path 138→68 s @ 124.5k, 2026-08-04); cache reuse 15–273× | PF |
+| **Prefill** | `--ubatch-size 2048` → **2× confirmed** (both tools); but ⚠ **~1.8× slower than 08-02 in absolute terms** (128k TTFT now ~68 s vs 38 s) — real regression, HVCI/VBS suspect (§ note above); cache reuse 15–273× | PF |
 | **Concurrency** | N=8 → 2.5× aggregate ~free on VRAM; MTP flips OFF at N≈4 | CC |
 
 ## Lever decisions (what's on/off, and why)

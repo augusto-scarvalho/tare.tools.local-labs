@@ -33,10 +33,14 @@ records. This is the durable handoff — read it first after a context reset.
 > **Long-context (mode 2) re-validated 2026-08-04** (server path, ~124.5k-token prompt, `-c 131072` q4 KV):
 > cold prefill **137.8 s @ ub512 → 67.9 s @ ub2048 = 2.03×** (the doubling holds exactly); decode at depth
 > **61.8→67.6 t/s**; warm prompt-cache reuse TTFT **0.24 s (273×)**; needle at 124.5k answered correctly.
-> Absolute TTFT is ~1.8× the §PF `llama-bench` figures (server path + 1800 MHz clock-lock; **not** MTP/XMP).
+> **⚠ But absolute prefill is ~1.8× slower than the 08-02 §PF figures — a real regression, NOT measurement
+> path** (`llama-bench` on this binary reproduces it: pp131072 926/1888 t/s @ ub512/2048 vs §PF 1663/3441).
+> Ruled out: MTP, XMP (@5600), power plan (High perf), GPU clock (−4%). Decode UNaffected → host/CPU-bound
+> prefill path. **Leading suspect: Memory Integrity / HVCI-VBS now ON** (WSL2 is a Hyper-V VM; likely
+> toggled at the 08-03 reboot; same feature blocking the CPU undervolt). Confirm via Memory-Integrity-off A/B.
 > **Caveat: ub2048 at 128k leaves only ~1.6 GB VRAM free** — under the 4 GB reserve; use ub1024 if you need margin.
-> **`--ubatch-size 2048`** (§PF) roughly **doubles prefill** (llama-bench 128k TTFT 79s→38s; server path
-> 138s→68s @ 124.5k, 2026-08-04 — 2× either way) — free; the default
+> **`--ubatch-size 2048`** (§PF) roughly **doubles prefill** (2× confirmed both tools; absolute now
+> 138s→68s @ 124.5k vs the 08-02 79s→38s — see regression note above) — free; the default
 > 512 leaves half the prefill speed on the table. For multi-turn on a shared long context, keep
 > `cache_prompt` on: a follow-up query REUSES the prefix KV → **~15× faster follow-up TTFT** (prefill the
 > doc once, then sub-second). (Fable prefetch is NULL for prefill at ncmoe=8 — only heavy offload; §PF.)
