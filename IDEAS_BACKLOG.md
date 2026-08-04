@@ -58,11 +58,34 @@ A/B lab), not an agentic coding product. So:
 - **What:** fuse dequant+bias+act+GEMM so low-bit weights actually use the 3090's INT8 Tensor Cores instead of
   dequant-to-FP16-then-GEMM; autotune per shape; explicit FP16 fallback when it loses.
 - **Why:** the one **measured-on-RTX-3090** number in the whole doc: **GEMMs 2.8-4.2× / ~9-10% end-to-end**.
-- **Caveat for us:** that win was a compute/GEMM-bound path; our MoE batch-1 decode is bandwidth-bound, so expect
-  most of it on **prefill** and on the **dense-27B**, not MoE decode — measure both.
-- **Validate:** microbench real GEMM shapes (prefill ubatch=2048) INT8-fused vs current; then E2E prefill t/s.
-  Accept if E2E prefill ≥ +5% quality-neutral. Adopt the doc's "quality_card + kernel_card" dual report.
-- Effort: high CUDA (our wheelhouse — we did GDN). Maturity: consolidated.
+- **✅ S2 CLOSED 2026-08-04 — the kernel S2 asks for ALREADY EXISTS and is the DEFAULT (llama.cpp MMQ). Nothing
+  to build; same pattern as S1/GDN (premise false on our HW).** Confirmed on three axes:
+  - **Source (definitive):** on Ampere, `ggml_cuda_should_use_mmq(Q4_K, sm_86, any ne11)` returns `true`
+    UNCONDITIONALLY (`mmq.cu:310` `turing_mma_available` early-return; the `ne11<MMQ_DP4A_MAX_BATCH_SIZE` cutoff
+    only fires on non-tensor-core / Pascal cards). MMQ uses `mma.sync.aligned.m16n8k16.row.col.s32.s8.s8.s32` =
+    INT8×INT8→INT32 Tensor Core, loads weights quantized + dequants in-register into int8 tiles (never
+    materializes an FP16 weight matrix). It IS the "fused dequant + INT8-TC GEMM" the doc describes.
+  - **Empirical (default MMQ vs a FORCE_CUBLAS build — the S2 delta, in reverse; prefill pp512/pp2048, -ub 2048,
+    r5, undervolt clock-stable):** dense-27B pp512 MMQ **+11%**; dense-27B pp2048 cuBLAS **+5%**; **MoE ncmoe=0
+    MMQ +420%; MoE ncmoe=8 (deploy) MMQ +268%.** For the deploy MoE, MMQ int8-TC CRUSHES cuBLAS (grouped
+    per-expert GEMMs have tiny per-expert batch → cuBLAS overhead is catastrophic). The doc's "2.8-4.2× GEMM"
+    win is real and **we already have it** via MMQ.
+  - **Upstream corroboration:** PR **#8075** made MMQ default at all batch sizes on tensor-core cards, motivated
+    by **VRAM savings** (explicitly accepting a large-batch speed hit); PR **#8062** maintainer bench (3090,
+    Q4_K_S, pp2048: MMQ = 0.82× cuBLAS — same direction as our dense +5%); PR **#7921** (int8-TC k-quant kernels;
+    Q8_1 activation-quant precision loss "negligible"); `docs/build.md` (MMQ int32-accumulates → the **more**
+    numerically robust path; FORCE_CUBLAS risks FP16 overflow + costs VRAM). **No open/rejected PR proposes a
+    fused int8-TC GEMM beyond MMQ** — MMQ *is* that kernel and is treated as mature.
+- **The one residual (recorded, NOT adopted):** FP16 cuBLAS beats MMQ by ~5% on **large-ubatch DENSE-27B prefill**
+  only. It's the OPPOSITE of what S2 proposed, dense-only (not the deploy MoE, where it's −70%), VRAM-costly (FP16
+  dequant buffers on our VRAM-tight box), and off the decode/transfer-bound critical path → net not worth a
+  per-shape heuristic. Available as a knob if a dense-heavy, VRAM-loose, long-prompt workload ever appears.
+- **Gate banked:** `ops/mmq-vs-cublas-bench.sh` (builds the FORCE_CUBLAS A/B binary on demand; re-run if the MMQ
+  heuristic or a new quant/arch changes). Quality: the deploy path already uses MMQ and was blessed on HumanEval+ (§Q).
+- Effort spent: low (source read + one compile-flag A/B build + benchmark + web verification). Outcome: the top
+  remaining Tier-S engine item closes NEGATIVE (already-captured), with a reusable GEMM-path gate.
+- **→ Tier S is now fully swept: S1 ✅ (null), S2 ✅ (already-captured), S3 ✅ (mtp-alone optimal). Next
+  un-attacked items are Tier A (A1 windowed-MTP, A2 ThinkingCap LoRA on dense-27B, A3 SAW-INT4 KV, A4 instrumentation).**
 
 ### S3. N-gram speculative decoding + drafter-selection policy — §35 / §63.3
 - **What:** add n-gram spec-decode (no extra model, wins on repetitive code) alongside MTP; formalize drafter

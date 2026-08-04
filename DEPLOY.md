@@ -63,6 +63,13 @@ records. This is the durable handoff — read it first after a context reset.
 > better draft. **Exactness note:** `ngram-simple` is greedy-exact; `draft-mtp` deterministically diverges from
 > greedy (quality-neutral on HumanEval+, but not bit-exact — the FORK.md "token-exact" is fork==base, not
 > spec==greedy). Regression gate: `ops/spec-drafter-bench.sh` (no-spec floor + CI + 3 regimes).
+>
+> **GEMM path = leave it default (MMQ int8-TC) — do NOT force cuBLAS (S2, closed 2026-08-04).** llama.cpp already
+> runs the INT8-Tensor-Core fused-dequant GEMM (MMQ, `s8.s8.s32`) by default on the 3090 for Q4_K, at every batch.
+> For the deploy MoE it CRUSHES the old dequant→FP16→cuBLAS path (prefill **+268%** at ncmoe=8, +420% all-GPU —
+> grouped per-expert GEMMs starve cuBLAS). `GGML_CUDA_FORCE_CUBLAS` only helps large-ubatch **dense-27B** prefill
+> (~+5%), and there it costs VRAM (FP16 dequant buffers) → not worth it on our VRAM-tight box. Gate:
+> `ops/mmq-vs-cublas-bench.sh`.
 
 **Delivers ~116 t/s decode inside the safe envelope, quality-neutral (pass@1 unchanged; equivalent
 output, not byte-identical to non-spec — §Q).** This single
