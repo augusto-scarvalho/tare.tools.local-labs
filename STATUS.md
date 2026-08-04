@@ -311,44 +311,54 @@ constraint here is the **16 GB Windows RAM reserve, not VRAM**. A newer build wi
 Net kernel would raise base decode and likely shrink the ratio. Raw:
 `runs/ab-e4mtp-qwen36-27b-mtp-e4-mtp-dense-ngl65/`.
 
-## §A3 — asymmetric K/V + sub-4-bit KV: CLOSED, negative — the KV axis is already at its optimum (2026-08-04)
+## §A3 — asymmetric K/V + better/sub-4-bit KV: CLOSED, negative — the KV axis is already at its optimum (2026-08-04, double-checked)
 
-> **Gate: `ops/kv-quant-bench.sh`** (4-arm decode A/B, re-runs on any pin bump or new served model).
+> **Full consolidated record: `A3_KV_QUANT.md`** (arc + robust data + source mechanism + PR/paper corroboration +
+> corrections + re-open trigger). Gate: `ops/kv-quant-bench.sh`.
 
-**IDEAS_BACKLOG A3 (asymmetric K/V quant + SAW-INT4). Verdict: CLOSED — every direction is either a measured
-throughput regression or a paper-null; keep symmetric q4_0 KV.** A3 asked whether we can beat the deployed
-symmetric q4_0 KV by (a) quantizing K and V asymmetrically, or (b) a fancier low-bit codec (iq4_nl now; SAW-INT4
-/ TurboQuant sub-4-bit if ever engine-added). All lose:
+**IDEAS_BACKLOG A3 (asymmetric K/V + SAW-INT4). Verdict: CLOSED — every direction is a measured throughput
+regression or a dominated null; keep symmetric q4_0 KV.** Double-checked at three independent levels (source, upstream
+issues/PRs on the same GPU class, peer-reviewed literature incl. the SAW-INT4 paper the doc pointed to) — all corroborate.
 
-**Measured — decode t/s at 8k depth (deploy MoE Q4_K_M, ncmoe=8, -fa on, 3 reps, undervolt clock-stable, base 720d7fa40):**
+**Robust measurement (deploy MoE Q4_K_M, ncmoe=8, -fa on, base 720d7fa40; 6 reps/arm, isolated process + 25s cooldown):**
 
-| type_k | type_v | tg64 @ d8192 | vs q4_0 | note |
-|---|---|---:|---:|---|
-| **q4_0** | **q4_0** | **87.36 ± 1.81** | baseline | deploy; lossless (§Q, CONTEXT_PLAN) |
-| q8_0 | q4_0 | 33.23 ± 2.09 | **−62%** | asymmetric → CPU-KV fallback (#20866) |
-| q4_0 | q8_0 | 33.60 ± 2.28 | **−62%** | asymmetric, other order — same penalty |
-| iq4_nl | iq4_nl | 18.48 ± 4.49 | **−79%** | symmetric, but off the fused-FA fast path on sm_86 |
+| type_k | type_v | tg64 @ d8192 (t/s) | 95% CI | vs q4_0 | on-GPU? |
+|---|---|---:|---|---:|---|
+| **q4_0** | **q4_0** | **88.55 ± 0.84** | [87.7, 89.4] | baseline; lossless (§Q) | ✅ fused FA |
+| q8_0 | q8_0 | 89.80 ± 3.30 | [86.3, 93.3] | ≈ 0 (lossless, more VRAM) | ✅ fused FA |
+| q8_0 | q4_0 | 38.42 ± 10.65 | [27.2, 49.6] | **−57%** | ❌ CPU offload |
+| iq4_nl | iq4_nl | 16.11 ± 0.55 | [15.5, 16.7] | **−82%** | ❌ CPU offload |
+| q4_0 @32k | q4_0 | 76.41 ± 2.09 | [74.0, 78.8] | graceful w/ depth | ✅ fused FA |
 
-1. **Asymmetric K/V craters decode ~62%** — llama.cpp #20866's CPU-KV fallback reproduces on our pinned base.
-   The penalty is symmetric in K↔V (any mismatch triggers it), so there is no "quantize the cheap side harder"
-   win. **Never run asymmetric KV on this box.**
-2. **iq4_nl** — the one untested "better 4-bit" flagged in CONTEXT_PLAN §D — falls off the fused flash-attn KV
-   fast path on Ampere sm_86 **even symmetric** → −79%. The only fast KV types here remain **q4_0 / q8_0**.
-3. **Sub-4-bit codecs (SAW-INT4 / TurboQuant tq3_0/tq4_0)** are **not in the engine** (deliberately excluded
-   from the fork). Even if added, the arithmetic on Phase-A geometry kills the ROI: MoE q4 KV is **~6.5 MiB/1k →
-   ~0.83 GB @128k**; a sub-4-bit codec shaves at most ~0.3–0.45 GB there — **less than one `--n-cpu-moe` step
-   (0.46 GB)** — and buys **zero context**, because q4 already reaches the model's **native 262k in VRAM,
-   lossless, with ~3 GB free** (Phase A / CONTEXT_PLAN). At the 8k deploy default KV is ~52 MiB, so shaving it
-   is a rounding error. The **free monitor→iGPU replug (~1.4 GB ≈ 3 ncmoe steps)** strictly dominates this whole
-   path at zero quality risk (see the VRAM-offload memory).
-4. **Dense-27B can't be unblocked either** — Phase A finding #3 measured that q4 *barely* shrinks dense VRAM at
-   depth because the growing component is the **full-precision Gated-DeltaNet recurrent state**, which **no
-   `--cache-type` addresses**. A better KV codec therefore cannot extend dense context.
+(First pass: 3 reps, no cooldown → 87.4/33.2/33.6/18.5, same signs; the robust pass tightened iq4_nl CV 24%→3.4%.
+Even the noisy asym arm's CI ceiling 49.6 ≪ baseline floor 87.7 → penalty statistically unambiguous.)
 
-**Deploy takeaway:** the KV axis is already optimal — **symmetric q4_0 for long context (fast + lossless)**,
-q8_0 symmetric if ever wanted. Same pattern as S1/S2/S3/A1: the lever is already-captured or physically
-dominated. **Re-open only** if a sub-4-bit fused-FA KV kernel lands upstream for sm_86, or a future served
-model is KV-bound rather than weight/ncmoe-bound (our GDN hybrids are not). Raw: `runs/context/a3-kv-quant/`.
+1. **Asymmetric K/V → −57%, and iq4_nl → −82%, because the CUDA FA op offloads to CPU** (source-verified in
+   `ggml-cuda/fattn.cu`): the default build compiles only **4 symmetric FA KV combos** (f16/f16, q4_0/q4_0, q8_0/q8_0,
+   bf16/bf16). K≠V, or an unwhitelisted type, → `BEST_FATTN_KERNEL_NONE` → attention op scheduled on CPU (a CPU KV
+   buffer is allocated; #20866 shows ~156 MiB). **Build-flag-gated:** `GGML_CUDA_FA_ALL_QUANTS=OFF` in our build; ON would
+   put asymmetric on-GPU (upstream ~25× prefill recovery) but it's still **dominated** (q4 already lossless → asymmetric =
+   more VRAM, zero quality). **iq4_nl has no FA kernel on ANY arch, flag or not** — universal, not sm_86-specific. The
+   CPU-offload penalty **grows with depth** (#20866: asym prefill 30.6 vs sym 1340 t/s, −98%), so our 8k numbers understate
+   the 128k penalty. Corroboration: Gäßler (#7527) *"quantized KV is a memory feature, not a speed feature"*; am17an
+   (#22411) *"mismatched K/V silently falls back to the non-fused path"*; FR #24485 to fix the footgun closed `not_planned`.
+2. **SAW-INT4 is a 4-bit method, not sub-4-bit** (CORRECTION: arXiv:2604.19157, Together AI). Block-diagonal-Hadamard +
+   token-wise INT4, near-lossless on **H100 + Triton + FA3 + forked SGLang** — its own thesis: *"more sophisticated
+   methods give only marginal gains once serving compatibility is considered."* Its value (quality-at-4-bit, low
+   integration cost) is **moot for us**: q4 is already lossless on this hybrid and SAW-INT4 isn't stock-llama.cpp-portable.
+3. **Genuinely sub-4-bit codecs (TurboQuant tq3_0, KVarN, OSCAR)** are **not upstream** (TurboQuant = discussion #20969; a
+   3090 fork `spiritbuun/llama-cpp-turboquant-cuda` exists but is unverified). Even a working one is dominated: MoE q4 KV
+   is ~6.5 MiB/1k → ~0.83 GB @128k, so a sub-4-bit codec frees < one `--n-cpu-moe` step (0.46 GB) and buys **zero
+   context** (q4 already reaches native 262k in VRAM, lossless, ~3 GB free). Physics: batch-1 decode is
+   weight-bandwidth-bound; **KV is ~3% of bytes moved** (arXiv:2605.30571) → sub-4-bit KV is wall-clock-invisible on
+   Ampere (same physics as S2). The **free monitor→iGPU replug (~1.4 GB ≈ 3 ncmoe steps)** strictly dominates this path.
+4. **Dense-27B can't be unblocked either** — Phase A #3: q4 *barely* shrinks dense VRAM at depth because the growing
+   component is the **full-precision Gated-DeltaNet recurrent state**, which **no `--cache-type` touches**.
+
+**Deploy takeaway:** keep **symmetric q4_0** for long context (fast + lossless); q8_0 symmetric if wanted (≈ same speed,
+more VRAM). **Never asymmetric on a default build (−57%); never iq4_nl (−82%).** Same pattern as S1/S2/S3/A1. **Re-open
+only** if a sub-4-bit *fused-FA* KV kernel lands **upstream** for sm_86, or a future served model becomes genuinely
+KV-bound (our GDN hybrids aren't). Raw: `runs/context/a3-kv-quant/`.
 
 ## §A1 — windowed-MTP: right paper, unreachable regime — MTP's edge GROWS to native 256k → CUT (2026-08-04, double-checked)
 

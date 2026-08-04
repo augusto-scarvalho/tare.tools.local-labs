@@ -210,18 +210,21 @@ A/B lab), not an agentic coding product. So:
   (Hadamard rotation + token-wise INT4, explicitly designed for low serving-integration cost). Extends usable
   context/residency. **Validate:** needle + code-suite at 8k/32k/64k/128k vs q4_0; accept if context headroom up
   and no code/tool regression. (Sub-2-bit KVarN/OSCAR = Tier C watchlist; TurboQuant/UltraQuant = cut, AMD-only.)
-- **✅ A3 CLOSED 2026-08-04 — NEGATIVE / already-optimal (full record STATUS §A3; gate `ops/kv-quant-bench.sh`).**
-  Measured decode @8k depth (deploy MoE, ncmoe=8, -fa on, 3 reps, base 720d7fa40): **q4_0/q4_0 = 87.4 t/s**
-  (baseline, lossless); **asymmetric q8/q4 and q4/q8 = 33 t/s (−62%)** — llama.cpp #20866's CPU-KV fallback
-  reproduces on our base, penalty symmetric in K↔V so there's no "quantize the cheap side harder" win; **iq4_nl
-  symmetric = 18.5 t/s (−79%)** — the one untested "better 4-bit" (CONTEXT_PLAN §D) falls off the fused-FA fast
-  path on sm_86. So the only fast KV types are the already-blessed **q4_0/q8_0, symmetric**. **Sub-4-bit
-  (SAW-INT4/TurboQuant) is not in the engine (cut from the fork) and paper-dominated even if added:** MoE q4 KV
-  is ~6.5 MiB/1k → ~0.83 GB @128k, so a sub-4-bit codec frees < one ncmoe step (0.46 GB) AND buys zero context
-  (q4 already reaches native 262k in VRAM, lossless, ~3 GB free); the free monitor→iGPU replug (~1.4 GB ≈ 3
-  ncmoe steps) strictly dominates it. **Dense-27B can't be unblocked** — its growing memory is the full-precision
-  GDN recurrent state (Phase A #3), which no `--cache-type` touches. Same pattern as S1/S2/S3/A1. Re-open only if
-  a sub-4-bit fused-FA KV kernel lands upstream for sm_86, or a served model becomes KV-bound (our hybrids aren't).
+- **✅ A3 CLOSED 2026-08-04, DOUBLE-CHECKED — NEGATIVE / already-optimal (full record `A3_KV_QUANT.md`; STATUS §A3;
+  gate `ops/kv-quant-bench.sh`).** Robust decode @8k (deploy MoE, ncmoe=8, -fa on, base 720d7fa40; 6 reps/arm,
+  isolated + cooldown, 95% CI): **q4_0/q4_0 = 88.6 [87.7,89.4]** (lossless); **q8_0/q8_0 = 89.8** (≈, lossless, more
+  VRAM); **asym q8/q4 = 38.4 [27.2,49.6] (−57%)**; **iq4_nl = 16.1 [15.5,16.7] (−82%)**. **Mechanism (source-verified
+  `ggml-cuda/fattn.cu`):** the default build compiles only 4 SYMMETRIC FA KV combos; K≠V or an unwhitelisted type →
+  `BEST_FATTN_KERNEL_NONE` → attention op offloaded to CPU (CPU KV buffer; #20866 ~156 MiB). Build-flag-gated
+  (`GGML_CUDA_FA_ALL_QUANTS=OFF`); ON puts asymmetric on-GPU (#20866 ~25× recovery) but still dominated (q4 lossless →
+  more VRAM, zero quality). **iq4_nl has no FA kernel on ANY arch, flag or not.** Corroboration: Gäßler #7527 (*"KV
+  quant is a memory feature, not a speed feature"*), am17an #22411, FR #24485 closed not_planned. **CORRECTION:
+  SAW-INT4 (arXiv:2604.19157) is a 4-BIT method (H100/Triton/FA3/SGLang), NOT sub-4-bit** — value is quality-at-4-bit,
+  null since q4 lossless here (QK-Norm kills the outliers INT4 fights). **Sub-4-bit (TurboQuant #20969/KVarN/OSCAR) not
+  upstream** and dominated anyway: frees < 1 ncmoe step @128k, buys zero context (q4 reaches native 262k), and batch-1
+  KV is ~3% of bytes moved (arXiv:2605.30571) → wall-clock-invisible on Ampere. Free monitor→iGPU replug (~1.4 GB)
+  dominates. **Dense-27B** blocked by the full-precision GDN recurrent state (Phase A #3), untouched by `--cache-type`.
+  Same pattern as S1/S2/S3/A1.
 
 ### A4. Spec-decode + benchmark instrumentation discipline — §22 / §40 / §63.4
 - Extend our A/B to log per-config **accepted-draft-tokens, acceptance rate, drafter-time-vs-saved, draft VRAM,

@@ -101,11 +101,15 @@ Knobs:
   ON — it's *even more* valuable for the long-context agent. **Windowed-MTP** (arXiv:2607.21535) is a *real* lever
   but its draft-KV tax only dominates near ~1M tokens — measured native 256k still gives the MAX edge (+176%,
   no-spec 32.7 → mtp 90.4), accept pristine → **CUT** (no context we can serve benefits; native ceiling is 262k).
-- **KV quant: use SYMMETRIC q4_0 (long ctx) or q8_0 — never asymmetric (§A3, 2026-08-04).** Measured @8k depth:
-  symmetric q4_0/q4_0 **87.4 t/s** vs asymmetric q8/q4 or q4/q8 **33 t/s (−62%, #20866 CPU-KV fallback)** vs
-  iq4_nl symmetric **18.5 t/s (−79%, off the fused-FA fast path on sm_86)**. q4_0 is lossless here (§Q) and
-  already reaches native 262k in VRAM, so there is no context or decode win left on the KV axis; sub-4-bit codecs
-  (SAW-INT4/TurboQuant) are cut from the fork and would free < one ncmoe step even at 128k. Gate `ops/kv-quant-bench.sh`.
+- **KV quant: use SYMMETRIC q4_0 (long ctx) or q8_0 — NEVER asymmetric, NEVER iq4_nl (§A3, double-checked 2026-08-04).**
+  Robust @8k (6 reps, isolated+cooldown, 95% CI): symmetric **q4_0/q4_0 88.6 [87.7,89.4]** ≈ **q8_0/q8_0 89.8** (both
+  lossless, on-GPU) vs **asym q8/q4 38.4 (−57%)** vs **iq4_nl 16.1 (−82%)**. **Why (source-verified):** the default
+  build compiles only 4 *symmetric* CUDA flash-attn KV combos (f16,q4_0,q8_0,bf16 with matching K=V); a mismatch or an
+  unwhitelisted type (iq4_nl) has no kernel → the attention op offloads to CPU (#20866; ~156 MiB CPU KV buffer), which
+  worsens with depth. This is a **silent footgun** in stock builds (FR #24485 to warn was closed not_planned) — our
+  symmetric q4_0 is safe. q4_0 is lossless here (§Q) and already reaches native 262k in VRAM, so there's no context or
+  decode win left on the KV axis; SAW-INT4 is a 4-bit method (quality-null for us) and sub-4-bit TurboQuant isn't
+  upstream and would free < 1 ncmoe step anyway. Full record `A3_KV_QUANT.md`; gate `ops/kv-quant-bench.sh`.
 
 ---
 

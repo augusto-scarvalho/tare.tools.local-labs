@@ -1,0 +1,29 @@
+955 MiB
+===== 8k depth, 6 reps each, isolated + 25s cooldown (robust stats pass) =====
+########## SYM q4 (deploy baseline)  ctk=q4_0 ctv=q4_0 depth=8192 reps=6 ##########
+pre-arm GPU (temp,sm_clk,mem): 30, 465 MHz, 955 MiB
+| model                          |       size |     params | backend    | ngl |  n_cpu_moe | type_k | type_v |  fa |            test |                  t/s |
+| qwen35moe 35B.A3B Q4_K - Medium |  21.10 GiB |    35.51 B | CUDA       |  -1 |          8 |   q4_0 |   q4_0 |   1 |    tg64 @ d8192 |         88.55 ± 0.84 |
+
+########## SYM q8 (other lossless on-GPU option)  ctk=q8_0 ctv=q8_0 depth=8192 reps=6 ##########
+pre-arm GPU (temp,sm_clk,mem): 32, 210 MHz, 955 MiB
+| model                          |       size |     params | backend    | ngl |  n_cpu_moe | type_k | type_v |  fa |            test |                  t/s |
+| qwen35moe 35B.A3B Q4_K - Medium |  21.10 GiB |    35.51 B | CUDA       |  -1 |          8 |   q8_0 |   q8_0 |   1 |    tg64 @ d8192 |         89.80 ± 3.30 |
+
+########## ASYM q8/q4 (doc: preserve-K compress-V)  ctk=q8_0 ctv=q4_0 depth=8192 reps=6 ##########
+pre-arm GPU (temp,sm_clk,mem): 32, 0 MHz, 955 MiB
+| model                          |       size |     params | backend    | ngl |  n_cpu_moe | type_k | type_v |  fa |            test |                  t/s |
+| qwen35moe 35B.A3B Q4_K - Medium |  21.10 GiB |    35.51 B | CUDA       |  -1 |          8 |   q8_0 |   q4_0 |   1 |    tg64 @ d8192 |        38.42 ± 10.65 |
+
+########## SYM iq4_nl  ctk=iq4_nl ctv=iq4_nl depth=8192 reps=6 ##########
+pre-arm GPU (temp,sm_clk,mem): 33, 0 MHz, 955 MiB
+| model                          |       size |     params | backend    | ngl |  n_cpu_moe | type_k | type_v |  fa |            test |                  t/s |
+| qwen35moe 35B.A3B Q4_K - Medium |  21.10 GiB |    35.51 B | CUDA       |  -1 |          8 | iq4_nl | iq4_nl |   1 |    tg64 @ d8192 |         16.11 ± 0.55 |
+
+===== depth confirm: the WORKING (symmetric on-GPU) path stays fast at depth =====
+########## SYM q4 @32k  ctk=q4_0 ctv=q4_0 depth=32768 reps=5 ##########
+pre-arm GPU (temp,sm_clk,mem): 33, 0 MHz, 955 MiB
+| model                          |       size |     params | backend    | ngl |  n_cpu_moe | type_k | type_v |  fa |            test |                  t/s |
+| qwen35moe 35B.A3B Q4_K - Medium |  21.10 GiB |    35.51 B | CUDA       |  -1 |          8 |   q4_0 |   q4_0 |   1 |   tg64 @ d32768 |         76.41 ± 2.09 |
+
+ALL_DONE
