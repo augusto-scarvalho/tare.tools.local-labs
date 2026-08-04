@@ -37,7 +37,9 @@ records. This is the durable handoff — read it first after a context reset.
 > §PF "38 s @ 128k" was a *linear extrapolation* from a ~41k-token throughput number, ignoring the mild
 > throughput falloff with length; the real measured 128k TTFT is ~68 s and always was. Apples-to-apples
 > with the SAME §PF tool (`prefill_probe.py`, ~38k prompt) this binary gives **2838 t/s @ ub2048 vs §PF's
-> 3441 (~1.2×, within clock-lock −4% + length/variance), doubling reproduces (+100.8%)**. Prefill is
+> 3441 (~1.2×, within length + run-to-run variance; a direct clock-lock A/B was ~0% here — 2387 t/s locked
+> @1800 vs 2311 unlocked @1905, within noise — this MoE prefill is transfer-bound, not clock-bound), doubling
+> reproduces (+100.8%)**. Prefill is
 > transfer/GPU-side, not CPU-bound (CPU ~6% during it); PCIe is Gen4 x16 full; fork/binary, MTP, XMP, clock,
 > TDR, power, and Game-Boost/HVCI all cleared as causes of even the residual.
 > **Caveat: ub2048 at 128k leaves only ~1.6 GB VRAM free** — under the 4 GB reserve; use ub1024 if you need margin.

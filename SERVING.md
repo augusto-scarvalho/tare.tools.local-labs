@@ -41,10 +41,12 @@ Follow-ups on the same context are **sub-second** (prompt-cache reuse).
 > ignores the (mild) throughput falloff with length; the real measured 128k TTFT is ~68 s and always was.
 > Apples-to-apples with the SAME §PF tool (`prefill_probe.py`, ~38k prompt) this binary gives **2838 t/s @
 > ub2048 vs §PF's 3441 (~1.21×), and the 2× ubatch doubling reproduces exactly (+100.8%)**. That ~1.2×
-> residual is within the clock-lock (−4%) + prompt-length/variance — no meaningful loss. `llama-bench`
+> residual is prompt-length + run-to-run variance (~7% between reps) — **a direct clock-lock A/B showed ~0%
+> on this workload: 2387 t/s locked @1800 vs 2311 unlocked @1905, within noise** (unlike gpt-oss's −4%, this
+> MoE prefill is transfer-bound, not core-clock-bound). No meaningful loss. `llama-bench`
 > length sweep (this binary): 2432 / 2200 / 1906 t/s @ 4k / 41k / 131k (gentle falloff — the GDN hybrid has
 > cheap attention). Ruled out as causes of even the residual: fork/binary (base build identical), MTP, XMP
-> (5600), power plan, GPU clock (sampled 1800/9501, not throttled), TDR, power limit (420 W), **PCIe (Gen4
+> (5600), power plan, GPU clock (locked-vs-unlocked A/B = no change; transfer-bound not clock-bound), TDR, power limit (420 W), **PCIe (Gen4
 > x16, full)** — and prefill is neither CPU-bound (CPU ~6 % during it) nor a Game-Boost/HVCI casualty.
 > **Envelope caveat (stands):** ub2048 at 128k leaves only **~1.6 GB VRAM free** (22932/24576 MiB) — under
 > the 4 GB reserve; drop to ub1024 or accept the tighter margin for long-context serving.
