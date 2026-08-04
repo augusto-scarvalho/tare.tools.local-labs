@@ -31,7 +31,15 @@ llama-server -m Qwen3.6-35B-A3B-mtp.gguf -fa on --n-cpu-moe 8 -c 131072 \
   --batch-size 2048 --ubatch-size 2048 --host 0.0.0.0 --port 8080
 ```
 → **128k context, 100% multi-hop accuracy, ~60 t/s decode.** q4 KV is lossless here → doubles headroom.
-Prefill a 128k prompt in ~38 s; follow-ups on the same context are **sub-second** (prompt-cache reuse).
+Follow-ups on the same context are **sub-second** (prompt-cache reuse).
+> **Re-validated 2026-08-04** (server `/completion` path, ~124.5k-token prompt, `068764d92`): cold prefill
+> **137.8 s @ ub512 → 67.9 s @ ub2048 = 2.03× (the `--ubatch-size 2048` doubling holds exactly)**; decode
+> at depth **61.8 → 67.6 t/s** (MTP on; MTP costs only ~5.5% of prefill and gives +46% decode: 46.3→67.6);
+> warm reuse TTFT **0.24 s (273×**, only 4 new tokens prefilled); needle at 124.5k answered correctly.
+> Absolute TTFT is ~1.8× the §PF `llama-bench` figures below (68 s vs 38 s) — the gap is the server path +
+> the 1800 MHz clock-lock, **not** MTP/XMP (XMP confirmed active @ 5600); the 2× *ratio* is what matters and
+> it reproduces. **Envelope caveat:** ub2048 at 128k leaves only **~1.6 GB VRAM free** (22932/24576 MiB) —
+> under the 4 GB reserve; drop to ub1024 or accept the tighter margin for long-context serving.
 
 **3. Many users, max throughput** (multi-tenant)
 ```bash
@@ -50,7 +58,7 @@ llama-server -m Qwen3.6-35B-A3B-mtp.gguf -fa on --n-cpu-moe 8 -c 32768 -np 8 \
 | **Quality** | every lever quality-neutral (pass@1 flat); q4 KV lossless | Q |
 | **Context** | native 262k fits in VRAM; **usable ≥136k @ 100% multi-hop**; §B2b unneeded | ctx A–C |
 | **Decode at depth** | ~86→60 t/s (8k→136k) — graceful | ctx B |
-| **Prefill** | `--ubatch 2048` → 2× (128k TTFT 79→38 s); cache reuse 15× | PF |
+| **Prefill** | `--ubatch-size 2048` → **2× confirmed** (llama-bench 79→38 s; server path 138→68 s @ 124.5k, 2026-08-04); cache reuse 15–273× | PF |
 | **Concurrency** | N=8 → 2.5× aggregate ~free on VRAM; MTP flips OFF at N≈4 | CC |
 
 ## Lever decisions (what's on/off, and why)
