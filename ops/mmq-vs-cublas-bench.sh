@@ -12,23 +12,40 @@
 #
 # This gate A/Bs the default (MMQ int8-TC) vs a FORCE_CUBLAS build (the old dequant->FP16->cuBLAS path) =
 # exactly the S2 delta, in reverse. Rigorously measured 2026-08-04 (prefill pp512/pp2048, -ub 2048, r5, arch
-# sm_86, undervolt clock-stable):
-#     shape                 MMQ(default)   cuBLAS(forced)   verdict
-#     dense-27B pp512         1336            1203           MMQ +11%  (small batch -> MMQ wins)
-#     dense-27B pp2048        1448            1522           cuBLAS +5% (large ubatch -> cuBLAS edges it)
-#     MoE-A3B ncmoe=0 pp2048  4494             864           MMQ +420% (grouped per-expert GEMM: cuBLAS dies)
-#     MoE-A3B ncmoe=8 pp2048  2140             581           MMQ +268% (deploy config)
-# => For the DEPLOY MoE, MMQ int8-TC crushes cuBLAS (small per-expert batches) — forcing cuBLAS is catastrophic.
-#    The ONLY place cuBLAS wins is large-ubatch DENSE prefill (+5%), which is (a) the OPPOSITE of what S2 asked,
-#    (b) dense-27B only (not the deploy model), (c) VRAM-COSTLY (FP16 dequant buffers) on our VRAM-tight box,
-#    (d) off the decode/transfer-bound critical path. NOT adopted. Recorded as a measured knob only.
-# Corroboration: upstream PR #8075 (MMQ default, VRAM-motivated), PR #8062 (3090 pp2048 Q4_K_S: MMQ=0.82x
-#    cuBLAS — same direction as our dense +5%), PR #7921 (int8-TC k-quant kernels, Q8_1 activation precision
-#    "negligible"), docs/build.md (FORCE_CUBLAS "faster large-batch but more VRAM + FP16 overflow risk";
-#    MMQ int32-accumulates so it's the MORE numerically robust path). No open/rejected PR proposes a fused
-#    int8-TC GEMM beyond MMQ — it IS that kernel and is treated as mature. Quality: the deploy path already
-#    USES MMQ and was blessed on HumanEval+ (§Q); FORCE_CUBLAS is the deviation and is not adopted.
+# sm_86, undervolt, ISOLATED arms + cooldown — see METHODOLOGY below):
+#     shape                MMQ(default)    cuBLAS(forced)    verdict
+#     dense-27B ub512       1375 +/-39      1227 +/-41       MMQ +12%   (small batch -> MMQ wins)
+#     dense-27B ub2048      1382 +/-62      1532 +/-15       cuBLAS +5-11% (large ubatch -> cuBLAS edges it)
+#     MoE-A3B ncmoe=8 ub2048 2482 +/-23      646 +/-175 (!)  MMQ +284%  (deploy; cuBLAS path is BROKEN, see below)
+#     MoE-A3B ncmoe=0 ub2048 4687 +/-16      729 +/-222 (!)  MMQ +543%
+# => For the DEPLOY MoE, MMQ int8-TC crushes cuBLAS. And forcing cuBLAS for MoE is not just slow — it is
+#    OUTRIGHT BROKEN on the 3090: the FORCE_CUBLAS MoE path is a host-synced per-expert GEMM loop that
+#    OVERFLOWS TO NaN / corrupts output / asserts (upstream #19659, reproduced on sm_86) and breaks CUDA graphs.
+#    So the cuBLAS MoE t/s here may be measuring a NaN-producing path; treat it as "not a valid option," not a
+#    speed comparison. The ONLY place cuBLAS legitimately wins is large-ubatch DENSE prefill (~+5-11%), which is
+#    (a) the OPPOSITE of what S2 asked, (b) dense-27B only (not the deploy MoE), (c) VRAM-COSTLY (FP16 dequant
+#    buffers) on our VRAM-tight box, (d) off the decode/transfer-bound critical path, (e) NOT quality-tested
+#    (cuBLAS FP16-accumulate has overflow risk). NOT adopted. Recorded as a measured knob only.
+# Corroboration (double-checked 2026-08-04): the int8-TC branch has been unconditional since PR #8075 (never a
+#    large-batch cuBLAS fallback for tensor-core NVIDIA; the batch cutoff was always dp4a/Pascal-only). PR #8062
+#    (3090 pp2048 Q4_K_S: MMQ=0.82x cuBLAS — same direction as our dense). Maintainers TRIED and FAILED to beat
+#    cuBLAS at large batch/large ne01 (#16512). Re-introducing cuBLAS was REJECTED on precision (#23043); the
+#    original int8-TC prototype was killed for precision too (#4801). NO runtime toggle (compile-time only,
+#    #15378 declined) -> this gate needs the separate build-cublas binary. NO per-shape MMQ<->cuBLAS autotuning
+#    PR exists; recent low-bit work is all Blackwell-NVFP4/Hopper. PHYSICS (Marlin PPoPP'25 + GA102 whitepaper):
+#    on GA102 int8 is only ~2x the fp16/fp16-accumulate rate cuBLAS uses (NOT 4x); on-the-fly W8A8 quant/dequant
+#    overhead eats it; prefill at ub2048 is compute-bound past the roofline ridge (batch>~32) where even the best
+#    Ampere low-bit kernel (Marlin) converges to fp16 parity -> a negative S2 is the physically expected result.
+#    Quality: the deploy path already USES MMQ and was blessed on HumanEval+ (§Q).
+# WATCH (pin safety): upstream PR #26141 (2026-07-29) added a `smpbo < 48 KiB` guard atop should_use_mmq that
+#    REGRESSES the RTX 3090 -> prefill ~1200->~40 t/s (open issue #26285). We are pinned to 720d7fa40 (pre-#26141;
+#    confirmed absent, and our ~1400 t/s prefill proves it). Any future pin bump toward master MUST re-check #26285.
 # Re-run this if the CUDA backend's MMQ heuristic changes or a new quant/arch lands.
+#
+# METHODOLOGY: run arms ISOLATED (one per process) with a cooldown + clock guard. Back-to-back cells heat-soak
+#    the GPU and inflate variance badly (a naive r10 sweep gave dense ub2048 1296 +/-456 = 35% CV, a THERMAL
+#    artifact, not GEMM variance). Isolated+cooldown collapses it to ~1-3% CV. Small (~5%) deltas are only
+#    trustworthy from that path; any high-CV cell is suspect -> re-run.
 #
 # Usage: mmq-vs-cublas-bench.sh              (builds build-cublas on demand, A/Bs dense + MoE prefill)
 #        REPS=3 mmq-vs-cublas-bench.sh
@@ -50,17 +67,34 @@ if [ ! -x "$BENCH_CUB" ]; then
     || { echo "build FAILED"; exit 1; }
 fi
 
-row() { grep -E "^\| (qwen|model)"; }   # keep header + data rows from llama-bench markdown
+row() { grep -E "^\| qwen"; }   # data rows only
+tps() { row | sed -E 's/.*\| +([0-9.]+ . [0-9.]+) \|.*/\1/'; }
+COOL="${COOL:-20}"                # cooldown seconds between arms (see METHODOLOGY note in the header)
+
+arm() {  # label bin model extra ubatch
+  local label="$1" bin="$2" model="$3" extra="$4" ub="$5" out clk
+  out=$("$bin" -m "$model" $extra -p "$ub" -n 0 -ngl 99 -fa 1 -b "$ub" -ub "$ub" -r "$REPS" 2>&1 | tps)
+  clk=$(nvidia-smi --query-gpu=clocks.sm,temperature.gpu --format=csv,noheader | tr -d '\n')
+  printf '  %-26s %s   [end: %s]\n' "$label" "$out" "$clk"
+  sleep "$COOL"
+}
 
 echo "===================== MMQ int8-TC (default) vs FORCE_CUBLAS — prefill A/B ====================="
-for pair in "DENSE-27B|$DENSE|" "MoE-A3B ncmoe=0|$MOE|--n-cpu-moe 0" "MoE-A3B ncmoe=8 (deploy)|$MOE|--n-cpu-moe 8"; do
-  label="${pair%%|*}"; rest="${pair#*|}"; model="${rest%%|*}"; extra="${rest#*|}"
-  echo; echo "### $label"
-  echo "--- MMQ (default) ---"
-  "$BENCH_MMQ" -m "$model" $extra -p 512,2048 -n 0 -ngl 99 -fa 1 -b 2048 -ub 2048 -r "$REPS" 2>&1 | row
-  echo "--- FORCE_CUBLAS ---"
-  "$BENCH_CUB" -m "$model" $extra -p 512,2048 -n 0 -ngl 99 -fa 1 -b 2048 -ub 2048 -r "$REPS" 2>&1 | row
+echo "# isolated arms, r=$REPS, ${COOL}s cooldown; [end: clk,temp] should read ~1860MHz (throttled if lower)"
+echo
+echo "### DENSE-27B — crossover (small batch -> MMQ; large ubatch -> cuBLAS)"
+for UB in 512 2048; do
+  arm "MMQ    ub$UB"    "$BENCH_MMQ" "$DENSE" "" "$UB"
+  arm "cuBLAS ub$UB"    "$BENCH_CUB" "$DENSE" "" "$UB"
 done
 echo
-echo "# VERDICT: MMQ int8-TC is the default and is the win for the deploy MoE (grouped GEMM). cuBLAS edges"
-echo "# only large-ubatch DENSE prefill (+~5%, VRAM-costly, opposite of S2, off critical path) -> NOT adopted."
+echo "### MoE-A3B ncmoe=8 (DEPLOY) — MMQ grouped GEMM crushes the cuBLAS sort+per-expert fallback"
+arm "MMQ    ub2048"     "$BENCH_MMQ" "$MOE" "--n-cpu-moe 8" 2048
+arm "cuBLAS ub2048"     "$BENCH_CUB" "$MOE" "--n-cpu-moe 8" 2048
+echo
+echo "### MoE-A3B ncmoe=0 (all-GPU) — same, more extreme (cuBLAS fallback is sync-bound + noisy)"
+arm "MMQ    ub2048"     "$BENCH_MMQ" "$MOE" "--n-cpu-moe 0" 2048
+arm "cuBLAS ub2048"     "$BENCH_CUB" "$MOE" "--n-cpu-moe 0" 2048
+echo
+echo "# VERDICT: MMQ int8-TC is the default and is the win for the deploy MoE (grouped GEMM, ~+270%). cuBLAS"
+echo "# edges only large-ubatch DENSE prefill (~+4%, VRAM-costly, opposite of S2, off critical path) -> NOT adopted."

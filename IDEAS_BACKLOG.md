@@ -84,6 +84,31 @@ A/B lab), not an agentic coding product. So:
   heuristic or a new quant/arch changes). Quality: the deploy path already uses MMQ and was blessed on HumanEval+ (§Q).
 - Effort spent: low (source read + one compile-flag A/B build + benchmark + web verification). Outcome: the top
   remaining Tier-S engine item closes NEGATIVE (already-captured), with a reusable GEMM-path gate.
+- **✅ DOUBLE-CHECKED 2026-08-04 (per user request) — verdict UNCHANGED, materially strengthened, 3 corrections:**
+  - **(implementation verified)** FORCE_CUBLAS build has the define active (CMakeCache `=ON` + flags.make + a
+    behavioral proof: two binaries from identical source/arch diverge 3-6× on MoE). Arch 86 matches deploy; deploy
+    uses `--ubatch-size 2048` so our ub2048 test IS the deploy prefill regime; the FORCE_CUBLAS MoE path is the
+    real llama.cpp fallback (a fair comparison, not a strawman).
+  - **(methodology flaw found + FIXED)** the first A/B ran arms back-to-back → GPU heat-soak inflated variance to
+    35% CV (dense ub2048 read 1296±456), so my earlier "cuBLAS +5% at 4σ, clean" was OVERCONFIDENT — a lucky
+    low-variance run. Isolated arms + cooldown + clock-guard collapse it to 1-3% CV. Honest number: dense
+    large-batch cuBLAS wins ~**+5-11%** (wobbles; direction solid). The gate now enforces isolation+cooldown.
+  - **(MoE cuBLAS is BROKEN, not just slow — correctness correction)** forcing cuBLAS for MoE OVERFLOWS TO NaN /
+    corrupts output / asserts on the RTX 3090 (upstream **#19659**, reproduced on sm_86) and breaks CUDA graphs —
+    it's a host-synced per-expert GEMM loop. So "MoE MMQ +284%" understates it: cuBLAS-for-MoE is not a valid
+    option at all. Never force cuBLAS for the deploy model.
+  - **PR archaeology (incl. rejected, as asked):** the int8-TC branch was NEVER batch-gated (unconditional since
+    #8075; the cutoff was always dp4a/Pascal-only). Re-introducing cuBLAS was **REJECTED on precision (#23043)**;
+    the original int8-TC prototype was killed for precision too (#4801); maintainers **TRIED and FAILED** to beat
+    cuBLAS at large batch (#16512, "things that didn't work…"); NO runtime toggle (compile-time only, #15378
+    declined); NO per-shape MMQ↔cuBLAS autotune PR exists; recent low-bit work is all Blackwell-NVFP4/Hopper.
+  - **Physics (why no efficacy):** GA102 int8 is only ~**2×** the fp16/fp16-accumulate rate cuBLAS uses (NOT 4×);
+    on-the-fly W8A8 quant/dequant overhead eats that 2×; prefill at ub2048 is compute-bound past the roofline
+    ridge (batch >~32) where even the best Ampere low-bit kernel (Marlin, PPoPP'25) converges to fp16 parity →
+    a negative S2 is the *physically expected* outcome, not a missed opportunity.
+  - **WATCH (pin safety):** upstream **#26141** (2026-07-29) added a `smpbo < 48 KiB` guard atop `should_use_mmq`
+    that REGRESSES the RTX 3090 → prefill ~1200→~40 t/s (open issue **#26285**). We're pinned to `720d7fa40`
+    (pre-#26141; confirmed absent, and our ~1400 t/s prefill proves it). Any future pin bump MUST re-check #26285.
 - **→ Tier S is now fully swept: S1 ✅ (null), S2 ✅ (already-captured), S3 ✅ (mtp-alone optimal). Next
   un-attacked items are Tier A (A1 windowed-MTP, A2 ThinkingCap LoRA on dense-27B, A3 SAW-INT4 KV, A4 instrumentation).**
 

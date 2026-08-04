@@ -64,12 +64,17 @@ records. This is the durable handoff — read it first after a context reset.
 > greedy (quality-neutral on HumanEval+, but not bit-exact — the FORK.md "token-exact" is fork==base, not
 > spec==greedy). Regression gate: `ops/spec-drafter-bench.sh` (no-spec floor + CI + 3 regimes).
 >
-> **GEMM path = leave it default (MMQ int8-TC) — do NOT force cuBLAS (S2, closed 2026-08-04).** llama.cpp already
-> runs the INT8-Tensor-Core fused-dequant GEMM (MMQ, `s8.s8.s32`) by default on the 3090 for Q4_K, at every batch.
-> For the deploy MoE it CRUSHES the old dequant→FP16→cuBLAS path (prefill **+268%** at ncmoe=8, +420% all-GPU —
-> grouped per-expert GEMMs starve cuBLAS). `GGML_CUDA_FORCE_CUBLAS` only helps large-ubatch **dense-27B** prefill
-> (~+5%), and there it costs VRAM (FP16 dequant buffers) → not worth it on our VRAM-tight box. Gate:
-> `ops/mmq-vs-cublas-bench.sh`.
+> **GEMM path = leave it default (MMQ int8-TC) — do NOT force cuBLAS (S2, closed + double-checked 2026-08-04).**
+> llama.cpp already runs the INT8-Tensor-Core fused-dequant GEMM (MMQ, `s8.s8.s32`) by default on the 3090 for
+> Q4_K at every batch. For the deploy MoE it beats the dequant→FP16→cuBLAS path by **~+284%** (ncmoe=8) — and
+> forcing cuBLAS for MoE isn't just slow, it's **BROKEN**: it overflows to NaN / corrupts output on sm_86
+> (upstream #19659) and breaks CUDA graphs. `GGML_CUDA_FORCE_CUBLAS` only *legitimately* helps large-ubatch
+> **dense-27B** prefill (~+5-11%), and there it costs VRAM (FP16 dequant buffers) + isn't quality-tested → not
+> worth it on our VRAM-tight box. Physics (why there's no win to build): on GA102 int8 is only ~2× the
+> fp16/fp16-acc rate cuBLAS uses, quant overhead eats it, and ub2048 prefill is compute-bound (Marlin converges
+> to fp16 there). Gate: `ops/mmq-vs-cublas-bench.sh` (isolated arms + cooldown — back-to-back cells heat-soak the
+> GPU and inflate variance). **Pin-watch:** upstream #26141 (`smpbo<48KiB` guard) regresses 3090 prefill to ~40
+> t/s (#26285); we're pinned pre-that (720d7fa40) — re-check before any pin bump.
 
 **Delivers ~116 t/s decode inside the safe envelope, quality-neutral (pass@1 unchanged; equivalent
 output, not byte-identical to non-spec — §Q).** This single
