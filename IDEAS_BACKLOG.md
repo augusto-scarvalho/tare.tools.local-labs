@@ -69,25 +69,40 @@ A/B lab), not an agentic coding product. So:
   priority MTP > n-gram > small drafter; **regression-test** it (doc + community: a mismatched drafter *reduces*
   Qwen3.6 throughput).
 - **Why:** best ROI-per-effort on the engine axis — llama.cpp already ships n-gram, so it's config + benchmarking.
-- **✅ S3 CLOSED 2026-08-04 — MTP alone wins; adding n-gram is neutral-to−15%, never positive. Keep deploy default.**
-  The fork already ships the full multi-drafter machinery (`--spec-type a,b` → priority fallback chain; hardcoded
-  "cheap-first" order = ngram BEFORE mtp; `common/speculative.cpp:2357`). No code needed — it's a config A/B/C.
-  Benchmarked on a repetitive-code corpus (deploy model, `enable_thinking:false`, temp 0, 512 tok), two prompt
-  variants — decode t/s / draft acceptance:
-  - **`draft-mtp` (deploy default): ~125–135 t/s, 92–96% accept** (e.g. 405/420, mean run ~4.9). **Winner,** and
-    it's the BLESSED **token-exact** drafter.
-  - `ngram-simple` alone: **~72 t/s (−45%)**, 18–48% accept — drafts long (len 8–13) but wrong. Catastrophic, and
-    its output **diverged from greedy** (different char count at temp 0) → **not token-exact**. Double reject.
-  - `draft-mtp,ngram-simple`: **prompt-dependent, ~neutral to −15% vs MTP, never faster.** The *useful* accepts are
-    always ~identical to MTP-alone (ngram adds only rejected drafts). When ngram fires it **preempts** MTP's good
-    draft with a bad long one (higher priority) → wasted verification. Exactly the doc/community "mismatched drafter
-    reduces throughput" warning, now bounded: **zero upside, downside up to −15%.**
-- **Takeaway:** the deploy config (`--spec-type draft-mtp` alone) is already optimal for code. n-gram only *could*
-  win on verbatim-copy-heavy output (large diffs echoing input) **and** only if given LOWER priority than MTP —
-  which the fork's cheap-first order can't express — so it's not worth pursuing. Benchmark banked as a regression
-  guard: `ops/spec-drafter-bench.sh` (re-run when the drafter config or MTP head changes).
-- Effort spent: low (config + benchmark). Outcome: confirmed we should NOT touch the deploy drafter, + a repeatable
-  drafter-regression gate.
+- **✅ S3 CLOSED 2026-08-04, then DOUBLE-CHECKED & re-run rigorously 2026-08-04. Keep `--spec-type draft-mtp` alone.**
+  The fork ships the full multi-drafter machinery (`--spec-type a,b` → priority fallback chain; hardcoded
+  "cheap-first" order = ngram BEFORE mtp; `common/speculative.cpp:2357`). This mirrors **upstream's documented rule**
+  (`docs/speculative.md`: *"if a draft model is combined with a draftless decoding the draftless decoding has higher
+  precedence"*) — so the ngram-preempts-MTP behavior is upstream-by-design, not a fork bug. No code needed; config only.
+- **Rigorous re-test** (deploy model, temp 0 / top_k 1, `enable_thinking:false`, 6 reps/cell, 95% CI, GPU clock 1845–1860
+  MHz stable, temp 38–46 °C ~no drift). **Now includes the NO-SPEC FLOOR** (the original test lacked it — it only
+  compared drafters to each other, so it could not state each drafter's *sign*). Decode t/s (mean, +/- vs no-spec):
+  - **no-spec floor: ~87 t/s** (GEN 87.1, EDIT 88.1, pure-copy 86.6).
+  - **`draft-mtp` (deploy default): 132–151 t/s = +53% to +73% over floor** (GEN 150.8, EDIT 149.8, copy 132.2),
+    ~92–96% accept, mean accepted run ~4.7 — matches Leviathan E[tok]=(1−α^{γ+1})/(1−α)≈4.4 at α=.94,γ=4. **Winner in
+    every regime, incl. pure copy.**
+  - **`ngram-simple` alone: net-NEGATIVE except pure copy.** GEN 82.4 (−5%), EDIT 49.8 (−44%, long-but-wrong drafts on
+    rename-edits), pure-copy 107.3 (**+24%** — its real §35/PLD niche, confirmed even on our MoE). So n-gram is not
+    fundamentally broken here; it just needs ~verbatim copy to pay, which our code workload isn't.
+  - **`draft-mtp,ngram-simple` (stack): ALWAYS worse than mtp-alone** — GEN 150.8→131.7, EDIT 149.8→65.3 (below floor!),
+    copy 132.2→122.9. The cheap-first ngram draft preempts MTP's better draft → wasted verification. **Zero upside.**
+- **CORRECTION to the first pass (exactness was stated backwards):** empirically (sha256, deterministic across reps),
+  **`ngram-simple` is greedy-EXACT** (byte-identical to no-spec) while **`draft-mtp` deterministically DIVERGES from
+  greedy** (different but stable output; quality-neutral on HumanEval+ separately, but NOT bit-exact). The FORK.md
+  "BLESSED token-exact" for draft-mtp means fork==base parity, **not** spec==greedy. Corrected in DEPLOY.md + memory.
+- **External corroboration** (all point the same way): upstream **Issue #23184** (closed *not-planned*) independently
+  reports *"draft-mtp alone ~78% accept; adding ngram-mod on top = no speedup, only verification overhead"*;
+  **thc1006** benchmarked our exact Qwen3.6-35B-A3B on an RTX 3090 (19 configs, *no* spec config beat their no-spec
+  baseline); **Spec-Bench** (RTX 3090) puts n-gram/PLD at ~1.6 accepted tok/step vs model drafters ~3.5–4.5; the
+  **Leviathan/Chen cost model** predicts a low-α high-γ drafter is strictly wasteful. Papers: PLD, REST, Lookahead,
+  SuffixDecoding, CopySpec, "When/What/How" (2511.01282) — n-gram niche = copy-heavy; naive stacking loses.
+- **Takeaway:** `--spec-type draft-mtp` alone is optimal for our code workload (MTP is a real ~1.7× win, not just
+  "least-bad"). A copy-drafter could only help via a **gated** design (CopySpec / SuffixDecoding: fire only on verbatim
+  spans, don't preempt MTP) — the fork's naive cheap-first stacking can't express that, and our workload isn't
+  copy-heavy, so it's not worth building. Filed the gated-copy-drafter idea under Tier B (see B-copy). Rigorous
+  benchmark banked as the gate: `ops/spec-drafter-bench.sh` (now includes the no-spec floor + CI + 3 regimes).
+- Effort spent: low (config + benchmark + verification). Outcome: MTP-alone confirmed optimal AND MTP itself validated
+  as a real +70% win; exactness claim corrected; a repeatable drafter-regression gate with proper statistics.
 
 ---
 
