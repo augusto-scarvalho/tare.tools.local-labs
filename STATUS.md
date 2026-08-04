@@ -313,6 +313,8 @@ Net kernel would raise base decode and likely shrink the ratio. Raw:
 
 ## §A1 — windowed-MTP: right paper, unreachable regime — MTP's edge GROWS to native 256k → CUT (2026-08-04, double-checked)
 
+> **Full consolidated record: `A1_WINDOWED_MTP.md`** (arc + all data + literature + code verification + re-open trigger).
+
 **IDEAS_BACKLOG A1 (windowed / adaptive MTP). Verdict: CUT — no context we can serve benefits.** We measured to
 the model's native 262k ceiling and the MTP edge only grows (+75% @8k → +134% @128k → +176% @256k), accept
 pristine throughout; the draft-KV tax the lever removes only dominates near ~1M tokens, which we cannot reach.
