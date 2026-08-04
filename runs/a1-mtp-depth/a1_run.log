@@ -1,0 +1,92 @@
+
+=== moe/8k/nospec (ctx=8192 kv=q8_0) ===
+   rep0: tps=83.75440082846131 draft={}
+   rep1: tps=84.87624195161034 draft={}
+   rep2: tps=85.9483271017613 draft={}
+   -> median tps=84.87624195161034  prompt_n=6741  sample='    def __init__(self):\n        self._user_id = None\n        self._username = None\n        self._email = None\n        se'
+
+=== moe/8k/mtp (ctx=8192 kv=q8_0) ===
+   rep0: tps=147.92422860801986 draft={'draft_n': 361, 'draft_n_accepted': 358}
+   rep1: tps=148.41394959202654 draft={'draft_n': 361, 'draft_n_accepted': 358}
+   rep2: tps=148.82409124702681 draft={'draft_n': 361, 'draft_n_accepted': 358}
+   -> median tps=148.41394959202654  prompt_n=6741  sample='    def __init__(self):\n        self._user_id = None\n        self._username = None\n        self._email = None\n        se'
+
+=== moe/128k/nospec (ctx=131072 kv=q4_0) ===
+   !! HTTP 400: {"error":{"code":400,"message":"request (132086 tokens) exceeds the available context size (131072 tokens), try increasing it","type":"exceed_context_size_error","n_prompt_tokens":132086,"n_ctx":131072}}
+Traceback (most recent call last):
+  File "/mnt/c/projects/local-model-lifecycle/ops/a1_mtp_depth_bench.py", line 175, in <module>
+    main()
+  File "/mnt/c/projects/local-model-lifecycle/ops/a1_mtp_depth_bench.py", line 149, in main
+    res = run_cell(mk, gguf, common, depth_label, ctx, kv, target, spec)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/projects/local-model-lifecycle/ops/a1_mtp_depth_bench.py", line 114, in run_cell
+    t0, _ = complete(prompt)
+            ^^^^^^^^^^^^^^^^
+  File "/mnt/c/projects/local-model-lifecycle/ops/a1_mtp_depth_bench.py", line 87, in complete
+    r = json.load(urllib.request.urlopen(req, timeout=1200))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 400: Bad Request
+
+=== moe/128k/nospec (ctx=131072 kv=q4_0) ===
+   rep0: tps=48.355629218491366 draft={}
+   rep1: tps=48.370364788868194 draft={}
+   rep2: tps=48.21237615981567 draft={}
+   -> median tps=48.355629218491366  prompt_n=122016  sample='    def __init__(self):\n        self._user_id = None\n        self._username = None\n        self._email = None\n        se'
+
+=== moe/128k/mtp (ctx=131072 kv=q4_0) ===
+   rep0: tps=113.60956784435186 draft={'draft_n': 361, 'draft_n_accepted': 358}
+   rep1: tps=113.25492904327018 draft={'draft_n': 361, 'draft_n_accepted': 358}
+   rep2: tps=112.71474977701266 draft={'draft_n': 361, 'draft_n_accepted': 358}
+   -> median tps=113.25492904327018  prompt_n=122016  sample='    def __init__(self):\n        self._user_id = None\n        self._username = None\n        self._email = None\n        se'
+
+
+===== A1-0 SUMMARY: MTP edge vs depth =====
+model  depth   prompt_n   nospec      mtp   delta%
+moe    128k      122016     48.4    113.3   +134.2
+
+=== dense/8k/nospec (ctx=8192 kv=q8_0) ===
+   rep0: tps=31.820270063581848 draft={}
+   rep1: tps=31.806125690175257 draft={}
+   rep2: tps=31.930965536341233 draft={}
+   -> median tps=31.820270063581848  prompt_n=6316  sample='    def __init__(self):\n        self._user_id = None\n        self._username = None\n        self._email = None\n        se'
+
+=== dense/8k/mtp (ctx=8192 kv=q8_0) ===
+   rep0: tps=70.57757392883241 draft={'draft_n': 365, 'draft_n_accepted': 357}
+   rep1: tps=71.25555615199096 draft={'draft_n': 365, 'draft_n_accepted': 357}
+   rep2: tps=70.56998119231591 draft={'draft_n': 365, 'draft_n_accepted': 357}
+   -> median tps=70.57757392883241  prompt_n=6316  sample='    def __init__(self):\n        self._user_id = None\n        self._username = None\n        self._email = None\n        se'
+
+=== dense/48k/nospec (ctx=49152 kv=q4_0) ===
+   rep0: tps=24.98963207931287 draft={}
+   rep1: tps=25.225246031634363 draft={}
+   rep2: tps=24.964609891633064 draft={}
+   -> median tps=24.98963207931287  prompt_n=44166  sample='    def __init__(self, user_id: int = None, username: str = None, email: str = None, full_name: str = None, age: int = N'
+
+=== dense/48k/mtp (ctx=49152 kv=q4_0) ===
+   rep0: tps=58.26069303813201 draft={'draft_n': 374, 'draft_n_accepted': 355}
+   rep1: tps=58.04567188252175 draft={'draft_n': 374, 'draft_n_accepted': 355}
+   rep2: tps=58.57744289415265 draft={'draft_n': 374, 'draft_n_accepted': 355}
+   -> median tps=58.26069303813201  prompt_n=44166  sample='    def __init__(self, user_id: int = None, username: str = None, email: str = None, full_name: str = None, age: int = N'
+
+
+===== A1-0 SUMMARY: MTP edge vs depth =====
+model  depth   prompt_n   nospec      mtp   delta%
+dense  8k          6316     31.8     70.6   +121.8
+dense  48k        44166     25.0     58.3   +133.1

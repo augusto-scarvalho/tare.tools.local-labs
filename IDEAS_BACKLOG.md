@@ -118,8 +118,9 @@ A/B lab), not an agentic coding product. So:
   - **WATCH (pin safety):** upstream **#26141** (2026-07-29) added a `smpbo < 48 KiB` guard atop `should_use_mmq`
     that REGRESSES the RTX 3090 → prefill ~1200→~40 t/s (open issue **#26285**). We're pinned to `720d7fa40`
     (pre-#26141; confirmed absent, and our ~1400 t/s prefill proves it). Any future pin bump MUST re-check #26285.
-- **→ Tier S is now fully swept: S1 ✅ (null), S2 ✅ (already-captured), S3 ✅ (mtp-alone optimal). Next
-  un-attacked items are Tier A (A1 windowed-MTP, A2 ThinkingCap LoRA on dense-27B, A3 SAW-INT4 KV, A4 instrumentation).**
+- **→ Tier S fully swept: S1 ✅ (null), S2 ✅ (already-captured), S3 ✅ (mtp-alone optimal). Tier A: A1 ✅
+  (windowed-MTP — premise REVERSED, null, 2026-08-04). Next un-attacked: A2 ThinkingCap LoRA on dense-27B,
+  A3 SAW-INT4 KV, A4 instrumentation.**
 
 ### S3. N-gram speculative decoding + drafter-selection policy — §35 / §63.3
 - **What:** add n-gram spec-decode (no extra model, wins on repetitive code) alongside MTP; formalize drafter
@@ -165,10 +166,19 @@ A/B lab), not an agentic coding product. So:
 
 ## Tier A — high value, moderate effort, our stack
 
-### A1. Windowed-MTP / adaptive speculation — §22 / §35
-- Targets our **exact** combo (MTP draft + hybrid GDN + long context), where MTP's edge is known to drop because
-  the draft pays full-context KV. Bleeding-edge, kernel work. Prototype on the GDN path; validate acceptance-rate
-  and decode t/s at 32k/64k/128k vs plain draft-mtp. High potential, uncertain.
+### A1. Windowed-MTP / adaptive speculation — §22 / §35 — **✅ CLOSED 2026-08-04: premise REVERSED, NULL.**
+- Premise (doc §22/§35): MTP's edge *drops* at long context because the draft pays full-context KV → window the
+  draft attention to recover it. **Measured false on BOTH our GDN hybrids — the edge GROWS with depth:** MoE
+  8k→128k **+75%→+134%**, dense-27B 8k→48k **+122%→+133%** (Phase A1-0, `ops/a1_mtp_depth_bench.py`, 3 reps,
+  CV <1%). Draft accept is depth-invariant (MoE 99.2% identical; dense −2.9pp at 48k, swamped). Mechanism: at
+  depth the base forward gets costlier (attn over full KV), MTP amortizes it → edge *widens*; the depth cost is
+  in the *verify* pass's 10 attn layers, which windowing the single nextn draft layer cannot touch, and there's
+  no lost accept (94–99% ceiling) for a window to recover. Same S1/S2 shape (arch-specific-false — here
+  reversed). GDN keeps long-context attention cheap (~13 MiB/1k KV, only 10/40 layers bear KV) so it never
+  dominates enough to erode MTP. **Do NOT build the windowed kernel.** Positive spin-off: draft-mtp is worth
+  *more* at long context (the agentic regime) — reinforces keeping it ON. Depth-bench banked as a standing gate.
+  Detail: STATUS §A1, EXPERIMENTS §A1. Only-if-ever: a lower-accept / mid-depth (32k/64k) sweep, but the
+  mechanism makes a window implausible even there — EV poor, do not pre-build.
 
 ### A2. ThinkingCap long-to-short LoRA on the **dense 27B** — §23.6 / §56 / §64
 - Halving reasoning tokens is a big wall-clock win on our decode-bound setup. ThinkingCap full-FT claims **45.8%

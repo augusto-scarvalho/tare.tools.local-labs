@@ -311,6 +311,49 @@ constraint here is the **16 GB Windows RAM reserve, not VRAM**. A newer build wi
 Net kernel would raise base decode and likely shrink the ratio. Raw:
 `runs/ab-e4mtp-qwen36-27b-mtp-e4-mtp-dense-ngl65/`.
 
+## §A1 — windowed-MTP: the premise is REVERSED — MTP's edge GROWS with context depth (2026-08-04)
+
+**IDEAS_BACKLOG A1 (windowed / adaptive MTP), Phase A1-0 de-risk. Result: CLOSED NULL — nothing to build.**
+The research doc (§22/§35) warns MTP's edge *drops* at long context because the draft pays full-context KV.
+Measured on BOTH our GDN hybrids (fixed high-accept structured-code task; only context depth varies; ncmoe=8,
+ub2048, q8_0 KV @8k / q4_0 @deep; 3 reps, CV <1%; isolated arms + cooldown; `ops/a1_mtp_depth_bench.py`):
+
+| model | depth (prompt_n) | no-spec t/s | draft-mtp t/s | **MTP edge** | draft accept |
+|---|---|---:|---:|---:|---:|
+| MoE 35B-A3B | 8k (6.7k) | 84.9 | 148.4 | **+74.9%** | 99.2% (358/361) |
+| MoE 35B-A3B | 128k (122k) | 48.3 | 113.3 | **+134.2%** | 99.2% (358/361) |
+| dense 27B | 8k (6.3k) | 31.8 | 70.6 | **+121.8%** | 97.8% (357/365) |
+| dense 27B | 48k (44k) | 25.0 | 58.3 | **+133.1%** | 94.9% (355/374) |
+
+**The MTP edge does not shrink with depth — it grows** (MoE +75→+134%; dense +122→+133%). This is the §E4
+amortization thesis extended to depth: at long context the *base* forward pass gets much costlier (attention
+over the full KV: MoE decode 85→48 t/s, dense 32→25), and MTP verifies ~4 tokens per such pass, so a costlier
+pass means a bigger absolute saving → the *relative* edge widens. MTP's own decode slows with depth too
+(148→113 MoE) but far less than no-spec's (85→48), because the amortized pass is the expensive part.
+
+**Draft quality is ~depth-invariant, so there is no lost accept for a window to recover.** The MoE accept is
+*byte-identical* across depth (99.2%, same draft_n=361/358 — greedy-deterministic drafts unchanged by the
+padding); the dense drops only −2.9pp (97.8→94.9%) at 48k, and **even that tiny drop is swamped** — the edge
+still grows. Windowing the nextn draft attention could at best claw back a couple pp of accept off a 94–99%
+ceiling, while the depth cost actually lives in the *verify* pass's 10 full-attention layers + the base
+forward — which MTP already amortizes better than no-spec (that is *why* the edge grows). Windowing the
+draft's single attention layer touches none of that.
+
+**Mechanistic grounding (pre-registered):** `qwen35moe` is a GDN hybrid — only 10 of 40 base layers bear a KV
+cache (full-attn at blk 3,7,…,39; the other 30 are GDN/SSM linear); the `nextn`/MTP head (blk 40) *is* a
+full-attention KV-bearing layer, so the premise was mechanically *live* (unlike S1/S2's dead premises) — but
+GDN keeps long context cheap enough (~13 MiB/1k KV) that attention never dominates enough to erode MTP.
+Same S1/S2 shape: **the premise is HW/arch-specific-false** — here not merely null but *reversed*.
+
+**Deploy consequence (positive):** draft-mtp is worth *more* at long context, exactly the regime the agentic
+deployment runs in — **+134% at 128k on the MoE**. Strengthens "keep `--spec-type draft-mtp` ON for the
+long-context agent." **Limits (honest):** high-accept task (94–99%; real agentic output is ~80%, §E4), only
+the two extremes measured (no 32k/64k mid-points). The reversed signal is clean and consistent on both
+hybrids, so A1 closes without the full sweep; a lower-accept / mid-depth sweep is the only thing that could
+*theoretically* surface a window, and the amortization mechanism argues against it even there. Gate banked:
+`ops/a1_mtp_depth_bench.py` (re-run `MODELSET=… DEPTHS=…` if the MTP head or a new arch changes). Raw:
+`runs/a1-mtp-depth/a1_depth.csv`.
+
 ## §B4 — CUDA-graph capture is a +27% decode lever, and llama.cpp already has it ON (2026-08-02)
 
 SGLang's Paged-Experts got 8→197 t/s "largely from CUDA-graph capture over the streamed decode path"

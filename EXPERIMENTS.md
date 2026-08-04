@@ -232,6 +232,47 @@ GGUF, expert placement, context, and prompt fixed across arms. Metric everywhere
   MTP; gpt-oss has EAGLE3). Ties directly to `[[agentic-local-model-plan]]`. **Target to beat:
   upstream #25642 — +30% t/s, ~82% accept.** Biggest single-stream lever for the long-context agent.
 
+### §A1 — windowed / adaptive MTP on the GDN path — **ANSWERED 2026-08-04: premise REVERSED, CLOSED NULL**
+- **result** — abandonCriteria MET (and exceeded). The MTP decode-t/s edge does **not** shrink with depth — it
+  **grows**: MoE 8k→128k **+75%→+134%**, dense-27B 8k→48k **+122%→+133%** (3 reps, CV <1%). Draft accept is
+  depth-invariant (MoE 99.2% byte-identical at both depths; dense −2.9pp at 48k, swamped by the amortization
+  gain). Mechanism: at long context the base forward gets costlier (attn over full KV), MTP amortizes it → the
+  edge widens; the depth cost lives in the *verify* pass, which windowing the draft can't touch. **No window to
+  build; no lost accept to recover.** Same S1/S2 shape (premise arch-specific-false — here reversed). Positive
+  deploy fact: draft-mtp is worth MORE at long context (the agentic regime). Gate: `ops/a1_mtp_depth_bench.py`;
+  raw `runs/a1-mtp-depth/`. Full detail: STATUS §A1. **evidenceGrade 3** (clean reversed signal on both
+  hybrids; high-accept task + extremes-only — a lower-accept/mid-depth sweep would take it to 4, but the
+  mechanism makes a window implausible even there).
+- **mechanistic grounding (before any run)** — the deploy MoE (`qwen35moe`, 41 blocks) is a **GDN hybrid**:
+  only **10 of the 40 base layers bear a KV cache** (full-attention at blk 3,7,11,…,39 — 1-in-4; the other 30
+  are GDN/SSM linear, no KV). Crucially the **`nextn`/MTP head (blk 40) IS a full-attention KV-bearing layer**
+  (`blk.40.attn_k` present) → the MTP draft *does* re-attend the full-context KV each speculated token. So the
+  A1 premise ("draft pays full-context KV") is **mechanically live** (unlike S1/S2's dead premises) — but
+  likely **mild**, because only 25% of layers bear KV and GDN already makes long context cheap (~13 MiB/1k KV,
+  3× under naive; CONTEXT_PLAN). **This is what A1-0 measures.**
+- **hypothesis** — MTP's decode-t/s edge over no-spec (the +27–54% measured at 8k, §E4) **shrinks
+  monotonically with context depth**, because the draft's per-token full-attention cost (nextn KV + the verify
+  pass's 10 attention layers) grows with depth while the amortized-forward benefit does not scale with it.
+- **metric** — paired `(mtp_tps − nospec_tps)/nospec_tps` AND draft accept rate (`draft_n_accepted/draft_n`
+  from server `timings`), at depths **8k vs deep** (MoE 128k; dense-27B ~48k — its long-ctx ceiling per
+  CONTEXT_PLAN). Fixed generation task (structured code, high-accept regime) so **only depth varies**.
+  Deploy config: ncmoe=8, q4_0 KV @128k / q8_0 @8k, ub2048, `--spec-draft-n-max 4`. Isolated arms + cooldown
+  (the GPU-A/B variance rule). Quick scope first (extremes, few reps); full 4-depth sweep only if signal.
+- **baseline** — the no-spec floor at each depth (same model/ctx, `--spec-type` dropped).
+- **successCriteria (to PROCEED to A1-1)** — the MTP edge shrinks materially with depth (e.g. deep-depth
+  delta < ~0.5× the 8k delta, CI-separated) AND the accept-rate drop is the driver → a real opportunity for
+  windowed-draft attention (mask the nextn layer's attention to a recent window; correctness-safe by
+  construction since the draft is always verified over full KV — windowing can only move accept, never output).
+- **abandonCriteria (close A1 NULL)** — the MTP edge holds across depth (deep delta within noise of the 8k
+  delta) → GDN hybrid kills the degradation; premise HW/arch-specific-false (S1/S2 pattern). Bank the
+  depth-bench as a standing gate; do NOT build the windowed kernel.
+- **factors** — control: context depth; spec on/off. held: model, generation task, placement, KV type per
+  depth, clock (undervolt-stable). noise: cold prefill (warm-up discard; cache_prompt reuse so only rep-0 pays
+  prefill, decode still runs at true depth). blocking: architecture (MoE vs dense-27B — both GDN hybrids).
+- **reversalPlan** — A1-0 is measurement-only (nothing to revert). A1-1, if built, is an env-gated draft-only
+  attention window, OFF by default, byte-identical to upstream on the default path (the fork's standing rule).
+- **gate/tooling** — `ops/a1_mtp_depth_bench.py`. **Phase A1-0 DONE 2026-08-04 → CLOSED NULL (see result above).**
+
 ### Companion / lower-tier (from the research, kept for completeness)
 - **§B3** prefetch reconciliation via **GPU-idle%** instrumentation — **ANSWERED 2026-08-02.** The
   harness now samples `utilization.gpu` over the serving window (`HostSample.gpu_util_pct` →

@@ -94,6 +94,11 @@ Knobs:
 - **MTP shines on structured/tool-heavy output** (higher accept → up to +54% on code); on free-form
   reasoning it is ~+27%. **Quality-neutral** (pass@1 unchanged, §Q) so free to leave on — but note it is
   NOT byte-identical to non-spec decode over long generations (batched-verify numerics flip greedy ties).
+- **MTP is worth MORE at long context, not less (§A1, 2026-08-04).** The research doc warned MTP's edge would
+  *drop* at depth (draft pays full-context KV); measured on both hybrids it **grows**: MoE **+75% @8k → +134%
+  @128k**, dense-27B +122% @8k → +133% @48k (accept ~depth-invariant). At depth the base forward gets costlier
+  (attn over full KV) and MTP amortizes it → the edge widens. So keeping `--spec-type draft-mtp` ON is *even
+  more* valuable for the long-context agent. (The "windowed-MTP" idea is CLOSED null — nothing to build.)
 
 ---
 
