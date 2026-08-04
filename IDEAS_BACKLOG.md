@@ -69,9 +69,25 @@ A/B lab), not an agentic coding product. So:
   priority MTP > n-gram > small drafter; **regression-test** it (doc + community: a mismatched drafter *reduces*
   Qwen3.6 throughput).
 - **Why:** best ROI-per-effort on the engine axis — llama.cpp already ships n-gram, so it's config + benchmarking.
-- **Validate:** on a code-edit corpus, n-gram vs MTP vs MTP+ngram: accepted-draft ratio + wall-clock. Accept the
-  drafter only where acceptance beats verification cost; keep the loser off.
-- Effort: low. Maturity: consolidated.
+- **✅ S3 CLOSED 2026-08-04 — MTP alone wins; adding n-gram is neutral-to−15%, never positive. Keep deploy default.**
+  The fork already ships the full multi-drafter machinery (`--spec-type a,b` → priority fallback chain; hardcoded
+  "cheap-first" order = ngram BEFORE mtp; `common/speculative.cpp:2357`). No code needed — it's a config A/B/C.
+  Benchmarked on a repetitive-code corpus (deploy model, `enable_thinking:false`, temp 0, 512 tok), two prompt
+  variants — decode t/s / draft acceptance:
+  - **`draft-mtp` (deploy default): ~125–135 t/s, 92–96% accept** (e.g. 405/420, mean run ~4.9). **Winner,** and
+    it's the BLESSED **token-exact** drafter.
+  - `ngram-simple` alone: **~72 t/s (−45%)**, 18–48% accept — drafts long (len 8–13) but wrong. Catastrophic, and
+    its output **diverged from greedy** (different char count at temp 0) → **not token-exact**. Double reject.
+  - `draft-mtp,ngram-simple`: **prompt-dependent, ~neutral to −15% vs MTP, never faster.** The *useful* accepts are
+    always ~identical to MTP-alone (ngram adds only rejected drafts). When ngram fires it **preempts** MTP's good
+    draft with a bad long one (higher priority) → wasted verification. Exactly the doc/community "mismatched drafter
+    reduces throughput" warning, now bounded: **zero upside, downside up to −15%.**
+- **Takeaway:** the deploy config (`--spec-type draft-mtp` alone) is already optimal for code. n-gram only *could*
+  win on verbatim-copy-heavy output (large diffs echoing input) **and** only if given LOWER priority than MTP —
+  which the fork's cheap-first order can't express — so it's not worth pursuing. Benchmark banked as a regression
+  guard: `ops/spec-drafter-bench.sh` (re-run when the drafter config or MTP head changes).
+- Effort spent: low (config + benchmark). Outcome: confirmed we should NOT touch the deploy drafter, + a repeatable
+  drafter-regression gate.
 
 ---
 

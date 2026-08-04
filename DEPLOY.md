@@ -53,6 +53,13 @@ records. This is the durable handoff — read it first after a context reset.
 > Multi-user throughput → `-np 8` + **MTP OFF** → **~217 t/s aggregate (2.5×)**, ~30 t/s/user, +0.6 GB
 > VRAM. **MTP flips at N≈4** — it HALVES aggregate throughput at N=8 (and costs VRAM), so drop `--spec-type`
 > for high concurrency. Concurrency is nearly free on VRAM (q4 KV per slot is tiny).
+>
+> **Drafter = `draft-mtp` alone — do NOT stack n-gram (S3, 2026-08-04).** The fork accepts a multi-drafter
+> chain (`--spec-type draft-mtp,ngram-simple`) but stacking has **zero upside and up to −15% downside**: on
+> repetitive code MTP alone hits ~125–135 t/s @ 92–96% accept and is token-exact; `ngram-simple` alone is
+> ~72 t/s @ 18–48% (drafts long-but-wrong, and diverges from greedy — not token-exact); stacking is
+> prompt-dependent neutral-to−15% because ngram's higher priority preempts MTP's good draft and wastes
+> verification. Regression gate: `ops/spec-drafter-bench.sh` (re-run if the drafter config or MTP head changes).
 
 **Delivers ~116 t/s decode inside the safe envelope, quality-neutral (pass@1 unchanged; equivalent
 output, not byte-identical to non-spec — §Q).** This single
