@@ -38,7 +38,7 @@ records. This is the durable handoff — read it first after a context reset.
 > **Fork ruled out too:** a clean non-fork base build (`4fc4ec554`) gives identical 920/1914 t/s → the
 > regression is host-side, not the binary. Ruled out: MTP, XMP (@5600), power plan (High perf), GPU clock
 > (−4%; sampled during prefill — core pinned 1800, mem full 9501, not throttled; util ramps from 0 =
-> stalls off-GPU). Decode UNaffected → host/CPU-bound
+> stalls off-GPU), TDR delay (passive watchdog), power limit (420 W, peak 337 W). Decode UNaffected → host/CPU-bound
 > prefill path. **Leading suspect: Memory Integrity / HVCI-VBS now ON** (WSL2 is a Hyper-V VM; likely
 > toggled at the 08-03 reboot; same feature blocking the CPU undervolt). Confirm via Memory-Integrity-off A/B.
 > **Caveat: ub2048 at 128k leaves only ~1.6 GB VRAM free** — under the 4 GB reserve; use ub1024 if you need margin.

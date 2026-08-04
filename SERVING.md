@@ -42,7 +42,8 @@ Follow-ups on the same context are **sub-second** (prompt-cache reuse).
 > non-fork base build (`4fc4ec554`) reproduces it identically (920/1914 t/s) → host-side, not the binary.**
 > Ruled out: MTP (~5.5%), XMP (active @ 5600), power plan (High performance), GPU clock-lock (−4% only —
 > sampled during prefill: core pinned at 1800, mem full 9501 MHz, not throttled; GPU util starts at 0 and
-> ramps, i.e. stalls waiting off-GPU). **Decode is
+> ramps, i.e. stalls waiting off-GPU), TDR delay (passive watchdog, no throttle), GPU power limit (420 W,
+> peak only 337 W). **Decode is
 > UNaffected** (even faster than 08-02), so it's the host/CPU-bound offloaded-expert prefill path. **Leading
 > suspect: Memory Integrity / HVCI-VBS is now ON** (`VBS status=2`, `HVCI=1`) — WSL2 runs in a Hyper-V VM and
 > VBS taxes guest memory GEMMs; likely toggled on at the 08-03 reboot. Confirm by A/B with Memory Integrity
