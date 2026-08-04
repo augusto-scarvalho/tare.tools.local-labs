@@ -120,7 +120,8 @@ A/B lab), not an agentic coding product. So:
     (pre-#26141; confirmed absent, and our ~1400 t/s prefill proves it). Any future pin bump MUST re-check #26285.
 - **→ Tier S fully swept: S1 ✅ (null), S2 ✅ (already-captured), S3 ✅ (mtp-alone optimal). Tier A: A1 ✅
   (windowed-MTP — right paper, unreachable regime; CUT — edge grows to native 256k +176%; 2026-08-04,
-  double-checked). Next un-attacked: A2 ThinkingCap LoRA on dense-27B, A3 SAW-INT4 KV, A4 instrumentation.**
+  double-checked). A3 ✅ (asymmetric K/V −62% + iq4_nl −79% + sub-4-bit paper-null; KV axis already optimal;
+  2026-08-04). Next un-attacked: A2 ThinkingCap LoRA on dense-27B, A4 instrumentation.**
 
 ### S3. N-gram speculative decoding + drafter-selection policy — §35 / §63.3
 - **What:** add n-gram spec-decode (no extra model, wins on repetitive code) alongside MTP; formalize drafter
@@ -209,6 +210,18 @@ A/B lab), not an agentic coding product. So:
   (Hadamard rotation + token-wise INT4, explicitly designed for low serving-integration cost). Extends usable
   context/residency. **Validate:** needle + code-suite at 8k/32k/64k/128k vs q4_0; accept if context headroom up
   and no code/tool regression. (Sub-2-bit KVarN/OSCAR = Tier C watchlist; TurboQuant/UltraQuant = cut, AMD-only.)
+- **✅ A3 CLOSED 2026-08-04 — NEGATIVE / already-optimal (full record STATUS §A3; gate `ops/kv-quant-bench.sh`).**
+  Measured decode @8k depth (deploy MoE, ncmoe=8, -fa on, 3 reps, base 720d7fa40): **q4_0/q4_0 = 87.4 t/s**
+  (baseline, lossless); **asymmetric q8/q4 and q4/q8 = 33 t/s (−62%)** — llama.cpp #20866's CPU-KV fallback
+  reproduces on our base, penalty symmetric in K↔V so there's no "quantize the cheap side harder" win; **iq4_nl
+  symmetric = 18.5 t/s (−79%)** — the one untested "better 4-bit" (CONTEXT_PLAN §D) falls off the fused-FA fast
+  path on sm_86. So the only fast KV types are the already-blessed **q4_0/q8_0, symmetric**. **Sub-4-bit
+  (SAW-INT4/TurboQuant) is not in the engine (cut from the fork) and paper-dominated even if added:** MoE q4 KV
+  is ~6.5 MiB/1k → ~0.83 GB @128k, so a sub-4-bit codec frees < one ncmoe step (0.46 GB) AND buys zero context
+  (q4 already reaches native 262k in VRAM, lossless, ~3 GB free); the free monitor→iGPU replug (~1.4 GB ≈ 3
+  ncmoe steps) strictly dominates it. **Dense-27B can't be unblocked** — its growing memory is the full-precision
+  GDN recurrent state (Phase A #3), which no `--cache-type` touches. Same pattern as S1/S2/S3/A1. Re-open only if
+  a sub-4-bit fused-FA KV kernel lands upstream for sm_86, or a served model becomes KV-bound (our hybrids aren't).
 
 ### A4. Spec-decode + benchmark instrumentation discipline — §22 / §40 / §63.4
 - Extend our A/B to log per-config **accepted-draft-tokens, acceptance rate, drafter-time-vs-saved, draft VRAM,

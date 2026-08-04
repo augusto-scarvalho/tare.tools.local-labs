@@ -232,6 +232,24 @@ GGUF, expert placement, context, and prompt fixed across arms. Metric everywhere
   MTP; gpt-oss has EAGLE3). Ties directly to `[[agentic-local-model-plan]]`. **Target to beat:
   upstream #25642 — +30% t/s, ~82% accept.** Biggest single-stream lever for the long-context agent.
 
+### §A3 — asymmetric K/V + sub-4-bit KV quant — **ANSWERED 2026-08-04: CLOSED, negative — KV axis already optimal**
+- **hypothesis** — beat the deployed symmetric q4_0 KV via (a) asymmetric K/V, or (b) a fancier low-bit codec
+  (iq4_nl; SAW-INT4/TurboQuant if engine-added), to extend usable context/residency.
+- **result** — decode t/s @8k depth (deploy MoE Q4_K_M, ncmoe=8, -fa on, 3 reps, undervolt clock-stable, base
+  720d7fa40): **q4_0/q4_0 = 87.4** (baseline, lossless per §Q) · **q8_0/q4_0 = 33.2 (−62%)** · **q4_0/q8_0 =
+  33.6 (−62%)** · **iq4_nl/iq4_nl = 18.5 (−79%)**. abandonCriteria (no config beats symmetric q4_0 on
+  decode/context) MET on every measured arm.
+- **verdict** — (1) **Asymmetric K/V** hits llama.cpp #20866's CPU-KV fallback (reproduces on our base),
+  penalty symmetric in K↔V → no partial win. (2) **iq4_nl** falls off the fused flash-attn KV fast path on
+  Ampere sm_86 even symmetric → only q4_0/q8_0 stay fast. (3) **Sub-4-bit codecs** aren't in the engine (cut
+  from the fork) and are paper-dominated even if added: MoE q4 KV ~6.5 MiB/1k → ~0.83 GB @128k, so they'd free
+  < one ncmoe step (0.46 GB) and buy zero context (q4 already reaches native 262k in VRAM, lossless, ~3 GB free);
+  the free monitor→iGPU replug (~1.4 GB) dominates. (4) **Dense-27B** can't be unblocked — its growing memory is
+  the full-precision GDN recurrent state (Phase A #3), untouched by `--cache-type`. **Deploy: keep symmetric
+  q4_0.** Gate: `ops/kv-quant-bench.sh`; raw `runs/context/a3-kv-quant/`. Full detail: STATUS §A3.
+  **evidenceGrade 4** (measured all viable engine arms; sub-4-bit is arithmetic on measured Phase-A geometry +
+  not-in-engine, so no runnable gap remains). Same pattern as S1/S2/S3/A1.
+
 ### §A1 — windowed / adaptive MTP on the GDN path — **ANSWERED 2026-08-04 (double-checked): right paper, unreachable regime — CUT**
 - **result** — The MTP decode-t/s edge **grows** with depth all the way to the model's NATIVE 262k ceiling: MoE
   **+75% @8k → +134% @128k → +176% @256k** (256k: no-spec 32.7 → mtp 90.4), dense-27B 8k→48k **+122%→+133%**;

@@ -311,6 +311,45 @@ constraint here is the **16 GB Windows RAM reserve, not VRAM**. A newer build wi
 Net kernel would raise base decode and likely shrink the ratio. Raw:
 `runs/ab-e4mtp-qwen36-27b-mtp-e4-mtp-dense-ngl65/`.
 
+## §A3 — asymmetric K/V + sub-4-bit KV: CLOSED, negative — the KV axis is already at its optimum (2026-08-04)
+
+> **Gate: `ops/kv-quant-bench.sh`** (4-arm decode A/B, re-runs on any pin bump or new served model).
+
+**IDEAS_BACKLOG A3 (asymmetric K/V quant + SAW-INT4). Verdict: CLOSED — every direction is either a measured
+throughput regression or a paper-null; keep symmetric q4_0 KV.** A3 asked whether we can beat the deployed
+symmetric q4_0 KV by (a) quantizing K and V asymmetrically, or (b) a fancier low-bit codec (iq4_nl now; SAW-INT4
+/ TurboQuant sub-4-bit if ever engine-added). All lose:
+
+**Measured — decode t/s at 8k depth (deploy MoE Q4_K_M, ncmoe=8, -fa on, 3 reps, undervolt clock-stable, base 720d7fa40):**
+
+| type_k | type_v | tg64 @ d8192 | vs q4_0 | note |
+|---|---|---:|---:|---|
+| **q4_0** | **q4_0** | **87.36 ± 1.81** | baseline | deploy; lossless (§Q, CONTEXT_PLAN) |
+| q8_0 | q4_0 | 33.23 ± 2.09 | **−62%** | asymmetric → CPU-KV fallback (#20866) |
+| q4_0 | q8_0 | 33.60 ± 2.28 | **−62%** | asymmetric, other order — same penalty |
+| iq4_nl | iq4_nl | 18.48 ± 4.49 | **−79%** | symmetric, but off the fused-FA fast path on sm_86 |
+
+1. **Asymmetric K/V craters decode ~62%** — llama.cpp #20866's CPU-KV fallback reproduces on our pinned base.
+   The penalty is symmetric in K↔V (any mismatch triggers it), so there is no "quantize the cheap side harder"
+   win. **Never run asymmetric KV on this box.**
+2. **iq4_nl** — the one untested "better 4-bit" flagged in CONTEXT_PLAN §D — falls off the fused flash-attn KV
+   fast path on Ampere sm_86 **even symmetric** → −79%. The only fast KV types here remain **q4_0 / q8_0**.
+3. **Sub-4-bit codecs (SAW-INT4 / TurboQuant tq3_0/tq4_0)** are **not in the engine** (deliberately excluded
+   from the fork). Even if added, the arithmetic on Phase-A geometry kills the ROI: MoE q4 KV is **~6.5 MiB/1k →
+   ~0.83 GB @128k**; a sub-4-bit codec shaves at most ~0.3–0.45 GB there — **less than one `--n-cpu-moe` step
+   (0.46 GB)** — and buys **zero context**, because q4 already reaches the model's **native 262k in VRAM,
+   lossless, with ~3 GB free** (Phase A / CONTEXT_PLAN). At the 8k deploy default KV is ~52 MiB, so shaving it
+   is a rounding error. The **free monitor→iGPU replug (~1.4 GB ≈ 3 ncmoe steps)** strictly dominates this whole
+   path at zero quality risk (see the VRAM-offload memory).
+4. **Dense-27B can't be unblocked either** — Phase A finding #3 measured that q4 *barely* shrinks dense VRAM at
+   depth because the growing component is the **full-precision Gated-DeltaNet recurrent state**, which **no
+   `--cache-type` addresses**. A better KV codec therefore cannot extend dense context.
+
+**Deploy takeaway:** the KV axis is already optimal — **symmetric q4_0 for long context (fast + lossless)**,
+q8_0 symmetric if ever wanted. Same pattern as S1/S2/S3/A1: the lever is already-captured or physically
+dominated. **Re-open only** if a sub-4-bit fused-FA KV kernel lands upstream for sm_86, or a future served
+model is KV-bound rather than weight/ncmoe-bound (our GDN hybrids are not). Raw: `runs/context/a3-kv-quant/`.
+
 ## §A1 — windowed-MTP: right paper, unreachable regime — MTP's edge GROWS to native 256k → CUT (2026-08-04, double-checked)
 
 > **Full consolidated record: `A1_WINDOWED_MTP.md`** (arc + all data + literature + code verification + re-open trigger).

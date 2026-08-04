@@ -101,6 +101,11 @@ Knobs:
   ON — it's *even more* valuable for the long-context agent. **Windowed-MTP** (arXiv:2607.21535) is a *real* lever
   but its draft-KV tax only dominates near ~1M tokens — measured native 256k still gives the MAX edge (+176%,
   no-spec 32.7 → mtp 90.4), accept pristine → **CUT** (no context we can serve benefits; native ceiling is 262k).
+- **KV quant: use SYMMETRIC q4_0 (long ctx) or q8_0 — never asymmetric (§A3, 2026-08-04).** Measured @8k depth:
+  symmetric q4_0/q4_0 **87.4 t/s** vs asymmetric q8/q4 or q4/q8 **33 t/s (−62%, #20866 CPU-KV fallback)** vs
+  iq4_nl symmetric **18.5 t/s (−79%, off the fused-FA fast path on sm_86)**. q4_0 is lossless here (§Q) and
+  already reaches native 262k in VRAM, so there is no context or decode win left on the KV axis; sub-4-bit codecs
+  (SAW-INT4/TurboQuant) are cut from the fork and would free < one ncmoe step even at 128k. Gate `ops/kv-quant-bench.sh`.
 
 ---
 
