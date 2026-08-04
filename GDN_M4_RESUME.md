@@ -1,16 +1,34 @@
-# GDN M4 — session checkpoint & resume (2026-08-03)
+# GDN M4 — session checkpoint & resume (2026-08-03; CLOSED OUT 2026-08-04)
 
 Durable state so nothing is lost across the **GPU-lost reboot** (see incident at bottom). Read this
 first on resume, then `GDN_KERNEL.md` / `GDN_NEXT_LEVERS.md`. All file edits below are **on disk**.
 
-## TL;DR of where we are
+## ⟢ FINAL STATUS 2026-08-04 — M4b COMPLETE + fork CONSOLIDATED. Nothing owed; GDN thread is closed.
+Post-reboot the whole M4b plan ran clean (GPU stable, clock-lock working). All 4 experiments DONE, all
+committed. **The chunked GDN kernel is a CLOSED lever** — correct + quality-neutral but wins nowhere but
+the starved H=32 deploy shape (~3% @8k), so it ships OFF-by-default opt-in. Then per user request the fork
+was CONSOLIDATED (details in each section below; also in the project memory + FORK.md):
+- **Occupancy sweep:** more heads → chunked STRICTLY WORSE at B=1 (§ "Occupancy sweep" below).
+- **Dense-27B H=48 A/B:** −2–4% E2E (§ "Dense-27B" below).
+- **Concurrent-serving A/B:** real null R(8)=1.008, engagement proven (§ "Concurrent-serving" below).
+- **Quality bless:** pass@1 34/40 base, 33/40 plus — identical off/on (§ task-2 below).
+- **Fork consolidation (user opt-B):** every campaign line now a local branch in `llama.cpp-master`
+  (`lifecycle` deploy `068764d92` + `turbo-stack` `cca05a3ac` [rescued from a fragile detached HEAD] +
+  `prefetch-skip-pinned` + `fable5-prefetch-experts`); prefetch-skip-pinned FOLDED onto lifecycle
+  (CLI flags preserve the env path; inert on default). **Re-blessed 3/3, test-backend-ops 13349/13349,
+  GDN 46/46.** Nothing deleted. Commits: project `41a9fa7`+`754f762`, fork `c8761b40c`→`068764d92`.
+
+**COMMITS THIS SESSION are in git** — the doc/data are safe to `git clean`-around; scratchpad/ runner
+scripts (`gdn_conc_arm.sh`, `enum_builds.sh`, `check_recoverable.sh`, `consolidate_audit.sh`,
+`preserve_branches.sh`) are untracked working aids, keepable but regenerable.
+
+## TL;DR of where we WERE (2026-08-03, pre-close — kept for provenance)
 - **Lever B (bf16 W-readout): DONE — negative, REVERTED to TF32.** bf16 = flat vs TF32 (deploy 2048:
   2868.8 vs 2878.7 µs; worse at 4096/8192) → kernel is **latency/occupancy-bound, not throughput-bound**.
   Precision levers exhausted. Correct 46/46 @ 2e-7 confirmed after revert (before the GPU died).
 - **M4 (llama-bench real prefill A/B): DONE.** The isolated ~5% kernel win does NOT surface E2E at B=1:
   ncmoe=8 → +1.0%/+0.5% (noise); ncmoe=0 → −0.4%/−0.5% (noise). Full numbers in `GDN_KERNEL.md` M4.
-- **In flight when the GPU died (need re-run after reboot):** the 3 user-requested tasks —
-  (1) concurrent-serving A/B, (2) quality bless, (3) different-shape model — plus a free occupancy sweep.
+- **The 3 user-requested tasks + occupancy sweep — ALL DONE 2026-08-04** (see FINAL STATUS above).
 
 ## Uncommitted edits currently on disk (do NOT lose; nothing committed — commit only when asked)
 1. `ggml/src/ggml-cuda/gated_delta_net.cu` — **reverted to TF32** (shipped state; bf16 fully backed out,
