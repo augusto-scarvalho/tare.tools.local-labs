@@ -579,6 +579,16 @@ default `--ubatch 512` takes ~79 s (time-to-first-token). Swept the prefill leve
    only the 2051 new tokens re-prefilled (39364 reused). **Agentic pattern: prefill the long doc once
    (~38 s), then every follow-up is sub-second.** Raw: `runs/prefill/`.
 
+**CORRECTION (2026-08-04):** the `128k TTFT` column above is a *linear extrapolation* (128k ÷ prefill_tps
+at ~41k tokens), **not a measurement** — it ignores the throughput falloff with sequence length. The **real
+measured 128k prefill is ~68 s** (server `/completion` and `llama-bench pp131072` agree at ~1900 t/s), not
+38 s. The prefill *throughput* and the **+100.8 % ub2048 doubling reproduce** on the deploy binary
+(`prefill_probe.py` re-run: ub512 1413, ub2048 2838 t/s = ~1.2× the 08-02 figures = prompt-length + ~7 %
+run-to-run variance, **no regression**). A paired clock-lock A/B confirmed the 1800-MHz cap costs **~0 %**
+on this MoE prefill (2387 locked @1800 vs 2311 unlocked @1905 t/s — transfer-bound, not core-clock-bound).
+An earlier "~1.8× regression" claim was a measurement confound (llama-bench@131k vs this table's 41k figure);
+retracted. Full trail in `DEPLOY.md` / `SERVING.md` prefill notes.
+
 ---
 
 ## §CC — concurrency / multi-slot: 2.5× aggregate ~free, and MTP flips at N≈4 (2026-08-02)

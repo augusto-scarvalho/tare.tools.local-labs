@@ -6,6 +6,20 @@
 #  2) TDR delay bump -> gives long GPU kernels headroom without disabling the
 #     recovery safety net (TdrLevel stays default = 3).
 #  Fully reversible -- see the REVERT block printed at the end.
+#
+#  UPDATE 2026-08-04: a paired A/B showed the 1800-MHz cap costs ~0% on the deploy
+#  MoE prefill (2387 locked @1800 vs 2311 unlocked @1905 t/s -- transfer-bound, not
+#  core-clock-bound; the -4% seen on gpt-oss was a GPU-compute-bound case). So the
+#  cap is nearly free on real workloads. It is being SUPERSEDED by a proper GPU
+#  undervolt (Afterburner V/F curve, e.g. ~1800-1900 MHz @ ~875-900 mV), which kills
+#  the same high-voltage Xid-79 region while keeping full clocks. To hand control to
+#  the undervolt, DISABLE the clock cap so the boot task stops fighting the curve --
+#  but KEEP the TDR delay (harmless, helpful):
+#     Unregister-ScheduledTask -TaskName 'RTX3090-ClockLock' -Confirm:$false   # stop boot re-apply
+#     nvidia-smi -rgc                                                          # release current lock
+#     Remove-Item -Recurse -Force "$env:ProgramData\gpu-tools"                 # remove boot helper
+#     # do NOT remove TdrDelay/TdrDdiDelay -- leave the TDR bump in place.
+#  Then apply + STABILITY-VALIDATE the undervolt before trusting it as the protection.
 # ============================================================================
 
 # ---- tunables -------------------------------------------------------------
