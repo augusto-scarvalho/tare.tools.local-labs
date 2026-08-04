@@ -1,4 +1,4 @@
-# DEPLOY — the consolidated best config and why (2026-08-02)
+# DEPLOY — the consolidated best config and why (2026-08-02; re-validated + extended through 2026-08-04)
 
 The one-page answer to "how do I run this fast, and what did the campaign settle." Every number
 here is committed evidence; see `STATUS.md` for the full derivation of each and `runs/` for the raw
@@ -158,9 +158,20 @@ the three optionals below): the big, safe decode levers are settled.
   lower bound). Held in reserve for the **128k long-context / VRAM-starved** case; KV-on-GPU still wins
   at 8k. STATUS §B2.
 
-**Still open (not pursued):**
-- **Consolidate a build** (LANDSCAPE §1b): the decode winners (placement, graphs, MTP) are ALL upstream —
-  arguably no fork is needed. The one non-upstream lever now proven is the §B2b KV-host-pin patch, which
-  matters only in the long-context regime; carry it as a patch, not a fork, if/when 128k is deployed.
-- **Quality axis** (long-standing OPEN): `quality_bench` starves the thinking model on HumanEval+; no
-  pass@1 until the token-budget/thinking issue is fixed.
+**Since settled (2026-08-03/04) — supersedes the "still open" list that used to live here:**
+- **Build consolidation: DONE.** The fork (`llama.cpp-master` / `lifecycle`) now holds every campaign line
+  as a local branch; the prefetch-skip CLI flags + the GDN chunked kernel are folded in, all gated OFF by
+  default, re-blessed 3/3 (byte-identical to `720d7fa40` on the default path). See `FORK.md`.
+- **Quality axis: DONE** (STATUS §Q). The budget-starvation bug was fixed and pass@1 measured — **no lever
+  costs quality**; q4 KV is lossless, MTP and the GDN kernel are quality-neutral.
+- **Long context: DONE** (`CONTEXT_PLAN.md`) — 128k usable at ~60 t/s, q4 KV lossless; §B2b unneeded for the MoE.
+- **GDN chunked kernel: DONE & CLOSED** (`GDN_TF32_PLAN.md`) — blessed as an opt-in, no-regression option;
+  TF32 is the GA102 ceiling, so it does not surface E2E at deploy scale.
+- **GPU stability: SETTLED** — clock-lock retired for a validated GPU undervolt (~1860 MHz @ 850 mV);
+  see `ops/gpu-stability/setup_gpu_protections.ps1`.
+
+**Genuinely still open (low priority):**
+- **Lever C** (GDN 3-kernel split → occupancy) — future research; wants A100-class HW where TF32 is 8×.
+  Not worth pursuing on the 3090 (`GDN_NEXT_LEVERS.md`).
+- **The −10.4% no-mmap residual** (STATUS) — one historically disputed delta with no clean paired A/B yet.
+- **Only-if-needed later:** TurboQuant KV (tq3_0, §D) or YaRN — only if a >256k context target appears.

@@ -121,10 +121,11 @@ help generation; §B1 stands only for prefill.
 **reversalPlan** — measurement-only (env var toggled); nothing to revert.
 **analysis** — per-arch paired `sign_test_p` + `bootstrap_ci` + `cliffs_delta` (have it), then
 the new **trend test** of delta vs active-experts. Data so far: gpt-oss (4 active) **≈ 0**
-(−0.32%, p=1.0); qwen36 (8) **+2.14%** (p=0.039); pending Granite (10), Gemma-4 (8), Ernie (6).
-Dense controls (Mistral, Qwen3.6-27B, ThinkingCap: 0 experts) must read **null** — the negative
-control that proves the mechanism is expert-streaming, not something generic to offload.
-**evidenceGrade** — 3 now; 4 if the trend holds across the 5 arches + the 3 dense nulls.
+(−0.32%, p=1.0); qwen36 (8) **+2.14%** (p=0.039); Granite (10), Gemma-4 (8), Ernie (6) **now DONE**
+(`runs/ab-genpin-*`). Dense controls (Mistral, Qwen3.6-27B, ThinkingCap: 0 experts) read **null** — the
+negative control proving the mechanism is expert-streaming, not something generic to offload. **RESOLVED:
+transfer-bound-only, active-count-scaled, ~2% ceiling on this hardware (STATUS).**
+**evidenceGrade** — **4 (DONE):** the trend held across all 5 arches + the 3 dense nulls read null.
 
 ---
 
