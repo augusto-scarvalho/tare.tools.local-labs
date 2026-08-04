@@ -17,6 +17,13 @@
 #  KEPT). Undervolt VALIDATED: 10-min sustained soak held 1860 MHz, peak 58C / 274W,
 #  decode 93 t/s stable, zero Xid/drop, no early->late drift.
 #
+#  VRAM OC (2026-08-04, A/B): mem +250 (9501->9751 MHz) is NEUTRAL for LLM decode
+#  (93.5 t/s == stock 93), stable & cool; +500 (10001) REGRESSED decode to 90.6 t/s
+#  = GDDR6X EDR (clock up, effective bw down). Kept +250. LLM decode at ncmoe=8 is
+#  NOT VRAM-bandwidth-bound (bottleneck is the CPU-offloaded expert streaming, same
+#  transfer path as prefill), so mem OC doesn't move it -- but +250 is harmless and
+#  still helps genuinely VRAM-bound GPU workloads (games/render). Avoid +500.
+#
 #  If you ever need to disable the cap again (KEEP the TDR delay):
 #     Unregister-ScheduledTask -TaskName 'RTX3090-ClockLock' -Confirm:$false   # stop boot re-apply
 #     nvidia-smi -rgc                                                          # release current lock
