@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import pathlib
 import random
 import sys
@@ -126,6 +127,12 @@ def run(model_key: str, *, subset: int, ncmoe: int, ctx: int, ubatch: int | None
     env = {"GGML_CUDA_REGISTER_HOST": "1"}
     if prefetch and prefetch != "0":
         env["GGML_SCHED_PREFETCH_EXPERTS"] = prefetch
+    # Pass through GDN chunked-kernel knobs so this harness can bless it for quality-neutrality.
+    # Set on the (Windows) quality_bench invocation; the adapter forwards them into the WSL server
+    # env. MIN_TOKENS=2 forces the chunked TF32 prefill path even on short HumanEval prompts.
+    for _k in ("GGML_CUDA_GDN_CHUNKED", "GGML_CUDA_GDN_CHUNKED_MIN_TOKENS", "GGML_CUDA_GDN_TC"):
+        if os.environ.get(_k):
+            env[_k] = os.environ[_k]
 
     # The lever knobs, threaded as server flags so the SAME quality machinery measures each
     # config. --jinja is mandatory (thinking-model chat template). spec=draft-mtp is the MTP

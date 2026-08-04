@@ -64,10 +64,14 @@ llama-server -m Qwen3.6-35B-A3B-mtp.gguf -fa on --n-cpu-moe 8 -c 32768 -np 8 \
 | **expert cache** | NULL (load-balanced routing) | never, this model |
 
 ## The other model — dense 27B (Gated-DeltaNet hybrid)
-MTP gives its biggest uplift (+49–83%) but base decode is slow (~33 t/s; the fused GDN kernel is disabled
-in this build). Long context is the harder case: servable only ~48–64k (compute-scratch OOMs if `-c` is
-oversized → match `-c` to use), needs `-ngl<65` or KV-in-RAM for more. Use the MoE unless you specifically
-need the dense.
+MTP gives its biggest uplift (+49–83%) but base decode is slow (~43 t/s — that is 83% of the 3090
+weight-bandwidth ceiling, so decode is bandwidth-bound and no kernel helps it; the GDN CUDA kernel runs
+on-GPU, it is not disabled — the older "fused GDN kernel disabled" claim was wrong, see `GDN_KERNEL.md`).
+GDN is instead the #1 *prefill* kernel here (~15% of dense GPU prefill); the chunk-parallel rewrite was
+built + fully evaluated (M1–M4b, `GDN_M4_RESUME.md`) and is a **closed lever** — no B=1 or concurrent win
+on this HW, kept only as an OFF-by-default opt-in (`GGML_CUDA_GDN_CHUNKED`, T≥1024 gate, quality-neutral).
+Long context is the harder case: servable only ~48–64k (compute-scratch OOMs if `-c` is oversized → match
+`-c` to use), needs `-ngl<65` or KV-in-RAM for more. Use the MoE unless you specifically need the dense.
 
 ## Quant choice — **Q4_K_M, decisively** (§QN)
 On a 24 GB card, bigger weight-quant must offload more experts to CPU → slower, for zero measured quality:
