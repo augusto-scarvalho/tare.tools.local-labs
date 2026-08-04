@@ -33,17 +33,16 @@ records. This is the durable handoff — read it first after a context reset.
 > **Long-context (mode 2) re-validated 2026-08-04** (server path, ~124.5k-token prompt, `-c 131072` q4 KV):
 > cold prefill **137.8 s @ ub512 → 67.9 s @ ub2048 = 2.03×** (the doubling holds exactly); decode at depth
 > **61.8→67.6 t/s**; warm prompt-cache reuse TTFT **0.24 s (273×)**; needle at 124.5k answered correctly.
-> **⚠ But absolute prefill is ~1.8× slower than the 08-02 §PF figures — a real regression, NOT measurement
-> path** (`llama-bench` on this binary reproduces it: pp131072 926/1888 t/s @ ub512/2048 vs §PF 1663/3441).
-> **Fork ruled out too:** a clean non-fork base build (`4fc4ec554`) gives identical 920/1914 t/s → the
-> regression is host-side, not the binary. Ruled out: MTP, XMP (@5600), power plan (High perf), GPU clock
-> (−4%; sampled during prefill — core pinned 1800, mem full 9501, not throttled; util ramps from 0 =
-> stalls off-GPU), TDR delay (passive watchdog), power limit (420 W, peak 337 W). Decode UNaffected → host/CPU-bound
-> prefill path. **Leading suspect: Memory Integrity / HVCI-VBS now ON** (WSL2 is a Hyper-V VM; likely
-> toggled at the 08-03 reboot; same feature blocking the CPU undervolt). Confirm via Memory-Integrity-off A/B.
+> **No real prefill regression** — the earlier "~1.8×" was a measurement confound (resolved same day): the
+> §PF "38 s @ 128k" was a *linear extrapolation* from a ~41k-token throughput number, ignoring the mild
+> throughput falloff with length; the real measured 128k TTFT is ~68 s and always was. Apples-to-apples
+> with the SAME §PF tool (`prefill_probe.py`, ~38k prompt) this binary gives **2838 t/s @ ub2048 vs §PF's
+> 3441 (~1.2×, within clock-lock −4% + length/variance), doubling reproduces (+100.8%)**. Prefill is
+> transfer/GPU-side, not CPU-bound (CPU ~6% during it); PCIe is Gen4 x16 full; fork/binary, MTP, XMP, clock,
+> TDR, power, and Game-Boost/HVCI all cleared as causes of even the residual.
 > **Caveat: ub2048 at 128k leaves only ~1.6 GB VRAM free** — under the 4 GB reserve; use ub1024 if you need margin.
-> **`--ubatch-size 2048`** (§PF) roughly **doubles prefill** (2× confirmed both tools; absolute now
-> 138s→68s @ 124.5k vs the 08-02 79s→38s — see regression note above) — free; the default
+> **`--ubatch-size 2048`** (§PF) roughly **doubles prefill** (2× confirmed both tools, +100.8%; real 128k
+> TTFT ~68 s — the 08-02 "38 s" was a linear extrapolation from ~41k) — free; the default
 > 512 leaves half the prefill speed on the table. For multi-turn on a shared long context, keep
 > `cache_prompt` on: a follow-up query REUSES the prefix KV → **~15× faster follow-up TTFT** (prefill the
 > doc once, then sub-second). (Fable prefetch is NULL for prefill at ncmoe=8 — only heavy offload; §PF.)
