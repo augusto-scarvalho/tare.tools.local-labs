@@ -41,10 +41,18 @@ A/B lab), not an agentic coding product. So:
   top-64 (25%) needed for ~79%. Static top-S placement equals/beats every dynamic policy at matched VRAM because
   dynamic churn's PCIe **upload dwarfs the miss it saves** (LRU@16 slots: 47% hit but 26 ms upload vs 7 ms miss =
   net negative). **→ S1b (learned/dynamic controller) is DEAD for our deploy MoE** — nothing concentrated to learn.
-- **Live pivot (cheap):** S1b only pays on a *concentrated-routing* MoE. 4 other MoEs on disk (gpt-oss-20b,
-  gemma-4-26b-a4b, ernie-4.5-21b, granite-4.0-h) — trace one, run the same skew check; if any concentrates, S1b
-  revives for it. Otherwise S1 closes. **This is now the actionable remainder of S1.**
-- Effort spent: ~nil. Outcome: the top-ROI de-risk paid off as a negative that saves the whole S1b CUDA build.
+- **✅ S1 CLOSED 2026-08-04 — all 5 on-disk MoEs are load-balanced, none concentrated.** Screened Qwen3.6-35B,
+  GPT-OSS-20B, Gemma-4-26B, Ernie-4.5-21B, Granite-4.0-H (5 labs) via `ops/moe-routing-screen.sh` (1 command:
+  moe-trace + simulate.py). Top-10% of (layer,expert) pairs carries only **12-22%** of decode routing everywhere
+  (uniform = 10%). This is architectural convergence — modern MoE training universally load-balances (aux-loss /
+  aux-loss-free) so no expert is wasted. → **S1b (learned placement) is null across our whole fleet, not just Qwen.**
+- **Posture for future / new-architecture models:** do NOT pre-build S1b — EV is poor (the industry trend is toward
+  *more* balancing). The durable asset is the **screen**, now banked as a standing gate: run
+  `ops/moe-routing-screen.sh <new-model>` and build S1b only if a model **fails** it (top-10% >> 10%). Watch for
+  **shared-expert** designs (→ a cheap static "shared always resident" rule, not a learned controller) or
+  non-load-balanced / hash-routed architectures.
+- Effort spent: ~nil. Outcome: the top-ROI de-risk paid off as a negative that saves the whole S1b CUDA build,
+  and produced a reusable gate for every future MoE.
 
 ### S2. INT8 Tensor-Core fused dequant+GEMM kernel — §61
 - **What:** fuse dequant+bias+act+GEMM so low-bit weights actually use the 3090's INT8 Tensor Cores instead of
