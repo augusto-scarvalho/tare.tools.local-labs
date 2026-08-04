@@ -89,6 +89,15 @@ A/B lab), not an agentic coding product. So:
     behavioral proof: two binaries from identical source/arch diverge 3-6× on MoE). Arch 86 matches deploy; deploy
     uses `--ubatch-size 2048` so our ub2048 test IS the deploy prefill regime; the FORCE_CUBLAS MoE path is the
     real llama.cpp fallback (a fair comparison, not a strawman).
+  - **(generality validated across 5 labs + 4 quants — S1-level breadth; gate `ops/mmq-vs-cublas-generality.sh`)**
+    the first close tested only 2 Qwen3.6 Q4_K_M models; the double-check swept the axes that could actually move a
+    GEMM-path decision (quant type; dense-vs-MoE; family). Verdict UNANIMOUS: **every MoE keeps MMQ** — Qwen3.6-35B
+    Q4_K_M +329% / Q5_K_M +169% / Q6_K +1223%, Gemma-4-26B (q4_0) +67%, gpt-oss-20B +44%, Granite-4.0-H +80%. And
+    the dense residual **REPRODUCES on a different family** — Mistral-Small-24B dense shows cuBLAS +4.7% at ub2048,
+    same as Qwen dense-27B (+5-11%), proving the "cuBLAS edges large-batch dense" residual is a general GEMM-shape
+    property, not a Qwen quirk. cuBLAS-for-MoE gets relatively worse at higher-bit k-quants (Q6_K collapses). Since
+    the MMQ↔cuBLAS choice is model-weight-agnostic (keyed on quant/arch/batch/n_experts, NOT routing), this breadth
+    fully generalizes the "keep MMQ default" verdict.
   - **(methodology flaw found + FIXED)** the first A/B ran arms back-to-back → GPU heat-soak inflated variance to
     35% CV (dense ub2048 read 1296±456), so my earlier "cuBLAS +5% at 4σ, clean" was OVERCONFIDENT — a lucky
     low-variance run. Isolated arms + cooldown + clock-guard collapse it to 1-3% CV. Honest number: dense
