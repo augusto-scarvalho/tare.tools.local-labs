@@ -232,17 +232,24 @@ GGUF, expert placement, context, and prompt fixed across arms. Metric everywhere
   MTP; gpt-oss has EAGLE3). Ties directly to `[[agentic-local-model-plan]]`. **Target to beat:
   upstream #25642 — +30% t/s, ~82% accept.** Biggest single-stream lever for the long-context agent.
 
-### §A1 — windowed / adaptive MTP on the GDN path — **ANSWERED 2026-08-04: premise REVERSED, CLOSED NULL**
-- **result** — abandonCriteria MET (and exceeded). The MTP decode-t/s edge does **not** shrink with depth — it
-  **grows**: MoE 8k→128k **+75%→+134%**, dense-27B 8k→48k **+122%→+133%** (3 reps, CV <1%). Draft accept is
-  depth-invariant (MoE 99.2% byte-identical at both depths; dense −2.9pp at 48k, swamped by the amortization
-  gain). Mechanism: at long context the base forward gets costlier (attn over full KV), MTP amortizes it → the
-  edge widens; the depth cost lives in the *verify* pass, which windowing the draft can't touch. **No window to
-  build; no lost accept to recover.** Same S1/S2 shape (premise arch-specific-false — here reversed). Positive
-  deploy fact: draft-mtp is worth MORE at long context (the agentic regime). Gate: `ops/a1_mtp_depth_bench.py`;
-  raw `runs/a1-mtp-depth/`. Full detail: STATUS §A1. **evidenceGrade 3** (clean reversed signal on both
-  hybrids; high-accept task + extremes-only — a lower-accept/mid-depth sweep would take it to 4, but the
-  mechanism makes a window implausible even there).
+### §A1 — windowed / adaptive MTP on the GDN path — **ANSWERED 2026-08-04 (double-checked): right paper, wrong regime — don't build at 128k**
+- **result** — The MTP decode-t/s edge **grows** with depth across our whole 8k–128k range: MoE 8k→128k
+  **+75%→+134%**, dense-27B 8k→48k **+122%→+133%**; accept stable (T1 context-indep byte-identical 99.17% across
+  5 depths 8k→128k → rules out slot-boundary bug #23658 on our base; T2 realistic reasoning ~50% accept holds
+  ±2pp with edge +12%→+41% → rules out collapse #23322). abandonCriteria (edge doesn't shrink) MET.
+- **CORRECTED verdict (vs first pass):** NOT "reversed/null". The doc's `windowed-MTP` cite [ref-105] is a
+  **real** paper (arXiv:2607.21535 "…at Million-Token Context"); the draft-KV tax it removes only surfaces at
+  **≥256k** (+27%@261k/+43%@1M, worst on hybrids), "vanishes at short context by construction". We stay ≤128k so
+  term (A) target-forward amortization dominates → edge grows (Leviathan c-ratio; MagicDec 1.02×@4k→2.0×@32k;
+  EAGLE-3.1 flat accept; DeepSeek-V3 MTP 85–90%). Also corrected: **windowing the draft is LOSSLESS** (target
+  verifies every token; top-1 unchanged 86–94%), a cost-saver not an accept-killer — my first-pass "can only
+  lower accept" was wrong. → **Don't build at 128k; revisit if we ever target ≥256k (YaRN §D) — our GDN hybrid
+  is the worst-case arch where it'd bite.** Verified: nextn = full-attn over KV (qwen35moe.cpp); accept metric
+  correct (server-context.cpp, bonus-token −1); model not SWA (full_attention_interval=4); base 720d7fa40 Jul-25
+  postdates the May accept bugs; no upstream windowed-MTP PR (clean negative). Gate: `ops/a1_mtp_depth_bench.py`;
+  raw `runs/a1-mtp-depth/{a1_depth,a1b_curve}.csv`. Full detail: STATUS §A1. **evidenceGrade 3–4** (5-depth ×
+  2-regime curves on the MoE + both hybrids at extremes; only-if-ever gap = a ≥256k run to observe the crossover,
+  which needs YaRN and is out of current deploy scope).
 - **mechanistic grounding (before any run)** — the deploy MoE (`qwen35moe`, 41 blocks) is a **GDN hybrid**:
   only **10 of the 40 base layers bear a KV cache** (full-attention at blk 3,7,11,…,39 — 1-in-4; the other 30
   are GDN/SSM linear, no KV). Crucially the **`nextn`/MTP head (blk 40) IS a full-attention KV-bearing layer**
