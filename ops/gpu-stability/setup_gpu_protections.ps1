@@ -10,16 +10,18 @@
 #  UPDATE 2026-08-04: a paired A/B showed the 1800-MHz cap costs ~0% on the deploy
 #  MoE prefill (2387 locked @1800 vs 2311 unlocked @1905 t/s -- transfer-bound, not
 #  core-clock-bound; the -4% seen on gpt-oss was a GPU-compute-bound case). So the
-#  cap is nearly free on real workloads. It is being SUPERSEDED by a proper GPU
-#  undervolt (Afterburner V/F curve, e.g. ~1800-1900 MHz @ ~875-900 mV), which kills
-#  the same high-voltage Xid-79 region while keeping full clocks. To hand control to
-#  the undervolt, DISABLE the clock cap so the boot task stops fighting the curve --
-#  but KEEP the TDR delay (harmless, helpful):
+#  cap is nearly free on real workloads. It has been SUPERSEDED (2026-08-04) by a GPU
+#  undervolt (Afterburner V/F curve, ~1860 MHz @ 850 mV flat, "Apply at startup"),
+#  which kills the same high-voltage Xid-79 region while keeping full clocks. The clock
+#  cap was DISABLED (task unregistered, -rgc released, boot helper removed; TDR delay
+#  KEPT). Undervolt VALIDATED: 10-min sustained soak held 1860 MHz, peak 58C / 274W,
+#  decode 93 t/s stable, zero Xid/drop, no early->late drift.
+#
+#  If you ever need to disable the cap again (KEEP the TDR delay):
 #     Unregister-ScheduledTask -TaskName 'RTX3090-ClockLock' -Confirm:$false   # stop boot re-apply
 #     nvidia-smi -rgc                                                          # release current lock
 #     Remove-Item -Recurse -Force "$env:ProgramData\gpu-tools"                 # remove boot helper
 #     # do NOT remove TdrDelay/TdrDdiDelay -- leave the TDR bump in place.
-#  Then apply + STABILITY-VALIDATE the undervolt before trusting it as the protection.
 # ============================================================================
 
 # ---- tunables -------------------------------------------------------------
