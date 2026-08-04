@@ -32,6 +32,16 @@ class RunResult:
     total: dict | None = None
     gen_tps: dict | None = None
     prompt_tps: dict | None = None
+    # A4 (§63.4). accept_rate (alpha = accepted/drafted) is populated only on speculative
+    # arms -- a no-spec run leaves it None (the server omits the draft fields), which is
+    # how a spec A/B's base arm reads: no acceptance, by construction, not zero. tpot_ms
+    # is populated on EVERY arm (it is just the decode reciprocal) so a config's
+    # interactivity can be read beside its throughput without inverting a t/s by hand.
+    # (Mean accept length tau is NOT here: it needs gamma = --spec-draft-n-max, which this
+    # workload does not own; it is computed as 1 + gamma*alpha in the report that knows
+    # gamma. See collectors/request.py:accept_rate.)
+    tpot_ms: dict | None = None
+    accept_rate: dict | None = None
     min_free_vram_mb: int | None = None
     min_available_ram_mb: int | None = None
     load_min_ram_mb: int | None = None   # pressure during LOAD: recorded, never enforced
@@ -108,6 +118,8 @@ def run_config(adapter: LlamaCppAdapter, profile: ServerProfile, *, config_id: s
         totals: list[float] = []
         gtps: list[float] = []
         ptps: list[float] = []
+        tpots: list[float] = []      # A4: per-token decode latency (ms), every arm
+        accepts: list[float] = []    # A4: draft acceptance alpha, spec arms only
         failures: list[str] = []
 
         answered = 0
@@ -152,6 +164,12 @@ def run_config(adapter: LlamaCppAdapter, profile: ServerProfile, *, config_id: s
                 gtps.append(g)
                 if r.generation_tps_is_lower_bound:
                     lower_bound_tps += 1
+            # A4: decode latency on every arm; acceptance/accept-length only when the
+            # server reported draft counts (i.e. this arm actually speculated).
+            if (tp := r.tpot_ms) is not None:
+                tpots.append(tp)
+            if (ar := r.accept_rate) is not None:
+                accepts.append(ar)
             # Trust prefill only when the server actually did it. Recorded rather than
             # assumed: the unique prefix above is supposed to defeat the cache, and a
             # non-zero count here is the evidence that it stopped working.
@@ -177,6 +195,8 @@ def run_config(adapter: LlamaCppAdapter, profile: ServerProfile, *, config_id: s
             total=describe(totals).as_dict() if totals else None,
             gen_tps=describe(gtps).as_dict() if gtps else None,
             prompt_tps=describe(ptps).as_dict() if ptps else None,
+            tpot_ms=describe(tpots).as_dict() if tpots else None,
+            accept_rate=describe(accepts).as_dict() if accepts else None,
             min_free_vram_mb=watch.min_free_vram_mb,
             min_available_ram_mb=watch.min_available_ram_mb,
             load_min_ram_mb=watch.load_min_ram_mb,

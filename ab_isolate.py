@@ -198,15 +198,19 @@ ARM_SETS = {
     # §E4, THE spec-decode lever: multi-token prediction as a SELF-draft. Not two builds and
     # not two switches on the weights -- ONE model (an MTP GGUF, --model qwen36-*-mtp) loaded
     # in BOTH arms, differing only by whether the server self-drafts with the model's own MTP
-    # head. Spec-decode is EXACT (token-identical to the base decode by construction), so this
-    # is a pure SPEED A/B: base and mtp must emit the same text, and the only question is
-    # gen_tps. MASTER_BIN, not LOCAL_BIN -- `--spec-type` is upstream (#25980) and the fork's
-    # pinning is orthogonal here. -fa on for both (matches every other E-series arm; keeps the
-    # attention path from being a hidden second variable). --spec-draft-n-max 4: draft 4
-    # tokens/step (upstream default 3; 4 is the value cited for Qwen3.6). The MTP head is
-    # embedded in the GGUF, so no external -md draft model is needed. Expected (published):
-    # ~+17% on the 35B-A3B MoE, ~+73% (1.73x) on the 27B dense -- the lever grows as the model
-    # gets more expensive per token. Target to beat: upstream #25642 (+30% t/s, ~82% accept).
+    # head. Spec-decode is DISTRIBUTION-preserving but NOT bit-identical here (CORRECTED per
+    # the A1/S3 double-checks and STATUS §Q: batched-verify != sequential CUDA numerics flips
+    # greedy ties, so base and mtp diverge on long gens while staying quality-neutral). So this
+    # is a SPEED A/B whose acceptance/tau (A4 spec block) says HOW the speedup is earned, not a
+    # token-identity check. MASTER_BIN, not LOCAL_BIN -- `--spec-type draft-mtp` is upstream (NOT
+    # #25980, which is the later GLM-5.2 NextN/MTP model PR; the draft-mtp machinery predates it)
+    # and the fork's pinning is orthogonal here. -fa on for both (matches every other E-series
+    # arm; keeps the attention path from being a hidden second variable). --spec-draft-n-max 4:
+    # draft 4 tokens/step (upstream default 3; 4 is the value cited for Qwen3.6), and the gamma
+    # the A4 spec block reads to report tau = 1 + gamma*alpha. The MTP head is embedded in the
+    # GGUF, so no external -md draft model is needed. Expected (published): ~+17% on the 35B-A3B
+    # MoE, ~+73% (1.73x) on the 27B dense -- the lever grows as the model gets more expensive per
+    # token. Target to beat: upstream #25642 (+30% t/s, ~82% accept).
     "e4mtp": {
         "base": (MASTER_BIN, {}, ("-fa", "on")),                        # MTP head present, unused
         "mtp":  (MASTER_BIN, {}, ("-fa", "on", "--spec-type", "draft-mtp",
@@ -581,6 +585,14 @@ def main() -> int:
                        "load_seconds": r.load_seconds,
                        "gen_tps": _metric(r, "gen_tps"),
                        "prompt_tps": _metric(r, "prompt_tps"),
+                       # A4 (§63.4): decode latency on every arm; draft acceptance alpha
+                       # only on arms that actually speculated (None otherwise -- the base
+                       # arm of the §E4 spec A/B, by construction). Mean accept length tau
+                       # is NOT stored: it is 1 + gamma*alpha (gamma known from the arm),
+                       # computed at report time so no fragile predicted_n derivation is
+                       # ever persisted. See the SPEC-DECODE block below.
+                       "tpot_ms": _metric(r, "tpot_ms"),
+                       "accept_rate": _metric(r, "accept_rate"),
                        "total_s": _metric(r, "total"),
                        "min_free_vram_mb": r.min_free_vram_mb,
                        # §B3: mean GPU-core %busy over the serving window; idle% is its
@@ -857,6 +869,60 @@ def report(records: list[dict]) -> None:
                 print(f"  {arm:<8} ncmoe={ncmoe:<3} n={len(us):<2} "
                       f"busy={busy:5.1f}%  idle={100 - busy:5.1f}%   {gtxt}")
 
+    # A4 (§63.4). Spec-decode instrumentation: the intrinsic drafter metrics that a bare
+    # t/s hides. acceptance alpha = accepted/drafted (drafter QUALITY, hardware-free);
+    # mean accept length tau = tokens advanced per target forward pass (the amortization
+    # that BUYS the speedup); TPOT = decode latency per token (interactivity). alpha/tau
+    # print only for arms that speculated -- the base arm of a spec A/B has neither, and
+    # that asymmetry is the point: it shows the reader WHICH arm drafted. Printed beside
+    # the t/s so a spec win is never read as a single number, which is the §63.4
+    # anti-pattern this block exists to retire. Only shown when any arm reported draft
+    # counts (i.e. the run actually exercised speculation).
+    #
+    # tau is derived HERE, not stored, because it needs gamma (--spec-draft-n-max) which
+    # only the arm's own flags carry: the drafter proposes gamma tokens per verification
+    # step, so n_verif_steps = draft_n/gamma and tau = 1 + gamma*alpha EXACTLY (validated
+    # against the server's logged mean_len: 1 + 4*0.69776 = 3.79). A predicted_n-based
+    # derivation is off by a run-dependent boundary constant (measured 3.75 vs 3.79) and
+    # is deliberately not used -- the probe a4_spec_metrics_probe.py caught that.
+    def _gamma(arm_name: str) -> int:
+        extra = ARMS.get(arm_name, (None, None, ()))[2]
+        for i, tok in enumerate(extra):
+            if tok == "--spec-draft-n-max" and i + 1 < len(extra):
+                try:
+                    return int(extra[i + 1])
+                except ValueError:
+                    pass
+        return 3   # upstream default when the flag is absent (common/arg.cpp)
+
+    have_spec = [r for r in records if r.get("accept_rate") is not None]
+    if have_spec:
+        print("\n" + "=" * 72)
+        print("SPEC-DECODE METRICS (A4/§63.4; alpha=accept rate, tau=1+gamma*alpha=mean "
+              "accept len, TPOT=ms/tok)")
+        print("=" * 72)
+        for arm in ARMS:
+            for ncmoe in sorted({r["ncmoe"] for r in records}):
+                sub = [r for r in records if r["arm"] == arm and r["ncmoe"] == ncmoe
+                       and r["verdict"] == "OK"]
+                tps = [r["gen_tps"] for r in sub if r.get("gen_tps") is not None]
+                tpot = [r["tpot_ms"] for r in sub if r.get("tpot_ms") is not None]
+                acc = [r["accept_rate"] for r in sub if r.get("accept_rate") is not None]
+                if not tps and not tpot:
+                    continue
+                gtxt = f"gen={sum(tps)/len(tps):6.1f} t/s" if tps else "gen n/a"
+                ttxt = f"TPOT={sum(tpot)/len(tpot):5.2f}ms" if tpot else "TPOT n/a"
+                # No draft counts => this arm did not speculate; say so rather than
+                # printing a blank that looks like a missing measurement.
+                if acc:
+                    a = sum(acc) / len(acc)
+                    g = _gamma(arm)
+                    stxt = f"alpha={a:.3f}  tau={1 + g * a:.2f} (g={g})"
+                else:
+                    stxt = "no-spec (no draft)"
+                print(f"  {arm:<8} ncmoe={ncmoe:<3} n={len(sub):<2} "
+                      f"{gtxt}  {ttxt}  {stxt}")
+
     for r in unrecovered:
         print(f"  SUSPECT (no recovery): round {r['round']} arm {r['arm']} "
               f"ncmoe {r['ncmoe']}")
@@ -970,7 +1036,35 @@ if __name__ == "__main__":
             report(flat)
         assert "no interaction the instrument can see" in buf.getvalue()
 
+        # A4: the spec-decode block must print acceptance/tau for the arm that drafted and
+        # mark the other 'no-spec', so a spec win is never a bare t/s. Two arms, one round;
+        # only `mtp` carries draft counts, and it carries gamma=4 in its flags so tau must
+        # come out 1 + 4*0.69776 = 3.79 (the probe's real numbers).
+        ARMS = {"base": (MASTER_BIN, {}, ("-fa", "on")),
+                "mtp":  (MASTER_BIN, {}, ("-fa", "on", "--spec-draft-n-max", "4"))}
+        spec_fake = []
+        for rnd in range(2):
+            spec_fake += [
+                {"round": rnd, "arm": "base", "ncmoe": 8, "verdict": "OK",
+                 "gen_tps": 90.6, "prompt_tps": 500.0, "tpot_ms": 11.03,
+                 "accept_rate": None, "host_recovered": True},
+                {"round": rnd, "arm": "mtp", "ncmoe": 8, "verdict": "OK",
+                 "gen_tps": 121.1, "prompt_tps": 500.0, "tpot_ms": 8.26,
+                 "accept_rate": 0.69776, "host_recovered": True},
+            ]
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            report(spec_fake)
+        out = buf.getvalue()
+        assert "SPEC-DECODE METRICS" in out, out[-800:]
+        # tau = 1 + gamma*alpha = 1 + 4*0.69776 = 3.79, exactly the server's logged mean_len.
+        assert "alpha=0.698" in out and "tau=3.79 (g=4)" in out, \
+            [l for l in out.splitlines() if "mtp" in l]
+        assert "no-spec (no draft)" in out, \
+            [l for l in out.splitlines() if "base" in l and "TPOT" in l]
+
         print("\nselfcheck OK (a zero-effect fork must read as 'inside noise'; "
-              "a +50%/-10% split must read as a REAL interaction)")
+              "a +50%/-10% split must read as a REAL interaction; the spec block prints "
+              "alpha/tau for the drafting arm and 'no-spec' for the base)")
         raise SystemExit(0)
     raise SystemExit(main())

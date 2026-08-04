@@ -311,6 +311,52 @@ constraint here is the **16 GB Windows RAM reserve, not VRAM**. A newer build wi
 Net kernel would raise base decode and likely shrink the ratio. Raw:
 `runs/ab-e4mtp-qwen36-27b-mtp-e4-mtp-dense-ngl65/`.
 
+## §A4 — spec-decode & benchmark instrumentation discipline: DONE, mostly already-captured — draft acceptance now in the standing harness (2026-08-04, deep-dived pre-implementation)
+
+> **Full consolidated record: `A4_INSTRUMENTATION.md`** (audit + source/empirical validation + corrections +
+> literature). Gate: `ops/a4_spec_metrics_probe.py` (**A4 PROBE OK**). Raw: `runs/a4-spec-metrics/`.
+
+**IDEAS_BACKLOG A4 (§63.4 mandatory spec metrics + §40 fractional-factorial). Verdict: an INSTRUMENTATION
+item, largely already-captured (the S2 pattern).** The one machine-readable §63.4 metric missing from the
+*standing* A/B harness was **draft acceptance**; it is now wired in, source- and empirically-validated, with
+three corrections. **No deploy change.**
+
+**What was added (additive, low-risk):** `collectors/request.py` captures `draft_n`/`draft_n_accepted` (raw)
+and exposes `accept_rate` (α = accepted/drafted) + `tpot_ms` (decode ms/tok); `workloads/throughput.py`
+aggregates them; `ab_isolate.py` grows a **SPEC-DECODE METRICS** block printing α, **τ**, TPOT and gen t/s per
+arm — so a spec win is never a bare tokens/s (the §63.4 anti-pattern). `ops/a4_spec_metrics_probe.py` is the
+standing gate.
+
+**Metric correctness — source + empirical (probe on deploy MoE MTP, ncmoe=8, -fa on, base 720d7fa40):**
+
+| arm | gen t/s | TPOT ms/tok | draft_n | accepted | α | τ = 1+γα |
+|---|---:|---:|---:|---:|---:|---:|
+| nospec | 92.2 | 10.85 | — (absent) | — | — | — |
+| mtp (γ=4) | 122.2 | 8.18 | 268 | 187 | **0.698** | **3.79** |
+
+- **α = draft_n_accepted/draft_n** == the server's logged `draft_ratio` **to 5 decimals** (0.69776). Absent
+  keys when spec is off → `accept_rate` stays **None, not 0** (a 0 would mean "spec ran, accepted nothing").
+- **τ (mean accept length, §63.4 "per verification")** is NOT derivable from the JSON alone (`n_verif_steps`
+  is log-only). **The probe caught the first implementation's `predicted_n`-based τ as wrong (3.75 vs the
+  server's 3.79).** The robust exact relation is **τ = 1 + γ·α** (γ = `--spec-draft-n-max`; the drafter
+  proposes γ/step so `n_verif_steps = draft_n/γ`): `1 + 4×0.69776 = 3.79`, matching the log to the decimal.
+  τ is computed where γ is known (the report), never persisted.
+
+**Three corrections banked:** (1) the backlog's "§40 factors map ~1:1 to our levers" is **false** — our L18
+(`taguchi_screen.py`) screens *build* knobs (pin/prefetch/ubatch/ncmoe/kv/cache), §40's matrix is
+*workload*-facing (speculation/context/deterministic/engine/concurrency); overlap is only kv+ncmoe. (2) the
+`e4mtp` "spec-decode is EXACT/token-identical" comment was wrong (draft-mtp is quality-neutral but **diverges**
+per §Q/A1/S3) and its `#25980` citation was the wrong PR (that's GLM-5.2 NextN); both fixed inline. (3) the
+first τ formula (fixed inline + gated).
+
+**Upstream corroboration:** `draft_n`/`draft_n_accepted` = #12603; `mean_acc_len` = #24536 (log-only, vLLM
+defs, in our base — the probe's authority). **`/metrics` has NO spec metric** (#25327 closed-no-merge) → we
+read per-request `timings`. **⚠ #26320** (merged after our base) fixes checkpoint-restore inflating
+acceptance +1/restore → pin-watch; triggers only on long-ctx slot save/restore, not batch-1 decode. **#26100**
+(open): repeated prompts inflate acceptance ~10× — the §63.4 anti-pattern, **our harness already defends**
+(`cache_prompt=False` + unique per-rep prefix). **Batch-1 α/τ/speedup are an upper bound** — "Performance or
+Illusion?" (arXiv:2601.11580) formalizes the batch-collapse we already measured (§CC: MTP OFF at N≈4).
+
 ## §A3 — asymmetric K/V + better/sub-4-bit KV: CLOSED, negative — the KV axis is already at its optimum (2026-08-04, double-checked)
 
 > **Full consolidated record: `A3_KV_QUANT.md`** (arc + robust data + source mechanism + PR/paper corroboration +

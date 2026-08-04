@@ -1,0 +1,14 @@
+
+===== nospec =====
+  JSON: predicted_n=256 draft_n=None draft_n_accepted=None tps=92.2 tpot_ms=10.85
+  OK: no draft fields in JSON (spec was off) -> accept_rate stays None
+
+===== mtp =====
+  JSON: predicted_n=256 draft_n=268 draft_n_accepted=187 tps=122.2 tpot_ms=8.18
+  harness: alpha=0.69776  tau(=1+4*alpha)=3.7910
+  server : ratio=0.69776  mean_len=3.7900  (187 accepted / 268 generated)
+  PASS: alpha == server draft_ratio
+  PASS: JSON draft counts == logged counts
+  PASS: tau == server mean_acc_len (the 1+gamma*alpha identity holds)
+
+A4 PROBE OK

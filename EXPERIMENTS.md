@@ -27,6 +27,7 @@ already implement most of what a clean perf-A/B needs:
 | Matched control (the *analog* that fits us) | same binary in both arms; only the switch differs (`genpin`) | ✓ |
 | Split-plot | batch all rounds of one model (hard-to-change = the build) before switching | ✓ implicit |
 | Confirmatory: discover then confirm | effect discovered on qwen36; now replicated across architectures | ✓ in practice |
+| **Spec-decode metrics (A4/§63.4)** | `request.py` α=`draft_n_accepted/draft_n` + `tpot_ms`; `ab_isolate` spec block adds τ=1+γα; gate `ops/a4_spec_metrics_probe.py` | ✓ 2026-08-04 (see `A4_INSTRUMENTATION.md`) |
 
 So for clean paired 2-arm contrasts we are well-covered. The gaps are only for the **new
 question shapes** the KV/agentic work raises (dose-response, quality non-inferiority).

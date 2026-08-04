@@ -61,6 +61,24 @@ class RequestResult:
     # the cached FRACTION of the request is `cache_n / (cache_n + prompt_n)`.
     cache_n: int | None = None
 
+    # Speculative-decoding counts (A4 / IDEAS_BACKLOG §63.4). Present in the server
+    # `timings` block ONLY when speculation actually ran -- llama.cpp's
+    # `result_timings::to_json()` (server-task.cpp) emits `draft_n`/`draft_n_accepted`
+    # guarded by `if (draft_n > 0)`, so a no-spec arm reports NEITHER key (they stay
+    # None here, not 0). That distinction is load-bearing: a 0 would mean "spec ran and
+    # accepted nothing", None means "spec was off", and `accept_rate` must not divide the
+    # first by a real denominator nor the second by zero.
+    #
+    # Stored RAW for the same reason every count above is: acceptance and accept-length
+    # are quotients whose right definition (see the properties) was pinned down only by
+    # source-reading, and a stored quotient cannot be re-divided if the formula moves.
+    # These are the ONLY machine-readable spec fields the server exposes -- mean accept
+    # length, per-position acceptance and drafter time (`t_draft_us`) live in the stderr
+    # log (upstream #24536), never the JSON, so the harness derives what it can from these
+    # two plus predicted_n and leaves the rest to the log.
+    draft_n: int | None = None
+    draft_n_accepted: int | None = None
+
     @property
     def generation_s(self) -> float | None:
         """Fallback window when the server reports no timings. See `generation_tps`.
@@ -129,6 +147,51 @@ class RequestResult:
             return None
         return self.prompt_tokens / self.ttft_s
 
+    @property
+    def tpot_ms(self) -> float | None:
+        """Time per output token (ms), decode phase only -- the reciprocal of
+        `generation_tps` in ms. Named separately because TPOT is the standard serving
+        metric (vLLM/MLPerf) and the reader should not have to invert a t/s to get the
+        per-token latency a config's interactivity is judged on. Uses the server's
+        `predicted_ms/predicted_n`, which excludes prefill exactly; the wall-clock
+        fallback is deliberately NOT offered here -- a TPOT diluted with prompt time is
+        worse than no TPOT, because it looks like a decode number and is not one.
+
+        NB this is the MEAN inter-token time. The p50/p95/p99 ITL distribution needs the
+        per-token timing stream (`timings_per_token`), which this collector does not
+        request; at batch-1 on this box decode is near-deterministic (CV ~0.006) so the
+        mean carries the interactivity story and the tail adds little (A4 scope note)."""
+        if self.predicted_ms and self.predicted_n:
+            return self.predicted_ms / self.predicted_n
+        return None
+
+    @property
+    def accept_rate(self) -> float | None:
+        """Draft acceptance rate alpha = accepted / drafted (A4). This is the intrinsic,
+        hardware-independent quality of the drafter and the EXACT quantity the server
+        logs as `draft acceptance` (`draft_ratio = n_draft_accepted / n_draft_total`,
+        server-context.cpp) -- verified against source AND against the server's own logged
+        value to 5 decimals (a4_spec_metrics_probe.py: JSON 187/268 == logged 0.69776).
+        None when spec was off (draft_n absent) so a no-spec arm reads as 'no acceptance
+        to report' rather than a spurious 0/0.
+
+        NB there is deliberately NO `mean_accept_len` (tau) property here. tau = tokens
+        advanced per target forward pass = 1 + n_draft_accepted/n_draft_verif_steps
+        (the §63.4 'accepted draft tokens per verification', vLLM/Leviathan). It is NOT
+        derivable from the JSON alone: n_draft_verif_steps is log-only (upstream #24536),
+        and recovering it from predicted_n needs a boundary constant that VARIES per run
+        -- the probe measured predicted_n - accepted - 1 = 68 while the true step count
+        was 67, so a predicted_n derivation gives tau 3.75 vs the server's 3.79 (~1% wrong,
+        and it was wrong in the FIRST implementation until the probe caught it). The robust
+        exact relation is tau = 1 + gamma*alpha (gamma = --spec-draft-n-max), because the
+        drafter always proposes gamma per step so n_draft_verif_steps = draft_n/gamma;
+        that identity reproduces the log to the decimal (1 + 4*0.69776 = 3.79). tau is
+        therefore computed where gamma is known (ab_isolate's spec block) from this alpha,
+        never from predicted_n, and validated against the log by the gate."""
+        if self.draft_n and self.draft_n_accepted is not None:
+            return self.draft_n_accepted / self.draft_n
+        return None
+
 
 def _timing_fields(t: dict) -> dict:
     """Server timings -> RequestResult fields. One place, because the starved path and
@@ -137,7 +200,10 @@ def _timing_fields(t: dict) -> dict:
     generation at all."""
     return {"prompt_n": t.get("prompt_n"), "prompt_ms": t.get("prompt_ms"),
             "predicted_n": t.get("predicted_n"), "predicted_ms": t.get("predicted_ms"),
-            "cache_n": t.get("cache_n")}
+            "cache_n": t.get("cache_n"),
+            # Absent (None), not 0, when speculation was off -- the server omits the keys.
+            "draft_n": t.get("draft_n"),
+            "draft_n_accepted": t.get("draft_n_accepted")}
 
 
 def chat_stream(base_url: str, prompt: str, *, max_tokens: int = 256,
@@ -272,5 +338,30 @@ if __name__ == "__main__":
     assert old.prompt_tps is None
 
     assert _timing_fields({})["prompt_n"] is None, "absent timings must not crash"
+
+    # A4 spec-decode metrics. No draft fields -> no acceptance to report, and TPOT is the
+    # decode reciprocal regardless of spec.
+    assert r.accept_rate is None, "no spec -> no acceptance"
+    assert abs(r.tpot_ms - 12.0) < 1e-6, r.tpot_ms   # 18000ms / 1500 tok
+
+    # Spec ran: alpha = accepted/drafted, EXACT (matches the server's logged draft_ratio).
+    # The probe's real numbers, so the self-check pins the exact value the box produced:
+    # 187 accepted / 268 drafted = 0.69776..., the value server-context.cpp logged.
+    spec = RequestResult(ok=True, total_s=20.0, completion_tokens=256,
+                         predicted_n=256, predicted_ms=2113.72,
+                         draft_n=268, draft_n_accepted=187)
+    assert abs(spec.accept_rate - 187 / 268) < 1e-12, spec.accept_rate
+    assert abs(spec.accept_rate - 0.69776) < 5e-5, spec.accept_rate
+    # draft_n absent but accepted present must NOT fabricate a rate (spec off is spec off).
+    assert RequestResult(ok=True, draft_n=None, draft_n_accepted=None).accept_rate is None
+    # draft_n == 0 is also 'no acceptance' (never divide by zero).
+    assert RequestResult(ok=True, draft_n=0, draft_n_accepted=0).accept_rate is None
+    # The two spec fields must round-trip through the timings extractor, and be absent
+    # (None) when the server omits them.
+    got = _timing_fields({"draft_n": 268, "draft_n_accepted": 187})
+    assert got["draft_n"] == 268 and got["draft_n_accepted"] == 187
+    assert _timing_fields({"predicted_n": 5})["draft_n"] is None, "no spec -> None"
+
     print("request collector self-check OK "
-          f"(exact gen={r.generation_tps:.1f} t/s, prefill={r.prompt_tps:.1f} t/s)")
+          f"(exact gen={r.generation_tps:.1f} t/s, prefill={r.prompt_tps:.1f} t/s, "
+          f"alpha={spec.accept_rate:.5f}, tpot={r.tpot_ms:.1f}ms)")

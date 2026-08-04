@@ -121,7 +121,8 @@ A/B lab), not an agentic coding product. So:
 - **→ Tier S fully swept: S1 ✅ (null), S2 ✅ (already-captured), S3 ✅ (mtp-alone optimal). Tier A: A1 ✅
   (windowed-MTP — right paper, unreachable regime; CUT — edge grows to native 256k +176%; 2026-08-04,
   double-checked). A3 ✅ (asymmetric K/V −62% + iq4_nl −79% + sub-4-bit paper-null; KV axis already optimal;
-  2026-08-04). Next un-attacked: A2 ThinkingCap LoRA on dense-27B, A4 instrumentation.**
+  2026-08-04). A4 ✅ (instrumentation — already-captured; draft acceptance α/τ now in the standing harness,
+  probe-validated; 2026-08-04). Next un-attacked: A2 ThinkingCap LoRA on dense-27B.**
 
 ### S3. N-gram speculative decoding + drafter-selection policy — §35 / §63.3
 - **What:** add n-gram spec-decode (no extra model, wins on repetitive code) alongside MTP; formalize drafter
@@ -226,10 +227,23 @@ A/B lab), not an agentic coding product. So:
   dominates. **Dense-27B** blocked by the full-precision GDN recurrent state (Phase A #3), untouched by `--cache-type`.
   Same pattern as S1/S2/S3/A1.
 
-### A4. Spec-decode + benchmark instrumentation discipline — §22 / §40 / §63.4
-- Extend our A/B to log per-config **accepted-draft-tokens, acceptance rate, drafter-time-vs-saved, draft VRAM,
-  TTFT/TPOT, wall-clock, and downstream code quality** — never tokens/s on one long deterministic output. Adopt
-  the fixed fractional-factorial matrix (§40): our levers map ~1:1. Cheap, hardens every future engine claim.
+### A4. Spec-decode + benchmark instrumentation discipline — §22 / §40 / §63.4 ✅ DONE 2026-08-04 (deep-dived pre-implementation)
+- **Verdict: an INSTRUMENTATION item, LARGELY ALREADY-CAPTURED (S2 pattern).** Full record `A4_INSTRUMENTATION.md`;
+  STATUS §A4; gate `ops/a4_spec_metrics_probe.py` (**A4 PROBE OK**). The one machine-readable §63.4 metric missing
+  from the *standing* A/B harness was **draft acceptance** — now wired in (`request.py` α=`draft_n_accepted/draft_n`
+  + `tpot_ms`; `throughput.py` aggregates; `ab_isolate` SPEC-DECODE block prints α, τ=1+γα, TPOT, gen), source- and
+  empirically-validated (α==server `draft_ratio` to 5dp; τ==logged `mean_len` 3.79). TTFT/wall-clock/VRAM/quality
+  (§Q)/distribution-divergence (§Q,A1,S3) already existed.
+- **CORRECTION: the "our levers map ~1:1 [to §40]" claim above was FALSE.** Our L18 (`taguchi_screen.py`) screens
+  BUILD knobs (pin/prefetch/ubatch/ncmoe/kv/cache); §40's matrix is WORKLOAD-facing
+  (speculation/context/deterministic/engine/concurrency) — overlap is only kv+ncmoe. We have *a* fractional-factorial
+  screen with correct discipline, but it is NOT the §40 matrix and has no `speculation` factor (the spec lever is
+  measured by the dedicated paired `e4mtp` A/B + S3 instead).
+- **Caveats banked:** batch-1 α/τ/speedup are an UPPER BOUND (batch-collapse arXiv:2601.11580 = our §CC); `/metrics`
+  has no spec metric (#25327 closed-no-merge) so we read per-request `timings`; ⚠ #26320 (post-base) fixes
+  checkpoint-restore acceptance inflation (+1/restore) → pin-watch; #26100 repeated-prompt inflation defended by
+  our `cache_prompt=False`. Deliberately NOT built: drafter-time-vs-saved + per-pos acceptance (stderr-log-only, low
+  batch-1 ROI), ITL p50/p95/p99 (needs `timings_per_token`; mean TPOT suffices at CV~0.006).
 
 ---
 
