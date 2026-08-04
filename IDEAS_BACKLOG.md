@@ -31,18 +31,20 @@ A/B lab), not an agentic coding product. So:
 
 ## Tier S — do first (highest ROI: hits our bottleneck or is an Ampere-measured win, buildable in-fork)
 
-### S1. Expert-access profiler → learned hot/warm/cold placement (`ExpertResidencyController`) — §66
-- **What:** profile per-layer/per-expert access frequency + bytes-transferred + PCIe stall; classify experts
-  hot/warm/cold; keep hot resident, async-prefetch next, per-expert quant — replacing static `--n-cpu-moe`.
-- **Why top ROI:** attacks THE bottleneck (expert streaming). Doc names Qwen3.6-35B-A3B and calls it *"mais
-  transformador que alterações globais de batch/KV."* We already have the prefetch/pin/cache scaffolding gated off.
-- **Split to de-risk:** **S1a (cheap, do now):** build the profiler/simulator only — instrument expert-access
-  histogram + bytes-moved + PCIe-stall + CPU/GPU co-util during decode (§69 recommends this exact instrumentation
-  and cites our own `--no-mmap` result). **S1b (big):** learned placement controller, gated on S1a showing
-  concentrated/predictable routing (note §E5: Qwen3 routing was load-balanced → may cap the win — S1a settles it).
-- **Validate:** does per-expert access concentrate enough that resident-hot beats static ncmoe=8 on decode t/s at
-  equal VRAM? Accept if ≥ +10% decode or ≥ same t/s at lower VRAM, quality-neutral.
-- Effort: S1a low, S1b high (C++/CUDA). Maturity: speculative but our-exact-target.
+### S1. Expert-access profiler → learned MoE placement (`ExpertResidencyController`) — §66
+- **What:** profile per-expert access; classify hot/warm/cold; keep hot resident, async-prefetch next — replacing
+  static `--n-cpu-moe` with learned placement. Doc names Qwen3.6-35B-A3B, calls it *"mais transformador que
+  batch/KV."*
+- **✅ S1a DONE 2026-08-04 — verdict NEGATIVE for Qwen3.6 (re-confirms §E5).** The tooling already existed
+  (`tools/moe-trace/simulate.py` + `qwen36-35b-moe-trace.csv`); no new code needed. Fresh sim: routing is
+  **load-balanced, not concentrated** — top-10% of (layer,expert) pairs carry only **17.6%** of decode traffic;
+  top-64 (25%) needed for ~79%. Static top-S placement equals/beats every dynamic policy at matched VRAM because
+  dynamic churn's PCIe **upload dwarfs the miss it saves** (LRU@16 slots: 47% hit but 26 ms upload vs 7 ms miss =
+  net negative). **→ S1b (learned/dynamic controller) is DEAD for our deploy MoE** — nothing concentrated to learn.
+- **Live pivot (cheap):** S1b only pays on a *concentrated-routing* MoE. 4 other MoEs on disk (gpt-oss-20b,
+  gemma-4-26b-a4b, ernie-4.5-21b, granite-4.0-h) — trace one, run the same skew check; if any concentrates, S1b
+  revives for it. Otherwise S1 closes. **This is now the actionable remainder of S1.**
+- Effort spent: ~nil. Outcome: the top-ROI de-risk paid off as a negative that saves the whole S1b CUDA build.
 
 ### S2. INT8 Tensor-Core fused dequant+GEMM kernel — §61
 - **What:** fuse dequant+bias+act+GEMM so low-bit weights actually use the 3090's INT8 Tensor Cores instead of
