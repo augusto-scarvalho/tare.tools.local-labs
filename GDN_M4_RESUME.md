@@ -18,9 +18,9 @@ was CONSOLIDATED (details in each section below; also in the project memory + FO
   (CLI flags preserve the env path; inert on default). **Re-blessed 3/3, test-backend-ops 13349/13349,
   GDN 46/46.** Nothing deleted. Commits: project `41a9fa7`+`754f762`, fork `c8761b40c`→`068764d92`.
 
-**COMMITS THIS SESSION are in git** — the doc/data are safe to `git clean`-around; scratchpad/ runner
-scripts (`gdn_conc_arm.sh`, `enum_builds.sh`, `check_recoverable.sh`, `consolidate_audit.sh`,
-`preserve_branches.sh`) are untracked working aids, keepable but regenerable.
+**COMMITS THIS SESSION are all in git; tree is clean.** Runner scripts were moved out of scratchpad into
+the repo (commit `83e46e1`): `gdn_conc_arm.sh` at root; `enum_builds.sh` / `check_recoverable.sh` /
+`consolidate_audit.sh` / `preserve_branches.sh` under `ops/fork-consolidation/` (+ README).
 
 ## TL;DR of where we WERE (2026-08-03, pre-close — kept for provenance)
 - **Lever B (bf16 W-readout): DONE — negative, REVERTED to TF32.** bf16 = flat vs TF32 (deploy 2048:
