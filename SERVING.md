@@ -12,11 +12,15 @@ exactness). Blessed: draft-mtp quality-neutral, output coherent. Build: `GGML_CU
 
 ## Three serve modes — pick by your workload
 
+> Flag note (2026-08-04): on the deploy binary (`068764d92`) the batch flags are `--batch-size` /
+> `--ubatch-size`; the old `--batch` / `--ubatch` now error out. Mode 1 re-validated end-to-end: 127–130
+> t/s decode, 83.4% draft accept.
+
 **1. Single user, lowest latency** (interactive chat, one stream)
 ```bash
 llama-server -m Qwen3.6-35B-A3B-mtp.gguf -fa on --n-cpu-moe 8 -c 8192 \
   --cache-type-k q8_0 --cache-type-v q8_0 --spec-type draft-mtp --spec-draft-n-max 4 \
-  --batch 2048 --ubatch 2048 --host 0.0.0.0 --port 8080
+  --batch-size 2048 --ubatch-size 2048 --host 0.0.0.0 --port 8080
 ```
 → **~116 t/s decode**, quality-neutral. MTP ON (its +27% is a single-stream win).
 
@@ -24,7 +28,7 @@ llama-server -m Qwen3.6-35B-A3B-mtp.gguf -fa on --n-cpu-moe 8 -c 8192 \
 ```bash
 llama-server -m Qwen3.6-35B-A3B-mtp.gguf -fa on --n-cpu-moe 8 -c 131072 \
   --cache-type-k q4_0 --cache-type-v q4_0 --spec-type draft-mtp --spec-draft-n-max 4 \
-  --batch 2048 --ubatch 2048 --host 0.0.0.0 --port 8080
+  --batch-size 2048 --ubatch-size 2048 --host 0.0.0.0 --port 8080
 ```
 → **128k context, 100% multi-hop accuracy, ~60 t/s decode.** q4 KV is lossless here → doubles headroom.
 Prefill a 128k prompt in ~38 s; follow-ups on the same context are **sub-second** (prompt-cache reuse).
@@ -33,7 +37,7 @@ Prefill a 128k prompt in ~38 s; follow-ups on the same context are **sub-second*
 ```bash
 llama-server -m Qwen3.6-35B-A3B-mtp.gguf -fa on --n-cpu-moe 8 -c 32768 -np 8 \
   --cache-type-k q4_0 --cache-type-v q4_0 \
-  --batch 2048 --ubatch 2048 --host 0.0.0.0 --port 8080
+  --batch-size 2048 --ubatch-size 2048 --host 0.0.0.0 --port 8080
 ```
 → **~217 t/s aggregate (2.5×), ~30 t/s/user, +0.6 GB VRAM.** **MTP OFF** — it HALVES aggregate at N=8.
 

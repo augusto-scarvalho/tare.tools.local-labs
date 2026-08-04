@@ -16,10 +16,20 @@ records. This is the durable handoff — read it first after a context reset.
   --ctx-size 8192 \
   --cache-type-k q8_0 --cache-type-v q8_0 \
   --spec-type draft-mtp --spec-draft-n-max 4 \
-  --batch 2048 --ubatch 2048 \
+  --batch-size 2048 --ubatch-size 2048 \
   --host 0.0.0.0 --port 8080
 ```
-> **`--ubatch 2048`** (§PF) roughly **doubles prefill** (128k prompt TTFT 79s→38s) — free; the default
+> **Flag names (2026-08-04):** on the deploy binary (`lifecycle` @ `068764d92`, newer than base `720d7fa40`)
+> the batch flags are `--batch-size` / `--ubatch-size`; the short `--batch` / `--ubatch` are no longer
+> accepted (`error: invalid argument: --batch`). The MTP flags (`--spec-type draft-mtp`,
+> `--spec-draft-n-max`) are unchanged.
+>
+> **Validated end-to-end 2026-08-04** (this exact config, post-reboot, clean run): decode **127–130 t/s**
+> (meets/beats the ~116 campaign figure below), **draft acceptance 83.4%** (196/235, mean accepted len
+> 4.32), model→`/health` ~11 s (warm page-cache), prompt-cache reuse TTFT 270→83 ms. VRAM 21014/24576 MiB
+> (~3.5 GB free at 8k ctx + q8 KV — a hair under the 4 GB reserve on a single post-run sample; watch it
+> under sustained load).
+> **`--ubatch-size 2048`** (§PF) roughly **doubles prefill** (128k prompt TTFT 79s→38s) — free; the default
 > 512 leaves half the prefill speed on the table. For multi-turn on a shared long context, keep
 > `cache_prompt` on: a follow-up query REUSES the prefix KV → **~15× faster follow-up TTFT** (prefill the
 > doc once, then sub-second). (Fable prefetch is NULL for prefill at ncmoe=8 — only heavy offload; §PF.)
