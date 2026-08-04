@@ -311,12 +311,14 @@ constraint here is the **16 GB Windows RAM reserve, not VRAM**. A newer build wi
 Net kernel would raise base decode and likely shrink the ratio. Raw:
 `runs/ab-e4mtp-qwen36-27b-mtp-e4-mtp-dense-ngl65/`.
 
-## §A1 — windowed-MTP: right paper, wrong regime — MTP's edge GROWS across our whole 8k–128k range (2026-08-04, double-checked)
+## §A1 — windowed-MTP: right paper, unreachable regime — MTP's edge GROWS to native 256k → CUT (2026-08-04, double-checked)
 
-**IDEAS_BACKLOG A1 (windowed / adaptive MTP). Verdict: do NOT build at our 128k deploy ceiling — but this is a
-real lever for ≥256k, NOT a dead premise.** (Supersedes the first-pass "premise reversed / null" framing; the
-double-check corrected two things — see the CORRECTION box.) The research doc (§22/§35) warns MTP's edge *drops*
-at long context because the draft pays a full-context KV tax, and points at `windowed-MTP` [ref-105] as the fix.
+**IDEAS_BACKLOG A1 (windowed / adaptive MTP). Verdict: CUT — no context we can serve benefits.** We measured to
+the model's native 262k ceiling and the MTP edge only grows (+75% @8k → +134% @128k → +176% @256k), accept
+pristine throughout; the draft-KV tax the lever removes only dominates near ~1M tokens, which we cannot reach.
+(Supersedes the first-pass "premise reversed/null" AND the interim "revisit ≥256k" framings; the double-check
+corrected two things — see the CORRECTION box.) The research doc (§22/§35) warns MTP's edge *drops* at long
+context because the draft pays a full-context KV tax, and points at `windowed-MTP` [ref-105] as the fix.
 
 **Measured — the MTP edge GROWS with depth on both GDN hybrids** (`ops/a1_mtp_depth_bench.py`; ncmoe=8, ub2048,
 q8_0 KV @8k / q4_0 @deep; isolated arms + cooldown; the GPU-A/B variance rule):
@@ -328,11 +330,14 @@ q8_0 KV @8k / q4_0 @deep; isolated arms + cooldown; the GPU-A/B variance rule):
 | dense 27B | 8k (6.3k) | 31.8 | 70.6 | **+121.8%** | 97.8% (357/365) |
 | dense 27B | 48k (44k) | 25.0 | 58.3 | **+133.1%** | 94.9% (355/374) |
 
-**Strengthened accept-vs-depth curves (A1-0b, 2026-08-04 — closes the "2 depths / one high-accept task" gap):**
-- **T1 (context-independent, ~99% accept), MoE mtp at 5 depths:** t/s 151→142→132→122→115 (8k→128k), **accept
-  byte-identical 99.17% at ALL five** — smooth monotone t/s falloff, no discontinuity. **Rules out the llama.cpp
-  KV-slot-boundary acceptance-oscillation bug (#23658) on our base** (accept would dip at some ctx if present;
-  it never does across depths spanning dozens of 2048-token boundaries).
+**Strengthened accept-vs-depth curves (A1-0b/0c, 2026-08-04 — closes the "2 depths / one high-accept task" gap):**
+- **T1 (context-independent, ~99% accept), MoE mtp across 6 depths to the model's NATIVE 262k ceiling:** t/s
+  151→142→132→122→115→**90** (8k→32k→64k→96k→128k→256k); **accept byte-identical 99.17% at ALL six.** The MTP
+  **edge keeps GROWING monotonically all the way to native 256k: +75% (8k) → +134% (128k) → +176% (256k)**
+  (256k: no-spec 32.7 → mtp 90.4 t/s). Smooth monotone falloff, no discontinuity → **rules out the KV-slot-
+  boundary acceptance-oscillation bug (#23658) on our base** (accept would dip at some ctx; it never does across
+  depths spanning ~125 2048-token boundaries). **256k runs and FITS VRAM** (ncmoe=8, q4 KV, ub1024) — the model's
+  native ceiling is reachable, and even there the draft-KV tax is invisible (accept pristine, edge at its max).
 - **T2 (free-form prose reasoning, realistic ~50% accept — real headroom to fall), MoE:** edge **+11.8% @8k →
   +13.1% @64k → +41.4% @128k**; accept **51.2 → 52.7 → 48.1%** (±2pp, no collapse). **Rules out the SWA/hybrid
   acceptance-collapse-at-depth report (#23322)** for our config: even the low-accept regime holds ~50% at 128k
@@ -358,12 +363,16 @@ q8_0 KV @8k / q4_0 @deep; isolated arms + cooldown; the GPU-A/B variance rule):
 >    construction** — the full-attention *target* still verifies every token, so a window changes only which
 >    tokens are *proposed*, never which are *accepted* (Windowed-MTP: draft top-1 unchanged 86–94%; MagicDec &
 >    LongSpec window the draft with α held ≈0.8). It's a cost-saver, not an accept-killer.
-> 2. **The premise is not "reversed/null" — it's correct but OUT OF OUR REGIME.** [ref-105] is a *real* paper
->    (verified on arxiv); the research doc's error is **regime-misattribution** — it dropped the paper's
->    "million-token" scope and presented the draft-KV tax as biting at our depths. It bites at ≥256k, and our
->    GDN hybrid is exactly the arch where it bites hardest. So: don't build now, but **revisit if we ever target
->    ≥256k** (e.g. via YaRN, §D) — then windowing the nextn head (StreamingLLM window+sink) is the correct,
->    lossless lever.
+> 2. **The premise is not "reversed/null" — it's correct but OUT OF OUR REACHABLE REGIME.** [ref-105] is a *real*
+>    paper (verified on arxiv); the research doc's error is **regime-misattribution** — it dropped the paper's
+>    "million-token" scope and presented the draft-KV tax as biting at our depths. The paper's tax is +27% on the
+>    *draft phase* @261k rising to net-negative near 1M — but the draft phase is ~1 layer of ~41, a tiny slice of
+>    the step, so at 256k it is **swamped by term (A)**: we MEASURED native 256k and the MTP edge is at its
+>    MAXIMUM (+176%), accept pristine (99.17%). The tax only dominates approaching ~1M tokens, which is
+>    **unreachable for us** (native ceiling 262k; 1M needs YaRN far past training, where quality is already gone)
+>    **and unusable** even if reachable. → **CUT windowed-MTP** — there is no context we can serve where it would
+>    help. (If a future model shipped with a ≥512k *native* window AND a real use case, revisit — window the nextn
+>    head, StreamingLLM window+sink, lossless. Not our models, not now.)
 
 **Code / config verification (double-check):**
 - The `nextn` MTP head (blk 40) runs **full self-attention over the unified KV cache** — `build_attn_inp_kv()` +

@@ -232,24 +232,27 @@ GGUF, expert placement, context, and prompt fixed across arms. Metric everywhere
   MTP; gpt-oss has EAGLE3). Ties directly to `[[agentic-local-model-plan]]`. **Target to beat:
   upstream #25642 — +30% t/s, ~82% accept.** Biggest single-stream lever for the long-context agent.
 
-### §A1 — windowed / adaptive MTP on the GDN path — **ANSWERED 2026-08-04 (double-checked): right paper, wrong regime — don't build at 128k**
-- **result** — The MTP decode-t/s edge **grows** with depth across our whole 8k–128k range: MoE 8k→128k
-  **+75%→+134%**, dense-27B 8k→48k **+122%→+133%**; accept stable (T1 context-indep byte-identical 99.17% across
-  5 depths 8k→128k → rules out slot-boundary bug #23658 on our base; T2 realistic reasoning ~50% accept holds
-  ±2pp with edge +12%→+41% → rules out collapse #23322). abandonCriteria (edge doesn't shrink) MET.
-- **CORRECTED verdict (vs first pass):** NOT "reversed/null". The doc's `windowed-MTP` cite [ref-105] is a
-  **real** paper (arXiv:2607.21535 "…at Million-Token Context"); the draft-KV tax it removes only surfaces at
-  **≥256k** (+27%@261k/+43%@1M, worst on hybrids), "vanishes at short context by construction". We stay ≤128k so
-  term (A) target-forward amortization dominates → edge grows (Leviathan c-ratio; MagicDec 1.02×@4k→2.0×@32k;
-  EAGLE-3.1 flat accept; DeepSeek-V3 MTP 85–90%). Also corrected: **windowing the draft is LOSSLESS** (target
-  verifies every token; top-1 unchanged 86–94%), a cost-saver not an accept-killer — my first-pass "can only
-  lower accept" was wrong. → **Don't build at 128k; revisit if we ever target ≥256k (YaRN §D) — our GDN hybrid
-  is the worst-case arch where it'd bite.** Verified: nextn = full-attn over KV (qwen35moe.cpp); accept metric
-  correct (server-context.cpp, bonus-token −1); model not SWA (full_attention_interval=4); base 720d7fa40 Jul-25
-  postdates the May accept bugs; no upstream windowed-MTP PR (clean negative). Gate: `ops/a1_mtp_depth_bench.py`;
-  raw `runs/a1-mtp-depth/{a1_depth,a1b_curve}.csv`. Full detail: STATUS §A1. **evidenceGrade 3–4** (5-depth ×
-  2-regime curves on the MoE + both hybrids at extremes; only-if-ever gap = a ≥256k run to observe the crossover,
-  which needs YaRN and is out of current deploy scope).
+### §A1 — windowed / adaptive MTP on the GDN path — **ANSWERED 2026-08-04 (double-checked): right paper, unreachable regime — CUT**
+- **result** — The MTP decode-t/s edge **grows** with depth all the way to the model's NATIVE 262k ceiling: MoE
+  **+75% @8k → +134% @128k → +176% @256k** (256k: no-spec 32.7 → mtp 90.4), dense-27B 8k→48k **+122%→+133%**;
+  accept stable (T1 context-indep byte-identical 99.17% across 6 depths 8k→256k → rules out slot-boundary bug
+  #23658 on our base; T2 realistic reasoning ~50% accept holds ±2pp with edge +12%→+41% → rules out collapse
+  #23322). 256k fits VRAM (ncmoe=8, q4 KV, ub1024). abandonCriteria (edge doesn't shrink) MET at every reachable
+  depth.
+- **CORRECTED verdict (vs first pass):** NOT "reversed/null", and NOT even "revisit ≥256k". The doc's
+  `windowed-MTP` cite [ref-105] is a **real** paper (arXiv:2607.21535 "…at Million-Token Context"); the draft-KV
+  tax it removes is +27% on the *draft phase* @261k rising to net-negative near 1M — but the draft phase is ~1 of
+  ~41 layers, so at our reachable max it's swamped by term (A) target-forward amortization (Leviathan c-ratio;
+  MagicDec 1.02×@4k→2.0×@32k; EAGLE-3.1 flat accept; DeepSeek-V3 MTP 85–90%). **We MEASURED native 256k: edge at
+  its MAX (+176%), accept pristine.** The tax only dominates near ~1M, unreachable (native 262k; 1M needs YaRN
+  past training where quality is gone) and unusable. → **CUT.** Also corrected: **windowing the draft is LOSSLESS**
+  (target verifies every token; top-1 unchanged 86–94%), a cost-saver not an accept-killer — my first-pass "can
+  only lower accept" was wrong (irrelevant now since we cut it, but recorded). Verified: nextn = full-attn over KV
+  (qwen35moe.cpp); accept metric correct (server-context.cpp, bonus-token −1); model not SWA
+  (full_attention_interval=4); base 720d7fa40 Jul-25 postdates the May accept bugs; no upstream windowed-MTP PR
+  (clean negative). Gate: `ops/a1_mtp_depth_bench.py`; raw `runs/a1-mtp-depth/{a1_depth,a1b_curve,a1c_256k}.csv`.
+  Full detail: STATUS §A1. **evidenceGrade 4** (6-depth curve to native 256k + a 2nd realistic-accept regime +
+  both hybrids; the only unreached regime, ~1M, is off-limits by arch and quality, so no gap remains that matters).
 - **mechanistic grounding (before any run)** — the deploy MoE (`qwen35moe`, 41 blocks) is a **GDN hybrid**:
   only **10 of the 40 base layers bear a KV cache** (full-attention at blk 3,7,11,…,39 — 1-in-4; the other 30
   are GDN/SSM linear, no KV). Crucially the **`nextn`/MTP head (blk 40) IS a full-attention KV-bearing layer**

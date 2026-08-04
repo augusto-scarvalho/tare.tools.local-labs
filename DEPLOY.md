@@ -99,8 +99,8 @@ Knobs:
   +122%→+133%; even low-accept reasoning (~50%) grows +12%→+41% at 128k. At depth the base forward gets costlier
   (attn over full KV) and MTP amortizes it (Leviathan/MagicDec) → the edge widens. Keep `--spec-type draft-mtp`
   ON — it's *even more* valuable for the long-context agent. **Windowed-MTP** (arXiv:2607.21535) is a *real* lever
-  but only bites at **≥256k** (draft's own KV tax) — irrelevant at our 128k ceiling; revisit only if a ≥256k
-  target (YaRN, §D) ever appears (our GDN hybrid is the arch where it'd matter most).
+  but its draft-KV tax only dominates near ~1M tokens — measured native 256k still gives the MAX edge (+176%,
+  no-spec 32.7 → mtp 90.4), accept pristine → **CUT** (no context we can serve benefits; native ceiling is 262k).
 
 ---
 

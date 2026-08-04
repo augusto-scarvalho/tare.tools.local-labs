@@ -30,6 +30,7 @@ PORT = int(os.environ.get("PORT", "8080"))
 REPS = int(os.environ.get("REPS", "5"))
 NTOK = int(os.environ.get("NTOK", "450"))
 COOLDOWN = int(os.environ.get("COOLDOWN", "15"))
+UBATCH = os.environ.get("UBATCH", "2048")   # drop to 1024/512 to fit 256k in VRAM
 MODELSET = os.environ.get("MODELSET", "moe,dense").split(",")
 TASK = os.environ.get("TASK", "class")            # class (T1) | reason (T2)
 SPECS = os.environ.get("SPECS", "nospec,mtp").split(",")
@@ -40,10 +41,10 @@ OUT = os.environ.get("OUT", "/mnt/c/projects/local-model-lifecycle/runs/a1-mtp-d
 MODELS = {
     "moe": (
         "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-        ["-fa", "on", "--n-cpu-moe", "8", "-np", "1", "--batch-size", "2048", "--ubatch-size", "2048"],
+        ["-fa", "on", "--n-cpu-moe", "8", "-np", "1", "--batch-size", "2048", "--ubatch-size", UBATCH],
         [("8k", 8192, "q8_0", 6600), ("32k", 32768, "q4_0", 30000),
          ("64k", 65536, "q4_0", 62000), ("96k", 98304, "q4_0", 94000),
-         ("128k", 131072, "q4_0", 122000)],
+         ("128k", 131072, "q4_0", 122000), ("256k", 262144, "q4_0", 250000)],
     ),
     "dense": (  # 27B GDN hybrid; -ngl 65; long-ctx ceiling ~48-64k (CONTEXT_PLAN); match -c to use
         "/home/augus/models/qwen36-27b-mtp/Qwen3.6-27B-Q4_K_M.gguf",

@@ -119,8 +119,8 @@ A/B lab), not an agentic coding product. So:
     that REGRESSES the RTX 3090 → prefill ~1200→~40 t/s (open issue **#26285**). We're pinned to `720d7fa40`
     (pre-#26141; confirmed absent, and our ~1400 t/s prefill proves it). Any future pin bump MUST re-check #26285.
 - **→ Tier S fully swept: S1 ✅ (null), S2 ✅ (already-captured), S3 ✅ (mtp-alone optimal). Tier A: A1 ✅
-  (windowed-MTP — right paper, wrong regime; don't build at 128k, revisit ≥256k; 2026-08-04, double-checked).
-  Next un-attacked: A2 ThinkingCap LoRA on dense-27B, A3 SAW-INT4 KV, A4 instrumentation.**
+  (windowed-MTP — right paper, unreachable regime; CUT — edge grows to native 256k +176%; 2026-08-04,
+  double-checked). Next un-attacked: A2 ThinkingCap LoRA on dense-27B, A3 SAW-INT4 KV, A4 instrumentation.**
 
 ### S3. N-gram speculative decoding + drafter-selection policy — §35 / §63.3
 - **What:** add n-gram spec-decode (no extra model, wins on repetitive code) alongside MTP; formalize drafter
@@ -166,14 +166,15 @@ A/B lab), not an agentic coding product. So:
 
 ## Tier A — high value, moderate effort, our stack
 
-### A1. Windowed-MTP / adaptive speculation — §22 / §35 — **✅ ANSWERED 2026-08-04 (double-checked): right paper, WRONG REGIME — don't build at 128k.**
+### A1. Windowed-MTP / adaptive speculation — §22 / §35 — **✅ ANSWERED 2026-08-04 (double-checked): right paper, UNREACHABLE regime — CUT.**
 - Premise (doc §22/§35): MTP's edge *drops* at long context because the draft pays full-context KV → window the
-  draft attention to recover it. **Measured: the edge GROWS with depth on BOTH GDN hybrids** — MoE 8k→128k
-  **+75%→+134%**, dense-27B 8k→48k **+122%→+133%** (`ops/a1_mtp_depth_bench.py`). Accept stable: T1 (context-indep)
-  byte-identical **99.17% across 5 depths 8k→128k**; T2 (realistic reasoning, ~50% accept) holds ±2pp with edge
-  **+12%→+41%** at 128k. So the growth isn't a high-accept-task artifact, and the llama.cpp accept bugs
-  (#23658 slot-boundary, #23322 SWA/hybrid-collapse) are ABSENT on our base (720d7fa40, Jul-25, postdates them;
-  and we're not SWA: `full_attention_interval=4`).
+  draft attention to recover it. **Measured: the edge GROWS with depth to the model's NATIVE 262k ceiling** —
+  MoE **+75% @8k → +134% @128k → +176% @256k** (256k: no-spec 32.7 → mtp 90.4 t/s), dense-27B 8k→48k
+  **+122%→+133%** (`ops/a1_mtp_depth_bench.py`). Accept stable: T1 (context-indep) byte-identical **99.17% across
+  6 depths 8k→256k**; T2 (realistic reasoning, ~50% accept) holds ±2pp with edge **+12%→+41%** at 128k. So the
+  growth isn't a high-accept-task artifact, and the llama.cpp accept bugs (#23658 slot-boundary, #23322
+  SWA/hybrid-collapse) are ABSENT on our base (720d7fa40, Jul-25, postdates them; we're not SWA:
+  `full_attention_interval=4`).
 - **CORRECTED (supersedes the first-pass "reversed/null"):** the doc's `windowed-MTP` cite [ref-105] is a **real**
   paper — **arXiv:2607.21535 "Windowed-MTP: Removing the Full-Context Draft-KV Tax _at Million-Token Context_"**
   (NVIDIA, single-author preprint). The draft-KV tax it removes only surfaces at **≥256k** (+27%@261k, +43%@1M),
@@ -183,12 +184,16 @@ A/B lab), not an agentic coding product. So:
   (dropped the "million-token" scope), not fabrication. Also corrected: **windowing the draft is LOSSLESS** (the
   full-attn target verifies every token → window changes only proposals, top-1 unchanged 86–94%), a cost-saver
   not an accept-killer.
-- **Disposition: do NOT build at the 128k deploy ceiling — but this is a REAL, correct lever for ≥256k, our
-  GDN hybrid being the worst-case arch where it'd matter most.** Moved from "null" to **Tier B watch: revisit IF
-  we ever target ≥256k** (e.g. via YaRN, §D). Then window the nextn head (StreamingLLM window+sink), lossless.
-  Depth-bench banked as a standing gate. Verified: nextn = full-attn over KV (qwen35moe.cpp); accept metric
-  correct; no upstream windowed-MTP PR (clean negative); adaptive-draft-length only an open unanswered discussion
-  (#23738). Detail: STATUS §A1, EXPERIMENTS §A1.
+- **Disposition: CUT.** The draft-KV tax is +27% on the *draft phase* @261k (a ~1-of-41-layer slice) rising to
+  net-negative near ~1M — but we MEASURED native 256k and the edge is at its MAX (+176%), accept pristine, so
+  term (A) target-forward amortization swamps the tax everywhere we can serve. The tax only dominates near ~1M,
+  **unreachable** (native ceiling 262k; 1M needs YaRN past training where quality is gone) and unusable. So there
+  is no context we can serve where windowing the draft helps → moved from "Tier-B watch" to **Cut** (revisit only
+  if a future model ships a ≥512k *native* window with a real use case). Corrected mechanism (recorded): windowing
+  the draft is **lossless** (target verifies every token, top-1 unchanged 86–94%), not accept-lowering. Verified:
+  nextn = full-attn over KV (qwen35moe.cpp); accept metric correct; no upstream windowed-MTP PR (clean negative);
+  adaptive-draft-length only an open unanswered discussion (#23738). Gate banked: `ops/a1_mtp_depth_bench.py`.
+  Detail: STATUS §A1, EXPERIMENTS §A1.
 
 ### A2. ThinkingCap long-to-short LoRA on the **dense 27B** — §23.6 / §56 / §64
 - Halving reasoning tokens is a big wall-clock win on our decode-bound setup. ThinkingCap full-FT claims **45.8%
