@@ -24,6 +24,8 @@ A/B lab), not an agentic coding product. So:
 - **Harness-quality axis** (§7-19 TaskContract/mutation/critics/anti-slop; §46-58 experiment-lab) = a **new
   product direction**. Much of it we partly have (our A/B lab, quality axis); the rest is a strategic build
   decision, not an engine experiment. Flagged as Track H at the end.
+- **Multimodal axis** (§71 VLM, §72 image gen) = **opted in 2026-08-04** — see Track M. M-A (VLM) extends our
+  own llama.cpp fork (`libmtmd` already built); M-B (image gen) is a separate ComfyUI/diffusers engine.
 
 ---
 
@@ -131,13 +133,47 @@ separate initiative — decide the direction before pulling any of it into the b
 
 ---
 
+## Track M — Multimodal (in scope as of 2026-08-04: **both** VLM + image generation)
+
+**Grounding:** no multimodal models on disk yet, but **`libmtmd.so` is already built in our fork**
+(`tools/mtmd/` present) — so VLM serving is a short hop, not a new engine.
+
+### M-A · VLM (vision understanding) — in our llama.cpp engine [do first, higher ROI]
+- **Goal:** a coding-agent-that-sees — reads screenshots, error dialogs, diagrams, UI mockups.
+- **Candidate:** a Qwen2.5-VL / Qwen3-VL-class model (same family as our text worker) — 7B for headroom or a
+  32B quantized to share 24GB with a text KV budget; Gemma-3-vision / InternVL / MiniCPM-V as alternates
+  (verify current llama.cpp mmproj support per model).
+- **M0 (baseline, cheap):** build the `mtmd` target, fetch VLM GGUF + mmproj, serve via llama-server, test
+  image→text. Accept: correct OCR/description of an error dialog + a UI mockup; VRAM within envelope.
+- **§71 efficiency levers (only after M0, once a repeated-image workload exists):** visual-embedding cache by
+  content-hash + encoder config; separate mmproj VRAM budget from text KV (don't let the encoder starve decode);
+  offload the vision encoder when a session goes text-only; **measure visual TTFT vs text TTFT separately**
+  (vision-encode is compute-bound, our decode is bandwidth-bound → different resource profiles → schedule apart).
+- Effort: M0 low-moderate (library already built); levers moderate. Stays in-fork.
+
+### M-B · Image generation (diffusion) — separate engine [new front]
+- **Engine:** ComfyUI / diffusers (torch), **NOT llama.cpp** — a genuinely separate stack + maintenance surface.
+- **Candidates on 24GB:** SDXL (comfortable); Flux.1-schnell/dev (12B → needs fp8/GGUF quant + CPU offload to fit).
+- **§72 levers, ROI-ordered:** step reduction first (LCM / Turbo / schnell) → feature caching (DeepCache / TeaCache
+  reuse across denoising steps) → quant (rotation-aware 4-bit DiT; **same §61 INT8-Tensor-Core lesson — W8A8 only
+  helps if the kernel actually uses INT8 TC**, a direct conceptual synergy with S2) → mixed precision (HyperQuant).
+- **Gates:** PickScore/CLIP + blind human eval + latency + VRAM. Video real-time stays cut (non-Ampere).
+- Effort: higher (new stack, new deps, model downloads).
+
+> **Synergy:** the INT8-Tensor-Core kernel discipline (S2, §61) is the *same* principle that governs diffusion
+> quant speed on the 3090 — one kernel lesson, two domains. But M-A and M-B are separate engines: M-A extends
+> our fork, M-B is a parallel ComfyUI/diffusers track.
+
+---
+
 ## Cut (out of scope / HW-blocked / redundant — recorded so we don't re-litigate)
 
 - **HW-blocked:** FP4/NVFP4 (§61.2, Blackwell); FA3 (§37, Hopper — *useful negative signal: don't chase it*);
   TurboQuant/UltraQuant KV (§34/§62, AMD CDNA4 numbers, non-transferable); disaggregated prefill/decode &
   tensor-parallel (§36/§74, multi-GPU); CPU-FP8 expert kernels (§66, needs AMX we lack).
-- **Out of scope:** multimodal modality caching (§71), diffusion/video (§72, real-time explicitly non-Ampere),
-  distributed/home-cluster inference (§74, needs a 2nd machine — only agent-level parallelism if a laptop appears).
+- **Out of scope:** real-time **video** generation (§72, explicitly non-Ampere — offline image gen is now in
+  Track M-B); distributed/home-cluster inference (§74, needs a 2nd machine — only agent-level parallelism if a
+  laptop appears). *(Multimodal understanding §71 + image generation §72 moved INTO Track M above.)*
 - **Needs cloud / disproportionate:** full RL training of the 35B (§24); formal-verification tiers F3/F4 (§13).
 - **Redundant with what we have:** §30 phase framework, §38 MoE-pinning checklist, §40 matrix (we have the lab),
   E5 KV-q4 (done, lossless), E6 MTP (done), §67 hybrid direction (we already run one).
