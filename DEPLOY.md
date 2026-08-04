@@ -35,7 +35,9 @@ records. This is the durable handoff — read it first after a context reset.
 > **61.8→67.6 t/s**; warm prompt-cache reuse TTFT **0.24 s (273×)**; needle at 124.5k answered correctly.
 > **⚠ But absolute prefill is ~1.8× slower than the 08-02 §PF figures — a real regression, NOT measurement
 > path** (`llama-bench` on this binary reproduces it: pp131072 926/1888 t/s @ ub512/2048 vs §PF 1663/3441).
-> Ruled out: MTP, XMP (@5600), power plan (High perf), GPU clock (−4%). Decode UNaffected → host/CPU-bound
+> **Fork ruled out too:** a clean non-fork base build (`4fc4ec554`) gives identical 920/1914 t/s → the
+> regression is host-side, not the binary. Ruled out: MTP, XMP (@5600), power plan (High perf), GPU clock
+> (−4%). Decode UNaffected → host/CPU-bound
 > prefill path. **Leading suspect: Memory Integrity / HVCI-VBS now ON** (WSL2 is a Hyper-V VM; likely
 > toggled at the 08-03 reboot; same feature blocking the CPU undervolt). Confirm via Memory-Integrity-off A/B.
 > **Caveat: ub2048 at 128k leaves only ~1.6 GB VRAM free** — under the 4 GB reserve; use ub1024 if you need margin.
