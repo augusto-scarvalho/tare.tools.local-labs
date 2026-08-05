@@ -28,6 +28,16 @@ class RequestResult:
     # kept the LENGTH of the text (`seen_text`) and discarded the text itself, because
     # nothing measured needed it. Additive: every existing caller ignores this field.
     text: str = ""
+    # The assembled REASONING trace, separate from the answer (A2 / long-to-short). On a
+    # thinking model run with `--reasoning-format deepseek`, llama-server streams the think
+    # block as `delta.reasoning_content`, DISTINCT from `delta.content` -- so this is the
+    # raw <think> text with the tags already stripped by the server. Additive and empty on
+    # every non-thinking run and on any caller that does not set --reasoning-format. The
+    # A2 concision metric is the TOKEN count of this text (via `count_tokens` -> /tokenize),
+    # not its length: chars-per-token drifts with content, so a char ratio is not a token
+    # ratio. Kept as text, not a count, for the same reason every field here is raw -- a
+    # stored count cannot be re-tokenized if the tokenizer or the definition moves.
+    reasoning_text: str = ""
     ttft_s: float | None = None          # T(first content token) - T(send)
     total_s: float | None = None
     completion_tokens: int = 0
@@ -247,6 +257,7 @@ def chat_stream(base_url: str, prompt: str, *, max_tokens: int = 256,
     # guess into evidence: reasoning_chars shows the budget WAS spent, and
     # finish_reason=length shows it ran out before answering.
     reasoning_chars = 0
+    reasoning_pieces: list[str] = []
     finish_reason: str | None = None
     timings: dict = {}
     try:
@@ -273,7 +284,10 @@ def chat_stream(base_url: str, prompt: str, *, max_tokens: int = 256,
                     if ch.get("finish_reason"):
                         finish_reason = ch["finish_reason"]
                     delta = ch.get("delta") or {}
-                    reasoning_chars += len(delta.get("reasoning_content") or "")
+                    rc = delta.get("reasoning_content") or ""
+                    if rc:
+                        reasoning_chars += len(rc)
+                        reasoning_pieces.append(rc)
                     piece = delta.get("content") or ""
                     if piece:
                         seen_text += len(piece)
@@ -306,12 +320,50 @@ def chat_stream(base_url: str, prompt: str, *, max_tokens: int = 256,
         # real. answered=False records that the ANSWER never came.
         produced = completion > 0 or reasoning_chars > 0
         return RequestResult(ok=produced, answered=False, text="".join(chunks),
+                             reasoning_text="".join(reasoning_pieces),
                              ttft_s=ttft, total_s=total,
                              completion_tokens=completion, prompt_tokens=prompt_toks,
                              error=why, **_timing_fields(timings))
-    return RequestResult(ok=True, text="".join(chunks), ttft_s=ttft, total_s=total,
+    return RequestResult(ok=True, text="".join(chunks),
+                         reasoning_text="".join(reasoning_pieces),
+                         ttft_s=ttft, total_s=total,
                          completion_tokens=completion, prompt_tokens=prompt_toks,
                          **_timing_fields(timings))
+
+def count_tokens(base_url: str, text: str, *, timeout_s: float = 30.0) -> int | None:
+    """Exact token count of `text` under the SERVER'S tokenizer, via `/tokenize`.
+
+    Why the server and not a local tokenizer: the A2 concision metric compares two
+    DIFFERENT model files (base vs ThinkingCap), and a reasoning-token reduction is only
+    honest if both sides are counted by the tokenizer that actually generated the tokens.
+    The two GGUFs share a byte-identical tokenizer here (verified: same chat_template
+    sha256, same BOS/EOS), so the count is comparable across arms -- but routing it through
+    each arm's own live server keeps that a checked fact, not an assumption, and needs no
+    tokenizer files on the Windows side.
+
+    Empty text is 0, not None -- a problem where the model emitted no reasoning is a real
+    zero, not a missing measurement. None is reserved for an actual /tokenize failure, so a
+    transport error can never be silently averaged in as 'zero reasoning'.
+
+    NB this counts the tokens of the reasoning TEXT (think tags already stripped by
+    `--reasoning-format deepseek`); it is therefore a hair below the server's internally
+    generated reasoning-token count, which also spent the `<think>`/`</think>` delimiter
+    tokens. That offset is a small per-response constant, identical for both arms, so it
+    cancels in the paired reduction -- the quantity the experiment reports.
+    """
+    if not text:
+        return 0
+    body = json.dumps({"content": text}).encode("utf-8")
+    req = urllib.request.Request(f"{base_url}/tokenize", data=body,
+                                 headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout_s) as resp:
+            toks = json.loads(resp.read().decode("utf-8", "replace")).get("tokens")
+        # Default /tokenize returns a flat list of ids; with_pieces would return dicts.
+        return len(toks) if isinstance(toks, list) else None
+    except Exception:  # noqa: BLE001 -- a failed count is None (missing), never a fake 0
+        return None
+
 
 if __name__ == "__main__":
     # Exact rates when the server reports timings, and the lower-bound flag must clear.
@@ -338,6 +390,11 @@ if __name__ == "__main__":
     assert old.prompt_tps is None
 
     assert _timing_fields({})["prompt_n"] is None, "absent timings must not crash"
+
+    # A2 concision: reasoning_text is additive and defaults empty, so every non-thinking
+    # caller and every run without --reasoning-format is unaffected.
+    assert RequestResult(ok=True).reasoning_text == "", "reasoning must default empty, not None"
+    assert RequestResult(ok=True, reasoning_text="x").reasoning_text == "x"
 
     # A4 spec-decode metrics. No draft fields -> no acceptance to report, and TPOT is the
     # decode reciprocal regardless of spec.

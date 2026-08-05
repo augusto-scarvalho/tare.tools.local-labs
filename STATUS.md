@@ -311,6 +311,24 @@ constraint here is the **16 GB Windows RAM reserve, not VRAM**. A newer build wi
 Net kernel would raise base decode and likely shrink the ratio. Raw:
 `runs/ab-e4mtp-qwen36-27b-mtp-e4-mtp-dense-ngl65/`.
 
+## §A2 — ThinkingCap long-to-short on the dense-27B: STRONG WIN, both axes (2026-08-04) — full record `A2_THINKINGCAP.md`
+
+First positive A-tier lever. Paired A/B, full ThinkingCap GGUF vs base `qwen36-27b-dense`, both Q4_K_M
+matched-imatrix, decode-pure (spec OFF — draft-mtp not bit-exact on qwen35, corrupts the token count),
+`--reasoning-format deepseek` + `/tokenize` for exact reasoning-token counts. Fail-fast: n=12 pilot decided
+GO + killed the LoRA track in ~25 min. **GSM8K n=60:** reasoning **−59.9%** [50.1,64.8] (Wilcoxon p=1.8e-11),
+wall **−55.3%** (33→17.8s); accuracy-NEUTRAL (both-answered 100→98%, the +18pp overall is all starvation
+recovery — base starved 13/60 at 4096, cap 0). **HumanEval+ n=40:** reasoning **−53.0%** (p=5.5e-8), wall
+**−51.0%** (70→32s); pass@1 GENUINELY **+20pp** (both-answered 70→90%, 0 regressions, base-only-right=0) +
+recovers 8/10 starvations. Q4 does NOT wash the concision; code did NOT collapse to the literature's ~8% (base
+is an extreme over-thinker → huge headroom). Cut GROWS with difficulty (≤77%). Zero short-but-wrong (≤1 reg/100).
+**Reconstruction gate FAILED** (community rank-64 SVD LoRA: base+LoRA reasoning 968 vs cap 502, fidelity 0.26 vs
+0.65 to base) → LoRA/DavidAU transfer DEAD (concision outside rank-64 subspace; geometry was fine). **Deploy:
+ThinkingCap replaces base in the dense-27B slot** (~2× faster, equal/better acc, keeps MTP); scope = dense-27B
+only (shape-incompat with the 35B MoE worker; a concise MoE needs our own trace-distillation). Harness:
+`a2_concision_bench.py`/`a2_stats.py` (Wilcoxon+McNemar+bootstrap, cross-validated vs scipy)/`a2_reconstruct_gate.py`/
+`a2_score_humaneval.py`; raw `runs/a2/a2g0__*`, `runs/a2/a2h0__*`.
+
 ## §A4 — spec-decode & benchmark instrumentation discipline: DONE, mostly already-captured — draft acceptance now in the standing harness (2026-08-04, deep-dived pre-implementation)
 
 > **Full consolidated record: `A4_INSTRUMENTATION.md`** (audit + source/empirical validation + corrections +

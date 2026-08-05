@@ -66,6 +66,18 @@ _GEOM = {
     "mistral-24b":      (40, 0, 0),     # llama arch
     "qwen36-27b-dense": (65, 0, 0),     # qwen35 DENSE -- same family as qwen36-35b MoE
     "thinkingcap-27b":  (65, 0, 0),     # qwen35 DENSE (ThinkingCap finetune)
+    # A2 T3 (transfer-LoRA target): DavidAU merge + Heretic ARA abliteration of Qwen3.6-27B.
+    # Geometry is STOCK (config.json: 64 layers + nextn head = 65 blocks, hidden 5120) -- the
+    # gate that lets the rank-64 ThinkingCap LoRA even load. It is Frágil to APPLY (§23.3): the
+    # abliteration rotated the same deep-layer residual directions the LoRA targets. Kept as a
+    # dense control regardless; the LoRA is layered at runtime via --lora-scaled, not baked in.
+    "fable-fusion-711": (65, 0, 0),     # qwen35 DENSE (DavidAU Fable-Fusion-711, MTP head)
+    # A2 Stage-1 concise-Fable MERGES: full-rank task-arithmetic Fable + lambda*(TC - base),
+    # quantized by us (no imatrix, so matched to fable-plain). All stock 65-block geometry.
+    "fable-plain":     (65, 0, 0),      # Fable quantized by us = matched baseline for the sweep
+    "fable-tc-l0.4":   (65, 0, 0),
+    "fable-tc-l0.7":   (65, 0, 0),
+    "fable-tc-l1.0":   (65, 0, 0),
     # Laguna-S-2.1 was tried and DISCARDED 2026-08-01. It loads, but testing PINNING needs
     # mmap, and mmap holds the whole GGUF resident in RAM; even the Q2_K_XL (39.7 GB) leaves
     # Windows at 5.5 GB available from a clean 44 GB baseline -- below the 16 GB reserve. The
@@ -106,6 +118,14 @@ _FILES = {
         ("q4", "/home/augus/models/thinkingcap-27b/"
                "bottlecapai_ThinkingCap-Qwen3.6-27B-Q4_K_M.gguf", "Q4_K_M"),
     ],
+    "fable-fusion-711": [
+        ("q4", "/home/augus/models/fable-fusion-711/"
+               "Qwen3.6-27B-Fable-Fus-711-UnHeretic-NM-DAU-NEO-MAX-NEO-MTP-Q4_K_M.gguf", "Q4_K_M"),
+    ],
+    "fable-plain":   [("q4", "/home/augus/models/merges/fable-plain-Q4_K_M.gguf", "Q4_K_M")],
+    "fable-tc-l0.4": [("q4", "/home/augus/models/merges/fable-tc-l0.4-Q4_K_M.gguf", "Q4_K_M")],
+    "fable-tc-l0.7": [("q4", "/home/augus/models/merges/fable-tc-l0.7-Q4_K_M.gguf", "Q4_K_M")],
+    "fable-tc-l1.0": [("q4", "/home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf", "Q4_K_M")],
     # §E4 MTP twins. Same weights as the non-MTP entries above plus an MTP head; loaded in
     # BOTH arms of the e4mtp A/B (the base arm just does not pass --spec-type, so the head
     # sits unused). Downloaded from unsloth/Qwen3.6-*-MTP-GGUF into their own dirs so the
@@ -130,6 +150,17 @@ for _arch, _variants in _FILES.items():
 # arch -> its default-quant ModelSpec (the first quant listed for that arch).
 ARCH_DEFAULTS: dict[str, ModelSpec] = {
     arch: MODELS[f"{arch}-{variants[0][0]}"] for arch, variants in _FILES.items()
+}
+
+# Runtime LoRA adapters (A2). Applied with `--lora-scaled <path> <lambda>`, never baked into
+# a GGUF -- the whole point is to sweep lambda and to layer the SAME adapter onto different
+# bases (its origin ThinkingCap-base for the reconstruction gate, then the Frágil DavidAU
+# transfer). GGUF-format already (rank-64 SVD of the ThinkingCap full-FT delta), so no
+# convert step. UNVALIDATED upstream (no reconstruction metrics on its own origin) -- the
+# reconstruction gate exists precisely to establish whether it reproduces the full FT.
+ADAPTERS: dict[str, str] = {
+    "thinkingcap-lora-r64":
+        "/home/augus/models/thinkingcap-lora/qwen36-27b-thinkingcap-lora-rank64.gguf",
 }
 
 

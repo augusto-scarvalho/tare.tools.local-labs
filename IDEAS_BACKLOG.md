@@ -122,7 +122,11 @@ A/B lab), not an agentic coding product. So:
   (windowed-MTP — right paper, unreachable regime; CUT — edge grows to native 256k +176%; 2026-08-04,
   double-checked). A3 ✅ (asymmetric K/V −62% + iq4_nl −79% + sub-4-bit paper-null; KV axis already optimal;
   2026-08-04). A4 ✅ (instrumentation — already-captured; draft acceptance α/τ now in the standing harness,
-  probe-validated; 2026-08-04). Next un-attacked: A2 ThinkingCap LoRA on dense-27B.**
+  probe-validated; 2026-08-04). A2 ✅ (ThinkingCap long-to-short on dense-27B — **STRONG WIN, the first positive
+  A-tier lever**: reasoning/wall −53–60% at equal(math)/better(+20pp code) accuracy, Q4 no washout, code did not
+  collapse; community LoRA transfer DEAD via fail-fast reconstruction gate; 2026-08-04, `A2_THINKINGCAP.md`).
+  **Tier A FULLY SWEPT.** Next: Track H (harness product) or Track M (multimodal), or the A2 follow-on (our-own
+  concise 35B-MoE via trace-distillation — the only way to bring the ~2× concision lever to the primary worker).**
 
 ### S3. N-gram speculative decoding + drafter-selection policy — §35 / §63.3
 - **What:** add n-gram spec-decode (no extra model, wins on repetitive code) alongside MTP; formalize drafter
@@ -205,6 +209,28 @@ A/B lab), not an agentic coding product. So:
 - **Validate (doc's §56 protocol, right-sized):** reconstruction gate (base+LoRA ≈ full FT) → λ/rank sweep →
   accept if ≥25% reasoning-token + ≥15% wall-clock reduction on target, quality within ±1pp (ROPE), zero
   tool/JSON/MTP breakage. This is the doc's flagship P1 and the best "combined model+engine" experiment for us.
+- **✅ A2 CLOSED 2026-08-04 — STRONG WIN (the first positive A-tier lever); full record `A2_THINKINGCAP.md`,
+  STATUS §A2.** Direct paired A/B of the FULL ThinkingCap GGUF (we already had it on disk — no LoRA/SVD needed
+  for the win; §23.6's "Transfer Lab" machinery is only for transferring to OTHER fine-tunes) vs base
+  `qwen36-27b-dense`, both Q4_K_M matched-imatrix, decode-pure (spec OFF — draft-mtp is not bit-exact on qwen35,
+  would corrupt the token count), `--reasoning-format deepseek` + `/tokenize` for exact reasoning-token counts.
+  **GSM8K n=60: reasoning −59.9% [50.1,64.8] (p=1.8e-11), wall −55.3% (33→17.8s); accuracy-NEUTRAL** (both-answered
+  100→98%, 1 reg — the +18pp overall is ALL starvation recovery; base starved 13/60 at the 4096 budget, cap 0).
+  **HumanEval+ n=40: reasoning −53.0% (p=5.5e-8), wall −51.0% (70→32s); pass@1 GENUINELY +20pp** (both-answered
+  70→90%, 0 regressions, base-only-right=0 everywhere) + recovers 8/10 base starvations. **Q4 does NOT wash out
+  the concision; code did NOT collapse to ~8%** — the base is an extreme over-thinker (2705-tok code reasoning,
+  starves 20-25%) so headroom is huge. Difficulty split: cut GROWS with hardness (up to 77%). Zero short-but-wrong
+  (≤1 regression / 100 problems). **Deploy: ThinkingCap replaces base in the dense-27B slot** (~2× faster at
+  equal/better accuracy, keeps MTP head). **Scope: dense-27B ONLY** (shape-incompatible with the 35B-A3B MoE worker;
+  a concise MoE would need our OWN trace-distillation training — the top A2 follow-on).
+- **✅ COMMUNITY LoRA / DavidAU transfer (T2/T3) CLOSED-NEGATIVE 2026-08-04 via fail-fast (n=12 pilot, ~25 min).**
+  The rank-64 SVD LoRA FAILS the reconstruction gate on its OWN origin base: base+LoRA@1.0 reasoning 968 vs cap 502
+  (ratio 1.93 — recovers ~15% of the concision), fidelity sim(B,cap)=0.26 << sim(B,base)=0.65 (behaves like base,
+  not ThinkingCap). Concision lives OUTSIDE the rank-64 subspace (2503.20641 "SVD limited" / 2410.21228 intruder
+  dims). DavidAU-Fable-Fusion geometry was fine (stock 64-layer + MTP, GGUF on disk) — the ADAPTER is the problem,
+  not the target, so transfer is meaningless. Only a better extraction (TIES / rank-128-256 / Fisher-weighted) or
+  real trace-distillation could revive it → **Tier C, low priority** (gate multi-LoRA §73 on it). Fail-fast killed
+  a Frágil multi-hour experiment with a 25-min pilot.
 
 ### A3. Asymmetric K/V quant + SAW-INT4 KV — §62
 - We're already ahead (q4_0 KV lossless); next headroom = quantize K and V asymmetrically, or **SAW-INT4**
@@ -266,7 +292,8 @@ A/B lab), not an agentic coding product. So:
 
 ## Tier C — watchlist (low near-term ROI / gated on other work)
 
-- Multi-LoRA library + router (§73) — only after we have ≥2 useful adapters (gate on A2).
+- Multi-LoRA library + router (§73) — DORMANT: A2 showed the only community adapter (rank-64 SVD) doesn't even
+  reconstruct its own FT, so we have 0 useful adapters, not ≥2. Revisit only if we train our own (TIES/distill).
 - Workflow-aware KV planner / KVFlow / HiCache (§18/§33) — multi-agent serving; low value for single-user.
 - Sub-2-bit KV (KVarN/OSCAR), sub-4-bit weight frontier (NanoQuant/Bielik-Q2) — doc says unproven; track only.
 - Full Experiment-Lab build-out (§52/§57/§58) — we already have a lab; adopt the schemas (`TrialResult`,

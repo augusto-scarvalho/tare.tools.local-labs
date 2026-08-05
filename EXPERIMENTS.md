@@ -233,6 +233,26 @@ GGUF, expert placement, context, and prompt fixed across arms. Metric everywhere
   MTP; gpt-oss has EAGLE3). Ties directly to `[[agentic-local-model-plan]]`. **Target to beat:
   upstream #25642 — +30% t/s, ~82% accept.** Biggest single-stream lever for the long-context agent.
 
+### §A2 — ThinkingCap long-to-short on the dense-27B — **ANSWERED 2026-08-04: STRONG WIN (both axes); LoRA transfer DEAD**
+- **hypothesis** — a long-to-short concision fine-tune (ThinkingCap-Qwen3.6-27B) cuts reasoning tokens ~46% at
+  ~flat accuracy, which on our decode-bound box is a ~2× wall-clock win. Sub-question: does the community rank-64
+  SVD LoRA reconstruct the full FT (→ transferable to other 27B fine-tunes like DavidAU-Fable-Fusion)?
+- **design** — paired A/B, full ThinkingCap GGUF vs base `qwen36-27b-dense`, both Q4_K_M matched-imatrix, decode
+  PURE (spec OFF — draft-mtp isn't bit-exact on qwen35, would corrupt the token count), `--reasoning-format deepseek`
+  + `/tokenize` for EXACT reasoning-token counts, greedy temp 0, seeded NESTED subset (pilot ⊂ full). Metrics:
+  paired reasoning-token reduction (Wilcoxon + bootstrap CI), total tokens, wall-clock, accuracy (McNemar; GSM8K
+  numeric, HumanEval+ evalplus pass@1), difficulty split, starvation/short-but-wrong guards. **Fail-fast**: n=12
+  pilot before any escalation.
+- **result** — **GSM8K n=60:** reasoning −59.9% [50.1,64.8] p=1.8e-11, wall −55.3% (33→17.8s), accuracy-NEUTRAL
+  (both-answered 100→98%; +18pp overall is all starvation recovery). **HumanEval+ n=40:** reasoning −53.0% p=5.5e-8,
+  wall −51.0% (70→32s), pass@1 GENUINELY +20pp (both-answered 70→90%, 0 regressions). Q4 no washout; code did not
+  collapse to ~8% (base over-thinks → huge headroom); cut grows with difficulty; ≤1 short-but-wrong / 100.
+  **Reconstruction gate FAILED** (rank-64 SVD: len ratio 1.93, fidelity 0.26 vs 0.65 to base) → LoRA/DavidAU
+  transfer closed-negative. **evidenceGrade 4** (n=60/40 paired, exact token counts, evalplus pass@1, both-answered
+  starvation control, stats cross-validated vs scipy). Full record `A2_THINKINGCAP.md`; STATUS §A2; raw `runs/a2/`.
+- **disposition** — DEPLOY ThinkingCap in the dense-27B slot (~2× faster, equal/better acc, keeps MTP). Follow-on:
+  our-own concise 35B-MoE via trace-distillation (the only way to bring the lever to the primary worker).
+
 ### §A3 — asymmetric K/V + better/sub-4-bit KV quant — **ANSWERED 2026-08-04 (double-checked): CLOSED, negative — KV axis already optimal**
 - **hypothesis** — beat the deployed symmetric q4_0 KV via (a) asymmetric K/V, or (b) a fancier codec
   (iq4_nl; SAW-INT4; sub-4-bit TurboQuant/KVarN if engine-added), to extend usable context/residency.
