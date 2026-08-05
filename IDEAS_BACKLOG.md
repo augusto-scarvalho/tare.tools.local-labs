@@ -231,6 +231,24 @@ A/B lab), not an agentic coding product. So:
   not the target, so transfer is meaningless. Only a better extraction (TIES / rank-128-256 / Fisher-weighted) or
   real trace-distillation could revive it → **Tier C, low priority** (gate multi-LoRA §73 on it). Fail-fast killed
   a Frágil multi-hour experiment with a 25-min pilot.
+- **A2 FOLLOW-ON — `uTC` via ABLITERATION then task-arith merge (Tier C, FILED 2026-08-05, user idea).**
+  Instead of the "fable-delta boost" `W=fable+λ(TC−base)+μ(fable−base)` (algebraically IDENTICAL to a *task-arith* uTC, and
+  it over-drives the DavidAU delta → prose-degeneration risk), produce an ABLITERATED uncensored TC and merge
+  `W=fable+λ(uTC−base)`. **Only the abliteration path is genuinely different** — non-linear/orthogonal projection, amplifies
+  nothing; a *linear* uTC collapses back to the boost. **Method (Arditi et al. 2024, "refusal is a single direction"):** ~256
+  refused + ~256 complied prompts → capture residual-stream activations (load TC in 4-bit, forward-only) → per-layer
+  difference-of-means refusal direction r̂ → sweep/select best layer → orthogonalize every residual-WRITING matrix
+  `W'=W−r̂(r̂ᵀW)` (attn `o_proj` + mlp `down_proj`, streamed shard-wise on fp16 like `a2_merge_raw.py`) → requant Q4_K_M →
+  **fail-fast: GSM8K n=12 concision must survive + refusal drops + coherence.** **Cost on THIS box: ~1–1.5h COMPUTE
+  (forward-only, ZERO training); deps ALL present in `sglang-venv` (torch 2.11+cu130, transformers 5.12, bitsandbytes 0.50,
+  accelerate 1.14); fp16 TC on disk (52G); ~70G transient disk; 4-bit fits 24G VRAM; fp16 weight-edit streams on 64G RAM.
+  Real cost = ~half-day writing the extraction+ortho harness (~250 LoC), NOT GPU.** **CAVEAT: TC is only mildly aligned
+  (1–5/8 on the meta tier) → weak refusal signal to contrast → derive the direction from the BASE (dense, aligned, same arch
+  — direction transfers) or a broader refusal set, else uTC comes out half-abliterated.** Cheaper variant: abliterate `l1.0`
+  DIRECTLY (kills its residual 1/8 hedge in one op; non-modular, non-reusable). **TRIGGER: only for a purist/reusable
+  uncensored-concision artifact, or to scrub l1.0's residual hedge — Gate-2 (2026-08-05) showed the plain merge ALREADY
+  preserves uncensored (l1.0 balk 1/8 == fable-plain, think-deliberation 0), so this fixes a problem that did not manifest.**
+  Not a deploy blocker.
 
 ### A3. Asymmetric K/V quant + SAW-INT4 KV — §62
 - We're already ahead (q4_0 KV lossless); next headroom = quantize K and V asymmetrically, or **SAW-INT4**

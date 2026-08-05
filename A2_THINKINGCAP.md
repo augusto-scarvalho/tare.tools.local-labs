@@ -78,6 +78,11 @@ was for models that don't over-think; ours does.
   T3 transfer track is closed. Geometry was fine (DavidAU is stock 64-layer + MTP); the adapter
   is the problem, not the target. Only a BETTER extraction (TIES / rank-128-256 / Fisher) or a
   real trace-distillation could revive it — filed as a future item, low priority.
+  **UPDATE 2026-08-05 — TRANSFER REVIVED (not via LoRA): a FULL-RANK task-arithmetic merge
+  `W=fable+λ(TC−base)` transfers the concision that the rank-64 SVD could not.** `fable-tc-l1.0` =
+  concise (−55% math / −23% creative reasoning) AND uncensored-preserved (indistinguishable from plain
+  Fable on 2 independent alignment metrics), accuracy-neutral, 0 short-but-wrong. Full record:
+  **`A2_STAGE1_CONCISE_FABLE.md`**; abliteration/uTC follow-on: `A2_STAGE2_PLAN.md`.
 
 ## What this means
 
