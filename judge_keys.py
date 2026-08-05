@@ -31,11 +31,13 @@ def _c(code: str, s: str) -> str:
 SERVICE = "a2-judge"
 
 # provider key-name -> (human label, connectivity-test endpoint, header-builder)
+# NOTE (2026-08-05): the Gate 3 quorum needs ONLY [1] Gemini + [2] NVIDIA. The Claude judge now runs
+# as a Claude Code WORKER (subagent, model=sonnet) -- NO Anthropic key needed. [3]/[4] are optional.
 PROVIDERS = {
-    "1": ("GEMINI_API_KEY",    "Gemini (Google AI Studio, free tier)"),
-    "2": ("NVIDIA_API_KEY",    "NVIDIA Build (build.nvidia.com, free tier)"),
-    "3": ("ANTHROPIC_API_KEY", "Claude Sonnet 5 (Anthropic)"),
-    "4": ("OPENAI_API_KEY",    "OpenAI-compativel (opcional)"),
+    "1": ("GEMINI_API_KEY",    "Gemini (Google AI Studio, free tier)   <- NEEDED"),
+    "2": ("NVIDIA_API_KEY",    "NVIDIA Build (build.nvidia.com, free)   <- NEEDED"),
+    "3": ("ANTHROPIC_API_KEY", "Anthropic  (NOT needed -- Claude = worker subagent)"),
+    "4": ("OPENAI_API_KEY",    "OpenAI-compativel (optional, unused)"),
 }
 
 # lightweight validation endpoints (GET a models list; 200 => key works)

@@ -4,8 +4,10 @@
 −55% reasoning tokens on math / −23% on creative, uncensored character PRESERVED (indistinguishable
 from plain Fable on two independent alignment metrics), accuracy neutral-to-better, 0 short-but-wrong.
 This REVIVES the "LoRA transfer DEAD" verdict of `A2_THINKINGCAP.md`: the concision transfers via a
-FULL-RANK task-arithmetic merge, where the rank-64 SVD LoRA failed.** Deploy candidate = `l1.0`, pending
-only the writing-quality judge quorum (Gate 3). Follow-on abliteration program: `A2_STAGE2_PLAN.md`.
+FULL-RANK task-arithmetic merge, where the rank-64 SVD LoRA failed.** Deploy candidate = `l1.0`.
+**Gate 3 (writing-quality quorum) CLOSED 2026-08-05 — PASS/non-inferior (parity, 8-8 p=1.0 on the
+cleanest 4-judge panel); `l1.0` now stamped on ALL axes and is the deploy artifact. Full record:
+`A2_GATE3_RESULT.md`.** Follow-on abliteration program (now optional purism): `A2_STAGE2_PLAN.md`.
 
 ---
 
@@ -89,11 +91,13 @@ overthinking), but real and positive, and it does not compress the prose.
 - **Q4 does not wash out** either the concision or the alignment signal.
 
 ## Deploy verdict
-For the dense-27B slot, **`fable-tc-l1.0` = concise + uncensored + accuracy-neutral**, keeps the MTP head
-(draft-mtp available for throughput on top). Pending: the writing-quality judge quorum (Gate 3) is the only
-axis that could still separate l1.0 from plain Fable (did concision hurt the prose?). Judge infra:
-`judge_keys.py` (OS-keyring TUI) + a coming OpenAI-compat quorum (Gemini/NVIDIA-Build/Sonnet-5 + local
-uncensored Mistral). Follow-on (abliteration / uTC / CA governor): `A2_STAGE2_PLAN.md` (+ evidence docs).
+For the dense-27B slot, **`fable-tc-l1.0` = concise + uncensored + accuracy-neutral + writing-non-inferior**,
+keeps the MTP head (draft-mtp available for throughput on top). **Gate 3 CLOSED (`A2_GATE3_RESULT.md`): the
+writing-quality quorum found NO significant prose difference vs plain Fable — an 8-8 dead heat (p=1.0) on
+the cleanest 4-judge blind panel (GLM-5.2 + MiniMax-M3 + Claude-Sonnet-5 + Heretic-24B local). Concision
+did not hurt the prose. l1.0 is the deploy artifact on ALL axes.** Judge infra: `judge_keys.py` (OS-keyring)
++ `a2_gate3_judge.py` (order-balanced pairwise + pointwise + merge) + `a2_gate3_worker.py` (Claude worker,
+no API key). Follow-on (now OPTIONAL — abliteration / uTC / CA governor): `A2_STAGE2_PLAN.md` (+ evidence docs).
 
 ## Repro
 ```
