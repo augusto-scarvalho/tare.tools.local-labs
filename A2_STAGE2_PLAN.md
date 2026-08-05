@@ -5,6 +5,17 @@ plus an adversarial vetting of the three hypotheses against `A2_STAGE2_EVIDENCE_
 `A2_STAGE2_EVIDENCE_merging.md`, `A2_THINKINGCAP.md`, and IDEAS_BACKLOG §"uTC via ABLITERATION".
 Verdicts first, because one algebraic identity (§0) changes the artifact design materially.
 
+**STATUS 2026-08-05: Stage-1's `l1.0` is now the deploy artifact on ALL axes (Gate 3 PASS,
+`A2_GATE3_RESULT.md`) — so this whole program is OPTIONAL purism, not a deploy need (§1a already
+flagged this). D0 (key/GPU-free authoring) is DONE:** (1) discriminating tier expanded 8→24 in
+`a2_refusal_probe.py` (idx 28-43, append-only; gives the §5 statistical power — 8 prompts couldn't
+separate 1/8 from 0/8). (2) extraction+selection harness `a2_stage2_extract.py` written + `--dry-run`
+green (base 4-bit activation capture → diff-of-means r̂ → Arditi layer selection by bypass/induce/KL
+→ §1b cos(r̂_base,r̂_TC) transfer check). Data sources fixed to non-gated
+(`mlabonne/harmful_behaviors` + `walledai/MaliciousInstruct` + `mlabonne/harmless_alpaca`; AdvBench
+went gated). **GPU phases (`--extract`/`--select`/`--transfer-check`) authored but NOT run — await
+the GO. Do not start unless the optional-purism leg is explicitly greenlit.**
+
 ---
 
 ## 0. THE IDENTITY THAT RESHAPES THE PLAN (read this before anything else)
