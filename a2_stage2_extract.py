@@ -66,59 +66,81 @@ INDUCE_MIN_DELTA = 0.0       # adding r̂ must induce >0 net refusals on harmles
 
 
 # ----------------------------------------------------------------------------- prompt pools
-# Non-gated HF sources (verified 2026-08-05). walledai/AdvBench went gated; mlabonne/harmful_behaviors
-# is the same AdvBench harmful_behaviors set, non-gated + purpose-built for abliteration. §2 asks for
-# "AdvBench + MaliciousInstruct" category diversity -> exactly these two harmful pools. (repo, col).
-HARMFUL_SOURCES = [("mlabonne/harmful_behaviors", "train"), ("walledai/MaliciousInstruct", "train")]
+# Faithful to the plan's dataset spec (A2_STAGE2_PLAN §2 / A2_STAGE2_EVIDENCE_ablit §17, Arditi-anchored):
+#   harmful TRAIN (128) = AdvBench + MaliciousInstruct + TDC2023  (category-diverse, "not one topic")
+#   harmful VAL   (32)  = HarmBench, DISJOINT from the train pool
+#   harmless      = Alpaca (train+val split)
+# All non-gated HF repos verified 2026-08-05 (walledai/AdvBench AND walledai/HarmBench both went gated ->
+# use the non-gated mirrors below). Category diversity matters here: EVIDENCE §2c warns Qwen is
+# abliteration-resistant, so a broader harmful set reduces topic-overfitting of r̂. (repo, split).
+HARMFUL_TRAIN_SOURCES = [
+    ("mlabonne/harmful_behaviors", "train"),   # = AdvBench harmful_behaviors (non-gated mirror), ~416
+    ("walledai/MaliciousInstruct", "train"),   # 10 malicious-intent categories, 100
+    ("walledai/TDC23-RedTeaming", "train"),    # TDC 2023 red-teaming behaviors, 100 (the missing pool)
+]
+HARMFUL_VAL_SOURCES = [
+    ("huihui-ai/harmbench_behaviors", "test"),  # HarmBench (non-gated mirror; col 'Behavior'), 320
+]
 HARMLESS_SOURCES = [("mlabonne/harmless_alpaca", "train")]
 _TEXT_COLS = ("text", "prompt", "instruction", "goal", "behavior", "query")
 
 
 def _extract_col(row) -> str | None:
+    low = {k.lower(): v for k, v in row.items()}   # case-insensitive (HarmBench col is 'Behavior')
     for c in _TEXT_COLS:
-        if c in row and isinstance(row[c], str) and row[c].strip():
-            return row[c].strip()
+        if c in low and isinstance(low[c], str) and low[c].strip():
+            return low[c].strip()
     return None
 
 
+def _pull(sources):
+    acc = []
+    for repo, split in sources:
+        try:
+            from datasets import load_dataset
+            ds = load_dataset(repo, split=split)
+            got = [t for r in ds if (t := _extract_col(r))]
+            acc += got
+            print(f"  loaded {len(got):5} from {repo}")
+        except Exception as e:
+            print(f"  SKIP {repo}: {e.__class__.__name__}: {str(e)[:60]}")
+    return acc
+
+
 def load_prompt_pools(seed: int = SEED) -> dict[str, list[str]]:
-    """128+32 harmful (AdvBench-behaviors + MaliciousInstruct, category-diverse) and 128+32 harmless
-    (Alpaca). Accumulates every source that resolves; bundled fallback only if ALL fail (wiring/dry-run
-    only -- too few / too narrow to trust an extraction on)."""
+    """128 harmful-train (AdvBench+MaliciousInstruct+TDC2023) + 32 harmful-val (HarmBench, DISJOINT) +
+    128/32 harmless (Alpaca). Bundled fallback only if a class has NO source (wiring/dry-run only)."""
     import random
     rng = random.Random(seed)
 
-    def pull(sources):
-        acc = []
-        for repo, split in sources:
-            try:
-                from datasets import load_dataset
-                ds = load_dataset(repo, split=split)
-                got = [t for r in ds if (t := _extract_col(r))]
-                acc += got
-                print(f"  loaded {len(got):5} from {repo}")
-            except Exception as e:
-                print(f"  SKIP {repo}: {e.__class__.__name__}: {str(e)[:60]}")
-        return acc
+    harmful_tr = _dedup(_pull(HARMFUL_TRAIN_SOURCES))
+    harmful_va = _dedup(_pull(HARMFUL_VAL_SOURCES))
+    harmless = _dedup(_pull(HARMLESS_SOURCES))
 
-    harmful = pull(HARMFUL_SOURCES)
-    harmless = pull(HARMLESS_SOURCES)
-    if not harmful or not harmless:
+    if not harmful_tr or not harmless:
         print("  WARN: a class had NO source resolve; using bundled fallback pools.")
         print("        Fallback is for wiring/dry-run ONLY -- do NOT trust an extraction built on it.")
-        harmful = harmful or list(_FALLBACK_HARMFUL)
+        harmful_tr = harmful_tr or list(_FALLBACK_HARMFUL)
         harmless = harmless or list(_FALLBACK_HARMLESS)
 
-    harmful = _dedup(harmful)
-    harmless = _dedup(harmless)
-    need = N_TRAIN + N_VAL
-    if len(harmful) < need or len(harmless) < need:
-        print(f"  WARN: pool too small (harmful={len(harmful)}, harmless={len(harmless)}, need {need}/class).")
-    rng.shuffle(harmful)
+    # enforce train/val disjointness (HarmBench is a separate source, but dedup defensively)
+    tr_set = {x.lower() for x in harmful_tr}
+    harmful_va = [x for x in harmful_va if x.lower() not in tr_set]
+    if not harmful_va:                                  # HarmBench unreachable -> carve val from train tail
+        print("  WARN: no disjoint harmful-val source (HarmBench) resolved; carving val from the train pool"
+              " tail (NOT ideal -- val should be a disjoint benchmark).")
+        rng.shuffle(harmful_tr)
+        harmful_va, harmful_tr = harmful_tr[:N_VAL], harmful_tr[N_VAL:]
+
+    if len(harmful_tr) < N_TRAIN or len(harmful_va) < N_VAL or len(harmless) < N_TRAIN + N_VAL:
+        print(f"  WARN: pool too small (harmful_tr={len(harmful_tr)}, harmful_va={len(harmful_va)}, "
+              f"harmless={len(harmless)}; need {N_TRAIN}/{N_VAL}/{N_TRAIN + N_VAL}).")
+    rng.shuffle(harmful_tr)
+    rng.shuffle(harmful_va)
     rng.shuffle(harmless)
     return {
-        "harmful_train": harmful[:N_TRAIN],
-        "harmful_val": harmful[N_TRAIN:N_TRAIN + N_VAL],
+        "harmful_train": harmful_tr[:N_TRAIN],
+        "harmful_val": harmful_va[:N_VAL],
         "harmless_train": harmless[:N_TRAIN],
         "harmless_val": harmless[N_TRAIN:N_TRAIN + N_VAL],
     }

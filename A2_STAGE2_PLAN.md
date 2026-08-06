@@ -11,9 +11,11 @@ flagged this). D0 (key/GPU-free authoring) is DONE:** (1) discriminating tier ex
 `a2_refusal_probe.py` (idx 28-43, append-only; gives the §5 statistical power — 8 prompts couldn't
 separate 1/8 from 0/8). (2) extraction+selection harness `a2_stage2_extract.py` written + `--dry-run`
 green (base 4-bit activation capture → diff-of-means r̂ → Arditi layer selection by bypass/induce/KL
-→ §1b cos(r̂_base,r̂_TC) transfer check). Data sources fixed to non-gated
-(`mlabonne/harmful_behaviors` + `walledai/MaliciousInstruct` + `mlabonne/harmless_alpaca`; AdvBench
-went gated). **GPU phases (`--extract`/`--select`/`--transfer-check`) authored but NOT run — await
+→ §1b cos(r̂_base,r̂_TC) transfer check). Dataset now COMPLETE per the §2/EVIDENCE-§17 spec (was incomplete — missing TDC2023 + the disjoint
+HarmBench val): harmful-TRAIN = `mlabonne/harmful_behaviors`(=AdvBench) + `walledai/MaliciousInstruct`
++ `walledai/TDC23-RedTeaming`; harmful-VAL = `huihui-ai/harmbench_behaviors`(HarmBench, DISJOINT);
+harmless = `mlabonne/harmless_alpaca`. All non-gated (walledai/AdvBench AND walledai/HarmBench both
+went gated → mirrors). Dry-run green: train 128 category-diverse, val 32 disjoint. **GPU phases (`--extract`/`--select`/`--transfer-check`) authored but NOT run — await
 the GO. Do not start unless the optional-purism leg is explicitly greenlit.**
 
 ---
