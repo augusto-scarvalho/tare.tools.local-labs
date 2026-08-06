@@ -22,6 +22,9 @@ llama.log
 
 # Driver stdout redirects (the report is regenerable from runs/<dir>/records.json)
 runs_*.log
+# A2 driver stdout redirects (the structured data lives in runs/a2/*.json)
+runs/a2/_*.log
+runs/a2/_log_*.txt
 
 # evalplus scoring intermediates (derived from the samples.jsonl; regenerable via score_subset.py)
 runs/quality/*.padded.jsonl
