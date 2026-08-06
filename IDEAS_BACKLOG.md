@@ -329,6 +329,16 @@ gate (§16), independent-critic / process-reward small model (§15/§25, a 4-8B 
 sequentially), and the model-portfolio-by-role idea (§20/§29/§65 — our lineup already matches). This is a big,
 separate initiative — decide the direction before pulling any of it into the backlog proper.
 
+### H-mcp. MCP wrapper over `lmctl` — **DEFERRED (user, 2026-08-06). Low priority.**
+`lmctl.py` (the ops CLI: serve/stop/ps/gpu/sensors/build/wsl) is the engine and is enough while it's just
+this box + one user driving it from a local shell. An MCP server here would be a thin shell-out to the same
+`lmctl` subcommands — it only buys typed tools + no per-call permission prompt, and it only helps the *agent*
+(the user still runs the CLI directly). **Cost/benefit says CLI wins for now; MCP is polish, not capability.**
+**Build trigger (the one thing that flips it):** driving these ops from OUTSIDE the local shell — claude.ai
+web/mobile, or scheduled cloud agents (cron/routines) that have no access to this machine's terminal. Until
+then, the cheaper win is a settings allowlist (`python lmctl.py *`) to kill the permission prompts. See the
+`lmctl-ops-cli` memory for the tool + the WSL2-detach/headless gotcha.
+
 ---
 
 ## Track M — Multimodal (in scope as of 2026-08-04: **both** VLM + image generation)
