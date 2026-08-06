@@ -178,6 +178,25 @@ VRAM is the binding constraint for the MoE; system RAM for the dense and for com
 
 ---
 
+## Operating the box — `lmctl` (the ops front-door; use it instead of raw WSL incantations)
+
+`python lmctl.py <verb>` (repo root, run as Windows Python; headless, no console windows). It is a
+thin facade over the existing `LlamaCppAdapter` + `MODELS` registry with the WSL gotchas baked in.
+
+- `serve <profile|MODELS-key>` — bring a model up **detached + health-checked** (survives the process
+  exiting; a Linux-side `nohup`/`setsid &` does NOT — WSL2 tears the distro down when its last session
+  ends, so the holder is a Windows-side `wsl.exe` launched `CREATE_NO_WINDOW|BREAKAWAY_FROM_JOB`).
+  `--foreground` to block. Named profiles in `src/model_lifecycle/serve_profiles.py`: `deploy-moe`,
+  `deploy-fable`, judges `mistral-judge`/`gemma-judge`, VLMs `qwen3-vl-8b`/`qwen3-vl-30b`/`gemma-4-12b-vision`.
+- `stop --port N | --all` (kills by PORT — `fuser -k N/tcp`, never `pkill -f …N` which self-matches),
+  `ps`, `gpu` (VRAM/clocks/power/temp), `sensors` (fcread), `build <target>` (cmake in the fork),
+  `wsl -- <cmd>` (escape hatch into Ubuntu-24.04). `serve --list` lists profiles.
+
+Vision (Track M-A, M0 DONE): `M_A_VLM.md` + `runs/m0-vlm/` + `vlm_probe.py`. MCP wrapper over lmctl is
+filed but DEFERRED (IDEAS_BACKLOG Track H, H-mcp).
+
+---
+
 ## Campaign status — done vs remaining optionals
 
 **DONE & committed** (§E1 placement · §E2 ik · §E4 MTP MoE+dense · §B4 CUDA graphs · §B1 pinning · plus
