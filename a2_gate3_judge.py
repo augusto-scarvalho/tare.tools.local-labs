@@ -133,6 +133,15 @@ JUDGES = {
                                                       # the abliterated Heretic build from stock in RESULTS
         key_name=None,               # local, no auth
     ),
+    "gemma": dict(
+        label="Gemma-4-26B Heretic (local)",
+        protocol="openai",
+        base="http://127.0.0.1:8091/v1",   # distinct port from the Mistral judge (8090)
+        model="gemma-4-26b-a4b-heretic-antislop-q4",   # recorded label; llama-server ignores it
+        key_name=None,               # local, no auth
+        no_system=True,              # Gemma's chat template has NO system role -> merge system into user
+        max_tokens=2048,             # it's a THINKING model -> needs budget for reasoning + the JSON
+    ),
 }
 
 # ----------------------------------------------------------------------------- the rubric
@@ -242,13 +251,14 @@ def _chat(judge: dict, key: str | None, system: str, user: str) -> str:
         try:
             if proto == "openai":
                 headers = {"Authorization": f"Bearer {key}"} if key else {}
-                payload = {
-                    "model": judge["model"],
-                    "messages": [{"role": "system", "content": system},
-                                 {"role": "user", "content": user}],
-                    "temperature": 0.0,
-                    "max_tokens": 400,
-                }
+                # Gemma (and some local templates) reject a separate system role -> fold it into user.
+                if judge.get("no_system"):
+                    messages = [{"role": "user", "content": system + "\n\n" + user}]
+                else:
+                    messages = [{"role": "system", "content": system},
+                                {"role": "user", "content": user}]
+                payload = {"model": judge["model"], "messages": messages,
+                           "temperature": 0.0, "max_tokens": judge.get("max_tokens", 400)}
                 data = _post(f"{judge['base']}/chat/completions", headers, payload)
                 return data["choices"][0]["message"]["content"]
             elif proto == "anthropic":

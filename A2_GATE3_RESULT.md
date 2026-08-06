@@ -37,13 +37,21 @@ Four diverse lineages so no single aesthetic dominates. Three via the OpenAI-com
 | GLM-5.2 | `z-ai/glm-5.2` (NVIDIA Build) | HTTP | **4** | 6–8 |
 | MiniMax-M3 | `minimaxai/minimax-m3` (NVIDIA Build) | HTTP | **4** | 5–9 |
 | Claude Sonnet-5 | `claude-sonnet-5 @ medium` | worker subagent | 8 | 2–8 |
-| Mistral-Small-24B Heretic | abliterated, local llama-server | HTTP (localhost) | 14 | 0–4 |
+| Mistral-Small-24B Heretic | abliterated, local llama-server :8090 | HTTP (localhost) | 14 | 0–4 |
+| Gemma-4-26B-A4B Heretic | abliterated MoE, local llama-server :8091 | HTTP (localhost) | 12 | 1–3 |
 
 Lower position-split = cleaner judge. **GLM-5.2 and MiniMax-M3 are the standouts (4/18)** and both find
-the candidate fully competitive; the local 24B is the weakest (abstains 14/18) and the Claude worker
-sits between. Two other seats were tested and dropped: DeepSeek-V4-Pro (12/18 split, slow reasoning)
-and Gemini-3.5-flash-lite (10/18 split, weak lite judge). Kimi-K2.6 and Palmyra-Creative-122B are in
-the NVIDIA catalog but return HTTP 404 "not found for account" (gated for this tier).
+the candidate fully competitive; the two local abliterated judges (Mistral-Heretic, Gemma-Heretic) are
+the weakest (abstain 12–14/18) and the Claude worker sits between. Two remote seats were tested and
+dropped: DeepSeek-V4-Pro (12/18 split, slow reasoning) and Gemini-3.5-flash-lite (10/18 split, weak
+lite judge). Kimi-K2.6 and Palmyra-Creative-122B are in the NVIDIA catalog but return HTTP 404 "not
+found for account" (gated for this tier).
+
+The two local seats are served by `scratch/serve_mistral_judge.sh` (:8090) and
+`scratch/serve_gemma_judge.sh` (:8091). Gemma-4 needed two harness accommodations (both generic, in
+the registry): its chat template has NO system role (`no_system=True` folds the rubric into the user
+turn), and it is a THINKING model (`max_tokens=2048` for reasoning + the JSON; the serve script also
+uses `-c 16384` because 4 concurrent thinking requests overflow an 8k unified KV).
 
 The Claude judge runs blind via `a2_gate3_worker.py`: it emits opaque-id batch files ({id, user} only —
 a separate `claude_foldmap` holds the id→arm/order mapping the judge never sees) to Sonnet-5 subagents,
@@ -63,7 +71,8 @@ decisive prompts (H0: equal preference):
 | GLM + DeepSeek + Claude | 6 · 8 · 4 | 14 | 0.79 |
 | GLM + DeepSeek + MiniMax + Claude | 9 · 8 · 1 | 17 | 1.00 |
 | **GLM + MiniMax + Claude (canonical)** | **8 · 8 · 2** | 16 | **1.00** |
-| **GLM + MiniMax + Claude + Heretic-local (full)** | **8 · 8 · 2** | 16 | **1.00** |
+| **GLM + MiniMax + Claude + Mistral-Heretic-local** | **8 · 8 · 2** | 16 | **1.00** |
+| **GLM + MiniMax + Claude + Gemma-Heretic-local** (local seat swapped) | **8 · 8 · 2** | 16 | **1.00** |
 
 **No statistically significant writing-quality difference at any composition** (p never approaches 0.05).
 The strongest plain-lean is Claude-alone (2–8, p=0.11) but it does not survive adding judges: the two
@@ -84,7 +93,8 @@ deploy artifact. Stage-2 (abliteration) is now optional purism, not a deploy nee
 ## Artifacts & reproduction
 
 - Harness: `a2_gate3_judge.py` · Claude-worker bridge: `a2_gate3_worker.py` · local judge serve:
-  `scratch/serve_mistral_judge.sh` (Heretic-24B, prefill-tuned for the 3090).
+  `scratch/serve_mistral_judge.sh` (Heretic-24B, :8090) and `scratch/serve_gemma_judge.sh`
+  (Gemma-4-26B Heretic MoE, :8091) — both prefill-tuned for the 3090.
 - Blind human-read page (18 pairs, mark → reveal → tally): built by `scratch/build_gate3_artifact.py`,
   published at https://claude.ai/code/artifact/3819a852-b2e0-4015-b777-4660561eb524 . Human judgment is
   the ground truth this quorum approximates.
