@@ -119,10 +119,11 @@ JUDGES = {
     # verdicts are produced separately (same raws schema) and combined via `--merge`. Frontier model
     # => the strongest, least position-biased member of the quorum.
     "claude": dict(
-        label="Claude Sonnet-5 (worker)",
+        label="Claude Opus-4.8 (worker)",
         protocol="worker",
         base=None,
-        model="claude-sonnet-5 @ medium",   # driven as a Claude Code subagent (model=sonnet, effort medium)
+        model="claude-opus-4-8 @ high",   # driven as a Claude Code subagent (model=opus; #3 least
+                                          # position-biased per lechmazur/position_bias). Was Sonnet-5.
         key_name=None,
     ),
     "mistral": dict(

@@ -87,7 +87,18 @@ def emit_tasks(mode: str, set_name: str, batches: int) -> None:
     mp.write_text(json.dumps(dict(mode=mode, set=set_name, idxs=idxs, map={
         t["id"]: {k: t[k] for k in t if k not in ("user",)} for t in foldmap}), indent=2), encoding="utf-8")
 
-    groups = [foldmap[b::batches] for b in range(batches)]
+    # BATCHING with ORDER ISOLATION (pairwise): a subagent sees all tasks in its batch at once, so if
+    # both orders of the same pair land together a sharp judge recognizes the swap and FORCES its
+    # verdicts consistent -- defeating the position-bias check (artificially low flip rate) and breaking
+    # comparability with the HTTP judges (which see each cell in a separate call). Put every pair's two
+    # orders in DIFFERENT batches: cand_first -> first half of batches, ref_first -> second half.
+    if mode == "pairwise" and batches >= 2:
+        half = batches // 2
+        cf = [t for t in foldmap if t["order"] == "cand_first"]
+        rf = [t for t in foldmap if t["order"] == "ref_first"]
+        groups = [cf[b::half] for b in range(half)] + [rf[b::half] for b in range(batches - half)]
+    else:
+        groups = [foldmap[b::batches] for b in range(batches)]
     written = []
     for b, g in enumerate(groups):
         # judge-facing file: ONLY id + user (blind). No arm names, no idx, no order.
