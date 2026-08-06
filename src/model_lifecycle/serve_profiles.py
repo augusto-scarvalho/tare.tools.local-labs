@@ -109,9 +109,18 @@ SERVE_PROFILES: dict[str, ServeSpec] = {
         port=8092,
         flags=("--mmproj",
                "/home/augus/models/gemma-4-12b-vision/mmproj-gemma-4-12B-it-Q8_0.gguf",
-               "-ngl", "99", "-fa", "on", "--ctx-size", "8192", "--jinja"),
+               "-ngl", "99", "-fa", "on", "--ctx-size", "8192", "--jinja",
+               "--reasoning-budget", "256"),
         note="Gen-4 Gemma vision (Google lineage), dense 12B Q4_0 ~7GB. Cross-family "
-             "comparison vs Qwen3-VL. Repo also ships an MTP head (not wired here)."),
+             "comparison vs Qwen3-VL. THINKING model -> its wall-clock is dominated by "
+             "reasoning tokens, not decode rate. --reasoning-budget 256 caps the think "
+             "phase: MEASURED on MMStar-150 to KEEP full accuracy (0.580 vs 0.573 "
+             "unbounded) at 1.4x faster (528s vs 740s); 256 saturates accuracy, 128 "
+             "drops it to 0.520. `--reasoning off` = 9.3x faster (80s) but 0.480 = "
+             "8B-tier (Qwen-8b dominates there). Repo also ships an MTP draft head "
+             "(google/...assistant) that draft-mtp can wire for ~2x more decode, "
+             "stacking with the budget cap (see M_A_VLM_PERF.md). Tune the budget up "
+             "for harder visual-reasoning workloads than MCQ."),
 }
 
 
