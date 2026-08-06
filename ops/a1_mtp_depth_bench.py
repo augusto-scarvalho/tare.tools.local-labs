@@ -51,6 +51,13 @@ MODELS = {
         ["-fa", "on", "-ngl", "65", "-np", "1", "--batch-size", "2048", "--ubatch-size", "2048"],
         [("8k", 8192, "q8_0", 6600), ("32k", 32768, "q4_0", 30000), ("48k", 49152, "q4_0", 45000)],
     ),
+    "fable": (  # A2 deploy dense l1.0 (fable + lambda(TC-base) merge). Merge PRESERVED blk.64.nextn.*
+                # (verified 2026-08-06, gguf tensor probe) -> its OWN merged MTP head. This measures
+                # whether the merge degraded MTP accept vs the base (A5 card: merge-degrades-draft test).
+        "/home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf",
+        ["-fa", "on", "-ngl", "65", "-np", "1", "--batch-size", "2048", "--ubatch-size", "2048"],
+        [("8k", 8192, "q8_0", 6600), ("32k", 32768, "q4_0", 30000), ("48k", 49152, "q4_0", 45000)],
+    ),
 }
 
 def make_prompt(n_units, task):

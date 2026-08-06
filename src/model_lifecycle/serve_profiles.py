@@ -78,10 +78,12 @@ SERVE_PROFILES: dict[str, ServeSpec] = {
         name="deploy-fable",
         model_path=MODELS["fable-tc-l1.0-q4"].path,
         port=8080,
-        flags=("-ngl", "99", "-fa", "on", "--ctx-size", "8192", "--jinja"),
+        flags=("-ngl", "99", "-fa", "on", "--ctx-size", "8192",
+               "--spec-type", "draft-mtp", "--spec-draft-n-max", "4", "--jinja"),
         note="A2 deploy candidate: concise+uncensored Fable dense l1.0 (Qwen3.6-27B). "
-             "Q4 fits fully in VRAM. MTP omitted (verify the merge carries a draft head "
-             "before adding --spec-type draft-mtp)."),
+             "Q4 fits fully in VRAM. MTP ENABLED (2026-08-06: the l1.0 merge PRESERVES the "
+             "nextn head, blk.64.nextn.* present per gguf probe; measured @8k = +121% t/s "
+             "structured / +24% reasoning, accept 0.960 / 0.422 == base-dense-healthy)."),
 
     # --- Track M-A · VLMs (vision) ------------------------------------------------------
     # A VLM needs its multimodal projector passed with --mmproj alongside the model; the

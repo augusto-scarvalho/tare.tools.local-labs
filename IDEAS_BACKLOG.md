@@ -314,9 +314,18 @@ A/B lab), not an agentic coding product. So:
   "already-captured" null (contrast S1/S2/S3) — it has a quantified target across **both** dense and MoE.
 - **Where it's redundant / where it wins:** REDUNDANT on structured/copy work (MTP already ~0.99) and generally on the
   MoE's easy path. WINS candidates: (a) the **reasoning regime** (α~0.50 → headroom), fleet-wide; (b) models with
-  **absent/broken MTP** — the merged deploy dense **l1.0** (deploy-fable omits MTP, "verify draft head first"), judges
-  (Mistral-24B, Gemma-26B) — where a trained draft would be the ONLY spec-decode option. Physics tailwind: the dense is
-  **bandwidth-bound** (43 t/s = 83% of 3090 weight-BW), the regime where amortizing the target forward pays most.
+  **absent/broken MTP** — judges (Mistral-24B, Gemma-26B) — where a trained draft would be the ONLY spec-decode option.
+  Physics tailwind: the dense is **bandwidth-bound** (43 t/s = 83% of 3090 weight-BW), the regime where amortizing the
+  target forward pays most.
+- **⚑ fable-tc l1.0 NEXT-N HEAD MEASURED 2026-08-06 (settled the "did the merge break the draft?" sub-question — it
+  did NOT):** gguf probe shows the l1.0 merge PRESERVES `blk.64.nextn.*` (866 tensors / 65 blocks, identical layout to
+  base). Measured @8k (`runs/a1-mtp-depth/a5_fable.csv`, harness `MODELSET=fable`): **T1 class +121% t/s / accept
+  0.960** (≈ base-dense 0.978), **T2 reason +24% / accept 0.422**. → the merged MTP head is **healthy, not broken** →
+  l1.0 is NOT a "rescue-broken-MTP" case (removed from list above); **`deploy-fable` MTP flipped ON** (serve_profiles).
+  Net: fable-tc is a "MTP already works" model — DSpark's only marginal value here is lifting the reasoning-regime
+  0.422 (same optional fleet-wide upside), NOT rescuing spec-decode. The genuine "no native MTP" targets are the
+  non-Qwen3.6 judges, which are not latency-critical → the training-cost case for A5 stays weak; step-2 VLM drop-in
+  remains the cheapest informative next probe.
 - **Pre-registered plan (cheap → expensive; do NOT train until 1–2 justify it):**
   1. ✅ **Measure MTP T2 headroom** (DONE above — ~0.50, gate PASSED, card is alive).
   2. **VLM drop-in A/B** (0 build): `draft-dflash`/`draft-eagle3` with a released Qwen3-8B / Gemma-4-12B draft vs our
