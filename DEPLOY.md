@@ -192,7 +192,13 @@ thin facade over the existing `LlamaCppAdapter` + `MODELS` registry with the WSL
   `ps`, `gpu` (VRAM/clocks/power/temp), `sensors` (fcread), `build <target>` (cmake in the fork),
   `wsl -- <cmd>` (escape hatch into Ubuntu-24.04). `serve --list` lists profiles.
 
-Vision (Track M-A, M0 DONE): `M_A_VLM.md` + `runs/m0-vlm/` + `vlm_probe.py`. MCP wrapper over lmctl is
+Vision (Track M-A): baseline+alignment+quality+perf all DONE — full records `M_A_VLM.md` (M0 + refusal
+0/7 + real perf + MMStar quality + mature-nudity) and `M_A_VLM_PERF.md` (speed research + the Gemma
+2.7× win). Harnesses: `vlm_probe.py` / `vlm_refusal_probe.py` (+`--hf-dataset`) / `vlm_bench.py` /
+`vlm_vqa_bench.py` / `vlm_mature_probe.py`; evidence in `runs/m0-vlm/` + `runs/m-a-{align,perf,vqa,mature}/`.
+**Daily driver = `qwen3-vl-8b`** (perception-bound OCR/UI, fast, co-resident). **`gemma-4-12b-vision` is
+now perf-tuned** (reasoning-budget 256 + its own MTP draft head baked into the profile → 2.7× faster at
+full accuracy; best VQA accuracy of the three — use for hard visual reasoning). MCP wrapper over lmctl is
 filed but DEFERRED (IDEAS_BACKLOG Track H, H-mcp).
 
 ---
