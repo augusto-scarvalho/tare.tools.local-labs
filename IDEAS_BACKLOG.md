@@ -346,7 +346,12 @@ then, the cheaper win is a settings allowlist (`python lmctl.py *`) to kill the 
 **Grounding:** no multimodal models on disk yet, but **`libmtmd.so` is already built in our fork**
 (`tools/mtmd/` present) — so VLM serving is a short hop, not a new engine.
 
-### M-A · VLM (vision understanding) — in our llama.cpp engine [do first, higher ROI]
+### M-A · VLM (vision understanding) — in our llama.cpp engine [do first, higher ROI] — **✅ M0 DONE 2026-08-06 (`M_A_VLM.md`, evidence `runs/m0-vlm/`).**
+- **M0 result:** PASS on all three current-gen VLMs served in-fork via `lmctl serve` — `qwen3-vl-8b`
+  (daily driver, 8.9GB, perfect OCR + richest UI description), `qwen3-vl-30b` (flagship, fastest via MoE
+  but 3.8GB-free VRAM-tight @8k), `gemma-4-12b-vision` (works, thinking-model → needs max_tokens headroom).
+  Build supports QWEN3VL + GEMMA4V + OCR specialists (dots/paddle/deepseek) — newer than the pin implied.
+  Next = §71 efficiency levers, only once a repeated-image workload exists.
 - **Goal:** a coding-agent-that-sees — reads screenshots, error dialogs, diagrams, UI mockups.
 - **Candidate:** a Qwen2.5-VL / Qwen3-VL-class model (same family as our text worker) — 7B for headroom or a
   32B quantized to share 24GB with a text KV budget; Gemma-3-vision / InternVL / MiniCPM-V as alternates

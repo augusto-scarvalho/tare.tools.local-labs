@@ -82,6 +82,36 @@ SERVE_PROFILES: dict[str, ServeSpec] = {
         note="A2 deploy candidate: concise+uncensored Fable dense l1.0 (Qwen3.6-27B). "
              "Q4 fits fully in VRAM. MTP omitted (verify the merge carries a draft head "
              "before adding --spec-type draft-mtp)."),
+
+    # --- Track M-A · VLMs (vision) ------------------------------------------------------
+    # A VLM needs its multimodal projector passed with --mmproj alongside the model; the
+    # deploy-fork llama-server has vision built in (libmtmd, supports QWEN3VL + GEMMA4V —
+    # verified in tools/mtmd/clip.cpp). All on port 8092 (the "vision slot") since only one
+    # serves at a time. Current-gen picks (2026-08): Qwen3-VL (unsloth Q4) + Gemma-4 (ggml-org).
+    "qwen3-vl-30b": ServeSpec(
+        name="qwen3-vl-30b",
+        model_path="/home/augus/models/qwen3-vl-30b/Qwen3-VL-30B-A3B-Instruct-UD-Q4_K_XL.gguf",
+        port=8092,
+        flags=("--mmproj", "/home/augus/models/qwen3-vl-30b/mmproj-F16.gguf",
+               "-ngl", "99", "-fa", "on", "--ctx-size", "8192", "--jinja"),
+        note="M0 FLAGSHIP. Qwen3-VL-30B-A3B (current-gen Qwen vision, MoE ~3B active = fast). "
+             "UD-Q4_K_XL 17.7GB + mmproj 1.1GB fits ~19GB in VRAM (~5GB headroom). Top OCR."),
+    "qwen3-vl-8b": ServeSpec(
+        name="qwen3-vl-8b",
+        model_path="/home/augus/models/qwen3-vl-8b/Qwen3-VL-8B-Instruct-UD-Q4_K_XL.gguf",
+        port=8092,
+        flags=("--mmproj", "/home/augus/models/qwen3-vl-8b/mmproj-F16.gguf",
+               "-ngl", "99", "-fa", "on", "--ctx-size", "8192", "--jinja"),
+        note="Nimble dense Qwen3-VL-8B (~5GB + 1.2GB mmproj). Fast iteration / low-VRAM."),
+    "gemma-4-12b-vision": ServeSpec(
+        name="gemma-4-12b-vision",
+        model_path="/home/augus/models/gemma-4-12b-vision/gemma-4-12B-it-Q4_0.gguf",
+        port=8092,
+        flags=("--mmproj",
+               "/home/augus/models/gemma-4-12b-vision/mmproj-gemma-4-12B-it-Q8_0.gguf",
+               "-ngl", "99", "-fa", "on", "--ctx-size", "8192", "--jinja"),
+        note="Gen-4 Gemma vision (Google lineage), dense 12B Q4_0 ~7GB. Cross-family "
+             "comparison vs Qwen3-VL. Repo also ships an MTP head (not wired here)."),
 }
 
 
