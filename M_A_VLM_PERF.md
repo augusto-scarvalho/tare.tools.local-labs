@@ -23,9 +23,10 @@ memory.)
 | Gemma config | MMStar acc | wall-clock (150) | speedup | verdict |
 |---|---|---|---|---|
 | baseline (unbounded thinking) | 0.573 | 740 s | 1.0× | the slow default |
-| **`--reasoning-budget 256`** | **0.580** | **528 s** | **1.4×** | **full accuracy, free — new default** |
+| `--reasoning-budget 256` | 0.580 | 528 s | 1.4× | full accuracy, free |
 | `--reasoning-budget 128` | 0.520 | 396 s | 1.9× | drops 6pp — below the knee |
-| `--reasoning off` | 0.480 | 80 s | **9.3×** | 8B-tier accuracy (Qwen-8b dominates here) |
+| **`--reasoning-budget 256` + MTP draft** | **0.580** | **276 s** | **2.7×** | **STACKED — full accuracy, new profile default** |
+| `--reasoning off` | 0.480 | 80 s | 9.3× | 8B-tier accuracy (Qwen-8b dominates here) |
 
 **Reads:** 256 thinking tokens SATURATE MMStar accuracy (0.580 ≈ 0.573 unbounded, within n=150 noise)
 while cutting 1.4× — a free win, now baked into the `gemma-4-12b-vision` serve profile. The knee is
@@ -41,18 +42,19 @@ visual-reasoning than MCQ. `--reasoning off` / `--reasoning-budget 0` available 
 (but Qwen-8b beats it). Evidence: llama.cpp `common/reasoning-budget.cpp`, PR #21697 (Gemma4 think-tag
 wiring, merged 2026-04-10 → in base), discussion #21338/#21445; s1 "budget forcing" arXiv:2501.19393.
 
-### #2 — Wire Gemma-4's own MTP draft head via `--spec-type draft-mtp` [NEXT, needs 465MB download]
+### #2 — Gemma-4's own MTP draft head via `--spec-type draft-mtp` [DONE, MEASURED, in profile]
 Gemma-4 ships a trained MTP "assistant" drafter (the head our notes flagged as unwired). PRs #22673
-(MTP infra, 2026-05-16) + #23398 (Gemma4 MTP, 2026-06-07) are BOTH in our base, and #19493 (2026-04-19)
-removed the old "spec-decode not supported with multimodal" guard → confirmed to run WITH `--mmproj`.
-Author reports **>2× decode / ~75% acceptance on dense Gemma-4** (the 12B is dense; the MoE variant
-gets ~nothing, matches our Qwen-MoE MTP-null pattern). This SPEEDS THE DECODE of whatever tokens remain
-→ **stacks multiplicatively with #1**: budget-256 + MTP could land 0.58 at ~2× under 528s. Step: fetch
-the matching `gemma-4-12B-it-...assistant-MTP-Q8_0` GGUF (~465MB), add `--spec-type draft-mtp
---spec-draft-model <path> --spec-draft-n-max 4` to the serve, keep `--mmproj`. Caveat: a q8_0-KV + MTP
-0%-acceptance bug existed then was fixed — verify Gemma MTP acceptance with our q8_0 KV, fall back to
-f16 KV for this serve if acceptance ~0. Do NOT stack ngram with draft-mtp (#24266: 40→4 t/s collapse).
-Evidence: PRs #19493/#22673/#23398, discussion #22735, `ai.google.dev/gemma/docs/mtp`.
+(MTP infra) + #23398 (Gemma4 MTP) are in our base; #19493 removed the "spec-decode not supported with
+multimodal" guard → runs WITH `--mmproj`. **Downloaded** the matching drafter (`Janvitos/gemma-4-12B-it
+-qat-assistant-MTP-Q8_0-GGUF`, 465 MB, to the model dir) and added `--spec-type draft-mtp --model-draft
+<assistant.gguf> --spec-draft-n-max 4` to the serve. **MEASURED: ~0.68 draft acceptance (mean len
+~3.8), 0.580 @ 276 s = 1.9× over budget-256 alone (528 s), 2.7× over the 740 s baseline, at IDENTICAL
+accuracy** (spec-decode is lossless at temp 0). The QAT drafter matches our Q4_0 QAT target (high accept
+confirms it). Our gemma vision GGUF has NO built-in MTP layers (verified: draft-mtp alone errors "model
+doesn't contain MTP layers") — the separate `--model-draft` assistant is required. KV is default **f16**
+here so the old q8_0-KV+MTP 0%-accept bug does NOT apply. Do NOT stack ngram with draft-mtp (#24266:
+40→4 t/s collapse). Now the `gemma-4-12b-vision` profile default. Evidence: PRs #19493/#22673/#23398,
+`huggingface.co/Janvitos/gemma-4-12B-it-qat-assistant-MTP-Q8_0-GGUF`, `ai.google.dev/gemma/docs/mtp`.
 
 ### #3 — image-token budget hygiene on Gemma [minor, already safe]
 `--image-min/max-tokens` control the vision-token budget; Gemma-4 needs all image tokens in one ubatch
@@ -86,7 +88,10 @@ suffice; 1120 only for OCR/docs. Minor vs #1/#2 (image-encode tax already ~130 m
   `thinking_budget_tokens` instead. `--no-mmproj-offload` = wrong direction (we have VRAM headroom).
 
 ## Bottom line
-Gemma got a **free 1.4× at full accuracy today** (`--reasoning-budget 256`, shipped in the profile).
-The stackable next step is wiring its **MTP head** (~465MB download, config after that) for another
-~2× on decode. Everything else — engine switch, token-pruning, FP8, external drafters — is a dead end
-on a single Ampere 3090 at batch=1. Qwen3-VL models are already fast and need nothing.
+Gemma is now **2.7× faster at IDENTICAL accuracy** (0.580 @ 276 s vs 740 s), both levers measured and
+shipped in the `gemma-4-12b-vision` profile: `--reasoning-budget 256` (1.4×) stacked with its own MTP
+draft head (1.9×, ~0.68 accept, lossless). Everything else — engine switch to SGLang/vLLM,
+visual-token-pruning papers, FP8, external drafters — is a verified dead end on a single Ampere 3090 at
+batch=1. Qwen3-VL models are already fast and need nothing. Remaining optional headroom: sweep
+`--spec-draft-n-max` (tried 4) and the reasoning budget per-workload; wire an MTP/EAGLE head for Qwen if
+one ever ships (none exists today).
