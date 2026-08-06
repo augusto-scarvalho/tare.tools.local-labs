@@ -125,8 +125,9 @@ A/B lab), not an agentic coding product. So:
   probe-validated; 2026-08-04). A2 ✅ (ThinkingCap long-to-short on dense-27B — **STRONG WIN, the first positive
   A-tier lever**: reasoning/wall −53–60% at equal(math)/better(+20pp code) accuracy, Q4 no washout, code did not
   collapse; community LoRA transfer DEAD via fail-fast reconstruction gate; 2026-08-04, `A2_THINKINGCAP.md`).
-  **Tier A FULLY SWEPT.** Next: Track H (harness product) or Track M (multimodal), or the A2 follow-on (our-own
-  concise 35B-MoE via trace-distillation — the only way to bring the ~2× concision lever to the primary worker).**
+  **Tier A: A1/A3/A4 swept; A2 = strong win; A5 (trained EAGLE/DSpark draft) OPEN — step-1 gate PASSED 2026-08-06
+  (reasoning-regime MTP accept ~0.50 = real headroom).** Next: A5 step-2 (VLM drop-in A/B), Track H (harness product),
+  Track M (multimodal), or the A2 follow-on (our-own concise 35B-MoE via trace-distillation).**
 
 ### S3. N-gram speculative decoding + drafter-selection policy — §35 / §63.3
 - **What:** add n-gram spec-decode (no extra model, wins on repetitive code) alongside MTP; formalize drafter
@@ -288,6 +289,45 @@ A/B lab), not an agentic coding product. So:
   checkpoint-restore acceptance inflation (+1/restore) → pin-watch; #26100 repeated-prompt inflation defended by
   our `cache_prompt=False`. Deliberately NOT built: drafter-time-vs-saved + per-pos acceptance (stderr-log-only, low
   batch-1 ROI), ITL p50/p95/p99 (needs `timings_per_token`; mean TPOT suffices at CV~0.006).
+
+### A5. Trained EAGLE-family draft (DFlash / DSpark / Eagle3) as an alternative to the native MTP head — §35 (sibling of S3/A1) — **⏳ OPEN, step-1 gate DONE 2026-08-06: headroom CONFIRMED in the reasoning regime.**
+- **What:** DeepSeek's **DeepSpec** toolkit (`github.com/deepseek-ai/DeepSpec`) trains **DFlash → DSpark → Eagle3**
+  drafts. DSpark = DFlash + a low-rank previous-token Markov head (+21% accept over DFlash, lossless greedy). llama.cpp
+  landed it in **PR #25173 (merged 2026-07-28, AFTER our pin `720d7fa40`)**. Our binary ALREADY exposes
+  `--spec-type draft-dflash,draft-eagle3` (verified `--help`); `draft-dspark` needs a clean cherry-pick of #25173
+  (isolated — reuses the DFlash graph, no new public API; same pattern as our GDN/prefetch cherry-picks, independent of
+  the `f5919bf45`/#26141 pin-watch reasons).
+- **The generality trap (why this is NOT a drop-in fleet lever):** unlike ngram (agnostic) or the native MTP head
+  (ships with the model), an EAGLE/DFlash/DSpark draft is **trained against ONE target's hidden-states + vocab**.
+  DeepSpec's **released** drafts = Qwen3-4B/8B/14B + Gemma-4-12B-it only. **None match our headline models**
+  (Qwen3.6-35B-A3B MoE, Qwen3.6-27B dense — different family/tokenizer/hidden; a Qwen3-8B draft will NOT verify against
+  Qwen3.6). So drop-in covers only the **VLMs** (Qwen3-VL-8B via the Qwen3-8B text backbone; `gemma-4-12b-vision` via
+  the Gemma-4-12B draft — GGUF exists: `ankk98/dspark-gemma4-12b-block7-Q4_0-GGUF`, contingent on the text draft
+  applying to the vision target). For our dense/MoE, "use DSpark" ≡ **TRAIN our own draft** (DeepSpec recipe assumes
+  **8 GPUs + up to ~38TB** target-cache → must be scoped hard for 1×3090).
+- **STEP-1 GATE (does the incumbent MTP leave room? — DONE, `runs/a1-mtp-depth/a1b_curve.csv` + `a1_depth.csv`):**
+  MTP accept is **near-ceiling on structured tasks but collapses on reasoning** — T1 `class`: **MoE 0.992** (flat
+  8k→256k), **dense ~0.95–0.98**; T2 `reason`: **MoE 0.48–0.53** (0.512@8k / 0.527@64k / 0.481@128k), dense T2 not
+  yet measured (likely analogous). **→ headroom is real and specifically in the reasoning regime**, where a deeper
+  EAGLE-3/DSpark draft (typical 0.7–0.85) could lift the accepted block. Sizing via A4's τ=1+γα (γ=4): 0.50→0.70 moves
+  the block 3.0→3.8 tok/forward ≈ **+25% decode on reasoning, on top of MTP**. This is the one axis that is NOT an
+  "already-captured" null (contrast S1/S2/S3) — it has a quantified target across **both** dense and MoE.
+- **Where it's redundant / where it wins:** REDUNDANT on structured/copy work (MTP already ~0.99) and generally on the
+  MoE's easy path. WINS candidates: (a) the **reasoning regime** (α~0.50 → headroom), fleet-wide; (b) models with
+  **absent/broken MTP** — the merged deploy dense **l1.0** (deploy-fable omits MTP, "verify draft head first"), judges
+  (Mistral-24B, Gemma-26B) — where a trained draft would be the ONLY spec-decode option. Physics tailwind: the dense is
+  **bandwidth-bound** (43 t/s = 83% of 3090 weight-BW), the regime where amortizing the target forward pays most.
+- **Pre-registered plan (cheap → expensive; do NOT train until 1–2 justify it):**
+  1. ✅ **Measure MTP T2 headroom** (DONE above — ~0.50, gate PASSED, card is alive).
+  2. **VLM drop-in A/B** (0 build): `draft-dflash`/`draft-eagle3` with a released Qwen3-8B / Gemma-4-12B draft vs our
+     current drafter, S3/A4 discipline (no-spec floor, 6 reps, CI, greedy-exactness, batch=1). Gives the **first real
+     DSpark-vs-MTP delta on this box** + settles "does a text draft accelerate the VLM target". First check the cheap
+     gate: does `Qwen3-VL-8B` config (hidden/vocab) match the `Qwen3-8B` draft.
+  3. **Only if 2 is positive:** honestly estimate a scoped single-3090 DeepSpec training run for ONE target (the l1.0
+     dense — no working MTP → biggest marginal value) before committing GPU-weeks.
+- **Refs / gates:** PR #25173; DeepSpec repo; DSpark blog (57–85% vs no-draft — note ours is vs-MTP, a harder bar);
+  reuse `ops/a1_mtp_depth_bench.py` (MODELSET/TASK/SPECS knobs) + `ops/spec-drafter-bench.sh` (no-spec floor + CI + 3
+  regimes) for the A/Bs. Pin-watch unchanged (cherry-pick #25173, don't bump).
 
 ---
 
