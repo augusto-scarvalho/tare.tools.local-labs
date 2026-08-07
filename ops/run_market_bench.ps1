@@ -13,12 +13,13 @@ param(
   [int]$HumanEvalN = 60,
   [int]$Gsm8kN = 200,
   [int]$MaxTokens = 4096,
-  [string]$Tag = "market-r0"
+  [string]$Tag = "market-r0",
+  [string]$Model = "fable-tc-l1.0-q4"
 )
 $ErrorActionPreference = "Continue"
 Set-Location C:\projects\local-model-lifecycle
 $env:PYTHONPATH = "src"
-$MODEL = "fable-tc-l1.0-q4"
+$MODEL = $Model
 $OUT = "runs\quality-market"
 New-Item -ItemType Directory -Force -Path $OUT | Out-Null
 $log = Join-Path $OUT "run.log"
@@ -35,13 +36,14 @@ python a2_concision_bench.py --model $MODEL --workload gsm8k --subset $Gsm8kN --
 # 2) SCORE HumanEval+ via evalplus (code executed in the WSL sandbox; subset-aware)
 Log "--- score HumanEval+ (evalplus, WSL sandbox) ---"
 $samplesWsl = "/mnt/c/projects/local-model-lifecycle/runs/a2/${Tag}__${MODEL}__humaneval__samples.jsonl"
-$heScore = Join-Path $OUT "humaneval_score.txt"
+$heScore = Join-Path $OUT "humaneval_score_$MODEL.txt"
 $heOut = (wsl.exe -d Ubuntu-24.04 -- bash -lc "cd /mnt/c/projects/local-model-lifecycle && /home/augus/evalplus-venv/bin/python3 score_subset.py $samplesWsl" 2>&1 | Out-String)
 Set-Content -Path $heScore -Value $heOut -Encoding utf8   # UTF-8 (summarizer is also BOM-aware)
 Add-Content -Path $log -Value $heOut
 
-# 3) SUMMARIZE (GSM8K numeric accuracy + decode t/s + concision) -> SUMMARY.md
-Log "--- summarize -> SUMMARY.md ---"
-python ops\summarize_market_bench.py --tag $Tag --model $MODEL --out (Join-Path $OUT "SUMMARY.md") *>> $log
+# 3) SUMMARIZE (GSM8K numeric accuracy + decode t/s + concision) -> SUMMARY_<model>.md
+$summaryPath = Join-Path $OUT "SUMMARY_$MODEL.md"
+Log "--- summarize -> SUMMARY_$MODEL.md ---"
+python ops\summarize_market_bench.py --tag $Tag --model $MODEL --out $summaryPath --he-score-file $heScore *>> $log
 
 Log "===== DONE tag=$Tag ====="
