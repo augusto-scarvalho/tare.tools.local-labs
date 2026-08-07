@@ -64,6 +64,13 @@ records. This is the durable handoff — read it first after a context reset.
 > greedy (quality-neutral on HumanEval+, but not bit-exact — the FORK.md "token-exact" is fork==base, not
 > spec==greedy). Regression gate: `ops/spec-drafter-bench.sh` (no-spec floor + CI + 3 regimes).
 >
+> **Also do NOT use trained EAGLE-family drafts (DFlash/DSpark/Eagle3) — CLOSED NEGATIVE (A5, 2026-08-06, built +
+> measured; `runs/a5-dspark/RESULTS.md`).** They inject the target's internal hidden-states, so they **crash on VLM
+> graphs** (`t_layer_inp` null on qwen3vl) and, even where they load on text (qwen35), a heavy bf16 external drafter is
+> **−81.6%** vs the free in-model nextn head on this bandwidth-bound box (fable-tc: nospec 43 → native-MTP 55 → DSpark
+> 7.9 t/s). Native `draft-mtp` wins everywhere. The #25173 cherry-pick is banked (branch `dspark-probe`, inert) for a
+> hypothetical future *vanilla* Qwen3 text model only.
+>
 > **GEMM path = leave it default (MMQ int8-TC) — do NOT force cuBLAS (S2, closed + double-checked 2026-08-04).**
 > llama.cpp already runs the INT8-Tensor-Core fused-dequant GEMM (MMQ, `s8.s8.s32`) by default on the 3090 for
 > Q4_K at every batch. For the deploy MoE it beats the dequant→FP16→cuBLAS path by **~+284%** (ncmoe=8) — and

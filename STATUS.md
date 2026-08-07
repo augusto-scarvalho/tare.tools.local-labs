@@ -515,6 +515,35 @@ the cached prefix (measure decode jitter, not reload variance) but the huge, mon
 signal is far outside any plausible variance. Gate banked: `ops/a1_mtp_depth_bench.py` (`MODELSET/TASK/DEPTHS`
 knobs). Raw: `runs/a1-mtp-depth/a1_depth.csv` (extremes, both models) + `a1b_curve.csv` (5-depth curves).
 
+## §A5 — trained EAGLE-family draft (DFlash/DSpark/Eagle3) vs the native MTP head: CLOSED NEGATIVE — DSpark is dead for our fleet (2026-08-06, built + measured)
+
+**Question:** DeepSeek's DSpark (DFlash + a Markov head; llama.cpp PR #25173, merged after our pin) is the current
+best trained-draft variant. Can it beat our free in-model MTP head anywhere on this fleet? **Answer: no — it either
+crashes or loses badly.** Full record `runs/a5-dspark/RESULTS.md`; card `IDEAS_BACKLOG.md` §A5; drivers
+`ops/a5_dspark_{ab,qwen,dense}.py`.
+
+**Built it:** cherry-picked #25173 onto a probe branch `dspark-probe` (clean — the DFlash refactor #25110 it needs
+was already in-tree; binary then listed `draft-dspark`). Deploy `lifecycle` restored afterward (binary rebuilt,
+`draft-dspark` back out of the default enum; the cherry-pick is banked on the branch, inert).
+
+**Measured on 3 fronts:**
+- **qwen3-vl-8b (arch qwen3vl):** the converted draft LOADS (vocab 151936 + dims match Qwen3-8B exactly) but
+  **CRASHES on first decode** — `llama-graph.cpp:1247 GGML_ASSERT(t_layer_inp[il] != nullptr)`. EAGLE-family drafts
+  inject the target's internal hidden-states (n_extract=5 layers); the **vision graph doesn't expose them** → null.
+- **gemma-4-12b-vision:** incumbent MTP-assistant is already strong (nospec 83 → **228 t/s, +175%, accept 0.939** on
+  reasoning text). The public DSpark GGUF (ankk98) is **format-incompatible** (ft-dspark FORK arch `dspark` ≠ upstream
+  arch `dflash`); #25173's converter is Qwen-only.
+- **fable-tc dense (arch qwen35) — the decisive text test:** DSpark loads + runs (no crash) but is **−81.6%**:
+  nospec 43.2 → native-MTP 55.0 t/s (+27%, accept 0.444) → **DSpark 7.9 t/s, accept 0.212**. Two compounding killers:
+  (1) accept collapse (base-Qwen3.6-27B-trained draft vs our MERGED target → mispredicts); (2) a 3.73 GB **bf16**
+  drafter with 5 target-layer reads/step is ruinous on a **bandwidth-bound** 3090 vs the ~free in-model nextn head.
+
+**Verdict:** EAGLE-family spec-decode is target-feature-conditioned → **incompatible with VLM graphs, and dominated by
+the free native MTP on text** (batch-1, bandwidth-bound). Native MTP/ngram remain the right tools; DSpark buys nothing
+here. Same "already-captured / null" shape as S1/S2/S3/A3. **Do NOT revisit unless we ever run a *vanilla* Qwen3 text
+model** (then the banked #25173 cherry-pick + a matching released draft could apply). Sibling notes: §E4/§A1/§A4 (MTP),
+§S3 (drafter policy).
+
 ## §B4 — CUDA-graph capture is a +27% decode lever, and llama.cpp already has it ON (2026-08-02)
 
 SGLang's Paged-Experts got 8→197 t/s "largely from CUDA-graph capture over the streamed decode path"
