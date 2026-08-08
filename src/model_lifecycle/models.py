@@ -66,6 +66,7 @@ _GEOM = {
     "mistral-24b":      (40, 0, 0),     # llama arch
     "qwen36-27b-dense": (65, 0, 0),     # qwen35 DENSE -- same family as qwen36-35b MoE
     "thinkingcap-27b":  (65, 0, 0),     # qwen35 DENSE (ThinkingCap finetune)
+    "thinkingcap-27b-mtp": (65, 0, 0), # qwen35 DENSE (ThinkingCap MTP GGUF)
     # A2 T3 (transfer-LoRA target): DavidAU merge + Heretic ARA abliteration of Qwen3.6-27B.
     # Geometry is STOCK (config.json: 64 layers + nextn head = 65 blocks, hidden 5120) -- the
     # gate that lets the rank-64 ThinkingCap LoRA even load. It is Frágil to APPLY (§23.3): the
@@ -135,6 +136,9 @@ _FILES = {
     ],
     "qwen36-27b-mtp": [
         ("q4", "/home/augus/models/qwen36-27b-mtp/Qwen3.6-27B-Q4_K_M.gguf", "Q4_K_M"),
+    ],
+    "thinkingcap-27b-mtp": [
+        ("q4", "/home/augus/models/thinkingcap-27b-mtp/ThinkingCap-Qwen3.6-27B-Q4_K_M-MTP.gguf", "Q4_K_M"),
     ],
     # laguna-s and nemotron-120b removed -- see the _GEOM notes above for why both were
     # discarded (no high-active MoE quant fits a pinning test's file<=26GB rule on this box).
