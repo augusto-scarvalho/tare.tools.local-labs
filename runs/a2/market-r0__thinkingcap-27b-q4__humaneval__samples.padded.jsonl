@@ -1,0 +1,164 @@
+{"task_id": "HumanEval/0", "solution": ""}
+{"task_id": "HumanEval/1", "solution": ""}
+{"task_id": "HumanEval/2", "solution": ""}
+{"task_id": "HumanEval/3", "solution": "def below_zero(operations: List[int]) -> bool:\n    balance = 0\n    for op in operations:\n        balance += op\n        if balance < 0:\n            return True\n    return False"}
+{"task_id": "HumanEval/4", "solution": ""}
+{"task_id": "HumanEval/5", "solution": ""}
+{"task_id": "HumanEval/6", "solution": "from typing import List\n\n\ndef parse_nested_parens(paren_string: str) -> List[int]:\n    \"\"\" Input to this function is a string represented multiple groups for nested parentheses separated by spaces.\n    For each of the group, output the deepest level of nesting of parentheses.\n    E.g. (()()) has maximum two levels of nesting while ((())) has three.\n\n    >>> parse_nested_parens('(()()) ((())) () ((())()())')\n    [2, 3, 1, 3]\n    \"\"\"\n    result = []\n    for group in paren_string.split():\n        current_depth = 0\n        max_depth = 0\n        for char in group:\n            if char == '(':\n                current_depth += 1\n                if current_depth > max_depth:\n                    max_depth = current_depth\n            elif char == ')':\n                current_depth -= 1\n        result.append(max_depth)\n    return result"}
+{"task_id": "HumanEval/7", "solution": ""}
+{"task_id": "HumanEval/8", "solution": ""}
+{"task_id": "HumanEval/9", "solution": ""}
+{"task_id": "HumanEval/10", "solution": "def make_palindrome(string: str) -> str:\n    \"\"\" Find the shortest palindrome that begins with a supplied string.\n    Algorithm idea is simple:\n    - Find the longest postfix of supplied string that is a palindrome.\n    - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.\n    >>> make_palindrome('')\n    ''\n    >>> make_palindrome('cat')\n    'catac'\n    >>> make_palindrome('cata')\n    'catac'\n    \"\"\"\n    for i in range(len(string)):\n        if string[i:] == string[i:][::-1]:\n            return string + string[:i][::-1]\n    return string"}
+{"task_id": "HumanEval/11", "solution": ""}
+{"task_id": "HumanEval/12", "solution": ""}
+{"task_id": "HumanEval/13", "solution": ""}
+{"task_id": "HumanEval/14", "solution": ""}
+{"task_id": "HumanEval/15", "solution": ""}
+{"task_id": "HumanEval/16", "solution": ""}
+{"task_id": "HumanEval/17", "solution": "def parse_music(music_string: str) -> List[int]:\n    mapping = {'o': 4, 'o|': 2, '.|': 1}\n    return [mapping[note] for note in music_string.split()]"}
+{"task_id": "HumanEval/18", "solution": ""}
+{"task_id": "HumanEval/19", "solution": ""}
+{"task_id": "HumanEval/20", "solution": "def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:\n    sorted_nums = sorted(numbers)\n    min_diff = float('inf')\n    closest_pair = (sorted_nums[0], sorted_nums[1])\n    for i in range(len(sorted_nums) - 1):\n        diff = sorted_nums[i+1] - sorted_nums[i]\n        if diff < min_diff:\n            min_diff = diff\n            closest_pair = (sorted_nums[i], sorted_nums[i+1])\n    return closest_pair"}
+{"task_id": "HumanEval/21", "solution": ""}
+{"task_id": "HumanEval/22", "solution": ""}
+{"task_id": "HumanEval/23", "solution": "def strlen(string: str) -> int:\n    \"\"\" Return length of given string\n    >>> strlen('')\n    0\n    >>> strlen('abc')\n    3\n    \"\"\"\n    return len(string)"}
+{"task_id": "HumanEval/24", "solution": ""}
+{"task_id": "HumanEval/25", "solution": ""}
+{"task_id": "HumanEval/26", "solution": ""}
+{"task_id": "HumanEval/27", "solution": ""}
+{"task_id": "HumanEval/28", "solution": "from typing import List\n\n\ndef concatenate(strings: List[str]) -> str:\n    \"\"\" Concatenate list of strings into a single string\n    >>> concatenate([])\n    ''\n    >>> concatenate(['a', 'b', 'c'])\n    'abc'\n    \"\"\"\n    return \"\".join(strings)"}
+{"task_id": "HumanEval/29", "solution": "from typing import List\n\n\ndef filter_by_prefix(strings: List[str], prefix: str) -> List[str]:\n    \"\"\" Filter an input list of strings only for ones that start with a given prefix.\n    >>> filter_by_prefix([], 'a')\n    []\n    >>> filter_by_prefix(['abc', 'bcd', 'cde', 'array'], 'a')\n    ['abc', 'array']\n    \"\"\"\n    return [s for s in strings if s.startswith(prefix)]"}
+{"task_id": "HumanEval/30", "solution": ""}
+{"task_id": "HumanEval/31", "solution": ""}
+{"task_id": "HumanEval/32", "solution": ""}
+{"task_id": "HumanEval/33", "solution": ""}
+{"task_id": "HumanEval/34", "solution": ""}
+{"task_id": "HumanEval/35", "solution": ""}
+{"task_id": "HumanEval/36", "solution": ""}
+{"task_id": "HumanEval/37", "solution": "def sort_even(l: list):\n    evens = sorted(l[::2])\n    res = l[:]\n    res[::2] = evens\n    return res"}
+{"task_id": "HumanEval/38", "solution": "def decode_cyclic(s: str):\n    \"\"\"\n    takes as input string encoded with encode_cyclic function. Returns decoded string.\n    \"\"\"\n    groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]\n    groups = [(group[-1] + group[:-1]) if len(group) == 3 else group for group in groups]\n    return \"\".join(groups)"}
+{"task_id": "HumanEval/39", "solution": ""}
+{"task_id": "HumanEval/40", "solution": ""}
+{"task_id": "HumanEval/41", "solution": "def car_race_collision(n: int):\n    \"\"\"\n    Imagine a road that's a perfectly straight infinitely long line.\n    n cars are driving left to right;  simultaneously, a different set of n cars\n    are driving right to left.   The two sets of cars start out being very far from\n    each other.  All cars move in the same speed.  Two cars are said to collide\n    when a car that's moving left to right hits a car that's moving right to left.\n    However, the cars are infinitely sturdy and strong; as a result, they continue moving\n    in their trajectory as if they did not collide.\n\n    This function outputs the number of such collisions.\n    \"\"\"\n    return n * n"}
+{"task_id": "HumanEval/42", "solution": ""}
+{"task_id": "HumanEval/43", "solution": "def pairs_sum_to_zero(l):\n    seen = set()\n    for x in l:\n        if -x in seen:\n            return True\n        seen.add(x)\n    return False"}
+{"task_id": "HumanEval/44", "solution": ""}
+{"task_id": "HumanEval/45", "solution": "def triangle_area(a, h):\n    \"\"\"Given length of a side and high return area for a triangle.\n    >>> triangle_area(5, 3)\n    7.5\n    \"\"\"\n    return 0.5 * a * h"}
+{"task_id": "HumanEval/46", "solution": ""}
+{"task_id": "HumanEval/47", "solution": "def median(l: list):\n    s = sorted(l)\n    n = len(s)\n    mid = n // 2\n    if n % 2 == 0:\n        return (s[mid - 1] + s[mid]) / 2\n    return s[mid]"}
+{"task_id": "HumanEval/48", "solution": "def is_palindrome(text: str):\n    \"\"\"\n    Checks if given string is a palindrome\n    >>> is_palindrome('')\n    True\n    >>> is_palindrome('aba')\n    True\n    >>> is_palindrome('aaaaa')\n    True\n    >>> is_palindrome('zbcd')\n    False\n    \"\"\"\n    return text == text[::-1]"}
+{"task_id": "HumanEval/49", "solution": ""}
+{"task_id": "HumanEval/50", "solution": ""}
+{"task_id": "HumanEval/51", "solution": ""}
+{"task_id": "HumanEval/52", "solution": ""}
+{"task_id": "HumanEval/53", "solution": "def add(x: int, y: int):\n    \"\"\"Add two numbers x and y\n    >>> add(2, 3)\n    5\n    >>> add(5, 7)\n    12\n    \"\"\"\n    return x + y"}
+{"task_id": "HumanEval/54", "solution": "def same_chars(s0: str, s1: str):\n    \"\"\"\n    Check if two words have the same characters.\n    >>> same_chars('eabcdzzzz', 'dddzzzzzzzddeddabc')\n    True\n    >>> same_chars('abcd', 'dddddddabc')\n    True\n    >>> same_chars('dddddddabc', 'abcd')\n    True\n    >>> same_chars('eabcd', 'dddddddabc')\n    False\n    >>> same_chars('abcd', 'dddddddabce')\n    False\n    >>> same_chars('eabcdzzzz', 'dddzzzzzzzddddabc')\n    False\n    \"\"\"\n    return set(s0) == set(s1)"}
+{"task_id": "HumanEval/55", "solution": "def fib(n: int):\n    \"\"\"Return n-th Fibonacci number.\n    >>> fib(10)\n    55\n    >>> fib(1)\n    1\n    >>> fib(8)\n    21\n    \"\"\"\n    if n <= 0:\n        return 0\n    a, b = 0, 1\n    for _ in range(n - 1):\n        a, b = b, a + b\n    return b"}
+{"task_id": "HumanEval/56", "solution": ""}
+{"task_id": "HumanEval/57", "solution": ""}
+{"task_id": "HumanEval/58", "solution": "def common(l1: list, l2: list):\n    \"\"\"Return sorted unique common elements for two lists.\n    >>> common([1, 4, 3, 34, 653, 2, 5], [5, 7, 1, 5, 9, 653, 121])\n    [1, 5, 653]\n    >>> common([5, 3, 2, 8], [3, 2])\n    [2, 3]\n\n    \"\"\"\n    return sorted(set(l1) & set(l2))"}
+{"task_id": "HumanEval/59", "solution": "def largest_prime_factor(n: int):\n    \"\"\"Return the largest prime factor of n. Assume n > 1 and is not a prime.\n    >>> largest_prime_factor(13195)\n    29\n    >>> largest_prime_factor(2048)\n    2\n    \"\"\"\n    max_prime = -1\n    while n % 2 == 0:\n        max_prime = 2\n        n //= 2\n    i = 3\n    while i * i <= n:\n        while n % i == 0:\n            max_prime = i\n            n //= i\n        i += 2\n    if n > 2:\n        max_prime = n\n    return max_prime"}
+{"task_id": "HumanEval/60", "solution": ""}
+{"task_id": "HumanEval/61", "solution": ""}
+{"task_id": "HumanEval/62", "solution": "def derivative(xs: list):\n    \"\"\" xs represent coefficients of a polynomial.\n    xs[0] + xs[1] * x + xs[2] * x^2 + ....\n     Return derivative of this polynomial in the same form.\n    >>> derivative([3, 1, 2, 4, 5])\n    [1, 4, 12, 20]\n    >>> derivative([1, 2, 3])\n    [2, 6]\n    \"\"\"\n    return [i * xs[i] for i in range(1, len(xs))]"}
+{"task_id": "HumanEval/63", "solution": ""}
+{"task_id": "HumanEval/64", "solution": "def vowels_count(s):\n    count = sum(1 for c in s if c.lower() in 'aeiou')\n    if s and s[-1].lower() == 'y':\n        count += 1\n    return count"}
+{"task_id": "HumanEval/65", "solution": ""}
+{"task_id": "HumanEval/66", "solution": ""}
+{"task_id": "HumanEval/67", "solution": ""}
+{"task_id": "HumanEval/68", "solution": "def pluck(arr):\n    min_val = None\n    min_idx = -1\n    for i, val in enumerate(arr):\n        if val % 2 == 0:\n            if min_val is None or val < min_val:\n                min_val = val\n                min_idx = i\n    if min_val is not None:\n        return [min_val, min_idx]\n    return []"}
+{"task_id": "HumanEval/69", "solution": "def search(lst):\n    counts = {}\n    for x in lst:\n        counts[x] = counts.get(x, 0) + 1\n    valid = [x for x, c in counts.items() if c >= x]\n    return max(valid) if valid else -1"}
+{"task_id": "HumanEval/70", "solution": ""}
+{"task_id": "HumanEval/71", "solution": ""}
+{"task_id": "HumanEval/72", "solution": ""}
+{"task_id": "HumanEval/73", "solution": "def smallest_change(arr):\n    changes = 0\n    n = len(arr)\n    for i in range(n // 2):\n        if arr[i] != arr[n - 1 - i]:\n            changes += 1\n    return changes"}
+{"task_id": "HumanEval/74", "solution": "def total_match(lst1, lst2):\n    return lst1 if sum(len(s) for s in lst1) <= sum(len(s) for s in lst2) else lst2"}
+{"task_id": "HumanEval/75", "solution": ""}
+{"task_id": "HumanEval/76", "solution": ""}
+{"task_id": "HumanEval/77", "solution": "def iscube(a):\n    '''\n    Write a function that takes an integer a and returns True \n    if this ingeger is a cube of some integer number.\n    Note: you may assume the input is always valid.\n    Examples:\n    iscube(1) ==> True\n    iscube(2) ==> False\n    iscube(-1) ==> True\n    iscube(64) ==> True\n    iscube(0) ==> True\n    iscube(180) ==> False\n    '''\n    if a < 0:\n        a = -a\n    c = round(a ** (1/3))\n    return c ** 3 == a"}
+{"task_id": "HumanEval/78", "solution": ""}
+{"task_id": "HumanEval/79", "solution": ""}
+{"task_id": "HumanEval/80", "solution": ""}
+{"task_id": "HumanEval/81", "solution": ""}
+{"task_id": "HumanEval/82", "solution": ""}
+{"task_id": "HumanEval/83", "solution": ""}
+{"task_id": "HumanEval/84", "solution": ""}
+{"task_id": "HumanEval/85", "solution": ""}
+{"task_id": "HumanEval/86", "solution": ""}
+{"task_id": "HumanEval/87", "solution": "def get_row(lst, x):\n    \"\"\"\n    You are given a 2 dimensional data, as a nested lists,\n    which is similar to matrix, however, unlike matrices,\n    each row may contain a different number of columns.\n    Given lst, and integer x, find integers x in the list,\n    and return list of tuples, [(x1, y1), (x2, y2) ...] such that\n    each tuple is a coordinate - (row, columns), starting with 0.\n    Sort coordinates initially by rows in ascending order.\n    Also, sort coordinates of the row by columns in descending order.\n    \n    Examples:\n    get_row([\n      [1,2,3,4,5,6],\n      [1,2,3,4,1,6],\n      [1,2,3,4,5,1]\n    ], 1) == [(0, 0), (1, 4), (1, 0), (2, 5), (2, 0)]\n    get_row([], 1) == []\n    get_row([[], [1], [1, 2, 3]], 3) == [(2, 2)]\n    \"\"\"\n    result = []\n    for i, row in enumerate(lst):\n        cols = [j for j, val in enumerate(row) if val == x]\n        cols.sort(reverse=True)\n        for j in cols:\n            result.append((i, j))\n    return result"}
+{"task_id": "HumanEval/88", "solution": "def sort_array(array):\n    if not array:\n        return []\n    if (array[0] + array[-1]) % 2 == 1:\n        return sorted(array)\n    return sorted(array, reverse=True)"}
+{"task_id": "HumanEval/89", "solution": ""}
+{"task_id": "HumanEval/90", "solution": "def next_smallest(lst):\n    unique = sorted(set(lst))\n    return unique[1] if len(unique) >= 2 else None"}
+{"task_id": "HumanEval/91", "solution": ""}
+{"task_id": "HumanEval/92", "solution": "def any_int(x, y, z):\n    if isinstance(x, int) and isinstance(y, int) and isinstance(z, int):\n        return x == y + z or y == x + z or z == x + y\n    return False"}
+{"task_id": "HumanEval/93", "solution": ""}
+{"task_id": "HumanEval/94", "solution": "def skjkasdkd(lst):\n    def is_prime(n):\n        if n <= 1:\n            return False\n        if n <= 3:\n            return True\n        if n % 2 == 0 or n % 3 == 0:\n            return False\n        i = 5\n        while i * i <= n:\n            if n % i == 0 or n % (i + 2) == 0:\n                return False\n            i += 6\n        return True\n\n    primes = [x for x in lst if is_prime(x)]\n    if not primes:\n        return 0\n    max_prime = max(primes)\n    return sum(int(d) for d in str(max_prime))"}
+{"task_id": "HumanEval/95", "solution": ""}
+{"task_id": "HumanEval/96", "solution": "def count_up_to(n):\n    primes = []\n    for num in range(2, n):\n        is_prime = True\n        for i in range(2, int(num**0.5) + 1):\n            if num % i == 0:\n                is_prime = False\n                break\n        if is_prime:\n            primes.append(num)\n    return primes"}
+{"task_id": "HumanEval/97", "solution": "def multiply(a, b):\n    \"\"\"Complete the function that takes two integers and returns \n    the product of their unit digits.\n    Assume the input is always valid.\n    Examples:\n    multiply(148, 412) should return 16.\n    multiply(19, 28) should return 72.\n    multiply(2020, 1851) should return 0.\n    multiply(14,-15) should return 20.\n    \"\"\"\n    return (abs(a) % 10) * (abs(b) % 10)"}
+{"task_id": "HumanEval/98", "solution": ""}
+{"task_id": "HumanEval/99", "solution": ""}
+{"task_id": "HumanEval/100", "solution": "def make_a_pile(n):\n    return [n + 2 * i for i in range(n)]"}
+{"task_id": "HumanEval/101", "solution": ""}
+{"task_id": "HumanEval/102", "solution": ""}
+{"task_id": "HumanEval/103", "solution": "def rounded_avg(n, m):\n    if n > m:\n        return -1\n    return bin(round((n + m) / 2))"}
+{"task_id": "HumanEval/104", "solution": ""}
+{"task_id": "HumanEval/105", "solution": ""}
+{"task_id": "HumanEval/106", "solution": "def f(n):\n    result = []\n    for i in range(1, n + 1):\n        if i % 2 == 0:\n            val = 1\n            for j in range(1, i + 1):\n                val *= j\n            result.append(val)\n        else:\n            result.append(i * (i + 1) // 2)\n    return result"}
+{"task_id": "HumanEval/107", "solution": "def even_odd_palindrome(n):\n    even_count = 0\n    odd_count = 0\n    for i in range(1, n + 1):\n        s = str(i)\n        if s == s[::-1]:\n            if i % 2 == 0:\n                even_count += 1\n            else:\n                odd_count += 1\n    return (even_count, odd_count)"}
+{"task_id": "HumanEval/108", "solution": "def count_nums(arr):\n    count = 0\n    for n in arr:\n        s = str(n)\n        digit_sum = 0\n        is_neg = s.startswith('-')\n        for i, char in enumerate(s):\n            if char == '-':\n                continue\n            digit = int(char)\n            if is_neg and i == 1:\n                digit_sum -= digit\n            else:\n                digit_sum += digit\n        if digit_sum > 0:\n            count += 1\n    return count"}
+{"task_id": "HumanEval/109", "solution": ""}
+{"task_id": "HumanEval/110", "solution": ""}
+{"task_id": "HumanEval/111", "solution": ""}
+{"task_id": "HumanEval/112", "solution": ""}
+{"task_id": "HumanEval/113", "solution": ""}
+{"task_id": "HumanEval/114", "solution": "def minSubArraySum(nums):\n    min_ending_here = nums[0]\n    min_so_far = nums[0]\n    for num in nums[1:]:\n        min_ending_here = min(num, min_ending_here + num)\n        min_so_far = min(min_so_far, min_ending_here)\n    return min_so_far"}
+{"task_id": "HumanEval/115", "solution": ""}
+{"task_id": "HumanEval/116", "solution": ""}
+{"task_id": "HumanEval/117", "solution": "def select_words(s, n):\n    vowels = set(\"aeiouAEIOU\")\n    return [word for word in s.split() if sum(1 for c in word if c not in vowels) == n]"}
+{"task_id": "HumanEval/118", "solution": ""}
+{"task_id": "HumanEval/119", "solution": "def match_parens(lst):\n    def is_balanced(s):\n        count = 0\n        for char in s:\n            if char == '(':\n                count += 1\n            else:\n                count -= 1\n            if count < 0:\n                return False\n        return count == 0\n        \n    s1, s2 = lst\n    return 'Yes' if is_balanced(s1 + s2) or is_balanced(s2 + s1) else 'No'"}
+{"task_id": "HumanEval/120", "solution": ""}
+{"task_id": "HumanEval/121", "solution": "def solution(lst):\n    return sum(x for i, x in enumerate(lst) if i % 2 == 0 and x % 2 != 0)"}
+{"task_id": "HumanEval/122", "solution": "def add_elements(arr, k):\n    return sum(x for x in arr[:k] if abs(x) < 100)"}
+{"task_id": "HumanEval/123", "solution": ""}
+{"task_id": "HumanEval/124", "solution": ""}
+{"task_id": "HumanEval/125", "solution": "def split_words(txt):\n    if ' ' in txt:\n        return txt.split()\n    if ',' in txt:\n        return txt.split(',')\n    return sum(1 for c in txt if c.islower() and (ord(c) - ord('a')) % 2 == 1)"}
+{"task_id": "HumanEval/126", "solution": "def is_sorted(lst):\n    '''\n    Given a list of numbers, return whether or not they are sorted\n    in ascending order. If list has more than 1 duplicate of the same\n    number, return False. Assume no negative numbers and only integers.\n\n    Examples\n    is_sorted([5]) \u279e True\n    is_sorted([1, 2, 3, 4, 5]) \u279e True\n    is_sorted([1, 3, 2, 4, 5]) \u279e False\n    is_sorted([1, 2, 3, 4, 5, 6]) \u279e True\n    is_sorted([1, 2, 3, 4, 5, 6, 7]) \u279e True\n    is_sorted([1, 3, 2, 4, 5, 6, 7]) \u279e False\n    is_sorted([1, 2, 2, 3, 3, 4]) \u279e True\n    is_sorted([1, 2, 2, 2, 3, 4]) \u279e False\n    '''\n    return lst == sorted(lst) and all(lst.count(x) <= 2 for x in set(lst))"}
+{"task_id": "HumanEval/127", "solution": ""}
+{"task_id": "HumanEval/128", "solution": ""}
+{"task_id": "HumanEval/129", "solution": "def minPath(grid, k):\n    n = len(grid)\n    start_r, start_c = next((r, c) for r in range(n) for c in range(n) if grid[r][c] == 1)\n    path = [1]\n    curr_r, curr_c = start_r, start_c\n    for _ in range(k - 1):\n        min_val = float('inf')\n        next_r, next_c = curr_r, curr_c\n        for dr, dc in [(0, 1), (0, -1), (1, 0), (-1, 0)]:\n            nr, nc = curr_r + dr, curr_c + dc\n            if 0 <= nr < n and 0 <= nc < n and grid[nr][nc] < min_val:\n                min_val = grid[nr][nc]\n                next_r, next_c = nr, nc\n        path.append(min_val)\n        curr_r, curr_c = next_r, next_c\n    return path"}
+{"task_id": "HumanEval/130", "solution": "def tri(n):\n    res = []\n    for i in range(n + 1):\n        if i == 0:\n            res.append(1)\n        elif i == 1:\n            res.append(3)\n        elif i % 2 == 0:\n            res.append(1 + i // 2)\n        else:\n            res.append(res[-1] + res[-2] + 1 + (i + 1) // 2)\n    return res"}
+{"task_id": "HumanEval/131", "solution": ""}
+{"task_id": "HumanEval/132", "solution": ""}
+{"task_id": "HumanEval/133", "solution": "import math\n\ndef sum_squares(lst):\n    return sum(math.ceil(x) ** 2 for x in lst)"}
+{"task_id": "HumanEval/134", "solution": ""}
+{"task_id": "HumanEval/135", "solution": ""}
+{"task_id": "HumanEval/136", "solution": ""}
+{"task_id": "HumanEval/137", "solution": ""}
+{"task_id": "HumanEval/138", "solution": ""}
+{"task_id": "HumanEval/139", "solution": "def special_factorial(n):\n    \"\"\"The Brazilian factorial is defined as:\n    brazilian_factorial(n) = n! * (n-1)! * (n-2)! * ... * 1!\n    where n > 0\n\n    For example:\n    >>> special_factorial(4)\n    288\n\n    The function will receive an integer as input and should return the special\n    factorial of this integer.\n    \"\"\"\n    result = 1\n    current_fact = 1\n    for i in range(1, n + 1):\n        current_fact *= i\n        result *= current_fact\n    return result"}
+{"task_id": "HumanEval/140", "solution": "import re\n\ndef fix_spaces(text):\n    \"\"\"\n    Given a string text, replace all spaces in it with underscores, \n    and if a string has more than 2 consecutive spaces, \n    then replace all consecutive spaces with - \n    \n    fix_spaces(\"Example\") == \"Example\"\n    fix_spaces(\"Example 1\") == \"Example_1\"\n    fix_spaces(\" Example 2\") == \"_Example_2\"\n    fix_spaces(\" Example   3\") == \"_Example-3\"\n    \"\"\"\n    return re.sub(r' {3,}', '-', text).replace(' ', '_')"}
+{"task_id": "HumanEval/141", "solution": ""}
+{"task_id": "HumanEval/142", "solution": "def sum_squares(lst):\n    total = 0\n    for i, val in enumerate(lst):\n        if i % 3 == 0:\n            total += val ** 2\n        elif i % 4 == 0:\n            total += val ** 3\n        else:\n            total += val\n    return total"}
+{"task_id": "HumanEval/143", "solution": ""}
+{"task_id": "HumanEval/144", "solution": ""}
+{"task_id": "HumanEval/145", "solution": "def order_by_points(nums):\n    return sorted(nums, key=lambda x: sum(int(d) for d in str(abs(x))))"}
+{"task_id": "HumanEval/146", "solution": "def specialFilter(nums):\n    count = 0\n    for num in nums:\n        if num > 10:\n            s = str(num)\n            if int(s[0]) % 2 != 0 and int(s[-1]) % 2 != 0:\n                count += 1\n    return count"}
+{"task_id": "HumanEval/147", "solution": ""}
+{"task_id": "HumanEval/148", "solution": ""}
+{"task_id": "HumanEval/149", "solution": ""}
+{"task_id": "HumanEval/150", "solution": ""}
+{"task_id": "HumanEval/151", "solution": ""}
+{"task_id": "HumanEval/152", "solution": ""}
+{"task_id": "HumanEval/153", "solution": ""}
+{"task_id": "HumanEval/154", "solution": "def cycpattern_check(a , b):\n    \"\"\"You are given 2 words. You need to return True if the second word or any of its rotations is a substring in the first word\n    cycpattern_check(\"abcd\",\"abd\") => False\n    cycpattern_check(\"hello\",\"ell\") => True\n    cycpattern_check(\"whassup\",\"psus\") => False\n    cycpattern_check(\"abab\",\"baa\") => True\n    cycpattern_check(\"efef\",\"eeff\") => False\n    cycpattern_check(\"himenss\",\"simen\") => True\n\n    \"\"\"\n    return any(b[i:] + b[:i] in a for i in range(len(b)))"}
+{"task_id": "HumanEval/155", "solution": ""}
+{"task_id": "HumanEval/156", "solution": ""}
+{"task_id": "HumanEval/157", "solution": ""}
+{"task_id": "HumanEval/158", "solution": "def find_max(words):\n    return min(words, key=lambda w: (-len(set(w)), w))"}
+{"task_id": "HumanEval/159", "solution": ""}
+{"task_id": "HumanEval/160", "solution": ""}
+{"task_id": "HumanEval/161", "solution": "def solve(s):\n    if not any(c.isalpha() for c in s):\n        return s[::-1]\n    return s.swapcase()"}
+{"task_id": "HumanEval/162", "solution": "import hashlib\n\ndef string_to_md5(text):\n    if not text:\n        return None\n    return hashlib.md5(text.encode()).hexdigest()"}
+{"task_id": "HumanEval/163", "solution": ""}
