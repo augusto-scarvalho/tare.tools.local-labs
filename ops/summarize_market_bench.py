@@ -38,6 +38,14 @@ def _reasoning_median(recs):
     return rt[len(rt) // 2] if rt else None
 
 
+def _wall_clock(recs):
+    sec = [r["predicted_ms"] / 1000.0 for r in recs if r.get("predicted_ms")]
+    if not sec:
+        return None
+    return {"median": statistics.median(sec), "mean": statistics.mean(sec),
+            "total_min": sum(sec) / 60.0, "n": len(sec)}
+
+
 def _answered(recs):
     return sum(1 for r in recs if r.get("answered")), len([r for r in recs if r.get("task_id")])
 
@@ -76,10 +84,14 @@ def main():
     gs_acc = f"{gs_c}/{gs_n} ({100*gs_c/gs_n:.1f}%)" if gs_n else "n/a"
 
     he_sp, gs_sp = _speed(he), _speed(gs)
+    he_wc, gs_wc = _wall_clock(he), _wall_clock(gs)
     he_ans = _answered(he); gs_ans = _answered(gs)
 
     def sp(s):
-        return f"{s['median']:.1f} t/s (mean {s['mean']:.1f}, n={s['n']})" if s else "n/a"
+        return f"{s['median']:.1f} t/s (mean {s['mean']:.1f})" if s else "n/a"
+
+    def wc(w):
+        return f"{w['median']:.1f}s median (total {w['total_min']:.1f} min)" if w else "n/a"
 
     lines = [
         f"# fable-tc l1.0 - quality + speed benchmark (market comparison baseline)",
@@ -91,16 +103,16 @@ def main():
         f"(prompts <500 tok); the fork's MoE/long-context levers (placement, prefetch, KV-host-pin, GDN)",
         f"do not apply to a dense short-context run (GDN is even -2 to -4% on the dense H=48).",
         "",
-        "| Axis | Benchmark | Score | Answered | Decode speed (MTP) |",
-        "|------|-----------|-------|----------|--------------------|",
-        f"| Code | HumanEval (base) | {he_base} | {he_ans[0]}/{he_ans[1]} | {sp(he_sp)} |",
-        f"| Code | HumanEval+ (plus)| {he_plus} | - | - |",
-        f"| Reasoning/math | GSM8K | {gs_acc} | {gs_ans[0]}/{gs_ans[1]} | {sp(gs_sp)} |",
+        "| Axis | Benchmark | Score | Answered | Wall-clock time (sec) | Throughput (t/s) |",
+        "|------|-----------|-------|----------|-----------------------|------------------|",
+        f"| Code | HumanEval (base) | {he_base} | {he_ans[0]}/{he_ans[1]} | {wc(he_wc)} | {sp(he_sp)} |",
+        f"| Code | HumanEval+ (plus)| {he_plus} | - | - | - |",
+        f"| Reasoning/math | GSM8K | {gs_acc} | {gs_ans[0]}/{gs_ans[1]} | {wc(gs_wc)} | {sp(gs_sp)} |",
         "",
         f"Concision (median reasoning tokens): HumanEval {_reasoning_median(he)}, GSM8K {_reasoning_median(gs)}.",
         "",
         "Raw records: `runs/a2/{tag}__{model}__{{humaneval,gsm8k}}.json` (one record per problem, pass@1",
-        "recomputable with a CI, per-problem t/s and reasoning trace kept). Reproduce: `ops/run_market_bench.ps1`.",
+        "recomputable with a CI, per-problem t/s, wall-clock time and reasoning trace kept). Reproduce: `ops/run_market_bench.ps1`.",
         f"Tag `{a.tag}`. Scale up by re-running the same tag with a larger --subset (nested, resumes, no rework).",
     ]
     outp = pathlib.Path(a.out)

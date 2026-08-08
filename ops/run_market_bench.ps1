@@ -14,7 +14,8 @@ param(
   [int]$Gsm8kN = 200,
   [int]$MaxTokens = 4096,
   [string]$Tag = "market-r0",
-  [string]$Model = "fable-tc-l1.0-q4"
+  [string]$Model = "fable-tc-l1.0-q4",
+  [string]$Spec = "draft-mtp"
 )
 $ErrorActionPreference = "Continue"
 Set-Location C:\projects\local-model-lifecycle
@@ -25,13 +26,13 @@ New-Item -ItemType Directory -Force -Path $OUT | Out-Null
 $log = Join-Path $OUT "run.log"
 function Log($m) { $line = "{0}  {1}" -f ([DateTime]::Now.ToString('u')), $m; Add-Content -Path $log -Value $line; Write-Output $line }
 
-Log "===== START tag=$Tag humaneval=$HumanEvalN gsm8k=$Gsm8kN max_tokens=$MaxTokens ====="
+Log "===== START tag=$Tag humaneval=$HumanEvalN gsm8k=$Gsm8kN max_tokens=$MaxTokens model=$MODEL spec=$Spec ====="
 
-# 1) GENERATE (self-serves fable-tc with MTP; records quality inputs + per-problem t/s)
+# 1) GENERATE (self-serves model; records quality inputs + per-problem t/s)
 Log "--- generate HumanEval+ (n=$HumanEvalN) ---"
-python a2_concision_bench.py --model $MODEL --workload humaneval --subset $HumanEvalN --spec draft-mtp --max-tokens $MaxTokens --tag $Tag *>> $log
+python a2_concision_bench.py --model $MODEL --workload humaneval --subset $HumanEvalN --spec $Spec --max-tokens $MaxTokens --tag $Tag *>> $log
 Log "--- generate GSM8K (n=$Gsm8kN) ---"
-python a2_concision_bench.py --model $MODEL --workload gsm8k --subset $Gsm8kN --spec draft-mtp --max-tokens $MaxTokens --tag $Tag *>> $log
+python a2_concision_bench.py --model $MODEL --workload gsm8k --subset $Gsm8kN --spec $Spec --max-tokens $MaxTokens --tag $Tag *>> $log
 
 # 2) SCORE HumanEval+ via evalplus (code executed in the WSL sandbox; subset-aware)
 Log "--- score HumanEval+ (evalplus, WSL sandbox) ---"
