@@ -24,11 +24,15 @@ with padded.open("w") as f:
     for tid in allp:
         f.write(json.dumps({"task_id": tid, "solution": mine.get(tid, "")}) + "\n")
 
+# evalplus SKIPS evaluation and reuses <padded>_eval_results.json if it already exists. When the
+# samples change but the padded filename is reused (re-scoring a corrected run), that silently
+# returns the STALE verdicts. Delete it so every score reflects the current solutions.
+res_path = padded.with_name(padded.stem + "_eval_results.json")  # evalplus: X.jsonl -> X_eval_results.json
+res_path.unlink(missing_ok=True)
+
 subprocess.run([sys.executable, "-m", "evalplus.evaluate", "--dataset", "humaneval",
                 "--samples", str(padded)], check=True,
                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-res_path = padded.with_name(padded.stem + "_eval_results.json")  # evalplus: X.jsonl -> X_eval_results.json
 res = json.loads(res_path.read_text())
 evald = res["eval"]            # {task_id: [ {base_status, plus_status, ...} ]}
 

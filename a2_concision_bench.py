@@ -286,12 +286,23 @@ def main() -> int:
     # HumanEval+ needs the evalplus samples file (scored in WSL, executes code). GSM8K is
     # scored offline by a2_stats from the recorded completion -- no samples file needed.
     if args.workload == "humaneval":
+        # evalplus does NOT prepend the HumanEval prompt: `solution` must be a SELF-CONTAINED
+        # program (imports + prompt-provided helpers + the target function). Our instruction
+        # asks the model to "Complete the following Python function", so a CONCISE model
+        # correctly continues the prompt -- returning ONLY the target function and relying on
+        # the helpers/imports already in the prompt (e.g. HumanEval/10 uses the prompt's
+        # `is_palindrome`). Storing the bare completion then scores those continuations as 0
+        # (NameError), which zeroed the ThinkingCap models while sparing verbose ones that
+        # happen to re-emit everything. Prepend the prompt so both styles score fairly; for a
+        # model that already re-emits the signature this only adds a harmless redefinition.
+        prompts = {p["task_id"]: p["prompt"] for p in load_problems(args.workload)}
         samples = out / f"{stem}__samples.jsonl"
         with samples.open("w", encoding="utf-8") as f:
             for r in recs:
-                if r.get("task_id"):
-                    f.write(json.dumps({"task_id": r["task_id"],
-                                        "solution": r["completion"]}) + "\n")
+                tid = r.get("task_id")
+                if tid:
+                    solution = prompts[tid] + "\n" + r["completion"]
+                    f.write(json.dumps({"task_id": tid, "solution": solution}) + "\n")
         print(f"  samples -> {samples}")
 
     print(f"  records -> {out / f'{stem}.json'}")
