@@ -44,6 +44,8 @@ import random
 import sys
 import time
 
+from benchmark_harness_qa import assemble_humaneval_solution  # single source of truth (LAB-QA-001)
+
 sys.path.insert(0, str(pathlib.Path(__file__).parent / "src"))
 
 from model_lifecycle.collectors.host import sample                 # noqa: E402
@@ -301,7 +303,7 @@ def main() -> int:
             for r in recs:
                 tid = r.get("task_id")
                 if tid:
-                    solution = prompts[tid] + "\n" + r["completion"]
+                    solution = assemble_humaneval_solution(prompts[tid], r["completion"])
                     f.write(json.dumps({"task_id": tid, "solution": solution}) + "\n")
         print(f"  samples -> {samples}")
 

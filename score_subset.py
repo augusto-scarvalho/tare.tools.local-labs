@@ -8,6 +8,7 @@ venv:  /home/augus/evalplus-venv/bin/python score_subset.py <subset_samples.json
 """
 import sys, json, subprocess, pathlib
 from evalplus.data import get_human_eval_plus
+from benchmark_harness_qa import pad_subset, bust_stale_results  # single source of truth (LAB-QA-001)
 
 samples = pathlib.Path(sys.argv[1])
 mine = {}
@@ -21,14 +22,13 @@ print(f"subset: {len(subset_ids)} problems from {samples.name}")
 allp = list(get_human_eval_plus())
 padded = samples.with_suffix(".padded.jsonl")
 with padded.open("w") as f:
-    for tid in allp:
-        f.write(json.dumps({"task_id": tid, "solution": mine.get(tid, "")}) + "\n")
+    for row in pad_subset(mine, list(allp)):
+        f.write(json.dumps(row) + "\n")
 
-# evalplus SKIPS evaluation and reuses <padded>_eval_results.json if it already exists. When the
-# samples change but the padded filename is reused (re-scoring a corrected run), that silently
-# returns the STALE verdicts. Delete it so every score reflects the current solutions.
+# evalplus reuses <padded>_eval_results.json if present -> stale verdicts when re-scoring a
+# corrected samples file under the same name. Bust it so every score reflects current solutions.
 res_path = padded.with_name(padded.stem + "_eval_results.json")  # evalplus: X.jsonl -> X_eval_results.json
-res_path.unlink(missing_ok=True)
+bust_stale_results(res_path)
 
 subprocess.run([sys.executable, "-m", "evalplus.evaluate", "--dataset", "humaneval",
                 "--samples", str(padded)], check=True,

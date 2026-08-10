@@ -16,6 +16,7 @@ import subprocess
 import sys
 
 from evalplus.data import get_human_eval_plus
+from benchmark_harness_qa import pad_subset, bust_stale_results  # single source of truth (LAB-QA-001)
 
 samples = pathlib.Path(sys.argv[1])
 out = pathlib.Path(sys.argv[2]) if len(sys.argv) > 2 else samples.with_name(
@@ -33,13 +34,13 @@ subset_ids = list(mine)
 allp = list(get_human_eval_plus())
 padded = samples.with_suffix(".padded.jsonl")
 with padded.open("w") as f:
-    for tid in allp:
-        f.write(json.dumps({"task_id": tid, "solution": mine.get(tid, "")}) + "\n")
+    for row in pad_subset(mine, list(allp)):
+        f.write(json.dumps(row) + "\n")
 
-res_path = padded.with_name(padded.stem + "_eval_results.json")
 # evalplus reuses <padded>_eval_results.json if present -> stale verdicts when re-scoring a
-# corrected samples file under the same name. Delete it so the score is always current.
-res_path.unlink(missing_ok=True)
+# corrected samples file under the same name. Bust it so the score is always current.
+res_path = padded.with_name(padded.stem + "_eval_results.json")
+bust_stale_results(res_path)
 
 subprocess.run([sys.executable, "-m", "evalplus.evaluate", "--dataset", "humaneval",
                 "--samples", str(padded)], check=True,
