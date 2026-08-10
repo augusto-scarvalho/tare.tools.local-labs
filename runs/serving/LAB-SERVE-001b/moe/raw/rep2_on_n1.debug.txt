@@ -1,0 +1,32 @@
+CMD: cd /mnt/c/projects/local-model-lifecycle && /home/augus/sglang-venv/bin/python ops/lab_serve_bench.py --tag rep2_on_n1 --outdir runs/serving/LAB-SERVE-001b/moe/raw --model qwen36-35b --tokenizer /home/augus/models/fp16/base --concurrency 1 --input-len 1024 --output-len 128 --num-prompts 16 --warmup 2
+RC: 0
+---STDOUT---
+{
+  "tag": "rep2_on_n1",
+  "wall_s": 45.7,
+  "validity": {
+    "returncode": 0,
+    "completed": 16,
+    "requested": 16,
+    "success_all": true,
+    "total_output_tokens": 2048,
+    "total_output_tokens_retokenized": 2048,
+    "token_accounting_ratio": 1.0,
+    "token_accounting_sane": true,
+    "ttft_ms_median_positive": true
+  },
+  "gpu": {
+    "vram_peak_mb": 20838.0,
+    "vram_mean_mb": 20829.1,
+    "util_mean": 40.4,
+    "power_mean_w": 182.3,
+    "power_peak_w": 236.62,
+    "temp_peak_c": 55.0,
+    "n_samples": 82
+  },
+  "throughput": 65.71047532250604,
+  "median_ttft_ms": 1058.1649789999972,
+  "median_tpot_ms": 7.8654745275585585
+}
+
+---STDERR---

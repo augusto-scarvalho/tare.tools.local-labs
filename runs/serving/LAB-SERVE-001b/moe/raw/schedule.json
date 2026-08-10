@@ -1,0 +1,76 @@
+{
+  "schedule": {
+    "1": [
+      "on",
+      "off"
+    ],
+    "2": [
+      "off",
+      "on"
+    ],
+    "3": [
+      "off",
+      "on"
+    ],
+    "4": [
+      "on",
+      "off"
+    ],
+    "5": [
+      "on",
+      "off"
+    ]
+  },
+  "arm_order": [
+    {
+      "rep": 1,
+      "arm": "on",
+      "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0 --spec-type draft-mtp --spec-draft-n-max 4"
+    },
+    {
+      "rep": 1,
+      "arm": "off",
+      "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0"
+    },
+    {
+      "rep": 2,
+      "arm": "off",
+      "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0"
+    },
+    {
+      "rep": 2,
+      "arm": "on",
+      "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0 --spec-type draft-mtp --spec-draft-n-max 4"
+    },
+    {
+      "rep": 3,
+      "arm": "off",
+      "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0"
+    },
+    {
+      "rep": 3,
+      "arm": "on",
+      "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0 --spec-type draft-mtp --spec-draft-n-max 4"
+    },
+    {
+      "rep": 4,
+      "arm": "on",
+      "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0 --spec-type draft-mtp --spec-draft-n-max 4"
+    },
+    {
+      "rep": 4,
+      "arm": "off",
+      "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0"
+    },
+    {
+      "rep": 5,
+      "arm": "on",
+      "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0 --spec-type draft-mtp --spec-draft-n-max 4"
+    },
+    {
+      "rep": 5,
+      "arm": "off",
+      "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0"
+    }
+  ]
+}

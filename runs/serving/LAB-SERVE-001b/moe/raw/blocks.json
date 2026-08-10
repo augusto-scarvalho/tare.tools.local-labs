@@ -1,0 +1,622 @@
+[
+  {
+    "rep": 1,
+    "arm": "on",
+    "up": true,
+    "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0 --spec-type draft-mtp --spec-draft-n-max 4",
+    "topology": {
+      "total_slots": 4,
+      "n_ctx": null,
+      "default_gen_n_ctx": 2048,
+      "num_slots": 4,
+      "slot0_n_ctx": 2048
+    },
+    "acceptance": [
+      {
+        "draft_n": 166,
+        "draft_n_accepted": 85,
+        "accept_rate": 0.512
+      },
+      {
+        "draft_n": 166,
+        "draft_n_accepted": 85,
+        "accept_rate": 0.512
+      },
+      {
+        "draft_n": 166,
+        "draft_n_accepted": 85,
+        "accept_rate": 0.512
+      }
+    ],
+    "cells": {
+      "n1": {
+        "tag": "rep1_on_n1",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 2048,
+        "total_output_tokens_retokenized": 2048,
+        "token_exact": true,
+        "output_throughput": 60.99,
+        "ttft_median_ms": 1122.6,
+        "ttft_p95_ms": 1206.7,
+        "tpot_median_ms": 8.46,
+        "tpot_p95_ms": 9.91,
+        "itl_median_ms": 0.012,
+        "e2e_median_ms": 2154.4,
+        "e2e_p95_ms": 2381.7,
+        "vram_peak_mb": 20843.0,
+        "power_mean_w": 174.9,
+        "power_peak_w": 230.95
+      },
+      "n4": {
+        "tag": "rep1_on_n4",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 4096,
+        "total_output_tokens_retokenized": 4096,
+        "token_exact": true,
+        "output_throughput": 92.74,
+        "ttft_median_ms": 738.1,
+        "ttft_p95_ms": 2097.6,
+        "tpot_median_ms": 33.27,
+        "tpot_p95_ms": 57.6,
+        "itl_median_ms": 0.012,
+        "e2e_median_ms": 4777.9,
+        "e2e_p95_ms": 8737.0,
+        "vram_peak_mb": 20873.0,
+        "power_mean_w": 171.5,
+        "power_peak_w": 215.28
+      }
+    }
+  },
+  {
+    "rep": 1,
+    "arm": "off",
+    "up": true,
+    "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0",
+    "topology": {
+      "total_slots": 4,
+      "n_ctx": null,
+      "default_gen_n_ctx": 2048,
+      "num_slots": 4,
+      "slot0_n_ctx": 2048
+    },
+    "acceptance": null,
+    "cells": {
+      "n1": {
+        "tag": "rep1_off_n1",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 2048,
+        "total_output_tokens_retokenized": 2048,
+        "token_exact": true,
+        "output_throughput": 57.73,
+        "ttft_median_ms": 1007.3,
+        "ttft_p95_ms": 1114.7,
+        "tpot_median_ms": 10.07,
+        "tpot_p95_ms": 11.15,
+        "itl_median_ms": 10.181,
+        "e2e_median_ms": 2271.0,
+        "e2e_p95_ms": 2502.6,
+        "vram_peak_mb": 19736.0,
+        "power_mean_w": 181.1,
+        "power_peak_w": 228.54
+      },
+      "n4": {
+        "tag": "rep1_off_n4",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 4096,
+        "total_output_tokens_retokenized": 4096,
+        "token_exact": true,
+        "output_throughput": 88.25,
+        "ttft_median_ms": 2551.3,
+        "ttft_p95_ms": 5865.0,
+        "tpot_median_ms": 23.22,
+        "tpot_p95_ms": 27.55,
+        "itl_median_ms": 23.346,
+        "e2e_median_ms": 5512.5,
+        "e2e_p95_ms": 9144.2,
+        "vram_peak_mb": 19819.0,
+        "power_mean_w": 177.4,
+        "power_peak_w": 228.49
+      }
+    }
+  },
+  {
+    "rep": 2,
+    "arm": "off",
+    "up": true,
+    "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0",
+    "topology": {
+      "total_slots": 4,
+      "n_ctx": null,
+      "default_gen_n_ctx": 2048,
+      "num_slots": 4,
+      "slot0_n_ctx": 2048
+    },
+    "acceptance": null,
+    "cells": {
+      "n1": {
+        "tag": "rep2_off_n1",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 2048,
+        "total_output_tokens_retokenized": 2048,
+        "token_exact": true,
+        "output_throughput": 57.52,
+        "ttft_median_ms": 1019.4,
+        "ttft_p95_ms": 1095.0,
+        "tpot_median_ms": 10.11,
+        "tpot_p95_ms": 11.05,
+        "itl_median_ms": 10.208,
+        "e2e_median_ms": 2286.5,
+        "e2e_p95_ms": 2431.8,
+        "vram_peak_mb": 19710.0,
+        "power_mean_w": 178.4,
+        "power_peak_w": 231.9
+      },
+      "n4": {
+        "tag": "rep2_off_n4",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 4096,
+        "total_output_tokens_retokenized": 4096,
+        "token_exact": true,
+        "output_throughput": 89.49,
+        "ttft_median_ms": 2589.4,
+        "ttft_p95_ms": 5283.6,
+        "tpot_median_ms": 23.18,
+        "tpot_p95_ms": 25.11,
+        "itl_median_ms": 23.51,
+        "e2e_median_ms": 5602.0,
+        "e2e_p95_ms": 8387.9,
+        "vram_peak_mb": 19722.0,
+        "power_mean_w": 183.1,
+        "power_peak_w": 230.65
+      }
+    }
+  },
+  {
+    "rep": 2,
+    "arm": "on",
+    "up": true,
+    "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0 --spec-type draft-mtp --spec-draft-n-max 4",
+    "topology": {
+      "total_slots": 4,
+      "n_ctx": null,
+      "default_gen_n_ctx": 2048,
+      "num_slots": 4,
+      "slot0_n_ctx": 2048
+    },
+    "acceptance": [
+      {
+        "draft_n": 166,
+        "draft_n_accepted": 85,
+        "accept_rate": 0.512
+      },
+      {
+        "draft_n": 166,
+        "draft_n_accepted": 85,
+        "accept_rate": 0.512
+      },
+      {
+        "draft_n": 166,
+        "draft_n_accepted": 85,
+        "accept_rate": 0.512
+      }
+    ],
+    "cells": {
+      "n1": {
+        "tag": "rep2_on_n1",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 2048,
+        "total_output_tokens_retokenized": 2048,
+        "token_exact": true,
+        "output_throughput": 65.71,
+        "ttft_median_ms": 1058.2,
+        "ttft_p95_ms": 1163.7,
+        "tpot_median_ms": 7.87,
+        "tpot_p95_ms": 8.68,
+        "itl_median_ms": 0.011,
+        "e2e_median_ms": 2005.2,
+        "e2e_p95_ms": 2237.8,
+        "vram_peak_mb": 20838.0,
+        "power_mean_w": 182.3,
+        "power_peak_w": 236.62
+      },
+      "n4": {
+        "tag": "rep2_on_n4",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 4096,
+        "total_output_tokens_retokenized": 4096,
+        "token_exact": true,
+        "output_throughput": 98.12,
+        "ttft_median_ms": 774.6,
+        "ttft_p95_ms": 2163.0,
+        "tpot_median_ms": 31.16,
+        "tpot_p95_ms": 48.77,
+        "itl_median_ms": 0.012,
+        "e2e_median_ms": 4764.7,
+        "e2e_p95_ms": 7887.5,
+        "vram_peak_mb": 20838.0,
+        "power_mean_w": 175.6,
+        "power_peak_w": 218.13
+      }
+    }
+  },
+  {
+    "rep": 3,
+    "arm": "off",
+    "up": true,
+    "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0",
+    "topology": {
+      "total_slots": 4,
+      "n_ctx": null,
+      "default_gen_n_ctx": 2048,
+      "num_slots": 4,
+      "slot0_n_ctx": 2048
+    },
+    "acceptance": null,
+    "cells": {
+      "n1": {
+        "tag": "rep3_off_n1",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 2048,
+        "total_output_tokens_retokenized": 2048,
+        "token_exact": true,
+        "output_throughput": 58.48,
+        "ttft_median_ms": 983.2,
+        "ttft_p95_ms": 1090.2,
+        "tpot_median_ms": 9.96,
+        "tpot_p95_ms": 10.95,
+        "itl_median_ms": 10.022,
+        "e2e_median_ms": 2266.4,
+        "e2e_p95_ms": 2427.7,
+        "vram_peak_mb": 19720.0,
+        "power_mean_w": 179.0,
+        "power_peak_w": 230.89
+      },
+      "n4": {
+        "tag": "rep3_off_n4",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 4096,
+        "total_output_tokens_retokenized": 4096,
+        "token_exact": true,
+        "output_throughput": 90.4,
+        "ttft_median_ms": 2598.8,
+        "ttft_p95_ms": 5123.5,
+        "tpot_median_ms": 23.14,
+        "tpot_p95_ms": 24.39,
+        "itl_median_ms": 23.049,
+        "e2e_median_ms": 5539.3,
+        "e2e_p95_ms": 8092.4,
+        "vram_peak_mb": 19724.0,
+        "power_mean_w": 176.8,
+        "power_peak_w": 228.4
+      }
+    }
+  },
+  {
+    "rep": 3,
+    "arm": "on",
+    "up": true,
+    "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0 --spec-type draft-mtp --spec-draft-n-max 4",
+    "topology": {
+      "total_slots": 4,
+      "n_ctx": null,
+      "default_gen_n_ctx": 2048,
+      "num_slots": 4,
+      "slot0_n_ctx": 2048
+    },
+    "acceptance": [
+      {
+        "draft_n": 166,
+        "draft_n_accepted": 85,
+        "accept_rate": 0.512
+      },
+      {
+        "draft_n": 166,
+        "draft_n_accepted": 85,
+        "accept_rate": 0.512
+      },
+      {
+        "draft_n": 166,
+        "draft_n_accepted": 85,
+        "accept_rate": 0.512
+      }
+    ],
+    "cells": {
+      "n1": {
+        "tag": "rep3_on_n1",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 2048,
+        "total_output_tokens_retokenized": 2048,
+        "token_exact": true,
+        "output_throughput": 67.05,
+        "ttft_median_ms": 1012.2,
+        "ttft_p95_ms": 1136.2,
+        "tpot_median_ms": 7.73,
+        "tpot_p95_ms": 8.63,
+        "itl_median_ms": 0.011,
+        "e2e_median_ms": 1942.7,
+        "e2e_p95_ms": 2185.6,
+        "vram_peak_mb": 20842.0,
+        "power_mean_w": 178.8,
+        "power_peak_w": 229.81
+      },
+      "n4": {
+        "tag": "rep3_on_n4",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 4096,
+        "total_output_tokens_retokenized": 4096,
+        "token_exact": true,
+        "output_throughput": 97.19,
+        "ttft_median_ms": 778.4,
+        "ttft_p95_ms": 2323.0,
+        "tpot_median_ms": 32.16,
+        "tpot_p95_ms": 49.9,
+        "itl_median_ms": 0.011,
+        "e2e_median_ms": 4804.1,
+        "e2e_p95_ms": 7755.1,
+        "vram_peak_mb": 20854.0,
+        "power_mean_w": 174.5,
+        "power_peak_w": 221.68
+      }
+    }
+  },
+  {
+    "rep": 4,
+    "arm": "on",
+    "up": true,
+    "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0 --spec-type draft-mtp --spec-draft-n-max 4",
+    "topology": {
+      "total_slots": 4,
+      "n_ctx": null,
+      "default_gen_n_ctx": 2048,
+      "num_slots": 4,
+      "slot0_n_ctx": 2048
+    },
+    "acceptance": [
+      {
+        "draft_n": 166,
+        "draft_n_accepted": 85,
+        "accept_rate": 0.512
+      },
+      {
+        "draft_n": 166,
+        "draft_n_accepted": 85,
+        "accept_rate": 0.512
+      },
+      {
+        "draft_n": 166,
+        "draft_n_accepted": 85,
+        "accept_rate": 0.512
+      }
+    ],
+    "cells": {
+      "n1": {
+        "tag": "rep4_on_n1",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 2048,
+        "total_output_tokens_retokenized": 2048,
+        "token_exact": true,
+        "output_throughput": 66.87,
+        "ttft_median_ms": 1010.4,
+        "ttft_p95_ms": 1123.0,
+        "tpot_median_ms": 7.84,
+        "tpot_p95_ms": 8.46,
+        "itl_median_ms": 0.011,
+        "e2e_median_ms": 1948.5,
+        "e2e_p95_ms": 2214.0,
+        "vram_peak_mb": 20838.0,
+        "power_mean_w": 176.6,
+        "power_peak_w": 234.63
+      },
+      "n4": {
+        "tag": "rep4_on_n4",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 4096,
+        "total_output_tokens_retokenized": 4096,
+        "token_exact": true,
+        "output_throughput": 97.03,
+        "ttft_median_ms": 719.0,
+        "ttft_p95_ms": 2207.0,
+        "tpot_median_ms": 31.48,
+        "tpot_p95_ms": 50.72,
+        "itl_median_ms": 0.012,
+        "e2e_median_ms": 5046.2,
+        "e2e_p95_ms": 7810.0,
+        "vram_peak_mb": 20838.0,
+        "power_mean_w": 171.1,
+        "power_peak_w": 221.57
+      }
+    }
+  },
+  {
+    "rep": 4,
+    "arm": "off",
+    "up": true,
+    "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0",
+    "topology": {
+      "total_slots": 4,
+      "n_ctx": null,
+      "default_gen_n_ctx": 2048,
+      "num_slots": 4,
+      "slot0_n_ctx": 2048
+    },
+    "acceptance": null,
+    "cells": {
+      "n1": {
+        "tag": "rep4_off_n1",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 2048,
+        "total_output_tokens_retokenized": 2048,
+        "token_exact": true,
+        "output_throughput": 58.58,
+        "ttft_median_ms": 999.9,
+        "ttft_p95_ms": 1132.1,
+        "tpot_median_ms": 10.01,
+        "tpot_p95_ms": 10.62,
+        "itl_median_ms": 9.945,
+        "e2e_median_ms": 2276.4,
+        "e2e_p95_ms": 2407.7,
+        "vram_peak_mb": 19722.0,
+        "power_mean_w": 180.1,
+        "power_peak_w": 229.41
+      },
+      "n4": {
+        "tag": "rep4_off_n4",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 4096,
+        "total_output_tokens_retokenized": 4096,
+        "token_exact": true,
+        "output_throughput": 90.28,
+        "ttft_median_ms": 2560.9,
+        "ttft_p95_ms": 4959.3,
+        "tpot_median_ms": 24.34,
+        "tpot_p95_ms": 24.7,
+        "itl_median_ms": 24.007,
+        "e2e_median_ms": 5666.4,
+        "e2e_p95_ms": 8058.7,
+        "vram_peak_mb": 19728.0,
+        "power_mean_w": 178.3,
+        "power_peak_w": 220.3
+      }
+    }
+  },
+  {
+    "rep": 5,
+    "arm": "on",
+    "up": true,
+    "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0 --spec-type draft-mtp --spec-draft-n-max 4",
+    "topology": {
+      "total_slots": 4,
+      "n_ctx": null,
+      "default_gen_n_ctx": 2048,
+      "num_slots": 4,
+      "slot0_n_ctx": 2048
+    },
+    "acceptance": [
+      {
+        "draft_n": 166,
+        "draft_n_accepted": 85,
+        "accept_rate": 0.512
+      },
+      {
+        "draft_n": 166,
+        "draft_n_accepted": 85,
+        "accept_rate": 0.512
+      },
+      {
+        "draft_n": 166,
+        "draft_n_accepted": 85,
+        "accept_rate": 0.512
+      }
+    ],
+    "cells": {
+      "n1": {
+        "tag": "rep5_on_n1",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 2048,
+        "total_output_tokens_retokenized": 2048,
+        "token_exact": true,
+        "output_throughput": 67.01,
+        "ttft_median_ms": 984.9,
+        "ttft_p95_ms": 1161.1,
+        "tpot_median_ms": 7.69,
+        "tpot_p95_ms": 9.0,
+        "itl_median_ms": 0.011,
+        "e2e_median_ms": 1882.3,
+        "e2e_p95_ms": 2288.1,
+        "vram_peak_mb": 20840.0,
+        "power_mean_w": 175.7,
+        "power_peak_w": 235.23
+      },
+      "n4": {
+        "tag": "rep5_on_n4",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 4096,
+        "total_output_tokens_retokenized": 4096,
+        "token_exact": true,
+        "output_throughput": 98.54,
+        "ttft_median_ms": 788.5,
+        "ttft_p95_ms": 2157.6,
+        "tpot_median_ms": 31.03,
+        "tpot_p95_ms": 47.7,
+        "itl_median_ms": 0.012,
+        "e2e_median_ms": 4854.6,
+        "e2e_p95_ms": 7691.0,
+        "vram_peak_mb": 20838.0,
+        "power_mean_w": 175.4,
+        "power_peak_w": 220.14
+      }
+    }
+  },
+  {
+    "rep": 5,
+    "arm": "off",
+    "up": true,
+    "argv": "/home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8080 -fa on --ctx-size 8192 --jinja --n-cpu-moe 8 --parallel 4 --cache-type-k q8_0 --cache-type-v q8_0",
+    "topology": {
+      "total_slots": 4,
+      "n_ctx": null,
+      "default_gen_n_ctx": 2048,
+      "num_slots": 4,
+      "slot0_n_ctx": 2048
+    },
+    "acceptance": null,
+    "cells": {
+      "n1": {
+        "tag": "rep5_off_n1",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 2048,
+        "total_output_tokens_retokenized": 2048,
+        "token_exact": true,
+        "output_throughput": 58.45,
+        "ttft_median_ms": 1003.6,
+        "ttft_p95_ms": 1111.4,
+        "tpot_median_ms": 10.12,
+        "tpot_p95_ms": 10.44,
+        "itl_median_ms": 10.039,
+        "e2e_median_ms": 2291.8,
+        "e2e_p95_ms": 2420.4,
+        "vram_peak_mb": 19720.0,
+        "power_mean_w": 180.2,
+        "power_peak_w": 229.91
+      },
+      "n4": {
+        "tag": "rep5_off_n4",
+        "success_all": true,
+        "token_ratio": 1.0,
+        "total_output_tokens": 4096,
+        "total_output_tokens_retokenized": 4096,
+        "token_exact": true,
+        "output_throughput": 90.85,
+        "ttft_median_ms": 2597.4,
+        "ttft_p95_ms": 5065.8,
+        "tpot_median_ms": 22.8,
+        "tpot_p95_ms": 25.27,
+        "itl_median_ms": 23.272,
+        "e2e_median_ms": 5520.1,
+        "e2e_p95_ms": 8274.5,
+        "vram_peak_mb": 19724.0,
+        "power_mean_w": 176.6,
+        "power_peak_w": 222.74
+      }
+    }
+  }
+]
