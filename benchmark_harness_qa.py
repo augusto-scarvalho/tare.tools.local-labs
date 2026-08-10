@@ -149,6 +149,30 @@ def check_identity(actual: dict, expected: dict) -> list[dict]:
     return out
 
 
+# Dimensions whose difference INVALIDATES cross-run interpretation -> fail closed (INCOMPARABLE).
+COMPARISON_INVALIDATING = ("benchmark_name", "benchmark_version", "dataset_hash", "scorer_version")
+# Dimensions that may legitimately differ across historical runs -> advisory only, never blocking
+# (requiring the current HEAD would make legitimate historical comparisons impossible — WA-CLOSE-003).
+COMPARISON_ADVISORY = ("harness_commit", "scorer_commit", "engine_commit", "timestamp", "n_problems")
+
+
+def check_comparable(id_a: dict, id_b: dict) -> dict:
+    """Decide whether two run-identity blocks may be compared/ranked. Separates an *identity
+    difference* (any field differs) from a *comparison-incompatible difference* (a field known to
+    invalidate interpretation differs). Returns
+    {comparable: bool, invalidating: [{field, a, b}], advisory: [{field, a, b}]}.
+
+    Fails CLOSED on `COMPARISON_INVALIDATING` (different benchmark/dataset/scorer): a caller that
+    ranks two such result sets is comparing apples to oranges. Differences in commit/timestamp are
+    ADVISORY so historical comparisons remain possible (WA-CLOSE-003)."""
+    def diffs(fields):
+        return [{"field": f, "a": id_a.get(f), "b": id_b.get(f)}
+                for f in fields if id_a.get(f) != id_b.get(f)]
+    invalidating = diffs(COMPARISON_INVALIDATING)
+    return {"comparable": not invalidating,
+            "invalidating": invalidating, "advisory": diffs(COMPARISON_ADVISORY)}
+
+
 def _git_head(repo_root) -> str:
     """Short-circuit-safe `git rev-parse HEAD`; 'UNKNOWN' if git/repo unavailable."""
     import subprocess

@@ -18,17 +18,30 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+import sys
+
 from .gates import Gates, evaluate as evaluate_gates
+
+sys.path.insert(0, __import__("pathlib").Path(__file__).resolve().parents[3].as_posix())
+from benchmark_harness_qa import check_comparable  # identity comparability guard (WA-CLOSE-003)
 
 
 @dataclass(frozen=True)
 class PromotionMargins:
-    """Non-inferiority margins and the performance-win threshold (Backlog V2 LAB-QA-003 / B3)."""
+    """Non-inferiority margins and the performance-win threshold.
+
+    PROVENANCE of the numeric defaults (WA-CLOSE-004): these are **OPERATOR POLICY**, proposed as
+    promotion-gate margins in IDEAS_BACKLOG.md §B3 ("±1pp quality, ≥15% wall-clock, ≥20%
+    reasoning-tokens, 0.5pp crash ceiling") — NOT empirically derived from a measured noise floor,
+    and NOT a scientific invariant. They are configurable per decision (pass a PromotionMargins).
+    `perf_win_pct=15.0` in particular is an operator-chosen "is this worth switching for" bar, to be
+    revisited once LAB-SERVE-001 establishes the real serving noise floor. Do not read it as ratified.
+    """
     quality_margin_pp: float = 1.0        # candidate may be at most this far BELOW baseline quality
     correctness_margin_pp: float = 0.0    # correctness must not regress below baseline - this
     correctness_floor: float | None = None  # optional absolute correctness floor (0..1)
     min_termination_rate: float = 0.98    # must terminate reliably (cf. fable-fusion, LAB-CLOSE-002)
-    perf_win_pct: float = 15.0            # a performance WIN needs >= this % wall-clock improvement
+    perf_win_pct: float = 15.0            # OPERATOR POLICY (B3): a WIN needs >= this % wall-clock gain
 
 
 @dataclass
@@ -51,15 +64,28 @@ def _pct_improvement(baseline_wall: float, cand_wall: float) -> float:
 
 
 def decide(candidate: dict, baseline: dict, *, margins: PromotionMargins | None = None,
-           gates: Gates | None = None) -> PromotionDecision:
+           gates: Gates | None = None,
+           candidate_identity: dict | None = None, baseline_identity: dict | None = None) -> PromotionDecision:
     """Lexicographic promotion decision of `candidate` against the incumbent `baseline`.
 
     Expected keys (all optional; absence is treated conservatively):
       eligibility (consumed by gates.evaluate): verdict, pass_rate, min_free_vram_mb, ttft, gen_tps
       correctness: `correctness` in 0..1     quality: `quality` in 0..1 (e.g. HumanEval+ pass@1)
       termination: `termination_rate` in 0..1    performance: `wall_clock_s` (lower is better)
+
+    If both identity blocks are supplied, comparison FAILS CLOSED when they are not comparable
+    (different benchmark/dataset/scorer) — returning an INCOMPARABLE verdict instead of silently
+    ranking apples vs oranges (WA-CLOSE-003). Commit/timestamp differences are advisory only.
     """
     m = margins or PromotionMargins()
+
+    # ---- Stage 0: comparability (identity) ---------------------------------------------------
+    if candidate_identity is not None and baseline_identity is not None:
+        comp = check_comparable(candidate_identity, baseline_identity)
+        if not comp["comparable"]:
+            fields = ", ".join(d["field"] for d in comp["invalidating"])
+            return PromotionDecision("INCOMPARABLE", "identity",
+                                     [f"incompatible identity on: {fields}"], comp)
 
     # ---- Stage 1: eligibility (safety / operational) -----------------------------------------
     ge = evaluate_gates(candidate, gates)
@@ -134,5 +160,26 @@ if __name__ == "__main__":
 
     # 6) within quality margin (0.5pp below) and fast -> PROMOTE (non-inferior)
     d = decide({**base, "quality": 0.895, "wall_clock_s": 80.0}, base)
+    assert d.verdict == "PROMOTE", d
+
+    # 7) WA-CLOSE-004: performance can NEVER compensate a failed earlier stage, even at 100x speed.
+    huge_speed = {"wall_clock_s": 0.001}   # ~infinite performance advantage
+    for broken, stage in [
+        ({"verdict": "REJECTED", "reason": "ram floor"}, "eligibility"),   # ineligible
+        ({"termination_rate": 0.5}, "eligibility"),                        # non-terminating
+        ({"correctness": 0.10}, "correctness"),                            # wrong
+        ({"quality": 0.10}, "quality"),                                    # low quality
+    ]:
+        d = decide({**base, **broken, **huge_speed}, base)
+        assert d.verdict == "REJECT" and d.stage == stage, (broken, d)
+
+    # 8) WA-CLOSE-003: incompatible identity -> INCOMPARABLE, never ranked
+    idA = {"benchmark_name": "humaneval", "dataset_hash": "AAA", "benchmark_version": "v1", "scorer_version": "v1"}
+    idB = {"benchmark_name": "humaneval", "dataset_hash": "BBB", "benchmark_version": "v1", "scorer_version": "v1"}
+    d = decide({**base, "wall_clock_s": 50.0}, base, candidate_identity=idA, baseline_identity=idB)
+    assert d.verdict == "INCOMPARABLE" and d.stage == "identity", d
+    # ...but an ADVISORY-only difference (different commit) stays comparable
+    idC = {**idA, "harness_commit": "deadbeef"}
+    d = decide({**base, "wall_clock_s": 80.0}, base, candidate_identity=idC, baseline_identity=idA)
     assert d.verdict == "PROMOTE", d
     print("promotion self-check OK")
