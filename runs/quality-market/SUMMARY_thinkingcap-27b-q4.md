@@ -9,8 +9,8 @@ do not apply to a dense short-context run (GDN is even -2 to -4% on the dense H=
 
 | Axis | Benchmark | Score | Answered | Wall-clock time (sec) | Throughput (t/s) |
 |------|-----------|-------|----------|-----------------------|------------------|
-| Code | HumanEval (base) | 54/60 (90.0%) | 58/60 | 25.1s median (total 31.6 min) | 43.6 t/s (mean 43.3) |
-| Code | HumanEval+ (plus)| 53/60 (88.3%) | - | - | - |
+| Code | HumanEval (base) | 57/60 (95.0%) | 58/60 | 25.1s median (total 31.6 min) | 43.6 t/s (mean 43.3) |
+| Code | HumanEval+ (plus)| 56/60 (93.3%) | - | - | - |
 | Reasoning/math | GSM8K | 195/200 (97.5%) | 200/200 | 17.4s median (total 62.6 min) | 43.4 t/s (mean 42.8) |
 
 Concision (median reasoning tokens): HumanEval 999, GSM8K 598.
