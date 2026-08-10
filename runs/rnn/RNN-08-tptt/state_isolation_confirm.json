@@ -1,0 +1,9 @@
+{
+  "diff_no_reset": 21.349876403808594,
+  "diff_with_reset": 0.0,
+  "reset_method": "reset",
+  "lcache_attrs": ["inputs_states", "reset", "update"],
+  "leak_confirmed": true,
+  "reset_fixes": true,
+  "interpretation": "TPTT's shared LCache persists delta-rule recurrent state across independent forward calls. The default get_tptt_model integration does NOT reset between sequences, so sequential eval (and successive training batches) contaminate each other -> cross-sample state leakage (max|logit diff| 21.35). Calling lcache.reset() before each independent sequence restores BIT_EXACT isolation (0.0). Per packet §16 this INVALIDATES the uncorrected TPTT quality numbers (sft_loss 3.32 / wikitext_ppl 282 are confounded), and per §20 state leakage is a stop condition. The fix is known and cheap (per-sequence reset = request-owned memory, RNN-28)."
+}

@@ -1,0 +1,67 @@
+{
+  "env": {
+    "python": "3.12.3",
+    "torch": "2.6.0+cu124",
+    "cuda_available": true,
+    "cuda_version": "12.4",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "nvidia_smi": "NVIDIA GeForce RTX 3090, 591.86, 24576 MiB",
+    "transformers": "4.49.0",
+    "peft": "0.14.0",
+    "tptt_commit": "242e2140c2af469765b84ab3a7a79668be254cfa"
+  },
+  "model": "Qwen/Qwen2.5-0.5B",
+  "dtype": "float32",
+  "stages": {
+    "base_reference": {
+      "loss": 3.455657720565796,
+      "load_s": 1.36,
+      "trainable_all": [
+        494032768,
+        494032768
+      ]
+    },
+    "arm_C_tptt_lora": {
+      "inject_ok": true,
+      "trainable_all_after_inject": [
+        494032768,
+        494045056
+      ],
+      "trainable_all_after_peft": [
+        1081344,
+        495126400
+      ],
+      "forward_loss": 8.831315040588379,
+      "forward_finite": true,
+      "step_s": 0.15,
+      "backward_step_ok": true,
+      "loss_after_step": 6.401979923248291,
+      "peak_vram_mb": 2239.6,
+      "save_tptt_safetensors_ok": false,
+      "save_err": "SafetensorError('Error while serializing: I/O error: No such file or directory (os error 2) at path \"/mnt/c/projects/local-model-lifecycle/runs/rnn/RNN-08-tptt/canary/canary_tptt_adapter/.tmpupDTgy\"')",
+      "load_s": 1.3,
+      "PASS": true
+    },
+    "arm_B_lora_only": {
+      "trainable_all_after_peft": [
+        1081344,
+        495114112
+      ],
+      "forward_loss": 3.455657720565796,
+      "forward_finite": true,
+      "backward_step_ok": true,
+      "peak_vram_mb": 2066.1,
+      "adapter_reload_max_abs_diff": 0.0,
+      "adapter_reload_bit_exact": true,
+      "load_s": 2.12,
+      "PASS": true
+    },
+    "vram_cleanup": {
+      "baseline_mb": 0.0,
+      "final_mb": 44.9,
+      "returns_to_baseline": true
+    }
+  },
+  "TPTT_DEPENDENCY": "QUALIFIED",
+  "UPSTREAM_MECHANISM": "REPRODUCED"
+}

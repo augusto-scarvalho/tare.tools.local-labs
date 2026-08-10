@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "model": "Qwen/Qwen2.5-0.5B",
+    "dtype": "float32",
+    "seed": 42,
+    "maxlen": 256,
+    "dataset": "databricks/databricks-dolly-15k",
+    "dataset_fingerprint": "2537fb912ac88184",
+    "train_n": 512,
+    "eval_n": 64,
+    "torch": "2.6.0+cu124",
+    "python": "3.12.3",
+    "tptt_commit": "242e2140c2af469765b84ab3a7a79668be254cfa"
+  },
+  "arms": {
+    "base": {
+      "arm": "base",
+      "sft_loss": 2.1221,
+      "retention_acc_ctx256": 1.0,
+      "retention_acc_ctx1024": 1.0,
+      "wikitext_ppl": 16.255,
+      "prefill_ms_400tok": 30.8
+    },
+    "lora": {
+      "arm": "lora",
+      "sft_loss": 2.0022,
+      "retention_acc_ctx256": 1.0,
+      "retention_acc_ctx1024": 1.0,
+      "wikitext_ppl": 16.571,
+      "prefill_ms_400tok": 30.6
+    },
+    "tptt": {
+      "arm": "tptt",
+      "sft_loss": 3.3175,
+      "retention_acc_ctx256": 1.0,
+      "retention_acc_ctx1024": 0.45,
+      "wikitext_ppl": 282.415,
+      "prefill_ms_400tok": 226.4
+    }
+  },
+  "training": {
+    "lora": {
+      "train_loss": 2.024938146273295,
+      "steps": 192,
+      "wall_s": 72.4,
+      "tokens": 393216,
+      "tok_per_s": 5432.7,
+      "peak_vram_mb": 3972.5,
+      "trainable_all": [
+        1081344,
+        495114112
+      ]
+    },
+    "tptt": {
+      "train_loss": 3.227990706761678,
+      "steps": 192,
+      "wall_s": 698.8,
+      "tokens": 393216,
+      "tok_per_s": 562.7,
+      "peak_vram_mb": 10523.6,
+      "trainable_all": [
+        1081344,
+        495126400
+      ]
+    }
+  },
+  "mechanism": {
+    "liza_modules_replaced": 24,
+    "trainable_all": [
+      1081344,
+      495126400
+    ],
+    "shared_linear_cache": "LCache"
+  },
+  "state_isolation": {
+    "max_abs_diff": 10.368870735168457,
+    "isolated": false
+  },
+  "tptt_save_err": "SafetensorError('Error while serializing: I/O error: No such file or directory (os error 2) at path \"/mnt/c/projects/local-model-lifecycle/runs/rnn/RNN-08-tptt/adapter_tptt/.tmpQx8p1A\"')"
+}

@@ -1,0 +1,103 @@
+{
+  "comparisons": {
+    "sft_loss": {
+      "base": 2.1221,
+      "lora": 2.0022,
+      "tptt": 3.3175,
+      "lora_vs_base_pct": -5.65,
+      "tptt_vs_base_pct": 56.33,
+      "tptt_vs_lora_pct": 65.69
+    },
+    "wikitext_ppl": {
+      "base": 16.255,
+      "lora": 16.571,
+      "tptt": 282.415,
+      "lora_vs_base_pct": 1.94,
+      "tptt_vs_base_pct": 1637.4,
+      "tptt_vs_lora_pct": 1604.27
+    },
+    "retention_acc_ctx256": {
+      "base": 1.0,
+      "lora": 1.0,
+      "tptt": 1.0,
+      "lora_vs_base_pct": 0.0,
+      "tptt_vs_base_pct": 0.0,
+      "tptt_vs_lora_pct": 0.0
+    },
+    "retention_acc_ctx1024": {
+      "base": 1.0,
+      "lora": 1.0,
+      "tptt": 0.45,
+      "lora_vs_base_pct": 0.0,
+      "tptt_vs_base_pct": -55.0,
+      "tptt_vs_lora_pct": -55.0
+    },
+    "prefill_ms_400tok": {
+      "base": 30.8,
+      "lora": 30.6,
+      "tptt": 226.4,
+      "lora_vs_base_pct": -0.65,
+      "tptt_vs_base_pct": 635.06,
+      "tptt_vs_lora_pct": 639.87
+    }
+  },
+  "primary_metric": "sft_loss (held-out dolly)",
+  "guard_metric": "wikitext_ppl",
+  "state_isolation": {
+    "max_abs_diff": 10.368870735168457,
+    "isolated": false
+  },
+  "trainable_params": {
+    "lora": [
+      1081344,
+      495114112
+    ],
+    "tptt": [
+      1081344,
+      495126400
+    ],
+    "matched": false
+  },
+  "training": {
+    "lora": {
+      "train_loss": 2.024938146273295,
+      "steps": 192,
+      "wall_s": 72.4,
+      "tokens": 393216,
+      "tok_per_s": 5432.7,
+      "peak_vram_mb": 3972.5,
+      "trainable_all": [
+        1081344,
+        495114112
+      ]
+    },
+    "tptt": {
+      "train_loss": 3.227990706761678,
+      "steps": 192,
+      "wall_s": 698.8,
+      "tokens": 393216,
+      "tok_per_s": 562.7,
+      "peak_vram_mb": 10523.6,
+      "trainable_all": [
+        1081344,
+        495126400
+      ]
+    }
+  },
+  "mechanism": {
+    "liza_modules_replaced": 24,
+    "trainable_all": [
+      1081344,
+      495126400
+    ],
+    "shared_linear_cache": "LCache"
+  },
+  "retention_note": "all arms saturate at 1.0 -> non-discriminative at this scale/difficulty",
+  "decision_tree": {
+    "TPTT_DEPENDENCY": "QUALIFIED",
+    "UPSTREAM_MECHANISM": "REPRODUCED",
+    "CONTROL_VALIDITY": "INVALID",
+    "TPTT_VS_LORA": "INCONCLUSIVE",
+    "RNN_RESEARCH_DIRECTION": "PARK_TPTT"
+  }
+}
