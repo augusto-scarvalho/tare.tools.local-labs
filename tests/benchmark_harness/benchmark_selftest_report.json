@@ -1,0 +1,104 @@
+{
+  "suite": "LAB-QA-001 benchmark_harness_selftest",
+  "total": 16,
+  "passed": 16,
+  "failed": 0,
+  "cases": [
+    {
+      "name": "known-good completion -> PASS",
+      "status": "pass",
+      "incident": "sanity: a correct self-contained program must score PASS",
+      "detail": ""
+    },
+    {
+      "name": "known-bad completion -> FAIL",
+      "status": "pass",
+      "incident": "sanity: a wrong program must score FAIL (guards against a scorer that always passes)",
+      "detail": ""
+    },
+    {
+      "name": "missing-prompt (non-self-contained) -> detected/FAIL",
+      "status": "pass",
+      "incident": "INCIDENT 2026-08-10 (81eed6d): storing the bare completion scored concise models 0/60 (NameError on prompt-provided helper). The fix prepends the prompt.",
+      "detail": ""
+    },
+    {
+      "name": "wrong (unknown) task_id -> detected",
+      "status": "pass",
+      "incident": "a sample whose id is not in the dataset must be flagged, not scored",
+      "detail": ""
+    },
+    {
+      "name": "duplicate task_id -> detected",
+      "status": "pass",
+      "incident": "two samples for one id would let one silently shadow the other",
+      "detail": ""
+    },
+    {
+      "name": "missing sample -> detected",
+      "status": "pass",
+      "incident": "a subset missing an expected id would score a smaller-than-claimed denominator",
+      "detail": ""
+    },
+    {
+      "name": "extra sample -> detected",
+      "status": "pass",
+      "incident": "an id outside the declared subset must be surfaced",
+      "detail": ""
+    },
+    {
+      "name": "truncated generation -> detected",
+      "status": "pass",
+      "incident": "a generation that hit the token cap (finish_reason=length) must not be scored as a genuine wrong answer (cf. fable-fusion non-termination, LAB-CLOSE-002)",
+      "detail": ""
+    },
+    {
+      "name": "malformed JSONL -> detected",
+      "status": "pass",
+      "incident": "a corrupt line must be reported, not silently skipped (which would shrink the subset)",
+      "detail": ""
+    },
+    {
+      "name": "stale result cache -> invalidation forced",
+      "status": "pass",
+      "incident": "INCIDENT 2026-08-10 (81eed6d): EvalPlus reuses <padded>_eval_results.json if present, so re-scoring a corrected samples file returned STALE verdicts. bust_stale_results removes it.",
+      "detail": ""
+    },
+    {
+      "name": "wrong benchmark version -> detected",
+      "status": "pass",
+      "incident": "a score recorded under a different benchmark version must not be compared as-is",
+      "detail": ""
+    },
+    {
+      "name": "wrong dataset hash -> detected",
+      "status": "pass",
+      "incident": "an edited/swapped dataset changes its content hash -> caught before the score is trusted",
+      "detail": ""
+    },
+    {
+      "name": "metamorphic: reorder samples -> same aggregate",
+      "status": "pass",
+      "incident": "validate_samples must be order-independent",
+      "detail": ""
+    },
+    {
+      "name": "metamorphic: rerun scorer -> same result",
+      "status": "pass",
+      "incident": "the code scorer must be deterministic across identical runs",
+      "detail": ""
+    },
+    {
+      "name": "metamorphic: irrelevant metadata -> same result",
+      "status": "pass",
+      "incident": "extra non-scoring fields on a record must not change validation",
+      "detail": ""
+    },
+    {
+      "name": "metamorphic: fresh vs cached evaluation -> same result",
+      "status": "pass",
+      "incident": "with the stale-cache bug fixed, a fresh evaluate must equal a (correctly) cached one",
+      "detail": ""
+    }
+  ]
+}

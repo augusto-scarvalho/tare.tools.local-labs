@@ -1,0 +1,28 @@
+{
+  "suite": "LAB-QA-001 benchmark_harness_selftest",
+  "purpose": "Qualify the code-benchmark harness glue before its numbers gate any promotion.",
+  "gpu_required": false,
+  "runtime": "seconds (subprocess exec of tiny fixtures; no EvalPlus dataset, no model)",
+  "tested_functions": {
+    "benchmark_harness_qa.assemble_humaneval_solution": "self-contained sample assembly (prompt+completion)",
+    "benchmark_harness_qa.pad_subset": "pad a subset to the full id list",
+    "benchmark_harness_qa.bust_stale_results": "invalidate a stale EvalPlus results cache",
+    "benchmark_harness_qa.validate_samples": "task_id integrity (missing/extra/duplicate/unknown/empty)",
+    "benchmark_harness_qa.parse_jsonl_strict": "malformed-JSONL detection",
+    "benchmark_harness_qa.flag_truncated": "truncated/over-length generation detection",
+    "benchmark_harness_qa.dataset_hash / check_identity": "dataset & benchmark identity (LAB-QA-002)"
+  },
+  "fixture": {
+    "shape": "HumanEval-like: the PROMPT provides a helper (is_even) that the completion reuses",
+    "prompt": "def is_even(n): return n%2==0 ;; def count_evens(xs): <docstring>",
+    "completion_concise": "def count_evens(xs): return sum(1 for x in xs if is_even(x))",
+    "test": "assert count_evens([1,2,3,4])==2 and count_evens([])==0",
+    "ids": ["fx/0", "fx/1"],
+    "note": "The concise completion relies on the prompt-provided helper — exactly the pattern that produced the 0/60 incident when the prompt was not prepended."
+  },
+  "incidents_covered": {
+    "missing-prompt": "2026-08-10 commit 81eed6d — bare completion scored concise models 0/60 (NameError).",
+    "stale-eval-cache": "2026-08-10 commit 81eed6d — EvalPlus reused <padded>_eval_results.json, returning stale verdicts on re-score."
+  },
+  "rule": "No new benchmark becomes a promotion gate without at least one self-test or smoke-validation here (Backlog V2 LAB-QA-001)."
+}
