@@ -1,0 +1,14 @@
+{
+  "experiment": "checkpoint/restore + cached-vs-recompute",
+  "decoding": "deterministic (no sampling); CPU fp32; eager",
+  "prefix_len": 24,
+  "cont_len": 8,
+  "restore_hidden_max_abs_diff": 0.0,
+  "restore_state_max_abs_diff": 0.0,
+  "restore_verdict": "BIT_EXACT",
+  "disk_roundtrip_max_abs_diff": 0.0,
+  "disk_roundtrip_verdict": "BIT_EXACT",
+  "cached_vs_fullrecompute_hidden_max_abs_diff": 7.748603820800781e-06,
+  "cached_vs_fullrecompute_verdict": "NUMERICALLY_EQUIVALENT_WITHIN_MEASURED_TOLERANCE(<=1e-4, observed 7.75e-06)",
+  "tolerance_rationale": "Restore/disk paths execute the identical op sequence on cloned tensors -> expected bit-exact (0.0). Cached-incremental vs full-recompute run DIFFERENT kernels (recurrent_gated_delta_rule per-step vs chunk_gated_delta_rule prefill) and full vs partial softmax attention, so fp non-associativity can produce a small nonzero diff; 1e-4 fp32 threshold reflects that, not a semantic difference."
+}

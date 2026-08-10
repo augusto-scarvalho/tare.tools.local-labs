@@ -1,0 +1,21 @@
+cache_type=DynamicCache layer_obj=LinearAttentionLayer
+L00 linear_attention conv_states      [1, 6144, 4]             float32 numel=24576 bytes=98304
+L00 linear_attention recurrent_states [1, 16, 128, 128]        float32 numel=262144 bytes=1048576
+L01 linear_attention conv_states      [1, 6144, 4]             float32 numel=24576 bytes=98304
+L01 linear_attention recurrent_states [1, 16, 128, 128]        float32 numel=262144 bytes=1048576
+L02 linear_attention conv_states      [1, 6144, 4]             float32 numel=24576 bytes=98304
+L02 linear_attention recurrent_states [1, 16, 128, 128]        float32 numel=262144 bytes=1048576
+L03 full_attention   keys             [1, 2, 24, 256]          float32 numel=12288 bytes=49152
+L03 full_attention   values           [1, 2, 24, 256]          float32 numel=12288 bytes=49152
+L04 linear_attention conv_states      [1, 6144, 4]             float32 numel=24576 bytes=98304
+L04 linear_attention recurrent_states [1, 16, 128, 128]        float32 numel=262144 bytes=1048576
+L05 linear_attention conv_states      [1, 6144, 4]             float32 numel=24576 bytes=98304
+L05 linear_attention recurrent_states [1, 16, 128, 128]        float32 numel=262144 bytes=1048576
+L06 linear_attention conv_states      [1, 6144, 4]             float32 numel=24576 bytes=98304
+L06 linear_attention recurrent_states [1, 16, 128, 128]        float32 numel=262144 bytes=1048576
+L07 full_attention   keys             [1, 2, 24, 256]          float32 numel=12288 bytes=49152
+L07 full_attention   values           [1, 2, 24, 256]          float32 numel=12288 bytes=49152
+
+surrogate total GDN state: 6.281 MiB (6 linear layers)
+REAL Qwen3.5-0.8B total GDN state: 18.844 MiB (18 linear layers)
+REAL Qwen3.6-27B total GDN state: 147.75 MiB (48 linear layers)

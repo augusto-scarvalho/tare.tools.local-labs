@@ -1,0 +1,333 @@
+{
+  "meta": {
+    "torch": "2.11.0+cu130",
+    "python": "3.12.3",
+    "device": "cpu",
+    "dtype": "float32",
+    "seed": 0,
+    "surrogate_config": {
+      "hidden_size": 1024,
+      "num_hidden_layers": 8,
+      "vocab_size": 1024,
+      "layer_types": [
+        "linear_attention",
+        "linear_attention",
+        "linear_attention",
+        "full_attention",
+        "linear_attention",
+        "linear_attention",
+        "linear_attention",
+        "full_attention"
+      ],
+      "linear_num_key_heads": 16,
+      "linear_num_value_heads": 16,
+      "linear_key_head_dim": 128,
+      "linear_value_head_dim": 128,
+      "linear_conv_kernel_dim": 4,
+      "head_dim": 256,
+      "full_attention_interval": 4
+    }
+  },
+  "cache_type": "DynamicCache",
+  "cache_layer_type": "LinearAttentionLayer",
+  "inventory": [
+    {
+      "layer": 0,
+      "layer_type": "linear_attention",
+      "tensor": "conv_states",
+      "shape": [
+        1,
+        6144,
+        4
+      ],
+      "dtype": "float32",
+      "numel": 24576,
+      "bytes": 98304
+    },
+    {
+      "layer": 0,
+      "layer_type": "linear_attention",
+      "tensor": "recurrent_states",
+      "shape": [
+        1,
+        16,
+        128,
+        128
+      ],
+      "dtype": "float32",
+      "numel": 262144,
+      "bytes": 1048576
+    },
+    {
+      "layer": 1,
+      "layer_type": "linear_attention",
+      "tensor": "conv_states",
+      "shape": [
+        1,
+        6144,
+        4
+      ],
+      "dtype": "float32",
+      "numel": 24576,
+      "bytes": 98304
+    },
+    {
+      "layer": 1,
+      "layer_type": "linear_attention",
+      "tensor": "recurrent_states",
+      "shape": [
+        1,
+        16,
+        128,
+        128
+      ],
+      "dtype": "float32",
+      "numel": 262144,
+      "bytes": 1048576
+    },
+    {
+      "layer": 2,
+      "layer_type": "linear_attention",
+      "tensor": "conv_states",
+      "shape": [
+        1,
+        6144,
+        4
+      ],
+      "dtype": "float32",
+      "numel": 24576,
+      "bytes": 98304
+    },
+    {
+      "layer": 2,
+      "layer_type": "linear_attention",
+      "tensor": "recurrent_states",
+      "shape": [
+        1,
+        16,
+        128,
+        128
+      ],
+      "dtype": "float32",
+      "numel": 262144,
+      "bytes": 1048576
+    },
+    {
+      "layer": 3,
+      "layer_type": "full_attention",
+      "tensor": "keys",
+      "shape": [
+        1,
+        2,
+        24,
+        256
+      ],
+      "dtype": "float32",
+      "numel": 12288,
+      "bytes": 49152
+    },
+    {
+      "layer": 3,
+      "layer_type": "full_attention",
+      "tensor": "values",
+      "shape": [
+        1,
+        2,
+        24,
+        256
+      ],
+      "dtype": "float32",
+      "numel": 12288,
+      "bytes": 49152
+    },
+    {
+      "layer": 4,
+      "layer_type": "linear_attention",
+      "tensor": "conv_states",
+      "shape": [
+        1,
+        6144,
+        4
+      ],
+      "dtype": "float32",
+      "numel": 24576,
+      "bytes": 98304
+    },
+    {
+      "layer": 4,
+      "layer_type": "linear_attention",
+      "tensor": "recurrent_states",
+      "shape": [
+        1,
+        16,
+        128,
+        128
+      ],
+      "dtype": "float32",
+      "numel": 262144,
+      "bytes": 1048576
+    },
+    {
+      "layer": 5,
+      "layer_type": "linear_attention",
+      "tensor": "conv_states",
+      "shape": [
+        1,
+        6144,
+        4
+      ],
+      "dtype": "float32",
+      "numel": 24576,
+      "bytes": 98304
+    },
+    {
+      "layer": 5,
+      "layer_type": "linear_attention",
+      "tensor": "recurrent_states",
+      "shape": [
+        1,
+        16,
+        128,
+        128
+      ],
+      "dtype": "float32",
+      "numel": 262144,
+      "bytes": 1048576
+    },
+    {
+      "layer": 6,
+      "layer_type": "linear_attention",
+      "tensor": "conv_states",
+      "shape": [
+        1,
+        6144,
+        4
+      ],
+      "dtype": "float32",
+      "numel": 24576,
+      "bytes": 98304
+    },
+    {
+      "layer": 6,
+      "layer_type": "linear_attention",
+      "tensor": "recurrent_states",
+      "shape": [
+        1,
+        16,
+        128,
+        128
+      ],
+      "dtype": "float32",
+      "numel": 262144,
+      "bytes": 1048576
+    },
+    {
+      "layer": 7,
+      "layer_type": "full_attention",
+      "tensor": "keys",
+      "shape": [
+        1,
+        2,
+        24,
+        256
+      ],
+      "dtype": "float32",
+      "numel": 12288,
+      "bytes": 49152
+    },
+    {
+      "layer": 7,
+      "layer_type": "full_attention",
+      "tensor": "values",
+      "shape": [
+        1,
+        2,
+        24,
+        256
+      ],
+      "dtype": "float32",
+      "numel": 12288,
+      "bytes": 49152
+    }
+  ],
+  "analytic": {
+    "surrogate": {
+      "n_layers": 8,
+      "n_linear": 6,
+      "n_full": 2,
+      "key_dim": 2048,
+      "value_dim": 2048,
+      "conv_dim": 6144,
+      "conv_kernel": 4,
+      "conv_state_shape": [
+        1,
+        6144,
+        4
+      ],
+      "recurrent_state_shape": [
+        1,
+        16,
+        128,
+        128
+      ],
+      "conv_numel": 24576,
+      "recurrent_numel": 262144,
+      "per_linear_layer_bytes": 1097728,
+      "total_gdn_state_bytes": 6586368,
+      "total_gdn_state_MiB": 6.281,
+      "note": "conv assumed model-dtype(2B); recurrent assumed fp32(4B) per mamba_ssm_dtype. Full-attention KV cache is separate and grows with sequence length."
+    },
+    "qwen35_0_8b": {
+      "n_layers": 24,
+      "n_linear": 18,
+      "n_full": 6,
+      "key_dim": 2048,
+      "value_dim": 2048,
+      "conv_dim": 6144,
+      "conv_kernel": 4,
+      "conv_state_shape": [
+        1,
+        6144,
+        4
+      ],
+      "recurrent_state_shape": [
+        1,
+        16,
+        128,
+        128
+      ],
+      "conv_numel": 24576,
+      "recurrent_numel": 262144,
+      "per_linear_layer_bytes": 1097728,
+      "total_gdn_state_bytes": 19759104,
+      "total_gdn_state_MiB": 18.844,
+      "note": "conv assumed model-dtype(2B); recurrent assumed fp32(4B) per mamba_ssm_dtype. Full-attention KV cache is separate and grows with sequence length."
+    },
+    "qwen36_27b": {
+      "n_layers": 64,
+      "n_linear": 48,
+      "n_full": 16,
+      "key_dim": 2048,
+      "value_dim": 6144,
+      "conv_dim": 10240,
+      "conv_kernel": 4,
+      "conv_state_shape": [
+        1,
+        10240,
+        4
+      ],
+      "recurrent_state_shape": [
+        1,
+        48,
+        128,
+        128
+      ],
+      "conv_numel": 40960,
+      "recurrent_numel": 786432,
+      "per_linear_layer_bytes": 3227648,
+      "total_gdn_state_bytes": 154927104,
+      "total_gdn_state_MiB": 147.75,
+      "note": "conv assumed model-dtype(2B); recurrent assumed fp32(4B) per mamba_ssm_dtype. Full-attention KV cache is separate and grows with sequence length."
+    }
+  }
+}

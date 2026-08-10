@@ -1,0 +1,42 @@
+{
+  "tokenizer_identity": {
+    "path": "/home/augus/models/fp16/base",
+    "vocab_size": 248044,
+    "files_sha256": "66647ee600886431"
+  },
+  "exact_length_delivered": {
+    "target": 4096,
+    "delivered": 4096,
+    "no_silent_truncation": true
+  },
+  "needle_survives_window": {
+    "needle_span": [
+      2439,
+      2457
+    ],
+    "delivered": 4096,
+    "survives": true
+  },
+  "known_good_fixture": {
+    "pred_contains_gold": true,
+    "score": 1.0,
+    "PASS": true
+  },
+  "known_bad_fixture": {
+    "pred_contains_gold": false,
+    "score": 0.0,
+    "PASS": true
+  },
+  "reproducibility": {
+    "same_seed_identical": true,
+    "diff_seed_differs": true,
+    "sample_hash_seed42": "9d9dc74c3364d334"
+  },
+  "VERDICT": "RULER_HARNESS_DISCIPLINE_QUALIFIED",
+  "upstream_instrument": {
+    "repo": "github.com/NVIDIA/RULER",
+    "license": "Apache-2.0",
+    "commit": "c3f5e3b4f87f97e048793bb510a3a6b19a46bf3a",
+    "note": "Full benchmark execution against a model is DEFERRED (needs GPU/serving). This qualifies the harness discipline only, on a RULER-style single-needle task."
+  }
+}
