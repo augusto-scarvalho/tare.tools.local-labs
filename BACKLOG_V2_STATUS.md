@@ -16,14 +16,19 @@ Legend: ✅ done · ◑ partial · ○ missing · ⛔ blocked (on a prerequisite
 | **LAB-QA-002** Benchmark/Dataset Identity | ✅ ⚑ | `benchmark_harness_qa.run_identity()` + `{stem}__identity.json` sidecar per run; anchor `runs/quality-market/DATASET_IDENTITY.json` (humaneval-plus/gsm8k dataset hashes + harness commit). Full `model_sha256` deferred to LAB-PROV-001 (weights in the WSL VHDX). |
 | **LAB-QA-003** Promotion semantics | ✅ ⚑ | `src/model_lifecycle/analysis/promotion.py` — lexicographic eligibility→correctness→quality→performance, reusing `analysis/gates.py` (which already did eligibility). PROMOTE/REJECT/HOLD, not a weighted score. Self-check covers crash/non-termination/low-quality → REJECT; clean+fast → PROMOTE. |
 
-## Wave 1 — real endpoint (P0) — MISSING (needs GPU + serving)
-| Item | State | Plan |
-|---|---|---|
-| **LAB-SERVE-001** Realistic serving benchmark | ○ | **Adapt** SGLang `python -m sglang.bench_serving` against our `llama-server` OpenAI endpoint (it already does Poisson arrivals, request-rate, max-concurrency, TTFT/ITL/TPOT/p99, JSONL). Prefer a thin wrapper over reimplementation. Workloads A–E, N∈{1,2,4,8}. Re-measure the MTP-flips-at-N≈4 hypothesis empirically (don't hardcode). Add its harness-QA cases per LAB-QA-001 first. |
-| **LAB-SERVE-002** Workload-specific profiles | ◑ ⛔ | `serve_profiles.py` has `ServeSpec` + `SERVE_PROFILES` but not workload-typed. Add `interactive`/`throughput`/`long-context` profiles **once SERVE-001 data exists**. Extend `serve_profiles.py`/`lmctl`, don't add a new manager. |
+## Wave 1 — real endpoint (P0) — SERVING CHARACTERIZATION CAMPAIGN CLOSED (2026-08-10)
+Serving campaign ran and is closed as of LAB-SERVE-001c. Final status table:
 
-## Wave 2 — reliability/soak (P0/P1) — MISSING (long runs)
-| LAB-REL-001 24h soak | ○ | Mixed workload + telemetry (VRAM/RAM/power/temp/latency/errors over time); first run = baseline, then set envelope. Reuse `collectors/host.py` + `collectors/desktop_load.py`. |
+| Item | State | Evidence |
+|---|---|---|
+| **LAB-SERVE-001** Realistic serving benchmark | ✅ **PILOT_COMPLETE** | Bounded saturated pilot (dense-27B, MTP on/off, N∈{1,2,4,8}). Thin adapter `ops/lab_serve_bench.py` over `sglang.benchmark.serving` (backend `vllm-chat`). Evidence `runs/serving/LAB-SERVE-001/`; one interpretation superseded (see 001b). |
+| **LAB-SERVE-001b** Variance/topology/MTP/MoE-transfer | ✅ **COMPLETE** | Paired calibration/replication, 5 server-level blocks, dense + MoE. `runs/serving/LAB-SERVE-001b/`. Server topology CLARIFIED by 001c (see below). |
+| **LAB-SERVE-001c** Realistic open-loop characterization | ✅ **COMPLETE** | Minimal open-loop (LOW/NEAR/OVERLOAD, 2 paired blocks, MoE primary). `runs/serving/LAB-SERVE-001c/`. Finding: MTP improved E2E med+p95 and TPOT at all load points; sustainable capacity ~0.09 req/s; onset 0.072–0.110 req/s. Caveats in the report. |
+| **LAB-SERVE-001d** Closed-loop concurrency × MTP TPOT isolation | ⏸ **PARKED / OPTIONAL** | 001c answered the practical serving question sufficiently for the lab's current purpose. 001d would isolate the mechanistic closed-loop concurrency×MTP-TPOT interaction, but is NOT required for endpoint qualification now. Preserved for future investigation. |
+| **LAB-SERVE-002** Workload-specific profiles | ○ **NOT PROMOTED / future** | `serve_profiles.py` has `ServeSpec`+`SERVE_PROFILES` but not workload-typed. 001c produced *candidate* interactive/throughput characterizations but explicitly did NOT promote a profile (deploy defaults unchanged). Promotion belongs to a later explicit packet after serving + reliability evidence exist. |
+
+## Wave 2 — reliability/soak (P0/P1) — DEFERRED (long runs)
+| LAB-REL-001 24h soak | ○ **DEFERRED** | Mixed workload + telemetry (VRAM/RAM/power/temp/latency/errors over time); first run = baseline, then set envelope. Reuse `collectors/host.py` + `collectors/desktop_load.py`. Not started; deferred after serving-campaign closure. |
 | LAB-REL-002 48/72h soak | ○ ⛔ | only after 24h is clean. |
 
 ## Wave 3 — cache correctness (P0/P1) — MISSING (old B4 promoted)
@@ -39,8 +44,8 @@ Legend: ✅ done · ◑ partial · ○ missing · ⛔ blocked (on a prerequisite
 ## Wave 6 — long-context quality (P1) — MISSING
 | LAB-CTX-001 Effective context curve | ○ | Integrate NVIDIA RULER (retrieval/multi-hop/aggregation/multi-key) at 8k/16k/32k/64k/128k, via Lighteval (WSL) if it removes plumbing. Plus a small repo-context task. Output a quality×TTFT×decode×VRAM Pareto curve, not "128k runs". GPU. |
 
-## Wave 7 — energy/thermal (P1) — MISSING (telemetry base exists)
-| LAB-ENERGY-001 Energy instrumentation | ○ | Reuse TokenPowerBench concepts; phase-aligned (prefill/decode) J/token via nvidia-smi telemetry. `collectors/host.py` already samples GPU — extend to power. |
+## Wave 7 — energy/thermal (P1) — DEFERRED (telemetry base exists)
+| LAB-ENERGY-001 Energy instrumentation | ○ **DEFERRED** | Reuse TokenPowerBench concepts; phase-aligned (prefill/decode) J/token via nvidia-smi telemetry. `collectors/host.py` already samples GPU — extend to power. Serving runs (001b/001c) reported energy OBSERVED_ONLY (window includes warmup); a qualified J/token needs this packet. |
 | LAB-ENERGY-002 Power-limit curve | ○ | Sweep 100/90/80/70% (keep the undervolt as an explicit condition) → Pareto, not max throughput. GPU. |
 
 ## Wave 8 — serve×lab mode (P1) — MISSING
@@ -75,7 +80,8 @@ Old backlog **B4** (hybrid cache probes) → promoted to **LAB-CACHE-001**. Old 
 ---
 
 ## Recommended next executable step
-When a GPU session is available: **LAB-SERVE-001** (adapt SGLang `bench_serving` behind a thin
-wrapper) — it is the P0 gateway to Waves 1–2 and gives the real latency/throughput/concurrency
-curves the rest of the endpoint work depends on. Its harness-QA cases go into
-`tests/benchmark_harness/` first, per the standing rule.
+The serving-characterization campaign (LAB-SERVE-001 → 001b → 001c) is **CLOSED**. Recommendation:
+**close/compact the serving session and choose the next independent research campaign separately.** Do
+NOT auto-execute LAB-SERVE-001d (parked). Candidate next campaigns (pick deliberately, not by default):
+LAB-REL-001 (soak), LAB-ENERGY-001 (qualified J/token), LAB-CODE-001 (2nd coding axis), or LAB-SERVE-001d
+(mechanistic TPOT isolation) if a later question makes it useful.

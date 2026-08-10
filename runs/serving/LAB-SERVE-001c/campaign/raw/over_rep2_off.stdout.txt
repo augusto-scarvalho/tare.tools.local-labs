@@ -1,0 +1,61 @@
+benchmark_args=Namespace(backend='vllm-chat', base_url='http://127.0.0.1:8080', host='0.0.0.0', port=None, ready_check_timeout_sec=60, dataset_name='custom', dataset_path='/mnt/c/projects/local-model-lifecycle/runs/serving/LAB-SERVE-001c/workload/workload_001c.jsonl', dataset_offset=0, agentic_max_turns=None, speed_bench_category=None, speed_bench_output_len=512, model='m', served_model_name=None, tokenizer='/home/augus/models/fp16/base', num_prompts=12, sharegpt_output_len=None, sharegpt_context_len=None, random_input_len=1024, random_output_len=1024, random_range_ratio=0.0, image_count=1, image_resolution='1080p', random_image_count=False, image_format='jpeg', image_content='random', request_rate=0.11, use_trace_timestamps=False, max_concurrency=None, output_file='/mnt/c/projects/local-model-lifecycle/runs/serving/LAB-SERVE-001c/campaign/raw/over_rep2_off.jsonl', output_details=True, print_requests=False, disable_tqdm=True, disable_stream=False, return_logprob=False, top_logprobs_num=0, token_ids_logprob=None, logprob_start_len=-1, return_routed_experts=False, cache_report=False, seed=102, disable_ignore_eos=True, temperature=0.0, top_p=1.0, extra_request_body=None, apply_chat_template=False, profile=False, plot_throughput=False, profile_activities=['CPU', 'GPU'], profile_start_step=None, profile_steps=None, profile_num_steps=None, profile_by_stage=False, profile_stages=None, profile_output_dir=None, profile_prefix=None, lora_name=None, lora_request_distribution='uniform', lora_zipf_alpha=1.5, prompt_suffix='', pd_separated=False, profile_prefill_url=None, profile_decode_url=None, flush_cache=False, warmup_requests=1, tokenize_prompt=False, gsp_num_groups=64, gsp_prompts_per_group=16, gsp_system_prompt_len=2048, gsp_question_len=128, gsp_output_len=256, gsp_range_ratio=1.0, gsp_fast_prepare=False, gsp_send_routing_key=False, gsp_num_turns=1, gsp_ordered=False, gsp_group_distribution='uniform', gsp_zipf_alpha=None, mooncake_slowdown_factor=1.0, mooncake_num_rounds=1, mooncake_workload='conversation', fake_prefill=False, tag=None, header=None)
+Waiting up to 60s for http://127.0.0.1:8080/v1/models to become ready...
+Server ready in 0.0s.
+Fail to load tokenizer config with error=m is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'
+If this is a private repository, make sure to pass a token having permission to this repo either by logging in with `hf auth login` or by passing `token=<your_token>`
+
+WARNING It is recommended to use the `Chat` or `Instruct` model for benchmarking.
+Because when the tokenizer counts the output tokens, if there is gibberish, it might count incorrectly.
+
+Namespace(backend='vllm-chat', base_url='http://127.0.0.1:8080', host='0.0.0.0', port=30000, ready_check_timeout_sec=60, dataset_name='custom', dataset_path='/mnt/c/projects/local-model-lifecycle/runs/serving/LAB-SERVE-001c/workload/workload_001c.jsonl', dataset_offset=0, agentic_max_turns=None, speed_bench_category=None, speed_bench_output_len=512, model='m', served_model_name=None, tokenizer='/home/augus/models/fp16/base', num_prompts=12, sharegpt_output_len=None, sharegpt_context_len=None, random_input_len=1024, random_output_len=1024, random_range_ratio=0.0, image_count=1, image_resolution='1080p', random_image_count=False, image_format='jpeg', image_content='random', request_rate=0.11, use_trace_timestamps=False, max_concurrency=None, output_file='/mnt/c/projects/local-model-lifecycle/runs/serving/LAB-SERVE-001c/campaign/raw/over_rep2_off.jsonl', output_details=True, print_requests=False, disable_tqdm=True, disable_stream=False, return_logprob=False, top_logprobs_num=0, token_ids_logprob=None, logprob_start_len=-1, return_routed_experts=False, cache_report=False, seed=102, disable_ignore_eos=True, temperature=0.0, top_p=1.0, extra_request_body=None, apply_chat_template=False, profile=False, plot_throughput=False, profile_activities=['CPU', 'GPU'], profile_start_step=None, profile_steps=None, profile_num_steps=None, profile_by_stage=False, profile_stages=None, profile_output_dir=None, profile_prefix=None, lora_name=None, lora_request_distribution='uniform', lora_zipf_alpha=1.5, prompt_suffix='', pd_separated=False, profile_prefill_url=None, profile_decode_url=None, flush_cache=False, warmup_requests=1, tokenize_prompt=False, gsp_num_groups=64, gsp_prompts_per_group=16, gsp_system_prompt_len=2048, gsp_question_len=128, gsp_output_len=256, gsp_range_ratio=1.0, gsp_fast_prepare=False, gsp_send_routing_key=False, gsp_num_turns=1, gsp_ordered=False, gsp_group_distribution='uniform', gsp_zipf_alpha=None, mooncake_slowdown_factor=1.0, mooncake_num_rounds=1, mooncake_workload='conversation', fake_prefill=False, tag=None, header=None)
+
+#Input tokens: 46200
+#Output tokens: 7936
+Starting warmup with 1 sequences...
+Warmup completed with 1 sequences. Starting main benchmark run...
+
+============ Serving Benchmark Result ============
+Backend:                                 vllm-chat 
+Traffic request rate:                    0.11      
+Max request concurrency:                 not set   
+Successful requests:                     12        
+Benchmark duration (s):                  111.37    
+Total input tokens:                      46200     
+Total input text tokens:                 46200     
+Total generated tokens:                  7936      
+Total generated tokens (retokenized):    7936      
+Request throughput (req/s):              0.11      
+Input token throughput (tok/s):          414.83    
+Output token throughput (tok/s):         71.26     
+Peak output token throughput (tok/s):    164.00    
+Peak concurrent requests:                5         
+Total token throughput (tok/s):          486.09    
+Concurrency:                             2.39      
+----------------End-to-End Latency----------------
+Mean E2E Latency (ms):                   22201.72  
+Median E2E Latency (ms):                 23859.25  
+P90 E2E Latency (ms):                    42635.72  
+P95 E2E Latency (ms):                    43489.44  
+P99 E2E Latency (ms):                    43984.54  
+---------------Time to First Token----------------
+Mean TTFT (ms):                          3407.43   
+Median TTFT (ms):                        1937.33   
+P90 TTFT (ms):                           7685.06   
+P95 TTFT (ms):                           11278.25  
+P99 TTFT (ms):                           14281.37  
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          25.63     
+Median TPOT (ms):                        23.56     
+P90 TPOT (ms):                           41.53     
+P95 TPOT (ms):                           41.75     
+P99 TPOT (ms):                           41.89     
+---------------Inter-Token Latency----------------
+Mean ITL (ms):                           28.46     
+Median ITL (ms):                         21.40     
+P90 ITL (ms):                            32.89     
+P95 ITL (ms):                            34.02     
+P99 ITL (ms):                            38.72     
+Max ITL (ms):                            1859.07   
+==================================================
+
+===STDERR===

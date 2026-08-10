@@ -1,0 +1,75 @@
+{
+  "packet": "LAB-SERVE-001c",
+  "stage": "1 — topology reconciliation",
+  "status": "RESOLVED",
+  "pinned_fork": {
+    "path": "/home/augus/src/llama.cpp-master",
+    "head": "068764d927ecd6d39665a46d31b1ee533eedabe7",
+    "head_oneline": "068764d92 ggml: count the skip-when-pinned decisions instead of latching on the first"
+  },
+  "discrepancy": {
+    "handoff_claim": "LAB-SERVE-001b handoff/report stated total_slots=4, n_ctx=8192 shared, kv_unified=true (per slot 8192).",
+    "recorded_blocks_json": {"total_slots": 4, "n_ctx": null, "default_gen_n_ctx": 2048, "num_slots": 4, "slot0_n_ctx": 2048},
+    "recorded_argv_fragment": "--ctx-size 8192 --parallel 4"
+  },
+  "root_cause": {
+    "summary": "kv_unified=true is set ONLY in the auto branch (params.n_parallel < 0). The 001b argv passed --parallel 4 EXPLICITLY, so the auto branch was skipped and kv_unified stayed at its default (false). With kv_unified=false, per-sequence context = n_ctx / n_seq_max = 8192/4 = 2048. The earlier manual '8192' probe was on an AUTO server (no --parallel), where kv_unified=true makes per-seq context = full n_ctx = 8192.",
+    "source_citations": [
+      {"file": "tools/server/server.cpp", "lines": "146-151", "code": "if (params.n_parallel < 0) { ... params.n_parallel = 4; params.kv_unified = true; }", "meaning": "auto-4 + kv_unified applies ONLY when --parallel is NOT passed"},
+      {"file": "src/llama-context.cpp", "lines": "286-300", "code": "if (cparams.kv_unified) { n_ctx_seq = n_ctx; } else { n_ctx_seq = n_ctx / n_seq_max; n_ctx_seq = GGML_PAD(n_ctx_seq,256); ... }", "meaning": "non-unified KV statically partitions n_ctx across n_seq_max sequences"},
+      {"file": "src/llama-context.cpp", "line": "3498", "code": "/*.kv_unified = */ false,", "meaning": "default kv_unified is false in llama_context_default_params"},
+      {"file": "src/llama-context.cpp", "lines": "302-309", "code": "LLAMA_LOG_INFO n_seq_max / n_ctx / n_ctx_seq / kv_unified", "meaning": "authoritative startup log fields"}
+    ],
+    "capture_bug_note": "The blocks.json 'n_ctx: null' is a topology()-capture defect, NOT a server anomaly: the code read props.get('n_ctx') but /props has NO top-level 'n_ctx' key (only default_generation_settings.n_ctx). The effective per-slot value 2048 WAS correctly captured in default_gen_n_ctx and slot0_n_ctx."
+  },
+  "empirical_confirmation": {
+    "method": "Started the pinned llama-server twice with the exact 001b MoE base argv; captured full startup log + raw /props + raw /slots. Files in this directory: topology_server_start.{explicit_parallel4,auto_noparallel}.log, topology_props_raw.*.json, topology_slots_raw.*.json.",
+    "explicit_parallel4": {
+      "argv_extra": "--parallel 4",
+      "startup_log": "srv load_model: initializing, n_slots = 4, n_ctx_slot = 2048, kv_unified = 'false'",
+      "props_default_generation_settings_n_ctx": 2048,
+      "props_top_level_n_ctx": "absent (key does not exist)",
+      "slots_per_slot_n_ctx": [2048, 2048, 2048, 2048],
+      "matches_001b_recorded": true
+    },
+    "auto_noparallel": {
+      "argv_extra": "(none)",
+      "startup_log": "srv load_model: initializing, n_slots = 4, n_ctx_slot = 8192, kv_unified = 'true'",
+      "props_default_generation_settings_n_ctx": 8192,
+      "slots_per_slot_n_ctx": [8192, 8192, 8192, 8192],
+      "reproduces_earlier_8192_claim": true
+    }
+  },
+  "reconciled_values_for_001b_config": {
+    "config": "--ctx-size 8192 --parallel 4 (kv_unified=false, default)",
+    "configuredGlobalContext": 8192,
+    "serverSlotCount": 4,
+    "effectiveSlotContext": 2048,
+    "sharedKvCapacity": "NOT shared — KV statically partitioned: 4 fixed cells of 2048 (= 8192 aggregate)",
+    "maximumContextForOneActiveSlot": 2048,
+    "maximumContextForFourActiveSlots": "2048 per slot (8192 aggregate)",
+    "kv_arrangement": "static partition (non-unified)"
+  },
+  "reconciled_values_for_auto_config": {
+    "config": "--ctx-size 8192 (no --parallel; auto → kv_unified=true)",
+    "configuredGlobalContext": 8192,
+    "serverSlotCount": 4,
+    "effectiveSlotContext": 8192,
+    "sharedKvCapacity": "8192 shared dynamically across up to LLAMA_MAX_SEQ sequences",
+    "maximumContextForOneActiveSlot": 8192,
+    "maximumContextForFourActiveSlots": "up to 8192 shared (sum of concurrent sequences bounded by 8192)",
+    "kv_arrangement": "unified (dynamic shared pool)"
+  },
+  "impact_on_001b_validity": {
+    "workload_per_request_tokens": "1024 input + 128 requested output = 1152 max",
+    "effective_envelope_during_001b": 2048,
+    "within_envelope": true,
+    "margin_tokens": 896,
+    "verdict": "VALID — every 001b request (1152 tokens worst case) fit inside the 2048 per-slot envelope with margin. Under kv_unified=false the 4 slots are statically partitioned, so at N=4 each slot independently retained its full 2048 with no cross-slot contention; no request could have been context-truncated. No measured 001b metric changes. The only correction is DESCRIPTIVE: the 001b topology was '4 slots x 2048, partitioned, kv_unified=false', not '8192 shared, kv_unified=true'.",
+    "pairing_unaffected": "Both MTP arms (on/off) ran the identical topology (explicit --parallel 4, kv_unified=false, 2048/slot), so the paired on-off deltas are unbiased by this misdescription."
+  },
+  "consequence_for_001c": {
+    "warning": "effectiveSlotContext=2048 under the 001b config is TOO SMALL for the 001c coding class (8k-16k input + up to ~2k output = up to ~18k tokens/request). 001c MUST pin a larger context envelope. Options: (a) kv_unified=true with n_ctx sized for aggregate concurrent demand, or (b) larger --ctx-size with --parallel so each partition >= ~18k. Memory feasibility on the 24GB 3090 (MoE Q4 + q8 KV + n-cpu-moe 8) to be established by canary in Stage 2 before pre-registering load points.",
+    "do_not": "Do NOT reuse the 2048/slot envelope for 001c coding prompts."
+  }
+}

@@ -1,0 +1,14 @@
+ARGV: /home/augus/src/llama.cpp-master/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 127.0.0.1 --port 8080 -fa on --jinja --n-cpu-moe 8 --cache-type-k q8_0 --cache-type-v q8_0 --ctx-size 16384 --parallel 4 --kv-unified
+0.00.286.481 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.458.265 W srv  llama_server: -----------------
+0.00.458.277 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
+0.00.458.277 W srv  llama_server: this can be a security risk (cross-origin attacks)
+0.00.458.277 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+0.00.458.277 W srv  llama_server: -----------------
+0.00.463.050 I srv    load_model: loading model '/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf'
+0.01.034.560 W llama_model_loader: tensor overrides to CPU are used with mmap enabled - consider using --no-mmap for better performance
+0.03.364.381 I srv    load_model: initializing, n_slots = 4, n_ctx_slot = 16384, kv_unified = 'true'
+0.03.375.935 I srv          init: chat template supports preserving reasoning, consider enabling it via --reasoning-preserve
+0.03.375.974 I srv  llama_server: model loaded
+0.03.375.977 I srv  llama_server: listening on http://127.0.0.1:8080
+0.04.050.211 I srv    operator(): operator(): cleaning up before exit...
