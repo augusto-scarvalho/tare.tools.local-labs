@@ -43,8 +43,10 @@ import pathlib
 import random
 import sys
 import time
+from datetime import datetime, timezone
 
-from benchmark_harness_qa import assemble_humaneval_solution  # single source of truth (LAB-QA-001)
+from benchmark_harness_qa import (  # single source of truth (LAB-QA-001/002)
+    assemble_humaneval_solution, run_identity)
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent / "src"))
 
@@ -306,6 +308,24 @@ def main() -> int:
                     solution = assemble_humaneval_solution(prompts[tid], r["completion"])
                     f.write(json.dumps({"task_id": tid, "solution": solution}) + "\n")
         print(f"  samples -> {samples}")
+
+    # LAB-QA-002: write a run-identity sidecar so a historical score is auditable without the
+    # current filesystem (dataset hash + harness/scorer commit + model + sampling + timestamp).
+    problems = load_problems(args.workload)
+    spec = MODELS.get(args.model)
+    identity = run_identity(
+        benchmark_name=args.workload,
+        benchmark_version="humaneval-plus" if args.workload == "humaneval" else "gsm8k",
+        dataset_version=WORKLOADS[args.workload]["file"],
+        problems=problems, sampling={"temperature": 0.0, "max_tokens": args.max_tokens,
+                                     "spec": args.spec or "off", "ctx": args.ctx, "greedy": True},
+        model_id=args.model, model_path=(spec.path if spec else "UNKNOWN"),
+        quant=(spec.quant if spec else ""), engine_commit="lifecycle-fork (see DEPLOY.md)",
+        timestamp=datetime.now(timezone.utc).isoformat(),
+        repo_root=pathlib.Path(__file__).parent)
+    identity_path = out / f"{stem}__identity.json"
+    identity_path.write_text(json.dumps(identity, indent=2), encoding="utf-8")
+    print(f"  identity -> {identity_path}  (dataset_hash={identity['dataset_hash'][:12]}...)")
 
     print(f"  records -> {out / f'{stem}.json'}")
     rt = [r["reasoning_tokens"] for r in recs if r.get("reasoning_tokens") is not None]

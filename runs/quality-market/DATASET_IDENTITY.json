@@ -1,0 +1,18 @@
+{
+  "note": "LAB-QA-002 dataset+harness identity anchor for the market-r0 leaderboard (backfilled 2026-08-10).",
+  "harness_commit": "1fa3261a30bd19bae53f990d3b43083b55e8617c",
+  "benchmarks": {
+    "humaneval-plus": {
+      "dataset_version": "workloads/humaneval_plus.jsonl",
+      "n": 164,
+      "dataset_hash": "be4388a8732fbfcfcb0c1d7afc6363243135ede2e3346656ee05a61ffb75d254"
+    },
+    "gsm8k": {
+      "dataset_version": "workloads/gsm8k.jsonl",
+      "n": 1319,
+      "dataset_hash": "847f2ed6530699ef564ba853a9b6b8c7502ab1437cef5cd56ed19183127dc568"
+    }
+  },
+  "scorer": "score_subset.py (evalplus humaneval-plus) / a2_stats (gsm8k numeric)",
+  "sampling": "temperature=0 greedy, max_tokens=4096, ctx=8192; spec per-model (see each SUMMARY / git)"
+}

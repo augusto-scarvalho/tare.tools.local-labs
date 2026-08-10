@@ -147,3 +147,44 @@ def check_identity(actual: dict, expected: dict) -> list[dict]:
         if actual.get(k) != v:
             out.append({"field": k, "expected": v, "actual": actual.get(k)})
     return out
+
+
+def _git_head(repo_root) -> str:
+    """Short-circuit-safe `git rev-parse HEAD`; 'UNKNOWN' if git/repo unavailable."""
+    import subprocess
+    try:
+        r = subprocess.run(["git", "-C", str(repo_root), "rev-parse", "HEAD"],
+                           capture_output=True, text=True, timeout=10)
+        return r.stdout.strip() or "UNKNOWN"
+    except Exception:
+        return "UNKNOWN"
+
+
+def run_identity(*, benchmark_name: str, benchmark_version: str, dataset_version: str,
+                 problems: list[dict], sampling: dict, model_id: str, model_path: str,
+                 quant: str = "", engine_commit: str = "UNKNOWN", timestamp: str,
+                 repo_root=None, model_sha256=None) -> dict:
+    """Assemble the LAB-QA-002 identity block for a run so a historical score is auditable without
+    the current filesystem. Cheap by design: dataset content is hashed; the harness/scorer commit
+    is the repo HEAD; the model is identified by registry path + quant (full GGUF sha256 is left
+    on-demand — LAB-PROV-001 — since the weights live in the WSL VHDX, not stat-able here).
+    """
+    repo_root = repo_root or pathlib.Path(__file__).resolve().parent
+    head = _git_head(repo_root)
+    return {
+        "benchmark_name": benchmark_name,
+        "benchmark_version": benchmark_version,
+        "dataset_version": dataset_version,
+        "dataset_hash": dataset_hash(problems),
+        "n_problems": len(problems),
+        "scorer_version": benchmark_version,       # scorer is in-repo -> tracked by harness_commit
+        "scorer_commit": head,
+        "harness_commit": head,
+        "model_id": model_id,
+        "model_path": model_path,
+        "quantization": quant,
+        "model_sha256": model_sha256,              # null = compute on demand (LAB-PROV-001)
+        "engine_commit": engine_commit,
+        "sampling_config": sampling,
+        "timestamp": timestamp,
+    }
