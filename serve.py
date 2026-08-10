@@ -16,7 +16,7 @@ If the notebook cannot connect, check the IPv4 literal BEFORE the firewall: `--h
 0.0.0.0` binds IPv4 only, while mDNS answers with AAAA records ahead of the A record.
 
     python serve.py                          # proven default config
-    python serve.py --model qwen36-35b-q5 --ctx 32768
+    python serve.py --model qwen36-35b-q4 --ctx 32768
 
 Ctrl-C tears down. That teardown is not decorative: `wsl.exe` is a thin front for a
 process living in the distro, so a dead parent does NOT kill the child. Two servers

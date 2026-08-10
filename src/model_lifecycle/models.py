@@ -59,12 +59,12 @@ _GEOM = {
     "qwen36-27b-mtp":   (65, 0, 0),     # DENSE twin of qwen36-27b-dense; -ngl offload
     # --- siege triangulation (2026-08-01), geometry read from GGUF metadata ---
     # MoE (test transfer-bound pinning-generation; n_expert>0 drives -ncmoe offload):
-    "granite-4.0-h":    (40, 72, 10),   # granitehybrid; 10 active = most transfer/token here
     "gemma-4-moe":      (30, 128, 8),   # gemma4
-    "ernie-4.5-21b":    (28, 64, 6),    # ernie4_5-moe
     # DENSE controls (n_expert=0 -> ab_isolate offloads with -ngl, not -ncmoe; expect null):
-    "mistral-24b":      (40, 0, 0),     # llama arch
     "qwen36-27b-dense": (65, 0, 0),     # qwen35 DENSE -- same family as qwen36-35b MoE
+    # granite-4.0-h (40,72,10), ernie-4.5-21b (28,64,6), mistral-24b (40,0,0) GGUFs DELETED
+    # 2026-08-10 (disk reclaim; the genpin/pinning triangulation is closed -- STATUS §B1). The
+    # historical A/B evidence stays in runs/ab-genpin-*.
     "thinkingcap-27b":  (65, 0, 0),     # qwen35 DENSE (ThinkingCap finetune)
     "thinkingcap-27b-mtp": (65, 0, 0), # qwen35 DENSE (ThinkingCap MTP GGUF)
     # A2 T3 (transfer-LoRA target): DavidAU merge + Heretic ARA abliteration of Qwen3.6-27B.
@@ -73,11 +73,9 @@ _GEOM = {
     # abliteration rotated the same deep-layer residual directions the LoRA targets. Kept as a
     # dense control regardless; the LoRA is layered at runtime via --lora-scaled, not baked in.
     "fable-fusion-711": (65, 0, 0),     # qwen35 DENSE (DavidAU Fable-Fusion-711, MTP head)
-    # A2 Stage-1 concise-Fable MERGES: full-rank task-arithmetic Fable + lambda*(TC - base),
-    # quantized by us (no imatrix, so matched to fable-plain). All stock 65-block geometry.
-    "fable-plain":     (65, 0, 0),      # Fable quantized by us = matched baseline for the sweep
-    "fable-tc-l0.4":   (65, 0, 0),
-    "fable-tc-l0.7":   (65, 0, 0),
+    # A2 Stage-1 concise-Fable MERGE (full-rank task-arithmetic, stock 65-block geometry). The
+    # lambda sweep settled on l1.0 (the deploy artifact); fable-plain / l0.4 / l0.7 GGUFs DELETED
+    # 2026-08-10 (disk reclaim, sweep closed) -- see A2_STAGE1_CONCISE_FABLE.md.
     "fable-tc-l1.0":   (65, 0, 0),
     # Laguna-S-2.1 was tried and DISCARDED 2026-08-01. It loads, but testing PINNING needs
     # mmap, and mmap holds the whole GGUF resident in RAM; even the Q2_K_XL (39.7 GB) leaves
@@ -90,27 +88,18 @@ _GEOM = {
 _FILES = {
     "qwen36-35b": [
         ("q4", "/home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf", "Q4_K_M"),
-        ("q5", "/home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q5_K_M.gguf", "Q5_K_M"),
-        ("q6", "/home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q6_K.gguf", "Q6_K"),
-        ("q8", "/home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-Q8_0.gguf", "Q8_0"),
+        # q5/q6/q8 GGUFs DELETED 2026-08-10 (disk reclaim; the quant-probe / KV-quant screen is
+        # closed -- q4 KV lossless, STATUS §A3/§Q -- and deploy runs the -mtp q4 variant).
     ],
     # qwen3-30b (Qwen3) and Qwen3.5-122B discarded 2026-08-01 as too-old architectures;
     # files deleted. Their historical prefill data stays in runs/ab-*-qwen3-30b/.
     "gpt-oss-20b": [
         ("q4", "/home/augus/models/gpt-oss-20b/gpt-oss-20b-Q4_K_M.gguf", "Q4_K_M"),
     ],
-    "granite-4.0-h": [
-        ("q4", "/home/augus/models/granite-4.0-h-small/granite-4.0-h-small-Q4_K_M.gguf", "Q4_K_M"),
-    ],
+    # granite-4.0-h, ernie-4.5-21b, mistral-24b GGUFs DELETED 2026-08-10 (disk reclaim; the
+    # genpin/pinning triangulation is closed -- STATUS §B1). ab data kept in runs/ab-genpin-*.
     "gemma-4-moe": [
         ("q4", "/home/augus/models/gemma-4-26b-a4b/gemma-4-26B_q4_0-it.gguf", "q4_0"),
-    ],
-    "ernie-4.5-21b": [
-        ("q4", "/home/augus/models/ernie-4.5-21b/ERNIE-4.5-21B-A3B-PT-Q4_K_M.gguf", "Q4_K_M"),
-    ],
-    "mistral-24b": [
-        ("q4", "/home/augus/models/mistral-small-24b/"
-               "mistralai_Mistral-Small-3.2-24B-Instruct-2506-Q4_K_M.gguf", "Q4_K_M"),
     ],
     "qwen36-27b-dense": [
         ("q4", "/home/augus/models/qwen36-27b-dense/Qwen_Qwen3.6-27B-Q4_K_M.gguf", "Q4_K_M"),
@@ -123,9 +112,7 @@ _FILES = {
         ("q4", "/home/augus/models/fable-fusion-711/"
                "Qwen3.6-27B-Fable-Fus-711-UnHeretic-NM-DAU-NEO-MAX-NEO-MTP-Q4_K_M.gguf", "Q4_K_M"),
     ],
-    "fable-plain":   [("q4", "/home/augus/models/merges/fable-plain-Q4_K_M.gguf", "Q4_K_M")],
-    "fable-tc-l0.4": [("q4", "/home/augus/models/merges/fable-tc-l0.4-Q4_K_M.gguf", "Q4_K_M")],
-    "fable-tc-l0.7": [("q4", "/home/augus/models/merges/fable-tc-l0.7-Q4_K_M.gguf", "Q4_K_M")],
+    # fable-plain / l0.4 / l0.7 merge GGUFs DELETED 2026-08-10 (lambda sweep closed; l1.0 won).
     "fable-tc-l1.0": [("q4", "/home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf", "Q4_K_M")],
     # §E4 MTP twins. Same weights as the non-MTP entries above plus an MTP head; loaded in
     # BOTH arms of the e4mtp A/B (the base arm just does not pass --spec-type, so the head
