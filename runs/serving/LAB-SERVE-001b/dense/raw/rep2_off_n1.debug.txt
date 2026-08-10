@@ -1,0 +1,32 @@
+CMD: cd /mnt/c/projects/local-model-lifecycle && /home/augus/sglang-venv/bin/python ops/lab_serve_bench.py --tag rep2_off_n1 --outdir runs/serving/LAB-SERVE-001b/dense/raw --model fable-tc --tokenizer /home/augus/models/fp16/base --concurrency 1 --input-len 1024 --output-len 128 --num-prompts 16 --warmup 2
+RC: 0
+---STDOUT---
+{
+  "tag": "rep2_off_n1",
+  "wall_s": 76.5,
+  "validity": {
+    "returncode": 0,
+    "completed": 16,
+    "requested": 16,
+    "success_all": true,
+    "total_output_tokens": 2048,
+    "total_output_tokens_retokenized": 2048,
+    "token_accounting_ratio": 1.0,
+    "token_accounting_sane": true,
+    "ttft_ms_median_positive": true
+  },
+  "gpu": {
+    "vram_peak_mb": 18181.0,
+    "vram_mean_mb": 18172.8,
+    "util_mean": 77.8,
+    "power_mean_w": 336.0,
+    "power_peak_w": 408.29,
+    "temp_peak_c": 72.0,
+    "n_samples": 133
+  },
+  "throughput": 34.58449298179368,
+  "median_ttft_ms": 991.264868999906,
+  "median_tpot_ms": 21.256208602362964
+}
+
+---STDERR---
