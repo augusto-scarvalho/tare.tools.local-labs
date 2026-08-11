@@ -2,12 +2,19 @@
 """
 RNN-04 recurrent substrate + Memory Caching aggregation (packet sections 7/13/19).
 
-Substrate: a small, transparent pure-PyTorch DeltaNet linear memory. State S is a single [d_k, d_v]
-matrix (the exact shape of the lab's Qwen Gated-DeltaNet recurrent state -> concrete section-22 transplant
-argument). Delta rule (matches GDN_KERNEL.md notation):
-    pred_t = S_{t-1}^T k_t ; S_t = S_{t-1} + beta_t * k_t (v_t - pred_t)^T ; o_t = S_t^T q_t
+Substrate: a small, transparent pure-PyTorch recurrent memory. State S is a single [d_k, d_v] matrix
+(the same shape as the lab's Qwen Gated-DeltaNet recurrent state -- necessary, NOT sufficient, for a
+transplant claim; see runs/rnn/RNN-04-memory-caching/AUDIT_CORRECTIONS.md).
+
+AUDIT-CORRECTED (RNN-05A stage 0): the EXECUTED memory is plain additive **Linear Attention** (paper Eq. 2)
+computed by `_seg_linear`:  S_t = S_{t-1} + k_t v_t^T ;  o_t = S_t^T q_t  (a valid Memory-Caching-paper
+substrate). It is NOT the Gated Delta rule. The delta/beta rule below is kept ONLY as reference notation and
+is **not** on the executed path (the `beta` projection is built but unused by `_seg_linear`); do not read
+"DeltaMemory" as evidence of DeltaNet semantics.
+    reference-only (matches GDN_KERNEL.md notation; NOT EXECUTED):
+        pred_t = S_{t-1}^T k_t ; S_t = S_{t-1} + beta_t * k_t (v_t - pred_t)^T ; o_t = S_t^T q_t
 A depthwise causal conv (kernel 3) on q/k/v gives the temporal shift needed to bind key(t) to value(t+1)
-in MQAR (as in GDN/Mamba). No CUDA/Triton (section 7): a python scan over L with vectorized batch/dims.
+in MQAR (as in GDN/Mamba). No CUDA/Triton (section 7): vectorized over batch/dims (no python scan).
 
 Memory Caching (RNN_MEMORY_CACHING_SPEC.md equation->code binding): the sequence is split into segments;
 the final state of each completed segment is cached; reads are aggregated across cached + online states.
