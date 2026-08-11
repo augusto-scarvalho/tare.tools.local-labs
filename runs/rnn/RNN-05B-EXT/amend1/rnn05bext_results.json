@@ -1,0 +1,887 @@
+{
+  "meta": {
+    "packet": "RNN-05B-EXT",
+    "device": "cuda",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.2",
+    "smoke": false,
+    "config": {
+      "d_model": 128,
+      "d_k": 64,
+      "d_v": 64,
+      "conv_k": 4,
+      "seg": 64,
+      "num_pairs": 12,
+      "num_queries": 8,
+      "num_keys": 128,
+      "num_vals": 64,
+      "write_frac": 0.25,
+      "seq_lens": [
+        512,
+        768,
+        1024
+      ],
+      "distractor_tiers": [
+        [
+          "low",
+          0.15
+        ],
+        [
+          "med",
+          0.35
+        ],
+        [
+          "high",
+          0.55
+        ]
+      ],
+      "band_lo": 0.4,
+      "band_hi": 0.8,
+      "seed_lo": 0.2,
+      "seed_hi": 0.9,
+      "steps_bb": 2500,
+      "steps_rd": 1800,
+      "lr": 0.003,
+      "batch": 96,
+      "pool_train": 4096,
+      "pool_eval": 512,
+      "gdn_seeds": [
+        42,
+        43,
+        44
+      ],
+      "dn_seeds": [
+        42,
+        43,
+        44
+      ],
+      "la_seeds": [
+        42
+      ],
+      "margin": 0.03,
+      "cache_K": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "recovery_margin": 0.02,
+      "grid_override_json": "[\n  {\"seq_len\": 512, \"distractor_tier\": \"f42\", \"distractor_density\": 0.42},\n  {\"seq_len\": 512, \"distractor_tier\": \"f46\", \"distractor_density\": 0.46},\n  {\"seq_len\": 512, \"distractor_tier\": \"f50\", \"distractor_density\": 0.50},\n  {\"seq_len\": 768, \"distractor_tier\": \"f40\", \"distractor_density\": 0.40},\n  {\"seq_len\": 768, \"distractor_tier\": \"f44\", \"distractor_density\": 0.44},\n  {\"seq_len\": 768, \"distractor_tier\": \"f48\", \"distractor_density\": 0.48},\n  {\"seq_len\": 1024, \"distractor_tier\": \"f24\", \"distractor_density\": 0.24},\n  {\"seq_len\": 1024, \"distractor_tier\": \"f30\", \"distractor_density\": 0.30}\n]\n"
+    },
+    "artifacts_dir": "/mnt/c/projects/local-model-lifecycle/.harness/artifacts_ext",
+    "wall_min": 19.5
+  },
+  "preregistration": {
+    "select_rule": "iterate the predeclared grid cheap-first (seq_len asc [512, 768, 1024], then distractor asc ['low', 'med', 'high']); SELECT the first condition whose GDN seed-42 BASE holdout accuracy is within (0.4,0.8); QUALIFY it iff all 3 GDN seeds are within (0.2,0.9) and their mean is within (0.4,0.8); otherwise H3_TESTABILITY=BLOCKED with NO nearest-condition fallback",
+    "calibration_rule_selfcheck": {
+      "CALIBRATION_RULE_IDENTITY": "PASS",
+      "executed_band": [
+        0.4,
+        0.8
+      ],
+      "recorded_band": [
+        0.4,
+        0.8
+      ],
+      "executed_seed_band": [
+        0.2,
+        0.9
+      ],
+      "recorded_seed_band": [
+        0.2,
+        0.9
+      ],
+      "note": "select_rule string is f-string-derived from the constants -> recorded==executed holds"
+    }
+  },
+  "substrate_sanity": {
+    "la": {
+      "REFERENCE_PARITY": "PASS",
+      "parity_maxabs": {
+        "single_step": 9.313225746154785e-10,
+        "small_seq": 5.960464477539063e-08,
+        "chunked_full": 8.344650268554688e-07,
+        "incremental_decode_vs_scan": 0.0
+      },
+      "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+      "REQUEST_ISOLATION": "PASS"
+    },
+    "dn": {
+      "REFERENCE_PARITY": "PASS",
+      "parity_maxabs": {
+        "single_step": 8.149072527885437e-10,
+        "small_seq": 2.9802322387695312e-08,
+        "chunked_full": 4.172325134277344e-07,
+        "incremental_decode_vs_scan": 0.0
+      },
+      "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+      "REQUEST_ISOLATION": "PASS"
+    },
+    "gdn": {
+      "REFERENCE_PARITY": "PASS",
+      "parity_maxabs": {
+        "single_step": 8.149072527885437e-10,
+        "small_seq": 4.470348358154297e-08,
+        "chunked_full": 1.4901161193847656e-07,
+        "incremental_decode_vs_scan": 0.0
+      },
+      "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+      "REQUEST_ISOLATION": "PASS"
+    }
+  },
+  "calibration": {
+    "scan": [
+      {
+        "condition": {
+          "seq_len": 512,
+          "distractor_tier": "f42",
+          "distractor_density": 0.42,
+          "num_pairs": 12,
+          "num_queries": 8,
+          "write_frac": 0.25,
+          "name": "mb_L512_f42"
+        },
+        "gdn_seed0_base": 0.9275,
+        "in_band": false
+      },
+      {
+        "condition": {
+          "seq_len": 512,
+          "distractor_tier": "f46",
+          "distractor_density": 0.46,
+          "num_pairs": 12,
+          "num_queries": 8,
+          "write_frac": 0.25,
+          "name": "mb_L512_f46"
+        },
+        "gdn_seed0_base": 0.957,
+        "in_band": false
+      },
+      {
+        "condition": {
+          "seq_len": 512,
+          "distractor_tier": "f50",
+          "distractor_density": 0.5,
+          "num_pairs": 12,
+          "num_queries": 8,
+          "write_frac": 0.25,
+          "name": "mb_L512_f50"
+        },
+        "gdn_seed0_base": 0.7869,
+        "in_band": true
+      }
+    ],
+    "confirm": {
+      "gdn_seed_bases": [
+        0.7869,
+        0.1013,
+        0.0903
+      ],
+      "mean": 0.3262,
+      "seed_band_ok": false,
+      "H3_TESTABILITY": "BLOCKED_BY_UNSTABLE_BASE"
+    }
+  },
+  "selected": {
+    "seq_len": 512,
+    "distractor_tier": "f50",
+    "distractor_density": 0.5,
+    "num_pairs": 12,
+    "num_queries": 8,
+    "write_frac": 0.25,
+    "name": "mb_L512_f50"
+  },
+  "frozen": {
+    "la": [
+      {
+        "seed": 42,
+        "base_holdout": 0.9978,
+        "base_dev": 0.9983,
+        "paramfree_MC_holdout": 0.9966,
+        "reader_holdout": 0.9973,
+        "reader_dev": 0.9983,
+        "BACKBONE_WEIGHT_MUTATION": 0,
+        "changed_tensors": [],
+        "FROZEN_BACKBONE_VALIDITY": "PASS",
+        "delta_paramfree": -0.0012,
+        "delta_reader": -0.0005,
+        "recovery": {
+          "n_targets": 4096,
+          "base_acc": 0.9978,
+          "mc_acc": 0.9973,
+          "net_delta": -0.0005,
+          "n_base_wrong": 9,
+          "n_base_correct": 4087,
+          "RECOVERY_RATE": 0.1111,
+          "HARM_RATE": 0.0007,
+          "cell_Bok_MCok": 4084,
+          "cell_Bok_MCwrong": 3,
+          "cell_Bwrong_MCok": 1,
+          "cell_Bwrong_MCwrong": 8,
+          "attribution": {
+            "n_recovered_examined": 1,
+            "frac_argmax_temporally_plausible": 0.0,
+            "mean_gate_on_proximal": 0.0045,
+            "mean_gate_online": 0.1709,
+            "SNAPSHOT_ATTRIBUTION": "DESCRIPTIVE",
+            "note": "argmax snapshot vs target write segment; high gate != causal (see ablation)"
+          }
+        },
+        "checkpoint_path": "/mnt/c/projects/local-model-lifecycle/.harness/artifacts_ext/rnn05bext_la_seed42_frozen_reader.pt",
+        "checkpoint_sha256": "89f1aa25daf0a06cdaff0e702b2a6dbbe29871295c6e92b47d3e4b44872dac2e",
+        "reader_weight_sha256": "0806eb6c064375c28d77443597af7aa3b8221e56e5fbe702a4a0518f1c420f0a",
+        "backbone_stat": {
+          "steps": 2500,
+          "wall_s": 31.0,
+          "final_loss": 0.0007,
+          "trained_params": 92614
+        },
+        "reader_stat": {
+          "steps": 1800,
+          "wall_s": 14.2,
+          "final_loss": 0.0008,
+          "trained_params": 8192
+        }
+      }
+    ],
+    "dn": [
+      {
+        "seed": 42,
+        "base_holdout": 0.3293,
+        "base_dev": 0.3438,
+        "paramfree_MC_holdout": 0.3625,
+        "reader_holdout": 0.3643,
+        "reader_dev": 0.3679,
+        "BACKBONE_WEIGHT_MUTATION": 0,
+        "changed_tensors": [],
+        "FROZEN_BACKBONE_VALIDITY": "PASS",
+        "delta_paramfree": 0.0332,
+        "delta_reader": 0.035,
+        "recovery": {
+          "n_targets": 4096,
+          "base_acc": 0.3293,
+          "mc_acc": 0.3643,
+          "net_delta": 0.0349,
+          "n_base_wrong": 2747,
+          "n_base_correct": 1349,
+          "RECOVERY_RATE": 0.1234,
+          "HARM_RATE": 0.1453,
+          "cell_Bok_MCok": 1153,
+          "cell_Bok_MCwrong": 196,
+          "cell_Bwrong_MCok": 339,
+          "cell_Bwrong_MCwrong": 2408,
+          "attribution": {
+            "n_recovered_examined": 339,
+            "frac_argmax_temporally_plausible": 0.1062,
+            "mean_gate_on_proximal": 0.0428,
+            "mean_gate_online": 0.2205,
+            "SNAPSHOT_ATTRIBUTION": "DESCRIPTIVE",
+            "note": "argmax snapshot vs target write segment; high gate != causal (see ablation)"
+          }
+        },
+        "checkpoint_path": "/mnt/c/projects/local-model-lifecycle/.harness/artifacts_ext/rnn05bext_dn_seed42_frozen_reader.pt",
+        "checkpoint_sha256": "0d21045074182b8788ccae561b7b0f5cc58399fd5cbb4751214a9ec7f711b00d",
+        "reader_weight_sha256": "01615226585abc83f04e03cdbc771b696f3095feeb88f1ff4e57b3e9acb30eb5",
+        "backbone_stat": {
+          "steps": 2500,
+          "wall_s": 92.3,
+          "final_loss": 1.364,
+          "trained_params": 92614
+        },
+        "reader_stat": {
+          "steps": 1800,
+          "wall_s": 58.3,
+          "final_loss": 1.5291,
+          "trained_params": 8192
+        }
+      },
+      {
+        "seed": 43,
+        "base_holdout": 0.9592,
+        "base_dev": 0.9644,
+        "paramfree_MC_holdout": 0.9668,
+        "reader_holdout": 0.9641,
+        "reader_dev": 0.9683,
+        "BACKBONE_WEIGHT_MUTATION": 0,
+        "changed_tensors": [],
+        "FROZEN_BACKBONE_VALIDITY": "PASS",
+        "delta_paramfree": 0.0076,
+        "delta_reader": 0.0049,
+        "recovery": {
+          "n_targets": 4096,
+          "base_acc": 0.9592,
+          "mc_acc": 0.9641,
+          "net_delta": 0.0049,
+          "n_base_wrong": 167,
+          "n_base_correct": 3929,
+          "RECOVERY_RATE": 0.2156,
+          "HARM_RATE": 0.0041,
+          "cell_Bok_MCok": 3913,
+          "cell_Bok_MCwrong": 16,
+          "cell_Bwrong_MCok": 36,
+          "cell_Bwrong_MCwrong": 131,
+          "attribution": {
+            "n_recovered_examined": 36,
+            "frac_argmax_temporally_plausible": 0.0,
+            "mean_gate_on_proximal": 0.0596,
+            "mean_gate_online": 0.1534,
+            "SNAPSHOT_ATTRIBUTION": "DESCRIPTIVE",
+            "note": "argmax snapshot vs target write segment; high gate != causal (see ablation)"
+          }
+        },
+        "checkpoint_path": "/mnt/c/projects/local-model-lifecycle/.harness/artifacts_ext/rnn05bext_dn_seed43_frozen_reader.pt",
+        "checkpoint_sha256": "ed1fe696c37f2a552dd8af503f0952a772f01359692c54d1996a554a5ff41960",
+        "reader_weight_sha256": "8407013ebd94b777d85c878920242d516c68aa8699afc0befc605e89538ceecd",
+        "backbone_stat": {
+          "steps": 2500,
+          "wall_s": 92.5,
+          "final_loss": 0.0063,
+          "trained_params": 92614
+        },
+        "reader_stat": {
+          "steps": 1800,
+          "wall_s": 56.8,
+          "final_loss": 0.0057,
+          "trained_params": 8192
+        }
+      },
+      {
+        "seed": 44,
+        "base_holdout": 0.991,
+        "base_dev": 0.9905,
+        "paramfree_MC_holdout": 0.9924,
+        "reader_holdout": 0.9919,
+        "reader_dev": 0.9934,
+        "BACKBONE_WEIGHT_MUTATION": 0,
+        "changed_tensors": [],
+        "FROZEN_BACKBONE_VALIDITY": "PASS",
+        "delta_paramfree": 0.0014,
+        "delta_reader": 0.0009,
+        "recovery": {
+          "n_targets": 4096,
+          "base_acc": 0.991,
+          "mc_acc": 0.9919,
+          "net_delta": 0.001,
+          "n_base_wrong": 37,
+          "n_base_correct": 4059,
+          "RECOVERY_RATE": 0.2162,
+          "HARM_RATE": 0.001,
+          "cell_Bok_MCok": 4055,
+          "cell_Bok_MCwrong": 4,
+          "cell_Bwrong_MCok": 8,
+          "cell_Bwrong_MCwrong": 29,
+          "attribution": {
+            "n_recovered_examined": 8,
+            "frac_argmax_temporally_plausible": 0.5,
+            "mean_gate_on_proximal": 0.1283,
+            "mean_gate_online": 0.126,
+            "SNAPSHOT_ATTRIBUTION": "DESCRIPTIVE",
+            "note": "argmax snapshot vs target write segment; high gate != causal (see ablation)"
+          }
+        },
+        "checkpoint_path": "/mnt/c/projects/local-model-lifecycle/.harness/artifacts_ext/rnn05bext_dn_seed44_frozen_reader.pt",
+        "checkpoint_sha256": "b065ac276fc7f7449752747225c5692212b34c9b02aa73d83a576bcbef572c18",
+        "reader_weight_sha256": "c54ab8e05516bf37aaf354288bb55add469682d94a3146fe4ce51cbbf0bb87c4",
+        "backbone_stat": {
+          "steps": 2500,
+          "wall_s": 92.0,
+          "final_loss": 0.0019,
+          "trained_params": 92614
+        },
+        "reader_stat": {
+          "steps": 1800,
+          "wall_s": 57.3,
+          "final_loss": 0.0013,
+          "trained_params": 8192
+        }
+      }
+    ],
+    "gdn": [
+      {
+        "seed": 42,
+        "base_holdout": 0.7869,
+        "base_dev": 0.7947,
+        "paramfree_MC_holdout": 0.7869,
+        "reader_holdout": 0.7903,
+        "reader_dev": 0.7935,
+        "BACKBONE_WEIGHT_MUTATION": 0,
+        "changed_tensors": [],
+        "FROZEN_BACKBONE_VALIDITY": "PASS",
+        "delta_paramfree": 0.0,
+        "delta_reader": 0.0034,
+        "recovery": {
+          "n_targets": 4096,
+          "base_acc": 0.7869,
+          "mc_acc": 0.7903,
+          "net_delta": 0.0034,
+          "n_base_wrong": 873,
+          "n_base_correct": 3223,
+          "RECOVERY_RATE": 0.1627,
+          "HARM_RATE": 0.0397,
+          "cell_Bok_MCok": 3095,
+          "cell_Bok_MCwrong": 128,
+          "cell_Bwrong_MCok": 142,
+          "cell_Bwrong_MCwrong": 731,
+          "attribution": {
+            "n_recovered_examined": 142,
+            "frac_argmax_temporally_plausible": 0.0915,
+            "mean_gate_on_proximal": 0.0649,
+            "mean_gate_online": 0.2615,
+            "SNAPSHOT_ATTRIBUTION": "DESCRIPTIVE",
+            "note": "argmax snapshot vs target write segment; high gate != causal (see ablation)"
+          }
+        },
+        "checkpoint_path": "/mnt/c/projects/local-model-lifecycle/.harness/artifacts_ext/rnn05bext_gdn_seed42_frozen_reader.pt",
+        "checkpoint_sha256": "84b3c71d562104a419186a34f76c800906e1bb7c5c2fe3f256b1ff555040bc7f",
+        "reader_weight_sha256": "291479a8b8dab60084750e0aa40e96d4cb838d6062e574b30c6eccb27402fec4",
+        "backbone_stat": {
+          "reused_from_calibration": true
+        },
+        "reader_stat": {
+          "steps": 1800,
+          "wall_s": 57.0,
+          "final_loss": 0.2498,
+          "trained_params": 8192
+        }
+      },
+      {
+        "seed": 43,
+        "base_holdout": 0.1013,
+        "base_dev": 0.0999,
+        "paramfree_MC_holdout": 0.1157,
+        "reader_holdout": 0.114,
+        "reader_dev": 0.1133,
+        "BACKBONE_WEIGHT_MUTATION": 0,
+        "changed_tensors": [],
+        "FROZEN_BACKBONE_VALIDITY": "PASS",
+        "delta_paramfree": 0.0144,
+        "delta_reader": 0.0127,
+        "recovery": {
+          "n_targets": 4096,
+          "base_acc": 0.1013,
+          "mc_acc": 0.114,
+          "net_delta": 0.0127,
+          "n_base_wrong": 3681,
+          "n_base_correct": 415,
+          "RECOVERY_RATE": 0.0446,
+          "HARM_RATE": 0.2699,
+          "cell_Bok_MCok": 303,
+          "cell_Bok_MCwrong": 112,
+          "cell_Bwrong_MCok": 164,
+          "cell_Bwrong_MCwrong": 3517,
+          "attribution": {
+            "n_recovered_examined": 164,
+            "frac_argmax_temporally_plausible": 0.0915,
+            "mean_gate_on_proximal": 0.0562,
+            "mean_gate_online": 0.2611,
+            "SNAPSHOT_ATTRIBUTION": "DESCRIPTIVE",
+            "note": "argmax snapshot vs target write segment; high gate != causal (see ablation)"
+          }
+        },
+        "checkpoint_path": "/mnt/c/projects/local-model-lifecycle/.harness/artifacts_ext/rnn05bext_gdn_seed43_frozen_reader.pt",
+        "checkpoint_sha256": "e97fe57c5dc777d5987188ccf74c17d19b28578671b09a15e0b984217338930d",
+        "reader_weight_sha256": "822da7af21db94ea824962c57681fbd49bdcfa6e8a3d45afa5edbc097d7a3a70",
+        "backbone_stat": {
+          "steps": 2500,
+          "wall_s": 98.9,
+          "final_loss": 2.4782,
+          "trained_params": 92614
+        },
+        "reader_stat": {
+          "steps": 1800,
+          "wall_s": 52.8,
+          "final_loss": 2.6399,
+          "trained_params": 8192
+        }
+      },
+      {
+        "seed": 44,
+        "base_holdout": 0.0903,
+        "base_dev": 0.0889,
+        "paramfree_MC_holdout": 0.0933,
+        "reader_holdout": 0.0959,
+        "reader_dev": 0.1018,
+        "BACKBONE_WEIGHT_MUTATION": 0,
+        "changed_tensors": [],
+        "FROZEN_BACKBONE_VALIDITY": "PASS",
+        "delta_paramfree": 0.003,
+        "delta_reader": 0.0056,
+        "recovery": {
+          "n_targets": 4096,
+          "base_acc": 0.0903,
+          "mc_acc": 0.0959,
+          "net_delta": 0.0056,
+          "n_base_wrong": 3726,
+          "n_base_correct": 370,
+          "RECOVERY_RATE": 0.0427,
+          "HARM_RATE": 0.3676,
+          "cell_Bok_MCok": 234,
+          "cell_Bok_MCwrong": 136,
+          "cell_Bwrong_MCok": 159,
+          "cell_Bwrong_MCwrong": 3567,
+          "attribution": {
+            "n_recovered_examined": 159,
+            "frac_argmax_temporally_plausible": 0.1447,
+            "mean_gate_on_proximal": 0.0612,
+            "mean_gate_online": 0.2648,
+            "SNAPSHOT_ATTRIBUTION": "DESCRIPTIVE",
+            "note": "argmax snapshot vs target write segment; high gate != causal (see ablation)"
+          }
+        },
+        "checkpoint_path": "/mnt/c/projects/local-model-lifecycle/.harness/artifacts_ext/rnn05bext_gdn_seed44_frozen_reader.pt",
+        "checkpoint_sha256": "709478da81575784d2fac1958c7592186fbc8c70de1b2f3b4594f5af3b102404",
+        "reader_weight_sha256": "9384cccb5ab1c622155de1794142b91a34e5e60d3536b50ddcc927fde40d2029",
+        "backbone_stat": {
+          "steps": 2500,
+          "wall_s": 97.0,
+          "final_loss": 2.4666,
+          "trained_params": 92614
+        },
+        "reader_stat": {
+          "steps": 1800,
+          "wall_s": 54.2,
+          "final_loss": 2.7033,
+          "trained_params": 8192
+        }
+      }
+    ]
+  },
+  "recovery": {},
+  "ablation": {
+    "gdn": {
+      "n_snap": 7,
+      "proximal_idx": 0,
+      "irrelevant_idx": 6,
+      "random_idx": 0,
+      "recovery_full": 0.1627,
+      "recovery_drop_proximal": 0.1317,
+      "recovery_drop_irrelevant": 0.1695,
+      "recovery_drop_random": 0.1317,
+      "drop_from_proximal": 0.031,
+      "drop_from_irrelevant": -0.0068,
+      "HISTORICAL_SNAPSHOT_CAUSAL_SIGNAL": "SUPPORTED"
+    },
+    "dn": {
+      "n_snap": 7,
+      "proximal_idx": 0,
+      "irrelevant_idx": 6,
+      "random_idx": 0,
+      "recovery_full": 0.1234,
+      "recovery_drop_proximal": 0.1183,
+      "recovery_drop_irrelevant": 0.1325,
+      "recovery_drop_random": 0.1183,
+      "drop_from_proximal": 0.0051,
+      "drop_from_irrelevant": -0.0091,
+      "HISTORICAL_SNAPSHOT_CAUSAL_SIGNAL": "INCONCLUSIVE"
+    }
+  },
+  "cache_count": {
+    "la": {
+      "seg": 64,
+      "n_checkpoints": 8,
+      "selection_rule": "most_recent_K",
+      "rows": [
+        {
+          "retained_K": 1,
+          "holdout_acc": 0.9976,
+          "recovery": 0.0,
+          "harm": 0.0002,
+          "cache_bytes": 16384
+        },
+        {
+          "retained_K": 2,
+          "holdout_acc": 0.9973,
+          "recovery": 0.0,
+          "harm": 0.0005,
+          "cache_bytes": 32768
+        },
+        {
+          "retained_K": 4,
+          "holdout_acc": 0.9973,
+          "recovery": 0.1111,
+          "harm": 0.0007,
+          "cache_bytes": 65536
+        },
+        {
+          "retained_K": 8,
+          "holdout_acc": 0.9973,
+          "recovery": 0.1111,
+          "harm": 0.0007,
+          "cache_bytes": 131072
+        }
+      ],
+      "PURE_CACHE_COUNT_CURVE": "QUALIFIED"
+    },
+    "dn": {
+      "seg": 64,
+      "n_checkpoints": 8,
+      "selection_rule": "most_recent_K",
+      "rows": [
+        {
+          "retained_K": 1,
+          "holdout_acc": 0.343,
+          "recovery": 0.0419,
+          "harm": 0.0437,
+          "cache_bytes": 16384
+        },
+        {
+          "retained_K": 2,
+          "holdout_acc": 0.3479,
+          "recovery": 0.0622,
+          "harm": 0.0704,
+          "cache_bytes": 32768
+        },
+        {
+          "retained_K": 4,
+          "holdout_acc": 0.3586,
+          "recovery": 0.1005,
+          "harm": 0.1156,
+          "cache_bytes": 65536
+        },
+        {
+          "retained_K": 8,
+          "holdout_acc": 0.3643,
+          "recovery": 0.1234,
+          "harm": 0.1453,
+          "cache_bytes": 131072
+        }
+      ],
+      "PURE_CACHE_COUNT_CURVE": "QUALIFIED"
+    },
+    "gdn": {
+      "seg": 64,
+      "n_checkpoints": 8,
+      "selection_rule": "most_recent_K",
+      "rows": [
+        {
+          "retained_K": 1,
+          "holdout_acc": 0.7903,
+          "recovery": 0.0538,
+          "harm": 0.0102,
+          "cache_bytes": 16384
+        },
+        {
+          "retained_K": 2,
+          "holdout_acc": 0.7898,
+          "recovery": 0.0767,
+          "harm": 0.0171,
+          "cache_bytes": 32768
+        },
+        {
+          "retained_K": 4,
+          "holdout_acc": 0.7896,
+          "recovery": 0.1191,
+          "harm": 0.0289,
+          "cache_bytes": 65536
+        },
+        {
+          "retained_K": 8,
+          "holdout_acc": 0.7903,
+          "recovery": 0.1627,
+          "harm": 0.0397,
+          "cache_bytes": 131072
+        }
+      ],
+      "PURE_CACHE_COUNT_CURVE": "QUALIFIED"
+    }
+  },
+  "twobytwo": {
+    "skipped": true,
+    "reason": "elapsed=19.4min"
+  },
+  "cost": {
+    "la": {
+      "mode": "la",
+      "n_segments": 8,
+      "batch": 64,
+      "reps": 20,
+      "projection_conv_ms": 0.707,
+      "recurrent_update_ms": 1.025,
+      "state_read_ms": 0.397,
+      "total_ms": 3.403
+    },
+    "dn": {
+      "mode": "dn",
+      "n_segments": 8,
+      "batch": 64,
+      "reps": 20,
+      "projection_conv_ms": 0.703,
+      "recurrent_update_ms": 22.717,
+      "state_read_ms": 0.407,
+      "total_ms": 25.241
+    },
+    "gdn": {
+      "mode": "gdn",
+      "n_segments": 8,
+      "batch": 64,
+      "reps": 20,
+      "projection_conv_ms": 0.706,
+      "recurrent_update_ms": 25.127,
+      "state_read_ms": 0.399,
+      "total_ms": 25.313
+    }
+  },
+  "memory": {
+    "la": {
+      "mode": "all",
+      "matrix_state_bytes": 16384,
+      "conv_state_bytes": 2304,
+      "total_live_recurrent_state_bytes": 18688,
+      "historical_checkpoint_bytes_per_ckpt": 16384,
+      "historical_checkpoint_bytes_at_full": 114688,
+      "n_checkpoints": 8,
+      "reader_param_bytes": 32768
+    },
+    "dn": {
+      "mode": "all",
+      "matrix_state_bytes": 16384,
+      "conv_state_bytes": 2304,
+      "total_live_recurrent_state_bytes": 18688,
+      "historical_checkpoint_bytes_per_ckpt": 16384,
+      "historical_checkpoint_bytes_at_full": 114688,
+      "n_checkpoints": 8,
+      "reader_param_bytes": 32768
+    },
+    "gdn": {
+      "mode": "all",
+      "matrix_state_bytes": 16384,
+      "conv_state_bytes": 2304,
+      "total_live_recurrent_state_bytes": 18688,
+      "historical_checkpoint_bytes_per_ckpt": 16384,
+      "historical_checkpoint_bytes_at_full": 114688,
+      "n_checkpoints": 8,
+      "reader_param_bytes": 32768
+    }
+  },
+  "outcomes": {
+    "margin_OPERATOR_HEURISTIC": 0.03,
+    "selected_condition": {
+      "seq_len": 512,
+      "distractor_tier": "f50",
+      "distractor_density": 0.5,
+      "num_pairs": 12,
+      "num_queries": 8,
+      "write_frac": 0.25,
+      "name": "mb_L512_f50"
+    },
+    "H3_TESTABILITY": "BLOCKED_BY_UNSTABLE_BASE",
+    "per_substrate": {
+      "la": {
+        "seeds": [
+          42
+        ],
+        "base_holdout": [
+          0.9978
+        ],
+        "reader_holdout": [
+          0.9973
+        ],
+        "mean_base": 0.9978,
+        "mean_reader": 0.9973,
+        "mean_net_delta": -0.0005,
+        "per_seed_net": [
+          -0.0005
+        ],
+        "direction_all_positive": false,
+        "paramfree_delta": -0.0012,
+        "RECOVERY_RATE": 0.1111,
+        "HARM_RATE": 0.0007,
+        "FROZEN_BACKBONE_VALIDITY": "PASS",
+        "HISTORICAL_RECOVERY": "NO_EFFECT"
+      },
+      "dn": {
+        "seeds": [
+          42,
+          43,
+          44
+        ],
+        "base_holdout": [
+          0.3293,
+          0.9592,
+          0.991
+        ],
+        "reader_holdout": [
+          0.3643,
+          0.9641,
+          0.9919
+        ],
+        "mean_base": 0.7598,
+        "mean_reader": 0.7734,
+        "mean_net_delta": 0.0136,
+        "per_seed_net": [
+          0.035,
+          0.0049,
+          0.0009
+        ],
+        "direction_all_positive": true,
+        "paramfree_delta": 0.0141,
+        "RECOVERY_RATE": 0.1851,
+        "HARM_RATE": 0.0501,
+        "FROZEN_BACKBONE_VALIDITY": "PASS",
+        "HISTORICAL_RECOVERY": "WEAK_DIRECTIONAL"
+      },
+      "gdn": {
+        "seeds": [
+          42,
+          43,
+          44
+        ],
+        "base_holdout": [
+          0.7869,
+          0.1013,
+          0.0903
+        ],
+        "reader_holdout": [
+          0.7903,
+          0.114,
+          0.0959
+        ],
+        "mean_base": 0.3262,
+        "mean_reader": 0.3334,
+        "mean_net_delta": 0.0072,
+        "per_seed_net": [
+          0.0034,
+          0.0127,
+          0.0056
+        ],
+        "direction_all_positive": true,
+        "paramfree_delta": 0.0058,
+        "RECOVERY_RATE": 0.0833,
+        "HARM_RATE": 0.2257,
+        "FROZEN_BACKBONE_VALIDITY": "PASS",
+        "HISTORICAL_RECOVERY": "NO_EFFECT"
+      }
+    },
+    "GDN_HISTORICAL_RECOVERY": "NO_EFFECT",
+    "DN_HISTORICAL_RECOVERY": "WEAK_DIRECTIONAL",
+    "LA_HISTORICAL_RECOVERY": "NO_EFFECT",
+    "GDN_RECOVERY_RATE": 0.0833,
+    "GDN_HARM_RATE": 0.2257,
+    "DN_RECOVERY_RATE": 0.1851,
+    "DN_HARM_RATE": 0.0501,
+    "HISTORICAL_SNAPSHOT_CAUSAL_SIGNAL": "SUPPORTED",
+    "LA_FALSIFICATION": "CONTROL_HELD",
+    "H3_RESULT": "BLOCKED_BY_UNSTABLE_BASE",
+    "QWEN_GDN_TRANSPLANT_GATE": "DEFER",
+    "gate_note": "H3 not a defensible positive mechanism in the qualified regime -> defer Qwen work."
+  },
+  "benchmarks": {
+    "condition": {
+      "seq_len": 512,
+      "distractor_tier": "f50",
+      "distractor_density": 0.5,
+      "num_pairs": 12,
+      "num_queries": 8,
+      "write_frac": 0.25,
+      "name": "mb_L512_f50"
+    },
+    "train_ids_hash": "bb5a863809897a1c",
+    "dev_ids_hash": "b740fd2c7d88836c",
+    "holdout_ids_hash": "17f1756e71c7dc55",
+    "holdout_first_ids": [
+      "5d2b03f604ba4f93",
+      "eec7bdea07ea3663",
+      "7804e97d9ac66059"
+    ]
+  }
+}

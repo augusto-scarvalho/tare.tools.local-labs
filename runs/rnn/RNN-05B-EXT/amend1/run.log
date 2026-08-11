@@ -1,0 +1,230 @@
+[CFG] CALIBRATION_RULE_IDENTITY=PASS band=[0.4, 0.8] seed_band=[0.2, 0.9]
+[P0] substrate sanity: reference parity + full-module checkpoint/restore + request isolation
+  la: parity=PASS lifecycle=NUMERICALLY_EQUIVALENT iso=PASS
+  dn: parity=PASS lifecycle=NUMERICALLY_EQUIVALENT iso=PASS
+  gdn: parity=PASS lifecycle=NUMERICALLY_EQUIVALENT iso=PASS
+[P1] calibration (BASE-only) — rule: iterate the predeclared grid cheap-first (seq_len asc [512, 768, 1024], then distractor asc ['low', 'med', 'high']); SELECT the first condition whose GDN seed-42 BASE holdout accuracy is within (0.4,0.8); QUALIFY it iff all 3 GDN seeds are within (0.2,0.9) and their mean is within (0.4,0.8); otherwise H3_TESTABILITY=BLOCKED with NO nearest-condition fallback
+  mb_L512_f42: GDN seed42 BASE=0.9275 in_band=False
+  mb_L512_f46: GDN seed42 BASE=0.957 in_band=False
+  mb_L512_f50: GDN seed42 BASE=0.7869 in_band=True
+[P1] SELECTED condition: mb_L512_f50 {'seq_len': 512, 'distractor_tier': 'f50', 'distractor_density': 0.5, 'num_pairs': 12, 'num_queries': 8, 'write_frac': 0.25, 'name': 'mb_L512_f50'}
+      step    0/2500 loss 5.4282
+      step  500/2500 loss 0.0620
+      step 1000/2500 loss 0.0021
+      step 1500/2500 loss 0.0009
+      step 2000/2500 loss 0.0008
+      step 2499/2500 loss 0.0007
+[P2] la seed=42: trained BASE backbone loss=0.0007
+      step    0/1800 loss 0.0011
+      step  500/1800 loss 0.0009
+      step 1000/1800 loss 0.0008
+      step 1500/1800 loss 0.0007
+      step 1799/1800 loss 0.0008
+  la seed=42: base=0.9978 paramfreeMC=0.9966 reader=0.9973 RECOVERY=0.1111 HARM=0.0007 mutation=0 sha=89f1aa25daf0
+      step    0/2500 loss 5.4364
+      step  500/2500 loss 3.8384
+      step 1000/2500 loss 3.0734
+      step 1500/2500 loss 2.3088
+      step 2000/2500 loss 1.5167
+      step 2499/2500 loss 1.3640
+[P2] dn seed=42: trained BASE backbone loss=1.364
+      step    0/1800 loss 1.6743
+      step  500/1800 loss 1.5858
+      step 1000/1800 loss 1.5901
+      step 1500/1800 loss 1.5789
+      step 1799/1800 loss 1.5291
+  dn seed=42: base=0.3293 paramfreeMC=0.3625 reader=0.3643 RECOVERY=0.1234 HARM=0.1453 mutation=0 sha=0d2104507418
+      step    0/2500 loss 5.4337
+      step  500/2500 loss 3.7683
+      step 1000/2500 loss 1.0605
+      step 1500/2500 loss 0.0196
+      step 2000/2500 loss 0.0060
+      step 2499/2500 loss 0.0063
+[P2] dn seed=43: trained BASE backbone loss=0.0063
+      step    0/1800 loss 0.0064
+      step  500/1800 loss 0.0063
+      step 1000/1800 loss 0.0046
+      step 1500/1800 loss 0.0055
+      step 1799/1800 loss 0.0057
+  dn seed=43: base=0.9592 paramfreeMC=0.9668 reader=0.9641 RECOVERY=0.2156 HARM=0.0041 mutation=0 sha=ed1fe696c37f
+      step    0/2500 loss 5.4843
+      step  500/2500 loss 3.6351
+      step 1000/2500 loss 0.0252
+      step 1500/2500 loss 0.0031
+      step 2000/2500 loss 0.0020
+      step 2499/2500 loss 0.0019
+[P2] dn seed=44: trained BASE backbone loss=0.0019
+      step    0/1800 loss 0.0017
+      step  500/1800 loss 0.0015
+      step 1000/1800 loss 0.0014
+      step 1500/1800 loss 0.0015
+      step 1799/1800 loss 0.0013
+  dn seed=44: base=0.991 paramfreeMC=0.9924 reader=0.9919 RECOVERY=0.2162 HARM=0.001 mutation=0 sha=b065ac276fc7
+[P2] gdn seed=42: reuse calibration BASE backbone
+      step    0/1800 loss 0.2479
+      step  500/1800 loss 0.2482
+      step 1000/1800 loss 0.2594
+      step 1500/1800 loss 0.2071
+      step 1799/1800 loss 0.2498
+  gdn seed=42: base=0.7869 paramfreeMC=0.7869 reader=0.7903 RECOVERY=0.1627 HARM=0.0397 mutation=0 sha=84b3c71d5621
+      step    0/2500 loss 5.4337
+      step  500/2500 loss 3.8856
+      step 1000/2500 loss 3.1152
+      step 1500/2500 loss 2.6165
+      step 2000/2500 loss 2.4552
+      step 2499/2500 loss 2.4782
+[P2] gdn seed=43: trained BASE backbone loss=2.4782
+      step    0/1800 loss 2.8262
+      step  500/1800 loss 2.7744
+      step 1000/1800 loss 2.6172
+      step 1500/1800 loss 2.6249
+      step 1799/1800 loss 2.6399
+  gdn seed=43: base=0.1013 paramfreeMC=0.1157 reader=0.114 RECOVERY=0.0446 HARM=0.2699 mutation=0 sha=e97fe57c5dc7
+      step    0/2500 loss 5.4845
+      step  500/2500 loss 3.7528
+      step 1000/2500 loss 3.0893
+      step 1500/2500 loss 2.6556
+      step 2000/2500 loss 2.5225
+      step 2499/2500 loss 2.4666
+[P2] gdn seed=44: trained BASE backbone loss=2.4666
+      step    0/1800 loss 3.1226
+      step  500/1800 loss 2.8695
+      step 1000/1800 loss 2.7393
+      step 1500/1800 loss 2.7080
+      step 1799/1800 loss 2.7033
+  gdn seed=44: base=0.0903 paramfreeMC=0.0933 reader=0.0959 RECOVERY=0.0427 HARM=0.3676 mutation=0 sha=709478da8157
+[P1c] GDN seed bases=[0.7869, 0.1013, 0.0903] mean=0.3262 band_ok=False
+[P3] snapshot ablation on GDN/DN (recovery vs dropping proximal/irrelevant/random snapshot)
+  gdn: rec_full=0.1627 drop_proximal->0.1317 drop_irrelevant->0.1695 signal=SUPPORTED
+  dn: rec_full=0.1234 drop_proximal->0.1183 drop_irrelevant->0.1325 signal=INCONCLUSIVE
+[P4] pure cache-count curve (fixed backbone+reader; vary retained-K)
+  la K=1 acc=0.9976 recovery=0.0 harm=0.0002
+  la K=2 acc=0.9973 recovery=0.0 harm=0.0005
+  la K=4 acc=0.9973 recovery=0.1111 harm=0.0007
+  la K=8 acc=0.9973 recovery=0.1111 harm=0.0007
+  dn K=1 acc=0.343 recovery=0.0419 harm=0.0437
+  dn K=2 acc=0.3479 recovery=0.0622 harm=0.0704
+  dn K=4 acc=0.3586 recovery=0.1005 harm=0.1156
+  dn K=8 acc=0.3643 recovery=0.1234 harm=0.1453
+  gdn K=1 acc=0.7903 recovery=0.0538 harm=0.0102
+  gdn K=2 acc=0.7898 recovery=0.0767 harm=0.0171
+  gdn K=4 acc=0.7896 recovery=0.1191 harm=0.0289
+  gdn K=8 acc=0.7903 recovery=0.1627 harm=0.0397
+[P5] secondary 2x2 SKIPPED (elapsed 19.4 min / testability BLOCKED_BY_UNSTABLE_BASE)
+[P6] cost + memory accounting
+  la: total_ms=3.403 state_bytes=18688
+  dn: total_ms=25.241 state_bytes=18688
+  gdn: total_ms=25.313 state_bytes=18688
+[DONE] outcomes:
+{
+  "margin_OPERATOR_HEURISTIC": 0.03,
+  "selected_condition": {
+    "seq_len": 512,
+    "distractor_tier": "f50",
+    "distractor_density": 0.5,
+    "num_pairs": 12,
+    "num_queries": 8,
+    "write_frac": 0.25,
+    "name": "mb_L512_f50"
+  },
+  "H3_TESTABILITY": "BLOCKED_BY_UNSTABLE_BASE",
+  "per_substrate": {
+    "la": {
+      "seeds": [
+        42
+      ],
+      "base_holdout": [
+        0.9978
+      ],
+      "reader_holdout": [
+        0.9973
+      ],
+      "mean_base": 0.9978,
+      "mean_reader": 0.9973,
+      "mean_net_delta": -0.0005,
+      "per_seed_net": [
+        -0.0005
+      ],
+      "direction_all_positive": false,
+      "paramfree_delta": -0.0012,
+      "RECOVERY_RATE": 0.1111,
+      "HARM_RATE": 0.0007,
+      "FROZEN_BACKBONE_VALIDITY": "PASS",
+      "HISTORICAL_RECOVERY": "NO_EFFECT"
+    },
+    "dn": {
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "base_holdout": [
+        0.3293,
+        0.9592,
+        0.991
+      ],
+      "reader_holdout": [
+        0.3643,
+        0.9641,
+        0.9919
+      ],
+      "mean_base": 0.7598,
+      "mean_reader": 0.7734,
+      "mean_net_delta": 0.0136,
+      "per_seed_net": [
+        0.035,
+        0.0049,
+        0.0009
+      ],
+      "direction_all_positive": true,
+      "paramfree_delta": 0.0141,
+      "RECOVERY_RATE": 0.1851,
+      "HARM_RATE": 0.0501,
+      "FROZEN_BACKBONE_VALIDITY": "PASS",
+      "HISTORICAL_RECOVERY": "WEAK_DIRECTIONAL"
+    },
+    "gdn": {
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "base_holdout": [
+        0.7869,
+        0.1013,
+        0.0903
+      ],
+      "reader_holdout": [
+        0.7903,
+        0.114,
+        0.0959
+      ],
+      "mean_base": 0.3262,
+      "mean_reader": 0.3334,
+      "mean_net_delta": 0.0072,
+      "per_seed_net": [
+        0.0034,
+        0.0127,
+        0.0056
+      ],
+      "direction_all_positive": true,
+      "paramfree_delta": 0.0058,
+      "RECOVERY_RATE": 0.0833,
+      "HARM_RATE": 0.2257,
+      "FROZEN_BACKBONE_VALIDITY": "PASS",
+      "HISTORICAL_RECOVERY": "NO_EFFECT"
+    }
+  },
+  "GDN_HISTORICAL_RECOVERY": "NO_EFFECT",
+  "DN_HISTORICAL_RECOVERY": "WEAK_DIRECTIONAL",
+  "LA_HISTORICAL_RECOVERY": "NO_EFFECT",
+  "GDN_RECOVERY_RATE": 0.0833,
+  "GDN_HARM_RATE": 0.2257,
+  "DN_RECOVERY_RATE": 0.1851,
+  "DN_HARM_RATE": 0.0501,
+  "HISTORICAL_SNAPSHOT_CAUSAL_SIGNAL": "SUPPORTED",
+  "LA_FALSIFICATION": "CONTROL_HELD",
+  "H3_RESULT": "BLOCKED_BY_UNSTABLE_BASE",
+  "QWEN_GDN_TRANSPLANT_GATE": "DEFER",
+  "gate_note": "H3 not a defensible positive mechanism in the qualified regime -> defer Qwen work."
+}
