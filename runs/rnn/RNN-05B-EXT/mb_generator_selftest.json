@@ -1,0 +1,26 @@
+{
+  "packet": "RNN-05B-EXT",
+  "component": "memory-bound MQAR generator self-qualification",
+  "MB_GENERATOR_SELFTEST": "PASS",
+  "condition": {
+    "seq_len": 512,
+    "distractor_tier": "low",
+    "distractor_density": 0.15,
+    "num_pairs": 12,
+    "num_queries": 8,
+    "write_frac": 0.25,
+    "name": "mb_L512_low"
+  },
+  "checks": {
+    "length_exact": true,
+    "kv_survives": true,
+    "no_answer_leak": true,
+    "no_lexical_shortcut": true,
+    "mean_write_query_distance": 449.99609375,
+    "min_write_query_distance": 393,
+    "memory_bound_design": true,
+    "process_stable": true
+  },
+  "numpy": "2.5.2",
+  "python": "3.12.3"
+}

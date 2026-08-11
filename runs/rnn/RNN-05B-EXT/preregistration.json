@@ -1,0 +1,170 @@
+{
+  "packet": "RNN-05B-EXT",
+  "title": "Historical-state recoverability outside the ceiling (H3)",
+  "config": {
+    "d_model": 128,
+    "d_k": 64,
+    "d_v": 64,
+    "conv_k": 4,
+    "seg": 64,
+    "num_pairs": 12,
+    "num_queries": 8,
+    "num_keys": 128,
+    "num_vals": 64,
+    "write_frac": 0.25,
+    "seq_lens": [
+      512,
+      768,
+      1024
+    ],
+    "distractor_tiers": [
+      [
+        "low",
+        0.15
+      ],
+      [
+        "med",
+        0.35
+      ],
+      [
+        "high",
+        0.55
+      ]
+    ],
+    "band_lo": 0.4,
+    "band_hi": 0.8,
+    "seed_lo": 0.2,
+    "seed_hi": 0.9,
+    "steps_bb": 2500,
+    "steps_rd": 1800,
+    "lr": 0.003,
+    "batch": 96,
+    "pool_train": 4096,
+    "pool_eval": 512,
+    "gdn_seeds": [
+      42,
+      43,
+      44
+    ],
+    "dn_seeds": [
+      42,
+      43,
+      44
+    ],
+    "la_seeds": [
+      42
+    ],
+    "margin": 0.03,
+    "cache_K": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "recovery_margin": 0.02
+  },
+  "select_rule": "iterate the predeclared grid cheap-first (seq_len asc [512, 768, 1024], then distractor asc ['low', 'med', 'high']); SELECT the first condition whose GDN seed-42 BASE holdout accuracy is within (0.4,0.8); QUALIFY it iff all 3 GDN seeds are within (0.2,0.9) and their mean is within (0.4,0.8); otherwise H3_TESTABILITY=BLOCKED with NO nearest-condition fallback",
+  "grid": [
+    {
+      "seq_len": 512,
+      "distractor_tier": "low",
+      "distractor_density": 0.15,
+      "num_pairs": 12,
+      "num_queries": 8,
+      "write_frac": 0.25,
+      "name": "mb_L512_low"
+    },
+    {
+      "seq_len": 512,
+      "distractor_tier": "med",
+      "distractor_density": 0.35,
+      "num_pairs": 12,
+      "num_queries": 8,
+      "write_frac": 0.25,
+      "name": "mb_L512_med"
+    },
+    {
+      "seq_len": 512,
+      "distractor_tier": "high",
+      "distractor_density": 0.55,
+      "num_pairs": 12,
+      "num_queries": 8,
+      "write_frac": 0.25,
+      "name": "mb_L512_high"
+    },
+    {
+      "seq_len": 768,
+      "distractor_tier": "low",
+      "distractor_density": 0.15,
+      "num_pairs": 12,
+      "num_queries": 8,
+      "write_frac": 0.25,
+      "name": "mb_L768_low"
+    },
+    {
+      "seq_len": 768,
+      "distractor_tier": "med",
+      "distractor_density": 0.35,
+      "num_pairs": 12,
+      "num_queries": 8,
+      "write_frac": 0.25,
+      "name": "mb_L768_med"
+    },
+    {
+      "seq_len": 768,
+      "distractor_tier": "high",
+      "distractor_density": 0.55,
+      "num_pairs": 12,
+      "num_queries": 8,
+      "write_frac": 0.25,
+      "name": "mb_L768_high"
+    },
+    {
+      "seq_len": 1024,
+      "distractor_tier": "low",
+      "distractor_density": 0.15,
+      "num_pairs": 12,
+      "num_queries": 8,
+      "write_frac": 0.25,
+      "name": "mb_L1024_low"
+    },
+    {
+      "seq_len": 1024,
+      "distractor_tier": "med",
+      "distractor_density": 0.35,
+      "num_pairs": 12,
+      "num_queries": 8,
+      "write_frac": 0.25,
+      "name": "mb_L1024_med"
+    },
+    {
+      "seq_len": 1024,
+      "distractor_tier": "high",
+      "distractor_density": 0.55,
+      "num_pairs": 12,
+      "num_queries": 8,
+      "write_frac": 0.25,
+      "name": "mb_L1024_high"
+    }
+  ],
+  "calibration_rule_selfcheck": {
+    "CALIBRATION_RULE_IDENTITY": "PASS",
+    "executed_band": [
+      0.4,
+      0.8
+    ],
+    "recorded_band": [
+      0.4,
+      0.8
+    ],
+    "executed_seed_band": [
+      0.2,
+      0.9
+    ],
+    "recorded_seed_band": [
+      0.2,
+      0.9
+    ],
+    "note": "select_rule string is f-string-derived from the constants -> recorded==executed holds"
+  }
+}
