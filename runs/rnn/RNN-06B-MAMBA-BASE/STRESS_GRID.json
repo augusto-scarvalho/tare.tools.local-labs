@@ -1,0 +1,34 @@
+{
+  "stressGridSha256": "d29e442f03e2cae116081a09712b354b320495ec3c046f270be9fa8e36e36de1",
+  "generator_version": "rnn06b_mqar_matched_control_v1",
+  "doses": [
+    8,
+    16,
+    24,
+    32,
+    48,
+    64,
+    96,
+    128
+  ],
+  "conditions": [
+    "MP",
+    "LC"
+  ],
+  "s_strata": 3,
+  "n_per_stratum": 64,
+  "n_per_cell": 192,
+  "tau_hi": 0.75,
+  "tau_lo": 0.45,
+  "low_dose": 8,
+  "monotonicity_tolerance": 0.05,
+  "max_violation": 0.1,
+  "min_mid_band_doses": 2,
+  "robust_strata_required": 2,
+  "confound_high_doses": [
+    96,
+    128
+  ],
+  "confound_min_separation": 0.15,
+  "primary_endpoint": "MP_constrained_retrieval_accuracy"
+}
