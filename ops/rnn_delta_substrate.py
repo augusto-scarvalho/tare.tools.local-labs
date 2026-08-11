@@ -287,7 +287,13 @@ def reference_parity(model, ids, mode, chunk_size=32):
     res["incremental_decode_vs_scan"] = max(float((dec - ofs).abs().max()), float((S - Sfs).abs().max()))
     tol = 1e-4
     status = "PASS" if all(vv < tol for vv in res.values()) else "FAIL"
-    return dict(mode=mode, chunk_size=chunk_size, tol=tol, maxabs=res, PARITY=status)
+    # SCOPE (audit §3): both paths are LOCAL ports of the pinned Qwen recurrence (scan <- torch_recurrent,
+    # chunked <- torch_chunk). FLA/upstream executable is NOT invoked -> this is dual-implementation parity,
+    # not upstream-executable parity.
+    return dict(mode=mode, chunk_size=chunk_size, tol=tol, maxabs=res, PARITY=status,
+                REFERENCE_PARITY_SCOPE="LOCAL_PORTS_ONLY",
+                LOCAL_DUAL_IMPLEMENTATION_PARITY=status,
+                UPSTREAM_EXECUTABLE_PARITY="NOT_QUALIFIED")
 
 
 # ============================ request isolation (packet §8) ============================
@@ -309,6 +315,49 @@ def request_isolation(model, idsA, idsB, mode, chunk_size=32):
     return dict(mode=mode, B_output_invariance_maxabs=iso,
                 REQUEST_STATE_ISOLATION="PASS" if iso == 0.0 else "FAIL",
                 BRANCH_RESTORE="PASS" if branch_ok else "FAIL")
+
+
+# ============================ single-blob fork (audit §6) ============================
+@torch.no_grad()
+def single_blob_fork(model, ids, mode, split, chunk_size=32):
+    """Prove two continuations can be restored from ONE serialized complete-state blob {S, conv_state}
+    (not two separate prefix recomputations). Serialize once, restore twice, feed two DIFFERENT suffixes;
+    each must match its own uninterrupted full run, and the two branches must actually diverge."""
+    import numpy as np
+    B, L = ids.shape
+    pre = ids[:, :split]
+    contA = ids[:, split:]
+    contB = ids.flip(0)[:, split:]                                     # a different, deterministic suffix
+    # build the complete-state blob ONCE from the shared prefix
+    _, qp, kp, vp, gp, bp, conv_state = model.project(pre, None)
+    _, S_pre = run_recurrence(mode, qp, kp, vp, gp, bp, chunk_size, None, "scan")
+    blobS = S_pre.detach().cpu().numpy().tobytes()
+    blobC = conv_state.detach().cpu().numpy().tobytes()
+    del S_pre, conv_state, qp, kp, vp, gp, bp
+
+    def restore():
+        S = torch.from_numpy(np.frombuffer(blobS, dtype=np.float32).copy()).view(B, model.d_k, model.d_v).to(ids.device)
+        C = torch.from_numpy(np.frombuffer(blobC, dtype=np.float32).copy()).view(
+            B, model.blk.conv_dim, model.blk.conv_k - 1).to(ids.device)
+        return S, C
+
+    def cont(suffix):
+        S, C = restore()                                              # SAME blob each time
+        x, q, k, v, g, b, _ = model.project(suffix, C)
+        o, _ = run_recurrence(mode, q, k, v, g, b, chunk_size, S, "scan")
+        return model.readout(x, o)
+
+    yA, yB = cont(contA), cont(contB)
+    fullA = model(torch.cat([pre, contA], 1), mode, "scan", chunk_size)[:, split:]
+    fullB = model(torch.cat([pre, contB], 1), mode, "scan", chunk_size)[:, split:]
+    errA, errB = float((yA - fullA).abs().max()), float((yB - fullB).abs().max())
+    diverge = float((yA - yB).abs().max())
+    tol = 1e-4
+    ok = (errA < tol and errB < tol and diverge > tol)
+    return dict(mode=mode, split=split, branchA_err_vs_full=errA, branchB_err_vs_full=errB,
+                branch_divergence=diverge, tol=tol,
+                SINGLE_BLOB_FORK_BRANCHING="PASS" if ok else "FAIL",
+                note="two suffixes restored from ONE {S,conv} blob; each matches its full run; branches differ")
 
 
 # ============================ collapsibility (packet §15) ============================
@@ -418,6 +467,8 @@ def run_selftest(out_path, chunk_size=32):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--forktest", default=None, metavar="JSON",
+                    help="single-blob fork branching test (audit §6); CPU-safe, seconds")
     ap.add_argument("--inventory", default=None, metavar="JSON", help="emit RNN05B_STATE_INVENTORY.json (CPU)")
     ap.add_argument("--out", default=None)
     ap.add_argument("--chunk", type=int, default=32)
@@ -432,5 +483,18 @@ if __name__ == "__main__":
         json.dump(inv, open(a.inventory, "w"), indent=2)
         print(json.dumps({k: inv["gdn"][k] for k in ["complete_live_state_bytes_per_req",
                           "sequence_owned_components", "maps_to_qwen"]}, indent=2))
+    elif a.forktest:
+        import os
+        os.environ["CUDA_VISIBLE_DEVICES"] = ""                        # CPU (seconds; no training)
+        torch.manual_seed(0)
+        m = MQARDeltaModel(200, d_model=128, d_k=a.dk, d_v=a.dk, conv_k=4)
+        gcpu = torch.Generator().manual_seed(3)
+        ids = torch.randint(0, 200, (6, 96), generator=gcpu)
+        R = {mode: single_blob_fork(m, ids, mode, 48, a.chunk) for mode in MODES}
+        R["SINGLE_BLOB_FORK_ALL"] = "PASS" if all(
+            R[x]["SINGLE_BLOB_FORK_BRANCHING"] == "PASS" for x in MODES) else "FAIL"
+        json.dump(R, open(a.forktest, "w"), indent=2)
+        print(json.dumps({"SINGLE_BLOB_FORK_ALL": R["SINGLE_BLOB_FORK_ALL"],
+                          **{m: R[m]["SINGLE_BLOB_FORK_BRANCHING"] for m in MODES}}, indent=2))
     elif a.selftest:
         run_selftest(a.out, a.chunk)

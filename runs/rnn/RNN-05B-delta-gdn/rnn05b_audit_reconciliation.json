@@ -1,0 +1,111 @@
+{
+  "packet": "RNN-05B-audit-reconciliation",
+  "date": "2026-08-11",
+  "start_head": "25c28f031917eb4205e1fa74bb078b89acbd5339",
+  "supersedes": "interpretation / provenance / terminology ONLY. Historical RNN-05B raw evidence is immutable and unchanged: run.log, rnn05b_results.json, rnn05b_outcomes.json, rnn05b_summary.csv, substrate_selftest.json. Where this note and a raw artifact disagree on interpretation, this note governs.",
+  "accepted_load_bearing_results": [
+    "LA additive collapse (YES)", "DN/GDN non-additive recurrent state (NO)",
+    "complete toy-module matrix+conv checkpoint/restore", "frozen post-hoc MC negative",
+    "trained frozen reader NO_EFFECT", "strong train x inference interaction on GDN",
+    "same-weight/fixed-position cache-count sweep", "weak directional historical-state signal in DN/GDN"
+  ],
+
+  "1_memory_axis_qualification_defect": {
+    "defect": "recorded select_rule string said '(0.30,0.90)' but the executed band literal was 0.30 < gdn < 0.96; D=36 (GDN=0.9407) satisfies 0.96 but NOT 0.90.",
+    "raw_calibration_preserved": {"D36_gdn": 0.9407, "D40_gdn": 0.9675},
+    "final_3000step_gdn_base": "~0.97-0.98 (severe ceiling limitation)",
+    "MEMORY_AXIS_ORIGINAL": "QUALIFIED_BY_EXECUTED_0.96_RULE",
+    "MEMORY_AXIS_INTENDED": "NOT_QUALIFIED",
+    "MEMORY_AXIS_FINAL_INTERPRETATION": "CEILING_LIMITED / NOT_QUALIFIED_FOR_POSITIVE_GAIN_DETECTION",
+    "code_fix": "ops/rnn_mc_05b.py: CAL_BAND_LO/HI/TGT constants are the single source of truth; the recorded select_rule string is f-string-derived from them (recorded==executed by construction).",
+    "selfcheck": {"CALIBRATION_RULE_IDENTITY": "PASS", "executed_bounds": [0.30, 0.96], "recorded_bounds": [0.30, 0.96], "artifact": "calibration_rule_selfcheck.json"},
+    "raw_json_unchanged": true
+  },
+
+  "2_coadaptation_wording": {
+    "retract": ["H1 is decisive", "MC helps when train/inference are matched"],
+    "TRAIN_INFERENCE_MC_INTERACTION": "STRONG",
+    "MC_COADAPTATION_DEPENDENCE": "SUPPORTED",
+    "NET_MC_BENEFIT_AFTER_COADAPTATION": "NOT_DETECTED",
+    "interpretation": "Both mismatched cells (B train-single/infer-MC, C train-MC/infer-single) degrade strongly. Matched MC-training + MC-inference (D) recovers approximately the ordinary single/single baseline (A). The experiment demonstrates REGIME DEPENDENCE, not a net MC quality benefit.",
+    "gdn_3seed_interaction_preserved": [0.3025, 0.3432, 0.2902]
+  },
+
+  "3_reference_parity_evidence_class": {
+    "fact": "REFERENCE_PARITY compared a LOCAL sequential-scan port vs a LOCAL chunk-parallel port; both derive from the pinned Qwen recurrence; FLA/upstream executable was NOT invoked.",
+    "LOCAL_DUAL_IMPLEMENTATION_PARITY": "PASS",
+    "UPSTREAM_EXECUTABLE_PARITY": "NOT_QUALIFIED",
+    "REFERENCE_PARITY_SCOPE": "LOCAL_PORTS_ONLY",
+    "code_fix": "reference_parity() now returns REFERENCE_PARITY_SCOPE / LOCAL_DUAL_IMPLEMENTATION_PARITY / UPSTREAM_EXECUTABLE_PARITY. No FLA installed (packet constraint).",
+    "numerical_parity_unchanged": true
+  },
+
+  "4_qwen_mapping_wording": {
+    "retract": "maps 1:1 to Qwen cache",
+    "use": "STRUCTURALLY_ANALOGOUS_TO_QWEN_TWO_PART_CACHE",
+    "toy_complete_state": "recurrent matrix + raw conv boundary buffer (kernel-1)",
+    "qwen_observed_cache": "recurrent_states + conv_states (RNN-01)",
+    "QWEN_CACHE_ROLE_MAPPING": "SUPPORTED",
+    "QWEN_CACHE_REPRESENTATION_PARITY": "NOT_PROVEN"
+  },
+
+  "5_historical_snapshot_terminology": {
+    "FULL_RESTORABLE_SEQUENCE_CHECKPOINT": "matrix + conv boundary (the LIVE, restorable complete toy state)",
+    "HISTORICAL_RECURRENT_STATE_SNAPSHOT": "matrix-only (what the MC historical cache actually stores per segment)",
+    "rule": "matrix-only historical entries are NOT full checkpoints; the full-module checkpoint/restore proof concerns the LIVE complete state, not the MC historical cache entries.",
+    "numerical_result_unchanged": true
+  },
+
+  "6_isolation_branch_evidence_scope": {
+    "STATELESS_REQUEST_EXECUTION": "PASS",
+    "stateless_note": "request_isolation ran forward(B), forward(A), forward(B) -> proves no model-global persistent state in the toy; weaker than a request-owned runtime cache lifecycle.",
+    "CHECKPOINT_CONTINUATION": "PASS",
+    "SINGLE_BLOB_FORK_BRANCHING": "PASS",
+    "single_blob_note": "the ORIGINAL branch helper recomputed the deterministic prefix separately per branch (was NOT_DIRECTLY_TESTED). A tiny CPU test (single_blob_fork, seconds, no training) now serializes ONE {S,conv} blob and restores it TWICE with two different suffixes; each branch matches its own full run and the branches diverge.",
+    "single_blob_fork_results": {
+      "la": {"branchA_err": 3.58e-07, "branchB_err": 3.28e-07, "divergence": 3.081, "verdict": "PASS"},
+      "dn": {"branchA_err": 9.54e-07, "branchB_err": 4.77e-07, "divergence": 3.093, "verdict": "PASS"},
+      "gdn": {"branchA_err": 9.54e-07, "branchB_err": 3.58e-07, "divergence": 3.095, "verdict": "PASS"},
+      "artifact": "single_blob_fork.json"
+    }
+  },
+
+  "7_pure_cache_interpretation": {
+    "PURE_CACHE_COUNT_CURVE": "QUALIFIED",
+    "reason": "weights, checkpoint positions and segmentation are fixed; only retained-K varies.",
+    "curves_K_1_2_4_8": {
+      "la": [0.9973, 0.9968, 0.9890, 0.9761],
+      "dn": [0.9707, 0.9719, 0.9744, 0.9749],
+      "gdn": [0.9814, 0.9817, 0.9846, 0.9836]
+    },
+    "description": {"DN": "small monotonic directional improvement", "GDN": "improves K1->K4 then slightly decreases at K8", "LA": "degrades with additional caches"},
+    "DN_GDN_HISTORICAL_COMPLEMENTARITY": "WEAK_DIRECTIONAL_SIGNAL",
+    "H3_status": "NOT labeled positive"
+  },
+
+  "8_raw_vs_final_provenance": {
+    "RAW_RUN_CLASSIFICATION": "HISTORICAL_FIRST_PASS",
+    "raw_run_values": {"DELTA/GDN/LA_MC_SIGNAL": "NEGATIVE", "QWEN_gate": "DEFER", "location": "run.log (immutable)"},
+    "FINAL_DERIVED_CLASSIFICATION": "SUPERSEDING_POST_ANALYSIS",
+    "final_derived_values": {"DELTA/GDN/LA_MC_SIGNAL": "NO_EFFECT_NAIVE_MC_NEGATIVE", "QWEN_gate_json": "CONDITIONAL / DEFER"},
+    "explanation": "Metrics did NOT change; only classification semantics changed (a naive param-free arm hurting while trained/co-adapted arms recover to base is NO_EFFECT, not NEGATIVE).",
+    "architectural_decision_gate": "DEFER",
+    "gate_rationale": "For the current architectural decision use QWEN_GDN_TRANSPLANT_GATE = DEFER until the ceiling-limited H3 test is resolved (supersedes the 'CONDITIONAL / DEFER' phrasing in the derived JSON for decision purposes)."
+  },
+
+  "9_gdn_collapsibility_wording": {
+    "retract": "GDN final state approximately equals recent state (varied by probe/configuration)",
+    "GDN_ADDITIVE_COLLAPSE": "NO",
+    "measured_rel_error_vs_final_state": {
+      "harness_gate_dk64": {"la": {"sum": 1.75e-07, "weighted_lstsq": 1.87e-07}, "dn": {"sum": 0.626, "weighted_lstsq": 0.384}, "gdn": {"sum": 1.086, "mean": 0.668, "last": 0.561, "weighted_lstsq": 0.261}},
+      "substrate_selftest_dk24": {"gdn": {"last": 0.0, "note": "final approx recent in THIS config only"}},
+      "note": "the last-segment closeness was config-specific (dk24 selftest last~0; dk64 harness last=0.561). Preserve only GDN_ADDITIVE_COLLAPSE=NO plus the per-artifact measured distances."
+    }
+  },
+
+  "10_scope": "clarification/supersession doc + this JSON + trivial analyzer self-check fixes + tests only. No training, no benchmark rerun.",
+
+  "RNN_05B_STATUS": "ACCEPTED_WITH_AUDIT_CLARIFICATIONS",
+  "QWEN_GDN_TRANSPLANT_GATE": "DEFER",
+  "next": "COMPACT SESSION, THEN RNN-05B-EXT (break the ceiling to test H3 directly)"
+}

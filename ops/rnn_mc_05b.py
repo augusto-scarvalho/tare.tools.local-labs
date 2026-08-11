@@ -48,6 +48,26 @@ CALIB_GRID = [36, 40]                  # delta rule rank~d_k(=64) has a SHARP ca
                                        # is the robust non-saturated-enough operating point (base<1, headroom).
 LR = 3e-3                              # delta family needs lr>~2e-3 (canary-established); single lr for all
 MARGIN = 0.03                          # OPERATOR_HEURISTIC effect band (POSITIVE/NEGATIVE)
+# calibration selection: SINGLE SOURCE OF TRUTH for the difficulty-band rule (the recorded string is derived
+# from these constants, so recorded and executed bounds can never diverge -- RNN-05B audit reconciliation §1).
+CAL_BAND_LO, CAL_BAND_HI, CAL_TGT = 0.30, 0.96, 0.60
+
+
+def calibration_rule_string():
+    return (f"GDN base nearest {CAL_TGT} within ({CAL_BAND_LO},{CAL_BAND_HI}); "
+            f"GDN is the load-bearing substrate")
+
+
+def calibration_rule_selfcheck():
+    """Assert the recorded rule string encodes the SAME bounds the code executes (audit §1 fix)."""
+    import re
+    s = calibration_rule_string()
+    m = re.search(r"within \(([\d.]+),([\d.]+)\)", s)
+    parsed = (float(m.group(1)), float(m.group(2)))
+    ok = (parsed == (CAL_BAND_LO, CAL_BAND_HI))
+    return dict(CALIBRATION_RULE_IDENTITY="PASS" if ok else "FAIL",
+               executed_bounds=[CAL_BAND_LO, CAL_BAND_HI], recorded_bounds=list(parsed), target=CAL_TGT,
+               note="recorded select_rule is f-string-derived from the executed constants -> identity holds")
 GDN_SEEDS = [42, 43, 44]               # load-bearing: 3 training seeds
 SINGLE_SEED = [42]                     # LA/DN: 1 seed (predeclared)
 
@@ -248,12 +268,17 @@ def run(args):
         log(f"  D={D:3d} base_acc={accs} mean={R['calibration'][str(D)]['mean']}")
         snap()
     # select difficulty on the LOAD-BEARING substrate (GDN), targeting a non-saturated ~0.6 base (MC headroom).
-    TGT = 0.6
-    band = {int(D): v["base_acc"]["gdn"] for D, v in R["calibration"].items() if 0.30 < v["base_acc"]["gdn"] < 0.96}
-    MC_D = min(band, key=lambda d: abs(band[d] - TGT)) if band else \
-        int(min(R["calibration"], key=lambda d: abs(R["calibration"][d]["base_acc"]["gdn"] - TGT)))
+    band = {int(D): v["base_acc"]["gdn"] for D, v in R["calibration"].items()
+            if CAL_BAND_LO < v["base_acc"]["gdn"] < CAL_BAND_HI}
+    MC_D = min(band, key=lambda d: abs(band[d] - CAL_TGT)) if band else \
+        int(min(R["calibration"], key=lambda d: abs(R["calibration"][d]["base_acc"]["gdn"] - CAL_TGT)))
     R["MEMORY_AXIS"] = "QUALIFIED" if band else "NOT_QUALIFIED"
-    R["select_rule"] = "GDN base nearest 0.6 within (0.30,0.90); GDN is the load-bearing substrate"
+    R["select_rule"] = calibration_rule_string()                     # derived from constants (audit §1)
+    R["calibration_rule_selfcheck"] = calibration_rule_selfcheck()
+    # honest ceiling caveat: the executed band upper bound is 0.96; a base this high is CEILING-LIMITED for
+    # detecting a POSITIVE MC gain even though the rule "qualifies" it (audit §1).
+    R["MEMORY_AXIS_ceiling_note"] = ("selected base is high (>0.90); MEMORY_AXIS=QUALIFIED reflects the 0.96 "
+                                     "band but positive-gain detection is CEILING_LIMITED")
     R["MC_D"] = MC_D
     log(f"[P1] MEMORY_AXIS={R['MEMORY_AXIS']} selected D={MC_D}")
 
@@ -565,8 +590,17 @@ def write_csv(R, path):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--outdir", required=True)
+    ap.add_argument("--outdir", default=None)
     ap.add_argument("--artifacts", default=None, help="durable non-Git dir for checkpoints (default=outdir)")
     ap.add_argument("--smoke", action="store_true")
+    ap.add_argument("--calib-selfcheck", default=None, metavar="JSON",
+                    help="run the calibration rule-identity self-check (no training/GPU) and write JSON")
     a = ap.parse_args()
-    run(a)
+    if a.calib_selfcheck:
+        r = calibration_rule_selfcheck()
+        json.dump(r, open(a.calib_selfcheck, "w"), indent=2)
+        print(json.dumps(r, indent=2))
+    else:
+        if not a.outdir:
+            ap.error("--outdir is required unless --calib-selfcheck is given")
+        run(a)
