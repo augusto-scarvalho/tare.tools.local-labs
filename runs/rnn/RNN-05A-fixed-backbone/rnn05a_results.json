@@ -1,0 +1,385 @@
+{
+  "meta": {
+    "packet": "RNN-05A",
+    "device": "cuda",
+    "dtype": "float32",
+    "seed": 42,
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.2",
+    "d_model": 128,
+    "d_k": 24,
+    "d_v": 24,
+    "main_seg": 32,
+    "L": 256,
+    "num_keys": 128,
+    "num_vals": 64,
+    "num_queries": 8,
+    "density": 0.3,
+    "select_rule": "num_pairs whose BASE single-state acc is nearest 0.5 within (0.20,0.90); else max-info",
+    "margin_OPERATOR_HEURISTIC": 0.03,
+    "ckpt_path": "/mnt/c/Users/augus/AppData/Local/Temp/claude/C--projects-local-model-lifecycle/24b2edf7-aad8-4ba7-b04a-e9d452923e44/scratchpad/rnn05a_backbone.pt"
+  },
+  "calibration": {
+    "40": {
+      "base_acc": 0.5842,
+      "steps": 1500,
+      "wall_s": 7.6,
+      "final_loss": 1.117,
+      "trained_params": 66333
+    },
+    "56": {
+      "base_acc": 0.5225,
+      "steps": 1500,
+      "wall_s": 7.0,
+      "final_loss": 1.3272,
+      "trained_params": 66333
+    },
+    "72": {
+      "base_acc": 0.5481,
+      "steps": 1500,
+      "wall_s": 6.9,
+      "final_loss": 1.1877,
+      "trained_params": 66333
+    }
+  },
+  "backbone": {
+    "D": 56,
+    "train": {
+      "steps": 5000,
+      "wall_s": 25.8,
+      "final_loss": 0.0696,
+      "trained_params": 66333
+    },
+    "dev_base_acc": 0.7808,
+    "dev_base_dist": {
+      "0": 0.8269,
+      "32": 0.7561,
+      "64": 0.8087,
+      "96": 0.7799,
+      "128": 0.7637,
+      "160": 0.7747,
+      "192": 0.7967,
+      "224": 0.7824
+    },
+    "holdout_base_acc": 0.7869,
+    "holdout_base_dist": {
+      "0": 0.8226,
+      "32": 0.7706,
+      "64": 0.821,
+      "96": 0.7864,
+      "128": 0.7979,
+      "160": 0.7868,
+      "192": 0.7719,
+      "224": 0.7654
+    },
+    "all_params_requires_grad_false": true,
+    "checkpoint_path": "/mnt/c/Users/augus/AppData/Local/Temp/claude/C--projects-local-model-lifecycle/24b2edf7-aad8-4ba7-b04a-e9d452923e44/scratchpad/rnn05a_backbone.pt",
+    "checkpoint_sha256": "8b5977439f4e31c41e77326b698511bba581f335d80d12359cad158fd621762e",
+    "checkpoint_bytes": 270849,
+    "per_tensor_sha256": {
+      "emb.weight": "d9de28a6b62150f679a5b69454b7d0c2f9a62d52fa38334a675f8a21a6f80a21",
+      "mem.q.weight": "1e41f3309062f6463350e28ea4eeffa06ee9f65421282caac5e80e83263e2353",
+      "mem.k.weight": "3ebc3402a7e89f31df7e4205a016aa45e49d4b305aaba8273acdf98a59e01188",
+      "mem.v.weight": "9c223a6b223a8c75f9f6a04163dc5b7eadee7c3a0ebfea6a98515e233eeb9204",
+      "mem.beta.weight": "19860e43491ce45e110c36dec9428ed8cbbcd8575808460ac482859e5edc16dd",
+      "mem.beta.bias": "947eca76836a5dbb4bd7a40304af532942d4e39e294425d568da170c6b9d07aa",
+      "mem.conv_q.weight": "05a2acc32b7e7265f656077c5c019cefc15d71d20e57f47bd66ac3b3222fbb52",
+      "mem.conv_k.weight": "527b5a4f6bbb7f0a2d68452e252a8f851a34ed569f59e45ebaa470cf9dc8af25",
+      "mem.conv_v.weight": "2122b3c23d16c63791ebb821c51e050446f18f6b0c61dea8ef0b5a29f9538da7",
+      "mem.w_u.weight": "c3db3ee108c55d3793e54069d39ee8b4b938d2741d9a3a9b902a7ebf28064635",
+      "mem.out.weight": "98430f06782dcc1ad149ad97f434f267d814b2ed07559745aff1ad5fef81dc4e",
+      "norm.weight": "3a017b694bfd17460ea80fe8f7003be84de74180bceb035ec0bd36912d58a6da",
+      "norm.bias": "9236a3124f6d5e6fb3049e361dc38bed95623a3c2a2fcc60da49add3eafa7564",
+      "head.weight": "2eb9fd61fd66164633b15aa6e3569b3321d8eb33f279fd60bdeee88ef84dd1d4",
+      "head.bias": "37da4283828c525ee4643b88f8a77a4aca38f230a8fbb417b0b034ade5c9d21a"
+    },
+    "base_logits_fingerprint": "4ea01874984aae2ac8b3ff7eab6f5427baa27c4c8b378dd18b0066451f6ab8fb"
+  },
+  "lifecycle": {
+    "INDEPENDENT_COMPRESSOR_SEMANTICS": "QUALIFIED",
+    "independent": {
+      "cross_segment_state_leak_maxabs": 4.76837158203125e-07,
+      "self_recompute_maxabs": 0.0,
+      "warmstart_carry_magnitude": 4.230118274688721,
+      "note": "independent(seg) == warmstart(seg,S_prev) - S_prev for arbitrary S_prev -> zero recurrent-state carryover; modes provably distinct"
+    },
+    "CONTINUOUS_CHECKPOINT_SEMANTICS": "QUALIFIED",
+    "continuous": {
+      "reload_bitexact": 0.0,
+      "continuation_state_maxabs": 3.814697265625e-06,
+      "continuation_reads_maxabs": 1.9073486328125e-06,
+      "tol": 0.0001,
+      "note": "warm-start restore+continue == full-prefix run"
+    },
+    "CHECKPOINT_RESTORE": "BIT_EXACT"
+  },
+  "arms": {
+    "A_BASE": {
+      "reader": "single",
+      "seg": null,
+      "warm": false,
+      "trainable": 0,
+      "dev_acc": 0.7808,
+      "holdout_acc": 0.7869,
+      "holdout_dist": {
+        "0": 0.8226,
+        "32": 0.7706,
+        "64": 0.821,
+        "96": 0.7864,
+        "128": 0.7979,
+        "160": 0.7868,
+        "192": 0.7719,
+        "224": 0.7654
+      }
+    },
+    "B_POSTMC_indep": {
+      "reader": "moving_average",
+      "seg": 32,
+      "warm": false,
+      "trainable": 0,
+      "dev_acc": 0.4309,
+      "holdout_acc": 0.4094,
+      "holdout_dist": {
+        "0": 0.3548,
+        "32": 0.3993,
+        "64": 0.4154,
+        "96": 0.4257,
+        "128": 0.4007,
+        "160": 0.4393,
+        "192": 0.4197,
+        "224": 0.3687
+      },
+      "note": "TRAINING_FREE"
+    },
+    "C_POSTMC_continuous": {
+      "reader": "moving_average",
+      "seg": 32,
+      "warm": true,
+      "trainable": 0,
+      "dev_acc": 0.626,
+      "holdout_acc": 0.6282,
+      "holdout_dist": {
+        "0": 0.1129,
+        "32": 0.1611,
+        "64": 0.3251,
+        "96": 0.5341,
+        "128": 0.7288,
+        "160": 0.8824,
+        "192": 0.9234,
+        "224": 0.9739
+      },
+      "note": "TRAINING_FREE"
+    },
+    "E_query_control": {
+      "reader": "grm_q",
+      "seg": 32,
+      "warm": false,
+      "trainable": 0,
+      "dev_acc": 0.4517,
+      "holdout_acc": 0.4348,
+      "holdout_dist": {
+        "0": 0.4032,
+        "32": 0.4238,
+        "64": 0.4368,
+        "96": 0.4505,
+        "128": 0.4301,
+        "160": 0.454,
+        "192": 0.4562,
+        "224": 0.3929
+      },
+      "note": "param-free u=q gate; isolates trained-reader gain"
+    },
+    "D_TRAINED_READER_indep": {
+      "reader": "grm_wu",
+      "seg": 32,
+      "warm": false,
+      "train": {
+        "steps": 6000,
+        "wall_s": 35.0,
+        "final_loss": 0.6846,
+        "trained_params": 3072
+      },
+      "trainable": 3072,
+      "dev_acc": 0.7261,
+      "holdout_acc": 0.7271,
+      "holdout_dist": {
+        "0": 0.7097,
+        "32": 0.725,
+        "64": 0.7307,
+        "96": 0.7183,
+        "128": 0.7409,
+        "160": 0.761,
+        "192": 0.7409,
+        "224": 0.6741
+      }
+    },
+    "Dc_TRAINED_READER_continuous": {
+      "reader": "grm_wu",
+      "seg": 32,
+      "warm": true,
+      "train": {
+        "steps": 6000,
+        "wall_s": 35.9,
+        "final_loss": 0.1263,
+        "trained_params": 3072
+      },
+      "trainable": 3072,
+      "dev_acc": 0.7737,
+      "holdout_acc": 0.7812,
+      "backbone_mutation": 0
+    }
+  },
+  "immutability": {
+    "FROZEN_BACKBONE_VALIDITY": "PASS",
+    "BACKBONE_WEIGHT_MUTATION": 0,
+    "changed_tensors": [],
+    "base_logits_maxabs_delta": 0.0,
+    "reader_trainable_tensors": [
+      "mem.w_u.weight"
+    ],
+    "note": "hashes compared over ALL tensors except the reader (mem.w_u); base single-state logits on holdout must be bit-identical after reader training"
+  },
+  "param_accounting": {
+    "frozen_backbone_params": 63261,
+    "reader_router_params": 3072,
+    "total_model_params": 66333,
+    "reader_tensor": "mem.w_u.weight",
+    "reader_shape": [
+      24,
+      128
+    ],
+    "reader_fraction": 0.04631,
+    "recurrent_state_bytes_per_req": 2304,
+    "historical_cache_bytes_at_N": "(N-1)*2304 bytes for N cached segments",
+    "note": "reader = the single gate connector w_u; NO backbone params trained (arm D)"
+  },
+  "curve": {
+    "1": {
+      "N": 1,
+      "seg": 256,
+      "trained_reader_acc": 0.7869,
+      "moving_avg_acc": 0.7869,
+      "cache_bytes": 0,
+      "state_bytes_per_req": 2304,
+      "recurrent_update_ms": null,
+      "checkpoint_copy_ms": 0.0,
+      "state_read_ms": 0.0,
+      "gate_router_ms": 0.0,
+      "total_latency_ms": null
+    },
+    "2": {
+      "N": 2,
+      "seg": 128,
+      "trained_reader_acc": 0.7925,
+      "moving_avg_acc": 0.7634,
+      "cache_bytes": 2304,
+      "state_bytes_per_req": 2304,
+      "recurrent_update_ms": 0.382,
+      "checkpoint_copy_ms": 0.017,
+      "state_read_ms": 0.036,
+      "gate_router_ms": 0.254,
+      "total_latency_ms": 1.307
+    },
+    "4": {
+      "N": 4,
+      "seg": 64,
+      "trained_reader_acc": 0.7817,
+      "moving_avg_acc": 0.6697,
+      "cache_bytes": 6912,
+      "state_bytes_per_req": 2304,
+      "recurrent_update_ms": 0.304,
+      "checkpoint_copy_ms": 0.032,
+      "state_read_ms": 0.091,
+      "gate_router_ms": 0.616,
+      "total_latency_ms": 1.806
+    },
+    "8": {
+      "N": 8,
+      "seg": 32,
+      "trained_reader_acc": 0.7271,
+      "moving_avg_acc": 0.4094,
+      "cache_bytes": 16128,
+      "state_bytes_per_req": 2304,
+      "recurrent_update_ms": 0.616,
+      "checkpoint_copy_ms": 0.036,
+      "state_read_ms": 0.14,
+      "gate_router_ms": 0.829,
+      "total_latency_ms": 2.713
+    },
+    "16": {
+      "N": 16,
+      "seg": 16,
+      "trained_reader_acc": 0.6855,
+      "moving_avg_acc": 0.1536,
+      "cache_bytes": 34560,
+      "state_bytes_per_req": 2304,
+      "recurrent_update_ms": 2.043,
+      "checkpoint_copy_ms": 0.113,
+      "state_read_ms": 0.427,
+      "gate_router_ms": 2.716,
+      "total_latency_ms": 6.255
+    }
+  },
+  "cost": {},
+  "seqlen": {
+    "256": {
+      "base": 0.7903,
+      "trained_reader": 0.719,
+      "moving_avg": 0.4233
+    },
+    "384": {
+      "base": 0.7771,
+      "trained_reader": 0.5803,
+      "moving_avg": 0.2441
+    },
+    "512": {
+      "base": 0.7712,
+      "trained_reader": 0.4426,
+      "moving_avg": 0.1543
+    }
+  },
+  "benchmarks": {
+    "dev_spec": "{\"distractor_density\":0.3,\"name\":\"dev_D56\",\"num_keys\":128,\"num_pairs\":56,\"num_queries\":8,\"num_vals\":64,\"seq_len\":256,\"write_layout\":\"spread\"}",
+    "holdout_spec": "{\"distractor_density\":0.3,\"name\":\"holdout_D56\",\"num_keys\":128,\"num_pairs\":56,\"num_queries\":8,\"num_vals\":64,\"seq_len\":256,\"write_layout\":\"spread\"}",
+    "dev_eval_ids_hash": "9517f7eba35ef34e",
+    "holdout_eval_ids_hash": "c9f42cbf63998ffd",
+    "dev_first_ids": [
+      "0e68a7c965b96c27",
+      "92dbc2d35fe55801",
+      "f3a670e6e58a69ac"
+    ],
+    "holdout_first_ids": [
+      "1e18d67c5f11811e",
+      "268c740adf936af1",
+      "dd402c10beff8fc7"
+    ],
+    "note": "reader config chosen on dev; ALL headline arms confirmed on holdout"
+  },
+  "outcomes": {
+    "FROZEN_BACKBONE_VALIDITY": "PASS",
+    "INDEPENDENT_COMPRESSOR_SEMANTICS": "QUALIFIED",
+    "CONTINUOUS_CHECKPOINT_SEMANTICS": "QUALIFIED",
+    "TRAINING_FREE_MC_INDEPENDENT": "NEGATIVE",
+    "TRAINING_FREE_MC_CONTINUOUS": "NEGATIVE",
+    "TRAINED_READER_MC": "NEGATIVE",
+    "FIXED_BACKBONE_MEMORY_CURVE": "NOT_QUALIFIED",
+    "QWEN_GDN_TRANSPLANT_GATE": "CONDITIONAL / DEFER",
+    "deltas": {
+      "base_holdout": 0.7869,
+      "trained_reader_holdout_delta": -0.0598,
+      "trained_reader_dev_delta": -0.0547,
+      "training_free_indep_delta": -0.3775,
+      "training_free_cont_delta": -0.1587,
+      "query_control_holdout_delta": -0.3521
+    },
+    "margin_OPERATOR_HEURISTIC": 0.03
+  },
+  "MEMORY_AXIS": "QUALIFIED",
+  "MC_D": 56,
+  "curve_meta": {
+    "backbone_and_reader_constant": true,
+    "monotone_nondecreasing": false,
+    "only_component_changed": "seg_size (N)",
+    "changed_tensors_during_curve": []
+  }
+}

@@ -1,0 +1,89 @@
+[P1a] calibration grid D=[40, 56, 72] (steps=1500) dev=cuda
+    step    0/1500 loss 5.4629
+    step  500/1500 loss 4.0608
+    step 1000/1500 loss 1.6745
+    step 1499/1500 loss 1.1170
+  D= 40 base_acc=0.5842 (7.6s)
+    step    0/1500 loss 5.4589
+    step  500/1500 loss 3.9972
+    step 1000/1500 loss 1.5978
+    step 1499/1500 loss 1.3272
+  D= 56 base_acc=0.5225 (7.0s)
+    step    0/1500 loss 5.4489
+    step  500/1500 loss 3.8085
+    step 1000/1500 loss 1.3721
+    step 1499/1500 loss 1.1877
+  D= 72 base_acc=0.5481 (6.9s)
+[P1a] MEMORY_AXIS=QUALIFIED selected D=56 base_acc=0.5225
+[P1b] train THE backbone once (single) D=56 steps=5000
+    step    0/5000 loss 5.4436
+    step  500/5000 loss 3.9838
+    step 1000/5000 loss 0.6781
+    step 1500/5000 loss 0.2943
+    step 2000/5000 loss 0.1804
+    step 2500/5000 loss 0.1333
+    step 3000/5000 loss 0.0905
+    step 3500/5000 loss 0.0831
+    step 4000/5000 loss 0.0798
+    step 4500/5000 loss 0.0660
+    step 4999/5000 loss 0.0696
+[P1b] backbone dev_base=0.7808 holdout_base=0.7869 frozen=True ckpt_sha=8b5977439f4e
+[P2] INDEPENDENT=QUALIFIED CONTINUOUS=QUALIFIED CKPT=BIT_EXACT
+[P3] arm D: train ONLY the GRM reader (w_u) on frozen backbone, indep lifecycle (steps=6000)
+    step    0/6000 loss 1.6100
+    step  500/6000 loss 0.7302
+    step 1000/6000 loss 0.6578
+    step 1500/6000 loss 0.6233
+    step 2000/6000 loss 0.6454
+    step 2500/6000 loss 0.5767
+    step 3000/6000 loss 0.7271
+    step 3500/6000 loss 0.5396
+    step 4000/6000 loss 0.6178
+    step 4500/6000 loss 0.5636
+    step 5000/6000 loss 0.6089
+    step 5500/6000 loss 0.6161
+    step 5999/6000 loss 0.6846
+[P3] FROZEN_BACKBONE_VALIDITY=PASS mutation=0 logits_delta=0.0
+[P3] arm D': train GRM reader under CONTINUOUS lifecycle (steps=6000)
+    step    0/6000 loss 1.9107
+    step  500/6000 loss 0.5831
+    step 1000/6000 loss 0.4396
+    step 1500/6000 loss 0.2341
+    step 2000/6000 loss 0.2177
+    step 2500/6000 loss 0.1725
+    step 3000/6000 loss 0.1257
+    step 3500/6000 loss 0.1955
+    step 4000/6000 loss 0.2112
+    step 4500/6000 loss 0.1311
+    step 5000/6000 loss 0.1249
+    step 5500/6000 loss 0.1254
+    step 5999/6000 loss 0.1263
+[P4] fixed-backbone memory curve N in [1,2,4,8,16] (backbone+reader identity constant; seg varies)
+  N= 1 seg=256 trained_reader=0.7869 moving_avg=0.7869 cache_bytes=0
+  N= 2 seg=128 trained_reader=0.7925 moving_avg=0.7634 cache_bytes=2304
+  N= 4 seg=64 trained_reader=0.7817 moving_avg=0.6697 cache_bytes=6912
+  N= 8 seg=32 trained_reader=0.7271 moving_avg=0.4094 cache_bytes=16128
+  N=16 seg=16 trained_reader=0.6855 moving_avg=0.1536 cache_bytes=34560
+  L=256 base=0.7903 reader=0.719 mavg=0.4233
+  L=384 base=0.7771 reader=0.5803 mavg=0.2441
+  L=512 base=0.7712 reader=0.4426 mavg=0.1543
+[DONE] outcomes:
+{
+  "FROZEN_BACKBONE_VALIDITY": "PASS",
+  "INDEPENDENT_COMPRESSOR_SEMANTICS": "QUALIFIED",
+  "CONTINUOUS_CHECKPOINT_SEMANTICS": "QUALIFIED",
+  "TRAINING_FREE_MC_INDEPENDENT": "NEGATIVE",
+  "TRAINING_FREE_MC_CONTINUOUS": "NEGATIVE",
+  "TRAINED_READER_MC": "NEGATIVE",
+  "FIXED_BACKBONE_MEMORY_CURVE": "NOT_QUALIFIED",
+  "QWEN_GDN_TRANSPLANT_GATE": "CONDITIONAL / DEFER",
+  "deltas": {
+    "base_holdout": 0.7869,
+    "trained_reader_holdout_delta": -0.0598,
+    "trained_reader_dev_delta": -0.0547,
+    "training_free_indep_delta": -0.3775,
+    "training_free_cont_delta": -0.1587,
+    "query_control_holdout_delta": -0.3521
+  },
+  "margin_OPERATOR_HEURISTIC": 0.03
+}
