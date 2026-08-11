@@ -1,0 +1,54 @@
+{
+  "per_substrate": {
+    "la": {
+      "REFERENCE_PARITY": "PASS",
+      "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+      "REQUEST_ISOLATION": "PASS",
+      "ADDITIVE_COLLAPSE": "YES",
+      "JOINT_TRAINED_MC_EFFECT": "NO_EFFECT",
+      "FROZEN_POST_MC_EFFECT": "NEGATIVE",
+      "FROZEN_READER_MC_EFFECT": "NO_EFFECT",
+      "PURE_CACHE_COUNT_CURVE": "QUALIFIED",
+      "HISTORICAL_STATE_NOVELTY": "NOT_DETECTED",
+      "STATE_BYTES": 18688,
+      "COMPUTE_TOTAL_MS": 4.198,
+      "co_adaptation_interaction": 0.1452
+    },
+    "dn": {
+      "REFERENCE_PARITY": "PASS",
+      "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+      "REQUEST_ISOLATION": "PASS",
+      "ADDITIVE_COLLAPSE": "NO",
+      "JOINT_TRAINED_MC_EFFECT": "NO_EFFECT",
+      "FROZEN_POST_MC_EFFECT": "NEGATIVE",
+      "FROZEN_READER_MC_EFFECT": "NO_EFFECT",
+      "PURE_CACHE_COUNT_CURVE": "QUALIFIED",
+      "HISTORICAL_STATE_NOVELTY": "INCONCLUSIVE",
+      "STATE_BYTES": 18688,
+      "COMPUTE_TOTAL_MS": 16.46,
+      "co_adaptation_interaction": 0.2799
+    },
+    "gdn": {
+      "REFERENCE_PARITY": "PASS",
+      "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+      "REQUEST_ISOLATION": "PASS",
+      "ADDITIVE_COLLAPSE": "NO",
+      "JOINT_TRAINED_MC_EFFECT": "NO_EFFECT",
+      "FROZEN_POST_MC_EFFECT": "NEGATIVE",
+      "FROZEN_READER_MC_EFFECT": "NO_EFFECT",
+      "PURE_CACHE_COUNT_CURVE": "QUALIFIED",
+      "HISTORICAL_STATE_NOVELTY": "INCONCLUSIVE",
+      "STATE_BYTES": 18688,
+      "COMPUTE_TOTAL_MS": 13.328,
+      "co_adaptation_interaction": 0.312
+    }
+  },
+  "margin_OPERATOR_HEURISTIC": 0.03,
+  "MC_D": 36,
+  "DELTA_MC_SIGNAL": "NO_EFFECT_NAIVE_MC_NEGATIVE",
+  "GDN_MC_SIGNAL": "NO_EFFECT_NAIVE_MC_NEGATIVE",
+  "LA_MC_SIGNAL": "NO_EFFECT_NAIVE_MC_NEGATIVE",
+  "COADAPTATION_INTERACTION": "SUPPORTED",
+  "QWEN_GDN_TRANSPLANT_GATE": "CONDITIONAL / DEFER",
+  "gate_rationale": "full-module lifecycle + parity + request-isolation now QUALIFIED for real GDN (preconditions RNN-05A could not meet); but frozen-backbone MC does not exceed base and co-adaptation (not state-collapsibility) is the decisive factor -> defer"
+}

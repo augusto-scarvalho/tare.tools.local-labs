@@ -1,0 +1,149 @@
+[P0] substrate gates: parity + full-module checkpoint/restore + request isolation
+  la: parity=PASS lifecycle=NUMERICALLY_EQUIVALENT iso=PASS/PASS collapse=YES
+  dn: parity=PASS lifecycle=NUMERICALLY_EQUIVALENT iso=PASS/PASS collapse=NO
+  gdn: parity=PASS lifecycle=NUMERICALLY_EQUIVALENT iso=PASS/PASS collapse=NO
+[P1] calibration grid D=[36, 40] on BASE single-state (mean over modes near 0.5)
+  D= 36 base_acc={'la': 0.9895, 'dn': 0.9602, 'gdn': 0.9407} mean=0.9635
+  D= 40 base_acc={'la': 0.9922, 'dn': 0.0349, 'gdn': 0.9675} mean=0.6649
+[P1] MEMORY_AXIS=QUALIFIED selected D=36
+[P2] la seed=42: train single-state + MC-aware backbones
+      step    0/3000 loss 5.4055
+      step 1000/3000 loss 0.0015
+      step 2000/3000 loss 0.0005
+      step 2999/3000 loss 0.0005
+      step    0/3000 loss 5.4074
+      step 1000/3000 loss 0.0018
+      step 2000/3000 loss 0.0006
+      step 2999/3000 loss 0.0005
+  la seed=42: A=0.9973 B=0.8518 C=0.9954 D=0.9951 interaction=0.1452
+[P2] dn seed=42: train single-state + MC-aware backbones
+      step    0/3000 loss 5.4096
+      step 1000/3000 loss 0.1274
+      step 2000/3000 loss 0.0025
+      step 2999/3000 loss 0.0018
+      step    0/3000 loss 5.4096
+      step 1000/3000 loss 0.0039
+      step 2000/3000 loss 0.0010
+      step 2999/3000 loss 0.0007
+  dn seed=42: A=0.9705 B=0.8384 C=0.8293 D=0.9771 interaction=0.2799
+[P2] gdn seed=42: train single-state + MC-aware backbones
+      step    0/3000 loss 5.4096
+      step 1000/3000 loss 0.0040
+      step 2000/3000 loss 0.0012
+      step 2999/3000 loss 0.0008
+      step    0/3000 loss 5.4096
+      step 1000/3000 loss 0.0052
+      step 2000/3000 loss 0.0011
+      step 2999/3000 loss 0.0008
+  gdn seed=42: A=0.9817 B=0.8611 C=0.7954 D=0.9773 interaction=0.3025
+[P2] gdn seed=43: train single-state + MC-aware backbones
+      step    0/3000 loss 5.4343
+      step 1000/3000 loss 0.1333
+      step 2000/3000 loss 0.0026
+      step 2999/3000 loss 0.0023
+      step    0/3000 loss 5.4343
+      step 1000/3000 loss 0.0034
+      step 2000/3000 loss 0.0008
+      step 2999/3000 loss 0.0008
+  gdn seed=43: A=0.9678 B=0.8479 C=0.752 D=0.9753 interaction=0.3432
+[P2] gdn seed=44: train single-state + MC-aware backbones
+      step    0/3000 loss 5.4642
+      step 1000/3000 loss 0.0139
+      step 2000/3000 loss 0.0020
+      step 2999/3000 loss 0.0015
+      step    0/3000 loss 5.4642
+      step 1000/3000 loss 0.0029
+      step 2000/3000 loss 0.0008
+      step 2999/3000 loss 0.0007
+  gdn seed=44: A=0.9709 B=0.8389 C=0.8264 D=0.9846 interaction=0.2902
+[P3] frozen transfer: BASE vs param-free MC vs TRAINED reader (w_u only); reader saved durably
+      step    0/3000 loss 0.3596
+      step 1000/3000 loss 0.0061
+      step 2000/3000 loss 0.0028
+      step 2999/3000 loss 0.0033
+  la: base=0.9973 paramfreeMC=0.8518 trainedReader=0.9761 frozen_valid=PASS sha=f2f3849c3b50
+      step    0/3000 loss 0.5442
+      step 1000/3000 loss 0.0030
+      step 2000/3000 loss 0.0019
+      step 2999/3000 loss 0.0024
+  dn: base=0.9705 paramfreeMC=0.8384 trainedReader=0.9749 frozen_valid=PASS sha=30bd4a144303
+      step    0/3000 loss 0.4249
+      step 1000/3000 loss 0.0070
+      step 2000/3000 loss 0.0021
+      step 2999/3000 loss 0.0020
+  gdn: base=0.9817 paramfreeMC=0.8611 trainedReader=0.9836 frozen_valid=PASS sha=9096c19e10d0
+[P4] pure cache-count curve: fixed backbone+reader, fixed checkpoint positions, vary retained K
+  la K=1 acc=0.9973
+  la K=2 acc=0.9968
+  la K=4 acc=0.989
+  la K=8 acc=0.9761
+  dn K=1 acc=0.9707
+  dn K=2 acc=0.9719
+  dn K=4 acc=0.9744
+  dn K=8 acc=0.9749
+  gdn K=1 acc=0.9814
+  gdn K=2 acc=0.9817
+  gdn K=4 acc=0.9846
+  gdn K=8 acc=0.9836
+[P5] historical-state novelty: base(final-state) vs MC(cached states) recall stratified by write segment
+  la: early_base=0.9984 early_mc=0.9974 gain=-0.001 novelty=NOT_DETECTED
+  dn: early_base=0.9603 early_mc=0.9715 gain=0.0112 novelty=INCONCLUSIVE
+  gdn: early_base=0.9727 early_mc=0.987 gain=0.0143 novelty=INCONCLUSIVE
+[P6] cost + memory accounting
+  la: total_ms=4.198 live_state_bytes=18688
+  dn: total_ms=16.46 live_state_bytes=18688
+  gdn: total_ms=13.328 live_state_bytes=18688
+[DONE] outcomes:
+{
+  "per_substrate": {
+    "la": {
+      "REFERENCE_PARITY": "PASS",
+      "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+      "REQUEST_ISOLATION": "PASS",
+      "ADDITIVE_COLLAPSE": "YES",
+      "JOINT_TRAINED_MC_EFFECT": "NO_EFFECT",
+      "FROZEN_POST_MC_EFFECT": "NEGATIVE",
+      "FROZEN_READER_MC_EFFECT": "NO_EFFECT",
+      "PURE_CACHE_COUNT_CURVE": "QUALIFIED",
+      "HISTORICAL_STATE_NOVELTY": "NOT_DETECTED",
+      "STATE_BYTES": 18688,
+      "COMPUTE_TOTAL_MS": 4.198,
+      "co_adaptation_interaction": 0.1452
+    },
+    "dn": {
+      "REFERENCE_PARITY": "PASS",
+      "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+      "REQUEST_ISOLATION": "PASS",
+      "ADDITIVE_COLLAPSE": "NO",
+      "JOINT_TRAINED_MC_EFFECT": "NO_EFFECT",
+      "FROZEN_POST_MC_EFFECT": "NEGATIVE",
+      "FROZEN_READER_MC_EFFECT": "NO_EFFECT",
+      "PURE_CACHE_COUNT_CURVE": "QUALIFIED",
+      "HISTORICAL_STATE_NOVELTY": "INCONCLUSIVE",
+      "STATE_BYTES": 18688,
+      "COMPUTE_TOTAL_MS": 16.46,
+      "co_adaptation_interaction": 0.2799
+    },
+    "gdn": {
+      "REFERENCE_PARITY": "PASS",
+      "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+      "REQUEST_ISOLATION": "PASS",
+      "ADDITIVE_COLLAPSE": "NO",
+      "JOINT_TRAINED_MC_EFFECT": "NO_EFFECT",
+      "FROZEN_POST_MC_EFFECT": "NEGATIVE",
+      "FROZEN_READER_MC_EFFECT": "NO_EFFECT",
+      "PURE_CACHE_COUNT_CURVE": "QUALIFIED",
+      "HISTORICAL_STATE_NOVELTY": "INCONCLUSIVE",
+      "STATE_BYTES": 18688,
+      "COMPUTE_TOTAL_MS": 13.328,
+      "co_adaptation_interaction": 0.312
+    }
+  },
+  "margin_OPERATOR_HEURISTIC": 0.03,
+  "MC_D": 36,
+  "DELTA_MC_SIGNAL": "NEGATIVE",
+  "GDN_MC_SIGNAL": "NEGATIVE",
+  "LA_MC_SIGNAL": "NEGATIVE",
+  "COADAPTATION_INTERACTION": "SUPPORTED",
+  "QWEN_GDN_TRANSPLANT_GATE": "DEFER"
+}

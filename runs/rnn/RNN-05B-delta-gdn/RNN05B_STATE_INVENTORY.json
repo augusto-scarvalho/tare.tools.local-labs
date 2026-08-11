@@ -1,0 +1,251 @@
+{
+  "la": {
+    "mode": "la",
+    "d_k": 64,
+    "d_v": 64,
+    "conv_dim": 192,
+    "conv_kernel": 4,
+    "seq_len": 256,
+    "seg": 32,
+    "n_checkpoints": 8,
+    "complete_live_state_bytes_per_req": 18688,
+    "historical_matrix_cache_bytes_at_full": 114688,
+    "sequence_owned_components": [
+      "recurrent_state_S",
+      "conv_state"
+    ],
+    "maps_to_qwen": "{recurrent_state_S -> recurrent_states, conv_state -> conv_states} per RNN-01",
+    "inventory": [
+      {
+        "name": "recurrent_state_S",
+        "owner": "delta recurrence",
+        "shape": [
+          1,
+          64,
+          64
+        ],
+        "dtype": "float32",
+        "bytes": 16384,
+        "init": "zeros",
+        "update_location": "delta_scan/delta_chunked/la_chunked",
+        "reset_semantics": "reset to 0 (independent) or carried (continuous)",
+        "serialization": "raw fp32 tobytes -> restore view",
+        "batch_request_dim": 0,
+        "sequence_owned": true,
+        "note": "the [d_k,d_v] matrix; additive for LA, non-additive for DN/GDN"
+      },
+      {
+        "name": "conv_state",
+        "owner": "depthwise causal conv (in-proj q;k;v)",
+        "shape": [
+          1,
+          192,
+          3
+        ],
+        "dtype": "float32",
+        "bytes": 2304,
+        "init": "zeros left-pad",
+        "update_location": "DeltaBlock._causal_conv",
+        "reset_semantics": "last (K-1) projected cols",
+        "serialization": "raw fp32 tobytes -> restore view",
+        "batch_request_dim": 0,
+        "sequence_owned": true,
+        "note": "the (kernel-1) boundary window; RNN-05A did NOT serialize this -> its FULL_MODULE gap"
+      },
+      {
+        "name": "position/offset",
+        "owner": "none (RoPE/positional not used in toy)",
+        "shape": [],
+        "dtype": "n/a",
+        "bytes": 0,
+        "init": "n/a",
+        "update_location": "n/a",
+        "reset_semantics": "n/a",
+        "serialization": "n/a",
+        "batch_request_dim": null,
+        "sequence_owned": false,
+        "note": "no explicit position state in this substrate"
+      },
+      {
+        "name": "normalization_buffers",
+        "owner": "LayerNorm(final) / F.normalize(q,k)",
+        "shape": [],
+        "dtype": "n/a",
+        "bytes": 0,
+        "init": "n/a",
+        "update_location": "stateless",
+        "reset_semantics": "n/a",
+        "serialization": "n/a",
+        "batch_request_dim": null,
+        "sequence_owned": false,
+        "note": "LayerNorm is parametric-but-not-sequence-owned; q/k L2norm is stateless -> NOT cache state"
+      }
+    ]
+  },
+  "dn": {
+    "mode": "dn",
+    "d_k": 64,
+    "d_v": 64,
+    "conv_dim": 192,
+    "conv_kernel": 4,
+    "seq_len": 256,
+    "seg": 32,
+    "n_checkpoints": 8,
+    "complete_live_state_bytes_per_req": 18688,
+    "historical_matrix_cache_bytes_at_full": 114688,
+    "sequence_owned_components": [
+      "recurrent_state_S",
+      "conv_state"
+    ],
+    "maps_to_qwen": "{recurrent_state_S -> recurrent_states, conv_state -> conv_states} per RNN-01",
+    "inventory": [
+      {
+        "name": "recurrent_state_S",
+        "owner": "delta recurrence",
+        "shape": [
+          1,
+          64,
+          64
+        ],
+        "dtype": "float32",
+        "bytes": 16384,
+        "init": "zeros",
+        "update_location": "delta_scan/delta_chunked/la_chunked",
+        "reset_semantics": "reset to 0 (independent) or carried (continuous)",
+        "serialization": "raw fp32 tobytes -> restore view",
+        "batch_request_dim": 0,
+        "sequence_owned": true,
+        "note": "the [d_k,d_v] matrix; additive for LA, non-additive for DN/GDN"
+      },
+      {
+        "name": "conv_state",
+        "owner": "depthwise causal conv (in-proj q;k;v)",
+        "shape": [
+          1,
+          192,
+          3
+        ],
+        "dtype": "float32",
+        "bytes": 2304,
+        "init": "zeros left-pad",
+        "update_location": "DeltaBlock._causal_conv",
+        "reset_semantics": "last (K-1) projected cols",
+        "serialization": "raw fp32 tobytes -> restore view",
+        "batch_request_dim": 0,
+        "sequence_owned": true,
+        "note": "the (kernel-1) boundary window; RNN-05A did NOT serialize this -> its FULL_MODULE gap"
+      },
+      {
+        "name": "position/offset",
+        "owner": "none (RoPE/positional not used in toy)",
+        "shape": [],
+        "dtype": "n/a",
+        "bytes": 0,
+        "init": "n/a",
+        "update_location": "n/a",
+        "reset_semantics": "n/a",
+        "serialization": "n/a",
+        "batch_request_dim": null,
+        "sequence_owned": false,
+        "note": "no explicit position state in this substrate"
+      },
+      {
+        "name": "normalization_buffers",
+        "owner": "LayerNorm(final) / F.normalize(q,k)",
+        "shape": [],
+        "dtype": "n/a",
+        "bytes": 0,
+        "init": "n/a",
+        "update_location": "stateless",
+        "reset_semantics": "n/a",
+        "serialization": "n/a",
+        "batch_request_dim": null,
+        "sequence_owned": false,
+        "note": "LayerNorm is parametric-but-not-sequence-owned; q/k L2norm is stateless -> NOT cache state"
+      }
+    ]
+  },
+  "gdn": {
+    "mode": "gdn",
+    "d_k": 64,
+    "d_v": 64,
+    "conv_dim": 192,
+    "conv_kernel": 4,
+    "seq_len": 256,
+    "seg": 32,
+    "n_checkpoints": 8,
+    "complete_live_state_bytes_per_req": 18688,
+    "historical_matrix_cache_bytes_at_full": 114688,
+    "sequence_owned_components": [
+      "recurrent_state_S",
+      "conv_state"
+    ],
+    "maps_to_qwen": "{recurrent_state_S -> recurrent_states, conv_state -> conv_states} per RNN-01",
+    "inventory": [
+      {
+        "name": "recurrent_state_S",
+        "owner": "delta recurrence",
+        "shape": [
+          1,
+          64,
+          64
+        ],
+        "dtype": "float32",
+        "bytes": 16384,
+        "init": "zeros",
+        "update_location": "delta_scan/delta_chunked/la_chunked",
+        "reset_semantics": "reset to 0 (independent) or carried (continuous)",
+        "serialization": "raw fp32 tobytes -> restore view",
+        "batch_request_dim": 0,
+        "sequence_owned": true,
+        "note": "the [d_k,d_v] matrix; additive for LA, non-additive for DN/GDN"
+      },
+      {
+        "name": "conv_state",
+        "owner": "depthwise causal conv (in-proj q;k;v)",
+        "shape": [
+          1,
+          192,
+          3
+        ],
+        "dtype": "float32",
+        "bytes": 2304,
+        "init": "zeros left-pad",
+        "update_location": "DeltaBlock._causal_conv",
+        "reset_semantics": "last (K-1) projected cols",
+        "serialization": "raw fp32 tobytes -> restore view",
+        "batch_request_dim": 0,
+        "sequence_owned": true,
+        "note": "the (kernel-1) boundary window; RNN-05A did NOT serialize this -> its FULL_MODULE gap"
+      },
+      {
+        "name": "position/offset",
+        "owner": "none (RoPE/positional not used in toy)",
+        "shape": [],
+        "dtype": "n/a",
+        "bytes": 0,
+        "init": "n/a",
+        "update_location": "n/a",
+        "reset_semantics": "n/a",
+        "serialization": "n/a",
+        "batch_request_dim": null,
+        "sequence_owned": false,
+        "note": "no explicit position state in this substrate"
+      },
+      {
+        "name": "normalization_buffers",
+        "owner": "LayerNorm(final) / F.normalize(q,k)",
+        "shape": [],
+        "dtype": "n/a",
+        "bytes": 0,
+        "init": "n/a",
+        "update_location": "stateless",
+        "reset_semantics": "n/a",
+        "serialization": "n/a",
+        "batch_request_dim": null,
+        "sequence_owned": false,
+        "note": "LayerNorm is parametric-but-not-sequence-owned; q/k L2norm is stateless -> NOT cache state"
+      }
+    ]
+  }
+}

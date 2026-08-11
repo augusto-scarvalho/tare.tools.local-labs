@@ -1,0 +1,751 @@
+{
+  "meta": {
+    "packet": "RNN-05B",
+    "device": "cuda",
+    "dtype": "float32",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.2",
+    "d_model": 128,
+    "d_k": 64,
+    "d_v": 64,
+    "conv_k": 4,
+    "L": 256,
+    "main_seg": 32,
+    "num_keys": 128,
+    "num_vals": 64,
+    "num_queries": 8,
+    "density": 0.3,
+    "margin_OPERATOR_HEURISTIC": 0.03,
+    "gdn_seeds": [
+      42,
+      43,
+      44
+    ],
+    "la_dn_seeds": [
+      42
+    ],
+    "smoke": false,
+    "artifacts_dir": "/mnt/c/projects/local-model-lifecycle/.harness/artifacts"
+  },
+  "gates": {
+    "la": {
+      "REFERENCE_PARITY": "PASS",
+      "parity_maxabs": {
+        "single_step": 9.313225746154785e-10,
+        "small_seq": 2.9802322387695312e-08,
+        "chunked_full": 8.344650268554688e-07,
+        "incremental_decode_vs_scan": 0.0
+      },
+      "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+      "lifecycle": {
+        "mode": "la",
+        "split": 96,
+        "reload_bitexact": 0.0,
+        "continuation_out_maxabs": 4.76837158203125e-07,
+        "continuation_state_maxabs": 0.0,
+        "tol": 0.0001,
+        "complete_state_bytes_per_req": 18688,
+        "components": [
+          "recurrent_state S",
+          "conv_state (kernel-1 boundary)"
+        ],
+        "FULL_MODULE_CHECKPOINT_RESTORE": "NUMERICALLY_EQUIVALENT"
+      },
+      "REQUEST_ISOLATION": "PASS",
+      "BRANCH_RESTORE": "PASS",
+      "ADDITIVE_COLLAPSE": "YES",
+      "collapse": {
+        "mode": "la",
+        "n_seg": 4,
+        "rel_error_vs_final_state": {
+          "sum": 1.754208085458231e-07,
+          "mean": 0.75,
+          "last": 0.8323776721954346,
+          "weighted_lstsq": 1.8707810056639573e-07
+        },
+        "ADDITIVE_COLLAPSE": "YES",
+        "note": "rel = mean|comp - S_final| / mean|S_final|; LA additive -> sum~0; DN/GDN expected >0"
+      }
+    },
+    "dn": {
+      "REFERENCE_PARITY": "PASS",
+      "parity_maxabs": {
+        "single_step": 8.149072527885437e-10,
+        "small_seq": 2.9802322387695312e-08,
+        "chunked_full": 3.5762786865234375e-07,
+        "incremental_decode_vs_scan": 0.0
+      },
+      "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+      "lifecycle": {
+        "mode": "dn",
+        "split": 96,
+        "reload_bitexact": 0.0,
+        "continuation_out_maxabs": 3.5762786865234375e-07,
+        "continuation_state_maxabs": 8.940696716308594e-08,
+        "tol": 0.0001,
+        "complete_state_bytes_per_req": 18688,
+        "components": [
+          "recurrent_state S",
+          "conv_state (kernel-1 boundary)"
+        ],
+        "FULL_MODULE_CHECKPOINT_RESTORE": "NUMERICALLY_EQUIVALENT"
+      },
+      "REQUEST_ISOLATION": "PASS",
+      "BRANCH_RESTORE": "PASS",
+      "ADDITIVE_COLLAPSE": "NO",
+      "collapse": {
+        "mode": "dn",
+        "n_seg": 4,
+        "rel_error_vs_final_state": {
+          "sum": 0.6261264681816101,
+          "mean": 0.7085129022598267,
+          "last": 0.7563475966453552,
+          "weighted_lstsq": 0.3843584656715393
+        },
+        "ADDITIVE_COLLAPSE": "NO",
+        "note": "rel = mean|comp - S_final| / mean|S_final|; LA additive -> sum~0; DN/GDN expected >0"
+      }
+    },
+    "gdn": {
+      "REFERENCE_PARITY": "PASS",
+      "parity_maxabs": {
+        "single_step": 8.149072527885437e-10,
+        "small_seq": 2.9802322387695312e-08,
+        "chunked_full": 2.384185791015625e-07,
+        "incremental_decode_vs_scan": 0.0
+      },
+      "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+      "lifecycle": {
+        "mode": "gdn",
+        "split": 96,
+        "reload_bitexact": 0.0,
+        "continuation_out_maxabs": 2.384185791015625e-07,
+        "continuation_state_maxabs": 8.940696716308594e-08,
+        "tol": 0.0001,
+        "complete_state_bytes_per_req": 18688,
+        "components": [
+          "recurrent_state S",
+          "conv_state (kernel-1 boundary)"
+        ],
+        "FULL_MODULE_CHECKPOINT_RESTORE": "NUMERICALLY_EQUIVALENT"
+      },
+      "REQUEST_ISOLATION": "PASS",
+      "BRANCH_RESTORE": "PASS",
+      "ADDITIVE_COLLAPSE": "NO",
+      "collapse": {
+        "mode": "gdn",
+        "n_seg": 4,
+        "rel_error_vs_final_state": {
+          "sum": 1.0861748456954956,
+          "mean": 0.6681336760520935,
+          "last": 0.5605555772781372,
+          "weighted_lstsq": 0.2611161172389984
+        },
+        "ADDITIVE_COLLAPSE": "NO",
+        "note": "rel = mean|comp - S_final| / mean|S_final|; LA additive -> sum~0; DN/GDN expected >0"
+      }
+    }
+  },
+  "calibration": {
+    "36": {
+      "base_acc": {
+        "la": 0.9895,
+        "dn": 0.9602,
+        "gdn": 0.9407
+      },
+      "mean": 0.9635
+    },
+    "40": {
+      "base_acc": {
+        "la": 0.9922,
+        "dn": 0.0349,
+        "gdn": 0.9675
+      },
+      "mean": 0.6649
+    }
+  },
+  "twobytwo": {
+    "la": {
+      "seeds": [
+        42
+      ],
+      "per_seed": [
+        {
+          "seed": 42,
+          "A_train_single_infer_single": 0.9973,
+          "B_train_single_infer_MC_paramfree": 0.8518,
+          "C_train_MC_infer_single": 0.9954,
+          "D_train_MC_infer_MC": 0.9951,
+          "dev_A": 0.9958,
+          "dev_D": 0.9922,
+          "post_hoc_MC_effect_BminusA": -0.1455,
+          "joint_MC_effect_DminusA": -0.0022,
+          "MC_inference_after_MCtrain_DminusC": -0.0003,
+          "interaction": 0.1452,
+          "train_single": {
+            "steps": 3000,
+            "wall_s": 28.1,
+            "final_loss": 0.0005,
+            "trained_params": 92614
+          },
+          "train_mc": {
+            "steps": 3000,
+            "wall_s": 47.5,
+            "final_loss": 0.0005,
+            "trained_params": 92614
+          }
+        }
+      ],
+      "mean_A": 0.9973,
+      "mean_D": 0.9951,
+      "mean_post_hoc_BminusA": -0.1455,
+      "mean_joint_DminusA": -0.0022,
+      "mean_DminusC": -0.0003,
+      "mean_interaction": 0.1452
+    },
+    "dn": {
+      "seeds": [
+        42
+      ],
+      "per_seed": [
+        {
+          "seed": 42,
+          "A_train_single_infer_single": 0.9705,
+          "B_train_single_infer_MC_paramfree": 0.8384,
+          "C_train_MC_infer_single": 0.8293,
+          "D_train_MC_infer_MC": 0.9771,
+          "dev_A": 0.9653,
+          "dev_D": 0.9756,
+          "post_hoc_MC_effect_BminusA": -0.1321,
+          "joint_MC_effect_DminusA": 0.0066,
+          "MC_inference_after_MCtrain_DminusC": 0.1478,
+          "interaction": 0.2799,
+          "train_single": {
+            "steps": 3000,
+            "wall_s": 52.8,
+            "final_loss": 0.0018,
+            "trained_params": 92614
+          },
+          "train_mc": {
+            "steps": 3000,
+            "wall_s": 182.0,
+            "final_loss": 0.0007,
+            "trained_params": 92614
+          }
+        }
+      ],
+      "mean_A": 0.9705,
+      "mean_D": 0.9771,
+      "mean_post_hoc_BminusA": -0.1321,
+      "mean_joint_DminusA": 0.0066,
+      "mean_DminusC": 0.1478,
+      "mean_interaction": 0.2799
+    },
+    "gdn": {
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "per_seed": [
+        {
+          "seed": 42,
+          "A_train_single_infer_single": 0.9817,
+          "B_train_single_infer_MC_paramfree": 0.8611,
+          "C_train_MC_infer_single": 0.7954,
+          "D_train_MC_infer_MC": 0.9773,
+          "dev_A": 0.9846,
+          "dev_D": 0.9746,
+          "post_hoc_MC_effect_BminusA": -0.1206,
+          "joint_MC_effect_DminusA": -0.0044,
+          "MC_inference_after_MCtrain_DminusC": 0.1819,
+          "interaction": 0.3025,
+          "train_single": {
+            "steps": 3000,
+            "wall_s": 58.1,
+            "final_loss": 0.0008,
+            "trained_params": 92614
+          },
+          "train_mc": {
+            "steps": 3000,
+            "wall_s": 201.6,
+            "final_loss": 0.0008,
+            "trained_params": 92614
+          }
+        },
+        {
+          "seed": 43,
+          "A_train_single_infer_single": 0.9678,
+          "B_train_single_infer_MC_paramfree": 0.8479,
+          "C_train_MC_infer_single": 0.752,
+          "D_train_MC_infer_MC": 0.9753,
+          "dev_A": 0.9707,
+          "dev_D": 0.9805,
+          "post_hoc_MC_effect_BminusA": -0.1199,
+          "joint_MC_effect_DminusA": 0.0075,
+          "MC_inference_after_MCtrain_DminusC": 0.2233,
+          "interaction": 0.3432,
+          "train_single": {
+            "steps": 3000,
+            "wall_s": 54.8,
+            "final_loss": 0.0023,
+            "trained_params": 92614
+          },
+          "train_mc": {
+            "steps": 3000,
+            "wall_s": 199.5,
+            "final_loss": 0.0008,
+            "trained_params": 92614
+          }
+        },
+        {
+          "seed": 44,
+          "A_train_single_infer_single": 0.9709,
+          "B_train_single_infer_MC_paramfree": 0.8389,
+          "C_train_MC_infer_single": 0.8264,
+          "D_train_MC_infer_MC": 0.9846,
+          "dev_A": 0.9731,
+          "dev_D": 0.9844,
+          "post_hoc_MC_effect_BminusA": -0.132,
+          "joint_MC_effect_DminusA": 0.0137,
+          "MC_inference_after_MCtrain_DminusC": 0.1582,
+          "interaction": 0.2902,
+          "train_single": {
+            "steps": 3000,
+            "wall_s": 58.8,
+            "final_loss": 0.0015,
+            "trained_params": 92614
+          },
+          "train_mc": {
+            "steps": 3000,
+            "wall_s": 198.5,
+            "final_loss": 0.0007,
+            "trained_params": 92614
+          }
+        }
+      ],
+      "mean_A": 0.9735,
+      "mean_D": 0.9791,
+      "mean_post_hoc_BminusA": -0.1242,
+      "mean_joint_DminusA": 0.0056,
+      "mean_DminusC": 0.1878,
+      "mean_interaction": 0.312
+    }
+  },
+  "frozen": {
+    "la": {
+      "FROZEN_BACKBONE_VALIDITY": "PASS",
+      "backbone_mutation": 0,
+      "changed_tensors": [],
+      "base_holdout": 0.9973,
+      "base_dev": 0.9958,
+      "base_by_wseg": {
+        "0": 0.9971,
+        "1": 0.9983,
+        "2": 0.9982,
+        "3": 1.0,
+        "4": 0.9948,
+        "5": 0.9963,
+        "6": 0.9959
+      },
+      "paramfree_MC_holdout": 0.8518,
+      "trained_reader_holdout": 0.9761,
+      "trained_reader_dev": 0.979,
+      "FROZEN_POST_MC_EFFECT": "NEGATIVE",
+      "FROZEN_READER_MC_EFFECT": "NO_EFFECT",
+      "reader_params": 8192,
+      "train_reader": {
+        "steps": 3000,
+        "wall_s": 20.8,
+        "final_loss": 0.0033,
+        "trained_params": 8192
+      },
+      "checkpoint_path": "/mnt/c/projects/local-model-lifecycle/.harness/artifacts/rnn05b_la_frozen_reader.pt",
+      "checkpoint_sha256": "f2f3849c3b5014ad1435be58d770861a82e225d7d0a67b22834d4dbf99eb50c5",
+      "checkpoint_bytes": 375679,
+      "reader_weight_sha256": "e0d81e2a0c130297694c246bd9fdc9908d7a61752cb4e2a172562a4373d8657b",
+      "deltas": {
+        "paramfree": -0.1455,
+        "reader_holdout": -0.0212,
+        "reader_dev": -0.0168
+      }
+    },
+    "dn": {
+      "FROZEN_BACKBONE_VALIDITY": "PASS",
+      "backbone_mutation": 0,
+      "changed_tensors": [],
+      "base_holdout": 0.9705,
+      "base_dev": 0.9653,
+      "base_by_wseg": {
+        "0": 0.9348,
+        "1": 0.9668,
+        "2": 0.9698,
+        "3": 0.9697,
+        "4": 0.9828,
+        "5": 0.989,
+        "6": 0.9918
+      },
+      "paramfree_MC_holdout": 0.8384,
+      "trained_reader_holdout": 0.9749,
+      "trained_reader_dev": 0.9705,
+      "FROZEN_POST_MC_EFFECT": "NEGATIVE",
+      "FROZEN_READER_MC_EFFECT": "NO_EFFECT",
+      "reader_params": 8192,
+      "train_reader": {
+        "steps": 3000,
+        "wall_s": 58.7,
+        "final_loss": 0.0024,
+        "trained_params": 8192
+      },
+      "checkpoint_path": "/mnt/c/projects/local-model-lifecycle/.harness/artifacts/rnn05b_dn_frozen_reader.pt",
+      "checkpoint_sha256": "30bd4a144303bfd2260d9255936c4ede25de0fda5dc4633b073e1703dc644e92",
+      "checkpoint_bytes": 375679,
+      "reader_weight_sha256": "d13b3844e6833ad825b9735e7f9b935b912f799d496281571f1ca810d5b59c99",
+      "deltas": {
+        "paramfree": -0.1321,
+        "reader_holdout": 0.0044,
+        "reader_dev": 0.0052
+      }
+    },
+    "gdn": {
+      "FROZEN_BACKBONE_VALIDITY": "PASS",
+      "backbone_mutation": 0,
+      "changed_tensors": [],
+      "base_holdout": 0.9817,
+      "base_dev": 0.9846,
+      "base_by_wseg": {
+        "0": 0.9507,
+        "1": 0.9738,
+        "2": 0.9769,
+        "3": 0.9894,
+        "4": 0.9948,
+        "5": 0.9982,
+        "6": 0.9959
+      },
+      "paramfree_MC_holdout": 0.8611,
+      "trained_reader_holdout": 0.9836,
+      "trained_reader_dev": 0.9827,
+      "FROZEN_POST_MC_EFFECT": "NEGATIVE",
+      "FROZEN_READER_MC_EFFECT": "NO_EFFECT",
+      "reader_params": 8192,
+      "train_reader": {
+        "steps": 3000,
+        "wall_s": 56.8,
+        "final_loss": 0.002,
+        "trained_params": 8192
+      },
+      "checkpoint_path": "/mnt/c/projects/local-model-lifecycle/.harness/artifacts/rnn05b_gdn_frozen_reader.pt",
+      "checkpoint_sha256": "9096c19e10d0dabc0fd62c1d2499a9b696e905ca3c927014c52051cbc4223c38",
+      "checkpoint_bytes": 375696,
+      "reader_weight_sha256": "28c60d5856d9650c190f2e50bb5710e3fd9229e6f8db4002aa630220d54e35bf",
+      "deltas": {
+        "paramfree": -0.1206,
+        "reader_holdout": 0.0019,
+        "reader_dev": -0.0019
+      }
+    }
+  },
+  "cache_count": {
+    "la": {
+      "seg_size": 32,
+      "n_checkpoints": 8,
+      "selection_rule": "most_recent_K",
+      "rows": [
+        {
+          "retained_K": 1,
+          "holdout_acc": 0.9973
+        },
+        {
+          "retained_K": 2,
+          "holdout_acc": 0.9968
+        },
+        {
+          "retained_K": 4,
+          "holdout_acc": 0.989
+        },
+        {
+          "retained_K": 8,
+          "holdout_acc": 0.9761
+        }
+      ],
+      "weights_constant": true,
+      "PURE_CACHE_COUNT_CURVE": "QUALIFIED"
+    },
+    "dn": {
+      "seg_size": 32,
+      "n_checkpoints": 8,
+      "selection_rule": "most_recent_K",
+      "rows": [
+        {
+          "retained_K": 1,
+          "holdout_acc": 0.9707
+        },
+        {
+          "retained_K": 2,
+          "holdout_acc": 0.9719
+        },
+        {
+          "retained_K": 4,
+          "holdout_acc": 0.9744
+        },
+        {
+          "retained_K": 8,
+          "holdout_acc": 0.9749
+        }
+      ],
+      "weights_constant": true,
+      "PURE_CACHE_COUNT_CURVE": "QUALIFIED"
+    },
+    "gdn": {
+      "seg_size": 32,
+      "n_checkpoints": 8,
+      "selection_rule": "most_recent_K",
+      "rows": [
+        {
+          "retained_K": 1,
+          "holdout_acc": 0.9814
+        },
+        {
+          "retained_K": 2,
+          "holdout_acc": 0.9817
+        },
+        {
+          "retained_K": 4,
+          "holdout_acc": 0.9846
+        },
+        {
+          "retained_K": 8,
+          "holdout_acc": 0.9836
+        }
+      ],
+      "weights_constant": true,
+      "PURE_CACHE_COUNT_CURVE": "QUALIFIED"
+    }
+  },
+  "novelty": {
+    "la": {
+      "base_by_wseg": {
+        "0": 0.9971,
+        "1": 0.9983,
+        "2": 0.9982,
+        "3": 1.0,
+        "4": 0.9948,
+        "5": 0.9963,
+        "6": 0.9959
+      },
+      "mc_by_wseg": {
+        "0": 0.9986,
+        "1": 1.0,
+        "2": 1.0,
+        "3": 0.9909,
+        "4": 0.9707,
+        "5": 0.9338,
+        "6": 0.9216
+      },
+      "early_write_base": 0.9984,
+      "early_write_mc": 0.9974,
+      "early_gain": -0.001,
+      "HISTORICAL_STATE_NOVELTY": "NOT_DETECTED",
+      "note": "recall of associations written in the early half of the sequence; base reads the single decayed final state, MC also reads cached segment states"
+    },
+    "dn": {
+      "base_by_wseg": {
+        "0": 0.9348,
+        "1": 0.9668,
+        "2": 0.9698,
+        "3": 0.9697,
+        "4": 0.9828,
+        "5": 0.989,
+        "6": 0.9918
+      },
+      "mc_by_wseg": {
+        "0": 0.9623,
+        "1": 0.9756,
+        "2": 0.9769,
+        "3": 0.9713,
+        "4": 0.9845,
+        "5": 0.9761,
+        "6": 0.9814
+      },
+      "early_write_base": 0.9603,
+      "early_write_mc": 0.9715,
+      "early_gain": 0.0112,
+      "HISTORICAL_STATE_NOVELTY": "INCONCLUSIVE",
+      "note": "recall of associations written in the early half of the sequence; base reads the single decayed final state, MC also reads cached segment states"
+    },
+    "gdn": {
+      "base_by_wseg": {
+        "0": 0.9507,
+        "1": 0.9738,
+        "2": 0.9769,
+        "3": 0.9894,
+        "4": 0.9948,
+        "5": 0.9982,
+        "6": 0.9959
+      },
+      "mc_by_wseg": {
+        "0": 0.9812,
+        "1": 0.993,
+        "2": 0.9858,
+        "3": 0.9879,
+        "4": 0.9914,
+        "5": 0.9798,
+        "6": 0.9629
+      },
+      "early_write_base": 0.9727,
+      "early_write_mc": 0.987,
+      "early_gain": 0.0143,
+      "HISTORICAL_STATE_NOVELTY": "INCONCLUSIVE",
+      "note": "recall of associations written in the early half of the sequence; base reads the single decayed final state, MC also reads cached segment states"
+    }
+  },
+  "cost": {
+    "la": {
+      "mode": "la",
+      "n_segments": 8,
+      "batch": 128,
+      "reps": 20,
+      "projection_conv_ms": 0.599,
+      "recurrent_update_ms": 1.141,
+      "checkpoint_copy_ms": 0.055,
+      "state_read_ms": 0.57,
+      "gate_router_ms": 0.654,
+      "total_ms": 4.198,
+      "note": "components directly measured; total is end-to-end MC forward (grm, continuous)"
+    },
+    "dn": {
+      "mode": "dn",
+      "n_segments": 8,
+      "batch": 128,
+      "reps": 20,
+      "projection_conv_ms": 0.595,
+      "recurrent_update_ms": 11.361,
+      "checkpoint_copy_ms": 0.082,
+      "state_read_ms": 0.676,
+      "gate_router_ms": 0.719,
+      "total_ms": 16.46,
+      "note": "components directly measured; total is end-to-end MC forward (grm, continuous)"
+    },
+    "gdn": {
+      "mode": "gdn",
+      "n_segments": 8,
+      "batch": 128,
+      "reps": 20,
+      "projection_conv_ms": 0.597,
+      "recurrent_update_ms": 10.894,
+      "checkpoint_copy_ms": 0.055,
+      "state_read_ms": 0.568,
+      "gate_router_ms": 0.637,
+      "total_ms": 13.328,
+      "note": "components directly measured; total is end-to-end MC forward (grm, continuous)"
+    }
+  },
+  "memory": {
+    "la": {
+      "mode": "la",
+      "matrix_state_bytes": 16384,
+      "conv_state_bytes": 2304,
+      "total_live_recurrent_state_bytes": 18688,
+      "historical_checkpoint_bytes_per_ckpt": 16384,
+      "historical_checkpoint_bytes_at_full": 114688,
+      "n_checkpoints": 8,
+      "reader_param_bytes": 32768,
+      "note": "conv_state = (kernel-1)*conv_dim; historical cache stores the matrix state per segment (conv boundary is only needed live). Mirrors Qwen {recurrent_states, conv_states}."
+    },
+    "dn": {
+      "mode": "dn",
+      "matrix_state_bytes": 16384,
+      "conv_state_bytes": 2304,
+      "total_live_recurrent_state_bytes": 18688,
+      "historical_checkpoint_bytes_per_ckpt": 16384,
+      "historical_checkpoint_bytes_at_full": 114688,
+      "n_checkpoints": 8,
+      "reader_param_bytes": 32768,
+      "note": "conv_state = (kernel-1)*conv_dim; historical cache stores the matrix state per segment (conv boundary is only needed live). Mirrors Qwen {recurrent_states, conv_states}."
+    },
+    "gdn": {
+      "mode": "gdn",
+      "matrix_state_bytes": 16384,
+      "conv_state_bytes": 2304,
+      "total_live_recurrent_state_bytes": 18688,
+      "historical_checkpoint_bytes_per_ckpt": 16384,
+      "historical_checkpoint_bytes_at_full": 114688,
+      "n_checkpoints": 8,
+      "reader_param_bytes": 32768,
+      "note": "conv_state = (kernel-1)*conv_dim; historical cache stores the matrix state per segment (conv boundary is only needed live). Mirrors Qwen {recurrent_states, conv_states}."
+    }
+  },
+  "outcomes": {
+    "per_substrate": {
+      "la": {
+        "REFERENCE_PARITY": "PASS",
+        "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+        "REQUEST_ISOLATION": "PASS",
+        "ADDITIVE_COLLAPSE": "YES",
+        "JOINT_TRAINED_MC_EFFECT": "NO_EFFECT",
+        "FROZEN_POST_MC_EFFECT": "NEGATIVE",
+        "FROZEN_READER_MC_EFFECT": "NO_EFFECT",
+        "PURE_CACHE_COUNT_CURVE": "QUALIFIED",
+        "HISTORICAL_STATE_NOVELTY": "NOT_DETECTED",
+        "STATE_BYTES": 18688,
+        "COMPUTE_TOTAL_MS": 4.198,
+        "co_adaptation_interaction": 0.1452
+      },
+      "dn": {
+        "REFERENCE_PARITY": "PASS",
+        "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+        "REQUEST_ISOLATION": "PASS",
+        "ADDITIVE_COLLAPSE": "NO",
+        "JOINT_TRAINED_MC_EFFECT": "NO_EFFECT",
+        "FROZEN_POST_MC_EFFECT": "NEGATIVE",
+        "FROZEN_READER_MC_EFFECT": "NO_EFFECT",
+        "PURE_CACHE_COUNT_CURVE": "QUALIFIED",
+        "HISTORICAL_STATE_NOVELTY": "INCONCLUSIVE",
+        "STATE_BYTES": 18688,
+        "COMPUTE_TOTAL_MS": 16.46,
+        "co_adaptation_interaction": 0.2799
+      },
+      "gdn": {
+        "REFERENCE_PARITY": "PASS",
+        "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+        "REQUEST_ISOLATION": "PASS",
+        "ADDITIVE_COLLAPSE": "NO",
+        "JOINT_TRAINED_MC_EFFECT": "NO_EFFECT",
+        "FROZEN_POST_MC_EFFECT": "NEGATIVE",
+        "FROZEN_READER_MC_EFFECT": "NO_EFFECT",
+        "PURE_CACHE_COUNT_CURVE": "QUALIFIED",
+        "HISTORICAL_STATE_NOVELTY": "INCONCLUSIVE",
+        "STATE_BYTES": 18688,
+        "COMPUTE_TOTAL_MS": 13.328,
+        "co_adaptation_interaction": 0.312
+      }
+    },
+    "margin_OPERATOR_HEURISTIC": 0.03,
+    "MC_D": 36,
+    "DELTA_MC_SIGNAL": "NO_EFFECT_NAIVE_MC_NEGATIVE",
+    "GDN_MC_SIGNAL": "NO_EFFECT_NAIVE_MC_NEGATIVE",
+    "LA_MC_SIGNAL": "NO_EFFECT_NAIVE_MC_NEGATIVE",
+    "COADAPTATION_INTERACTION": "SUPPORTED",
+    "QWEN_GDN_TRANSPLANT_GATE": "CONDITIONAL / DEFER",
+    "gate_rationale": "full-module lifecycle + parity + request-isolation now QUALIFIED for real GDN (preconditions RNN-05A could not meet); but frozen-backbone MC does not exceed base and co-adaptation (not state-collapsibility) is the decisive factor -> defer"
+  },
+  "MEMORY_AXIS": "QUALIFIED",
+  "select_rule": "GDN base nearest 0.6 within (0.30,0.90); GDN is the load-bearing substrate",
+  "MC_D": 36,
+  "benchmarks": {
+    "dev_spec": "{\"distractor_density\":0.3,\"name\":\"dev_D36\",\"num_keys\":128,\"num_pairs\":36,\"num_queries\":8,\"num_vals\":64,\"seq_len\":256,\"write_layout\":\"spread\"}",
+    "holdout_spec": "{\"distractor_density\":0.3,\"name\":\"hold_D36\",\"num_keys\":128,\"num_pairs\":36,\"num_queries\":8,\"num_vals\":64,\"seq_len\":256,\"write_layout\":\"spread\"}",
+    "dev_ids_hash": "21680b8686749022",
+    "holdout_ids_hash": "c9c681ad7e5d34a3",
+    "dev_first_ids": [
+      "ee27fb5138ff699d",
+      "74109dde5111336b",
+      "4f545e730d134f70"
+    ],
+    "holdout_first_ids": [
+      "1d45c7e11386b6cc",
+      "cfb63f9e5ba99096",
+      "46855fb1bded95d7"
+    ]
+  }
+}
