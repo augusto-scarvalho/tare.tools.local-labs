@@ -1,0 +1,112 @@
+{
+  "packet": "RNN-05A-audit-reconciliation",
+  "COST_PROBE_SELFCHECK": "PASS",
+  "note": "probe reads states[:i] and gates pools[:i] for segment i; equals GRM forward's len(cached_states). Fixes the states[:1]/segs[:1] N>2 bug. Structural/count test on an untrained model (value-independent); NOT a cost remeasurement.",
+  "torch": "2.6.0+cu124",
+  "cases": [
+    {
+      "N": 2,
+      "seg": 128,
+      "n_segments": 2,
+      "historical_states_per_segment": [
+        0,
+        1
+      ],
+      "expected": [
+        0,
+        1
+      ],
+      "cost_probe_matches_forward": true,
+      "match": true
+    },
+    {
+      "N": 4,
+      "seg": 64,
+      "n_segments": 4,
+      "historical_states_per_segment": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "expected": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "cost_probe_matches_forward": true,
+      "match": true
+    },
+    {
+      "N": 8,
+      "seg": 32,
+      "n_segments": 8,
+      "historical_states_per_segment": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "expected": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "cost_probe_matches_forward": true,
+      "match": true
+    },
+    {
+      "N": 16,
+      "seg": 16,
+      "n_segments": 16,
+      "historical_states_per_segment": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "expected": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "cost_probe_matches_forward": true,
+      "match": true
+    }
+  ]
+}

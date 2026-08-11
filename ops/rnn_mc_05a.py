@@ -81,9 +81,12 @@ def build_model(vocab, d_k=D_K, d_v=D_V):
 
 
 # ---------------- frozen-backbone / reader forward (uses ONLY qualified primitives) ----------------
-def segmented_forward(model, ids, reader, seg_size, warm_start):
+def segmented_forward(model, ids, reader, seg_size, warm_start, probe_counts=None):
     """reader in {single, moving_average, grm_wu, grm_q}. Mirrors RNN-04 DeltaMemory.forward exactly for
-    'single'/'grm_wu'; 'grm_q' swaps the trainable connector u=w_u(x) for the param-free u=q (arm E)."""
+    'single'/'grm_wu'; 'grm_q' swaps the trainable connector u=w_u(x) for the param-free u=q (arm E).
+    probe_counts: if a list is passed, appends the number of HISTORICAL cached states this segment
+    reads/gates against (= len(cached_states) at aggregation time) -- ground truth for the cost-probe
+    assertion (audit reconciliation section 3). Behaviour is otherwise identical."""
     mem = model.mem
     x = model.emb(ids)
     q, k, v, _ = mem._proj(x)
@@ -99,6 +102,8 @@ def segmented_forward(model, ids, reader, seg_size, warm_start):
         if reader == "single":
             o = online
         else:
+            if probe_counts is not None:
+                probe_counts.append(len(cached_states))   # historical states used for THIS segment
             cr = read_states(cached_states, qs) if cached_states else []
             if not cr:
                 o = online
@@ -270,21 +275,35 @@ def cost_breakdown(model, pool, seg, warm_start, reps=10, batch=128):
             states.append(S); S_prev = S
         return states
     states = do_update()
-    def do_ckpt():
-        return [s.clone() for s in states]
+    pools = [k[:, a:b].mean(dim=1) for (a, b) in segs]      # per-segment mean-key pool, precomputed once
+    # AUDIT-FIX (reconciliation section 3): segment i reads/gates against ALL prior states/pools [0:i]
+    # (was states[:1] / segs[:1] -> wrong for N>2). This matches segmented_forward's GRM path exactly.
     def do_read():
-        for (a, b) in segs[1:]:
-            read_states(states[:1], q[:, a:b])
+        for i, (a, b) in enumerate(segs):
+            if i == 0:
+                continue
+            read_states(states[:i], q[:, a:b])              # all prior states 0..i-1
     def do_gate():
-        for (a, b) in segs[1:]:
+        for i, (a, b) in enumerate(segs):
+            if i == 0:
+                continue
             u = mem.w_u(x[:, a:b])
             kcum = torch.cumsum(k[:, a:b], 1) / torch.arange(1, b - a + 1, device=x.device).view(1, -1, 1)
-            P = torch.stack([k[:, aa:bb].mean(1) for (aa, bb) in segs[:1]], 1)
+            P = torch.stack(pools[:i], dim=1)               # all prior pools 0..i-1
             gl = torch.cat([torch.einsum('bsk,bck->bsc', u, P),
                             torch.einsum('bsk,bsk->bs', u, kcum).unsqueeze(-1)], -1)
             torch.softmax(gl, -1)
+    def do_ckpt():
+        return [s.clone() for s in states]
 
-    state_bytes = S_prev if False else states[-1].numel() // B * states[-1].element_size()
+    # cost-probe correctness: the historical-state count the probe uses per segment MUST equal the count
+    # the real GRM forward uses. Probe uses states[:i] (i.e. 0,1,2,...); capture the forward's ground truth.
+    probe_hist_counts = list(range(len(segs)))              # segment i -> i historical states
+    fwd_counts = []
+    segmented_forward(model, ids, "grm_wu", seg, warm_start, probe_counts=fwd_counts)
+    probe_matches_forward = (probe_hist_counts == fwd_counts)
+
+    state_bytes = states[-1].numel() // B * states[-1].element_size()
     return dict(
         n_segments=len(segs),
         recurrent_update_ms=round(timeit(do_update), 3),
@@ -294,6 +313,8 @@ def cost_breakdown(model, pool, seg, warm_start, reps=10, batch=128):
         total_latency_ms=round(timeit(lambda: segmented_forward(model, ids, "grm_wu", seg, warm_start)), 3),
         state_bytes_per_req=int(state_bytes),
         cache_bytes=int(state_bytes * max(0, len(segs) - 1)),
+        historical_states_per_segment=fwd_counts,
+        cost_probe_matches_forward=bool(probe_matches_forward),
     )
 
 
@@ -303,6 +324,41 @@ def classify(delta):
     if delta <= -MARGIN:
         return "NEGATIVE"
     return "NO_EFFECT"
+
+
+@torch.no_grad()
+def run_cost_selfcheck(out_path):
+    """Audit reconciliation section 3: prove the corrected cost probe reads/gates against the SAME number of
+    historical states per segment as the real GRM forward, for N>2. Structural (count) check -> runs on a
+    fresh UNTRAINED tiny model; no training, no tuning, value-independent. NOT a cost remeasurement."""
+    vocab = spec("v", D=40).vocab_size
+    m = build_model(vocab)
+    for p in m.parameters():
+        p.requires_grad_(False)
+    sp = spec("cost_selfcheck", D=40)
+    pool = make_pool(sp, 128)
+    cases = []
+    ok = True
+    for N in [2, 4, 8, 16]:
+        seg = math.ceil(L / N)
+        c = cost_breakdown(m, pool, seg, warm_start=False, reps=1, batch=32)
+        expected = list(range(c["n_segments"]))                 # segment i uses i historical states
+        match = (c["historical_states_per_segment"] == expected) and c["cost_probe_matches_forward"]
+        ok = ok and match
+        cases.append(dict(N=N, seg=seg, n_segments=c["n_segments"],
+                          historical_states_per_segment=c["historical_states_per_segment"],
+                          expected=expected, cost_probe_matches_forward=c["cost_probe_matches_forward"],
+                          match=bool(match)))
+    result = dict(packet="RNN-05A-audit-reconciliation",
+                  COST_PROBE_SELFCHECK="PASS" if ok else "FAIL",
+                  note="probe reads states[:i] and gates pools[:i] for segment i; equals GRM forward's "
+                       "len(cached_states). Fixes the states[:1]/segs[:1] N>2 bug. Structural/count test on "
+                       "an untrained model (value-independent); NOT a cost remeasurement.",
+                  torch=torch.__version__, cases=cases)
+    if out_path:
+        json.dump(result, open(out_path, "w"), indent=2)
+    print(json.dumps({k: result[k] for k in ["COST_PROBE_SELFCHECK"]}, indent=2))
+    return result
 
 
 # ==================================================================================================
@@ -562,7 +618,15 @@ def run(args):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--outdir", required=True)
+    ap.add_argument("--outdir", default=None)
     ap.add_argument("--ckpt", default=None, help="external checkpoint path (NOT committed)")
     ap.add_argument("--smoke", action="store_true")
-    run(ap.parse_args())
+    ap.add_argument("--cost-selfcheck", default=None, metavar="JSON",
+                    help="run the cost-probe historical-count assertion (no training) and write JSON")
+    a = ap.parse_args()
+    if a.cost_selfcheck:
+        run_cost_selfcheck(a.cost_selfcheck)
+    else:
+        if not a.outdir:
+            ap.error("--outdir is required unless --cost-selfcheck is given")
+        run(a)

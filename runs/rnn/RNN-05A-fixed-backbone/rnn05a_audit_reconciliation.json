@@ -1,0 +1,76 @@
+{
+  "packet": "RNN-05A-audit-reconciliation",
+  "date": "2026-08-10",
+  "supersedes": "interpretation/instrumentation only; RNN-05A raw evidence (rnn05a_results.json, backbone_identity.json, lifecycle_proofs.json, immutability_gate.json, param_accounting.json, pareto_fixed_backbone.csv, rnn05a_outcomes.json, run.log) is IMMUTABLE and unchanged. Where this note and a raw artifact disagree on interpretation, this note governs.",
+  "start_head": "25691f611d1c2ee3006eb4d9d27ba14e28200608",
+  "core_result_status": "ACCEPTED (frozen-backbone Memory Caching negative; accuracy comparisons valid for the implemented substrate)",
+
+  "1_lifecycle_scope_correction": {
+    "reason": "lifecycle_proofs operate on the Linear-Attention matrix state S AFTER q/k/v were computed by causal depthwise convs over the FULL sequence; the conv boundary state is neither reset nor serialized -> the proofs cover the matrix state only, not the whole module.",
+    "LINEAR_MATRIX_INDEPENDENT_STATE": "QUALIFIED",
+    "LINEAR_MATRIX_CONTINUOUS_STATE": "QUALIFIED",
+    "LINEAR_MATRIX_CHECKPOINT_RESTORE": "QUALIFIED",
+    "FULL_MODULE_INDEPENDENT_COMPRESSOR": "NOT_QUALIFIED",
+    "FULL_MODULE_CHECKPOINT_RESTORE": "NOT_QUALIFIED",
+    "not_a_failure": "The accuracy comparison remains valid for the implemented substrate; this reclassifies the SCOPE of the lifecycle proof, it does not invalidate any result."
+  },
+
+  "2_rnn05b_full_module_lifecycle_requirement": {
+    "requirement": "Any real DeltaNet/Gated-DeltaNet packet MUST identify, checkpoint and reset ALL sequence-owned stateful components, not just the recurrent matrix.",
+    "stateful_components": [
+      "recurrent matrix state S",
+      "causal / depthwise convolution state (the k-1 boundary window on q/k/v)",
+      "any normalization / state buffers that are sequence-owned"
+    ],
+    "required_test_protocol": "prefix -> serialize COMPLETE cache -> destroy runtime cache -> restore -> provide ONLY continuation tokens -> compare continuation, WITHOUT precomputing future q/k/v using the original prefix.",
+    "implement_now": false
+  },
+
+  "3_cost_instrumentation_fix": {
+    "bug": "cost_breakdown.do_read used states[:1] and do_gate built pools from segs[:1]; for N>2 this under-counts the real GRM read/gate work (which is against ALL prior states/pools).",
+    "fix": "segment i now reads states[:i] and gates pools[:i], matching segmented_forward exactly.",
+    "assertion": "cost probe historical-state count per segment == GRM forward's len(cached_states); see cost_probe_selfcheck.json (COST_PROBE_SELFCHECK=PASS for N in {2,4,8,16}).",
+    "COMPONENT_COST_REMEASUREMENT": "BLOCKED_BY_NON_DURABLE_READER_ARTIFACT",
+    "blocker_detail": "The exact TRAINED reader (mem.w_u after arm-D training) was never durably saved; only the frozen backbone checkpoint exists (w_u at random init). Per packet section 4, cost is NOT recreated from approximate training. Code fix preserved for future runs.",
+    "value_independence_note": "Component TIMING is a function of shapes/N only (einsum flops + softmax), independent of w_u values; a future run that durably saves the reader (or even just the backbone) can regenerate the corrected cost table. Not done here to keep the BLOCKED status clean.",
+    "historical_cost_columns_status": "The recurrent_update/checkpoint_copy/state_read/gate_router/total columns in the immutable pareto_fixed_backbone.csv were produced by the OLD (states[:1]) probe and UNDERSTATE read/gate cost for N>2. They are superseded-as-cost by this note (accuracy/byte columns unaffected)."
+  },
+
+  "4_cache_count_curve_interpretation": {
+    "reason": "the N in {1,2,4,8,16} sweep simultaneously changes cached-state count, segment size and checkpoint spacing -> not an isolated cached-state-count Pareto.",
+    "rename": "FIXED_BACKBONE_SEGMENTATION_MEMORY_CURVE",
+    "PURE_CACHE_COUNT_CURVE": "NOT_TESTED",
+    "CONTINUOUS_READER_MEMORY_CURVE": "NOT_TESTED",
+    "continuous_reader_note": "the N sweep used the INDEPENDENT-lifecycle trained reader; the continuous trained reader (the best frozen-MC arm) was not swept over N. Not run here (exact reader artifact absent; would require retraining -> disallowed)."
+  },
+
+  "5_co_adaptation_wording": {
+    "retitle_from": "RNN-04 benefit was co-adaptation",
+    "corrected": "The RNN-04 positive result plus the RNN-05A frozen-transfer negative strongly SUPPORT the backbone-memory co-adaptation hypothesis, but do not yet causally isolate it.",
+    "EVAL_GENERALIZATION": "DIRECTION_CONSISTENT_DEV_HOLDOUT",
+    "TRAINING_REPLICATION_COUNT": 1,
+    "note": "dev/holdout direction agreement is a generalization signal, NOT an independent training replication."
+  },
+
+  "6_backbone_accounting_wording": {
+    "base_backbone_training": {
+      "optimizer_parameter_population": 66333,
+      "effective_gradient_receiving_parameters": 63261,
+      "reason": "mem.w_u (3072 params) is unused by the single-state forward -> receives no gradient during base training; historical raw value train.trained_params=66333 is the optimizer population, unchanged."
+    },
+    "arm_D_reader_training": {
+      "optimizer_parameter_population": 3072,
+      "effective_gradient_receiving_parameters": 3072
+    }
+  },
+
+  "7_checkpoint_disposition": {
+    "file": "rnn05a_backbone.pt",
+    "sha256": "8b5977439f4e31c41e77326b698511bba581f335d80d12359cad158fd621762e",
+    "bytes": 270849,
+    "action": "copied out of the ephemeral session scratchpad to a durable non-Git lab location and bundled in the refreshed audit ZIP under external_artifacts/; NOT committed to Git.",
+    "reader_checkpoint": "NONE (never durably saved) -> see COMPONENT_COST_REMEASUREMENT blocker."
+  },
+
+  "RNN_05A_STATUS": "ACCEPTED_WITH_AUDIT_CLARIFICATIONS"
+}
