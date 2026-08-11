@@ -1,0 +1,33 @@
+{
+  "packet": "RNN-06A-MAMBA",
+  "kind": "model_identity (pre-registration declaration; runner re-verifies live)",
+  "repo_id": "AntonV/mamba2-1.3b-hf",
+  "revision": "703e19a43f397c70315244a3424d79456b54fb34",
+  "revision_source": "HF hub cache refs/main == snapshots/ dir (verified live 2026-08-11)",
+  "model_class": "transformers.Mamba2ForCausalLM",
+  "model_type": "mamba2",
+  "dtype_loaded": "bfloat16",
+  "device": "cuda:0",
+  "scope_note": "Qualification is scoped to THIS repo+revision+backend+versions+dtype+source-identity. It does NOT generalize to 'Mamba-2' in the abstract, nor to the original state-spaces weights, nor to a mamba_ssm/causal_conv1d kernel backend.",
+  "executed_source_identity_pinned": {
+    "modeling_mamba2_py_sha256": "83685d785c0df6578fefca8d5a2ed382d70e651ffc83c00b8f40b64807a04fdb",
+    "configuration_mamba2_py_sha256": "f9a3c2f5694b74b4a23ed7e23a6b2e20b2cc8a20532f65ab05091828fc9c4a1c",
+    "transformers_version": "4.48.3",
+    "torch_version": "2.6.0+cu124",
+    "note": "These are the exact backend source bytes that execute. The runner ALSO self-records these (plus its own runner source sha256, git blob, commit, dirty flag) INTO LIFECYCLE_RESULTS.json before any outcome-bearing run, repairing the P0 PER_CANDIDATE_EXECUTED_SOURCE_IDENTITY=NOT_PROVEN gap."
+  },
+  "config_snapshot": {
+    "num_hidden_layers": 48,
+    "hidden_size": 2048,
+    "expand": 2,
+    "n_groups": 1,
+    "state_size": 128,
+    "num_heads": 64,
+    "head_dim": 64,
+    "conv_kernel": 4,
+    "chunk_size": 256,
+    "vocab_size": 50288,
+    "tie_word_embeddings": true,
+    "use_conv_bias": true
+  }
+}

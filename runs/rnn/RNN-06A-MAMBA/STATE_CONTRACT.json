@@ -1,0 +1,66 @@
+{
+  "packet": "RNN-06A-MAMBA",
+  "kind": "state_contract",
+  "authority": "PRE_REGISTRATION (declared before outcome-bearing runs; runtime runner must re-verify shapes/dtypes/bytes and FAIL on mismatch)",
+  "subject_backend": "transformers.models.mamba2.modeling_mamba2 (naive torch_forward; is_fast_path_available=False)",
+  "position_state_note": "Mamba2Cache has NO seqlen_offset / no internal position counter. Sequence position is CALLER-managed via the cache_position LongTensor passed to forward(); only cache_position[0] is consumed (==0 => prefill/init path, >0 => single-token decode path). Therefore position is NOT part of the serialized module state; it is a call-site argument that the lifecycle harness must supply on restore.",
+  "decode_path_constraint": "torch_forward decode branch (cache_position[0]>0) is SINGLE-TOKEN ONLY: dt=dt[:,0,:] and update_conv_state(cache_init=False) consumes new_conv_state[:,0,:], emitting exactly one output token. A multi-token continuation segment is NOT processed in a single decode call by this backend; faithful continuation of a k-token segment requires k sequential single-token decode steps. Prefill (cache_position[0]==0) uses the chunked naive-ssd path over the whole prefix.",
+  "config": {
+    "model": "AntonV/mamba2-1.3b-hf",
+    "revision": "703e19a43f397c70315244a3424d79456b54fb34",
+    "num_hidden_layers": 48,
+    "hidden_size": 2048,
+    "expand": 2,
+    "intermediate_size_derived": 4096,
+    "n_groups": 1,
+    "state_size": 128,
+    "num_heads": 64,
+    "head_dim": 64,
+    "conv_kernel": 4,
+    "conv_dim_derived": 4352,
+    "chunk_size": 256,
+    "use_conv_bias": true,
+    "time_step_limit": [0.0, "Infinity"],
+    "tie_word_embeddings": true,
+    "vocab_size": 50288
+  },
+  "sequence_owned_state_components": [
+    {
+      "name": "conv_states",
+      "owner": "Mamba2Cache (shared across all 48 layers, indexed by layer_idx dim 0)",
+      "shape": "[num_hidden_layers=48, batch, conv_dim=4352, conv_kernel=4]",
+      "dtype": "model dtype (bf16 as loaded); runner records live",
+      "device": "cuda:0",
+      "elements_per_sequence": 835584,
+      "bytes_per_sequence_bf16": 1671168,
+      "initialization_semantics": "torch.zeros at Mamba2Cache.__init__",
+      "mutation_semantics": "IN-PLACE slice writes. Prefill: update_conv_state(cache_init=True) pads the prefix's last conv_kernel columns. Decode: update_conv_state(cache_init=False) roll(shift=-1,dim=-1) then write new token at [:,:,-1]. In-place => a snapshot MUST .clone(), a plain reference is contaminated by later steps.",
+      "serialization_semantics": "dense tensor; lossless via raw bytes or torch.save; bf16 round-trip is exact.",
+      "restore_semantics": "reconstruct Mamba2Cache then copy_() bytes into conv_states; shape/dtype/device must match."
+    },
+    {
+      "name": "ssm_states",
+      "owner": "Mamba2Cache (shared across all 48 layers, indexed by layer_idx dim 0)",
+      "shape": "[num_hidden_layers=48, batch, num_heads=64, head_dim=64, state_size=128]",
+      "dtype": "model dtype (bf16 as loaded); runner records live",
+      "device": "cuda:0",
+      "elements_per_sequence": 25165824,
+      "bytes_per_sequence_bf16": 50331648,
+      "initialization_semantics": "torch.zeros at Mamba2Cache.__init__",
+      "mutation_semantics": "IN-PLACE via update_ssm_state (assignment to ssm_states[layer_idx]). Prefill writes the per-chunk final state; decode writes state*dA + dBx. Snapshot MUST .clone().",
+      "serialization_semantics": "dense tensor; lossless; bf16 round-trip exact.",
+      "restore_semantics": "reconstruct Mamba2Cache then copy_() bytes into ssm_states."
+    }
+  ],
+  "derived_or_scalar_metadata_not_mutable_state": {
+    "note": "These are set at cache __init__ from config and never mutated by forward. They are config-derived, not sequence-owned state; recorded for completeness of the round-trip contract.",
+    "fields": ["dtype", "conv_kernel_size", "n_groups", "state_size", "num_heads", "head_dim", "intermediate_size"]
+  },
+  "caller_managed_not_module_state": {
+    "cache_position": "LongTensor supplied per forward() call; only element [0] is read; NOT stored in cache; harness must supply correct offset on restore/continue.",
+    "attention_mask": "optional; for equal-length unpadded lifecycle inputs it is None; padding semantics are OUT OF SCOPE for 06A (single-length isolation batches only)."
+  },
+  "total_state_bytes_per_sequence_bf16": 52002816,
+  "total_state_MiB_per_sequence_bf16": 49.5938,
+  "full_module_state_completeness_claim": "The COMPLETE sequence-owned recurrent state of this backend is exactly {conv_states, ssm_states}. There is no other mutable per-sequence tensor (no attention KV cache, no position counter inside the cache). This is the RNN-05A lesson applied: full-module lifecycle here == both conv AND ssm states for ALL 48 layers, not a matrix-only subset. Runner enumerates and byte-accounts BOTH before minting any PASS."
+}

@@ -1,0 +1,26 @@
+{
+  "packet": "RNN-06A-MAMBA",
+  "kind": "machine_config (pre-registration; runner re-captures live into LIFECYCLE_RESULTS.json and must match)",
+  "host": "Windows 11 + WSL2 Ubuntu-24.04",
+  "gpu": "NVIDIA GeForce RTX 3090 (24576 MiB)",
+  "python_venv": "/home/augus/rnn06_env",
+  "python_version": "3.12",
+  "torch": "2.6.0+cu124",
+  "torch_cuda": "12.4",
+  "transformers": "4.48.3",
+  "optimized_backends_absent": {
+    "mamba_ssm": false,
+    "causal_conv1d": false,
+    "is_fast_path_available": false
+  },
+  "backend_path": "transformers.models.mamba2.modeling_mamba2.Mamba2Mixer.torch_forward (naive)",
+  "dtype": "bfloat16",
+  "quantization": "none",
+  "continuity_with_P0": "Same substrate as RNN-06-P0 (torch 2.6.0+cu124, transformers 4.48.3, no mamba_ssm/causal_conv1d, bf16). P0 used chunk_size=32 for feasibility of a long graded sweep; 06A default chunk_size is the model's native 256 (see PRE_REGISTRATION section 9) because 06A prefixes are short (<= chunk_size), so no chunk tiling occurs and no feasibility override is required. chunk_size dependence is tested as a declared sub-experiment, not silently changed.",
+  "determinism_controls": {
+    "eval_mode": true,
+    "no_grad": true,
+    "torch_manual_seed": 0,
+    "note": "Mamba2 torch_forward has no dropout; eval+no_grad. Bit-level run-to-run determinism of cuBLAS matmuls is expected but NOT assumed; claim A predeclares a NUMERICALLY_EQUIVALENT fallback if not bit-exact."
+  }
+}
