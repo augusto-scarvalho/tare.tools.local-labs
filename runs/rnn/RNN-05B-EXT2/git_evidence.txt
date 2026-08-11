@@ -1,0 +1,45 @@
+# RNN-05B-EXT2 — Git evidence
+## Env: run wall 10.4 min, device cuda (RTX 3090, 24GB), torch 2.6.0+cu124, numpy 2.5.2, WSL Ubuntu-24.04
+
+## Start HEAD (task): df8317b5acc7c7d982663153f70bacf34892fdbf
+## Pre-registration HEAD (results.sourceGitHead): 5abeab4b7f55db966e5148261f715fcc524bd168
+## Results HEAD: 12157b4 (this note committed on top)
+## Current HEAD:
+12157b494b2cbbc32ff310c4c0e458bd80a27784
+## Branch:
+master
+## Pushed?: NO (local only)
+
+## Recent commits:
+12157b4 results(rnn): RNN-05B-EXT2 -> FIXED_BACKBONE_GRADED_REGION=BLOCKED (Case A, no MC, no EXT3)
+5abeab4 test(rnn): RNN-05B-EXT2 pre-registration — fixed-backbone retention dose-response (H3 final)
+df8317b clarify(rnn): RNN-05B-EXT audit reconciliation — protocol ordering + causal scope
+d8b91d9 results(rnn): RNN-05B-EXT amend1 -> H3_TESTABILITY=BLOCKED_BY_UNSTABLE_BASE
+
+## EXT2 commits (stat):
+5abeab4 test(rnn): RNN-05B-EXT2 pre-registration — fixed-backbone retention dose-response (H3 final)
+ ops/rnn_05b_ext2.py                           | 1403 +++++++++++++++++++++++++
+ runs/rnn/RNN-05B-EXT2/.gitignore              |    2 +
+ runs/rnn/RNN-05B-EXT2/PRE_REGISTRATION.md     |  108 ++
+ runs/rnn/RNN-05B-EXT2/generator_selftest.json |   30 +
+ runs/rnn/RNN-05B-EXT2/machine_config.json     |  143 +++
+ 5 files changed, 1686 insertions(+)
+  ---
+12157b4 results(rnn): RNN-05B-EXT2 -> FIXED_BACKBONE_GRADED_REGION=BLOCKED (Case A, no MC, no EXT3)
+ runs/rnn/RNN-05B-EXT2/BASE_QUALIFICATION.json  | 200 ++++++++++
+ runs/rnn/RNN-05B-EXT2/HANDOFF.md               | 170 +++++++++
+ runs/rnn/RNN-05B-EXT2/rnn05bext2_curves.csv    |   1 +
+ runs/rnn/RNN-05B-EXT2/rnn05bext2_outcomes.json |  15 +
+ runs/rnn/RNN-05B-EXT2/rnn05bext2_results.json  | 489 +++++++++++++++++++++++++
+ runs/rnn/RNN-05B-EXT2/run.log                  |  66 ++++
+ runs/rnn/RNN-05B-EXT2/source_excerpts.md       |  67 ++++
+ 7 files changed, 1008 insertions(+)
+
+## Artifacts (gitignored weights; in ZIP only) sha256:
+c6880dc67fcad0ce  ext2_dn_seed42_backbone.pt
+7ecedb2a082c5755  ext2_dn_seed43_backbone.pt
+cb75da0238aa7aa3  ext2_dn_seed44_backbone.pt
+50d6a001d15952af  ext2_gdn_seed42_backbone.pt
+d2ce641a19c04db0  ext2_gdn_seed43_backbone.pt
+352f50ddad0b00cc  ext2_gdn_seed44_backbone.pt
+f5213ff4e0571e01  ext2_la_seed42_backbone.pt
