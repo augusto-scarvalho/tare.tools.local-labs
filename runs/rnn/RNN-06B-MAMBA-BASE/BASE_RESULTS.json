@@ -1,0 +1,597 @@
+{
+  "packet": "RNN-06B-MAMBA-BASE",
+  "kind": "graded_region_results",
+  "challenge_identities": {
+    "qualificationSetSha256_recorded": "e351a4449796cdf71fa04b3f77fd9038f6950cb2672d23968bb22a5e031cf0ee",
+    "qualificationSetSha256_recomputed": "e351a4449796cdf71fa04b3f77fd9038f6950cb2672d23968bb22a5e031cf0ee",
+    "qualification_sha_match": true,
+    "stressGridSha256_recorded": "d29e442f03e2cae116081a09712b354b320495ec3c046f270be9fa8e36e36de1",
+    "stressGridSha256_recomputed": "d29e442f03e2cae116081a09712b354b320495ec3c046f270be9fa8e36e36de1",
+    "stress_sha_match": true,
+    "disjointness_proof": {
+      "calibrationSetSha256": "779fb37af14eea0e36b25b0407f5aa32fc23dc84b8add51a2df4ee0ad88c45f3",
+      "p0_calibration_present": true,
+      "p0_n_examples": 200,
+      "example_level_overlap_count": 0,
+      "example_level_disjoint": true,
+      "qualificationSetSha256": "e351a4449796cdf71fa04b3f77fd9038f6950cb2672d23968bb22a5e031cf0ee",
+      "sha_disjoint_from_calibration": true
+    }
+  },
+  "executed_source_identity": {
+    "runner_file": "/mnt/c/projects/local-model-lifecycle/ops/rnn_06b_base.py",
+    "runner_source_sha256": "13d60f5b706c514733bbdaa16c1fa0b7ea1f334925e8940cd2a1dd07173890be",
+    "runner_git_blob": "ebe6bb965ed4b01fb1aea58d7010fa946f18ab8d",
+    "runner_git_tracked_dirty": "",
+    "git_head": "fd8f863f27c0572c23667549a227adbf90c8f539",
+    "git_branch": "master",
+    "modeling_mamba2_sha256": "83685d785c0df6578fefca8d5a2ed382d70e651ffc83c00b8f40b64807a04fdb",
+    "configuration_mamba2_sha256": "f9a3c2f5694b74b4a23ed7e23a6b2e20b2cc8a20532f65ab05091828fc9c4a1c",
+    "transformers_version": "4.48.3",
+    "torch_version": "2.6.0+cu124",
+    "torch_cuda": "12.4",
+    "gpu_name": "NVIDIA GeForce RTX 3090",
+    "repo_id": "AntonV/mamba2-1.3b-hf",
+    "revision": "703e19a43f397c70315244a3424d79456b54fb34",
+    "dtype": "torch.bfloat16",
+    "pinned_chunk_size": 32,
+    "is_fast_path_available": false,
+    "qualificationSetSha256": "e351a4449796cdf71fa04b3f77fd9038f6950cb2672d23968bb22a5e031cf0ee",
+    "stressGridSha256": "d29e442f03e2cae116081a09712b354b320495ec3c046f270be9fa8e36e36de1",
+    "protocol_sha256": "c88049430af5f785f3318dafbf1c9659642b86347c9b48f878ef47a3e02d7c0a"
+  },
+  "n_params": 1343757312,
+  "effective_chunk_size": [
+    32,
+    32
+  ],
+  "tokenizer": {
+    "class": "GPTNeoXTokenizerFast",
+    "vocab_size": 50254
+  },
+  "pools": {
+    "n_num_single": 1992,
+    "n_word_single": 40750,
+    "scored_keys_sha256": "342d90e4a28015f868a96480a1af992e2adb38cdcb499e30788b3a7c03c6e4b5",
+    "scored_vals_sha256": "734f35389b10f208b08e0d2a38bd4a3ed3fb068750ab8b4457d7fd3a160277e6",
+    "filler_keys_sha256": "5ee3cb20e20f34ebfb3a88c9fb798db7a2f7ddf016ccc8c863f41e6f1162e961",
+    "filler_vals_sha256": "f5f3aa3733bde31a79006213ac21d95aef9b64d347d1ed9b562c490c529ff46a",
+    "eq_id": 30,
+    "nl_id": 187,
+    "sample_keys": [
+      " Sandy",
+      "anov",
+      " Beau",
+      " Garcia",
+      " module"
+    ],
+    "sample_vals": [
+      "1964",
+      " 193",
+      "901",
+      "510",
+      " 535"
+    ]
+  },
+  "chance": 0.00390625,
+  "curves": [
+    {
+      "dose": 8,
+      "condition": "MP",
+      "seq_len": 34,
+      "batch": 45,
+      "n": 192,
+      "constrained_correct": 159,
+      "constrained_acc": 0.828125,
+      "constrained_ci95": [
+        0.7684585717967164,
+        0.8749185247956316
+      ],
+      "unconstrained_acc": 0.4895833333333333,
+      "unconstrained_correct": 94,
+      "format_adherence": 0.5052083333333334,
+      "format_correct": 97,
+      "per_stratum_constrained_acc": {
+        "0": 0.921875,
+        "1": 0.765625,
+        "2": 0.796875
+      },
+      "eval_seconds": 11.62
+    },
+    {
+      "dose": 8,
+      "condition": "LC",
+      "seq_len": 34,
+      "batch": 45,
+      "n": 192,
+      "constrained_correct": 169,
+      "constrained_acc": 0.8802083333333334,
+      "constrained_ci95": [
+        0.8266638821640017,
+        0.9188365630937986
+      ],
+      "unconstrained_acc": 0.5052083333333334,
+      "unconstrained_correct": 97,
+      "format_adherence": 0.5104166666666666,
+      "format_correct": 98,
+      "per_stratum_constrained_acc": {
+        "0": 0.90625,
+        "1": 0.890625,
+        "2": 0.84375
+      },
+      "eval_seconds": 11.34
+    },
+    {
+      "dose": 16,
+      "condition": "MP",
+      "seq_len": 66,
+      "batch": 23,
+      "n": 192,
+      "constrained_correct": 131,
+      "constrained_acc": 0.6822916666666666,
+      "constrained_ci95": [
+        0.613409582762551,
+        0.7440221375665312
+      ],
+      "unconstrained_acc": 0.3333333333333333,
+      "unconstrained_correct": 64,
+      "format_adherence": 0.3385416666666667,
+      "format_correct": 65,
+      "per_stratum_constrained_acc": {
+        "0": 0.796875,
+        "1": 0.65625,
+        "2": 0.59375
+      },
+      "eval_seconds": 16.73
+    },
+    {
+      "dose": 16,
+      "condition": "LC",
+      "seq_len": 66,
+      "batch": 23,
+      "n": 192,
+      "constrained_correct": 135,
+      "constrained_acc": 0.703125,
+      "constrained_ci95": [
+        0.6350273977376124,
+        0.7632536620576507
+      ],
+      "unconstrained_acc": 0.296875,
+      "unconstrained_correct": 57,
+      "format_adherence": 0.3020833333333333,
+      "format_correct": 58,
+      "per_stratum_constrained_acc": {
+        "0": 0.75,
+        "1": 0.75,
+        "2": 0.609375
+      },
+      "eval_seconds": 17.55
+    },
+    {
+      "dose": 24,
+      "condition": "MP",
+      "seq_len": 98,
+      "batch": 15,
+      "n": 192,
+      "constrained_correct": 119,
+      "constrained_acc": 0.6197916666666666,
+      "constrained_ci95": [
+        0.549412471300924,
+        0.6854712306296157
+      ],
+      "unconstrained_acc": 0.23958333333333334,
+      "unconstrained_correct": 46,
+      "format_adherence": 0.24479166666666666,
+      "format_correct": 47,
+      "per_stratum_constrained_acc": {
+        "0": 0.703125,
+        "1": 0.671875,
+        "2": 0.484375
+      },
+      "eval_seconds": 22.79
+    },
+    {
+      "dose": 24,
+      "condition": "LC",
+      "seq_len": 98,
+      "batch": 15,
+      "n": 192,
+      "constrained_correct": 113,
+      "constrained_acc": 0.5885416666666666,
+      "constrained_ci95": [
+        0.517861400096107,
+        0.6557482926351614
+      ],
+      "unconstrained_acc": 0.18229166666666666,
+      "unconstrained_correct": 35,
+      "format_adherence": 0.18229166666666666,
+      "format_correct": 35,
+      "per_stratum_constrained_acc": {
+        "0": 0.59375,
+        "1": 0.59375,
+        "2": 0.578125
+      },
+      "eval_seconds": 23.28
+    },
+    {
+      "dose": 32,
+      "condition": "MP",
+      "seq_len": 130,
+      "batch": 11,
+      "n": 192,
+      "constrained_correct": 98,
+      "constrained_acc": 0.5104166666666666,
+      "constrained_ci95": [
+        0.4401989325913501,
+        0.5802257371417402
+      ],
+      "unconstrained_acc": 0.18229166666666666,
+      "unconstrained_correct": 35,
+      "format_adherence": 0.19791666666666666,
+      "format_correct": 38,
+      "per_stratum_constrained_acc": {
+        "0": 0.578125,
+        "1": 0.515625,
+        "2": 0.4375
+      },
+      "eval_seconds": 29.89
+    },
+    {
+      "dose": 32,
+      "condition": "LC",
+      "seq_len": 130,
+      "batch": 11,
+      "n": 192,
+      "constrained_correct": 92,
+      "constrained_acc": 0.4791666666666667,
+      "constrained_ci95": [
+        0.4096066488169343,
+        0.5495440117168848
+      ],
+      "unconstrained_acc": 0.140625,
+      "unconstrained_correct": 27,
+      "format_adherence": 0.140625,
+      "format_correct": 27,
+      "per_stratum_constrained_acc": {
+        "0": 0.5625,
+        "1": 0.46875,
+        "2": 0.40625
+      },
+      "eval_seconds": 29.85
+    },
+    {
+      "dose": 48,
+      "condition": "MP",
+      "seq_len": 194,
+      "batch": 7,
+      "n": 192,
+      "constrained_correct": 72,
+      "constrained_acc": 0.375,
+      "constrained_ci95": [
+        0.30960304854789567,
+        0.4453009146550192
+      ],
+      "unconstrained_acc": 0.13541666666666666,
+      "unconstrained_correct": 26,
+      "format_adherence": 0.13541666666666666,
+      "format_correct": 26,
+      "per_stratum_constrained_acc": {
+        "0": 0.484375,
+        "1": 0.359375,
+        "2": 0.28125
+      },
+      "eval_seconds": 42.04
+    },
+    {
+      "dose": 48,
+      "condition": "LC",
+      "seq_len": 194,
+      "batch": 7,
+      "n": 192,
+      "constrained_correct": 73,
+      "constrained_acc": 0.3802083333333333,
+      "constrained_ci95": [
+        0.3145287693703842,
+        0.4505875286990759
+      ],
+      "unconstrained_acc": 0.08854166666666667,
+      "unconstrained_correct": 17,
+      "format_adherence": 0.09375,
+      "format_correct": 18,
+      "per_stratum_constrained_acc": {
+        "0": 0.421875,
+        "1": 0.359375,
+        "2": 0.359375
+      },
+      "eval_seconds": 42.29
+    },
+    {
+      "dose": 64,
+      "condition": "MP",
+      "seq_len": 258,
+      "batch": 5,
+      "n": 192,
+      "constrained_correct": 57,
+      "constrained_acc": 0.296875,
+      "constrained_ci95": [
+        0.23674633794234923,
+        0.3649726022623876
+      ],
+      "unconstrained_acc": 0.06770833333333333,
+      "unconstrained_correct": 13,
+      "format_adherence": 0.06770833333333333,
+      "format_correct": 13,
+      "per_stratum_constrained_acc": {
+        "0": 0.390625,
+        "1": 0.21875,
+        "2": 0.28125
+      },
+      "eval_seconds": 56.23
+    },
+    {
+      "dose": 64,
+      "condition": "LC",
+      "seq_len": 258,
+      "batch": 5,
+      "n": 192,
+      "constrained_correct": 52,
+      "constrained_acc": 0.2708333333333333,
+      "constrained_ci95": [
+        0.21292672514609529,
+        0.3377305407259154
+      ],
+      "unconstrained_acc": 0.06770833333333333,
+      "unconstrained_correct": 13,
+      "format_adherence": 0.07291666666666667,
+      "format_correct": 14,
+      "per_stratum_constrained_acc": {
+        "0": 0.296875,
+        "1": 0.25,
+        "2": 0.265625
+      },
+      "eval_seconds": 55.91
+    },
+    {
+      "dose": 96,
+      "condition": "MP",
+      "seq_len": 386,
+      "batch": 3,
+      "n": 192,
+      "constrained_correct": 40,
+      "constrained_acc": 0.20833333333333334,
+      "constrained_ci95": [
+        0.1568883166511515,
+        0.27122093082231685
+      ],
+      "unconstrained_acc": 0.026041666666666668,
+      "unconstrained_correct": 5,
+      "format_adherence": 0.026041666666666668,
+      "format_correct": 5,
+      "per_stratum_constrained_acc": {
+        "0": 0.25,
+        "1": 0.15625,
+        "2": 0.21875
+      },
+      "eval_seconds": 83.3
+    },
+    {
+      "dose": 96,
+      "condition": "LC",
+      "seq_len": 386,
+      "batch": 3,
+      "n": 192,
+      "constrained_correct": 39,
+      "constrained_acc": 0.203125,
+      "constrained_ci95": [
+        0.15230009131255312,
+        0.26559682129437
+      ],
+      "unconstrained_acc": 0.036458333333333336,
+      "unconstrained_correct": 7,
+      "format_adherence": 0.036458333333333336,
+      "format_correct": 7,
+      "per_stratum_constrained_acc": {
+        "0": 0.203125,
+        "1": 0.203125,
+        "2": 0.203125
+      },
+      "eval_seconds": 83.93
+    },
+    {
+      "dose": 128,
+      "condition": "MP",
+      "seq_len": 514,
+      "batch": 2,
+      "n": 192,
+      "constrained_correct": 25,
+      "constrained_acc": 0.13020833333333334,
+      "constrained_ci95": [
+        0.0897736071169068,
+        0.18515061735838345
+      ],
+      "unconstrained_acc": 0.010416666666666666,
+      "unconstrained_correct": 2,
+      "format_adherence": 0.010416666666666666,
+      "format_correct": 2,
+      "per_stratum_constrained_acc": {
+        "0": 0.1875,
+        "1": 0.09375,
+        "2": 0.109375
+      },
+      "eval_seconds": 112.75
+    },
+    {
+      "dose": 128,
+      "condition": "LC",
+      "seq_len": 514,
+      "batch": 2,
+      "n": 192,
+      "constrained_correct": 25,
+      "constrained_acc": 0.13020833333333334,
+      "constrained_ci95": [
+        0.0897736071169068,
+        0.18515061735838345
+      ],
+      "unconstrained_acc": 0.020833333333333332,
+      "unconstrained_correct": 4,
+      "format_adherence": 0.026041666666666668,
+      "format_correct": 5,
+      "per_stratum_constrained_acc": {
+        "0": 0.125,
+        "1": 0.140625,
+        "2": 0.125
+      },
+      "eval_seconds": 112.25
+    }
+  ],
+  "per_dose_prompt_sha256": {
+    "8_MP": "30a3da13504ed2b0e00d0ffe0c83ad1d88eaddab7e20b4cdb5e01b28b69aee64",
+    "8_LC": "b572eadb66c6c75bd24b948cc3d4906dd9a4beb5a9d6c5a874e16120ef80ddbe",
+    "16_MP": "ab3bf0897692e2546597888ac23909eb6f4caa26863e17d4e6831f9df737dfe7",
+    "16_LC": "42e0095e6f2ee66f8c350dfb9e8e6aa3cef3a0bbaa837650d40e6c8998b33ed2",
+    "24_MP": "ba31ca2561f4d80147d702fa07669147c097990ce63b0eb508cb709a7fb837df",
+    "24_LC": "b8435d98eefa69d8ab05354a53be4cd2f2c16700b58c7ea92543119c46309891",
+    "32_MP": "5ca01784f473f3992411c892d0f9afd6f153f1dbee869be8c952247d4c1377e7",
+    "32_LC": "2c7237edfb8bbda5edddb2e98cf888442fda1f4938c9bbb52a93d6fe20995bd4",
+    "48_MP": "f51de41a3213c6d09efec2962984545d0d4e8c0f14ef3ae2b7c54e913c9a7258",
+    "48_LC": "c5bb69aca6fd0e4201b61f4773c2f4f67c4487a7ab112779186e9d70f6eea398",
+    "64_MP": "3240d19baed5387592735b437c4e21a60b7c59f72abba9b00a36a2420b85119f",
+    "64_LC": "2eef9629e910c9941724a8ebbf51f698f4d5614746fffd74d5e41e214274d6c1",
+    "96_MP": "eb85664f3889182ff844cdf787bbcbac3d7a79aee3a8224434fac056d58906c2",
+    "96_LC": "e3b94f1f64da9cdc60bf1c5f7ded85e45a9c7828060020d3972561a8e94617af",
+    "128_MP": "800ea1efe1e66770cda4cad96869192f4ca903226d04b32c6255d17044ec0975",
+    "128_LC": "cb4b561f1bbea99479cc7df4b35634e26254b9a6b2d50979d4aebdc31fe4ce94"
+  },
+  "peak_vram_gb": 17.896,
+  "mp_constrained_curve": {
+    "8": 0.828125,
+    "16": 0.6822916666666666,
+    "24": 0.6197916666666666,
+    "32": 0.5104166666666666,
+    "48": 0.375,
+    "64": 0.296875,
+    "96": 0.20833333333333334,
+    "128": 0.13020833333333334
+  },
+  "lc_constrained_curve": {
+    "8": 0.8802083333333334,
+    "16": 0.703125,
+    "24": 0.5885416666666666,
+    "32": 0.4791666666666667,
+    "48": 0.3802083333333333,
+    "64": 0.2708333333333333,
+    "96": 0.203125,
+    "128": 0.13020833333333334
+  },
+  "mp_per_stratum_curves": {
+    "0": {
+      "8": 0.921875,
+      "16": 0.796875,
+      "24": 0.703125,
+      "32": 0.578125,
+      "48": 0.484375,
+      "64": 0.390625,
+      "96": 0.25,
+      "128": 0.1875
+    },
+    "1": {
+      "8": 0.765625,
+      "16": 0.65625,
+      "24": 0.671875,
+      "32": 0.515625,
+      "48": 0.359375,
+      "64": 0.21875,
+      "96": 0.15625,
+      "128": 0.09375
+    },
+    "2": {
+      "8": 0.796875,
+      "16": 0.59375,
+      "24": 0.484375,
+      "32": 0.4375,
+      "48": 0.28125,
+      "64": 0.28125,
+      "96": 0.21875,
+      "128": 0.109375
+    }
+  },
+  "mp_bootstrap_ci95": {
+    "8": [
+      0.7708333333333334,
+      0.8802083333333334
+    ],
+    "16": [
+      0.6145833333333334,
+      0.75
+    ],
+    "24": [
+      0.5520833333333334,
+      0.6875
+    ],
+    "32": [
+      0.4375,
+      0.578125
+    ],
+    "48": [
+      0.3020833333333333,
+      0.4427083333333333
+    ],
+    "64": [
+      0.22916666666666666,
+      0.3645833333333333
+    ],
+    "96": [
+      0.15104166666666666,
+      0.265625
+    ],
+    "128": [
+      0.08333333333333333,
+      0.17708333333333334
+    ]
+  },
+  "graded_region_analysis": {
+    "competent_low_dose": true,
+    "low_dose_acc": 0.828125,
+    "tau_hi": 0.75,
+    "tau_lo": 0.45,
+    "min_acc": 0.13020833333333334,
+    "min_acc_at_dose": 128,
+    "mid_band_doses": [
+      16,
+      24,
+      32
+    ],
+    "n_mid_band": 3,
+    "monotone_ok": true,
+    "violations": [],
+    "worst_violation": 0.0,
+    "robust_strata_count": 3,
+    "robust_ok": true,
+    "confound_high_doses": [
+      96,
+      128
+    ],
+    "confound_separation_LC_minus_MP": -0.0026,
+    "confound_ok": false,
+    "block_reasons": [
+      "CONFOUNDED_WITH_LENGTH"
+    ]
+  },
+  "FIXED_BACKBONE_GRADED_REGION": "BLOCKED",
+  "state_economics": {
+    "state_bytes_per_sequence": 52002816,
+    "note": "carried from RNN-06A/06A2; ssm-dominated bf16 recurrent cache",
+    "derived_06c_snapshot_cost_estimate": {
+      "per_snapshot_MiB": 49.59,
+      "example_region_doses": [
+        16,
+        24,
+        32
+      ],
+      "n_qualification_examples": 192,
+      "one_snapshot_per_example_region_GiB": 27.896,
+      "caveat": "rough upper-bound if 06C snapshotted every example at every region dose; 06C cadence NOT designed here"
+    }
+  },
+  "total_runtime_s": 756.2
+}

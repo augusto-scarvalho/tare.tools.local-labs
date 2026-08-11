@@ -1,0 +1,34 @@
+[identity] is_fast_path_available: False
+The fast path is not available because on of `(selective_state_update, causal_conv1d_fn, causal_conv1d_update)` is None. Falling back to the naive implementation. To install follow https://github.com/state-spaces/mamba/#installation and https://github.com/Dao-AILab/causal-conv1d
+[06B] P=   8 MP len=  34 bs=45 con=0.828 ci=0.77-0.87 unc=0.490 fmt=0.505 (11.62s)
+[06B] P=   8 LC len=  34 bs=45 con=0.880 ci=0.83-0.92 unc=0.505 fmt=0.510 (11.34s)
+[06B] P=  16 MP len=  66 bs=23 con=0.682 ci=0.61-0.74 unc=0.333 fmt=0.339 (16.73s)
+[06B] P=  16 LC len=  66 bs=23 con=0.703 ci=0.64-0.76 unc=0.297 fmt=0.302 (17.55s)
+[06B] P=  24 MP len=  98 bs=15 con=0.620 ci=0.55-0.69 unc=0.240 fmt=0.245 (22.79s)
+[06B] P=  24 LC len=  98 bs=15 con=0.589 ci=0.52-0.66 unc=0.182 fmt=0.182 (23.28s)
+[06B] P=  32 MP len= 130 bs=11 con=0.510 ci=0.44-0.58 unc=0.182 fmt=0.198 (29.89s)
+[06B] P=  32 LC len= 130 bs=11 con=0.479 ci=0.41-0.55 unc=0.141 fmt=0.141 (29.85s)
+[06B] P=  48 MP len= 194 bs= 7 con=0.375 ci=0.31-0.45 unc=0.135 fmt=0.135 (42.04s)
+[06B] P=  48 LC len= 194 bs= 7 con=0.380 ci=0.31-0.45 unc=0.089 fmt=0.094 (42.29s)
+[06B] P=  64 MP len= 258 bs= 5 con=0.297 ci=0.24-0.36 unc=0.068 fmt=0.068 (56.23s)
+[06B] P=  64 LC len= 258 bs= 5 con=0.271 ci=0.21-0.34 unc=0.068 fmt=0.073 (55.91s)
+[06B] P=  96 MP len= 386 bs= 3 con=0.208 ci=0.16-0.27 unc=0.026 fmt=0.026 (83.3s)
+[06B] P=  96 LC len= 386 bs= 3 con=0.203 ci=0.15-0.27 unc=0.036 fmt=0.036 (83.93s)
+[06B] P= 128 MP len= 514 bs= 2 con=0.130 ci=0.09-0.19 unc=0.010 fmt=0.010 (112.75s)
+[06B] P= 128 LC len= 514 bs= 2 con=0.130 ci=0.09-0.19 unc=0.021 fmt=0.026 (112.25s)
+
+==== MP constrained curve ====
+  P=   8  MP=0.828  LC=0.880  (LC-MP=+0.052)
+  P=  16  MP=0.682  LC=0.703  (LC-MP=+0.021)
+  P=  24  MP=0.620  LC=0.589  (LC-MP=-0.031)
+  P=  32  MP=0.510  LC=0.479  (LC-MP=-0.031)
+  P=  48  MP=0.375  LC=0.380  (LC-MP=+0.005)
+  P=  64  MP=0.297  LC=0.271  (LC-MP=-0.026)
+  P=  96  MP=0.208  LC=0.203  (LC-MP=-0.005)
+  P= 128  MP=0.130  LC=0.130  (LC-MP=+0.000)
+
+competent=True min_acc=0.130@128 mid_band=[16, 24, 32] monotone=True robust=3/3 confound_sep=-0.003
+reasons=['CONFOUNDED_WITH_LENGTH']
+
+FIXED_BACKBONE_GRADED_REGION = BLOCKED
+runtime=756.2s peak_vram=17.896GB
