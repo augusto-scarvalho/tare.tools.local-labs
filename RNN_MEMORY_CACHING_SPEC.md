@@ -124,9 +124,11 @@ recall — so the context-aware gate is load-bearing.
 
 The paper **never** mentions stop-gradient/detach on cached states. Sec. 3.4 discusses only state
 *warm-start* vs *independent* init, not gradient flow. ⇒ RNN-04 decides explicitly: **trained arms
-backprop through the current online segment; cached completed-segment states are treated as constants
-(detached) within a step** (they were produced by earlier positions; this matches the "cache" semantics
-and the RNN-01/08b request-owned-state discipline). Recorded as an ADAPTED choice, not paper-derived.
+backprop END-TO-END through cached-segment states** (the paper trains with MC enabled — Tables 1–4 —
+so gradients must reach the writes the recall reads from; a detach starves exactly that pathway, empirically
+confirmed: detached GRM stayed at chance). The **frozen POST_TRAINING_MC variant** (§18) carries no
+gradient, so it is effectively detached there. Recorded as an ADAPTED choice, not paper-derived. Per-forward
+cached states are batched per example (no RNN-08b cross-sample leakage — each example owns its own states).
 
 ## 8. Initialization / normalization
 

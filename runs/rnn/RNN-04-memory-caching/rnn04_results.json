@@ -1,0 +1,277 @@
+{
+  "meta": {
+    "device": "cuda",
+    "dtype": "float32",
+    "seed": 42,
+    "d_model": 128,
+    "d_k": 24,
+    "d_v": 24,
+    "main_seg": 32,
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.2",
+    "select_rule": "num_pairs whose BASE single-state acc is nearest 0.5 within (0.20,0.90); else NOT_QUALIFIED",
+    "calib_grid": [
+      24,
+      40,
+      56,
+      72
+    ]
+  },
+  "calibration": {
+    "24": {
+      "base_acc": 0.9172,
+      "steps": 2500,
+      "wall_s": 13.3,
+      "final_loss": 0.0384,
+      "peak_vram_mb": 249.1,
+      "trainable": 66333
+    },
+    "40": {
+      "base_acc": 0.8262,
+      "steps": 2500,
+      "wall_s": 12.5,
+      "final_loss": 0.1398,
+      "peak_vram_mb": 249.1,
+      "trainable": 66333
+    },
+    "56": {
+      "base_acc": 0.7458,
+      "steps": 2500,
+      "wall_s": 12.4,
+      "final_loss": 0.382,
+      "peak_vram_mb": 249.1,
+      "trainable": 66333
+    },
+    "72": {
+      "base_acc": 0.6648,
+      "steps": 2500,
+      "wall_s": 12.1,
+      "final_loss": 0.5332,
+      "peak_vram_mb": 249.1,
+      "trainable": 66333
+    }
+  },
+  "arms": {
+    "A_base_single": {
+      "acc": 0.696,
+      "dist_curve": {
+        "32": 0.6964,
+        "64": 0.7096,
+        "96": 0.6829,
+        "128": 0.7242,
+        "160": 0.6639,
+        "192": 0.7025,
+        "224": 0.6934
+      },
+      "train": {
+        "steps": 5000,
+        "wall_s": 25.0,
+        "final_loss": 0.2425,
+        "peak_vram_mb": 249.1,
+        "trainable": 66333
+      },
+      "agg": "single",
+      "seg": null
+    },
+    "B0_residual_free": {
+      "acc": 0.696,
+      "agg": "residual",
+      "seg": 32,
+      "note": "training-free on A weights"
+    },
+    "Post_moving_avg_free": {
+      "acc": 0.3611,
+      "agg": "moving_average",
+      "seg": 32,
+      "note": "frozen A weights, param-free (POST_TRAINING_MC)"
+    },
+    "B_grm": {
+      "acc": 0.8105,
+      "dist_curve": {
+        "32": 0.7955,
+        "64": 0.8183,
+        "96": 0.821,
+        "128": 0.8054,
+        "160": 0.7928,
+        "192": 0.8182,
+        "224": 0.8203
+      },
+      "train": {
+        "steps": 5000,
+        "wall_s": 62.1,
+        "final_loss": 0.0212,
+        "peak_vram_mb": 256.6,
+        "trainable": 66333
+      },
+      "agg": "grm",
+      "seg": 32
+    },
+    "C_equal_mem_single": {
+      "acc": 0.9973,
+      "train": {
+        "steps": 5000,
+        "wall_s": 31.1,
+        "final_loss": 0.0005,
+        "peak_vram_mb": 302.0,
+        "trainable": 94889
+      },
+      "agg": "single",
+      "seg": null,
+      "d_k": 68,
+      "d_v": 68,
+      "state_bytes": 18496,
+      "note": "single state matched to B cache bytes (~8x)"
+    },
+    "SSC_learned_k2": {
+      "acc": 0.6562,
+      "train": {
+        "steps": 5000,
+        "wall_s": 69.0,
+        "final_loss": 1.2405,
+        "peak_vram_mb": 257.3,
+        "trainable": 66333
+      },
+      "agg": "ssc",
+      "seg": 32,
+      "ssc_k": 2
+    },
+    "D_ssc_random_k2": {
+      "acc": 0.2876,
+      "agg": "ssc",
+      "seg": 32,
+      "ssc_k": 2,
+      "ssc_random": true,
+      "note": "same weights as SSC, RANDOM selection (section 11D)"
+    }
+  },
+  "gate": {
+    "B_minus_A": 0.1145,
+    "threshold_OPERATOR_HEURISTIC": 0.03,
+    "signal": true
+  },
+  "sweep": {
+    "1": {
+      "N": 1,
+      "seg_size": 256,
+      "agg": "single",
+      "acc": 0.6838,
+      "total_cache_bytes": 0,
+      "state_bytes_per_req": 2304,
+      "total_infer_ms": 1.13,
+      "aggregation_read_ms": -0.01
+    },
+    "2": {
+      "N": 2,
+      "seg_size": 128,
+      "agg": "grm",
+      "acc": 0.7036,
+      "total_cache_bytes": 4608,
+      "state_bytes_per_req": 2304,
+      "total_infer_ms": 1.29,
+      "aggregation_read_ms": 0.15
+    },
+    "4": {
+      "N": 4,
+      "seg_size": 64,
+      "agg": "grm",
+      "acc": 0.7439,
+      "total_cache_bytes": 9216,
+      "state_bytes_per_req": 2304,
+      "total_infer_ms": 1.55,
+      "aggregation_read_ms": 0.42
+    },
+    "8": {
+      "N": 8,
+      "seg_size": 32,
+      "agg": "grm",
+      "acc": 0.7859,
+      "total_cache_bytes": 18432,
+      "state_bytes_per_req": 2304,
+      "total_infer_ms": 2.68,
+      "aggregation_read_ms": 1.54
+    },
+    "16": {
+      "N": 16,
+      "seg_size": 16,
+      "agg": "grm",
+      "acc": 0.8684,
+      "total_cache_bytes": 36864,
+      "state_bytes_per_req": 2304,
+      "total_infer_ms": 5.9,
+      "aggregation_read_ms": 4.76
+    }
+  },
+  "cost": {
+    "A_single": {
+      "n_cached": 0,
+      "state_bytes_per_req": 2304,
+      "total_cache_bytes": 0,
+      "dk": 24,
+      "dv": 24,
+      "total_infer_ms": 1.16,
+      "update_scan_ms": 1.15,
+      "aggregation_read_ms": 0.01
+    },
+    "B_grm": {
+      "n_cached": 8,
+      "state_bytes_per_req": 2304,
+      "total_cache_bytes": 18432,
+      "dk": 24,
+      "dv": 24,
+      "total_infer_ms": 2.66,
+      "update_scan_ms": 1.12,
+      "aggregation_read_ms": 1.53
+    },
+    "C_equal_mem": {
+      "n_cached": 0,
+      "state_bytes_per_req": 18496,
+      "total_cache_bytes": 0,
+      "dk": 68,
+      "dv": 68,
+      "total_infer_ms": 1.59,
+      "update_scan_ms": 1.59,
+      "aggregation_read_ms": -0.0
+    },
+    "SSC_k2": {
+      "n_cached": 8,
+      "state_bytes_per_req": 2304,
+      "total_cache_bytes": 18432,
+      "dk": 24,
+      "dv": 24,
+      "total_infer_ms": 5.09,
+      "update_scan_ms": 1.15,
+      "aggregation_read_ms": 3.94
+    }
+  },
+  "replication": {
+    "spec": "{\"distractor_density\":0.3,\"name\":\"replication_D72\",\"num_keys\":128,\"num_pairs\":72,\"num_queries\":8,\"num_vals\":64,\"seq_len\":256,\"write_layout\":\"spread\"}",
+    "base": 0.6919,
+    "grm": 0.8186,
+    "grm_minus_base": 0.1267
+  },
+  "MEMORY_AXIS": "QUALIFIED",
+  "MC_TASK": {
+    "num_pairs": 72,
+    "seq_len": 256,
+    "num_queries": 8,
+    "density": 0.3,
+    "selected_base_acc": 0.6648
+  },
+  "sweep_seqlen": {
+    "256": {
+      "base": 0.6877,
+      "grm": 0.792,
+      "N": 8
+    },
+    "384": {
+      "base": 0.6477,
+      "grm": 0.8037,
+      "N": 12
+    },
+    "512": {
+      "base": 0.6001,
+      "grm": 0.739,
+      "N": 16
+    }
+  }
+}

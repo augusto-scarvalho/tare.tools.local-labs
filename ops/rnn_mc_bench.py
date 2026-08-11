@@ -34,9 +34,10 @@ class MQARSpec:
     seq_len: int
     num_pairs: int
     num_queries: int
-    distractor_density: float = 0.0   # fraction of gap positions that are hard (key-like) distractors
+    distractor_density: float = 0.0   # fraction of free body slots that are hard (key-like) distractors
     num_keys: int = 64
     num_vals: int = 64
+    write_layout: str = "spread"      # "spread" = pairs distributed across the sequence; "front" = clustered
     name: str = "mqar"                # part of the seed identity
 
     @property
@@ -72,43 +73,52 @@ def make_example(spec: MQARSpec, idx: int) -> dict:
     key_perm = rng.permutation(spec.num_keys)
     written_keys = (key_perm[:spec.num_pairs] + KEY_LO).tolist()
     values = (rng.integers(0, spec.num_vals, size=spec.num_pairs) + spec.val_lo).tolist()
+    free_keys = (key_perm[spec.num_pairs:] + KEY_LO).tolist()             # hard-distractor pool (disjoint)
     kv = dict(zip(written_keys, values))
 
-    # write region: BOS then k,v pairs
-    write = [BOS]
-    write_pos = {}
-    for k, v in zip(written_keys, values):
-        write_pos[k] = len(write)
-        write += [k, v]
-
     # query region: QSEP then queried keys (each on its own position; target at that position)
-    q_pair_idx = rng.permutation(spec.num_pairs)[:spec.num_queries]      # random query order (no copy shortcut)
+    q_pair_idx = rng.permutation(spec.num_pairs)[:spec.num_queries]       # random query order (no copy shortcut)
     queried_keys = [written_keys[i] for i in q_pair_idx]
     query = [QSEP] + queried_keys
 
-    gap = spec.seq_len - len(write) - len(query)
-    if gap < 0:
-        raise ValueError(f"seq_len {spec.seq_len} too short for spec (needs >= {len(write)+len(query)})")
+    body_len = spec.seq_len - 1 - len(query)                              # after BOS, before query
+    if body_len < 2 * spec.num_pairs:
+        raise ValueError(f"seq_len {spec.seq_len} too short (body {body_len} < 2*num_pairs {2*spec.num_pairs})")
 
-    # gap fillers: neutral FILL + hard key-like distractors (keys NOT written, never followed by a value)
-    n_hard = int(round(spec.distractor_density * gap))
-    free_keys = (key_perm[spec.num_pairs:] + KEY_LO).tolist()
-    hard = [free_keys[i % len(free_keys)] for i in range(n_hard)] if free_keys else [FILL] * n_hard
-    gap_tokens = hard + [FILL] * (gap - n_hard)
-    rng.shuffle(gap_tokens)
+    body = [FILL] * body_len
+    write_pos = {}                                                        # body-relative
+    if spec.write_layout == "front":
+        for i, k in enumerate(written_keys):
+            base = 2 * i
+            body[base], body[base + 1] = k, values[i]; write_pos[k] = base
+    else:                                                                 # "spread": one pair per equal chunk
+        chunk = body_len // spec.num_pairs
+        for i, k in enumerate(written_keys):
+            base = i * chunk
+            body[base], body[base + 1] = k, values[i]; write_pos[k] = base
+    occupied = set()
+    for base in write_pos.values():
+        occupied.update((base, base + 1))
+    free_slots = [p for p in range(body_len) if p not in occupied]
+    n_hard = int(round(spec.distractor_density * len(free_slots)))
+    if free_keys and n_hard:
+        hard_pos = rng.choice(free_slots, size=min(n_hard, len(free_slots)), replace=False)
+        for j, p in enumerate(hard_pos):
+            body[int(p)] = free_keys[j % len(free_keys)]                  # standalone key (no value follows)
 
-    input_ids = write + gap_tokens + query
+    input_ids = [BOS] + body + query
     assert len(input_ids) == spec.seq_len
 
     labels = [-100] * spec.seq_len
-    q_start = len(write) + len(gap_tokens) + 1   # skip QSEP
+    q_start = 1 + body_len + 1                                            # skip BOS(0), body, QSEP
     answer_positions, pairs = [], []
     for j, k in enumerate(queried_keys):
         p = q_start + j
         labels[p] = kv[k]
         answer_positions.append(p)
-        pairs.append(dict(key=int(k), value=int(kv[k]), write_pos=int(write_pos[k]),
-                          query_pos=int(p), distance=int(p - write_pos[k])))
+        wp = write_pos[k] + 1                                             # absolute (account for BOS)
+        pairs.append(dict(key=int(k), value=int(kv[k]), write_pos=int(wp),
+                          query_pos=int(p), distance=int(p - wp)))
 
     return dict(input_ids=input_ids, labels=labels, attention_mask=[1] * spec.seq_len,
                 answer_positions=answer_positions, pairs=pairs,

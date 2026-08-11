@@ -1,0 +1,27 @@
+{
+  "packet": "RNN-04",
+  "component": "substrate + aggregation unit tests (section 19)",
+  "AGGREGATION_UNIT_TEST": "PASS",
+  "CHECKPOINT_RESTORE": "BIT_EXACT",
+  "torch": "2.6.0+cu124",
+  "tol": 1e-05,
+  "checks": {
+    "residual_vs_manual": 0.0,
+    "grm_vs_manual": 0.0,
+    "soup_eq_grm_linear": 2.384185791015625e-07,
+    "moving_avg_vs_manual": 2.384185791015625e-07,
+    "ssc_selects_k_plus_online": 1,
+    "ssc_random_selects_k_plus_online": 1,
+    "residual_collapse_linear": 0.0,
+    "checkpoint_reload_bitexact": 0.0,
+    "continuation_state_numeq": 5.960464477539063e-08,
+    "continuation_reads_numeq": 7.450580596923828e-08,
+    "checkpoint_state_shape": [
+      2,
+      4,
+      3
+    ],
+    "checkpoint_state_dtype": "torch.float32",
+    "checkpoint_state_bytes_per_req": 48
+  }
+}

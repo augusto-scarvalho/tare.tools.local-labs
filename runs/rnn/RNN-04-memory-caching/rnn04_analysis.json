@@ -1,0 +1,161 @@
+{
+  "packet": "RNN-04",
+  "MEMORY_AXIS": "QUALIFIED",
+  "MC_TASK": {
+    "num_pairs": 72,
+    "seq_len": 256,
+    "num_queries": 8,
+    "density": 0.3,
+    "selected_base_acc": 0.6648
+  },
+  "headline": {
+    "base": 0.696,
+    "grm": 0.8105,
+    "gain_main": 0.1145,
+    "gain_replication": 0.1267,
+    "equal_mem_single": 0.9973,
+    "ssc_learned": 0.6562,
+    "ssc_random": 0.2876,
+    "residual_free": 0.696,
+    "post_training_moving_avg": 0.3611
+  },
+  "MC_OUTCOME": "MC_ONLY_HELPS_WITH_MORE_MEMORY",
+  "outcome_reasons": [
+    "equal-byte single state C=0.9973 matches/beats GRM=0.8105; gain attributable to bytes"
+  ],
+  "capability_per_resource": {
+    "gain_main": 0.1145,
+    "gain_replication": 0.1267,
+    "grm_cache_bytes": 18432,
+    "grm_agg_read_ms": 1.53,
+    "acc_gain_per_kb": 0.006361,
+    "equal_mem_single_acc": 0.9973,
+    "equal_mem_beats_grm": true
+  },
+  "selection_policy": {
+    "ssc_learned": 0.6562,
+    "ssc_random": 0.2876,
+    "delta": 0.3686,
+    "policy_helps": true,
+    "note": "learned Top-k vs random selection at equal k (separates policy from 'more state exists')"
+  },
+  "residual_collapse": {
+    "residual_free": 0.696,
+    "base": 0.696,
+    "delta": 0.0,
+    "matches_prediction": true,
+    "note": "Eq.7 residual collapses to single full state for LINEAR memory (predicted)"
+  },
+  "post_training_mc": {
+    "moving_avg_free": 0.3611,
+    "base": 0.696,
+    "delta": -0.3349,
+    "note": "POST_TRAINING_MC: param-free moving-average on FROZEN base weights (section 18)"
+  },
+  "gate": {
+    "B_minus_A": 0.1145,
+    "threshold_OPERATOR_HEURISTIC": 0.03,
+    "signal": true
+  },
+  "replication": {
+    "spec": "{\"distractor_density\":0.3,\"name\":\"replication_D72\",\"num_keys\":128,\"num_pairs\":72,\"num_queries\":8,\"num_vals\":64,\"seq_len\":256,\"write_layout\":\"spread\"}",
+    "base": 0.6919,
+    "grm": 0.8186,
+    "grm_minus_base": 0.1267
+  },
+  "curves": {
+    "acc_vs_n_cached": [
+      {
+        "n": 1,
+        "acc": 0.6838,
+        "cache_bytes": 0,
+        "infer_ms": 1.13,
+        "agg_read_ms": -0.01
+      },
+      {
+        "n": 2,
+        "acc": 0.7036,
+        "cache_bytes": 4608,
+        "infer_ms": 1.29,
+        "agg_read_ms": 0.15
+      },
+      {
+        "n": 4,
+        "acc": 0.7439,
+        "cache_bytes": 9216,
+        "infer_ms": 1.55,
+        "agg_read_ms": 0.42
+      },
+      {
+        "n": 8,
+        "acc": 0.7859,
+        "cache_bytes": 18432,
+        "infer_ms": 2.68,
+        "agg_read_ms": 1.54
+      },
+      {
+        "n": 16,
+        "acc": 0.8684,
+        "cache_bytes": 36864,
+        "infer_ms": 5.9,
+        "agg_read_ms": 4.76
+      }
+    ],
+    "acc_vs_seqlen": [
+      {
+        "seq_len": 256,
+        "base": 0.6877,
+        "grm": 0.792,
+        "N": 8
+      },
+      {
+        "seq_len": 384,
+        "base": 0.6477,
+        "grm": 0.8037,
+        "N": 12
+      },
+      {
+        "seq_len": 512,
+        "base": 0.6001,
+        "grm": 0.739,
+        "N": 16
+      }
+    ],
+    "acc_vs_distance": {
+      "base": {
+        "32": 0.6964,
+        "64": 0.7096,
+        "96": 0.6829,
+        "128": 0.7242,
+        "160": 0.6639,
+        "192": 0.7025,
+        "224": 0.6934
+      },
+      "grm": {
+        "32": 0.7955,
+        "64": 0.8183,
+        "96": 0.821,
+        "128": 0.8054,
+        "160": 0.7928,
+        "192": 0.8182,
+        "224": 0.8203
+      }
+    }
+  },
+  "QWEN_GDN_TRANSPLANT_GATE": {
+    "conditions": {
+      "benchmark_qualified": true,
+      "aggregation_qualified": true,
+      "basic_mc_repeatable_benefit": true,
+      "state_memory_cost_known": true,
+      "compute_cost_known": true,
+      "maps_to_qwen_gdn_state": true
+    },
+    "QWEN_GDN_TRANSPLANT_GATE": "PASS",
+    "caveat": "Substrate is plain linear-attention memory (paper Eq.2), a simplification of Qwen's GATED delta rule; effect is small and toy-scale. PASS means 'mechanism reproduced + plausibly mappable', NOT 'will improve Qwen'. Packet forbids touching Qwen GDN here."
+  },
+  "thresholds": {
+    "MARGIN": 0.02,
+    "label": "OPERATOR_HEURISTIC (section 23): not a measured noise floor; raw effects + replication direction are primary"
+  }
+}
