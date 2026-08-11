@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "model": "Qwen/Qwen2.5-0.5B",
+    "dtype": "float32",
+    "seed": 42,
+    "maxlen": 256,
+    "dataset_fingerprint": "2537fb912ac88184",
+    "train_n": 512,
+    "eval_n": 64,
+    "torch": "2.6.0+cu124",
+    "tptt_commit": "242e2140c2af469765b84ab3a7a79668be254cfa",
+    "MEMORY_AXIS": "NOT_QUALIFIED (calibration: all grid configs base_acc=1.0)"
+  },
+  "arms": {
+    "base": {
+      "sft_loss": 2.1221,
+      "wikitext_ppl": 16.255,
+      "retention_acc_ctx256": 1.0,
+      "retention_acc_ctx1024": 1.0,
+      "prefill_ms_400tok": 31.9
+    },
+    "lora": {
+      "sft_loss": 2.0022,
+      "wikitext_ppl": 16.571,
+      "retention_acc_ctx256": 1.0,
+      "retention_acc_ctx1024": 1.0,
+      "prefill_ms_400tok": 32.0
+    },
+    "tptt": {
+      "sft_loss": 3.2692,
+      "wikitext_ppl": 240.799,
+      "retention_acc_ctx256": 1.0,
+      "retention_acc_ctx1024": 0.65,
+      "prefill_ms_400tok": 213.8
+    }
+  },
+  "training": {
+    "lora": {
+      "train_loss": 2.0249380270640054,
+      "steps": 192,
+      "wall_s": 73.3,
+      "tokens": 393216,
+      "tok_per_s": 5362.3,
+      "peak_vram_mb": 3972.5,
+      "trainable_all": [
+        1081344,
+        495114112
+      ]
+    },
+    "tptt": {
+      "train_loss": 3.2396148443222046,
+      "steps": 192,
+      "wall_s": 701.2,
+      "tokens": 393216,
+      "tok_per_s": 560.8,
+      "peak_vram_mb": 10523.6,
+      "trainable_all": [
+        1081344,
+        495126400
+      ]
+    }
+  },
+  "mechanism": {
+    "liza_modules_replaced": 24,
+    "trainable_all": [
+      1081344,
+      495126400
+    ],
+    "state_bytes_per_request": 5935104,
+    "state_note": "from gates: 144 tensors, delta state [1,14,64,64] fp32, ~5.66 MiB"
+  },
+  "order_invariance": {
+    "order_ABC": {
+      "0": 3.4573006629943848,
+      "1": 2.7472450733184814,
+      "2": 4.101690292358398
+    },
+    "order_CAB": {
+      "0": 3.4573006629943848,
+      "1": 2.7472450733184814,
+      "2": 4.101690292358398
+    },
+    "max_abs_diff": 0.0,
+    "status": "PASS"
+  }
+}

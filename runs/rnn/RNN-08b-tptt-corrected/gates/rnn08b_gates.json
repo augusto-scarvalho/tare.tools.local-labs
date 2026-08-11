@@ -1,0 +1,179 @@
+{
+  "INDEPENDENT_SAMPLE_ISOLATION": {
+    "with_wrapper_max_abs_diff": 0.0,
+    "without_wrapper_leak_diff": 21.349876403808594,
+    "status": "PASS",
+    "verdict": "BIT_EXACT"
+  },
+  "INTRA_SEQUENCE_RECURRENCE": {
+    "state_after_reset": {
+      "n_tensors": 0,
+      "total_bytes": 0,
+      "l2_norm": 0.0,
+      "sample_shapes": []
+    },
+    "state_32tok": {
+      "n_tensors": 144,
+      "total_bytes": 5935104,
+      "l2_norm": 172.7918,
+      "sample_shapes": [
+        [
+          [
+            1,
+            14,
+            64,
+            64
+          ],
+          "float32"
+        ],
+        [
+          [
+            1,
+            14,
+            1,
+            64
+          ],
+          "float32"
+        ],
+        [
+          [
+            1,
+            14,
+            1,
+            64
+          ],
+          "float32"
+        ],
+        [
+          [
+            1,
+            14,
+            1,
+            64
+          ],
+          "float32"
+        ]
+      ]
+    },
+    "state_128tok": {
+      "n_tensors": 144,
+      "total_bytes": 5935104,
+      "l2_norm": 173.4943,
+      "sample_shapes": [
+        [
+          [
+            1,
+            14,
+            64,
+            64
+          ],
+          "float32"
+        ],
+        [
+          [
+            1,
+            14,
+            1,
+            64
+          ],
+          "float32"
+        ],
+        [
+          [
+            1,
+            14,
+            1,
+            64
+          ],
+          "float32"
+        ],
+        [
+          [
+            1,
+            14,
+            1,
+            64
+          ],
+          "float32"
+        ]
+      ]
+    },
+    "state_after_final_reset": {
+      "n_tensors": 0,
+      "total_bytes": 0,
+      "l2_norm": 0.0,
+      "sample_shapes": []
+    },
+    "accumulates_across_chunks": true,
+    "reset_clears": true,
+    "status": "PASS"
+  },
+  "TPTT_STATE_SIZE": {
+    "total_state_bytes": 5935104,
+    "n_state_tensors": 144,
+    "sample_shapes": [
+      [
+        [
+          1,
+          14,
+          64,
+          64
+        ],
+        "float32"
+      ],
+      [
+        [
+          1,
+          14,
+          1,
+          64
+        ],
+        "float32"
+      ],
+      [
+        [
+          1,
+          14,
+          1,
+          64
+        ],
+        "float32"
+      ],
+      [
+        [
+          1,
+          14,
+          1,
+          64
+        ],
+        "float32"
+      ]
+    ],
+    "note": "TPTT recurrent LCache state, separate from full-attn KV cache"
+  },
+  "TPTT_SAVE_RELOAD": {
+    "save_ok": true,
+    "reload_max_abs_diff": 0.0,
+    "verdict": "BIT_EXACT",
+    "status": "QUALIFIED",
+    "err": null,
+    "adapter_dir": "gate_tptt_adapter"
+  },
+  "TRAINING_RESET": {
+    "train_mode_leak_without_reset": 0.0,
+    "train_mode_isolation_with_wrapper": 0.0,
+    "lora_grads_after_reset": 192,
+    "grad_flow_after_reset": true,
+    "note": "Under use_linear_checkpoint the train forward does not retain LCache state, so train-mode forwards are already isolated; the wrapper reset is an explicit no-op safeguard and does not disable gradients.",
+    "status": "PASS"
+  },
+  "GATES_SUMMARY": {
+    "gates": {
+      "INDEPENDENT_SAMPLE_ISOLATION": "PASS",
+      "INTRA_SEQUENCE_RECURRENCE": "PASS",
+      "TPTT_SAVE_RELOAD": "QUALIFIED",
+      "TRAINING_RESET": "PASS"
+    },
+    "ALL_PASS": true
+  }
+}

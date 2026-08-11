@@ -1,0 +1,114 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B",
+  "grid": [
+    [
+      1024,
+      "single"
+    ],
+    [
+      1024,
+      "multi_key_4"
+    ],
+    [
+      1024,
+      "multi_distractor_8"
+    ],
+    [
+      2048,
+      "single"
+    ],
+    [
+      2048,
+      "multi_key_4"
+    ],
+    [
+      2048,
+      "multi_distractor_8"
+    ],
+    [
+      4096,
+      "single"
+    ],
+    [
+      4096,
+      "multi_key_4"
+    ],
+    [
+      4096,
+      "multi_distractor_8"
+    ]
+  ],
+  "window": [
+    0.2,
+    0.9
+  ],
+  "n_per_config": 16,
+  "selection_rule": "first config in cost order with 0.20 < base_acc < 0.90",
+  "evaluated": [
+    {
+      "context": 1024,
+      "difficulty": "single",
+      "base_acc": 1.0,
+      "chance": 0.5,
+      "in_window": false
+    },
+    {
+      "context": 1024,
+      "difficulty": "multi_key_4",
+      "base_acc": 1.0,
+      "chance": 0.25,
+      "in_window": false
+    },
+    {
+      "context": 1024,
+      "difficulty": "multi_distractor_8",
+      "base_acc": 1.0,
+      "chance": 0.111,
+      "in_window": false
+    },
+    {
+      "context": 2048,
+      "difficulty": "single",
+      "base_acc": 1.0,
+      "chance": 0.5,
+      "in_window": false
+    },
+    {
+      "context": 2048,
+      "difficulty": "multi_key_4",
+      "base_acc": 1.0,
+      "chance": 0.25,
+      "in_window": false
+    },
+    {
+      "context": 2048,
+      "difficulty": "multi_distractor_8",
+      "base_acc": 1.0,
+      "chance": 0.111,
+      "in_window": false
+    },
+    {
+      "context": 4096,
+      "difficulty": "single",
+      "base_acc": 1.0,
+      "chance": 0.5,
+      "in_window": false
+    },
+    {
+      "context": 4096,
+      "difficulty": "multi_key_4",
+      "base_acc": 1.0,
+      "chance": 0.25,
+      "in_window": false
+    },
+    {
+      "context": 4096,
+      "difficulty": "multi_distractor_8",
+      "base_acc": 1.0,
+      "chance": 0.111,
+      "in_window": false
+    }
+  ],
+  "MEMORY_AXIS": "NOT_QUALIFIED",
+  "selected": null
+}

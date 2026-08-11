@@ -1,0 +1,112 @@
+{
+  "comparisons": {
+    "sft_loss": {
+      "base": 2.1221,
+      "lora": 2.0022,
+      "tptt": 3.2692,
+      "lora_vs_base_pct": -5.65,
+      "tptt_vs_base_pct": 54.05,
+      "tptt_vs_lora_pct": 63.28
+    },
+    "wikitext_ppl": {
+      "base": 16.255,
+      "lora": 16.571,
+      "tptt": 240.799,
+      "lora_vs_base_pct": 1.94,
+      "tptt_vs_base_pct": 1381.38,
+      "tptt_vs_lora_pct": 1353.13
+    },
+    "retention_acc_ctx256": {
+      "base": 1.0,
+      "lora": 1.0,
+      "tptt": 1.0,
+      "lora_vs_base_pct": 0.0,
+      "tptt_vs_base_pct": 0.0,
+      "tptt_vs_lora_pct": 0.0
+    },
+    "retention_acc_ctx1024": {
+      "base": 1.0,
+      "lora": 1.0,
+      "tptt": 0.65,
+      "lora_vs_base_pct": 0.0,
+      "tptt_vs_base_pct": -35.0,
+      "tptt_vs_lora_pct": -35.0
+    },
+    "prefill_ms_400tok": {
+      "base": 31.9,
+      "lora": 32.0,
+      "tptt": 213.8,
+      "lora_vs_base_pct": 0.31,
+      "tptt_vs_base_pct": 570.22,
+      "tptt_vs_lora_pct": 568.12
+    }
+  },
+  "param_semantics": {
+    "lora_trainable": 1081344,
+    "tptt_trainable": 1081344,
+    "trainableParamsMatched": true,
+    "lora_total": 495114112,
+    "tptt_total": 495126400,
+    "totalParamsMatched": false,
+    "frozenStructuralDelta": 12288
+  },
+  "order_invariance": {
+    "order_ABC": {
+      "0": 3.4573006629943848,
+      "1": 2.7472450733184814,
+      "2": 4.101690292358398
+    },
+    "order_CAB": {
+      "0": 3.4573006629943848,
+      "1": 2.7472450733184814,
+      "2": 4.101690292358398
+    },
+    "max_abs_diff": 0.0,
+    "status": "PASS"
+  },
+  "gates": {
+    "INDEPENDENT_SAMPLE_ISOLATION": "PASS",
+    "INTRA_SEQUENCE_RECURRENCE": "PASS",
+    "TPTT_SAVE_RELOAD": "QUALIFIED",
+    "TRAINING_RESET": "PASS"
+  },
+  "memory_axis": null,
+  "cost_ratio_lora_over_tptt": 9.6,
+  "training": {
+    "lora": {
+      "train_loss": 2.0249380270640054,
+      "steps": 192,
+      "wall_s": 73.3,
+      "tokens": 393216,
+      "tok_per_s": 5362.3,
+      "peak_vram_mb": 3972.5,
+      "trainable_all": [
+        1081344,
+        495114112
+      ]
+    },
+    "tptt": {
+      "train_loss": 3.2396148443222046,
+      "steps": 192,
+      "wall_s": 701.2,
+      "tokens": 393216,
+      "tok_per_s": 560.8,
+      "peak_vram_mb": 10523.6,
+      "trainable_all": [
+        1081344,
+        495126400
+      ]
+    }
+  },
+  "state_bytes": 5935104,
+  "decision_tree": {
+    "TPTT_DEPENDENCY": "QUALIFIED",
+    "STATE_LIFECYCLE": "QUALIFIED",
+    "SAVE_RELOAD": "QUALIFIED",
+    "CONTROL_VALIDITY": "GOOD",
+    "MEMORY_AXIS": "NOT_QUALIFIED",
+    "TPTT_VS_LORA": "QUALITY_REGRESSION",
+    "RNN_DIRECTION": "PARK_THIS_TPTT_CONFIGURATION / PIVOT_MEMORY_CACHING"
+  },
+  "interpretation": "Lifecycle now VALID (isolation+order-invariance BIT_EXACT); the TPTT-vs-LoRA comparison is trustworthy this time, unlike RNN-08."
+}

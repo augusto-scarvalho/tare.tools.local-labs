@@ -1,0 +1,50 @@
+  },
+  "training": {
+    "lora": {
+      "train_loss": 2.0249380270640054,
+      "steps": 192,
+      "wall_s": 73.3,
+      "tokens": 393216,
+      "tok_per_s": 5362.3,
+      "peak_vram_mb": 3972.5,
+      "trainable_all": [
+        1081344,
+        495114112
+      ]
+    },
+    "tptt": {
+      "train_loss": 3.2396148443222046,
+      "steps": 192,
+      "wall_s": 701.2,
+      "tokens": 393216,
+      "tok_per_s": 560.8,
+      "peak_vram_mb": 10523.6,
+      "trainable_all": [
+        1081344,
+        495126400
+      ]
+    }
+  },
+  "order_invariance": {
+    "order_ABC": {
+      "0": 3.4573006629943848,
+      "1": 2.7472450733184814,
+      "2": 4.101690292358398
+    },
+    "order_CAB": {
+      "0": 3.4573006629943848,
+      "1": 2.7472450733184814,
+      "2": 4.101690292358398
+    },
+    "max_abs_diff": 0.0,
+    "status": "PASS"
+  },
+  "mechanism": {
+    "liza_modules_replaced": 24,
+    "trainable_all": [
+      1081344,
+      495126400
+    ],
+    "state_bytes_per_request": 5935104
+  }
+}
