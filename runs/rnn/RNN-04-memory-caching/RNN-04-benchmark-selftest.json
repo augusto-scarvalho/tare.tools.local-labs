@@ -1,0 +1,58 @@
+{
+  "packet": "RNN-04",
+  "component": "MQAR benchmark self-qualification (section 10)",
+  "SYNTHETIC_DATASET_REPRODUCIBILITY": "QUALIFIED",
+  "BENCHMARK_SELFTEST": "PASS",
+  "selftest_spec": {
+    "seq_len": 256,
+    "num_pairs": 16,
+    "num_queries": 8,
+    "distractor_density": 0.3,
+    "num_keys": 64,
+    "num_vals": 64,
+    "name": "selftest"
+  },
+  "numpy": "2.5.2",
+  "python": "3.12.3",
+  "seed_method": "hashlib.blake2b(canonical_spec+idx) -> int (process-stable; NOT builtin hash())",
+  "checks": {
+    "oracle_pass": {
+      "acc": 1.0,
+      "expect": 1.0
+    },
+    "random_fail": {
+      "acc": 0.0117,
+      "expect_below": 0.15,
+      "chance": 0.0156
+    },
+    "cross_process": {
+      "proc_a_eq_proc_b": true,
+      "inproc_eq_proc": true,
+      "n": 32,
+      "sample_ids": [
+        "12242a8ef251c416",
+        "5e42d19453523a83",
+        "ecdd4bbba18f3e74"
+      ]
+    },
+    "length_exact": {
+      "all_match": true,
+      "seq_len": 256
+    },
+    "kv_survives": {
+      "ok": true
+    },
+    "scorer_correct": {
+      "exact": 1.0,
+      "perturbed": 0.0
+    },
+    "no_answer_leak": {
+      "leak_detected": false
+    },
+    "no_lexical_shortcut": {
+      "keys_seen": 64,
+      "keys_with_multiple_values": 64,
+      "ok": true
+    }
+  }
+}
