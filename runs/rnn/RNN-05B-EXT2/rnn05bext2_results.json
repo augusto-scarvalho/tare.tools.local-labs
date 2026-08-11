@@ -1,0 +1,489 @@
+{
+  "meta": {
+    "packet": "RNN-05B-EXT2",
+    "device": "cuda",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.2",
+    "smoke": false,
+    "sourceGitHead": "5abeab4b7f55db966e5148261f715fcc524bd168",
+    "config": {
+      "d_model": 128,
+      "d_k": 64,
+      "d_v": 64,
+      "conv_k": 4,
+      "seg": 64,
+      "seq_len": 512,
+      "num_pairs": 12,
+      "num_queries": 8,
+      "num_keys": 128,
+      "num_vals": 64,
+      "write_frac": 0.25,
+      "dose_ladder": [
+        0.0,
+        0.08,
+        0.16,
+        0.24,
+        0.32,
+        0.4,
+        0.48,
+        0.56,
+        0.64
+      ],
+      "stress_axis": "postwrite_gap_distractor_density_nested",
+      "grade_hi": 0.75,
+      "grade_lo": 0.45,
+      "mid_lo": 0.4,
+      "mid_hi": 0.8,
+      "min_mid_doses": 2,
+      "steps_bb": 2500,
+      "steps_rd": 1800,
+      "lr": 0.003,
+      "batch": 96,
+      "pool_train": 4096,
+      "pool_eval": 512,
+      "gdn_seeds": [
+        42,
+        43,
+        44
+      ],
+      "dn_seeds": [
+        42,
+        43,
+        44
+      ],
+      "la_seeds": [
+        42
+      ],
+      "margin": 0.03,
+      "sesoi_delta_aurc": 0.05,
+      "recovery_margin": 0.02,
+      "cache_K": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "boot_iters": 2000,
+      "dose_override_json": ""
+    },
+    "challengeGridSha256": "66ff24765d17c4fa95dcfcbaf4a7b374c66aa1ba52e507cd047b486ad512a9e5",
+    "configSha256": "7bf003156567d64a3d7d886868753f33d1b4324ca1c0b1b9f030251cbeeafaac",
+    "grid_selfcheck": {
+      "CHALLENGE_GRID_SHA256": "66ff24765d17c4fa95dcfcbaf4a7b374c66aa1ba52e507cd047b486ad512a9e5",
+      "subprocess_digest": "66ff24765d17c4fa95dcfcbaf4a7b374c66aa1ba52e507cd047b486ad512a9e5",
+      "GRID_IDENTITY_SELFCHECK": "PASS"
+    },
+    "artifacts_dir": "../runs/rnn/RNN-05B-EXT2/artifacts",
+    "exampleSetSha256": {
+      "train": "741b48d29aaedbf2",
+      "dev": "49da3c06f1b365eb",
+      "holdout": "6d54ce009431c6e6"
+    },
+    "wall_min": 10.4
+  },
+  "substrate_sanity": {
+    "la": {
+      "REFERENCE_PARITY": "PASS",
+      "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+      "REQUEST_ISOLATION": "PASS"
+    },
+    "dn": {
+      "REFERENCE_PARITY": "PASS",
+      "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+      "REQUEST_ISOLATION": "PASS"
+    },
+    "gdn": {
+      "REFERENCE_PARITY": "PASS",
+      "FULL_MODULE_LIFECYCLE": "NUMERICALLY_EQUIVALENT",
+      "REQUEST_ISOLATION": "PASS"
+    }
+  },
+  "backbones": {
+    "la": [
+      {
+        "seed": 42,
+        "backbone_sha256": "ec147cb38adc646b24fe4378d5af91042389d836470b5446e668c7ac3ff2246f",
+        "checkpoint_path": "../runs/rnn/RNN-05B-EXT2/artifacts/ext2_la_seed42_backbone.pt",
+        "checkpoint_file_sha256": "f5213ff4e0571e0182a8311463732791a2b8e400bb6f9b5fd9b6dea6284f5c93",
+        "train_stat": {
+          "steps": 2500,
+          "wall_s": 32.1,
+          "final_loss": 0.0007,
+          "trained_params": 92614
+        }
+      }
+    ],
+    "dn": [
+      {
+        "seed": 42,
+        "backbone_sha256": "28e8829e661fad0f41b4511212991fcc1110710e092ffcea7c92982e03776326",
+        "checkpoint_path": "../runs/rnn/RNN-05B-EXT2/artifacts/ext2_dn_seed42_backbone.pt",
+        "checkpoint_file_sha256": "c6880dc67fcad0cee4309dcd3b9f79f15c841bc537ded690a986fcd9619881fb",
+        "train_stat": {
+          "steps": 2500,
+          "wall_s": 94.8,
+          "final_loss": 0.001,
+          "trained_params": 92614
+        }
+      },
+      {
+        "seed": 43,
+        "backbone_sha256": "5b073d0a26056f6d566c9d69c417902e12d43d4ce10341157a90834aee0e902c",
+        "checkpoint_path": "../runs/rnn/RNN-05B-EXT2/artifacts/ext2_dn_seed43_backbone.pt",
+        "checkpoint_file_sha256": "7ecedb2a082c575539353c505a87ec8d9d72d5dbd55ccd523ece7e3c8f8ac6c0",
+        "train_stat": {
+          "steps": 2500,
+          "wall_s": 94.5,
+          "final_loss": 0.0005,
+          "trained_params": 92614
+        }
+      },
+      {
+        "seed": 44,
+        "backbone_sha256": "2a57bbd8e7937985e293614b41ad0e04029226fd4e08470424c259a4351b640f",
+        "checkpoint_path": "../runs/rnn/RNN-05B-EXT2/artifacts/ext2_dn_seed44_backbone.pt",
+        "checkpoint_file_sha256": "cb75da0238aa7aa361b8c63c823647ac3051d9f4b1fe46f8e553e512bb3015ed",
+        "train_stat": {
+          "steps": 2500,
+          "wall_s": 95.2,
+          "final_loss": 0.0007,
+          "trained_params": 92614
+        }
+      }
+    ],
+    "gdn": [
+      {
+        "seed": 42,
+        "backbone_sha256": "15c96113f887132f6160f2e320c53df9736e647bb03eff990cfb519934abe6f8",
+        "checkpoint_path": "../runs/rnn/RNN-05B-EXT2/artifacts/ext2_gdn_seed42_backbone.pt",
+        "checkpoint_file_sha256": "50d6a001d15952af080d3af62ef9160f4592f677c93253e4db9c5721848b5a76",
+        "train_stat": {
+          "steps": 2500,
+          "wall_s": 99.8,
+          "final_loss": 0.0007,
+          "trained_params": 92614
+        }
+      },
+      {
+        "seed": 43,
+        "backbone_sha256": "df7387c234890b1ff3f5c62bfc65a625a9db35176ff9558f789e81950200030d",
+        "checkpoint_path": "../runs/rnn/RNN-05B-EXT2/artifacts/ext2_gdn_seed43_backbone.pt",
+        "checkpoint_file_sha256": "d2ce641a19c04db0a93add7c623d0712a2699d2658f58d6397ccbc59f43bdf48",
+        "train_stat": {
+          "steps": 2500,
+          "wall_s": 101.0,
+          "final_loss": 0.0014,
+          "trained_params": 92614
+        }
+      },
+      {
+        "seed": 44,
+        "backbone_sha256": "1b5d886ea8960a81dc8b01ca9eecb5a55cb9e91827d6f75cc1e0078a5817fedf",
+        "checkpoint_path": "../runs/rnn/RNN-05B-EXT2/artifacts/ext2_gdn_seed44_backbone.pt",
+        "checkpoint_file_sha256": "352f50ddad0b00cc8ba0f6925844ed1f75d3726d3e76c36a90791e6626d25fbc",
+        "train_stat": {
+          "steps": 2500,
+          "wall_s": 99.8,
+          "final_loss": 0.0019,
+          "trained_params": 92614
+        }
+      }
+    ]
+  },
+  "base_qualification": {
+    "packet": "RNN-05B-EXT2",
+    "challengeGridSha256": "66ff24765d17c4fa95dcfcbaf4a7b374c66aa1ba52e507cd047b486ad512a9e5",
+    "configSha256": "7bf003156567d64a3d7d886868753f33d1b4324ca1c0b1b9f030251cbeeafaac",
+    "sourceGitHead": "5abeab4b7f55db966e5148261f715fcc524bd168",
+    "exampleSetSha256": {
+      "train": "741b48d29aaedbf2",
+      "dev": "49da3c06f1b365eb",
+      "holdout": "6d54ce009431c6e6"
+    },
+    "stressAxis": "postwrite_gap_distractor_density_nested",
+    "dose_ladder": [
+      0.0,
+      0.08,
+      0.16,
+      0.24,
+      0.32,
+      0.4,
+      0.48,
+      0.56,
+      0.64
+    ],
+    "backboneSha256": {
+      "la": {
+        "42": "ec147cb38adc646b24fe4378d5af91042389d836470b5446e668c7ac3ff2246f"
+      },
+      "dn": {
+        "42": "28e8829e661fad0f41b4511212991fcc1110710e092ffcea7c92982e03776326",
+        "43": "5b073d0a26056f6d566c9d69c417902e12d43d4ce10341157a90834aee0e902c",
+        "44": "2a57bbd8e7937985e293614b41ad0e04029226fd4e08470424c259a4351b640f"
+      },
+      "gdn": {
+        "42": "15c96113f887132f6160f2e320c53df9736e647bb03eff990cfb519934abe6f8",
+        "43": "df7387c234890b1ff3f5c62bfc65a625a9db35176ff9558f789e81950200030d",
+        "44": "1b5d886ea8960a81dc8b01ca9eecb5a55cb9e91827d6f75cc1e0078a5817fedf"
+      }
+    },
+    "per_seed_base_curves": {
+      "la": {
+        "42": [
+          0.9998,
+          0.9995,
+          0.9995,
+          0.9993,
+          0.9995,
+          0.9993,
+          0.9993,
+          0.999,
+          0.9993
+        ]
+      },
+      "dn": {
+        "42": [
+          0.9971,
+          0.9814,
+          0.9819,
+          0.9817,
+          0.9817,
+          0.9812,
+          0.9817,
+          0.9817,
+          0.9819
+        ],
+        "43": [
+          0.9976,
+          0.9971,
+          0.9976,
+          0.9976,
+          0.9976,
+          0.9971,
+          0.9971,
+          0.9971,
+          0.9968
+        ],
+        "44": [
+          0.999,
+          0.999,
+          0.999,
+          0.999,
+          0.9988,
+          0.9985,
+          0.998,
+          0.998,
+          0.998
+        ]
+      },
+      "gdn": {
+        "42": [
+          0.9968,
+          0.9966,
+          0.9968,
+          0.9968,
+          0.9971,
+          0.9963,
+          0.9968,
+          0.9971,
+          0.9961
+        ],
+        "43": [
+          0.9978,
+          0.9941,
+          0.9941,
+          0.9941,
+          0.9937,
+          0.9937,
+          0.9934,
+          0.9929,
+          0.9924
+        ],
+        "44": [
+          0.9878,
+          0.9841,
+          0.9866,
+          0.9851,
+          0.9863,
+          0.9863,
+          0.9841,
+          0.9839,
+          0.9856
+        ]
+      }
+    },
+    "gdn_graded_region": {
+      "per_seed": {
+        "42": {
+          "curve": [
+            0.9968,
+            0.9966,
+            0.9968,
+            0.9968,
+            0.9971,
+            0.9963,
+            0.9968,
+            0.9971,
+            0.9961
+          ],
+          "max": 0.9971,
+          "min": 0.9961,
+          "mid_doses": [],
+          "competent": true,
+          "degrades": false,
+          "resolved": false,
+          "seed_graded": false
+        },
+        "43": {
+          "curve": [
+            0.9978,
+            0.9941,
+            0.9941,
+            0.9941,
+            0.9937,
+            0.9937,
+            0.9934,
+            0.9929,
+            0.9924
+          ],
+          "max": 0.9978,
+          "min": 0.9924,
+          "mid_doses": [],
+          "competent": true,
+          "degrades": false,
+          "resolved": false,
+          "seed_graded": false
+        },
+        "44": {
+          "curve": [
+            0.9878,
+            0.9841,
+            0.9866,
+            0.9851,
+            0.9863,
+            0.9863,
+            0.9841,
+            0.9839,
+            0.9856
+          ],
+          "max": 0.9878,
+          "min": 0.9839,
+          "mid_doses": [],
+          "competent": true,
+          "degrades": false,
+          "resolved": false,
+          "seed_graded": false
+        }
+      },
+      "common_mid_doses": [],
+      "ALL_SEEDS_GRADED": false,
+      "COMMON_REGION_NONEMPTY": false,
+      "thresholds": {
+        "grade_hi": 0.75,
+        "grade_lo": 0.45,
+        "mid_lo": 0.4,
+        "mid_hi": 0.8,
+        "min_mid_doses": 2
+      },
+      "FIXED_BACKBONE_GRADED_REGION": "BLOCKED"
+    },
+    "FIXED_BACKBONE_GRADED_REGION": "BLOCKED",
+    "H3_TESTABILITY": "BLOCKED_FIXED_BACKBONE"
+  },
+  "graded_gate": {
+    "per_seed": {
+      "42": {
+        "curve": [
+          0.9968,
+          0.9966,
+          0.9968,
+          0.9968,
+          0.9971,
+          0.9963,
+          0.9968,
+          0.9971,
+          0.9961
+        ],
+        "max": 0.9971,
+        "min": 0.9961,
+        "mid_doses": [],
+        "competent": true,
+        "degrades": false,
+        "resolved": false,
+        "seed_graded": false
+      },
+      "43": {
+        "curve": [
+          0.9978,
+          0.9941,
+          0.9941,
+          0.9941,
+          0.9937,
+          0.9937,
+          0.9934,
+          0.9929,
+          0.9924
+        ],
+        "max": 0.9978,
+        "min": 0.9924,
+        "mid_doses": [],
+        "competent": true,
+        "degrades": false,
+        "resolved": false,
+        "seed_graded": false
+      },
+      "44": {
+        "curve": [
+          0.9878,
+          0.9841,
+          0.9866,
+          0.9851,
+          0.9863,
+          0.9863,
+          0.9841,
+          0.9839,
+          0.9856
+        ],
+        "max": 0.9878,
+        "min": 0.9839,
+        "mid_doses": [],
+        "competent": true,
+        "degrades": false,
+        "resolved": false,
+        "seed_graded": false
+      }
+    },
+    "common_mid_doses": [],
+    "ALL_SEEDS_GRADED": false,
+    "COMMON_REGION_NONEMPTY": false,
+    "thresholds": {
+      "grade_hi": 0.75,
+      "grade_lo": 0.45,
+      "mid_lo": 0.4,
+      "mid_hi": 0.8,
+      "min_mid_doses": 2
+    },
+    "FIXED_BACKBONE_GRADED_REGION": "BLOCKED"
+  },
+  "snapshot_identity": {},
+  "mc": {},
+  "curves": {},
+  "ablation": {},
+  "stats": {},
+  "efficiency": {},
+  "outcomes": {
+    "packet": "RNN-05B-EXT2",
+    "challengeGridSha256": "66ff24765d17c4fa95dcfcbaf4a7b374c66aa1ba52e507cd047b486ad512a9e5",
+    "sourceGitHead": "5abeab4b7f55db966e5148261f715fcc524bd168",
+    "sesoi_delta_aurc": 0.05,
+    "margin_OPERATOR_HEURISTIC": 0.03,
+    "FIXED_BACKBONE_GRADED_REGION": "BLOCKED",
+    "common_graded_doses": [],
+    "H3_TESTABILITY": "BLOCKED_FIXED_BACKBONE",
+    "H3": "BLOCKED_FIXED_BACKBONE",
+    "QWEN_GDN_TRANSPLANT_GATE": "DEFER",
+    "SYNTHETIC_DENSE_MC": "PARK",
+    "decision_case": "A",
+    "note": "No common graded region on the frozen GDN backbones -> STOP; no MC; no EXT3."
+  }
+}

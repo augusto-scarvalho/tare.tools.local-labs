@@ -1,0 +1,200 @@
+{
+  "packet": "RNN-05B-EXT2",
+  "challengeGridSha256": "66ff24765d17c4fa95dcfcbaf4a7b374c66aa1ba52e507cd047b486ad512a9e5",
+  "configSha256": "7bf003156567d64a3d7d886868753f33d1b4324ca1c0b1b9f030251cbeeafaac",
+  "sourceGitHead": "5abeab4b7f55db966e5148261f715fcc524bd168",
+  "exampleSetSha256": {
+    "train": "741b48d29aaedbf2",
+    "dev": "49da3c06f1b365eb",
+    "holdout": "6d54ce009431c6e6"
+  },
+  "stressAxis": "postwrite_gap_distractor_density_nested",
+  "dose_ladder": [
+    0.0,
+    0.08,
+    0.16,
+    0.24,
+    0.32,
+    0.4,
+    0.48,
+    0.56,
+    0.64
+  ],
+  "backboneSha256": {
+    "la": {
+      "42": "ec147cb38adc646b24fe4378d5af91042389d836470b5446e668c7ac3ff2246f"
+    },
+    "dn": {
+      "42": "28e8829e661fad0f41b4511212991fcc1110710e092ffcea7c92982e03776326",
+      "43": "5b073d0a26056f6d566c9d69c417902e12d43d4ce10341157a90834aee0e902c",
+      "44": "2a57bbd8e7937985e293614b41ad0e04029226fd4e08470424c259a4351b640f"
+    },
+    "gdn": {
+      "42": "15c96113f887132f6160f2e320c53df9736e647bb03eff990cfb519934abe6f8",
+      "43": "df7387c234890b1ff3f5c62bfc65a625a9db35176ff9558f789e81950200030d",
+      "44": "1b5d886ea8960a81dc8b01ca9eecb5a55cb9e91827d6f75cc1e0078a5817fedf"
+    }
+  },
+  "per_seed_base_curves": {
+    "la": {
+      "42": [
+        0.9998,
+        0.9995,
+        0.9995,
+        0.9993,
+        0.9995,
+        0.9993,
+        0.9993,
+        0.999,
+        0.9993
+      ]
+    },
+    "dn": {
+      "42": [
+        0.9971,
+        0.9814,
+        0.9819,
+        0.9817,
+        0.9817,
+        0.9812,
+        0.9817,
+        0.9817,
+        0.9819
+      ],
+      "43": [
+        0.9976,
+        0.9971,
+        0.9976,
+        0.9976,
+        0.9976,
+        0.9971,
+        0.9971,
+        0.9971,
+        0.9968
+      ],
+      "44": [
+        0.999,
+        0.999,
+        0.999,
+        0.999,
+        0.9988,
+        0.9985,
+        0.998,
+        0.998,
+        0.998
+      ]
+    },
+    "gdn": {
+      "42": [
+        0.9968,
+        0.9966,
+        0.9968,
+        0.9968,
+        0.9971,
+        0.9963,
+        0.9968,
+        0.9971,
+        0.9961
+      ],
+      "43": [
+        0.9978,
+        0.9941,
+        0.9941,
+        0.9941,
+        0.9937,
+        0.9937,
+        0.9934,
+        0.9929,
+        0.9924
+      ],
+      "44": [
+        0.9878,
+        0.9841,
+        0.9866,
+        0.9851,
+        0.9863,
+        0.9863,
+        0.9841,
+        0.9839,
+        0.9856
+      ]
+    }
+  },
+  "gdn_graded_region": {
+    "per_seed": {
+      "42": {
+        "curve": [
+          0.9968,
+          0.9966,
+          0.9968,
+          0.9968,
+          0.9971,
+          0.9963,
+          0.9968,
+          0.9971,
+          0.9961
+        ],
+        "max": 0.9971,
+        "min": 0.9961,
+        "mid_doses": [],
+        "competent": true,
+        "degrades": false,
+        "resolved": false,
+        "seed_graded": false
+      },
+      "43": {
+        "curve": [
+          0.9978,
+          0.9941,
+          0.9941,
+          0.9941,
+          0.9937,
+          0.9937,
+          0.9934,
+          0.9929,
+          0.9924
+        ],
+        "max": 0.9978,
+        "min": 0.9924,
+        "mid_doses": [],
+        "competent": true,
+        "degrades": false,
+        "resolved": false,
+        "seed_graded": false
+      },
+      "44": {
+        "curve": [
+          0.9878,
+          0.9841,
+          0.9866,
+          0.9851,
+          0.9863,
+          0.9863,
+          0.9841,
+          0.9839,
+          0.9856
+        ],
+        "max": 0.9878,
+        "min": 0.9839,
+        "mid_doses": [],
+        "competent": true,
+        "degrades": false,
+        "resolved": false,
+        "seed_graded": false
+      }
+    },
+    "common_mid_doses": [],
+    "ALL_SEEDS_GRADED": false,
+    "COMMON_REGION_NONEMPTY": false,
+    "thresholds": {
+      "grade_hi": 0.75,
+      "grade_lo": 0.45,
+      "mid_lo": 0.4,
+      "mid_hi": 0.8,
+      "min_mid_doses": 2
+    },
+    "FIXED_BACKBONE_GRADED_REGION": "BLOCKED"
+  },
+  "FIXED_BACKBONE_GRADED_REGION": "BLOCKED",
+  "H3_TESTABILITY": "BLOCKED_FIXED_BACKBONE"
+}

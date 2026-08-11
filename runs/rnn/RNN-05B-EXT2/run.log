@@ -1,0 +1,66 @@
+[CFG] challengeGridSha256=66ff24765d17c4fa95dcfcbaf4a7b374c66aa1ba52e507cd047b486ad512a9e5 selfcheck=PASS head=5abeab4b7f55
+[P0] substrate sanity: reference parity + full-module checkpoint/restore + request isolation
+  la: parity=PASS lifecycle=NUMERICALLY_EQUIVALENT iso=PASS
+  dn: parity=PASS lifecycle=NUMERICALLY_EQUIVALENT iso=PASS
+  gdn: parity=PASS lifecycle=NUMERICALLY_EQUIVALENT iso=PASS
+[P1] train ONCE per seed (single-state, mixture over dose ladder) -> freeze -> SHA-256
+      la seed42 single step    0/2500 loss 5.4565
+      la seed42 single step  500/2500 loss 0.0348
+      la seed42 single step 1000/2500 loss 0.0015
+      la seed42 single step 1500/2500 loss 0.0009
+      la seed42 single step 2000/2500 loss 0.0008
+      la seed42 single step 2499/2500 loss 0.0007
+  la seed=42: trained+frozen loss=0.0007 sha=ec147cb38adc -> ext2_la_seed42_backbone.pt
+      dn seed42 single step    0/2500 loss 5.4580
+      dn seed42 single step  500/2500 loss 0.0416
+      dn seed42 single step 1000/2500 loss 0.0025
+      dn seed42 single step 1500/2500 loss 0.0015
+      dn seed42 single step 2000/2500 loss 0.0005
+      dn seed42 single step 2499/2500 loss 0.0010
+  dn seed=42: trained+frozen loss=0.001 sha=28e8829e661f -> ext2_dn_seed42_backbone.pt
+      dn seed43 single step    0/2500 loss 5.4066
+      dn seed43 single step  500/2500 loss 0.0080
+      dn seed43 single step 1000/2500 loss 0.0013
+      dn seed43 single step 1500/2500 loss 0.0008
+      dn seed43 single step 2000/2500 loss 0.0005
+      dn seed43 single step 2499/2500 loss 0.0005
+  dn seed=43: trained+frozen loss=0.0005 sha=5b073d0a2605 -> ext2_dn_seed43_backbone.pt
+      dn seed44 single step    0/2500 loss 5.4618
+      dn seed44 single step  500/2500 loss 0.0043
+      dn seed44 single step 1000/2500 loss 0.0016
+      dn seed44 single step 1500/2500 loss 0.0008
+      dn seed44 single step 2000/2500 loss 0.0006
+      dn seed44 single step 2499/2500 loss 0.0007
+  dn seed=44: trained+frozen loss=0.0007 sha=2a57bbd8e793 -> ext2_dn_seed44_backbone.pt
+      gdn seed42 single step    0/2500 loss 5.4578
+      gdn seed42 single step  500/2500 loss 0.1663
+      gdn seed42 single step 1000/2500 loss 0.0022
+      gdn seed42 single step 1500/2500 loss 0.0010
+      gdn seed42 single step 2000/2500 loss 0.0008
+      gdn seed42 single step 2499/2500 loss 0.0007
+  gdn seed=42: trained+frozen loss=0.0007 sha=15c96113f887 -> ext2_gdn_seed42_backbone.pt
+      gdn seed43 single step    0/2500 loss 5.4066
+      gdn seed43 single step  500/2500 loss 3.0325
+      gdn seed43 single step 1000/2500 loss 0.0069
+      gdn seed43 single step 1500/2500 loss 0.0019
+      gdn seed43 single step 2000/2500 loss 0.0013
+      gdn seed43 single step 2499/2500 loss 0.0014
+  gdn seed=43: trained+frozen loss=0.0014 sha=df7387c23489 -> ext2_gdn_seed43_backbone.pt
+      gdn seed44 single step    0/2500 loss 5.4622
+      gdn seed44 single step  500/2500 loss 2.6866
+      gdn seed44 single step 1000/2500 loss 0.0164
+      gdn seed44 single step 1500/2500 loss 0.0029
+      gdn seed44 single step 2000/2500 loss 0.0016
+      gdn seed44 single step 2499/2500 loss 0.0019
+  gdn seed=44: trained+frozen loss=0.0019 sha=1b5d886ea896 -> ext2_gdn_seed44_backbone.pt
+[P2] BASE qualification: ALL doses x ALL seeds on FROZEN backbones (BASE-only, load-bearing gate)
+  la seed=42 BASE curve: 0.0:0.9998 0.08:0.9995 0.16:0.9995 0.24:0.9993 0.32:0.9995 0.4:0.9993 0.48:0.9993 0.56:0.999 0.64:0.9993
+  dn seed=42 BASE curve: 0.0:0.9971 0.08:0.9814 0.16:0.9819 0.24:0.9817 0.32:0.9817 0.4:0.9812 0.48:0.9817 0.56:0.9817 0.64:0.9819
+  dn seed=43 BASE curve: 0.0:0.9976 0.08:0.9971 0.16:0.9976 0.24:0.9976 0.32:0.9976 0.4:0.9971 0.48:0.9971 0.56:0.9971 0.64:0.9968
+  dn seed=44 BASE curve: 0.0:0.999 0.08:0.999 0.16:0.999 0.24:0.999 0.32:0.9988 0.4:0.9985 0.48:0.998 0.56:0.998 0.64:0.998
+  gdn seed=42 BASE curve: 0.0:0.9968 0.08:0.9966 0.16:0.9968 0.24:0.9968 0.32:0.9971 0.4:0.9963 0.48:0.9968 0.56:0.9971 0.64:0.9961
+  gdn seed=43 BASE curve: 0.0:0.9978 0.08:0.9941 0.16:0.9941 0.24:0.9941 0.32:0.9937 0.4:0.9937 0.48:0.9934 0.56:0.9929 0.64:0.9924
+  gdn seed=44 BASE curve: 0.0:0.9878 0.08:0.9841 0.16:0.9866 0.24:0.9851 0.32:0.9863 0.4:0.9863 0.48:0.9841 0.56:0.9839 0.64:0.9856
+[P2] FIXED_BACKBONE_GRADED_REGION=BLOCKED -> persisted BASE_QUALIFICATION.json
+[GATE] qualification verify: ok=True (verified)
+[STOP] no common graded region on the frozen GDN backbones -> H3_TESTABILITY=BLOCKED_FIXED_BACKBONE; no MC, no EXT3 (Case A).
