@@ -1,0 +1,143 @@
+{
+  "packet": "RNN-05B-EXT2",
+  "config": {
+    "d_model": 128,
+    "d_k": 64,
+    "d_v": 64,
+    "conv_k": 4,
+    "seg": 64,
+    "seq_len": 512,
+    "num_pairs": 12,
+    "num_queries": 8,
+    "num_keys": 128,
+    "num_vals": 64,
+    "write_frac": 0.25,
+    "dose_ladder": [
+      0.0,
+      0.08,
+      0.16,
+      0.24,
+      0.32,
+      0.4,
+      0.48,
+      0.56,
+      0.64
+    ],
+    "stress_axis": "postwrite_gap_distractor_density_nested",
+    "grade_hi": 0.75,
+    "grade_lo": 0.45,
+    "mid_lo": 0.4,
+    "mid_hi": 0.8,
+    "min_mid_doses": 2,
+    "steps_bb": 2500,
+    "steps_rd": 1800,
+    "lr": 0.003,
+    "batch": 96,
+    "pool_train": 4096,
+    "pool_eval": 512,
+    "gdn_seeds": [
+      42,
+      43,
+      44
+    ],
+    "dn_seeds": [
+      42,
+      43,
+      44
+    ],
+    "la_seeds": [
+      42
+    ],
+    "margin": 0.03,
+    "sesoi_delta_aurc": 0.05,
+    "recovery_margin": 0.02,
+    "cache_K": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "boot_iters": 2000,
+    "dose_override_json": ""
+  },
+  "challenge_grid": {
+    "packet": "RNN-05B-EXT2",
+    "architecture": {
+      "d_model": 128,
+      "d_k": 64,
+      "d_v": 64,
+      "conv_k": 4,
+      "seg": 64
+    },
+    "task": {
+      "seq_len": 512,
+      "num_pairs": 12,
+      "num_queries": 8,
+      "num_keys": 128,
+      "num_vals": 64,
+      "write_frac": 0.25
+    },
+    "stress_axis": "postwrite_gap_distractor_density_nested",
+    "dose_ladder": [
+      0.0,
+      0.08,
+      0.16,
+      0.24,
+      0.32,
+      0.4,
+      0.48,
+      0.56,
+      0.64
+    ],
+    "interpolation": "linear_on_ladder",
+    "example_ranges": {
+      "train": [
+        0,
+        4096
+      ],
+      "dev": [
+        4096,
+        4608
+      ],
+      "holdout": [
+        4608,
+        5120
+      ]
+    },
+    "seeds": {
+      "gdn": [
+        42,
+        43,
+        44
+      ],
+      "dn": [
+        42,
+        43,
+        44
+      ],
+      "la": [
+        42
+      ]
+    },
+    "training": {
+      "recipe": "single_state_mixture_over_dose_ladder",
+      "steps_bb": 2500,
+      "lr": 0.003,
+      "batch": 96,
+      "pool_train": 4096
+    },
+    "reader": {
+      "recipe": "frozen_backbone_w_u_grm",
+      "steps_rd": 1800
+    }
+  },
+  "challengeGridSha256": "66ff24765d17c4fa95dcfcbaf4a7b374c66aa1ba52e507cd047b486ad512a9e5",
+  "configSha256": "7bf003156567d64a3d7d886868753f33d1b4324ca1c0b1b9f030251cbeeafaac",
+  "grid_selfcheck": {
+    "CHALLENGE_GRID_SHA256": "66ff24765d17c4fa95dcfcbaf4a7b374c66aa1ba52e507cd047b486ad512a9e5",
+    "subprocess_digest": "66ff24765d17c4fa95dcfcbaf4a7b374c66aa1ba52e507cd047b486ad512a9e5",
+    "GRID_IDENTITY_SELFCHECK": "PASS"
+  },
+  "select_rule": "Train each seed ONCE (single-state, mixture over dose ladder [0.0, 0.08, 0.16, 0.24, 0.32, 0.4, 0.48, 0.56, 0.64]); FREEZE + SHA-256; run ALL doses for ALL seeds on the FROZEN weights as BASE qualification; QUALIFY the FIXED_BACKBONE_GRADED_REGION iff every GDN seed has max BASE>=0.75, min BASE<=0.45, and >=2 doses with BASE in (0.4,0.8), AND the mid-band doses OVERLAP across all GDN seeds; else H3_TESTABILITY=BLOCKED_FIXED_BACKBONE and STOP with NO MC and NO EXT3.",
+  "sourceGitHead": "df8317b5acc7c7d982663153f70bacf34892fdbf"
+}
