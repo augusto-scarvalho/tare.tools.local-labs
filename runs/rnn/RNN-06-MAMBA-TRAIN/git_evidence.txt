@@ -1,0 +1,53 @@
+RNN-06 Mamba Qualification Train — git evidence
+generated at closure; HEAD and artifact blob SHAs
+
+== HEAD ==
+1ddf64a55a50046e66d25ceb5f5391569d3d1b71
+branch: master  upstream: none  pushed: NO
+
+== train commit chain (0560c3d closure of 06A .. HEAD) ==
+1ddf64a decision(rnn): RNN-06B-MAMBA-BASE FIXED_BACKBONE_GRADED_REGION = BLOCKED
+6ccb54b results(rnn): RNN-06B-MAMBA-BASE -> FIXED_BACKBONE_GRADED_REGION = BLOCKED (CONFOUNDED_WITH_LENGTH)
+fd8f863 results(rnn): RNN-06A2-MAMBA-CONTINUATION re-qualified at chunk_size=32 -> QUALIFIED
+bd701a4 amend(rnn): RNN-06 train AMENDMENT 1 — pin chunk_size=32 (memory), re-qualify 06A2 (no outcomes)
+d6618b8 tool(rnn): RNN-06B-MAMBA-BASE graded-region runner (identity-freezing; no outcomes)
+402cb82 research(rnn): RNN-06B-MAMBA-BASE pre-registration + qualification spec + stress grid (no outcomes)
+0404b5e decision(rnn): RNN-06A2-MAMBA-CONTINUATION CONTINUATION_LIFECYCLE = QUALIFIED
+364147e results(rnn): RNN-06A2-MAMBA-CONTINUATION -> CONTINUATION_LIFECYCLE = QUALIFIED
+5abc29b tool(rnn): RNN-06A2-MAMBA-CONTINUATION lifecycle runner (identity-freezing; no outcomes)
+353de85 research(rnn): RNN-06 train protocol + 06A2-MAMBA-CONTINUATION pre-registration (no outcomes)
+
+== historical immutability (must be unchanged) ==
+06A/LIFECYCLE_RESULTS.json  d10527b6cbf1f5385251f7d05e39537b542b0966
+06A/PRE_REGISTRATION.md  50c8a41d72a1c2387859f4bbb8910f6694e5b50e
+06A/LIFECYCLE_DECISION.md  ff2dd32de67b2ab6eaf7b54bcd2e3284d3b11e84
+06A/LIFECYCLE_MATRIX.csv  26693353ad763f66f0dfc4720ddbaf484e2b68a2
+06A/AUDIT_RECONCILIATION.md  602d61708c0d89d868e413212bee9d943e3b6064
+P0/P0_RESULTS_MAMBA2.json  d35db76438801d54cb8b6fac7541371db8118b20
+
+== 06A2 artifact blobs ==
+PRE_REGISTRATION.md  85c3693ca2108671e048ce3ab0cc1ca9182d8362
+CONTINUATION_CONTRACT.md  691ac1928ef5988fe8d195fd500c9415090f4106
+CONTINUATION_CHALLENGES.json  7e91d68536fab143393c8be183798d99f6d699e2
+CONTINUATION_RESULTS.json  8a790828475c61eccd8f5a9b4cfbba5eb4b9edcd
+CONTINUATION_RESULTS_cs32.json  4c2dd568f7a8bb7b7064312ac21232a6293126ea
+CONTINUATION_DECISION.md  732f78dd137b0102bd52564cfa5e298a0159357e
+DECISION_ADDENDUM_cs32.md  14b9ddf300fbaa87ee1abd33ebfd989e7cb15dc4
+
+== 06B artifact blobs ==
+PRE_REGISTRATION.md  6daaa1bb02a07657cbed2e18dcd6c37dd5eb1a59
+QUALIFICATION_SPEC.json  c631a32f35dea8f29530c6cbeac1e2223f9c8719
+STRESS_GRID.json  689d6e8ba2ba751327833b44fa26c9bccc78010e
+BASE_RESULTS.json  22d355bdb776b9eca6a8c85a45bcae82e6228f5c
+BASE_CURVES.csv  045929ce614cf6f0a007f4ee2523ae87a66cec60
+BASE_DECISION.md  da9f723d0991ab21490ad1f761965797082ff5ed
+
+== runners ==
+ops/rnn_06a2_challenges.py  4cfe1bd6244986970ef98a3cd9daebf881645386
+ops/rnn_06a2_continuation.py  2bed403d8277cf64fd6db63bc6a9872208336e26
+ops/rnn_06b_challenges.py  0e254026097e1e9e6ade7e14c37c7d4fe9bf4514
+ops/rnn_06b_base.py  ebe6bb965ed4b01fb1aea58d7010fa946f18ab8d
+
+== train docs ==
+TRAIN_PROTOCOL.md  4f06ffc92c472290bfecde656a586dddc5c88bc8
+AMENDMENT_1_chunksize.md  89a661f84beafbf0f50170df5511097c65dc6dd5
