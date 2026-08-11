@@ -1,0 +1,19 @@
+RNN-06-P0 FINAL CLOSURE — git evidence (captured 2026-08-11T19:39:49Z)
+before_closure_HEAD: 2607c9921036efc3532e34866dd96737c1babc58
+branch: master   upstream: NONE   pushed: NO
+after_closure_HEAD: = the closure commit created by committing these artifacts (this file is committed IN it, so cannot contain its own hash); reported in the untracked closure handoff .harness/handoff/HANDOFF-rnn-06-p0-final-closure.md and the delivery message; retrievable via 'git rev-parse HEAD' / 'git log -1'.
+--- P0 commit chain (intact, not rewritten) ---
+pre_run_protocol : 7d7feed
+results          : 46098e5  (parent 7d7feed, tree fa023582296e225f7781f1201085b45883806879)
+handoff_fill     : 2607c99  (delivered HANDOFF.md bytes)
+--- handoff self-reference resolution ---
+46098e5 HANDOFF.md = placeholder <RESULTS_COMMIT> (earlier); 2607c99 HANDOFF.md = '46098e5' filled (delivered). Case A+B; delivered handoff committed+clean at HEAD.
+--- executed-source (NOT_PROVEN; best-candidate committed blobs) ---
+DeltaNet: blob ae1c27d0 (7d7feed) sha256 fa90087a...  [results lack impl/autobatch => pre-adaptation script]
+Mamba-2 : blob 00eaeb39 (46098e5) sha256 a5023872...  [results carry impl=transformers/autobatch=1536/chunk_size => post-adaptation script]
+--- historical evidence untouched ---
+  (none modified — clean)
+--- P0 measured artifacts unchanged since 46098e5 (blob check) ---
+  P0_RESULTS_DELTANET.json blob@HEAD=54f1a161dbb9d2ee9ed308c62bde56fe539a1334 blob@46098e5=54f1a161dbb9d2ee9ed308c62bde56fe539a1334
+  P0_RESULTS_MAMBA2.json blob@HEAD=d35db76438801d54cb8b6fac7541371db8118b20 blob@46098e5=d35db76438801d54cb8b6fac7541371db8118b20
+  P0_CURVES.csv blob@HEAD=e913b3600ae5be0f4a30ac392d4b9512ab87ac39 blob@46098e5=e913b3600ae5be0f4a30ac392d4b9512ab87ac39
