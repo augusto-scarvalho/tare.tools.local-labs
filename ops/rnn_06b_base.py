@@ -33,7 +33,10 @@ REPO_ID = "AntonV/mamba2-1.3b-hf"
 REVISION = "703e19a43f397c70315244a3424d79456b54fb34"
 DEVICE = "cuda"
 DTYPE = torch.bfloat16
-PINNED_CHUNK_SIZE = 256
+# Train AMENDMENT 1: pinned SSD chunk-tiling = 32 (memory-feasible for the naive torch_forward
+# whose G_intermediate is O(chunk_size^2); cs=256 needs ~45 GiB/seq at MQAR lengths on 24 GiB).
+# Same value 06A2 is re-qualified at; not a backend change.
+PINNED_CHUNK_SIZE = int(os.environ.get("RNN_CHUNK_SIZE", "32"))
 AUTOBATCH_BUDGET = 1536
 MASTER_SEED = 20260813
 

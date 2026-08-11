@@ -36,7 +36,11 @@ REPO_ID = "AntonV/mamba2-1.3b-hf"
 REVISION = "703e19a43f397c70315244a3424d79456b54fb34"
 DEVICE = "cuda"
 DTYPE = torch.bfloat16
-PINNED_CHUNK_SIZE = 256
+# Pinned SSD chunk-tiling. Default 256 (native, original prereg). Train AMENDMENT 1 pins 32
+# for the operative train substrate (memory-feasible for downstream 06B). Set via env so the
+# original cs=256 qualification and the cs=32 re-qualification are both reproducible.
+PINNED_CHUNK_SIZE = int(os.environ.get("RNN_CHUNK_SIZE", "256"))
+OUT_SUFFIX = os.environ.get("RNN_OUT_SUFFIX", "")
 
 # Predeclared diagnostic tolerances (PRE_REGISTRATION section 4) — non-gating channel only.
 NE_MAXABS, NE_MEANABS = 2e-2, 2e-3
@@ -501,9 +505,9 @@ def main():
     results["total_runtime_s"] = time.time() - t_start
     results["peak_vram_bytes_total"] = torch.cuda.max_memory_allocated()
 
-    with open(os.path.join(OUTDIR, "CONTINUATION_RESULTS.json"), "w") as f:
+    with open(os.path.join(OUTDIR, f"CONTINUATION_RESULTS{OUT_SUFFIX}.json"), "w") as f:
         json.dump(results, f, indent=2, default=str)
-    with open(os.path.join(OUTDIR, "CONTINUATION_MATRIX.csv"), "w", newline="") as f:
+    with open(os.path.join(OUTDIR, f"CONTINUATION_MATRIX{OUT_SUFFIX}.csv"), "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["claim", "subcheck", "result", "max_abs_err", "mean_abs_err", "rel_err",
                     "argmax_agreement"])
