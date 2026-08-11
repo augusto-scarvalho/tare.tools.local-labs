@@ -1,0 +1,16 @@
+[CFG] CALIBRATION_RULE_IDENTITY=PASS band=[0.4, 0.8] seed_band=[0.2, 0.9]
+[P0] substrate sanity: reference parity + full-module checkpoint/restore + request isolation
+  la: parity=PASS lifecycle=NUMERICALLY_EQUIVALENT iso=PASS
+  dn: parity=PASS lifecycle=NUMERICALLY_EQUIVALENT iso=PASS
+  gdn: parity=PASS lifecycle=NUMERICALLY_EQUIVALENT iso=PASS
+[P1] calibration (BASE-only) — rule: iterate the predeclared grid cheap-first (seq_len asc [512, 768, 1024], then distractor asc ['low', 'med', 'high']); SELECT the first condition whose GDN seed-42 BASE holdout accuracy is within (0.4,0.8); QUALIFY it iff all 3 GDN seeds are within (0.2,0.9) and their mean is within (0.4,0.8); otherwise H3_TESTABILITY=BLOCKED with NO nearest-condition fallback
+  mb_L512_low: GDN seed42 BASE=0.9739 in_band=False
+  mb_L512_med: GDN seed42 BASE=0.9683 in_band=False
+  mb_L512_high: GDN seed42 BASE=0.0745 in_band=False
+  mb_L768_low: GDN seed42 BASE=0.9744 in_band=False
+  mb_L768_med: GDN seed42 BASE=0.8601 in_band=False
+  mb_L768_high: GDN seed42 BASE=0.0886 in_band=False
+  mb_L1024_low: GDN seed42 BASE=0.9194 in_band=False
+  mb_L1024_med: GDN seed42 BASE=0.073 in_band=False
+  mb_L1024_high: GDN seed42 BASE=0.0305 in_band=False
+[STOP] no condition satisfied the headroom rule -> H3_TESTABILITY=BLOCKED (no fallback)
