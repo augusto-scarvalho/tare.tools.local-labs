@@ -1,0 +1,401 @@
+{
+  "packet": "RNN-06A2-MAMBA-CONTINUATION",
+  "kind": "continuation_lifecycle_results",
+  "challenge_set": {
+    "path": "/mnt/c/projects/local-model-lifecycle/runs/rnn/RNN-06A2-MAMBA-CONTINUATION/CONTINUATION_CHALLENGES.json",
+    "recorded_sha256": "72fa7f4962bd42633bbc093f81579255977af93aadcd0e506f5c97c5b8b6b8e4",
+    "recomputed_sha256": "72fa7f4962bd42633bbc093f81579255977af93aadcd0e506f5c97c5b8b6b8e4",
+    "sha_match": true,
+    "generator_version": "rnn06a2_continuation_challenges_v1",
+    "master_seed": 20260812,
+    "disjoint_from_06A_exact_sequences": true
+  },
+  "executed_source_identity": {
+    "runner_file": "/mnt/c/projects/local-model-lifecycle/ops/rnn_06a2_continuation.py",
+    "runner_source_sha256": "f03acba5e47f481a5f3cc82bf1223f5c3bf6bffd6f328c1c2fdbbd8028120e4d",
+    "runner_git_blob": "90cd9fd995103ed16c541ea591b8ca104db1013f",
+    "runner_git_tracked_dirty": "",
+    "git_head": "5abc29b11b8953391892a766da42f51eba6ffcfe",
+    "git_branch": "master",
+    "modeling_mamba2_file": "/home/augus/rnn06_env/lib/python3.12/site-packages/transformers/models/mamba2/modeling_mamba2.py",
+    "modeling_mamba2_sha256": "83685d785c0df6578fefca8d5a2ed382d70e651ffc83c00b8f40b64807a04fdb",
+    "configuration_mamba2_file": "/home/augus/rnn06_env/lib/python3.12/site-packages/transformers/models/mamba2/configuration_mamba2.py",
+    "configuration_mamba2_sha256": "f9a3c2f5694b74b4a23ed7e23a6b2e20b2cc8a20532f65ab05091828fc9c4a1c",
+    "transformers_version": "4.48.3",
+    "torch_version": "2.6.0+cu124",
+    "torch_cuda": "12.4",
+    "cuda_available": true,
+    "gpu_name": "NVIDIA GeForce RTX 3090",
+    "repo_id": "AntonV/mamba2-1.3b-hf",
+    "revision": "703e19a43f397c70315244a3424d79456b54fb34",
+    "dtype": "torch.bfloat16",
+    "pinned_chunk_size": 256,
+    "mamba_ssm_present": false,
+    "causal_conv1d_present": false,
+    "is_fast_path_available": false,
+    "challenge_set_sha256": "72fa7f4962bd42633bbc093f81579255977af93aadcd0e506f5c97c5b8b6b8e4",
+    "protocol_files": {
+      "PRE_REGISTRATION.md": "fbe2443825cf21913e4560eb09dc1512675d77b5f4633ebc90092fe201ec2acf",
+      "CONTINUATION_CONTRACT.md": "6277d44ca16860003ea3ff065eb3dbe2038b2b488c88a95b7449afbf74649676"
+    }
+  },
+  "model_load_time_s": 2.232848644256592,
+  "config_hash_sha256": "41284e51df350a07f67f131666cabefd2b8a5ed9bafbf846c12dcdb31833c887",
+  "effective_chunk_size": [
+    256,
+    256
+  ],
+  "weight_fingerprint_before": {
+    "fingerprint_sha256": "9a0516782e770f8f788976a0e3081cfc409fe8dfe45f0526543972e11b24c22f",
+    "n_param_tensors": 434,
+    "total_elements": 1343757312
+  },
+  "state_inventory_measured": {
+    "conv_states": {
+      "shape": [
+        48,
+        1,
+        4352,
+        4
+      ],
+      "bytes": 1671168
+    },
+    "ssm_states": {
+      "shape": [
+        48,
+        1,
+        64,
+        64,
+        128
+      ],
+      "bytes": 50331648
+    },
+    "total_state_bytes_per_sequence": 52002816,
+    "component_count": 2,
+    "expected_total_bytes_bf16": 52002816,
+    "byte_accounting_ok": true
+  },
+  "claim_A_determinism": [
+    {
+      "seq_index": 0,
+      "logits": {
+        "class": "BIT_EXACT",
+        "bit_exact": true,
+        "max_abs_err": 0.0,
+        "mean_abs_err": 0.0,
+        "rel_err": 0.0,
+        "argmax_agreement": 1.0
+      },
+      "state_all_exact": true
+    },
+    {
+      "seq_index": 1,
+      "logits": {
+        "class": "BIT_EXACT",
+        "bit_exact": true,
+        "max_abs_err": 0.0,
+        "mean_abs_err": 0.0,
+        "rel_err": 0.0,
+        "argmax_agreement": 1.0
+      },
+      "state_all_exact": true
+    }
+  ],
+  "claim_B_checkpoint_frontier_restore": [
+    {
+      "seq_index": 0,
+      "boundary": 8,
+      "logits": {
+        "class": "BIT_EXACT",
+        "bit_exact": true,
+        "max_abs_err": 0.0,
+        "mean_abs_err": 0.0,
+        "rel_err": 0.0,
+        "argmax_agreement": 1.0
+      },
+      "tokens_identical": true,
+      "ref_tokens": [
+        253,
+        878,
+        281,
+        320,
+        247,
+        3558
+      ],
+      "cand_tokens": [
+        253,
+        878,
+        281,
+        320,
+        247,
+        3558
+      ]
+    },
+    {
+      "seq_index": 1,
+      "boundary": 8,
+      "logits": {
+        "class": "BIT_EXACT",
+        "bit_exact": true,
+        "max_abs_err": 0.0,
+        "mean_abs_err": 0.0,
+        "rel_err": 0.0,
+        "argmax_agreement": 1.0
+      },
+      "tokens_identical": true,
+      "ref_tokens": [
+        1107,
+        3622,
+        15,
+        187,
+        187,
+        510
+      ],
+      "cand_tokens": [
+        1107,
+        3622,
+        15,
+        187,
+        187,
+        510
+      ]
+    },
+    {
+      "seq_index": 2,
+      "boundary": 8,
+      "logits": {
+        "class": "BIT_EXACT",
+        "bit_exact": true,
+        "max_abs_err": 0.0,
+        "mean_abs_err": 0.0,
+        "rel_err": 0.0,
+        "argmax_agreement": 1.0
+      },
+      "tokens_identical": true,
+      "ref_tokens": [
+        187,
+        13618,
+        46876,
+        1658,
+        30140,
+        43131
+      ],
+      "cand_tokens": [
+        187,
+        13618,
+        46876,
+        1658,
+        30140,
+        43131
+      ]
+    }
+  ],
+  "claim_D_multiple_boundaries": [
+    {
+      "boundary": 4,
+      "logits": {
+        "class": "BIT_EXACT",
+        "bit_exact": true,
+        "max_abs_err": 0.0,
+        "mean_abs_err": 0.0,
+        "rel_err": 0.0,
+        "argmax_agreement": 1.0
+      },
+      "tokens_identical": true
+    },
+    {
+      "boundary": 8,
+      "logits": {
+        "class": "BIT_EXACT",
+        "bit_exact": true,
+        "max_abs_err": 0.0,
+        "mean_abs_err": 0.0,
+        "rel_err": 0.0,
+        "argmax_agreement": 1.0
+      },
+      "tokens_identical": true
+    },
+    {
+      "boundary": 12,
+      "logits": {
+        "class": "BIT_EXACT",
+        "bit_exact": true,
+        "max_abs_err": 0.0,
+        "mean_abs_err": 0.0,
+        "rel_err": 0.0,
+        "argmax_agreement": 1.0
+      },
+      "tokens_identical": true
+    }
+  ],
+  "claim_E_branch": {
+    "branch1_vs_independent": {
+      "class": "BIT_EXACT",
+      "bit_exact": true,
+      "max_abs_err": 0.0,
+      "mean_abs_err": 0.0,
+      "rel_err": 0.0,
+      "argmax_agreement": 1.0
+    },
+    "branch2_vs_independent": {
+      "class": "BIT_EXACT",
+      "bit_exact": true,
+      "max_abs_err": 0.0,
+      "mean_abs_err": 0.0,
+      "rel_err": 0.0,
+      "argmax_agreement": 1.0
+    },
+    "b2_after_b1_vs_b2_alone": {
+      "class": "BIT_EXACT",
+      "bit_exact": true,
+      "max_abs_err": 0.0,
+      "mean_abs_err": 0.0,
+      "rel_err": 0.0,
+      "argmax_agreement": 1.0
+    }
+  },
+  "claim_F_parent_immutable": {
+    "parent_snapshot_unchanged": true,
+    "hash_pre": "0122fec29b00cd41e4d1838f0d3d2fcf5d7c370dfc3d05ffa0fac10ab826f343",
+    "hash_post": "0122fec29b00cd41e4d1838f0d3d2fcf5d7c370dfc3d05ffa0fac10ab826f343"
+  },
+  "claim_G_isolation": {
+    "neighbor_invariance_logits": {
+      "class": "BIT_EXACT",
+      "bit_exact": true,
+      "max_abs_err": 0.0,
+      "mean_abs_err": 0.0,
+      "rel_err": 0.0,
+      "argmax_agreement": 1.0
+    },
+    "neighbor_invariance_state_exact": true,
+    "neighbor_invariance_continuation": {
+      "class": "BIT_EXACT",
+      "bit_exact": true,
+      "max_abs_err": 0.0,
+      "mean_abs_err": 0.0,
+      "rel_err": 0.0,
+      "argmax_agreement": 1.0
+    },
+    "diagnostic_P_alone_vs_in_batch": {
+      "class": "NOT_EQUIVALENT",
+      "bit_exact": false,
+      "max_abs_err": 1.0,
+      "mean_abs_err": 0.4846285283565521,
+      "rel_err": 0.017094017094017096,
+      "argmax_agreement": 1.0
+    }
+  },
+  "claim_H_reset": {
+    "reset_state_vs_fresh_exact": {
+      "conv_states": {
+        "exact_equal": true,
+        "shape": [
+          48,
+          1,
+          4352,
+          4
+        ],
+        "dtype": "torch.bfloat16"
+      },
+      "ssm_states": {
+        "exact_equal": true,
+        "shape": [
+          48,
+          1,
+          64,
+          64,
+          128
+        ],
+        "dtype": "torch.bfloat16"
+      },
+      "all_exact": true
+    },
+    "reset_is_zeros": true,
+    "prefill_after_reset_vs_fresh": {
+      "class": "BIT_EXACT",
+      "bit_exact": true,
+      "max_abs_err": 0.0,
+      "mean_abs_err": 0.0,
+      "rel_err": 0.0,
+      "argmax_agreement": 1.0
+    }
+  },
+  "claim_I_roundtrip": {
+    "roundtrip_exact": {
+      "conv_states": {
+        "exact_equal": true,
+        "shape": [
+          48,
+          1,
+          4352,
+          4
+        ],
+        "dtype": "torch.bfloat16"
+      },
+      "ssm_states": {
+        "exact_equal": true,
+        "shape": [
+          48,
+          1,
+          64,
+          64,
+          128
+        ],
+        "dtype": "torch.bfloat16"
+      },
+      "all_exact": true
+    },
+    "meta_preserved": true,
+    "state_bytes": 52002816,
+    "buffer_bytes": 52004248,
+    "byte_accounting_ok": true
+  },
+  "weights_immutable_pre_destroy": true,
+  "training_mode_off": true,
+  "peak_vram_bytes_pre_C": 9806683136,
+  "claim_C_destroy_restore": {
+    "continuation_after_destroy_restore_vs_in_memory": {
+      "class": "BIT_EXACT",
+      "bit_exact": true,
+      "max_abs_err": 0.0,
+      "mean_abs_err": 0.0,
+      "rel_err": 0.0,
+      "argmax_agreement": 1.0
+    },
+    "tokens_identical": true,
+    "frontier_from_snapshot_only": true,
+    "snapshot_disk_bytes": 52004460,
+    "snapshot_disk_sha256": "fac9770eb2f8d466a7e9609943991fb65d2f369f5f2d53b9fefd3ebcbed1be8c",
+    "reload_weights_match_original": true,
+    "latencies_s": {
+      "serialize": 1.4575705528259277,
+      "load": 0.5000967979431152,
+      "reload_model": 1.3695435523986816
+    }
+  },
+  "weight_fingerprint_after_reload": {
+    "fingerprint_sha256": "9a0516782e770f8f788976a0e3081cfc409fe8dfe45f0526543972e11b24c22f",
+    "n_param_tensors": 434,
+    "total_elements": 1343757312
+  },
+  "weights_immutable_across_reload": true,
+  "test_J_stochastic": "NOT_APPLICABLE_BY_CONTRACT",
+  "gate_checks": {
+    "A_ok": true,
+    "B_ok": true,
+    "C_ok": true,
+    "D_ok": true,
+    "E_ok": true,
+    "F_ok": true,
+    "G_ok": true,
+    "H_ok": true,
+    "I_ok": true,
+    "weights_immutable": true,
+    "full_module_state": true,
+    "challenge_sha_ok": true
+  },
+  "CONTINUATION_LIFECYCLE": "QUALIFIED",
+  "total_runtime_s": 31.737545013427734,
+  "peak_vram_bytes_total": 9806683136
+}
