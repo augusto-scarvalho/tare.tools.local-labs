@@ -1,0 +1,44 @@
+# RNN-06A-MAMBA closure git evidence — generated 2026-08-11T17:24:03-03:00
+
+## boundary
+before-closure HEAD: 2b19d06824dbefd5b91f578a4fee614020eb1212
+branch: master  upstream: NONE  pushed: NO
+closure commit: THIS commit (a commit cannot embed its own hash; exact hash is recorded in
+                .harness/handoff/HANDOFF-rnn-06a-mamba-final-closure.md after commit).
+
+## 06A chain (append-only; follows P0 closure 1b0cd2c)
+  2b19d06 tool(rnn): RNN-06A-MAMBA audit bundle builder
+  1ff0f56 evidence(rnn): RNN-06A-MAMBA git evidence (HEAD, artifact blobs, executed-source identity, P0 immutability)
+  ddef963 decision(rnn): RNN-06A-MAMBA FROZEN_BACKBONE_LIFECYCLE = NOT_QUALIFIED
+  7cc91f3 results(rnn): RNN-06A-MAMBA lifecycle qualification -> NOT_QUALIFIED (sole blocker = claim B)
+  8a02147 tool(rnn): RNN-06A-MAMBA lifecycle runner (identity-freezing; no outcomes)
+  2fd8b4e research(rnn): RNN-06A-MAMBA pre-registration + protocol (no outcomes)
+  1b0cd2c closure(rnn): RNN-06-P0 append-only provenance reconciliation (no rerun, no result change)
+
+## historical 06A + P0 artifact blobs @ before-closure HEAD (must be UNCHANGED)
+  PRE_REGISTRATION.md      50c8a41d72a1c2387859f4bbb8910f6694e5b50e
+  STATE_CONTRACT.json      aef130c20a5fcf5ec9d8b91c46760280a71b7ea3
+  MODEL_IDENTITY.json      2058561a2f1a1ca69269900e258f5e65603937dc
+  LIFECYCLE_RESULTS.json   d10527b6cbf1f5385251f7d05e39537b542b0966
+  LIFECYCLE_MATRIX.csv     26693353ad763f66f0dfc4720ddbaf484e2b68a2
+  LIFECYCLE_DECISION.md    ff2dd32de67b2ab6eaf7b54bcd2e3284d3b11e84
+  git_evidence.txt         3ab3d29245d617670f1471595d0c37aadfa3b42b
+  ops/lifecycle.py         c64c249499201971078e0283ea5af9a0eaba5a94
+  P0_RESULTS_MAMBA2.json   d35db76438801d54cb8b6fac7541371db8118b20
+  P0_RESULTS_DELTANET.json 54f1a161dbb9d2ee9ed308c62bde56fe539a1334
+  (expected: LIFECYCLE_RESULTS d10527b6, PRE_REG 50c8a41d, DECISION ff2dd32d, P0 d35db764/54f1a161 — MATCH)
+
+## closure artifacts (this commit, append-only)
+  runs/rnn/RNN-06A-MAMBA/AUDIT_RECONCILIATION.md
+  runs/rnn/RNN-06A-MAMBA/git_evidence_closure.txt
+  ops/rnn_06a_mamba_bundle_final.py
+
+## reconciliation summary (interpretation only; no measured change)
+  E_ORIGINAL_ALONE_VS_BATCH_CRITERION = NOT_MET_AS_BIT_EXACT
+  E_NEIGHBOR_INVARIANCE = PASS_BIT_EXACT
+  E_PREREGISTERED_GATE_CONFORMANCE = DEVIATION  (=> 'sole blocker = B' corrected)
+  CLAIM_B_ORIGINAL_GATE = FAIL (max_abs 0.625 > 0.5; threshold unchanged)
+  PREFILL_PADDING_OR_REDUCTION_ORDER_MECHANISM = PLAUSIBLE / NOT_CAUSALLY_PROVEN
+  COMPLETE_AUTOREGRESSIVE_GENERATION_CHECKPOINT = NOT_PROVEN_BY_06A
+  HISTORICAL_SNAPSHOT_ECONOMICS = REQUIRES_RECALCULATION_BEFORE_06C_06D (52,002,816 B/seq)
+  RNN-06A-MAMBA_STRICT_CONTRACT = NOT_QUALIFIED (permanent)
