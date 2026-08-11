@@ -94,6 +94,10 @@ class ExtConfig:
     margin: float = 0.03                   # OPERATOR_HEURISTIC effect band (NOT a measured noise floor)
     cache_K: tuple = (1, 2, 4, 8)
     recovery_margin: float = 0.02          # recovery must exceed harm by this to count as "meaningful"
+    # amendment hook: a pre-committed explicit cheap-first condition list REPLACING the seq_len x tier product
+    # (used only when the original coarse grid is BLOCKED by granularity; see AMENDMENT_*.md). Everything else
+    # -- the headroom rule, seeds, steps, generator, analyses -- is UNCHANGED.
+    grid_override_json: str = ""
 
     # ---- selection rule as a string, DERIVED from the constants (recorded==executed by construction) ----
     def select_rule(self):
@@ -105,7 +109,16 @@ class ExtConfig:
                 f"NO nearest-condition fallback")
 
     def grid(self):
-        """Predeclared, ordered candidate conditions (cheap-first)."""
+        """Predeclared, ordered candidate conditions (cheap-first). An amendment may pre-commit an explicit
+        list via grid_override_json (finer distractor granularity); the selection RULE is unchanged."""
+        if self.grid_override_json:
+            conds = json.loads(self.grid_override_json)
+            for c in conds:
+                c.setdefault("num_pairs", self.num_pairs)
+                c.setdefault("num_queries", self.num_queries)
+                c.setdefault("write_frac", self.write_frac)
+                c.setdefault("name", f"mb_L{c['seq_len']}_{c['distractor_tier']}")
+            return conds
         out = []
         for sl in self.seq_lens:
             for tier, dens in self.distractor_tiers:
@@ -978,8 +991,10 @@ if __name__ == "__main__":
     ap.add_argument("--outdir", default=None)
     ap.add_argument("--artifacts", default=None)
     ap.add_argument("--smoke", action="store_true")
+    ap.add_argument("--grid-json", default=None, metavar="FILE",
+                    help="pre-committed amendment: explicit cheap-first condition list replacing the grid")
     a = ap.parse_args()
-    cfg = ExtConfig()
+    cfg = ExtConfig(grid_override_json=open(a.grid_json).read()) if a.grid_json else ExtConfig()
     if a.preregister:
         pre, sc = write_preregistration(cfg, a.preregister)
         print(json.dumps(dict(wrote=a.preregister, CALIBRATION_RULE_IDENTITY=sc["CALIBRATION_RULE_IDENTITY"],
