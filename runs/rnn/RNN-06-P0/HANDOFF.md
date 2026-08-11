@@ -7,7 +7,7 @@
 - **BEFORE (session start) HEAD:** `7f04f48fa2bf266527d54f25ea00444da3255dde` (`research(rnn): RNN-06 reconciliation-1`).
 - **Packaging claim resolved:** the previous session's manifest claim `HEAD=7f04f48` was classified `PACKAGING_GIT_HEAD_CLAIM = UNVERIFIED` and then **VERIFIED against live git** — `7f04f48` exists, is current HEAD at session start, and descends from the RNN-06 packet commit `3216229` (`git merge-base --is-ancestor 3216229 7f04f48` → YES).
 - **Commit 1 (pre-run protocol, before any outcome-bearing GPU work):** `7d7feed` — `research(rnn): RNN-06-P0 pre-run protocol + scout (EXPLORATORY, no outcomes yet)`. Files: `ops/rnn_06_p0_mqar.py`, `ops/rnn_06_p0_curves.py`, `runs/rnn/RNN-06-P0/{P0_PROTOCOL.md,machine_config.json}`.
-- **Commit 2 (results):** `<RESULTS_COMMIT>` — adds identities, results JSON, curves, decision, this handoff, sweep logs, bundle script, append-only protocol execution-deviation note, and the `--impl`/`--autobatch`/OOM-resilience scout changes made during the run.
+- **Commit 2 (results):** `46098e5` — adds identities, results JSON, curves, decision, this handoff, sweep logs, bundle script, append-only protocol execution-deviation note, and the `--impl`/`--autobatch`/OOM-resilience scout changes made during the run. (This handoff's own final commit updates this hash + the ZIP SHA below.)
 - **Branch:** `master`, **no upstream, NOT pushed.** `git stash` empty.
 - **Historical evidence immutable:** no tracked file under `runs/rnn/RNN-04-memory-caching`, `RNN-05A-fixed-backbone`, `RNN-05B-delta-gdn`, `RNN-05B-EXT`, `RNN-05B-EXT2` is modified (verified: `git status --porcelain <dirs> | grep -v '^??'` → empty). The pre-existing untracked `git_evidence.txt`/`stdout.log`/adapter-dir helpers are unchanged.
 
