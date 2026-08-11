@@ -1,0 +1,33 @@
+PROTOCOL GATE-ORDERING EVIDENCE (RNN-05B-EXT audit reconciliation §1)
+Source: ops/rnn_05b_ext.py, function run() — historical behavior, UNCHANGED.
+
+Outcome-bearing MC/reader work (P2) executes for ALL modes/seeds at lines 655-705, and the
+3-seed stability gate that SETS H3_TESTABILITY (P1c) runs only afterward at lines 707-713.
+Therefore MC/reader outcomes were computed BEFORE the BLOCK decision.
+=> PROTOCOL_GATE_ORDERING = FAILED ; POST_STABILITY_GATE_MC_RESULTS = EXPLORATORY_NON_LOAD_BEARING.
+
+--- P2: frozen H3 (reader TRAINING + recovery/harm) — runs first ---
+653  # ---- P2 frozen H3: train BASE backbones, freeze, A/B/C + recovery/harm ----
+655  for mode in MODES:
+657      for si, seed in enumerate(seeds_by_mode[mode]):
+...
+670          base_h = evaluate(cfg, m, pools["hold"], mode, "single")
+672          pf_h   = evaluate(cfg, m, pools["hold"], mode, "moving_average")   # B: param-free MC
+673          # C: train ONLY w_u reader on frozen backbone
+676          rd_stat = train(cfg, m, pools["train"], cfg.steps_rd, mode, "grm", params=rparams, seed=seed, ...)
+678          rd_h    = evaluate(cfg, m, pools["hold"], mode, "grm")
+681          rec     = evaluate_paired(cfg, m, pools["hold"], mode, "grm", capture_attr=True)   # recovery/harm
+...
+705      # keep the first-seed frozen model of each mode in memory for P4/P6
+
+--- P1c: 3-seed GDN stability qualification (sets H3_TESTABILITY) — runs AFTER P2 ---
+707  # seed-band qualification on GDN (headroom rule confirmation)
+708  gdn_bases = [c["base_holdout"] for c in R["frozen"]["gdn"]]
+709  mean_gdn  = float(np.mean(gdn_bases))
+710  band_ok   = (cfg.band_lo <= mean_gdn <= cfg.band_hi) and all(cfg.seed_lo <= b <= cfg.seed_hi for b in gdn_bases)
+711  R["calibration"]["confirm"] = dict(gdn_seed_bases=gdn_bases, mean=round(mean_gdn, 4),
+712                                     seed_band_ok=band_ok,
+713                                     H3_TESTABILITY="QUALIFIED" if band_ok else "BLOCKED_BY_UNSTABLE_BASE")
+
+EXT2 HARD REQUIREMENT: all preregistered-seed BASE qualification must COMPLETE and be PERSISTED
+before any MC/reader outcome is computed (gate BEFORE outcome, not after).

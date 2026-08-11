@@ -1,0 +1,95 @@
+{
+  "packet": "RNN-05B-EXT-audit-reconciliation",
+  "date": "2026-08-11",
+  "head_verified": "d8b91d95151d04ec3470a357b3d0aabebb4dcfc6",
+  "scope": "interpretation / protocol-scope / experiment-design supersession ONLY. Historical RNN-05B-EXT raw evidence is immutable and unchanged: PRE_REGISTRATION.md, AMENDMENT_1.md, amend1_grid.json, rnn05bext_results.json (root + amend1/), rnn05bext_outcomes.json, rnn05bext_summary.csv, run.log. Where this note and a raw artifact disagree on interpretation, this note governs.",
+  "status": "RNN-05B-EXT = ACCEPTED_AS_BLOCKED_WITH_AUDIT_CLARIFICATIONS",
+  "audit_accepts": [
+    "original BASE-only grid evidence",
+    "Amendment 1 pre-committed before amended outcomes",
+    "seed42 selection of L512/d=0.50 under the amended rule",
+    "3-seed instability result",
+    "H3_TESTABILITY = BLOCKED_BY_UNSTABLE_BASE",
+    "QWEN_GDN_TRANSPLANT_GATE = DEFER",
+    "all frozen/reader numerical observations as real observations"
+  ],
+
+  "1_protocol_gate_ordering_defect": {
+    "defect": "The runner performs P2 (BASE + param-free MC + w_u reader TRAINING + reader eval + recovery/harm) for ALL modes/seeds BEFORE P1c computes the 3-seed GDN stability qualification that sets H3_TESTABILITY. Pre-registration required: select seed42 candidate -> evaluate GDN BASE on all preregistered seeds -> QUALIFY or BLOCK -> only if QUALIFIED run MC/reader outcome-bearing work.",
+    "control_flow_evidence": "ops/rnn_05b_ext.py run(): P2 loop lines 655-705 (reader train line 676: train(...,'grm',params=rparams...); recovery line 681: evaluate_paired(...,capture_attr=True)); stability gate lines 707-713 (band_ok -> H3_TESTABILITY QUALIFIED/BLOCKED_BY_UNSTABLE_BASE) executes AFTER the P2 loop. See source_controlflow_excerpt.txt.",
+    "PROTOCOL_GATE_ORDERING": "FAILED",
+    "H3_TESTABILITY": "BLOCKED_BY_UNSTABLE_BASE",
+    "POST_STABILITY_GATE_MC_RESULTS": "EXPLORATORY_NON_LOAD_BEARING",
+    "results_not_deleted": true,
+    "results_not_invalid_measurements": true,
+    "note": "The MC/reader recovery/harm numbers are post-stop exploratory observations, retained as real observations, not load-bearing evidence.",
+    "EXT2_hard_requirement": "All load-bearing BASE qualification (all preregistered seeds) must COMPLETE and be PERSISTED before any MC/reader outcome is computed. Do NOT alter historical runner behavior to pretend the original execution used another order."
+  },
+
+  "2_forgetting_vs_training_instability": {
+    "defect": "Calibration trains a NEW backbone independently for each challenge condition, so the observed retain/collapse cliff conflates recurrent forgetting, optimization difficulty, basin/seed sensitivity, and training stability.",
+    "retract": "no stable graded-forgetting regime exists for the GDN substrate",
+    "TRAIN_PER_CONDITION_STABILITY": "FAILED_UNDER_TESTED_INTERFERENCE_SWEEP",
+    "FIXED_BACKBONE_GRADED_FORGETTING": "NOT_TESTED",
+    "interpretation": "No stable intermediate-performance regime was found when INDEPENDENTLY TRAINING this toy DN/GDN family at each tested interference condition. The experiment does NOT establish that one already-trained stable GDN cannot exhibit graded forgetting as inference-time retention pressure increases."
+  },
+
+  "3_snapshot_ablation_scope_defect": {
+    "defect": "Ablation used proximal_idx=0 and irrelevant_idx=n_snap-1 (GLOBAL early-snapshot ablation, not per-target nearest-write). In the executed run random_idx=0 (== proximal_idx) for BOTH gdn and dn (n_snap=7), so the random same-count control is a duplicate of the early ablation and provides no independent control.",
+    "executed_values": {"gdn": {"proximal_idx": 0, "irrelevant_idx": 6, "random_idx": 0, "n_snap": 7},
+                        "dn": {"proximal_idx": 0, "irrelevant_idx": 6, "random_idx": 0, "n_snap": 7}},
+    "EARLY_SNAPSHOT_ABLATION_SIGNAL": "OBSERVED_DESCRIPTIVE",
+    "TARGET_PROXIMAL_SNAPSHOT_CAUSALITY": "NOT_QUALIFIED",
+    "RANDOM_ABLATION_CONTROL": "INVALID_DUPLICATE_OF_EARLY",
+    "HISTORICAL_SNAPSHOT_CAUSAL_SIGNAL": "INCONCLUSIVE / NOT_QUALIFIED",
+    "supersedes": "the historical outcomes label HISTORICAL_SNAPSHOT_CAUSAL_SIGNAL=SUPPORTED (raw JSON unchanged; this note governs interpretation).",
+    "EXT2_requirement": "deterministic random control that explicitly EXCLUDES the target/proximal and irrelevant control indices; preferably a per-target or write-region-aware proximal ablation."
+  },
+
+  "4_collapsed_backbone_wording": {
+    "retract": "a collapsed final state has no useful history to read",
+    "use": "NO_USEFUL_HISTORICAL_RECOVERY_EXTRACTED_BY_TESTED_READER (under the collapsed-backbone seeds)",
+    "note": "Historical information content itself was not independently proven absent; only that the tested w_u reader extracted no useful recovery."
+  },
+
+  "5_calibration_identity_scope": {
+    "fact": "CALIBRATION_RULE_IDENTITY checks only the numeric headroom/stability bounds, not complete identity of the Amendment-1 grid.",
+    "CALIBRATION_BAND_IDENTITY": "PASS",
+    "AMENDMENT_GRID_IDENTITY": "NOT_MACHINE_QUALIFIED_IN_HISTORICAL_RUN",
+    "auditable_because": "AMENDMENT_1.md + amend1_grid.json + executed result conditions exist and agree.",
+    "EXT2_requirement": "a stable challengeGridSha256 recorded IDENTICALLY in PRE_REGISTRATION, machine config, run metadata, and final result, and checked before outcomes."
+  },
+
+  "6_recovery_harm_reporting": {
+    "rule": "Expose denominators; do NOT treat a mean of per-seed rates as a pooled query-level rate.",
+    "per_seed_denominators": {
+      "la_s42": {"n_base_wrong": 9, "n_recovered": 1, "RECOVERY_RATE": 0.1111, "n_base_correct": 4087, "n_harmed": 3, "HARM_RATE": 0.0007},
+      "dn_s42": {"n_base_wrong": 2747, "n_recovered": 339, "RECOVERY_RATE": 0.1234, "n_base_correct": 1349, "n_harmed": 196, "HARM_RATE": 0.1453},
+      "dn_s43": {"n_base_wrong": 167, "n_recovered": 36, "RECOVERY_RATE": 0.2156, "n_base_correct": 3929, "n_harmed": 16, "HARM_RATE": 0.0041},
+      "dn_s44": {"n_base_wrong": 37, "n_recovered": 8, "RECOVERY_RATE": 0.2162, "n_base_correct": 4059, "n_harmed": 4, "HARM_RATE": 0.001},
+      "gdn_s42": {"n_base_wrong": 873, "n_recovered": 142, "RECOVERY_RATE": 0.1627, "n_base_correct": 3223, "n_harmed": 128, "HARM_RATE": 0.0397},
+      "gdn_s43": {"n_base_wrong": 3681, "n_recovered": 164, "RECOVERY_RATE": 0.0446, "n_base_correct": 415, "n_harmed": 112, "HARM_RATE": 0.2699},
+      "gdn_s44": {"n_base_wrong": 3726, "n_recovered": 159, "RECOVERY_RATE": 0.0427, "n_base_correct": 370, "n_harmed": 136, "HARM_RATE": 0.3676}
+    },
+    "note": "raw evaluate_paired already recorded n_base_wrong/n_base_correct and cell counts; these denominators were present in the raw results and are surfaced here."
+  },
+
+  "7_seed_screening_prohibited": {
+    "retract_recommendation": "seed-screening to only stable seeds (as an EXT2 qualification tactic)",
+    "SEED_SCREENING_FOR_QUALIFICATION": "PROHIBITED",
+    "rule": "Seeds for final evidence must be preregistered and ALL count. Seed screening may be used only for debugging/development and must not determine qualification membership. If a training recipe is changed to improve stability, PREREGISTER the recipe and rerun fixed/fresh seeds."
+  },
+
+  "8_next_experiment_design": {
+    "EXT2_direction": "TRAIN STABLE BACKBONE ONCE -> freeze exact weights -> vary memory pressure at INFERENCE ONLY -> calibrate BASE accuracy into the headroom band -> freeze challenge -> only then evaluate historical snapshots / reader.",
+    "strong_preference": "reuse the already-qualified stable RNN-05B DN/GDN backbones if model/task identity permits.",
+    "isolates": "retention/forgetting under ONE fixed representation from training instability across challenge conditions.",
+    "status": "EXT2 is the FINAL synthetic H3 attempt before deciding whether to PARK Memory Caching or design a real-Qwen packet. Do NOT start EXT2 now."
+  },
+
+  "RNN_05B_EXT_STATUS": "ACCEPTED_AS_BLOCKED_WITH_AUDIT_CLARIFICATIONS",
+  "H3_TESTABILITY": "BLOCKED_BY_UNSTABLE_BASE",
+  "POST_BLOCK_RESULTS": "EXPLORATORY_ONLY",
+  "QWEN_GDN_TRANSPLANT_GATE": "DEFER",
+  "next": "COMPACT SESSION, THEN RNN-05B-EXT2 FIXED-BACKBONE INFERENCE-STRESS"
+}

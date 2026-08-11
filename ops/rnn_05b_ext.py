@@ -34,6 +34,12 @@ Design discipline (see PRE_REGISTRATION.md, written BEFORE any outcome-bearing r
 Touches NOTHING shared/immutable: this is a new module that imports the qualified substrate/generator building
 blocks read-only. No Qwen, no llama.cpp/serving/deploy, no FLA, no push.
 
+GOVERNING INTERPRETATION: runs/rnn/RNN-05B-EXT/AUDIT_RECONCILIATION.md (+ rnn05bext_audit_reconciliation.json)
+supersede interpretation/protocol-scope. Key: PROTOCOL_GATE_ORDERING=FAILED (P2 MC/reader work runs before the
+P1c stability gate) -> post-block MC results are EXPLORATORY_NON_LOAD_BEARING; the interference cliff is
+TRAIN_PER_CONDITION_STABILITY=FAILED (FIXED_BACKBONE_GRADED_FORGETTING=NOT_TESTED); snapshot causal signal
+INCONCLUSIVE/NOT_QUALIFIED. Result stands: H3_TESTABILITY=BLOCKED_BY_UNSTABLE_BASE, Qwen gate DEFER.
+
 Usage:
   python rnn_05b_ext.py --preregister <dir>          # write PRE_REGISTRATION.md + JSON + selftests (no GPU)
   python rnn_05b_ext.py --selftest <json>            # memory-bound generator self-qualification (no GPU)
@@ -651,6 +657,12 @@ def run(cfg: ExtConfig, outdir, artifacts=None, smoke=False):
     snap()
 
     # ---- P2 frozen H3: train BASE backbones, freeze, A/B/C + recovery/harm ----
+    # AUDIT NOTE (RNN-05B-EXT audit reconciliation §1, AUDIT_RECONCILIATION.md): this P2 block runs the
+    # outcome-bearing MC/reader work BEFORE the 3-seed stability gate below (P1c, ~line 707) that sets
+    # H3_TESTABILITY -> PROTOCOL_GATE_ORDERING=FAILED; the recovery/harm numbers are therefore
+    # POST_STABILITY_GATE_MC_RESULTS=EXPLORATORY_NON_LOAD_BEARING. Behavior is left UNCHANGED (historical
+    # runner preserved). EXT2 HARD REQUIREMENT: complete + persist all preregistered-seed BASE qualification
+    # BEFORE computing any MC/reader outcome (gate strictly before outcome).
     seeds_by_mode = dict(gdn=list(cfg.gdn_seeds), dn=list(cfg.dn_seeds), la=list(cfg.la_seeds))
     for mode in MODES:
         R["frozen"][mode] = []
@@ -715,6 +727,11 @@ def run(cfg: ExtConfig, outdir, artifacts=None, smoke=False):
     snap()
 
     # ---- P3 snapshot ablation (small, global; early-write design -> proximal snapshot = early index) ----
+    # AUDIT NOTE (§3): this is a GLOBAL early-snapshot ablation (proximal_idx=0, irrelevant_idx=n_snap-1), and
+    # the random control drew random_idx=0 (== proximal) in the historical run -> RANDOM_ABLATION_CONTROL=
+    # INVALID_DUPLICATE_OF_EARLY, TARGET_PROXIMAL_SNAPSHOT_CAUSALITY=NOT_QUALIFIED, HISTORICAL_SNAPSHOT_CAUSAL_
+    # SIGNAL=INCONCLUSIVE/NOT_QUALIFIED. EXT2: deterministic random control excluding proximal+irrelevant, and
+    # a per-target/write-region-aware proximal ablation.
     log("[P3] snapshot ablation on GDN/DN (recovery vs dropping proximal/irrelevant/random snapshot)")
     for mode in ("gdn", "dn"):
         m = _reload_frozen(cfg, R["frozen"][mode][0]["checkpoint_path"], vocab)
