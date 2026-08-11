@@ -1,0 +1,18 @@
+=== RNN-06-P0 Mamba re-run v5 (transformers, chunk_size=32, n_eval=64, autobatch=1536 cap8) 2026-08-11T17:45:13Z ===
+Current Triton version 3.2.0 is below the recommended 3.3.0 version. Errors may occur and these issues will not be fixed. Please consider upgrading Triton.
+[MAMBA2] P=   4 len=   18 con_acc=0.953 fmt=0.641 uncon=0.609 chance=0.0039 (2.5s)
+[MAMBA2] P=   8 len=   34 con_acc=0.922 fmt=0.578 uncon=0.562 chance=0.0039 (4.1s)
+[MAMBA2] P=  16 len=   66 con_acc=0.781 fmt=0.453 uncon=0.422 chance=0.0039 (6.1s)
+[MAMBA2] P=  32 len=  130 con_acc=0.719 fmt=0.297 uncon=0.281 chance=0.0039 (10.3s)
+[MAMBA2] P=  64 len=  258 con_acc=0.516 fmt=0.125 uncon=0.125 chance=0.0039 (22.2s)
+[MAMBA2] P= 128 len=  514 con_acc=0.234 fmt=0.078 uncon=0.062 chance=0.0039 (38.1s)
+{
+  "tag": "MAMBA2",
+  "status": {
+    "MODEL_RUNNABLE": "YES",
+    "TASK_COMPETENT": "YES",
+    "low_dose_constrained_acc": 0.953125,
+    "P0_GRADED_BAND": "PLAUSIBLE"
+  }
+}
+=== mamba v5 end 2026-08-11T17:46:45Z ===

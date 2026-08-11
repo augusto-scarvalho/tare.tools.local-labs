@@ -210,29 +210,36 @@ def eval_dose(model, prompts, golds, value_id_set, device, batch_size):
     n_constrained_correct = 0
     n_unconstrained_correct = 0
     n_format_ok = 0
+    n_scored = 0
+    n_oom = 0
     for b in range(0, n, batch_size):
         chunk = prompts[b:b + batch_size]
         gold_chunk = golds[b:b + batch_size]
-        ids = torch.tensor(chunk, device=device, dtype=torch.long)  # equal length
-        out = model(ids)
-        logits = out.logits if hasattr(out, "logits") else out[0]
-        last = logits[:, -1, :].float()                             # [B, V]
-        # unconstrained
-        uncon = last.argmax(dim=-1)                                 # [B]
-        # constrained to value vocabulary
-        sub = last.index_select(1, value_ids)                       # [B, |Vvocab|]
-        con_local = sub.argmax(dim=-1)                              # [B]
-        con = value_ids[con_local]                                  # [B]
+        try:
+            ids = torch.tensor(chunk, device=device, dtype=torch.long)  # equal length
+            out = model(ids)
+            logits = out.logits if hasattr(out, "logits") else out[0]
+            last = logits[:, -1, :].float()                             # [B, V]
+            uncon = last.argmax(dim=-1)                                 # [B]
+            sub = last.index_select(1, value_ids)                       # [B, |Vvocab|]
+            con = value_ids[sub.argmax(dim=-1)]                         # [B]
+        except torch.cuda.OutOfMemoryError:
+            n_oom += len(chunk)
+            torch.cuda.empty_cache()
+            continue
         for j in range(len(chunk)):
             g = int(gold_chunk[j])
+            n_scored += 1
             if int(con[j]) == g:
                 n_constrained_correct += 1
             if int(uncon[j]) == g:
                 n_unconstrained_correct += 1
             if int(uncon[j]) in value_id_set:
                 n_format_ok += 1
+    n = max(n_scored, 1)
     return {
-        "n": n,
+        "n": n_scored,
+        "n_oom_skipped": n_oom,
         "constrained_acc": n_constrained_correct / n,
         "unconstrained_exact_acc": n_unconstrained_correct / n,
         "format_adherence": n_format_ok / n,
@@ -247,13 +254,17 @@ def eval_dose(model, prompts, golds, value_id_set, device, batch_size):
 # ----------------------------------------------------------------------------
 # model loading + identity
 # ----------------------------------------------------------------------------
-def load_model(model_id, revision, dtype, device, config_overrides=None):
-    # importing fla registers gated_deltanet / delta_net / gla / rwkv7 with
-    # AutoConfig/AutoModel; harmless (and skipped gracefully) for mamba2.
-    try:
-        import fla  # noqa: F401
-    except Exception:
-        pass
+def load_model(model_id, revision, dtype, device, config_overrides=None, impl="auto"):
+    # impl="auto"/"fla": import fla so it registers gated_deltanet/delta_net/gla/
+    #   rwkv7 with AutoConfig/AutoModel. NOTE fla also *overrides* mamba2 with its
+    #   own modeling whose torch_forward is O(batch*L^2) and OOMs on long/batched
+    #   prompts, so for mamba2 use impl="transformers" to keep the memory-safe
+    #   transformers-native Mamba2ForCausalLM.
+    if impl in ("auto", "fla"):
+        try:
+            import fla  # noqa: F401
+        except Exception:
+            pass
     from transformers import AutoModelForCausalLM, AutoTokenizer, AutoConfig
     tok = AutoTokenizer.from_pretrained(model_id, revision=revision, trust_remote_code=True)
     cfg = AutoConfig.from_pretrained(model_id, revision=revision, trust_remote_code=True)
@@ -265,10 +276,20 @@ def load_model(model_id, revision, dtype, device, config_overrides=None):
     for k, v in (config_overrides or {}).items():
         applied[k] = {"was": getattr(cfg, k, None), "now": v}
         setattr(cfg, k, v)
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id, revision=revision, config=cfg, trust_remote_code=True,
-        torch_dtype=dtype,
-    ).to(device).eval()
+    if impl == "transformers":
+        # fla auto-registers mamba2 via entry-points even without an explicit
+        # import, so AutoModel can silently pick fla's OOM-prone modeling. Use
+        # the concrete transformers-native class to guarantee the memory-safe
+        # implementation.
+        from transformers import Mamba2ForCausalLM
+        model = Mamba2ForCausalLM.from_pretrained(
+            model_id, revision=revision, config=cfg, torch_dtype=dtype,
+        ).to(device).eval()
+    else:
+        model = AutoModelForCausalLM.from_pretrained(
+            model_id, revision=revision, config=cfg, trust_remote_code=True,
+            torch_dtype=dtype,
+        ).to(device).eval()
     return model, tok, cfg, applied
 
 
@@ -352,10 +373,12 @@ def run_candidate(args, dtype, device):
     # -- load ---------------------------------------------------------------
     overrides = json.loads(args.config_overrides) if args.config_overrides else {}
     record["config"]["config_overrides_requested"] = overrides
+    record["config"]["impl"] = args.impl
+    record["config"]["autobatch_budget"] = args.autobatch_budget
     t0 = time.time()
     try:
         model, tok, cfg, applied = load_model(args.model_id, args.revision, dtype,
-                                              device, overrides)
+                                              device, overrides, impl=args.impl)
     except Exception as e:
         record["status"]["MODEL_RUNNABLE"] = "NO"
         record["status"]["P0_GRADED_BAND"] = "MODEL_NOT_RUNNABLE"
@@ -453,15 +476,26 @@ def run_candidate(args, dtype, device):
         prompts, golds = materialize_dose(spec, P, key_ids, value_ids, seps)
         per_dose_prompt_sha[str(P)] = sha256_of_obj(prompts)
         seq_len = len(prompts[0])
+        # seq-length-adaptive batch: some backends (transformers-native Mamba2
+        # naive path) allocate an O(batch*seq_len) states tensor, so cap
+        # batch*seq_len <= autobatch_budget to stay within VRAM while keeping
+        # short doses fast. Purely a throughput/memory knob; does not change
+        # per-example outputs (each example scored identically regardless of the
+        # batch it rode in).
+        if args.autobatch_budget > 0:
+            bs_dose = max(1, min(args.batch_size, args.autobatch_budget // seq_len))
+        else:
+            bs_dose = args.batch_size
         if torch.cuda.is_available():
             torch.cuda.reset_peak_memory_stats()
         td0 = time.time()
-        m = eval_dose(model, prompts, golds, value_id_set, device, args.batch_size)
+        m = eval_dose(model, prompts, golds, value_id_set, device, bs_dose)
         dt = time.time() - td0
         n_forward_examples += m["n"]
         if torch.cuda.is_available():
             peak_vram = max(peak_vram, torch.cuda.max_memory_allocated())
-        row = {"pairs": P, "seq_len_tokens": seq_len, "eval_seconds": round(dt, 2), **m}
+        row = {"pairs": P, "seq_len_tokens": seq_len, "batch_used": bs_dose,
+               "eval_seconds": round(dt, 2), **m}
         curves.append(row)
         print(f"[{tag}] P={P:4d} len={seq_len:5d} "
               f"con_acc={m['constrained_acc']:.3f} fmt={m['format_adherence']:.3f} "
@@ -553,6 +587,12 @@ def main():
     ap.add_argument("--dtype", default="bf16", choices=["bf16", "fp16", "fp32"])
     ap.add_argument("--config-overrides", default="",
                     help="JSON dict of AutoConfig attribute overrides (recorded in identity)")
+    ap.add_argument("--impl", default="auto", choices=["auto", "fla", "transformers"],
+                    help="auto/fla import fla (needed for delta_net/gdn); "
+                         "transformers avoids fla (use for mamba2 to dodge fla's OOM torch_forward)")
+    ap.add_argument("--autobatch-budget", type=int, default=0,
+                    help="if >0, per-dose batch = clamp(batch_size, budget//seq_len). "
+                         "Caps batch*seq_len for O(batch*L)-memory backends (mamba2 native).")
     args = ap.parse_args()
 
     torch.manual_seed(0)

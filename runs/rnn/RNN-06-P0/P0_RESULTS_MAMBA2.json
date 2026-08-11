@@ -1,0 +1,241 @@
+{
+  "packet": "RNN-06-P0",
+  "candidate_tag": "MAMBA2",
+  "model_id": "AntonV/mamba2-1.3b-hf",
+  "requested_revision": null,
+  "resolved_revision": "703e19a43f397c70315244a3424d79456b54fb34",
+  "status": {
+    "MODEL_RUNNABLE": "YES",
+    "TASK_COMPETENT": "YES",
+    "low_dose_constrained_acc": 0.953125,
+    "P0_GRADED_BAND": "PLAUSIBLE"
+  },
+  "env": {
+    "python": "3.12.3",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "torch": "2.6.0+cu124",
+    "cuda": "12.4",
+    "transformers": "4.48.3",
+    "fla": "0.5.2",
+    "flash_linear_attention": null,
+    "triton": "3.2.0",
+    "mamba_ssm": null,
+    "causal_conv1d": null,
+    "accelerate": "1.14.0",
+    "numpy": "2.5.2",
+    "huggingface_hub": "0.36.2",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "gpu_total_gb": 25.77
+  },
+  "config": {
+    "dose_ladder_pairs": [
+      4,
+      8,
+      16,
+      32,
+      64,
+      128
+    ],
+    "n_eval": 64,
+    "master_seed": 20260811,
+    "pool_size": 256,
+    "p_min": 4,
+    "p_max": 128,
+    "dtype": "torch.bfloat16",
+    "batch_size": 8,
+    "competence_tau_hi": 0.75,
+    "low_dose": 4,
+    "config_overrides_requested": {
+      "chunk_size": 32
+    },
+    "impl": "transformers",
+    "autobatch_budget": 1536
+  },
+  "notes": [],
+  "load_seconds": 1.68,
+  "config_overrides_applied": {
+    "chunk_size": {
+      "was": 256,
+      "now": 32
+    }
+  },
+  "n_params": 1343757312,
+  "file_hashes": {
+    "config.json": {
+      "size": 757,
+      "sha256": "1b7bd1a3f505e01ecaa071cd72509061901ef90347ac8bf0c11be85e3d944c50"
+    },
+    "tokenizer_config.json": {
+      "size": 4980,
+      "sha256": "4592630aed015b2622d77c0903954cef70870dba56925dc053942125df34b0ad"
+    },
+    "tokenizer.json": {
+      "size": 3564402,
+      "sha256": "1175771943b5c04a7b8334ecd980acce4e3b7494a298f27738a76b96b3708a3b"
+    },
+    "special_tokens_map.json": {
+      "size": 587,
+      "sha256": "aff38493227d813e29fcf8406e8e90062f1f031aa47d589325e9c31d89ac7cc3"
+    }
+  },
+  "tokenizer_identity": {
+    "name_or_path": "AntonV/mamba2-1.3b-hf",
+    "vocab_size": 50254,
+    "class": "GPTNeoXTokenizerFast"
+  },
+  "pools": {
+    "n_key_ids": 256,
+    "n_value_ids": 256,
+    "eq_id": 30,
+    "nl_id": 187,
+    "eq_str": "=",
+    "sample_keys": [
+      " Bool",
+      "with",
+      "know",
+      "Smith",
+      "ytic",
+      "skb",
+      " For",
+      "ATION"
+    ],
+    "sample_values": [
+      "955",
+      "028",
+      "224",
+      " 1935",
+      "334",
+      " 309",
+      " 402",
+      "082"
+    ],
+    "value_ids_sha256": "6fd6a2605635acac6a882ad8423b236d81ab314150aca86f59229c1b909e9f25",
+    "key_ids_sha256": "f35ee5bdf6d8b15b65a95d9b77f8e8a65d112d7f7cc5af3662219b0701fc84fe",
+    "value_kind": "numeric_2to4_digit_single_token",
+    "n_numeric_single_token": 1992,
+    "n_word_single_token": 40750,
+    "n_alnum_single_token": 45206
+  },
+  "calibrationSetSha256": "779fb37af14eea0e36b25b0407f5aa32fc23dc84b8add51a2df4ee0ad88c45f3",
+  "curves": [
+    {
+      "pairs": 4,
+      "seq_len_tokens": 18,
+      "batch_used": 8,
+      "eval_seconds": 2.49,
+      "n": 64,
+      "n_oom_skipped": 0,
+      "constrained_acc": 0.953125,
+      "unconstrained_exact_acc": 0.609375,
+      "format_adherence": 0.640625,
+      "n_constrained_correct": 61,
+      "n_unconstrained_correct": 39,
+      "n_format_ok": 41,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    },
+    {
+      "pairs": 8,
+      "seq_len_tokens": 34,
+      "batch_used": 8,
+      "eval_seconds": 4.12,
+      "n": 64,
+      "n_oom_skipped": 0,
+      "constrained_acc": 0.921875,
+      "unconstrained_exact_acc": 0.5625,
+      "format_adherence": 0.578125,
+      "n_constrained_correct": 59,
+      "n_unconstrained_correct": 36,
+      "n_format_ok": 37,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    },
+    {
+      "pairs": 16,
+      "seq_len_tokens": 66,
+      "batch_used": 8,
+      "eval_seconds": 6.12,
+      "n": 64,
+      "n_oom_skipped": 0,
+      "constrained_acc": 0.78125,
+      "unconstrained_exact_acc": 0.421875,
+      "format_adherence": 0.453125,
+      "n_constrained_correct": 50,
+      "n_unconstrained_correct": 27,
+      "n_format_ok": 29,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    },
+    {
+      "pairs": 32,
+      "seq_len_tokens": 130,
+      "batch_used": 8,
+      "eval_seconds": 10.27,
+      "n": 64,
+      "n_oom_skipped": 0,
+      "constrained_acc": 0.71875,
+      "unconstrained_exact_acc": 0.28125,
+      "format_adherence": 0.296875,
+      "n_constrained_correct": 46,
+      "n_unconstrained_correct": 18,
+      "n_format_ok": 19,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    },
+    {
+      "pairs": 64,
+      "seq_len_tokens": 258,
+      "batch_used": 5,
+      "eval_seconds": 22.18,
+      "n": 64,
+      "n_oom_skipped": 0,
+      "constrained_acc": 0.515625,
+      "unconstrained_exact_acc": 0.125,
+      "format_adherence": 0.125,
+      "n_constrained_correct": 33,
+      "n_unconstrained_correct": 8,
+      "n_format_ok": 8,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    },
+    {
+      "pairs": 128,
+      "seq_len_tokens": 514,
+      "batch_used": 2,
+      "eval_seconds": 38.14,
+      "n": 64,
+      "n_oom_skipped": 0,
+      "constrained_acc": 0.234375,
+      "unconstrained_exact_acc": 0.0625,
+      "format_adherence": 0.078125,
+      "n_constrained_correct": 15,
+      "n_unconstrained_correct": 4,
+      "n_format_ok": 5,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    }
+  ],
+  "per_dose_prompt_sha256": {
+    "4": "494eb6262e4d9cb1188df3d4f30fc2cfd9a16bab6e4295643d1dbd0b96eb1273",
+    "8": "a2fadabeaf57262b8e9e9aa9c8e24868eccfa16fb0d1e4bd269b3b24dbdd59a7",
+    "16": "49350c262c1fb1d6bc911b318dc9a44926a76eb52a05ad85156b4c582f0f26ac",
+    "32": "08d7b57af51c4891958d554be6aed4cdb45ce212544f87fe4c11976565997a65",
+    "64": "561e5bad18625ccb7f3bfcbcffd92fa3da3f5e32aab059bd5afd2f943db1b3ed",
+    "128": "576e945106b4e2b9afd6edc04665f143271ef733a9ffa57083a25a166075e92a"
+  },
+  "materialized_sweep_sha256": "b55c83d837c9f2a985d2c654b56def70f0288cc6d37730b009926555e9857fda",
+  "peak_vram_gb": 8.526,
+  "n_forward_examples": 384,
+  "total_seconds": 90.12,
+  "band_analysis": {
+    "low_dose_acc": 0.953125,
+    "min_acc": 0.234375,
+    "min_acc_at_pairs": 128,
+    "monotone_nonincreasing": true,
+    "n_mid_band_doses": 2,
+    "tau_hi": 0.75,
+    "tau_lo": 0.45,
+    "verdict": "PLAUSIBLE",
+    "reason": "2 interior dose(s) in (0.45,0.75); competent-high 0.953 -> material loss 0.234"
+  }
+}

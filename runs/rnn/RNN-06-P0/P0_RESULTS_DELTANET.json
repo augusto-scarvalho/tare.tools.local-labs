@@ -1,0 +1,224 @@
+{
+  "packet": "RNN-06-P0",
+  "candidate_tag": "DELTANET",
+  "model_id": "fla-hub/delta_net-1.3B-100B",
+  "requested_revision": null,
+  "resolved_revision": "b4dcbbafd4fde802717bdec3008d4aba9cb3a1f8",
+  "status": {
+    "MODEL_RUNNABLE": "YES",
+    "TASK_COMPETENT": "NO",
+    "low_dose_constrained_acc": 0.73,
+    "P0_GRADED_BAND": "NOT_FOUND_WITHIN_BUDGET"
+  },
+  "env": {
+    "python": "3.12.3",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "torch": "2.6.0+cu124",
+    "cuda": "12.4",
+    "transformers": "4.48.3",
+    "fla": "0.5.2",
+    "flash_linear_attention": null,
+    "triton": "3.2.0",
+    "mamba_ssm": null,
+    "causal_conv1d": null,
+    "accelerate": "1.14.0",
+    "numpy": "2.5.2",
+    "huggingface_hub": "0.36.2",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "gpu_total_gb": 25.77
+  },
+  "config": {
+    "dose_ladder_pairs": [
+      4,
+      8,
+      16,
+      32,
+      64,
+      128
+    ],
+    "n_eval": 200,
+    "master_seed": 20260811,
+    "pool_size": 256,
+    "p_min": 4,
+    "p_max": 128,
+    "dtype": "torch.bfloat16",
+    "batch_size": 50,
+    "competence_tau_hi": 0.75,
+    "low_dose": 4,
+    "config_overrides_requested": {}
+  },
+  "notes": [],
+  "load_seconds": 2.36,
+  "config_overrides_applied": {},
+  "n_params": 1365677056,
+  "file_hashes": {
+    "config.json": {
+      "size": 850,
+      "sha256": "506e45ed5e44aad13566ddd797dc16367bd00b30342697748e62e0fc6f57cff6"
+    },
+    "tokenizer_config.json": {
+      "size": 998,
+      "sha256": "b716066bcb2ede0a1057f3c36f9d2c07d64190d8fd3d92a660424a80672b2834"
+    },
+    "tokenizer.json": {
+      "size": 3505608,
+      "sha256": "835cf54bb933752267652500a9243a9002107bbb4501b99f8d2f46ccfdad2567"
+    },
+    "generation_config.json": {
+      "size": 132,
+      "sha256": "3fd5a7eaf3b934a6723ef281bf136f8c8c34a3e0b795f5ea40d5244c6fdb07f6"
+    },
+    "special_tokens_map.json": {
+      "size": 551,
+      "sha256": "82d96d7a9e6ced037f12394b7ea6a5b02e6ca87e0d11edaa8d60d9be857ce7db"
+    }
+  },
+  "tokenizer_identity": {
+    "name_or_path": "fla-hub/delta_net-1.3B-100B",
+    "vocab_size": 32000,
+    "class": "LlamaTokenizerFast"
+  },
+  "pools": {
+    "n_key_ids": 256,
+    "n_value_ids": 256,
+    "eq_id": 327,
+    "nl_id": 13,
+    "eq_str": "=",
+    "sample_keys": [
+      "vous",
+      "cursor",
+      "cha",
+      "www",
+      "winter",
+      "advent",
+      "toile",
+      "launched"
+    ],
+    "sample_values": [
+      "Either",
+      "discovery",
+      "reflect",
+      "wa",
+      "erhielt",
+      "Layout",
+      "Va",
+      "measurement"
+    ],
+    "value_ids_sha256": "cde1effbae715e90faac21939ee321f1c94e98bd1b0f78c1c8234f59c522064c",
+    "key_ids_sha256": "e8b2939cf01fb253ad4274898b03fd4701324963cd2bc0f68810034b7020163b",
+    "value_kind": "alphanumeric_single_token_fallback (few multi-digit single-token numbers: only 0)",
+    "n_numeric_single_token": 0,
+    "n_word_single_token": 13571,
+    "n_alnum_single_token": 14340
+  },
+  "calibrationSetSha256": "25ef820e5a8085228a238e44526e72317ee85c2960f45d9557071d535399e46f",
+  "curves": [
+    {
+      "pairs": 4,
+      "seq_len_tokens": 18,
+      "eval_seconds": 13.29,
+      "n": 200,
+      "constrained_acc": 0.73,
+      "unconstrained_exact_acc": 0.58,
+      "format_adherence": 0.725,
+      "n_constrained_correct": 146,
+      "n_unconstrained_correct": 116,
+      "n_format_ok": 145,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    },
+    {
+      "pairs": 8,
+      "seq_len_tokens": 34,
+      "eval_seconds": 4.84,
+      "n": 200,
+      "constrained_acc": 0.7,
+      "unconstrained_exact_acc": 0.54,
+      "format_adherence": 0.69,
+      "n_constrained_correct": 140,
+      "n_unconstrained_correct": 108,
+      "n_format_ok": 138,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    },
+    {
+      "pairs": 16,
+      "seq_len_tokens": 66,
+      "eval_seconds": 13.87,
+      "n": 200,
+      "constrained_acc": 0.76,
+      "unconstrained_exact_acc": 0.485,
+      "format_adherence": 0.55,
+      "n_constrained_correct": 152,
+      "n_unconstrained_correct": 97,
+      "n_format_ok": 110,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    },
+    {
+      "pairs": 32,
+      "seq_len_tokens": 130,
+      "eval_seconds": 12.65,
+      "n": 200,
+      "constrained_acc": 0.755,
+      "unconstrained_exact_acc": 0.43,
+      "format_adherence": 0.465,
+      "n_constrained_correct": 151,
+      "n_unconstrained_correct": 86,
+      "n_format_ok": 93,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    },
+    {
+      "pairs": 64,
+      "seq_len_tokens": 258,
+      "eval_seconds": 14.05,
+      "n": 200,
+      "constrained_acc": 0.68,
+      "unconstrained_exact_acc": 0.355,
+      "format_adherence": 0.365,
+      "n_constrained_correct": 136,
+      "n_unconstrained_correct": 71,
+      "n_format_ok": 73,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    },
+    {
+      "pairs": 128,
+      "seq_len_tokens": 514,
+      "eval_seconds": 16.45,
+      "n": 200,
+      "constrained_acc": 0.53,
+      "unconstrained_exact_acc": 0.2,
+      "format_adherence": 0.22,
+      "n_constrained_correct": 106,
+      "n_unconstrained_correct": 40,
+      "n_format_ok": 44,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    }
+  ],
+  "per_dose_prompt_sha256": {
+    "4": "bf1f13893b4bbbdc22302d139d5aedaa93ff8f01f966e8e595c17f6cb358b93f",
+    "8": "3a7917c3ae9f4193297c3be37f951179de842a14c95d27bf4744354d99db2343",
+    "16": "a1f2e2c9fe90be0ee47d40c29b7acbf8257eeb23daf292cb76396d862a4c103c",
+    "32": "f0beb50e383005a8188062ec6eaadc1b909c7117fc1d35e52e9ab45ba78390bf",
+    "64": "4456fc7424688c5de128769fb9247889496de7dfc05fc7ade2cbf3b1f6628d23",
+    "128": "806f407a985b786d134f1879f6fb3f04c1fa79eeb8a552d28b207ded28d101e3"
+  },
+  "materialized_sweep_sha256": "59944f0fd7b62d18c43fe8110296cccccc90dc67e0b4e4d2e9b4a8a19bb7c081",
+  "peak_vram_gb": 8.778,
+  "n_forward_examples": 1200,
+  "total_seconds": 82.28,
+  "band_analysis": {
+    "low_dose_acc": 0.73,
+    "min_acc": 0.53,
+    "min_acc_at_pairs": 128,
+    "monotone_nonincreasing": false,
+    "n_mid_band_doses": 4,
+    "tau_hi": 0.75,
+    "tau_lo": 0.45,
+    "verdict": "NOT_FOUND_WITHIN_BUDGET",
+    "reason": "TASK_NOT_COMPETENT at low pressure (see status)"
+  }
+}

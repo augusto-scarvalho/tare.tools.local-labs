@@ -1,0 +1,132 @@
+=== RNN-06-P0 sweep begin 2026-08-11T17:26:44Z ===
+### Candidate A: DeltaNet-1.3B ###
+Current Triton version 3.2.0 is below the recommended 3.3.0 version. Errors may occur and these issues will not be fixed. Please consider upgrading Triton.
+[DELTANET] P=   4 len=   18 con_acc=0.730 fmt=0.725 uncon=0.580 chance=0.0039 (13.3s)
+[DELTANET] P=   8 len=   34 con_acc=0.700 fmt=0.690 uncon=0.540 chance=0.0039 (4.8s)
+[DELTANET] P=  16 len=   66 con_acc=0.760 fmt=0.550 uncon=0.485 chance=0.0039 (13.9s)
+[DELTANET] P=  32 len=  130 con_acc=0.755 fmt=0.465 uncon=0.430 chance=0.0039 (12.6s)
+[DELTANET] P=  64 len=  258 con_acc=0.680 fmt=0.365 uncon=0.355 chance=0.0039 (14.1s)
+[DELTANET] P= 128 len=  514 con_acc=0.530 fmt=0.220 uncon=0.200 chance=0.0039 (16.5s)
+{
+  "tag": "DELTANET",
+  "status": {
+    "MODEL_RUNNABLE": "YES",
+    "TASK_COMPETENT": "NO",
+    "low_dose_constrained_acc": 0.73,
+    "P0_GRADED_BAND": "NOT_FOUND_WITHIN_BUDGET"
+  }
+}
+### Candidate B: Mamba-2-1.3B ###
+Current Triton version 3.2.0 is below the recommended 3.3.0 version. Errors may occur and these issues will not be fixed. Please consider upgrading Triton.
+The fast path is not available because one of `(selective_state_update)` is None. Falling back to the naive implementation. To install follow https://github.com/state-spaces/mamba/#installation
+The CUDA backend is not available because `causal_conv1d` is None. Falling back to the Triton backend. To install follow https://github.com/Dao-AILab/causal-conv1d
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Mamba2 does not recommend using Triton's conv1d backend, as it is untested and may contain bugs.
+Traceback (most recent call last):
+  File "/mnt/c/projects/local-model-lifecycle/ops/rnn_06_p0_mqar.py", line 568, in <module>
+    main()
+  File "/mnt/c/projects/local-model-lifecycle/ops/rnn_06_p0_mqar.py", line 562, in main
+    rec = run_candidate(args, dtype, device)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/projects/local-model-lifecycle/ops/rnn_06_p0_mqar.py", line 459, in run_candidate
+    m = eval_dose(model, prompts, golds, value_id_set, device, args.batch_size)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/rnn06_env/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/projects/local-model-lifecycle/ops/rnn_06_p0_mqar.py", line 217, in eval_dose
+    out = model(ids)
+          ^^^^^^^^^^
+  File "/home/augus/rnn06_env/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/rnn06_env/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/rnn06_env/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 165, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/rnn06_env/lib/python3.12/site-packages/fla/models/mamba2/modeling_mamba2.py", line 374, in forward
+    outputs = self.backbone(
+              ^^^^^^^^^^^^^^
+  File "/home/augus/rnn06_env/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/rnn06_env/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/rnn06_env/lib/python3.12/site-packages/fla/models/mamba2/modeling_mamba2.py", line 305, in forward
+    hidden_states, attentions, past_key_values = mixer_block(
+                                                 ^^^^^^^^^^^^
+  File "/home/augus/rnn06_env/lib/python3.12/site-packages/fla/models/modeling_layers.py", line 76, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/rnn06_env/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/rnn06_env/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/rnn06_env/lib/python3.12/site-packages/fla/models/mamba2/modeling_mamba2.py", line 120, in forward
+    hidden_states, attentions, past_key_values = self.mixer(
+                                                 ^^^^^^^^^^^
+  File "/home/augus/rnn06_env/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/rnn06_env/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/rnn06_env/lib/python3.12/site-packages/fla/layers/mamba2.py", line 689, in forward
+    output, conv_state, ssm_state = self.torch_forward(hidden_states, last_state, use_cache, attention_mask)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/rnn06_env/lib/python3.12/site-packages/fla/layers/mamba2.py", line 617, in torch_forward
+    G_intermediate = C[:, :, :, None, :, :] * B[:, :, None, :, :, :]
+                     ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 100.00 GiB. GPU 0 has a total capacity of 24.00 GiB of which 17.20 GiB is free. Including non-PyTorch memory, this process has 17179869184.00 GiB memory in use. Of the allocated memory 4.54 GiB is allocated by PyTorch, and 282.44 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+=== sweep end 2026-08-11T17:29:09Z ===

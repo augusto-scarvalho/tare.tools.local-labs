@@ -83,7 +83,15 @@ Before interpreting any forgetting: at the **lowest** pressure dose the frozen m
 - Coarse-to-fine rule (§14 of the packet): run coarse; if a transition appears between two rungs, run **one** bounded finer sweep around it; then stop. Ladder extension (e.g. beyond 128 if flat-high) is permitted **only** as a recorded amendment within the hard sub-GPU-hour-per-candidate budget.
 
 ### Amendment log (append-only; original ladder above is never deleted)
-- *(none yet — populated during the scout with: original ladder, observed inadequacy, new ladder, amendment order.)*
+- **Pressure ladder: NOT amended.** Both candidates ran the exact pre-registered ladder `{4,8,16,32,64,128}`. No finer/extended sweep was needed (DeltaNet flat/marginal → NOT_FOUND without refinement; Mamba-2 already showed a clean graded band on the coarse ladder → PLAUSIBLE). No opportunistic ladder expansion occurred.
+
+### Execution deviations — backend accommodations (append-only; recorded 2026-08-11, post-run)
+These are execution-substrate accommodations, NOT pressure-ladder or task-semantics changes. All are recorded in the per-candidate `P0_RESULTS_*.json` / `MODEL_IDENTITY_*.json`:
+1. **Mamba-2 `n_eval` 200 → 64.** The kernel-free transformers-native Mamba2 naive path costs ~4 s/forward (no `mamba_ssm`/`causal_conv1d`); 200×6 exceeded the sub-GPU-hour scout budget. Reduced to 64 (SE≈0.06, adequate to distinguish graded vs flat). The 64 examples are the **nested prefix** of the same deterministic generation (example `i` is seeded by `(master_seed,0x5EED,i)` independent of `n_eval`), so they are a subset of DeltaNet's 200 — not a different task. Consequence: the two candidates' `calibrationSetSha256` differ only in example count (DeltaNet `25ef820e…`, Mamba `779fb37a…`); the saved `calibration_examples.json` is the 200-example superset.
+2. **Mamba-2 `chunk_size` 256 → 32** (`--config-overrides`). A **mathematically-equivalent** chunk-tiling knob for the Mamba-2 chunked scan; needed to fit the naive path's O(chunk²) diagonal tensor in 24 GB. Verified output-identical (sanity `apple=`→`273` at both 256 and 32). Recorded in `config_overrides_applied`.
+3. **Seq-length-adaptive batch** (`--autobatch-budget 1536`, cap 8): per-dose `batch = clamp(cap, budget // seq_len)`; a throughput/memory knob only — each example is scored identically regardless of the batch it rides in. Per-dose `batch_used` recorded.
+4. **Backend split:** DeltaNet via fla (Triton kernels; needs `import fla`); Mamba-2 via `transformers.Mamba2ForCausalLM` (`--impl transformers`) because fla auto-registers an OOM-prone `mamba2` `torch_forward`. Recorded in each candidate's `env`/`config.impl`.
+5. **GDN (`linear-moe-hub`) not run** — MODEL_NOT_RUNNABLE (fused-MLP vs fla 0.5.2), see "Candidate substrate resolution" above; deferred to RNN-06A.
 
 ## 8. Identity, determinism, contamination boundary
 
