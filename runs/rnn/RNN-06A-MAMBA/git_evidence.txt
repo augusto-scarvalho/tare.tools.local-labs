@@ -1,0 +1,44 @@
+# RNN-06A-MAMBA git evidence — generated 2026-08-11T17:21:55-03:00
+
+## branch / upstream
+branch: master
+upstream: NONE
+pushed: NO
+
+## 06A commit chain (append-only on master; follows P0 closure 1b0cd2c)
+  ddef963 decision(rnn): RNN-06A-MAMBA FROZEN_BACKBONE_LIFECYCLE = NOT_QUALIFIED
+  7cc91f3 results(rnn): RNN-06A-MAMBA lifecycle qualification -> NOT_QUALIFIED (sole blocker = claim B)
+  8a02147 tool(rnn): RNN-06A-MAMBA lifecycle runner (identity-freezing; no outcomes)
+  2fd8b4e research(rnn): RNN-06A-MAMBA pre-registration + protocol (no outcomes)
+  1b0cd2c closure(rnn): RNN-06-P0 append-only provenance reconciliation (no rerun, no result change)
+  2607c99 docs(rnn): RNN-06-P0 handoff — fill results-commit hash
+
+## HEAD at evidence generation (before git_evidence.txt commit)
+ddef963d2730204b3fa0dca444fc0a4295a9de0a
+
+## 06A tracked artifact blobs @ HEAD
+  PRE_REGISTRATION.md        50c8a41d72a1c2387859f4bbb8910f6694e5b50e
+  STATE_CONTRACT.json        aef130c20a5fcf5ec9d8b91c46760280a71b7ea3
+  machine_config.json        98d0b6acfbde348e297d0c79cb2da0de9620af1f
+  MODEL_IDENTITY.json        2058561a2f1a1ca69269900e258f5e65603937dc
+  source_excerpts.md         8f9f8943aebae8de0158eb5a0616a7032ccea4d0
+  LIFECYCLE_RESULTS.json     d10527b6cbf1f5385251f7d05e39537b542b0966
+  LIFECYCLE_MATRIX.csv       26693353ad763f66f0dfc4720ddbaf484e2b68a2
+  LIFECYCLE_DECISION.md      ff2dd32de67b2ab6eaf7b54bcd2e3284d3b11e84
+  stdout_lifecycle.log       6ae86c9b7400fd7e4fb6e0c2a00f5024c0a198de
+  ops/rnn_06a_mamba_lifecycle.py c64c249499201971078e0283ea5af9a0eaba5a94
+
+## executed-source identity (self-recorded in LIFECYCLE_RESULTS.json) — P0 NOT_PROVEN repaired
+  runner_git_blob (recorded==committed): c64c249499201971078e0283ea5af9a0eaba5a94  dirty: (empty)
+  runner_source_sha256: 362120138c9ae890a210a17a9f340dce6dac17fb5bb5710468d66661d9327df6
+  modeling_mamba2.py sha256: 83685d785c0df6578fefca8d5a2ed382d70e651ffc83c00b8f40b64807a04fdb
+  config_hash sha256: 41284e51df350a07f67f131666cabefd2b8a5ed9bafbf846c12dcdb31833c887
+  model: AntonV/mamba2-1.3b-hf @ 703e19a43f397c70315244a3424d79456b54fb34
+
+## P0 immutability re-check (must be unchanged)
+  P0_RESULTS_MAMBA2.json   d35db76438801d54cb8b6fac7541371db8118b20
+  P0_RESULTS_DELTANET.json 54f1a161dbb9d2ee9ed308c62bde56fe539a1334
+  (expected d35db764... / 54f1a161... — MATCH)
+
+## verdict
+  FROZEN_BACKBONE_LIFECYCLE = NOT_QUALIFIED (sole blocker = claim B; C/D/E/F/G/A BIT_EXACT)
