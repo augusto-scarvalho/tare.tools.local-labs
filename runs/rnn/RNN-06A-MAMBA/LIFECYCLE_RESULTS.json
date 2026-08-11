@@ -1,0 +1,337 @@
+{
+  "packet": "RNN-06A-MAMBA",
+  "kind": "lifecycle_results",
+  "executed_source_identity": {
+    "runner_file": "/mnt/c/projects/local-model-lifecycle/ops/rnn_06a_mamba_lifecycle.py",
+    "runner_source_sha256": "362120138c9ae890a210a17a9f340dce6dac17fb5bb5710468d66661d9327df6",
+    "runner_git_blob": "c64c249499201971078e0283ea5af9a0eaba5a94",
+    "runner_git_tracked_dirty": "",
+    "git_head": "8a0214755f67873d193b8456b9a9710a50ddad92",
+    "git_branch": "master",
+    "modeling_mamba2_file": "/home/augus/rnn06_env/lib/python3.12/site-packages/transformers/models/mamba2/modeling_mamba2.py",
+    "modeling_mamba2_sha256": "83685d785c0df6578fefca8d5a2ed382d70e651ffc83c00b8f40b64807a04fdb",
+    "configuration_mamba2_file": "/home/augus/rnn06_env/lib/python3.12/site-packages/transformers/models/mamba2/configuration_mamba2.py",
+    "configuration_mamba2_sha256": "f9a3c2f5694b74b4a23ed7e23a6b2e20b2cc8a20532f65ab05091828fc9c4a1c",
+    "transformers_version": "4.48.3",
+    "torch_version": "2.6.0+cu124",
+    "torch_cuda": "12.4",
+    "cuda_available": true,
+    "gpu_name": "NVIDIA GeForce RTX 3090",
+    "repo_id": "AntonV/mamba2-1.3b-hf",
+    "revision": "703e19a43f397c70315244a3424d79456b54fb34",
+    "dtype": "torch.bfloat16",
+    "mamba_ssm_present": false,
+    "causal_conv1d_present": false,
+    "is_fast_path_available": false
+  },
+  "model_load_time_s": 2.206601858139038,
+  "config_hash_sha256": "41284e51df350a07f67f131666cabefd2b8a5ed9bafbf846c12dcdb31833c887",
+  "weight_fingerprint_before": {
+    "fingerprint_sha256": "9a0516782e770f8f788976a0e3081cfc409fe8dfe45f0526543972e11b24c22f",
+    "n_param_tensors": 434,
+    "total_elements": 1343757312
+  },
+  "state_inventory_measured": {
+    "conv_states": {
+      "shape": [
+        48,
+        1,
+        4352,
+        4
+      ],
+      "dtype": "torch.bfloat16",
+      "device": "cuda:0",
+      "bytes": 1671168
+    },
+    "ssm_states": {
+      "shape": [
+        48,
+        1,
+        64,
+        64,
+        128
+      ],
+      "dtype": "torch.bfloat16",
+      "device": "cuda:0",
+      "bytes": 50331648
+    },
+    "total_state_bytes_per_sequence": 52002816,
+    "component_count": 2,
+    "expected_total_bytes_bf16": 52002816,
+    "byte_accounting_ok": true
+  },
+  "claim_A_determinism": {
+    "logits": {
+      "class": "BIT_EXACT",
+      "bit_exact": true,
+      "max_abs_err": 0.0,
+      "mean_abs_err": 0.0,
+      "rel_err": 0.0,
+      "argmax_agreement": 1.0
+    },
+    "state": {
+      "conv_states": {
+        "exact_equal": true,
+        "shape": [
+          48,
+          1,
+          4352,
+          4
+        ],
+        "dtype": "torch.bfloat16"
+      },
+      "ssm_states": {
+        "exact_equal": true,
+        "shape": [
+          48,
+          1,
+          64,
+          64,
+          128
+        ],
+        "dtype": "torch.bfloat16"
+      },
+      "all_exact": true
+    }
+  },
+  "claim_B_full_vs_segmented": [
+    {
+      "split_a": 2,
+      "cont_len": 10,
+      "compare": {
+        "class": "NOT_EQUIVALENT",
+        "bit_exact": false,
+        "max_abs_err": 0.625,
+        "mean_abs_err": 0.07947361469268799,
+        "rel_err": 0.00946969696969697,
+        "argmax_agreement": 1.0
+      },
+      "prefix_position_identity": {
+        "class": "NOT_EQUIVALENT",
+        "bit_exact": false,
+        "max_abs_err": 0.625,
+        "mean_abs_err": 0.22955401241779327,
+        "rel_err": 0.011737089201877934,
+        "argmax_agreement": 1.0
+      }
+    },
+    {
+      "split_a": 5,
+      "cont_len": 7,
+      "compare": {
+        "class": "BOUNDED_DIFFERENCE",
+        "bit_exact": false,
+        "max_abs_err": 0.375,
+        "mean_abs_err": 0.04562556371092796,
+        "rel_err": 0.014018691588785047,
+        "argmax_agreement": 1.0
+      },
+      "prefix_position_identity": {
+        "class": "BOUNDED_DIFFERENCE",
+        "bit_exact": false,
+        "max_abs_err": 0.375,
+        "mean_abs_err": 0.07110138982534409,
+        "rel_err": 0.015151515151515152,
+        "argmax_agreement": 1.0
+      }
+    },
+    {
+      "split_a": 8,
+      "cont_len": 4,
+      "compare": {
+        "class": "BOUNDED_DIFFERENCE",
+        "bit_exact": false,
+        "max_abs_err": 0.375,
+        "mean_abs_err": 0.053690969944000244,
+        "rel_err": 0.014218009478672985,
+        "argmax_agreement": 1.0
+      },
+      "prefix_position_identity": {
+        "class": "BOUNDED_DIFFERENCE",
+        "bit_exact": false,
+        "max_abs_err": 0.3125,
+        "mean_abs_err": 0.07099839299917221,
+        "rel_err": 0.011848341232227487,
+        "argmax_agreement": 1.0
+      }
+    }
+  ],
+  "claim_D_branch": {
+    "branch1_vs_independent": {
+      "class": "BIT_EXACT",
+      "bit_exact": true,
+      "max_abs_err": 0.0,
+      "mean_abs_err": 0.0,
+      "rel_err": 0.0,
+      "argmax_agreement": 1.0
+    },
+    "branch2_vs_independent": {
+      "class": "BIT_EXACT",
+      "bit_exact": true,
+      "max_abs_err": 0.0,
+      "mean_abs_err": 0.0,
+      "rel_err": 0.0,
+      "argmax_agreement": 1.0
+    },
+    "b2_after_b1_vs_b2_alone": {
+      "class": "BIT_EXACT",
+      "bit_exact": true,
+      "max_abs_err": 0.0,
+      "mean_abs_err": 0.0,
+      "rel_err": 0.0,
+      "argmax_agreement": 1.0
+    },
+    "parent_snapshot_unchanged": true,
+    "snapD_hash_pre": "1ca4c661ae414cb6dd84da6cc948f17c48c5c9f81e9d5c03dc14454fd2e5ee71",
+    "snapD_hash_post": "1ca4c661ae414cb6dd84da6cc948f17c48c5c9f81e9d5c03dc14454fd2e5ee71"
+  },
+  "claim_E_isolation": {
+    "neighbor_invariance_logits": {
+      "class": "BIT_EXACT",
+      "bit_exact": true,
+      "max_abs_err": 0.0,
+      "mean_abs_err": 0.0,
+      "rel_err": 0.0,
+      "argmax_agreement": 1.0
+    },
+    "neighbor_invariance_state_exact": true,
+    "P_alone_vs_in_batch": {
+      "class": "BOUNDED_DIFFERENCE",
+      "bit_exact": false,
+      "max_abs_err": 0.5,
+      "mean_abs_err": 0.05942659080028534,
+      "rel_err": 0.007518796992481203,
+      "argmax_agreement": 1.0
+    },
+    "Q_alone_vs_in_batch": {
+      "class": "BOUNDED_DIFFERENCE",
+      "bit_exact": false,
+      "max_abs_err": 0.5,
+      "mean_abs_err": 0.08575858920812607,
+      "rel_err": 0.017094017094017096,
+      "argmax_agreement": 1.0
+    }
+  },
+  "claim_F_reset": {
+    "reset_state_vs_fresh_exact": {
+      "conv_states": {
+        "exact_equal": true,
+        "shape": [
+          48,
+          1,
+          4352,
+          4
+        ],
+        "dtype": "torch.bfloat16"
+      },
+      "ssm_states": {
+        "exact_equal": true,
+        "shape": [
+          48,
+          1,
+          64,
+          64,
+          128
+        ],
+        "dtype": "torch.bfloat16"
+      },
+      "all_exact": true
+    },
+    "reset_is_zeros": true,
+    "prefill_after_reset_vs_fresh": {
+      "class": "BIT_EXACT",
+      "bit_exact": true,
+      "max_abs_err": 0.0,
+      "mean_abs_err": 0.0,
+      "rel_err": 0.0,
+      "argmax_agreement": 1.0
+    }
+  },
+  "claim_G_roundtrip": {
+    "roundtrip_exact": {
+      "conv_states": {
+        "exact_equal": true,
+        "shape": [
+          48,
+          1,
+          4352,
+          4
+        ],
+        "dtype": "torch.bfloat16"
+      },
+      "ssm_states": {
+        "exact_equal": true,
+        "shape": [
+          48,
+          1,
+          64,
+          64,
+          128
+        ],
+        "dtype": "torch.bfloat16"
+      },
+      "all_exact": true
+    },
+    "meta_preserved": true,
+    "component_count": 2,
+    "state_bytes": 52002816,
+    "buffer_bytes": 52004248,
+    "byte_accounting_ok": true
+  },
+  "chunk_size_experiment": {
+    "native_chunk_size": 256,
+    "compared_chunk_size": 8,
+    "prefix_len": 20,
+    "compare": {
+      "class": "BOUNDED_DIFFERENCE",
+      "bit_exact": false,
+      "max_abs_err": 0.375,
+      "mean_abs_err": 0.02839195542037487,
+      "rel_err": 0.005681818181818182,
+      "argmax_agreement": 1.0
+    },
+    "CHUNK_SIZE_IS_PART_OF_EXECUTION_IDENTITY": true
+  },
+  "weight_fingerprint_after": {
+    "fingerprint_sha256": "9a0516782e770f8f788976a0e3081cfc409fe8dfe45f0526543972e11b24c22f",
+    "n_param_tensors": 434,
+    "total_elements": 1343757312
+  },
+  "weights_immutable_M1": true,
+  "training_mode_off": true,
+  "peak_vram_bytes_before_claimC": 10226993152,
+  "claim_C_serialize_destroy_restore": {
+    "continuation_after_destroy_restore_vs_in_memory": {
+      "class": "BIT_EXACT",
+      "bit_exact": true,
+      "max_abs_err": 0.0,
+      "mean_abs_err": 0.0,
+      "rel_err": 0.0,
+      "argmax_agreement": 1.0
+    },
+    "snapshot_disk_bytes": 52004396,
+    "snapshot_disk_sha256": "f0e4d58659949b92bc504f39ec9d35eb5156af53982390888a6700f701f2766a",
+    "reload_weights_match_original": true,
+    "latencies_s": {
+      "serialize": 0.788738489151001,
+      "load": 0.7568750381469727,
+      "restore": 0.00592803955078125,
+      "continue": 0.21167540550231934,
+      "reload_model": 1.045698642730713
+    }
+  },
+  "gate_checks": {
+    "A_ok": true,
+    "B_ok": false,
+    "C_ok": true,
+    "D_ok": true,
+    "E_ok": true,
+    "F_ok": true,
+    "G_ok": true,
+    "weights_immutable": true,
+    "full_module_not_partial": true
+  },
+  "FROZEN_BACKBONE_LIFECYCLE": "NOT_QUALIFIED",
+  "total_runtime_s": 30.350353717803955,
+  "peak_vram_bytes_total": 10226993152
+}
