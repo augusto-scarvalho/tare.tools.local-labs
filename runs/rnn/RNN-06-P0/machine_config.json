@@ -1,0 +1,77 @@
+{
+  "packet": "RNN-06-P0",
+  "role": "EXPLORATORY_SCOUT_pre_06A",
+  "authored": "2026-08-11",
+  "sourceGitHeadAtProtocol": "7f04f48fa2bf266527d54f25ea00444da3255dde",
+  "host": {
+    "os": "Windows 11 Home Single Language 10.0.26200 (host)",
+    "substrate": "WSL2 Ubuntu-24.04",
+    "kernel": "Linux 6.18.33.2-microsoft-standard-WSL2 x86_64",
+    "wsl_ram_visible_gb": 43,
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "gpu_total_gb": 25.77,
+    "gpu_compute_capability": "8.6",
+    "nvidia_driver": "591.86",
+    "cuda_runtime_torch": "12.4"
+  },
+  "env": {
+    "python": "3.12.3",
+    "torch": "2.6.0+cu124",
+    "transformers": "4.48.3",
+    "flash_linear_attention": "0.5.2",
+    "triton": "3.2.0",
+    "triton_note": "3.2.0 is below fla-recommended 3.3.0; recorded as a known-risk axis, not silently ignored",
+    "numpy": "2.5.2",
+    "huggingface_hub": "0.36.2",
+    "accelerate": "1.14.0",
+    "protobuf": "7.35.1",
+    "sentencepiece": "0.2.2",
+    "tokenizers": "0.21.4",
+    "safetensors": "0.8.0",
+    "mamba_ssm": null,
+    "causal_conv1d": null,
+    "mamba_backend_note": "no custom Mamba-2 CUDA kernels installed; transformers-native Mamba2 uses its pure-torch fallback path (documented 'slight discrepancies' vs mamba_ssm). Recorded as backend identity; P0 is inference-only and does not depend on BIT_EXACT."
+  },
+  "venv": {
+    "path": "~/rnn06_env (WSL Linux FS, OUTSIDE the repo, NOT committed)",
+    "hf_cache": "~/.cache/huggingface (NOT committed)"
+  },
+  "quantization": "NONE (bf16 weights); quantization is NOT an experimental axis in P0",
+  "determinism": {
+    "rng": "numpy PCG64 via SeedSequence on integer seeds (process-stable; not python hash())",
+    "master_seed": 20260811,
+    "eval": "deterministic greedy/argmax logit scoring; no sampling"
+  },
+  "candidates": {
+    "A_designed_primary_GDN": {
+      "hf_id": "linear-moe-hub/Gated-Deltanet-1.3B",
+      "resolved_revision_sha_repo": "871079371ada2f8beba1e05e7d6b5cc7c9a1d5f6",
+      "model_type": "gated_deltanet",
+      "backend": "flash-linear-attention (Triton)",
+      "runnable_on_pinned_stack": false,
+      "not_runnable_reason": "fused gate+up MLP (gate_proj [11264,2048]=2x5632, down_proj [2048,5632]) vs fla 0.5.2 separate-MLP; config intermediate_size=None. Deferred to RNN-06A (pin authoring fla revision / verify remap). Not attempted in scout to avoid silent-correctness risk."
+    },
+    "A_runnable_delta_family": {
+      "hf_id": "fla-hub/delta_net-1.3B-100B",
+      "role": "substituted runnable delta-rule-family arm (ungated DeltaNet; grade-A packet candidate)",
+      "model_type": "delta_net",
+      "model_class": "DeltaNetForCausalLM",
+      "tokenizer": "LlamaTokenizerFast, vocab 32000",
+      "params": 1365677056,
+      "backend": "flash-linear-attention (Triton)",
+      "weights": "bf16",
+      "runnable_on_pinned_stack": true,
+      "vram_gb_load": 3.01,
+      "note": "delta rule minus decay gate; Qwen-transplant proximity slightly lower than GDN; phenomenon>proximity per packet"
+    },
+    "B_anchor_MAMBA2": {
+      "hf_id": "AntonV/mamba2-1.3b-hf",
+      "resolved_revision_sha_repo": "703e19a43f39",
+      "provenance": "HF-format conversion of state-spaces/mamba2-1.3b (sha c5b59d00ec85); same weights",
+      "model_type": "mamba2",
+      "backend": "transformers-native Mamba2ForCausalLM (pure-torch fallback; no mamba_ssm kernels)",
+      "weights": "model.safetensors (converted)",
+      "runnable_on_pinned_stack": true
+    }
+  }
+}
