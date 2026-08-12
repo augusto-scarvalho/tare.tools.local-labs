@@ -1,0 +1,43 @@
+RNN-06 Fixed-Length State Load + Historical Info Train — git evidence
+== HEAD ==
+42e449e7c7d691310069428abeae07be49f3631a
+branch: master  upstream: none  pushed: NO
+
+== train commit chain (79e0dc5 prev-train-end .. HEAD) ==
+42e449e decision(rnn): RNN-06C = BLOCKED_BY_06B2 (not executed)
+d3766ac decision(rnn): RNN-06B2 FIXED_LENGTH_STATE_LOAD_REGION = BLOCKED
+598115a results(rnn): RNN-06B2 -> FIXED_LENGTH_STATE_LOAD_REGION = BLOCKED (IMMEDIATE_CLIFF + NOT_ROBUST)
+eff78c1 tool(rnn): RNN-06B2 fixed-length state-load runner (identity-freezing; no outcomes)
+33c4c32 research(rnn): B2 pre-registration + frozen qualification spec + stress grid + 06C dose rule (no outcomes)
+6b0bfdf results(rnn): B2 calibration surface + decision — freeze M=128/REPEAT1 (exploratory)
+f94b65e research(rnn): B2 calibration — extend grid to M in {48,64,96,128}, finer U ladder (exploratory)
+38db83f research(rnn): RNN-06 state-load train protocol + B2 fixed-length lib + calibration (no gate)
+
+== prior gate immutability (unchanged) ==
+P0        d35db76438801d54cb8b6fac7541371db8118b20
+06A       d10527b6cbf1f5385251f7d05e39537b542b0966
+06A2 cs32 4c2dd568f7a8bb7b7064312ac21232a6293126ea
+06B       22d355bdb776b9eca6a8c85a45bcae82e6228f5c
+
+== B2 artifacts ==
+PRE_REGISTRATION.md  7e037ab8902608ebc1f082798c6fa6c59041f0a2
+B2_CALIBRATION.json  aa587d506a18550b6c999ce777ab908c74cf5f9a
+B2_CALIBRATION_DECISION.md  f5b0115da27e9d31236ea050dc73796db0eafe47
+B2_QUALIFICATION_SPEC.json  1d81ee7975c615ba458584e13817d7063a0ba9db
+B2_STRESS_GRID.json  5c8aa978f60ef5da7bfcaf9cb5b5678b5d9ae88a
+B2_RESULTS.json  e1ca42618b8bab8b20b23de47edbc0351e6e6daf
+B2_CURVES.csv  65043534892a314f50380b43ef3840826851667d
+B2_DECISION.md  5fa244084a8ee501b4686bceb7eec7669d1cc156
+
+== 06C blocked artifacts ==
+BLOCKED_BY_06B2.md  561e58ef06ab5a31c6775b975e753429c629e460
+BLOCKED.json  e6eba0a4b2db7f43d9cc16c20f4bc34c15df8196
+
+== runners/lib ==
+ops/rnn_06b2_lib.py  095403abc9d5cdb127e0b76ba369456e9cccfc32
+ops/rnn_06b2_calibration.py  7fcaab68f7f989794f38d2b2adeffa7692c5924e
+ops/rnn_06b2_challenges.py  2fbe2cd7e53ee6d06bd22450dd387cce5c09ff15
+ops/rnn_06b2_base.py  07a3e0b7dfa0adbc89878b49f130379f7324f493
+
+== train docs ==
+TRAIN_PROTOCOL.md  c46e2931fc16ab91e19917b13e6525b5f258fe3c
