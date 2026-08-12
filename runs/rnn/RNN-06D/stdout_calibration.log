@@ -1,0 +1,8 @@
+The fast path is not available because on of `(selective_state_update, causal_conv1d_fn, causal_conv1d_update)` is None. Falling back to the naive implementation. To install follow https://github.com/state-spaces/mamba/#installation and https://github.com/Dao-AILab/causal-conv1d
+
+FINAL acc = 0.146  (degraded band <= 0.75)
+K=2: OB=0.833 PROX=0.812 OB-FINAL=0.688 recov=33/41(0.80) conf(post/pre)=0.24/nan robust=3/3 adequate=True
+K=4: OB=0.833 PROX=0.833 OB-FINAL=0.688 recov=33/41(0.80) conf(post/pre)=0.22/0.15 robust=3/3 adequate=True
+K=8: OB=0.938 PROX=0.938 OB-FINAL=0.792 recov=38/41(0.93) conf(post/pre)=0.24/0.16 robust=3/3 adequate=True
+CHOSEN K = 2   runtime=350.4s peak_vram=8.224GB
+EXIT=0

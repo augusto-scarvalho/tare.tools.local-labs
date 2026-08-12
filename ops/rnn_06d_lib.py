@@ -36,7 +36,14 @@ from rnn_06b2_lib import (  # noqa: E402  (identical pools + RNG + hashing)
 )
 
 M_DEFAULT = 192
-GENERATOR_VERSION = "rnn06d_anti_oracle_random_target_v1"
+# v2 (calibration AMENDMENT 1, pre-outcome): sentinel padding BEFORE the target, unique DS load
+# AFTER. v1 (all slots unique-load) saturated the pre-target state so the target was written into a
+# near-full state and even the ORACLE_PROXIMAL snapshot could not retrieve it (calibration: proximal
+# acc 0.15-0.40 << TAU_PROX 0.75) -> the recovery ceiling was not meaningfully testable. v2 isolates
+# the actual quantity recovery must exploit: target cleanly encoded, then forgotten by SUBSEQUENT
+# load. No threshold changed; qualification set is fresh + disjoint; this is a calibration-time
+# configuration choice made BEFORE any qualification outcome.
+GENERATOR_VERSION = "rnn06d_anti_oracle_random_target_v2_sentinel_pre_load_post"
 
 
 def schedule_slots(M, K):
@@ -73,25 +80,27 @@ def build_d0_example_spec(seed, ex_id, stratum, M, t_min, t_max):
 
 
 def materialize_d0(spec, M, pools):
-    """Return (token list, gold token). Fixed length 4*M+2. Target at spec['target_slot']; all other
-    slots are unique DS load. Query = target_key '=' appended."""
+    """Return (token list, gold token). Fixed length 4*M+2. v2 layout:
+      slots [0, t-1]  = REPEAT1 sentinel (low-info padding; target cleanly encoded)
+      slot   t        = TARGET (scored key/val)
+      slots [t+1, M-1]= UNIQUE DS filler load (subsequent interference that forgets the target)
+    Query = target_key '=' appended. Post-target load count = M-1-t varies with the randomized t."""
     sk, sv = pools["scored_keys"], pools["scored_vals"]
     fk, fv = pools["filler_keys"], pools["filler_vals"]
+    sent_k, sent_v = pools["sentinel_pairs"][0]           # REPEAT1
     eq, nl = pools["seps"]["eq"], pools["seps"]["nl"]
     t = spec["target_slot"]
     assert 0 <= t < M
     slot_tokens = [None] * M
+    for pos in range(t):                                  # pre-target sentinel padding
+        slot_tokens[pos] = [sent_k, eq, sent_v, nl]
     slot_tokens[t] = [sk[spec["target_key_slot"]], eq, sv[spec["target_val_slot"]], nl]
     li = 0
-    for pos in range(M):
-        if pos == t:
-            continue
-        k = fk[spec["load_key_slots"][li]]
-        v = fv[spec["load_val_slots"][li]]
-        slot_tokens[pos] = [k, eq, v, nl]
+    for pos in range(t + 1, M):                           # post-target unique DS load
+        slot_tokens[pos] = [fk[spec["load_key_slots"][li]], eq, fv[spec["load_val_slots"][li]], nl]
         li += 1
     toks = [tk for slot in slot_tokens for tk in slot]
-    toks += [sk[spec["target_key_slot"]], eq]              # query
+    toks += [sk[spec["target_key_slot"]], eq]             # query
     gold = sv[spec["target_val_slot"]]
     return toks, gold
 
@@ -119,6 +128,7 @@ def selfcheck_construction(tok, seed=20260901):
     t_min, t_max = 8, 64
     specs = [build_d0_example_spec(seed, i, i % 3, M, t_min, t_max) for i in range(24)]
     lengths = set()
+    sent_k = pools["sentinel_pairs"][0][0]
     for sp in specs:
         toks, gold = materialize_d0(sp, M, pools)
         lengths.add(len(toks))
@@ -128,9 +138,15 @@ def selfcheck_construction(tok, seed=20260901):
         assert blk[0] == pools["scored_keys"][sp["target_key_slot"]]
         assert blk[2] == pools["scored_vals"][sp["target_val_slot"]]
         assert gold == pools["scored_vals"][sp["target_val_slot"]]
+        # pre-target slots are sentinel; post-target are unique DS load
+        if t > 0:
+            assert toks[0] == sent_k, "pre-target slot 0 must be sentinel"
+        assert toks[4 * (t - 1)] == sent_k if t > 0 else True
+        if t < M - 1:
+            assert toks[4 * (t + 1)] == pools["filler_keys"][sp["load_key_slots"][0]]
         # query = target_key '='
         assert toks[-2] == pools["scored_keys"][sp["target_key_slot"]] and toks[-1] == pools["seps"]["eq"]
-        # all load bindings unique (disjoint from target scored space by pool construction)
+        # load-binding pool unique (disjoint from target scored space by pool construction)
         assert len(set(sp["load_key_slots"])) == M - 1 and len(set(sp["load_val_slots"])) == M - 1
     assert lengths == {4 * M + 2}, f"non-fixed length: {lengths}"
     for K in (2, 4, 8):

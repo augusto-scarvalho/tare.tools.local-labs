@@ -1,0 +1,138 @@
+{
+  "packet": "RNN-06D0-CALIBRATION",
+  "kind": "exploratory_calibration",
+  "calib_seed": 20260901,
+  "pool_seed": 20260817,
+  "M": 192,
+  "t_band": [
+    8,
+    64
+  ],
+  "n_total": 48,
+  "s_strata": 3,
+  "n_per_stratum": 16,
+  "chance": 0.00390625,
+  "batch": 2,
+  "chunk_size": 32,
+  "final_acc": 0.14583333333333334,
+  "K_candidates": [
+    2,
+    4,
+    8
+  ],
+  "per_K": {
+    "2": {
+      "schedule_slots": [
+        64,
+        128
+      ],
+      "final_acc": 0.14583333333333334,
+      "oracle_best_acc": 0.8333333333333334,
+      "oracle_proximal_acc": 0.8125,
+      "oracle_best_minus_final": 0.6875,
+      "n_final_wrong": 41,
+      "n_recoverable": 33,
+      "recovery_ceiling_frac": 0.8049,
+      "post_target_conf": 0.2362,
+      "pre_target_conf": NaN,
+      "per_stratum_ob_minus_final": {
+        "0": 0.8125,
+        "1": 0.5,
+        "2": 0.75
+      },
+      "robust_strata": 3,
+      "prox_post_frac": 1.0,
+      "adequate": true
+    },
+    "4": {
+      "schedule_slots": [
+        38,
+        76,
+        115,
+        153
+      ],
+      "final_acc": 0.14583333333333334,
+      "oracle_best_acc": 0.8333333333333334,
+      "oracle_proximal_acc": 0.8333333333333334,
+      "oracle_best_minus_final": 0.6875,
+      "n_final_wrong": 41,
+      "n_recoverable": 33,
+      "recovery_ceiling_frac": 0.8049,
+      "post_target_conf": 0.2216,
+      "pre_target_conf": 0.1522,
+      "per_stratum_ob_minus_final": {
+        "0": 0.8125,
+        "1": 0.5,
+        "2": 0.75
+      },
+      "robust_strata": 3,
+      "prox_post_frac": 1.0,
+      "adequate": true
+    },
+    "8": {
+      "schedule_slots": [
+        21,
+        42,
+        64,
+        85,
+        106,
+        128,
+        149,
+        170
+      ],
+      "final_acc": 0.14583333333333334,
+      "oracle_best_acc": 0.9375,
+      "oracle_proximal_acc": 0.9375,
+      "oracle_best_minus_final": 0.7917,
+      "n_final_wrong": 41,
+      "n_recoverable": 38,
+      "recovery_ceiling_frac": 0.9268,
+      "post_target_conf": 0.2396,
+      "pre_target_conf": 0.1574,
+      "per_stratum_ob_minus_final": {
+        "0": 0.875,
+        "1": 0.625,
+        "2": 0.875
+      },
+      "robust_strata": 3,
+      "prox_post_frac": 1.0,
+      "adequate": true
+    }
+  },
+  "frozen_thresholds": {
+    "CEILING_SESOI": 0.15,
+    "FINAL_ACC_MAX": 0.75,
+    "TAU_PROX": 0.75,
+    "RECOV_FRAC_MIN": 0.3
+  },
+  "chosen_K": 2,
+  "pool_meta": {
+    "n_word_single": 40750,
+    "n_num_single": 1992,
+    "scored_keys_sha256": "1356ccd88b210f4929f235bdf4e7a4121f0c79c786d2c83a0680ee97086c7139",
+    "scored_vals_sha256": "fbe1249d61fcb532a76a77072c8d88fb986cf43731b972b7dd2e9794ed721d10",
+    "filler_keys_sha256": "063ee37fce4cfb89e8eeb1991d4155b9a600bebcd3d5a09bce897b704e787f24",
+    "filler_vals_sha256": "588ffa04895acf863b2369bbf092f905812b6b936f552aaa746125df2d08868a",
+    "sentinel_pairs_sha256": "c506d01979285c58b52caa4a7d506ba104efff407bb87437ac1b4ff27e32c2ba",
+    "eq_id": 30,
+    "nl_id": 187,
+    "sample_target_keys": [
+      " Farmer",
+      " vulnerable",
+      " Economic"
+    ],
+    "sample_sentinel": [
+      [
+        " photoc",
+        " 159"
+      ],
+      [
+        " Safe",
+        " 217"
+      ]
+    ]
+  },
+  "peak_vram_gb": 8.224,
+  "runtime_s": 350.4,
+  "calibrationSetSha256": "0bf7d2613c4054f602e01662c66eb97260adce59806b10ca33a6d5b75601a936"
+}
