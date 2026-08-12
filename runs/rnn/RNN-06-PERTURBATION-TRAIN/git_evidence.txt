@@ -1,0 +1,50 @@
+RNN-06 Controlled State-Load Perturbation + Historical Info Train — git evidence
+== HEAD ==
+a3bf5c5c8e91eb42ed2e66293bcfa38f67dffa97
+branch: master  upstream: none  pushed: NO
+
+== train commit chain (41ecfb78 prev-train-end .. HEAD) ==
+a3bf5c5 ops: WU no-auto-reboot revert script (NoAutoRebootWithLoggedOnUsers=1 applied 2026-08-12)
+b7a284c results+decision(rnn): RNN-06C -> HISTORICAL_STATE_INFORMATION = QUALIFIED
+0a7da96 tool(rnn): RNN-06C historical-info runner (identity-freezing; no outcomes)
+bf4dbdb research(rnn): RNN-06C pre-registration + fresh held-out historical-info spec (no outcomes)
+c3dbf20 decision(rnn): RNN-06B3 STATE_LOAD_FORGETTING_PERTURBATION = QUALIFIED, shape GRADED
+ec8dd88 results(rnn): RNN-06B3 -> STATE_LOAD_FORGETTING_PERTURBATION = QUALIFIED (GRADED)
+7f813be fix(rnn): B3 runner — version-proof trapezoidal (np.trapz removed in numpy 2.x); no outcomes yet
+b42b976 tool(rnn): RNN-06B3 controlled state-load perturbation runner (identity-freezing; no outcomes)
+1f8c491 research(rnn): B3 pre-registration + frozen qual spec + stress grid + 06C dose rule (no outcomes)
+7a1054b results(rnn): B3 calibration surface + decision — freeze M=192/reserve=16 (exploratory)
+7cda781 research(rnn): RNN-06 perturbation train protocol + B3 order-stable lib + calibration (no gate)
+
+== prior gate immutability (unchanged) ==
+P0    d35db76438801d54cb8b6fac7541371db8118b20
+06A2  4c2dd568f7a8bb7b7064312ac21232a6293126ea
+06B2  e1ca42618b8bab8b20b23de47edbc0351e6e6daf
+
+== B3 artifacts ==
+PRE_REGISTRATION.md  2d1d655f2be6d70d708c797ee5b94a8e628c5976
+B3_CALIBRATION.json  d8a3168ca0d985a073c773ff37c5beb90702a0ea
+B3_CALIBRATION_DECISION.md  00fefbfd5cfd48ef7a24709cec84239336505f07
+B3_QUALIFICATION_SPEC.json  4bf77dc1f0353094b679e6c4cd008d92b9d58d46
+B3_STRESS_GRID.json  8c530cb208588da990cb0131f784aa45463e47dd
+B3_RESULTS.json  8f24aebbfcb33b0db9d41246c517e4f01195fe13
+B3_CURVES.csv  88a1114e71d724c14032e9203333bc5ca2d658b1
+B3_DECISION.md  3c549f9ce0f92011262d7af8bd78f0c1be3b8791
+
+== 06C artifacts (EXECUTED) ==
+PRE_REGISTRATION.md  de4b316f8a65434933f5c4a8d2e1d73c7d16e0ed
+HISTORICAL_INFO_SPEC.json  2720d370d9cbb4a7025ce81f528e0a53598fee81
+HISTORICAL_INFO_RESULTS.json  2a9d6a54d06ceb658874b3d1e6397e805ca4e034
+HISTORICAL_INFO_DECISION.md  cf0a7f0b3f6fad56305ed33d2a5dc0966b2e1f6b
+SUPERSEDED_NOTE.md  9e4a47609859ba3e44d319063fee96d81d94a01a
+
+== runners/lib ==
+ops/rnn_06b3_lib.py  4c3c545f8d22b6303de31a983d08d190fd8c75e9
+ops/rnn_06b3_calibration.py  d09a69bb03476e7d9f5ce6faa95b4b5e4af7d41b
+ops/rnn_06b3_challenges.py  95b38e2056355894fcbe79ca2f80123737681409
+ops/rnn_06b3_base.py  95e6b7aaa9379ea89fbad5a29901e9a0448e0594
+ops/rnn_06c_challenges.py  a9824ee202c3b02c4033bed287f7e577ce6d0e38
+ops/rnn_06c_base.py  3fdf8fd59bfa93f5eda37a246d98052c49e9f53e
+
+== train docs ==
+TRAIN_PROTOCOL.md  bfadfa5b93ea87bf9735c8cdfc2df42cd3e11332
