@@ -1,0 +1,35 @@
+The fast path is not available because on of `(selective_state_update, causal_conv1d_fn, causal_conv1d_update)` is None. Falling back to the naive implementation. To install follow https://github.com/state-spaces/mamba/#installation and https://github.com/Dao-AILab/causal-conv1d
+[06B3] U=  1 DS sent=191 len=770 bs=2 con=0.990 unc=0.891 (173.18s)
+[06B3] U=  1 SS sent=191 len=770 bs=2 con=0.990 unc=0.891 (173.41s)
+[06B3] U= 24 DS sent=168 len=770 bs=2 con=0.917 unc=0.599 (173.43s)
+[06B3] U= 24 SS sent=168 len=770 bs=2 con=0.917 unc=0.594 (172.8s)
+[06B3] U= 48 DS sent=144 len=770 bs=2 con=0.865 unc=0.495 (173.64s)
+[06B3] U= 48 SS sent=144 len=770 bs=2 con=0.844 unc=0.505 (173.07s)
+[06B3] U= 72 DS sent=120 len=770 bs=2 con=0.771 unc=0.432 (172.97s)
+[06B3] U= 72 SS sent=120 len=770 bs=2 con=0.755 unc=0.417 (173.83s)
+[06B3] U= 96 DS sent= 96 len=770 bs=2 con=0.755 unc=0.365 (172.97s)
+[06B3] U= 96 SS sent= 96 len=770 bs=2 con=0.693 unc=0.349 (173.06s)
+[06B3] U=128 DS sent= 64 len=770 bs=2 con=0.651 unc=0.297 (173.87s)
+[06B3] U=128 SS sent= 64 len=770 bs=2 con=0.562 unc=0.266 (172.84s)
+[06B3] U=152 DS sent= 40 len=770 bs=2 con=0.568 unc=0.224 (173.32s)
+[06B3] U=152 SS sent= 40 len=770 bs=2 con=0.542 unc=0.255 (173.31s)
+[06B3] U=176 DS sent= 16 len=770 bs=2 con=0.573 unc=0.266 (172.26s)
+[06B3] U=176 SS sent= 16 len=770 bs=2 con=0.557 unc=0.245 (172.35s)
+
+== DS vs SS ==
+  U=  1 DS=0.990 SS=0.990
+  U= 24 DS=0.917 SS=0.917
+  U= 48 DS=0.865 SS=0.844
+  U= 72 DS=0.771 SS=0.755
+  U= 96 DS=0.755 SS=0.693
+  U=128 DS=0.651 SS=0.562
+  U=152 DS=0.568 SS=0.542
+  U=176 DS=0.573 SS=0.557
+
+paired_loss(U1->U176)=0.417 CI=[0.34895833333333326, 0.4895833333333333] discordant lo!hi=81 hi!lo=1 robust=3/3
+MRRD=0.231 DEFICIT_AURC=0.238 shape=GRADED nested=PASS
+reasons=[]
+
+STATE_LOAD_FORGETTING_PERTURBATION = QUALIFIED  TRANSITION_SHAPE = GRADED
+06C doses: LOW U=96(0.76) MID U=72(0.77) HIGH U=152(0.57)
+runtime=2775.8s peak_vram=8.758GB
