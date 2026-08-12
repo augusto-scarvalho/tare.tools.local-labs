@@ -1,0 +1,56 @@
+RNN-06T — Official Mamba Transportability + Single-Pass Historical Recovery Train — GIT EVIDENCE
+generated: 2026-08-12T18:30:18Z
+
+START HEAD (before train): 8f4b18a2b2add8a2d17235d43ed9b4882f3bb7f8
+FINAL HEAD (this train):   dc4e471db203773e058e1b97c51bf58eec178028
+branch: master   pushed: NO
+
+=== commits 8f4b18a..HEAD (append-only) ===
+dc4e471 results(rnn): RNN-06T non-synthetic scout -> NO_SIGNAL (boundary condition, not failure)
+4dd3dc6 tool(rnn): RNN-06T Section 5 natural-language needle scout + variable-length readout (no outcomes)
+cb8b015 results(rnn): RNN-06T economics -> END_TO_END_RECOVERY_UTILITY = QUALIFIED (marginal, 991.5<=1000ms)
+be7dd58 research+tool(rnn): RNN-06T Section 4 economics prereg + runner (capture included; no outcomes)
+511dd62 decision(rnn): RNN-06T 3B -> WIDE_TARGET_RECOVERY=QUALIFIED, ADAPTIVE_SELECTION=QUALIFIED
+2a27d34 results(rnn): RNN-06T 3B wide-target -> WIDE_TARGET_RECOVERY=QUALIFIED, ADAPTIVE_SELECTION=QUALIFIED
+535e3ac calib(rnn): RNN-06T 3B wide-target calibration — freeze BEST_FIXED_SNAPSHOT=slot115
+3ac9c2b research+tool(rnn): RNN-06T 3B prereg + wide-target sets + runner (no outcomes)
+7c8bd47 decision(rnn): RNN-06T 3A -> recovery transport QUALIFIED, adaptive DIRECTIONAL, transport PARTIAL
+6f14619 results(rnn): RNN-06T 3A -> RECOVERY_TRANSPORT=QUALIFIED, ADAPTIVE=DIRECTIONAL, TRANSPORT=PARTIAL
+bbfcf55 research+tool(rnn): RNN-06T 3A prereg + disjoint qual identities + runner (no outcomes)
+88aa782 decision(rnn): RNN-06T T0 both QUALIFIED -> Item B OPEN
+88ab2eb results(rnn): RNN-06T T0 -> OFFICIAL_MAMBA_LIFECYCLE=QUALIFIED, SINGLE_PASS_HISTORICAL_CAPTURE=QUALIFIED
+3e48b41 fix(rnn): RNN-06T T0 D/G test measures preregistered neighbor-isolation (not batch-size)
+056962a tool(rnn): RNN-06T T0 lib + lifecycle/single-pass runner (identity-freezing; no outcomes)
+bff9342 research(rnn): RNN-06T train protocol + T0 pre-registration (canonical single-pass path, lifecycle tolerances; no outcomes)
+4afe1a5 qual(rnn): RNN-06T Section 1 — OFFICIAL_MAMBA_FASTPATH = RUNNABLE (fast path proven firing)
+f9b31da audit(rnn): RNN-06D reconciliation (append-only) — DEVIATION + adaptive advantage NOT_QUALIFIED
+
+=== executed-source identity (runner blob == committed; dirty must be empty) ===
+ops/rnn_06t_backend.py  blob=642c19e37dd909938dd5189dc228e89b3a71155c  dirty=[]
+ops/rnn_06t_lib.py  blob=12c9993598ef9a9ca0ebffdae845d5110f09aab9  dirty=[]
+ops/rnn_06t_t0.py  blob=5a9f321dafa1daa3916cdd0896d4c1ca45b37091  dirty=[]
+ops/rnn_06t_3a_challenges.py  blob=ce65ea35b048d6a7889e889a41c3f1d4403b25b1  dirty=[]
+ops/rnn_06t_3a.py  blob=56700c0c799e1d5d02984bd68547856fed0291f8  dirty=[]
+ops/rnn_06t_3b_challenges.py  blob=e5ad4079e619bf343ce9909129843f49802b622f  dirty=[]
+ops/rnn_06t_3b.py  blob=9299fe4b9dbcfae979a40b6630a5d6c3087fd60c  dirty=[]
+ops/rnn_06t_econ.py  blob=c558ea62d8a76a02fb1d6abd181ed6b46958a89b  dirty=[]
+ops/rnn_06t_scout.py  blob=0f4feb47d1aed4a304932477f1c9a709625cd106  dirty=[]
+
+=== tracked working-tree status for RNN-06T + ops/rnn_06t* (must be clean) ===
+(clean — no tracked modifications)
+
+=== official subject + fast-path identity ===
+checkpoint: state-spaces/mamba2-1.3b @ c5b59d00ec85d313adea86a08cad2a43c962dd3b
+fast path: mamba_ssm 2.2.4 + causal_conv1d 1.5.0.post8 (cu12torch2.6cxx11abiFALSE-cp312), triton 3.2.0, torch 2.6.0+cu124, RTX 3090, driver 591.86
+FAST_PATH_ACTIVE=True (proven: prefill chunk_scan+causal_conv1d_fn; step selective_state_update+causal_conv1d_update; 0 fallback)
+
+=== qualification-set identities ===
+3A qual  = 5e47408e723e10473c1072fd436699df477a2cbfe9f69bd9cf02e01e1abe09e7
+3B calib = c063529612aa653c2f929f6a69e6490a98dfb6256688fc9d0dfa597984fd3691
+3B qual  = d8012e61c3a8fb435eada5c3518c5c7fe45509d0101e537549823f455c461494
+
+=== decision states ===
+OFFICIAL_MAMBA_FASTPATH=RUNNABLE  OFFICIAL_MAMBA_LIFECYCLE=QUALIFIED  SINGLE_PASS_HISTORICAL_CAPTURE=QUALIFIED
+HISTORICAL_RECOVERY_TRANSPORT=QUALIFIED  ADAPTIVE_SELECTOR_ADVANTAGE=DIRECTIONAL  OFFICIAL_MAMBA_SYNTHETIC_TRANSPORT=PARTIAL
+WIDE_TARGET_RECOVERY=QUALIFIED  ADAPTIVE_SELECTION=QUALIFIED  END_TO_END_RECOVERY_UTILITY=QUALIFIED(marginal)  NON_SYNTHETIC_RECOVERY_SCOUT=NO_SIGNAL
+prior 06A/06D artifacts: NOT modified (06D audit reconciliation appended only)
