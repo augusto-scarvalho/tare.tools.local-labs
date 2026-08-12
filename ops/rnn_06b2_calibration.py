@@ -31,7 +31,7 @@ DEVICE, DTYPE, CHUNK = "cuda", torch.bfloat16, 32
 AUTOBATCH = 1536
 CALIB_SEED = 20260814
 
-CAND_M = [48, 64]
+CAND_M = [48, 64, 96, 128]
 CAND_SENT = ["REPEAT1", "CYCLE4"]
 N_CALIB = 48
 
@@ -106,7 +106,7 @@ def main():
     surface = []
     torch.cuda.reset_peak_memory_stats()
     for M in CAND_M:
-        U_ladder = sorted(set([1, 2, 4, 8, 16, 32, M]))
+        U_ladder = sorted(set([1, 2, 4, 8, 16, 24, 32, 48, 64, 96, M]))
         U_ladder = [u for u in U_ladder if u <= M]
         for sent in CAND_SENT:
             for U in U_ladder:
