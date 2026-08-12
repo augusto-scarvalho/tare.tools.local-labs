@@ -1,0 +1,64 @@
+{
+  "packet": "RNN-06T-ECON",
+  "kind": "end_to_end_economics",
+  "compile_model_load_s": 3.54,
+  "timings_s": {
+    "final_only_fused": {
+      "cold": 22.6219,
+      "warm_batch": 0.6,
+      "warm_per_query_ms": 37.5
+    },
+    "final_only_step": {
+      "cold": 16.8181,
+      "warm_batch": 15.4357,
+      "warm_per_query_ms": 964.73
+    },
+    "recovery_enabled": {
+      "cold": 16.5738,
+      "warm_batch": 16.4632,
+      "warm_per_query_ms": 1028.95
+    },
+    "recovery_components_warm_s": {
+      "trajectory_plus_capture_s": 15.4198,
+      "restore_readout_s": 0.2081,
+      "selection_s": 0.0001
+    }
+  },
+  "added_latency": {
+    "vs_final_fused_ms_per_query": 991.45,
+    "vs_final_step_ms_per_query": 64.22,
+    "note": "vs_fused = full end-to-end recovery premium (step path + capture + restore/readout); vs_step isolates capture+restore/readout only"
+  },
+  "memory": {
+    "peak_vram_gb_final_fused": 4.021,
+    "peak_vram_gb_final_step": 4.403,
+    "peak_vram_gb_recovery": 7.731,
+    "peak_cpu_ram_gb": 1.295,
+    "snapshot_bytes_batch": 3328180224,
+    "snapshot_bytes_per_seq_per_K": 52002816,
+    "state_bytes_x_K_per_seq": 208011264
+  },
+  "derived": {
+    "quality_delta_maxconf_vs_final_3b": 0.4896,
+    "net_recovery_count_3b": 94,
+    "n_recovered_3b": 97,
+    "n_harmed_3b": 3,
+    "net_recovery_per_snapshot_MiB": 0.02962,
+    "net_recovery_per_added_ms_vs_fused": 0.09481,
+    "quality_delta_per_added_ms_vs_fused": 0.000494,
+    "snapshot_count_K": 4
+  },
+  "intrinsic_06d_style_ms_per_query": 13.01,
+  "cost_envelope_ms_per_query": 1000.0,
+  "END_TO_END_RECOVERY_UTILITY": "QUALIFIED",
+  "executed_source_identity": {
+    "runner_git_blob": "c558ea62d8a76a02fb1d6abd181ed6b46958a89b",
+    "runner_dirty": "",
+    "git_head": "be7dd58a307b8200cfe2f46b8e8efa8ae4c2a752",
+    "repo_id": "state-spaces/mamba2-1.3b",
+    "revision": "c5b59d00ec85d313adea86a08cad2a43c962dd3b",
+    "mamba_ssm": "2.2.4",
+    "protocol_sha256": "7ffaeb237f38c8411d830ec23fffe6df0212b3e1928170caa30c85c0f1fbe8c6"
+  },
+  "total_runtime_s": 273.5
+}
