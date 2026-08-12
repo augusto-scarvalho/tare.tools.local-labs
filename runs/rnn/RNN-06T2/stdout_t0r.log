@@ -1,0 +1,22 @@
+=== T0R LIFECYCLE ===
+  A_same_path_replay: pass=True
+  B_destroy_reload_continue: pass=True
+  C_real_branch_fork: pass=True
+  D_fixed_batch_neighbor_isolation: pass=True
+  E_reset_reuse_equivalence: pass=True
+  F_roundtrip_continuation: pass=True
+  G_fixed_batch_slice_ownership: pass=True
+  H_temporal_snapshot_identity: pass=True
+  I_weight_immutability: pass=True
+  J_backend_fastpath_identity: pass=True
+OFFICIAL_MAMBA_FIXED_BATCH_LIFECYCLE = QUALIFIED
+batch_shape_diag max_abs_diff=0.5 -> BATCH_SHAPE_NUMERICAL_PORTABILITY = OUT_OF_SCOPE_NOT_QUALIFIED
+=== SINGLE-PASS CAPTURE T0R ===
+  ord=0 b=156 match=True n_correct=0/8
+  ord=1 b=308 match=True n_correct=2/8
+  ord=2 b=464 match=True n_correct=5/8
+  ord=3 b=616 match=True n_correct=4/8
+  ord=4 b=768 match=True n_correct=2/8
+boundaryChecks=5 failures=0
+SINGLE_PASS_HISTORICAL_CAPTURE_T0R = QUALIFIED
+both_qualified=True item_T1R=OPEN qual_set_sha=ca92cfad0d0aac4a runtime=174.8s vram=24.422GB

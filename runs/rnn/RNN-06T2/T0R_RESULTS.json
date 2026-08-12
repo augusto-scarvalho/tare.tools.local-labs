@@ -1,0 +1,302 @@
+{
+  "packet": "RNN-06T2-T0R",
+  "kind": "fixed_batch_lifecycle_requalification",
+  "executed_source_identity": {
+    "runner_sha256": "5dac05422ca2901b6130c323ee63317621d174a907f6c72e137fb10255dcdd7d",
+    "runner_git_blob": "7115c23edb233181aed98f699f17cb81cd5177d2",
+    "runner_dirty": "",
+    "lib_git_blob": "12c9993598ef9a9ca0ebffdae845d5110f09aab9",
+    "d6_git_blob": "ba93fff341b44a6a30f9dae5eb4f44d114a2d966",
+    "git_head": "ca301bdaa7cc15159a102f1aefc58609d7d68f0b",
+    "repo_id": "state-spaces/mamba2-1.3b",
+    "revision": "c5b59d00ec85d313adea86a08cad2a43c962dd3b",
+    "mamba_ssm": "2.2.4",
+    "causal_conv1d": "1.5.0.post8",
+    "triton": "3.2.0",
+    "torch": "2.6.0+cu124",
+    "torch_cuda": "12.4",
+    "cxx11abi": false,
+    "dtype": "torch.bfloat16",
+    "device": "cuda",
+    "cuda_device": "NVIDIA GeForce RTX 3090",
+    "driver": "591.86",
+    "protocol_sha256": "71f66580415def9388f5ac9a58ee7f79965ac6f42b0af9052e3d1ab4ec6423d5",
+    "lifecycleQualificationSetSha256_T0R": "ca92cfad0d0aac4ae20aa8612f259c559ad592415a71797561b3e5909103cafe",
+    "qual_set_disjoint_from_history_by_seed": true,
+    "our_seeds": [
+      20261050,
+      20261051,
+      20261052,
+      20261060
+    ],
+    "n_layer": 48,
+    "chunk_size": 256,
+    "model_weights_mutation_sentinel": "b5af61407fbc04f8328ce8c6c79702e31e7d008f27caecc8a62b0ca54e8515ef",
+    "batch_t0r": 8
+  },
+  "batch_shape_diagnostic": {
+    "batch1_vs_batchB_max_abs_diff": 0.5,
+    "TOL_BATCH_historical": 0.03,
+    "within_tol": false,
+    "scope": "OUT_OF_SCOPE_FOR_FIXED_BATCH_RECOVERY (preregistered)",
+    "note": "measured for completeness; the operational recovery contract holds batch shape fixed. NOT called benign; an out-of-scope numerical divergence."
+  },
+  "lifecycle_tests": {
+    "A_same_path_replay": {
+      "state_bit_exact": true,
+      "readout_identical": true,
+      "pass": true,
+      "boundary_hashes": {
+        "80": "c9008031770a981b",
+        "160": "16cfef48c64198c0",
+        "240": "75b5ba25a5c5cdd8",
+        "320": "d9d23643954f6b3c"
+      }
+    },
+    "B_destroy_reload_continue": {
+      "final_state_bit_exact": true,
+      "readout_identical": true,
+      "pass": true,
+      "final_uninterrupted_hash": "d9d23643954f6b3c",
+      "final_reloaded_hash": "d9d23643954f6b3c",
+      "compared_against": "uninterrupted_same_path_step_continuation"
+    },
+    "C_real_branch_fork": {
+      "parent_immutable_after_P_and_Q": true,
+      "parent_hash_before": "16cfef48c64198c0",
+      "parent_hash_after_P": "16cfef48c64198c0",
+      "parent_hash_after_Q": "16cfef48c64198c0",
+      "P_reproducible_from_fresh_parent": true,
+      "Q_independent_of_P_execution": true,
+      "P_unaffected_by_Q_execution": true,
+      "branches_distinct": true,
+      "branchP_state_hash": "6f46783bff2986a5463de8fd",
+      "branchP_ref_state_hash": "6f46783bff2986a5463de8fd",
+      "branchQ_afterP_hash": "8fd3f3295d39ea9d837766d7",
+      "branchQ_alone_hash": "8fd3f3295d39ea9d837766d7",
+      "branchP_pred_sample": [
+        84,
+        14,
+        247
+      ],
+      "pass": true
+    },
+    "D_fixed_batch_neighbor_isolation": {
+      "neighbor_order_state_bit_exact": true,
+      "neighbor_content_state_bit_exact": true,
+      "readout_argmax_invariant": true,
+      "focal_row0_conv_hash": "6a39f80bf0d11ad3",
+      "focal_row0_ssm_hash": "b5eca7f647fefa88",
+      "pass": true
+    },
+    "E_reset_reuse_equivalence": {
+      "dirtied_nonzero": true,
+      "reset_all_zero": true,
+      "reuse_state_bit_exact_vs_fresh": true,
+      "reuse_readout_identical": true,
+      "reused_state_hash": "364bf104bcb30bfd18e884de",
+      "fresh_state_hash": "364bf104bcb30bfd18e884de",
+      "pass": true
+    },
+    "F_roundtrip_continuation": {
+      "post_roundtrip_continuation_bit_exact": true,
+      "readout_identical": true,
+      "roundtrip_cont_hash": "d9d23643954f6b3ccabad3d6",
+      "no_roundtrip_cont_hash": "d9d23643954f6b3ccabad3d6",
+      "pass": true
+    },
+    "G_fixed_batch_slice_ownership": {
+      "row_state_invariant_under_permutation": true,
+      "row_state_invariant_under_sibling_substitution": true,
+      "focal_row_continuation_invariant_to_siblings": true,
+      "note": "fixed-batch slice ownership; NO batch1 equivalence claimed here",
+      "pass": true
+    },
+    "H_temporal_snapshot_identity": {
+      "pass": true,
+      "boundary_checks": 5,
+      "boundary_failures": 0,
+      "run_id": "74809c70b7d1a684",
+      "records": [
+        {
+          "runId": "74809c70b7d1a684",
+          "snapshot_ordinal": 0,
+          "token_position": 156,
+          "recurrence_boundary": 156,
+          "cache_position": 156,
+          "conv_state_hash": "5fe8ad2bd49a5b08e09989b3",
+          "ssm_state_hash": "7af7b328cd1f4087ef1925a5",
+          "combined_state_hash": "8c94bbeb674632841221a73f",
+          "replay_combined_hash": "8c94bbeb674632841221a73f",
+          "matches_independent_replay": true
+        },
+        {
+          "runId": "74809c70b7d1a684",
+          "snapshot_ordinal": 1,
+          "token_position": 308,
+          "recurrence_boundary": 308,
+          "cache_position": 308,
+          "conv_state_hash": "26f03a65bf3a6fb4bbf9977a",
+          "ssm_state_hash": "7a9b50ba62dc9ee098e2fbc9",
+          "combined_state_hash": "765ff3109955262fa429113e",
+          "replay_combined_hash": "765ff3109955262fa429113e",
+          "matches_independent_replay": true
+        },
+        {
+          "runId": "74809c70b7d1a684",
+          "snapshot_ordinal": 2,
+          "token_position": 464,
+          "recurrence_boundary": 464,
+          "cache_position": 464,
+          "conv_state_hash": "ca4c14d422b7ccd4f97a234f",
+          "ssm_state_hash": "423e351428adb7c20c361a64",
+          "combined_state_hash": "55a8c9afe0e60b52c717dd1d",
+          "replay_combined_hash": "55a8c9afe0e60b52c717dd1d",
+          "matches_independent_replay": true
+        },
+        {
+          "runId": "74809c70b7d1a684",
+          "snapshot_ordinal": 3,
+          "token_position": 616,
+          "recurrence_boundary": 616,
+          "cache_position": 616,
+          "conv_state_hash": "0dafb65b9330ad4e059dc3bd",
+          "ssm_state_hash": "ca37ac5591d79ffa58f68bfd",
+          "combined_state_hash": "913ce6f91c11f00044f68cc5",
+          "replay_combined_hash": "913ce6f91c11f00044f68cc5",
+          "matches_independent_replay": true
+        },
+        {
+          "runId": "74809c70b7d1a684",
+          "snapshot_ordinal": 4,
+          "token_position": 768,
+          "recurrence_boundary": 768,
+          "cache_position": 768,
+          "conv_state_hash": "56fe06a02f316bd84ec14e4b",
+          "ssm_state_hash": "0f165f44993e633116d8fa25",
+          "combined_state_hash": "aeaa0a3787c11b078e066095",
+          "replay_combined_hash": "aeaa0a3787c11b078e066095",
+          "matches_independent_replay": true
+        }
+      ]
+    },
+    "I_weight_immutability": {
+      "OFFICIAL_CHECKPOINT_IDENTITY": "c5b59d00ec85d313adea86a08cad2a43c962dd3b",
+      "LOADED_WEIGHT_MUTATION_SENTINEL_before": "b5af61407fbc04f8",
+      "LOADED_WEIGHT_MUTATION_SENTINEL_after": "b5af61407fbc04f8",
+      "sentinel_unchanged": true,
+      "note": "sentinel = sum-based fingerprint (cheap mutation check), NOT a cryptographic full-weight hash",
+      "pass": true
+    },
+    "J_backend_fastpath_identity": {
+      "fallback_reachable": {
+        "causal_conv1d_fn_is_None": false,
+        "causal_conv1d_update_is_None": false,
+        "selective_state_update_is_None": false
+      },
+      "kernel_counts": {
+        "mamba_split_conv1d_scan_combined": 0,
+        "mamba_chunk_scan_combined": 528,
+        "causal_conv1d_fn": 528,
+        "causal_conv1d_update": 235968,
+        "selective_state_update": 235968
+      },
+      "official_prefill_fired": true,
+      "official_step_fired": true,
+      "fallback_path_count": 0,
+      "pass": true
+    }
+  },
+  "OFFICIAL_MAMBA_FIXED_BATCH_LIFECYCLE": "QUALIFIED",
+  "BATCH_SHAPE_NUMERICAL_PORTABILITY": "OUT_OF_SCOPE_NOT_QUALIFIED",
+  "single_pass_capture": {
+    "run_id": "74809c70b7d1a684",
+    "boundaries": [
+      156,
+      308,
+      464,
+      616,
+      768
+    ],
+    "M": 192,
+    "schedule": [
+      38,
+      76,
+      115,
+      153
+    ],
+    "monotonic": true,
+    "snapshots": [
+      {
+        "snapshot_ordinal": 0,
+        "boundary": 156,
+        "cache_position": 156,
+        "run_id": "74809c70b7d1a684",
+        "state_hash": "8c94bbeb674632841221a73f",
+        "replay_hash": "8c94bbeb674632841221a73f",
+        "hash_matches_uninterrupted": true,
+        "n_correct_over_batch": 0
+      },
+      {
+        "snapshot_ordinal": 1,
+        "boundary": 308,
+        "cache_position": 308,
+        "run_id": "74809c70b7d1a684",
+        "state_hash": "765ff3109955262fa429113e",
+        "replay_hash": "765ff3109955262fa429113e",
+        "hash_matches_uninterrupted": true,
+        "n_correct_over_batch": 2
+      },
+      {
+        "snapshot_ordinal": 2,
+        "boundary": 464,
+        "cache_position": 464,
+        "run_id": "74809c70b7d1a684",
+        "state_hash": "55a8c9afe0e60b52c717dd1d",
+        "replay_hash": "55a8c9afe0e60b52c717dd1d",
+        "hash_matches_uninterrupted": true,
+        "n_correct_over_batch": 5
+      },
+      {
+        "snapshot_ordinal": 3,
+        "boundary": 616,
+        "cache_position": 616,
+        "run_id": "74809c70b7d1a684",
+        "state_hash": "913ce6f91c11f00044f68cc5",
+        "replay_hash": "913ce6f91c11f00044f68cc5",
+        "hash_matches_uninterrupted": true,
+        "n_correct_over_batch": 4
+      },
+      {
+        "snapshot_ordinal": 4,
+        "boundary": 768,
+        "cache_position": 768,
+        "run_id": "74809c70b7d1a684",
+        "state_hash": "aeaa0a3787c11b078e066095",
+        "replay_hash": "aeaa0a3787c11b078e066095",
+        "hash_matches_uninterrupted": true,
+        "n_correct_over_batch": 2
+      }
+    ],
+    "snapshotBoundaryChecks": 5,
+    "snapshotBoundaryFailures": 0,
+    "final_readout_n_correct": 2,
+    "kernel_counts": {
+      "mamba_split_conv1d_scan_combined": 0,
+      "mamba_chunk_scan_combined": 96,
+      "causal_conv1d_fn": 96,
+      "causal_conv1d_update": 73920,
+      "selective_state_update": 73920
+    },
+    "fallback_reachable": {
+      "causal_conv1d_fn_is_None": false,
+      "causal_conv1d_update_is_None": false,
+      "selective_state_update_is_None": false
+    }
+  },
+  "SINGLE_PASS_HISTORICAL_CAPTURE_T0R": "QUALIFIED",
+  "both_qualified": true,
+  "item_T1R_status": "OPEN",
+  "peak_vram_gb": 24.422,
+  "total_runtime_s": 174.8
+}

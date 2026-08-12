@@ -1,0 +1,33 @@
+{
+  "packet": "RNN-06T2",
+  "repo_id": "state-spaces/mamba2-1.3b",
+  "revision": "c5b59d00ec85d313adea86a08cad2a43c962dd3b",
+  "chunk_size": 256,
+  "n_layer": 48,
+  "state_bytes_per_seq": 52002816,
+  "mamba_ssm": "2.2.4",
+  "causal_conv1d": "1.5.0.post8",
+  "triton": "3.2.0",
+  "torch": "2.6.0+cu124",
+  "cuda": "12.4",
+  "cxx11abi": false,
+  "dtype": "torch.bfloat16",
+  "cuda_device": "NVIDIA GeForce RTX 3090",
+  "python": "3.12.3",
+  "driver": "591.86",
+  "kernel_path": "mamba_ssm chunk_scan+causal_conv1d prefill / selective_state_update+causal_conv1d_update step",
+  "fast_path_active": true,
+  "kernel_counts_probe": {
+    "mamba_split_conv1d_scan_combined": 0,
+    "mamba_chunk_scan_combined": 528,
+    "causal_conv1d_fn": 528,
+    "causal_conv1d_update": 235968,
+    "selective_state_update": 235968
+  },
+  "fallback_reachable": {
+    "causal_conv1d_fn_is_None": false,
+    "causal_conv1d_update_is_None": false,
+    "selective_state_update_is_None": false
+  },
+  "weight_mutation_sentinel": "b5af61407fbc04f8328ce8c6c79702e31e7d008f27caecc8a62b0ca54e8515ef"
+}
