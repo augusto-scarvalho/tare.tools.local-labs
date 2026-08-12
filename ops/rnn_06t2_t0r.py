@@ -270,8 +270,6 @@ def main():
     seqs_alt[1:] = torch.tensor(rng2.integers(0, vocab, size=(BATCH_T0R - 1, LSEQ)), device=L.DEVICE, dtype=torch.long)
     sAlt = L.run_trajectory(model, seqs_alt, [LSEQ])[LSEQ]
     content_state = (row_full[0] == L.state_hash_row(sAlt, 0))
-    # continuation-state invariance for focal row 0 under content change
-    contRef = L.continue_trajectory(model, s_ref, seqsP, LSEQ, [seqsP.shape[1]])[seqsP.shape[1]]
     # D.3 readout argmax invariance under neighbor permutation
     predRef, subRef = eq_readout(model, s_ref, qtok, LSEQ, vtensor)
     predPerm, subPerm = eq_readout(model, sPerm, qtok[perm], LSEQ, vtensor)
@@ -330,9 +328,14 @@ def main():
     # ================= G. fixed-batch slice ownership =================
     # focal row invariant to row permutation AND sibling substitution (state+continuation+readout)
     g_state = bool(order_state and content_state)
-    # continuation ownership: focal row 0 continuation invariant when siblings replaced
-    cont_ref0 = L.continue_trajectory(model, s_ref, seqsP, LSEQ, [seqsP.shape[1]])[seqsP.shape[1]]
-    cont_alt0 = L.continue_trajectory(model, sAlt, seqsP, LSEQ, [seqsP.shape[1]])[seqsP.shape[1]]
+    # continuation ownership: focal row 0 continuation invariant when siblings replaced.
+    # Continue AFTER slot LSEQ with a shared 40-token suffix; row0 prefix+suffix identical across the
+    # ref (seqs) and sibling-substituted (seqs_alt, row0 unchanged) batches.
+    contseq_ref = torch.cat([seqs, sufP], dim=1)             # (B, LSEQ+40)
+    contseq_alt = torch.cat([seqs_alt, sufP], dim=1)
+    LcG = contseq_ref.shape[1]
+    cont_ref0 = L.continue_trajectory(model, s_ref, contseq_ref, LSEQ, [LcG])[LcG]
+    cont_alt0 = L.continue_trajectory(model, sAlt, contseq_alt, LSEQ, [LcG])[LcG]
     g_cont = (L.state_hash_row(cont_ref0, 0) == L.state_hash_row(cont_alt0, 0))
     G_ok = bool(g_state and g_cont)
     lc["G_fixed_batch_slice_ownership"] = {
