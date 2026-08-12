@@ -1,0 +1,38 @@
+The fast path is not available because on of `(selective_state_update, causal_conv1d_fn, causal_conv1d_update)` is None. Falling back to the naive implementation. To install follow https://github.com/state-spaces/mamba/#installation and https://github.com/Dao-AILab/causal-conv1d
+[b3calib] M=128 res=16 U=  1 sent=127 len=514 acc=0.979 (47/48)
+[b3calib] M=128 res=16 U=  8 sent=120 len=514 acc=0.938 (45/48)
+[b3calib] M=128 res=16 U= 24 sent=104 len=514 acc=0.958 (46/48)
+[b3calib] M=128 res=16 U= 48 sent= 80 len=514 acc=0.917 (44/48)
+[b3calib] M=128 res=16 U= 72 sent= 56 len=514 acc=0.896 (43/48)
+[b3calib] M=128 res=16 U= 96 sent= 32 len=514 acc=0.812 (39/48)
+[b3calib] M=128 res=16 U=112 sent= 16 len=514 acc=0.688 (33/48)
+[b3calib] M=128 res=32 U=  1 sent=127 len=514 acc=0.979 (47/48)
+[b3calib] M=128 res=32 U=  8 sent=120 len=514 acc=0.938 (45/48)
+[b3calib] M=128 res=32 U= 24 sent=104 len=514 acc=0.958 (46/48)
+[b3calib] M=128 res=32 U= 48 sent= 80 len=514 acc=0.917 (44/48)
+[b3calib] M=128 res=32 U= 72 sent= 56 len=514 acc=0.896 (43/48)
+[b3calib] M=128 res=32 U= 96 sent= 32 len=514 acc=0.812 (39/48)
+[b3calib] M=192 res=16 U=  1 sent=191 len=770 acc=0.979 (47/48)
+[b3calib] M=192 res=16 U=  8 sent=184 len=770 acc=0.958 (46/48)
+[b3calib] M=192 res=16 U= 24 sent=168 len=770 acc=0.958 (46/48)
+[b3calib] M=192 res=16 U= 48 sent=144 len=770 acc=0.958 (46/48)
+[b3calib] M=192 res=16 U= 72 sent=120 len=770 acc=0.917 (44/48)
+[b3calib] M=192 res=16 U= 96 sent= 96 len=770 acc=0.792 (38/48)
+[b3calib] M=192 res=16 U=128 sent= 64 len=770 acc=0.729 (35/48)
+[b3calib] M=192 res=16 U=176 sent= 16 len=770 acc=0.479 (23/48)
+[b3calib] M=192 res=32 U=  1 sent=191 len=770 acc=0.979 (47/48)
+[b3calib] M=192 res=32 U=  8 sent=184 len=770 acc=0.958 (46/48)
+[b3calib] M=192 res=32 U= 24 sent=168 len=770 acc=0.958 (46/48)
+[b3calib] M=192 res=32 U= 48 sent=144 len=770 acc=0.958 (46/48)
+[b3calib] M=192 res=32 U= 72 sent=120 len=770 acc=0.917 (44/48)
+[b3calib] M=192 res=32 U= 96 sent= 96 len=770 acc=0.792 (38/48)
+[b3calib] M=192 res=32 U=128 sent= 64 len=770 acc=0.729 (35/48)
+[b3calib] M=192 res=32 U=160 sent= 32 len=770 acc=0.521 (25/48)
+
+== feasibility ==
+  M128_res16: low=0.979 maxU=112 high=0.688 drop=0.292 material=True
+  M128_res32: low=0.979 maxU=96 high=0.812 drop=0.167 material=True
+  M192_res16: low=0.979 maxU=176 high=0.479 drop=0.5 material=True
+  M192_res32: low=0.979 maxU=160 high=0.521 drop=0.458 material=True
+nested_identity_all_pass=True
+b3CalibrationSetSha256=342f0961cb67b8f501ba15de8151d333d6a936f7bb3ce88433303bc1559717bc
