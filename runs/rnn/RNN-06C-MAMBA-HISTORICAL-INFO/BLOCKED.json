@@ -1,0 +1,18 @@
+{
+  "packet": "RNN-06C-MAMBA-HISTORICAL-INFO",
+  "status": "BLOCKED_BY_06B2",
+  "executed": false,
+  "HISTORICAL_STATE_INFORMATION": "NOT_MINTED",
+  "upstream_gate": {
+    "packet": "RNN-06B2-MAMBA-FIXED-LENGTH-STATE-LOAD",
+    "FIXED_LENGTH_STATE_LOAD_REGION": "BLOCKED",
+    "reasons": ["IMMEDIATE_CLIFF", "NOT_ROBUST_ACROSS_STRATA"]
+  },
+  "no_challenge_set_generated": true,
+  "no_state_readout_runs": true,
+  "no_recovery_built": true,
+  "no_reader_trained": true,
+  "no_snapshots_written": true,
+  "frozen_06c_dose_rule_recorded_in": "../RNN-06B2-MAMBA-FIXED-LENGTH-STATE-LOAD/B2_RESULTS.json#c06_dose_selection",
+  "note": "Conditional item not executed because its dependency did not qualify; explicit marker per train bundle-correctness rule."
+}
