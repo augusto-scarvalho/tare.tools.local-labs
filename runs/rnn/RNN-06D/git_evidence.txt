@@ -1,0 +1,39 @@
+RNN-06D — Historical-State Recovery Ceiling + Parameter-Free Utility Train — GIT EVIDENCE
+generated: 2026-08-12T12:03:18Z
+
+START HEAD (before train): 139045f0f1f8e65a1f7b4045e163ea22d859576f
+FINAL HEAD (this train):   57f61d4c6944924d0617a5dc956ced7078c2a906
+branch: master   pushed: NO
+
+=== commits 139045f..HEAD (append-only; no amend/rebase) ===
+57f61d4 decision(rnn): RNN-06D1 RECOVERY_UTILITY = QUALIFIED_PARAMETER_FREE (best MAX_CONFIDENCE)
+f7f385b results(rnn): RNN-06D1 -> RECOVERY_UTILITY = QUALIFIED_PARAMETER_FREE
+8c7b21b tool(rnn): RNN-06D1 param-free recovery runner (identity-freezing; no outcomes)
+7e9a97e research(rnn): RNN-06D1 pre-registration — frozen param-free recovery family + utility gate (no outcomes)
+de1a012 decision(rnn): RNN-06D0 RECOVERY_CEILING = QUALIFIED -> D1 OPEN
+d70f486 results(rnn): RNN-06D0 -> RECOVERY_CEILING = QUALIFIED
+eac2a1e tool(rnn): RNN-06D0 recovery-ceiling runner (identity-freezing; no outcomes)
+62ebee0 research(rnn): RNN-06D0 pre-registration + frozen qual identities + snapshot schedule (no outcomes)
+75e5940 calib(rnn): RNN-06D0 calibration — AMENDMENT 1 (v2 sentinel-pre/load-post), freeze K=4 band[8,64]
+d75369c research(rnn): RNN-06D train protocol + anti-oracle construction lib (no outcomes)
+
+=== executed-source identity (runner blob == committed; dirty must be empty) ===
+ops/rnn_06d_lib.py  blob=ba93fff341b44a6a30f9dae5eb4f44d114a2d966  dirty=[]
+ops/rnn_06d0_calibration.py  blob=1ae9b2598c0217cbe80f1df5f88398bd89b5aaeb  dirty=[]
+ops/rnn_06d0_challenges.py  blob=6dba42faf6a3230843d5981c8dac3545b73c519c  dirty=[]
+ops/rnn_06d0_ceiling.py  blob=96d125cb016ac6af8843d2a1645b29527383d290  dirty=[]
+ops/rnn_06d1_recovery.py  blob=2a7c47e0c8fbdbdccd93bd5b3628d0b74a2c7e5d  dirty=[]
+
+=== tracked working-tree status for RNN-06D + ops (must be clean) ===
+(clean — no tracked modifications)
+
+=== frozen identities ===
+subject: AntonV/mamba2-1.3b-hf @ 703e19a43f397c70315244a3424d79456b54fb34 (transformers 4.48.3, torch 2.6.0+cu124, bf16, cs=32, is_fast_path_available=False)
+calibrationSetSha256   = 0bf7d2613c4054f602e01662c66eb97260adce59806b10ca33a6d5b75601a936
+qualificationSetSha256 = 7bbf9b753ed769adf93573f50b15d91a0e89bf70c14c2951adb5fc022f29d324
+snapshotScheduleSha256 = 355e51056793ba46375f71e6a1f6d6f9f72e564678487641fda715f4b2e1c541 (K=4, slots [38,76,115,153])
+
+=== outcomes ===
+RECOVERY_CEILING = QUALIFIED (OB-FINAL=0.776 CI[0.719,0.833]; recoverable 149/167)
+RECOVERY_UTILITY = QUALIFIED_PARAMETER_FREE (best MAX_CONFIDENCE acc=0.833 delta+0.703 CI[0.641,0.766] 135 rec / 0 harm)
+prior gates P0/06A/06A2/06B/06B2/06B3/06C: NOT modified
