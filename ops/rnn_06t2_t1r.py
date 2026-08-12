@@ -126,6 +126,10 @@ def capture_readouts(model, examples, pools, vt, V):
         for li, r in enumerate(rows):
             final_logits[r] = sub[li].cpu().numpy()
         del snaps; torch.cuda.empty_cache()
+    kc = dict(L.KCOUNT); fb = L.fallback_reachable()
+    counters["fastPathPrefillCalls"] = int(kc["mamba_chunk_scan_combined"] + kc["mamba_split_conv1d_scan_combined"])
+    counters["fastPathStepCalls"] = int(kc["selective_state_update"])
+    counters["fallbackPathCalls"] = int(sum(1 for v in fb.values() if v))
     return pool_logits, final_logits, np.array(golds), np.array(tslots), counters, boundary_sample
 
 
@@ -207,6 +211,9 @@ def main():
         adaptive = ("QUALIFIED" if (adaptive_vs_fixed["delta"] >= SESOI_ADAPTIVE
                     and adaptive_vs_fixed["ci95"][0] > 0 and adaptive_vs_fixed["robust_strata"] >= ROBUST_MIN)
                     else ("DIRECTIONAL" if adaptive_vs_fixed["delta"] > 0 else "NOT_QUALIFIED"))
+        counters["historicalSelections"] = int(N)     # MAX_CONFIDENCE selects a pre-FINAL historical snapshot per example
+        counters["fixedSelections"] = int(N)           # FIXED_SLOT_76 control applied to all examples
+        counters["finalSelections"] = int(N)           # FINAL arm evaluated for all examples
         res = {"packet": "RNN-06T2-T1R-NARROW", "band": spec["band"], "schedule": SCHEDULE,
                "qualificationSetSha256": spec["setSha256"], "disjointness_proof": spec["disjointness_proof"],
                "executed_source_identity": base_identity(runner), "model_weights_sentinel": w0,
@@ -298,6 +305,9 @@ def main():
     adaptive = ("QUALIFIED" if (adaptive_vs_strongest["delta"] >= SESOI_ADAPTIVE
                 and adaptive_vs_strongest["ci95"][0] > 0 and adaptive_vs_strongest["robust_strata"] >= ROBUST_MIN)
                 else ("DIRECTIONAL" if adaptive_vs_strongest["delta"] > 0 else "NOT_QUALIFIED"))
+    counters["historicalSelections"] = int(N)          # MAX_CONFIDENCE selects a pre-FINAL historical snapshot per example
+    counters["fixedSelections"] = int(N * len(carried))  # each carried fixed control applied to all examples
+    counters["finalSelections"] = int(N)               # FINAL arm evaluated for all examples
 
     res = {"packet": "RNN-06T2-T1R-WIDE", "band": spec["band"], "regions": spec["regions"], "schedule": SCHEDULE,
            "qualificationSetSha256": spec["setSha256"], "disjointness_proof": spec["disjointness_proof"],
