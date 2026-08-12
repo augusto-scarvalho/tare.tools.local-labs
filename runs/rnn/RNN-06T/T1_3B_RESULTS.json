@@ -1,0 +1,187 @@
+{
+  "packet": "RNN-06T-3B",
+  "kind": "wide_target_generalization",
+  "qualificationSetSha256": "d8012e61c3a8fb435eada5c3518c5c7fe45509d0101e537549823f455c461494",
+  "disjointness_proof": {
+    "sha256": "d8012e61c3a8fb435eada5c3518c5c7fe45509d0101e537549823f455c461494",
+    "overlaps": {
+      "d0_calib": 0,
+      "d0_qual": 0,
+      "t3a_qual": 0,
+      "b3_qual": 0,
+      "c06": 0,
+      "other_3b_set": 0
+    },
+    "disjoint_all": true
+  },
+  "BEST_FIXED_SNAPSHOT": 115,
+  "band": [
+    8,
+    144
+  ],
+  "regions": [
+    [
+      8,
+      38
+    ],
+    [
+      39,
+      76
+    ],
+    [
+      77,
+      115
+    ],
+    [
+      116,
+      144
+    ]
+  ],
+  "executed_source_identity": {
+    "runner_git_blob": "9299fe4b9dbcfae979a40b6630a5d6c3087fd60c",
+    "runner_dirty": "",
+    "git_head": "535e3ac76bfc8104c9ab794075035fbc007f2d9a",
+    "repo_id": "state-spaces/mamba2-1.3b",
+    "revision": "c5b59d00ec85d313adea86a08cad2a43c962dd3b",
+    "mamba_ssm": "2.2.4",
+    "model_weights_identity": "b5af61407fbc04f8328ce8c6c79702e31e7d008f27caecc8a62b0ca54e8515ef",
+    "protocol_sha256": "0f30715c8f41d6a38289368b0291496e93fa60f8b841181cb78384123b6a48d8"
+  },
+  "arms": {
+    "FINAL": {
+      "acc": 0.2864583333333333,
+      "ci95": [
+        0.22718828617047132,
+        0.35410598430117507
+      ]
+    },
+    "ORACLE_BEST_GOLD": {
+      "acc": 0.8697916666666666,
+      "note": "diag"
+    },
+    "ORACLE_TARGET_PROXIMAL": {
+      "acc": 0.8697916666666666,
+      "note": "diag"
+    },
+    "BEST_FIXED_SNAPSHOT": {
+      "slot": 115,
+      "acc": 0.4375,
+      "vs_final": {
+        "delta": 0.151,
+        "ci95": [
+          0.08333333333333333,
+          0.21875
+        ],
+        "per_stratum": {
+          "0": 0.22916666666666669,
+          "1": 0.35416666666666663,
+          "2": 0.5833333333333333,
+          "3": -0.5625
+        },
+        "robust": 3,
+        "vs": "FINAL"
+      }
+    },
+    "MAX_CONFIDENCE": {
+      "acc": 0.7760416666666666,
+      "vs_final": {
+        "delta": 0.4896,
+        "ci95": [
+          0.4166666666666667,
+          0.5572916666666666
+        ],
+        "per_stratum": {
+          "0": 0.75,
+          "1": 0.5833333333333334,
+          "2": 0.4375,
+          "3": 0.1875
+        },
+        "robust": 4,
+        "vs": "FINAL"
+      },
+      "vs_best_fixed": {
+        "delta": 0.3385,
+        "ci95": [
+          0.2708333333333333,
+          0.4010416666666667
+        ],
+        "per_stratum": {
+          "0": 0.5208333333333333,
+          "1": 0.22916666666666674,
+          "2": -0.14583333333333326,
+          "3": 0.75
+        },
+        "robust": 3,
+        "vs": "BEST_FIXED"
+      },
+      "selectedSnapshotHistogram": [
+        66,
+        39,
+        40,
+        47
+      ],
+      "n_recovered_vs_final": 97,
+      "n_harmed_vs_final": 3,
+      "n_better_than_bestfixed": 73,
+      "n_worse_than_bestfixed": 8
+    },
+    "all_fixed_slot_acc": {
+      "38": 0.23958333333333334,
+      "76": 0.3958333333333333,
+      "115": 0.4375,
+      "153": 0.484375
+    },
+    "per_region_fixed_and_maxconf": {
+      "0": {
+        "final": 0.1875,
+        "maxconf": 0.9375,
+        "best_fixed": 0.4166666666666667,
+        "slot38": 0.9583333333333334,
+        "slot76": 0.7291666666666666,
+        "slot115": 0.4166666666666667,
+        "slot153": 0.3333333333333333
+      },
+      "1": {
+        "final": 0.1875,
+        "maxconf": 0.7708333333333334,
+        "best_fixed": 0.5416666666666666,
+        "slot38": 0.0,
+        "slot76": 0.8541666666666666,
+        "slot115": 0.5416666666666666,
+        "slot153": 0.3541666666666667
+      },
+      "2": {
+        "final": 0.20833333333333334,
+        "maxconf": 0.6458333333333334,
+        "best_fixed": 0.7916666666666666,
+        "slot38": 0.0,
+        "slot76": 0.0,
+        "slot115": 0.7916666666666666,
+        "slot153": 0.375
+      },
+      "3": {
+        "final": 0.5625,
+        "maxconf": 0.75,
+        "best_fixed": 0.0,
+        "slot38": 0.0,
+        "slot76": 0.0,
+        "slot115": 0.0,
+        "slot153": 0.875
+      }
+    }
+  },
+  "mechanism_activation": {
+    "singlePassRuns": 12,
+    "snapshotsCapturedInRun": 960,
+    "snapshotsRestored": 960,
+    "candidateSnapshotsScored": 768,
+    "queriesEvaluated": 960,
+    "snapshotBoundaryFailures": 0
+  },
+  "fast_path_active": true,
+  "weights_immutable": true,
+  "WIDE_TARGET_RECOVERY": "QUALIFIED",
+  "ADAPTIVE_SELECTION": "QUALIFIED",
+  "total_runtime_s": 201.3,
+  "peak_vram_gb": 7.732
+}
