@@ -1,0 +1,198 @@
+{
+  "packet": "RNN-06T2-T1R-NARROW",
+  "band": [
+    8,
+    64
+  ],
+  "schedule": [
+    38,
+    76,
+    115,
+    153
+  ],
+  "qualificationSetSha256": "34d276ced58eddd34332ad3a17ea658edc488b8f9896fb3e1635c200b73316cc",
+  "disjointness_proof": {
+    "sha256": "34d276ced58eddd34332ad3a17ea658edc488b8f9896fb3e1635c200b73316cc",
+    "overlaps": {
+      "b3_qual": 0,
+      "c06": 0,
+      "d0_calib": 0,
+      "d0_qual": 0,
+      "t3a_qual": 0,
+      "t3b_calib": 0,
+      "t3b_qual": 0,
+      "t0r_sp": 0,
+      "wide_calib": 0,
+      "wide_qual": 0
+    },
+    "disjoint_all": true
+  },
+  "executed_source_identity": {
+    "runner_git_blob": "5b9cdcda15be722599554945764a8ea99338270f",
+    "runner_dirty": "",
+    "git_head": "cd294a2242d826bddf47faf987ca628f8ad94c4a",
+    "repo_id": "state-spaces/mamba2-1.3b",
+    "revision": "c5b59d00ec85d313adea86a08cad2a43c962dd3b",
+    "mamba_ssm": "2.2.4",
+    "protocol_sha256": "81b6938318f4fa4e8cd3739749b44902e3373339ef20918f8286ba7d8c1f0663"
+  },
+  "model_weights_sentinel": "b5af61407fbc04f8328ce8c6c79702e31e7d008f27caecc8a62b0ca54e8515ef",
+  "arms": {
+    "FINAL": {
+      "acc": 0.1667,
+      "ci95": [
+        0.12060131558197143,
+        0.22580925295913526
+      ]
+    },
+    "FIXED_SLOT_76": {
+      "acc": 0.724,
+      "recovery_harm_vs_final": {
+        "N": 192,
+        "acc": 0.724,
+        "n_final_wrong": 160,
+        "n_recovered": 109,
+        "recovery_rate": 0.6813,
+        "n_final_correct": 32,
+        "n_harmed": 2,
+        "harm_rate": 0.0625,
+        "net_recovery_count": 107,
+        "net_recovery_rate": 0.5573,
+        "accuracy_delta_vs_final": 0.5573,
+        "ci95_paired_stratified": [
+          0.484375,
+          0.625
+        ],
+        "per_stratum_delta": {
+          "0": 0.3958,
+          "1": 0.5833,
+          "2": 0.6042,
+          "3": 0.6458
+        },
+        "robust_strata": 4
+      }
+    },
+    "MAX_CONFIDENCE": {
+      "acc": 0.8385,
+      "recovery_harm_vs_final": {
+        "N": 192,
+        "acc": 0.8385,
+        "n_final_wrong": 160,
+        "n_recovered": 130,
+        "recovery_rate": 0.8125,
+        "n_final_correct": 32,
+        "n_harmed": 1,
+        "harm_rate": 0.0312,
+        "net_recovery_count": 129,
+        "net_recovery_rate": 0.6719,
+        "accuracy_delta_vs_final": 0.6719,
+        "ci95_paired_stratified": [
+          0.609375,
+          0.734375
+        ],
+        "per_stratum_delta": {
+          "0": 0.8125,
+          "1": 0.8333,
+          "2": 0.4375,
+          "3": 0.6042
+        },
+        "robust_strata": 4
+      },
+      "vs_fixed_slot_76": {
+        "delta": 0.1146,
+        "ci95": [
+          0.057291666666666664,
+          0.171875
+        ],
+        "per_stratum": {
+          "0": 0.4167,
+          "1": 0.25,
+          "2": -0.1667,
+          "3": -0.0417
+        },
+        "robust_strata": 2
+      },
+      "selectedSnapshotHistogram": [
+        115,
+        72,
+        2,
+        3
+      ]
+    },
+    "ORACLE_BEST_GOLD": {
+      "acc": 0.9062,
+      "note": "diagnostic"
+    },
+    "ORACLE_TARGET_PROXIMAL": {
+      "acc": 0.901,
+      "note": "diagnostic"
+    }
+  },
+  "all_fixed_slot_acc": {
+    "38": 0.4948,
+    "76": 0.724,
+    "115": 0.4479,
+    "153": 0.2552
+  },
+  "mechanism_activation": {
+    "singlePassRuns": 12,
+    "snapshotsCapturedInRun": 960,
+    "snapshotsRestored": 960,
+    "candidateSnapshotsScored": 768,
+    "queriesEvaluated": 960,
+    "snapshotBoundaryChecks": 5,
+    "snapshotBoundaryFailures": 0
+  },
+  "boundary_check_sample": [
+    {
+      "runId": "fcae7b6dd97fa2fa",
+      "exampleId": 0,
+      "boundary": 156,
+      "captured_state_hash": "a71b3426002ebb1b1565dea8",
+      "replay_state_hash": "a71b3426002ebb1b1565dea8",
+      "match": true,
+      "restore_result": "ok"
+    },
+    {
+      "runId": "fcae7b6dd97fa2fa",
+      "exampleId": 0,
+      "boundary": 308,
+      "captured_state_hash": "8fe690f04a6f9578e4c863ac",
+      "replay_state_hash": "8fe690f04a6f9578e4c863ac",
+      "match": true,
+      "restore_result": "ok"
+    },
+    {
+      "runId": "fcae7b6dd97fa2fa",
+      "exampleId": 0,
+      "boundary": 464,
+      "captured_state_hash": "bcb60e4ea346bac4de7845b2",
+      "replay_state_hash": "bcb60e4ea346bac4de7845b2",
+      "match": true,
+      "restore_result": "ok"
+    },
+    {
+      "runId": "fcae7b6dd97fa2fa",
+      "exampleId": 0,
+      "boundary": 616,
+      "captured_state_hash": "82160778c062fec1152bae77",
+      "replay_state_hash": "82160778c062fec1152bae77",
+      "match": true,
+      "restore_result": "ok"
+    },
+    {
+      "runId": "fcae7b6dd97fa2fa",
+      "exampleId": 0,
+      "boundary": 768,
+      "captured_state_hash": "9cc47dc8da814fc802a59c32",
+      "replay_state_hash": "9cc47dc8da814fc802a59c32",
+      "match": true,
+      "restore_result": "ok"
+    }
+  ],
+  "HISTORICAL_RECOVERY_NARROW": "QUALIFIED",
+  "ADAPTIVE_SELECTION_NARROW": "DIRECTIONAL",
+  "fast_path_active": true,
+  "weights_immutable": true,
+  "total_runtime_s": 229.9
+}
