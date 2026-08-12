@@ -1,0 +1,308 @@
+{
+  "packet": "RNN-06D1-RECOVERY-UTILITY",
+  "kind": "recovery_utility",
+  "d0_dependency": {
+    "RECOVERY_CEILING": "QUALIFIED",
+    "oracle_best_minus_final": 0.776
+  },
+  "executed_source_identity": {
+    "runner_sha256": "8c8e81fad736cc960c2aaee57246ad84fd74fef71fc6ead89cca3a500c490fc1",
+    "runner_git_blob": "2a7c47e0c8fbdbdccd93bd5b3628d0b74a2c7e5d",
+    "runner_dirty": "",
+    "lib_git_blob": "ba93fff341b44a6a30f9dae5eb4f44d114a2d966",
+    "git_head": "8c7b21bbaf660d75acf4e0ffafb1d780a4949cca",
+    "modeling_mamba2_sha256": "83685d785c0df6578fefca8d5a2ed382d70e651ffc83c00b8f40b64807a04fdb",
+    "transformers": "4.48.3",
+    "torch": "2.6.0+cu124",
+    "repo_id": "AntonV/mamba2-1.3b-hf",
+    "revision": "703e19a43f397c70315244a3424d79456b54fb34",
+    "chunk_size": 32,
+    "dtype": "torch.bfloat16",
+    "is_fast_path_available": false,
+    "qualificationSetSha256": "7bbf9b753ed769adf93573f50b15d91a0e89bf70c14c2951adb5fc022f29d324",
+    "snapshotScheduleSha256": "355e51056793ba46375f71e6a1f6d6f9f72e564678487641fda715f4b2e1c541",
+    "protocol_sha256": "54def8df010a1be9b151f3a820a250c8514f7911528ef0b8fa6f0b1adc158685"
+  },
+  "peak_vram_gb": 8.224,
+  "d0_crosscheck": {
+    "available": true,
+    "pool_logits_max_abs_diff": 0.0,
+    "final_logits_max_abs_diff": 0.0,
+    "bit_reproducible": true
+  },
+  "matched_no_history_control": {
+    "acc": 0.13020833333333334,
+    "equals_final": true,
+    "note": "K FINAL readouts ensembled: same compute as LOGIT_ENSEMBLE, no history -> == FINAL"
+  },
+  "best_method": "MAX_CONFIDENCE",
+  "gate_checks": {
+    "best_method": "MAX_CONFIDENCE",
+    "best_accuracy_delta": 0.7031,
+    "best_delta_ci95": [
+      0.640625,
+      0.765625
+    ],
+    "best_net_recovery": 135,
+    "best_robust_strata_nonneg": 3,
+    "semantic_ok": true,
+    "intrinsic_restore_readout_ms_per_query": 36.41,
+    "latency_ok": true,
+    "mem_ok": true,
+    "cost_ok": true,
+    "reason": "OK"
+  },
+  "RECOVERY_UTILITY": "QUALIFIED_PARAMETER_FREE",
+  "method_reports": {
+    "RECENCY": {
+      "acc": 0.2864583333333333,
+      "accuracy_delta": 0.1562,
+      "accuracy_delta_ci95": [
+        0.09375,
+        0.21354166666666666
+      ],
+      "n_final_wrong": 167,
+      "n_recovered": 35,
+      "recovery_rate": 0.2096,
+      "n_final_correct": 25,
+      "n_harmed": 5,
+      "harm_rate": 0.2,
+      "net_recovery_count": 30,
+      "net_recovery_rate": 0.1562,
+      "per_stratum_delta": {
+        "0": 0.234375,
+        "1": 0.09375,
+        "2": 0.140625
+      },
+      "robust_strata_nonneg": 3,
+      "oracle_gap": 0.6198,
+      "selection_regret": 0.6839,
+      "selectedSnapshotHistogram": [
+        0,
+        0,
+        0,
+        192
+      ],
+      "kind": "select"
+    },
+    "MAX_CONFIDENCE": {
+      "acc": 0.8333333333333334,
+      "accuracy_delta": 0.7031,
+      "accuracy_delta_ci95": [
+        0.640625,
+        0.765625
+      ],
+      "n_final_wrong": 167,
+      "n_recovered": 135,
+      "recovery_rate": 0.8084,
+      "n_final_correct": 25,
+      "n_harmed": 0,
+      "harm_rate": 0.0,
+      "net_recovery_count": 135,
+      "net_recovery_rate": 0.7031,
+      "per_stratum_delta": {
+        "0": 0.8125,
+        "1": 0.65625,
+        "2": 0.640625
+      },
+      "robust_strata_nonneg": 3,
+      "oracle_gap": 0.0729,
+      "selection_regret": 0.0805,
+      "selectedSnapshotHistogram": [
+        115,
+        75,
+        1,
+        1
+      ],
+      "kind": "select"
+    },
+    "MIN_ENTROPY": {
+      "acc": 0.7864583333333334,
+      "accuracy_delta": 0.6562,
+      "accuracy_delta_ci95": [
+        0.59375,
+        0.71875
+      ],
+      "n_final_wrong": 167,
+      "n_recovered": 126,
+      "recovery_rate": 0.7545,
+      "n_final_correct": 25,
+      "n_harmed": 0,
+      "harm_rate": 0.0,
+      "net_recovery_count": 126,
+      "net_recovery_rate": 0.6562,
+      "per_stratum_delta": {
+        "0": 0.796875,
+        "1": 0.59375,
+        "2": 0.578125
+      },
+      "robust_strata_nonneg": 3,
+      "oracle_gap": 0.1198,
+      "selection_regret": 0.1322,
+      "selectedSnapshotHistogram": [
+        129,
+        63,
+        0,
+        0
+      ],
+      "kind": "select"
+    },
+    "MAX_TOP1_TOP2_MARGIN": {
+      "acc": 0.8177083333333334,
+      "accuracy_delta": 0.6875,
+      "accuracy_delta_ci95": [
+        0.625,
+        0.75
+      ],
+      "n_final_wrong": 167,
+      "n_recovered": 132,
+      "recovery_rate": 0.7904,
+      "n_final_correct": 25,
+      "n_harmed": 0,
+      "harm_rate": 0.0,
+      "net_recovery_count": 132,
+      "net_recovery_rate": 0.6875,
+      "per_stratum_delta": {
+        "0": 0.828125,
+        "1": 0.640625,
+        "2": 0.59375
+      },
+      "robust_strata_nonneg": 3,
+      "oracle_gap": 0.0885,
+      "selection_regret": 0.0977,
+      "selectedSnapshotHistogram": [
+        113,
+        70,
+        8,
+        1
+      ],
+      "kind": "select"
+    },
+    "CONFIDENCE_X_RECENCY": {
+      "acc": 0.8020833333333334,
+      "accuracy_delta": 0.6719,
+      "accuracy_delta_ci95": [
+        0.609375,
+        0.734375
+      ],
+      "n_final_wrong": 167,
+      "n_recovered": 129,
+      "recovery_rate": 0.7725,
+      "n_final_correct": 25,
+      "n_harmed": 0,
+      "harm_rate": 0.0,
+      "net_recovery_count": 129,
+      "net_recovery_rate": 0.6719,
+      "per_stratum_delta": {
+        "0": 0.796875,
+        "1": 0.5625,
+        "2": 0.65625
+      },
+      "robust_strata_nonneg": 3,
+      "oracle_gap": 0.1042,
+      "selection_regret": 0.1149,
+      "selectedSnapshotHistogram": [
+        67,
+        84,
+        17,
+        24
+      ],
+      "kind": "select"
+    },
+    "LOGIT_ENSEMBLE": {
+      "acc": 0.5104166666666666,
+      "accuracy_delta": 0.3802,
+      "accuracy_delta_ci95": [
+        0.3072916666666667,
+        0.453125
+      ],
+      "n_final_wrong": 167,
+      "n_recovered": 76,
+      "recovery_rate": 0.4551,
+      "n_final_correct": 25,
+      "n_harmed": 3,
+      "harm_rate": 0.12,
+      "net_recovery_count": 73,
+      "net_recovery_rate": 0.3802,
+      "per_stratum_delta": {
+        "0": 0.484375,
+        "1": 0.3125,
+        "2": 0.34375
+      },
+      "robust_strata_nonneg": 3,
+      "oracle_gap": 0.3958,
+      "selection_regret": 0.4425,
+      "selectedSnapshotHistogram": null,
+      "kind": "ensemble"
+    },
+    "FINAL_PLUS_HISTORICAL": {
+      "acc": 0.4739583333333333,
+      "accuracy_delta": 0.3438,
+      "accuracy_delta_ci95": [
+        0.2760416666666667,
+        0.4114583333333333
+      ],
+      "n_final_wrong": 167,
+      "n_recovered": 69,
+      "recovery_rate": 0.4132,
+      "n_final_correct": 25,
+      "n_harmed": 3,
+      "harm_rate": 0.12,
+      "net_recovery_count": 66,
+      "net_recovery_rate": 0.3438,
+      "per_stratum_delta": {
+        "0": 0.46875,
+        "1": 0.234375,
+        "2": 0.328125
+      },
+      "robust_strata_nonneg": 3,
+      "oracle_gap": 0.4323,
+      "selection_regret": 0.4828,
+      "selectedSnapshotHistogram": null,
+      "kind": "ensemble_final"
+    }
+  },
+  "ranking_by_accuracy_delta": [
+    "MAX_CONFIDENCE",
+    "MAX_TOP1_TOP2_MARGIN",
+    "CONFIDENCE_X_RECENCY",
+    "MIN_ENTROPY",
+    "LOGIT_ENSEMBLE",
+    "FINAL_PLUS_HISTORICAL",
+    "RECENCY"
+  ],
+  "final_acc": 0.13020833333333334,
+  "oracle_best_acc": 0.90625,
+  "boundary_selfcheck": {
+    "checked": 8,
+    "reproduced": 8,
+    "failures": 0
+  },
+  "mechanism_activation": {
+    "snapshotsCreated": 960,
+    "snapshotsRestored": 960,
+    "candidateSnapshotsScored": 768,
+    "historicalSelections": 960,
+    "finalSelections": 0,
+    "ensembleCalls": 384,
+    "oracleCalls": 192,
+    "snapshotBoundaryChecks": 960,
+    "snapshotBoundaryFailures": 0,
+    "queriesEvaluated": 960
+  },
+  "economics": {
+    "state_bytes_per_sequence": 52002816,
+    "state_bytes_times_K": 208011264,
+    "historical_snapshots_exposed": 4,
+    "peak_vram_gb": 8.224,
+    "d0_cost_profile_s_per_batch": {
+      "capture_prefill_final_s_per_batch": 1.70762,
+      "gpu_to_host_transfer_s_per_batch": 0.03113,
+      "restore_s_per_batch": 0.00042,
+      "restore_plus_readout_s_per_batch": 0.07282
+    },
+    "intrinsic_restore_readout_ms_per_query_warm": 36.41,
+    "capture_reprefill_note": "re-prefill capture is a naive-backend artifact; a fast-path/incremental capture folds capture into the single forward pass"
+  },
+  "total_runtime_s": 599.0
+}

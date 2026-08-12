@@ -1,0 +1,14 @@
+The fast path is not available because on of `(selective_state_update, causal_conv1d_fn, causal_conv1d_update)` is None. Falling back to the naive implementation. To install follow https://github.com/state-spaces/mamba/#installation and https://github.com/Dao-AILab/causal-conv1d
+
+FINAL=0.130 ORACLE_BEST=0.906
+  MAX_CONFIDENCE           acc=0.833 d=+0.703 CI=[0.640625, 0.765625] rec=135 harm=0 net=135 gap=0.073
+  MAX_TOP1_TOP2_MARGIN     acc=0.818 d=+0.688 CI=[0.625, 0.75] rec=132 harm=0 net=132 gap=0.088
+  CONFIDENCE_X_RECENCY     acc=0.802 d=+0.672 CI=[0.609375, 0.734375] rec=129 harm=0 net=129 gap=0.104
+  MIN_ENTROPY              acc=0.786 d=+0.656 CI=[0.59375, 0.71875] rec=126 harm=0 net=126 gap=0.120
+  LOGIT_ENSEMBLE           acc=0.510 d=+0.380 CI=[0.3072916666666667, 0.453125] rec=76 harm=3 net=73 gap=0.396
+  FINAL_PLUS_HISTORICAL    acc=0.474 d=+0.344 CI=[0.2760416666666667, 0.4114583333333333] rec=69 harm=3 net=66 gap=0.432
+  RECENCY                  acc=0.286 d=+0.156 CI=[0.09375, 0.21354166666666666] rec=35 harm=5 net=30 gap=0.620
+best=MAX_CONFIDENCE cost_ok=True intrinsic_ms=36.41
+RECOVERY_UTILITY = QUALIFIED_PARAMETER_FREE (OK)
+xcheck_bit_reproducible=True runtime=599.0s
+EXIT=0
