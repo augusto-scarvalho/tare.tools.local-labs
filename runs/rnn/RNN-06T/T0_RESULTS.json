@@ -1,0 +1,177 @@
+{
+  "packet": "RNN-06T-T0",
+  "kind": "lifecycle_single_pass_capture",
+  "executed_source_identity": {
+    "runner_sha256": "d7073b6edc51eba6a5093347bf99cc1083e5a39c688ae6d112e21f70b4e167a9",
+    "runner_git_blob": "5a9f321dafa1daa3916cdd0896d4c1ca45b37091",
+    "runner_dirty": "",
+    "lib_git_blob": "fa352762bac1f85e6698f1164b565e1f2985f94a",
+    "git_head": "3e48b41b365b91ef4b080c2894e991d052229249",
+    "repo_id": "state-spaces/mamba2-1.3b",
+    "revision": "c5b59d00ec85d313adea86a08cad2a43c962dd3b",
+    "mamba_ssm": "2.2.4",
+    "causal_conv1d": "1.5.0.post8",
+    "triton": "3.2.0",
+    "torch": "2.6.0+cu124",
+    "dtype": "torch.bfloat16",
+    "device": "cuda",
+    "protocol_sha256": "22873bf4b13347a128c1b0ab709083d1bc39ce4069b257fff607beaf0fdd6d68",
+    "model_weights_identity": "b5af61407fbc04f8328ce8c6c79702e31e7d008f27caecc8a62b0ca54e8515ef",
+    "n_layer": 48
+  },
+  "state_contract_written": true,
+  "lifecycle_tests": {
+    "A_same_path_replay": {
+      "bit_exact": true,
+      "boundary_hashes": {
+        "80": "aea14fce27af451e",
+        "160": "0862a3de6690c842",
+        "240": "85b670785eb8e0b9",
+        "320": "aa1b8e594cdd7ffd"
+      }
+    },
+    "B_save_reload_continue": {
+      "bit_exact_final": true,
+      "final_uninterrupted_hash": "aa1b8e594cdd7ffd",
+      "final_reloaded_hash": "aa1b8e594cdd7ffd"
+    },
+    "C_branch_fork": {
+      "parent_unchanged_bit_exact": true,
+      "parent_hash_before": "0862a3de6690c842",
+      "parent_hash_after": "0862a3de6690c842",
+      "branchP_pred_sample": [
+        253,
+        84,
+        247
+      ],
+      "branchQ_pred_sample": [
+        37,
+        253,
+        90
+      ],
+      "branches_independent": true
+    },
+    "D_neighbor_isolation": {
+      "neighbor_order_bit_exact": true,
+      "neighbor_content_bit_exact": true,
+      "readout_argmax_invariant": true,
+      "pass": true,
+      "batch_size_sensitivity_max_abs_diff_batch1_vs_batchB": 0.5,
+      "note": "isolation = fixed-batch neighbor invariance (bit-exact); batch-SIZE numerical sensitivity is a benign Triton-tiling artifact, not cross-contamination. Item B uses a fixed batch size throughout."
+    },
+    "G_batch_slice_ownership": {
+      "row_state_invariant_under_permutation": true,
+      "pass": true
+    },
+    "E_reset_reuse": {
+      "fresh_cache_all_zero": true,
+      "reset_all_zero": true
+    },
+    "F_serialize_roundtrip": {
+      "bit_exact": true
+    },
+    "H_temporal_identity": {
+      "bit_exact_vs_replay": true,
+      "boundaries_monotonic": true,
+      "cache_position_equals_boundary": true
+    },
+    "I_weights_immutable": {
+      "unchanged": true,
+      "before": "b5af61407fbc04f8",
+      "after": "b5af61407fbc04f8"
+    },
+    "J_backend_frozen": {
+      "fallback_reachable": {
+        "causal_conv1d_fn_is_None": false,
+        "causal_conv1d_update_is_None": false,
+        "selective_state_update_is_None": false
+      },
+      "kernel_counts_nonzero": true,
+      "revision": "c5b59d00ec85d313adea86a08cad2a43c962dd3b"
+    }
+  },
+  "OFFICIAL_MAMBA_LIFECYCLE": "QUALIFIED",
+  "single_pass_capture": {
+    "run_id": "fc8b63bf700cac21",
+    "boundaries": [
+      156,
+      308,
+      464,
+      616,
+      768
+    ],
+    "monotonic": true,
+    "snapshots": [
+      {
+        "boundary": 156,
+        "cache_position": 156,
+        "run_id": "fc8b63bf700cac21",
+        "state_hash": "f8ca8b0c63daab9a4d66f121",
+        "replay_hash": "f8ca8b0c63daab9a4d66f121",
+        "hash_matches_uninterrupted": true,
+        "readout_pred": 884,
+        "correct": false
+      },
+      {
+        "boundary": 308,
+        "cache_position": 308,
+        "run_id": "fc8b63bf700cac21",
+        "state_hash": "8736ac87c81c5597f7bba200",
+        "replay_hash": "8736ac87c81c5597f7bba200",
+        "hash_matches_uninterrupted": true,
+        "readout_pred": 43547,
+        "correct": true
+      },
+      {
+        "boundary": 464,
+        "cache_position": 464,
+        "run_id": "fc8b63bf700cac21",
+        "state_hash": "d08b7fb0c3a6ceb241d616f1",
+        "replay_hash": "d08b7fb0c3a6ceb241d616f1",
+        "hash_matches_uninterrupted": true,
+        "readout_pred": 883,
+        "correct": false
+      },
+      {
+        "boundary": 616,
+        "cache_position": 616,
+        "run_id": "fc8b63bf700cac21",
+        "state_hash": "199c41b4bc9267001e7f6920",
+        "replay_hash": "199c41b4bc9267001e7f6920",
+        "hash_matches_uninterrupted": true,
+        "readout_pred": 884,
+        "correct": false
+      },
+      {
+        "boundary": 768,
+        "cache_position": 768,
+        "run_id": "fc8b63bf700cac21",
+        "state_hash": "15a42884b662d25d1bae2ed7",
+        "replay_hash": "15a42884b662d25d1bae2ed7",
+        "hash_matches_uninterrupted": true,
+        "readout_pred": 883,
+        "correct": false
+      }
+    ],
+    "gold": 43547,
+    "target_slot": 59,
+    "final_readout_correct": false,
+    "kernel_counts": {
+      "mamba_split_conv1d_scan_combined": 0,
+      "mamba_chunk_scan_combined": 432,
+      "causal_conv1d_fn": 432,
+      "causal_conv1d_update": 188160,
+      "selective_state_update": 188160
+    },
+    "fallback_reachable": {
+      "causal_conv1d_fn_is_None": false,
+      "causal_conv1d_update_is_None": false,
+      "selective_state_update_is_None": false
+    }
+  },
+  "SINGLE_PASS_HISTORICAL_CAPTURE": "QUALIFIED",
+  "both_qualified": true,
+  "item_B_status": "OPEN",
+  "peak_vram_gb": 9.651,
+  "total_runtime_s": 101.4
+}

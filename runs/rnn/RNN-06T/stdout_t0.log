@@ -1,0 +1,23 @@
+
+=== LIFECYCLE ===
+  A_same_path_replay: {'bit_exact': True, 'boundary_hashes': {80: 'aea14fce27af451e', 160: '0862a3de6690c842', 240: '85b670785eb8e0b9', 320: 'aa1b8e594cdd7ffd'}}
+  B_save_reload_continue: {'bit_exact_final': True, 'final_uninterrupted_hash': 'aa1b8e594cdd7ffd', 'final_reloaded_hash': 'aa1b8e594cdd7ffd'}
+  C_branch_fork: {'parent_unchanged_bit_exact': True, 'parent_hash_before': '0862a3de6690c842', 'parent_hash_after': '0862a3de6690c842', 'branchP_pred_sample': [253, 84, 247], 'branchQ_pred_sample': [37, 253, 90], 'branches_independent': True}
+  D_neighbor_isolation: {'neighbor_order_bit_exact': True, 'neighbor_content_bit_exact': True, 'readout_argmax_invariant': True, 'pass': True, 'batch_size_sensitivity_max_abs_diff_batch1_vs_batchB': 0.5, 'note': 'isolation = fixed-batch neighbor invariance (bit-exact); batch-SIZE numerical sensitivity is a benign Triton-tiling artifact, not cross-contamination. Item B uses a fixed batch size throughout.'}
+  G_batch_slice_ownership: {'row_state_invariant_under_permutation': True, 'pass': True}
+  E_reset_reuse: {'fresh_cache_all_zero': True, 'reset_all_zero': True}
+  F_serialize_roundtrip: {'bit_exact': True}
+  H_temporal_identity: {'bit_exact_vs_replay': True, 'boundaries_monotonic': True, 'cache_position_equals_boundary': True}
+  I_weights_immutable: {'unchanged': True, 'before': 'b5af61407fbc04f8', 'after': 'b5af61407fbc04f8'}
+  J_backend_frozen: {'fallback_reachable': {'causal_conv1d_fn_is_None': False, 'causal_conv1d_update_is_None': False, 'selective_state_update_is_None': False}, 'kernel_counts_nonzero': True, 'revision': 'c5b59d00ec85d313adea86a08cad2a43c962dd3b'}
+OFFICIAL_MAMBA_LIFECYCLE = QUALIFIED
+
+=== SINGLE-PASS CAPTURE ===
+  b=156 match=True correct=False run=fc8b63bf700cac21
+  b=308 match=True correct=True run=fc8b63bf700cac21
+  b=464 match=True correct=False run=fc8b63bf700cac21
+  b=616 match=True correct=False run=fc8b63bf700cac21
+  b=768 match=True correct=False run=fc8b63bf700cac21
+SINGLE_PASS_HISTORICAL_CAPTURE = QUALIFIED
+both_qualified=True item_B=OPEN runtime=101.4s vram=9.651GB
+EXIT=0
