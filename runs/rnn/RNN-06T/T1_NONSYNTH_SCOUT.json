@@ -1,0 +1,71 @@
+{
+  "packet": "RNN-06T-SCOUT",
+  "kind": "natural_language_needle_scout_exploratory",
+  "predeclared": {
+    "source": "self-contained RULER-style NL needle-in-haystack (repo rnn_ruler_smoke.py fixture family); NO download",
+    "seed": 20260990,
+    "n": 64,
+    "ctx_len": 768,
+    "depth_range": [
+      40,
+      560
+    ],
+    "metric": "constrained single-token needle-value retrieval accuracy",
+    "selector": "frozen MAX_CONFIDENCE",
+    "fixed_control_slot": 115,
+    "schedule": [
+      38,
+      76,
+      115,
+      153
+    ],
+    "arms": [
+      "FINAL",
+      "FIXED_SLOT_115",
+      "MAX_CONFIDENCE"
+    ]
+  },
+  "filler_sha256": "c1e7c5b92ba28721",
+  "arms": {
+    "FINAL": 1.0,
+    "FIXED_SLOT_115": 0.8125,
+    "MAX_CONFIDENCE": 1.0,
+    "ORACLE_BEST_GOLD": 1.0,
+    "pool_per_slot": {
+      "38": 0.140625,
+      "76": 0.5,
+      "115": 0.8125,
+      "153": 1.0
+    }
+  },
+  "deltas": {
+    "maxconf_minus_final": 0.0,
+    "maxconf_minus_fixed": 0.1875,
+    "fixed_minus_final": -0.1875
+  },
+  "selectedSnapshotHistogram": [
+    8,
+    18,
+    12,
+    26
+  ],
+  "mechanism_activation": {
+    "singlePassRuns": 4,
+    "snapshotsRestored": 320,
+    "queriesEvaluated": 320,
+    "snapshotBoundaryFailures": 0
+  },
+  "fast_path_active": true,
+  "weights_immutable": true,
+  "executed_source_identity": {
+    "runner_git_blob": "0f4feb47d1aed4a304932477f1c9a709625cd106",
+    "runner_dirty": "",
+    "git_head": "4dd3dc68eedac92b1bb6004d5693f52fec91b15e",
+    "repo_id": "state-spaces/mamba2-1.3b",
+    "revision": "c5b59d00ec85d313adea86a08cad2a43c962dd3b",
+    "mamba_ssm": "2.2.4"
+  },
+  "NON_SYNTHETIC_RECOVERY_SCOUT": "NO_SIGNAL",
+  "note": "Exploratory scout: real-English filler + inserted single-token needle at varying depth. Semi-synthetic (natural-language context, controlled needle). No population-level generalization claimed.",
+  "total_runtime_s": 75.9
+}
