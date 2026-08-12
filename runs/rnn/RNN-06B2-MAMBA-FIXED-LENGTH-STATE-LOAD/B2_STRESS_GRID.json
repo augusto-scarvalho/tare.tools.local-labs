@@ -1,0 +1,41 @@
+{
+  "b2StressGridSha256": "7afd7275b02c6a09cf50b9b08fa7c41463f633b3f8086b2b9a615fb808f5de46",
+  "generator_version": "rnn06b2_fixed_length_state_load_v1",
+  "M": 128,
+  "doses": [
+    1,
+    24,
+    48,
+    64,
+    80,
+    96,
+    112,
+    128
+  ],
+  "arms": [
+    "DS",
+    "SS"
+  ],
+  "s_strata": 3,
+  "n_per_stratum": 64,
+  "n_per_cell": 192,
+  "tau_hi": 0.75,
+  "tau_lo": 0.45,
+  "sentinel_scheme": "REPEAT1",
+  "length_diagnostic": {
+    "arm": "DS",
+    "U": 2,
+    "M_values": [
+      32,
+      64,
+      96,
+      128
+    ]
+  },
+  "monotonicity_tolerance": 0.05,
+  "max_violation": 0.1,
+  "min_mid_band_doses": 2,
+  "robust_strata_required": 2,
+  "delta_aurc_min": 0.15,
+  "primary_endpoint": "DS_constrained_retrieval_accuracy_vs_unique_load"
+}
