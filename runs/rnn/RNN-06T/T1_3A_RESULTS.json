@@ -1,0 +1,237 @@
+{
+  "packet": "RNN-06T-3A",
+  "kind": "official_transport_exact_contract",
+  "challenge_identities": {
+    "qualificationSetSha256_3A": "5e47408e723e10473c1072fd436699df477a2cbfe9f69bd9cf02e01e1abe09e7",
+    "disjointness_proof": {
+      "qualificationSetSha256_3A": "5e47408e723e10473c1072fd436699df477a2cbfe9f69bd9cf02e01e1abe09e7",
+      "master_seed": 20260970,
+      "example_level_overlaps": {
+        "p0_calib": 0,
+        "rnn06b_qual": 0,
+        "b2_calib": 0,
+        "b2_qual": 0,
+        "b3_calib": 0,
+        "b3_qual": 0,
+        "c06": 0,
+        "d0_calib": 0,
+        "d0_qual": 0
+      },
+      "example_level_disjoint_all": true
+    },
+    "schedule": [
+      38,
+      76,
+      115,
+      153
+    ],
+    "cap_bounds": [
+      156,
+      308,
+      464,
+      616,
+      768
+    ]
+  },
+  "executed_source_identity": {
+    "runner_sha256": "69e9195aadd9cc723d3e0a5218a99810ae85bbb8d6932750f0185ef6d917ba38",
+    "runner_git_blob": "56700c0c799e1d5d02984bd68547856fed0291f8",
+    "runner_dirty": "",
+    "lib_git_blob": "fa352762bac1f85e6698f1164b565e1f2985f94a",
+    "git_head": "bbfcf55fa4955b49b7f9625d2a9421f8c0a28941",
+    "repo_id": "state-spaces/mamba2-1.3b",
+    "revision": "c5b59d00ec85d313adea86a08cad2a43c962dd3b",
+    "mamba_ssm": "2.2.4",
+    "causal_conv1d": "1.5.0.post8",
+    "triton": "3.2.0",
+    "torch": "2.6.0+cu124",
+    "model_weights_identity": "b5af61407fbc04f8328ce8c6c79702e31e7d008f27caecc8a62b0ca54e8515ef",
+    "protocol_sha256": "82688edb7799cbc79a149db002b6e345dcfdc3a32442e6fb29c06fe0c3cd4d0f"
+  },
+  "chance": 0.00390625,
+  "peak_vram_gb": 7.732,
+  "arms": {
+    "FINAL": {
+      "acc": 0.21875,
+      "ci95": [
+        0.16610549861495913,
+        0.2824284185915997
+      ]
+    },
+    "ORACLE_BEST_GOLD": {
+      "acc": 0.9114583333333334,
+      "note": "diagnostic upper bound"
+    },
+    "ORACLE_TARGET_PROXIMAL": {
+      "acc": 0.9010416666666666,
+      "note": "diagnostic; uses target pos"
+    },
+    "FIXED_SLOT_76": {
+      "acc": 0.7708333333333334,
+      "delta_vs_final": 0.5521,
+      "delta_vs_final_ci95": [
+        0.4791666666666667,
+        0.6197916666666666
+      ],
+      "n_final_wrong": 150,
+      "n_recovered": 106,
+      "n_final_correct": 42,
+      "n_harmed": 0,
+      "per_stratum_delta_vs_final": {
+        "0": 0.546875,
+        "1": 0.546875,
+        "2": 0.5625
+      },
+      "oracle_gap": 0.1406,
+      "net_recovery_count": 106,
+      "net_recovery_rate": 0.5521,
+      "recovery_rate": 0.7067,
+      "harm_rate": 0.0,
+      "robust_strata_vs_final": 3
+    },
+    "MAX_CONFIDENCE": {
+      "acc": 0.8229166666666666,
+      "delta_vs_final": 0.6042,
+      "delta_vs_final_ci95": [
+        0.53125,
+        0.6770833333333334
+      ],
+      "n_final_wrong": 150,
+      "n_recovered": 118,
+      "n_final_correct": 42,
+      "n_harmed": 2,
+      "per_stratum_delta_vs_final": {
+        "0": 0.625,
+        "1": 0.609375,
+        "2": 0.578125
+      },
+      "oracle_gap": 0.0885,
+      "net_recovery_count": 116,
+      "net_recovery_rate": 0.6042,
+      "recovery_rate": 0.7867,
+      "harm_rate": 0.0476,
+      "robust_strata_vs_final": 3,
+      "delta_vs_fixed76": 0.0521,
+      "delta_vs_fixed76_ci95": [
+        -0.015625,
+        0.11471354166666595
+      ],
+      "per_stratum_delta_vs_fixed76": {
+        "0": 0.078125,
+        "1": 0.0625,
+        "2": 0.015625
+      },
+      "robust_strata_vs_fixed76": 3,
+      "selectedSnapshotHistogram": [
+        118,
+        63,
+        7,
+        4
+      ]
+    },
+    "RECENCY_FIXED_SLOT_153": {
+      "acc": 0.2604166666666667,
+      "delta_vs_final": 0.0417,
+      "delta_vs_final_ci95": [
+        0.005078125000000007,
+        0.08333333333333333
+      ],
+      "n_final_wrong": 150,
+      "n_recovered": 12,
+      "n_final_correct": 42,
+      "n_harmed": 4,
+      "per_stratum_delta_vs_final": {
+        "0": 0.03125,
+        "1": 0.0,
+        "2": 0.09375
+      },
+      "oracle_gap": 0.651,
+      "net_recovery_count": 8,
+      "net_recovery_rate": 0.0417,
+      "recovery_rate": 0.08,
+      "harm_rate": 0.0952,
+      "robust_strata_vs_final": 3
+    },
+    "MATCHED_NO_HISTORY": {
+      "acc": 0.21875,
+      "equals_final": true,
+      "note": "K FINAL readouts ensembled == FINAL (compute control)"
+    },
+    "pool_per_slot_acc": {
+      "38": 0.5,
+      "76": 0.7708333333333334,
+      "115": 0.46875,
+      "153": 0.2604166666666667
+    }
+  },
+  "replicates_06D_maxconf_0833": {
+    "maxconf_acc_here": 0.8229166666666666,
+    "d06_maxconf_acc": 0.8333,
+    "note": "exact equality not required"
+  },
+  "mechanism_activation": {
+    "singlePassRuns": 12,
+    "snapshotsCapturedInRun": 960,
+    "snapshotsRestored": 960,
+    "candidateSnapshotsScored": 768,
+    "queriesEvaluated": 960,
+    "snapshotBoundaryChecks": 960,
+    "snapshotBoundaryFailures": 0,
+    "fastPathCalls": 446400,
+    "fallbackPathCalls": 0
+  },
+  "fallback_reachable": {
+    "causal_conv1d_fn_is_None": false,
+    "causal_conv1d_update_is_None": false,
+    "selective_state_update_is_None": false
+  },
+  "fast_path_active": true,
+  "single_pass_identity": {
+    "run_ids": [
+      "41ed2c4712956ab1",
+      "32b03c5e045d6694",
+      "b381e6c0ec85799b",
+      "e29a21cb93480a29",
+      "1ecac9b01edc1047",
+      "815f4906d7608b35",
+      "0cd5cd5abbff0b76",
+      "10a04f876edb879e",
+      "4070d044410a7b46",
+      "5f5f5640323e8101",
+      "c7cbb1d4f286fe3b",
+      "4cfd7b4597226f15"
+    ],
+    "boundaries_monotonic": true,
+    "n_runs": 12
+  },
+  "claims": {
+    "CLAIM1_recovery": {
+      "fixed76_vs_final": 0.5521,
+      "fixed76_ci": [
+        0.4791666666666667,
+        0.6197916666666666
+      ],
+      "maxconf_vs_final": 0.6042,
+      "maxconf_ci": [
+        0.53125,
+        0.6770833333333334
+      ],
+      "SESOI": 0.15
+    },
+    "CLAIM2_adaptive": {
+      "maxconf_vs_fixed76": 0.0521,
+      "ci": [
+        -0.015625,
+        0.11471354166666595
+      ],
+      "robust": 3,
+      "SESOI": 0.05
+    }
+  },
+  "HISTORICAL_RECOVERY_TRANSPORT": "QUALIFIED",
+  "ADAPTIVE_SELECTOR_ADVANTAGE": "DIRECTIONAL",
+  "OFFICIAL_MAMBA_SYNTHETIC_TRANSPORT": "PARTIAL",
+  "3B_status": "OPEN",
+  "weights_immutable": true,
+  "total_runtime_s": 225.8
+}
