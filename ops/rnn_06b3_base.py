@@ -243,7 +243,10 @@ def main():
     a1 = ds_curve[U_LOW] if ds_curve[U_LOW] > 0 else 1e-9
     mrrd = float(np.mean([max(0.0, (a1 - ds_curve[U]) / a1) for U in DOSES]))
     deficits = [1.0 - ds_curve[U] / a1 for U in DOSES]
-    aurc = float(np.trapz(deficits, DOSES) / (DOSES[-1] - DOSES[0]))
+    # version-proof trapezoidal integral (numpy 2.x renamed np.trapz -> np.trapezoid)
+    trap = sum((DOSES[i + 1] - DOSES[i]) * (deficits[i + 1] + deficits[i]) / 2
+               for i in range(len(DOSES) - 1))
+    aurc = float(trap / (DOSES[-1] - DOSES[0]))
     results["MEAN_RELATIVE_RETENTION_DEFICIT"] = round(mrrd, 4)
     results["DEFICIT_AURC_NORMALIZED"] = round(aurc, 4)
 
