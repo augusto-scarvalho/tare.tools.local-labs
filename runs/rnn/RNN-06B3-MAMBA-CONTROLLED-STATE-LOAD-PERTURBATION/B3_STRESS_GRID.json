@@ -1,0 +1,38 @@
+{
+  "b3StressGridSha256": "845bd64179b6b5f3fd2ed8278838065d827f059d8be1feb005e761485dcf12ab",
+  "generator_version": "rnn06b3_order_stable_state_load_v1",
+  "M": 192,
+  "reserve": 16,
+  "doses": [
+    1,
+    24,
+    48,
+    72,
+    96,
+    128,
+    152,
+    176
+  ],
+  "arms": [
+    "DS",
+    "SS"
+  ],
+  "s_strata": 3,
+  "n_per_stratum": 64,
+  "n_per_cell": 192,
+  "tau_hi": 0.75,
+  "sesoi": 0.2,
+  "trivial_region": [
+    -0.05,
+    0.05
+  ],
+  "u_low": 1,
+  "u_high": 176,
+  "sentinel_scheme": "REPEAT1",
+  "min_sentinel_reserve": 16,
+  "robust_strata_required": 2,
+  "ci_lower_bound_min": 0.05,
+  "primary_endpoint": "paired_DS_constrained_loss_U1_to_U176",
+  "shape_interior_margin": 0.1,
+  "shape_cliff_step_fraction": 0.6
+}
