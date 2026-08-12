@@ -28,9 +28,9 @@
     "disjoint_all": true
   },
   "executed_source_identity": {
-    "runner_git_blob": "5b9cdcda15be722599554945764a8ea99338270f",
+    "runner_git_blob": "4cc553e96746b12de79205383f76aa8123521937",
     "runner_dirty": "",
-    "git_head": "cd294a2242d826bddf47faf987ca628f8ad94c4a",
+    "git_head": "49327bac2c0faa264f2127463a72f5ba4c49df1d",
     "repo_id": "state-spaces/mamba2-1.3b",
     "revision": "c5b59d00ec85d313adea86a08cad2a43c962dd3b",
     "mamba_ssm": "2.2.4",
@@ -39,35 +39,35 @@
   "model_weights_sentinel": "b5af61407fbc04f8328ce8c6c79702e31e7d008f27caecc8a62b0ca54e8515ef",
   "arms": {
     "FINAL": {
-      "acc": 0.1667,
+      "acc": 0.1615,
       "ci95": [
-        0.12060131558197143,
-        0.22580925295913526
+        0.11613873488080888,
+        0.22005949879375258
       ]
     },
     "FIXED_SLOT_76": {
-      "acc": 0.724,
+      "acc": 0.7344,
       "recovery_harm_vs_final": {
         "N": 192,
-        "acc": 0.724,
-        "n_final_wrong": 160,
-        "n_recovered": 109,
-        "recovery_rate": 0.6813,
-        "n_final_correct": 32,
+        "acc": 0.7344,
+        "n_final_wrong": 161,
+        "n_recovered": 112,
+        "recovery_rate": 0.6957,
+        "n_final_correct": 31,
         "n_harmed": 2,
-        "harm_rate": 0.0625,
-        "net_recovery_count": 107,
-        "net_recovery_rate": 0.5573,
-        "accuracy_delta_vs_final": 0.5573,
+        "harm_rate": 0.0645,
+        "net_recovery_count": 110,
+        "net_recovery_rate": 0.5729,
+        "accuracy_delta_vs_final": 0.5729,
         "ci95_paired_stratified": [
-          0.484375,
-          0.625
+          0.5052083333333334,
+          0.6458333333333334
         ],
         "per_stratum_delta": {
-          "0": 0.3958,
-          "1": 0.5833,
+          "0": 0.4167,
+          "1": 0.6042,
           "2": 0.6042,
-          "3": 0.6458
+          "3": 0.6667
         },
         "robust_strata": 4
       }
@@ -77,36 +77,36 @@
       "recovery_harm_vs_final": {
         "N": 192,
         "acc": 0.8385,
-        "n_final_wrong": 160,
-        "n_recovered": 130,
-        "recovery_rate": 0.8125,
-        "n_final_correct": 32,
+        "n_final_wrong": 161,
+        "n_recovered": 131,
+        "recovery_rate": 0.8137,
+        "n_final_correct": 31,
         "n_harmed": 1,
-        "harm_rate": 0.0312,
-        "net_recovery_count": 129,
-        "net_recovery_rate": 0.6719,
-        "accuracy_delta_vs_final": 0.6719,
+        "harm_rate": 0.0323,
+        "net_recovery_count": 130,
+        "net_recovery_rate": 0.6771,
+        "accuracy_delta_vs_final": 0.6771,
         "ci95_paired_stratified": [
-          0.609375,
-          0.734375
+          0.6145833333333334,
+          0.7395833333333334
         ],
         "per_stratum_delta": {
           "0": 0.8125,
           "1": 0.8333,
           "2": 0.4375,
-          "3": 0.6042
+          "3": 0.625
         },
         "robust_strata": 4
       },
       "vs_fixed_slot_76": {
-        "delta": 0.1146,
+        "delta": 0.1042,
         "ci95": [
-          0.057291666666666664,
-          0.171875
+          0.046875,
+          0.16145833333333334
         ],
         "per_stratum": {
-          "0": 0.4167,
-          "1": 0.25,
+          "0": 0.3958,
+          "1": 0.2292,
           "2": -0.1667,
           "3": -0.0417
         },
@@ -130,9 +130,9 @@
   },
   "all_fixed_slot_acc": {
     "38": 0.4948,
-    "76": 0.724,
-    "115": 0.4479,
-    "153": 0.2552
+    "76": 0.7344,
+    "115": 0.4375,
+    "153": 0.25
   },
   "mechanism_activation": {
     "singlePassRuns": 12,
@@ -141,15 +141,21 @@
     "candidateSnapshotsScored": 768,
     "queriesEvaluated": 960,
     "snapshotBoundaryChecks": 5,
-    "snapshotBoundaryFailures": 0
+    "snapshotBoundaryFailures": 0,
+    "fastPathPrefillCalls": 624,
+    "fastPathStepCalls": 482496,
+    "fallbackPathCalls": 0,
+    "historicalSelections": 192,
+    "fixedSelections": 192,
+    "finalSelections": 192
   },
   "boundary_check_sample": [
     {
       "runId": "fcae7b6dd97fa2fa",
       "exampleId": 0,
       "boundary": 156,
-      "captured_state_hash": "a71b3426002ebb1b1565dea8",
-      "replay_state_hash": "a71b3426002ebb1b1565dea8",
+      "captured_state_hash": "bf3b30f65c6a95de110b03b2",
+      "replay_state_hash": "bf3b30f65c6a95de110b03b2",
       "match": true,
       "restore_result": "ok"
     },
@@ -157,8 +163,8 @@
       "runId": "fcae7b6dd97fa2fa",
       "exampleId": 0,
       "boundary": 308,
-      "captured_state_hash": "8fe690f04a6f9578e4c863ac",
-      "replay_state_hash": "8fe690f04a6f9578e4c863ac",
+      "captured_state_hash": "7c70a95f6ae4664790176ff4",
+      "replay_state_hash": "7c70a95f6ae4664790176ff4",
       "match": true,
       "restore_result": "ok"
     },
@@ -166,8 +172,8 @@
       "runId": "fcae7b6dd97fa2fa",
       "exampleId": 0,
       "boundary": 464,
-      "captured_state_hash": "bcb60e4ea346bac4de7845b2",
-      "replay_state_hash": "bcb60e4ea346bac4de7845b2",
+      "captured_state_hash": "779ed5f213861ed3d291e261",
+      "replay_state_hash": "779ed5f213861ed3d291e261",
       "match": true,
       "restore_result": "ok"
     },
@@ -175,8 +181,8 @@
       "runId": "fcae7b6dd97fa2fa",
       "exampleId": 0,
       "boundary": 616,
-      "captured_state_hash": "82160778c062fec1152bae77",
-      "replay_state_hash": "82160778c062fec1152bae77",
+      "captured_state_hash": "7a209096683aa0da11e88843",
+      "replay_state_hash": "7a209096683aa0da11e88843",
       "match": true,
       "restore_result": "ok"
     },
@@ -184,8 +190,8 @@
       "runId": "fcae7b6dd97fa2fa",
       "exampleId": 0,
       "boundary": 768,
-      "captured_state_hash": "9cc47dc8da814fc802a59c32",
-      "replay_state_hash": "9cc47dc8da814fc802a59c32",
+      "captured_state_hash": "f150c02ff93a6f1ac45d5a1a",
+      "replay_state_hash": "f150c02ff93a6f1ac45d5a1a",
       "match": true,
       "restore_result": "ok"
     }
@@ -194,5 +200,5 @@
   "ADAPTIVE_SELECTION_NARROW": "DIRECTIONAL",
   "fast_path_active": true,
   "weights_immutable": true,
-  "total_runtime_s": 229.9
+  "total_runtime_s": 228.4
 }

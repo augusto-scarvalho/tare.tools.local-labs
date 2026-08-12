@@ -1,0 +1,121 @@
+{
+  "packet": "RNN-06T2-ECON-AGGREGATE",
+  "n_process_starts": 2,
+  "warm_per_query_ms": {
+    "FINAL_FUSED_EQUIVALENT_WORK": {
+      "n": 80,
+      "median": 37.73,
+      "p25": 37.219,
+      "p75": 38.385,
+      "p95": 38.802,
+      "min": 37.011,
+      "max": 41.17
+    },
+    "FINAL_STEP_EQUIVALENT_WORK": {
+      "n": 80,
+      "median": 976.661,
+      "p25": 916.767,
+      "p75": 1023.677,
+      "p95": 1064.452,
+      "min": 869.795,
+      "max": 1116.164
+    },
+    "RECOVERY_ENABLED_EQUIVALENT_WORK": {
+      "n": 80,
+      "median": 1010.245,
+      "p25": 942.098,
+      "p75": 1064.611,
+      "p95": 1121.255,
+      "min": 888.912,
+      "max": 1180.486
+    }
+  },
+  "added_latency_per_query_ms": {
+    "vs_final_step_PRIMARY": {
+      "n": 80,
+      "median": 41.272,
+      "p25": -29.573,
+      "p75": 109.475,
+      "p95": 192.704,
+      "min": -171.98,
+      "max": 277.799
+    },
+    "vs_final_fused_descriptive": {
+      "n": 80,
+      "median": 972.115,
+      "p25": 904.527,
+      "p75": 1027.114,
+      "p95": 1083.453,
+      "min": 849.983,
+      "max": 1141.893
+    }
+  },
+  "recovery_components_per_query_ms_by_run": [
+    {
+      "trajectory_plus_capture_s": 889.42,
+      "restore_readout_s": 12.168,
+      "selection_s": 0.007,
+      "gpu_to_cpu_snapshot_copy_s": 8.44
+    },
+    {
+      "trajectory_plus_capture_s": 974.921,
+      "restore_readout_s": 13.407,
+      "selection_s": 0.008,
+      "gpu_to_cpu_snapshot_copy_s": 8.555
+    }
+  ],
+  "per_run": [
+    {
+      "process_index": 0,
+      "compile_model_load_s": 3.54,
+      "cold_batch_s": {
+        "final_fused": 8.4564,
+        "final_step": 17.6595,
+        "recovery": 17.6813
+      },
+      "rec_median_ms": 1013.079933822155,
+      "memory": {
+        "peak_vram_gb_final_fused": 4.024,
+        "peak_vram_gb_final_step": 4.403,
+        "peak_vram_gb_recovery": 7.731,
+        "peak_cpu_ram_gb": 2.49,
+        "snapshot_bytes_per_seq_per_K": 52002816,
+        "snapshot_bytes_batch_KplusFinal": 4160225280
+      }
+    },
+    {
+      "process_index": 1,
+      "compile_model_load_s": 3.47,
+      "cold_batch_s": {
+        "final_fused": 8.5678,
+        "final_step": 15.9826,
+        "recovery": 15.8412
+      },
+      "rec_median_ms": 1010.2454945445061,
+      "memory": {
+        "peak_vram_gb_final_fused": 4.024,
+        "peak_vram_gb_final_step": 4.403,
+        "peak_vram_gb_recovery": 7.731,
+        "peak_cpu_ram_gb": 2.271,
+        "snapshot_bytes_per_seq_per_K": 52002816,
+        "snapshot_bytes_batch_KplusFinal": 4160225280
+      }
+    }
+  ],
+  "envelope_ms_per_query": 250.0,
+  "envelope_gate_statistic": "p95(added_vs_final_step)",
+  "p95_added_vs_step_ms": 192.704,
+  "quality_gate": {
+    "q_delta_maxconf_vs_final_wide": 0.5417,
+    "net_recovery_count_wide": 104,
+    "Q_SESOI": 0.05,
+    "quality_ok": true
+  },
+  "cost_gate": {
+    "p95_added_vs_step_ms": 192.704,
+    "envelope_ms": 250.0,
+    "cost_ok": true
+  },
+  "primary_comparator": "RECOVERY_ENABLED - FINAL_STEP_EQUIVALENT_WORK",
+  "END_TO_END_RECOVERY_UTILITY_T1R": "QUALIFIED"
+}
