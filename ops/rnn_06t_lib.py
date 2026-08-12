@@ -184,6 +184,25 @@ def readout(model, state, query_2d, offset, vtensor):
     return pred, sub
 
 
+@torch.no_grad()
+def readout_multi(model, state, query_ids_2d, offset, vtensor):
+    """Branch: load `state`, step an arbitrary-length query (query_ids_2d: (B, Lq)) starting at
+    `offset`, return (pred[B], constrained_logits[B,V]) from the logits after the final query token."""
+    B, Lq = query_ids_2d.shape
+    cache = new_cache(model, B)
+    load_state_into(cache, state)
+    inf = InferenceParams(max_seqlen=MAXLEN, max_batch_size=B)
+    inf.key_value_memory_dict = cache
+    inf.seqlen_offset = offset
+    logits = None
+    for j in range(Lq):
+        logits = model(query_ids_2d[:, j:j + 1], inference_params=inf).logits[:, 0, :].float()
+        inf.seqlen_offset = offset + j + 1
+    sub = logits.index_select(1, vtensor)
+    pred = vtensor[sub.argmax(-1)]
+    return pred, sub
+
+
 # ---- MQAR construction (06D anti-oracle semantics, official-tokenizer-free: token ids over vocab) ----
 # The official mamba2-1.3b uses the GPT-NeoX/EleutherAI tokenizer (vocab 50277). Build disjoint
 # single-token pools over that tokenizer.
