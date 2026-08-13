@@ -1,0 +1,3783 @@
+{
+  "packet": "RNN-07A-BRIDGE-R1",
+  "status": "RUN",
+  "workload": "NoLiMa ONLYDirect SEMI_SYNTHETIC_CONTROLLED_BRIDGE (32K recovery cell, in-run capture)",
+  "capture_semantics": "single_trajectory_in_run_run_trajectory (NOT prefix re-prefill)",
+  "n_recovery": 64,
+  "n_pool": 168,
+  "n_short_correct": 150,
+  "declared_cap": 64,
+  "b_cap": 32,
+  "context_len": 32000,
+  "needle_depth": 0.15,
+  "boundaries": [
+    8000,
+    16000,
+    24000,
+    28800,
+    32000
+  ],
+  "snapshot_schedule": [
+    0.25,
+    0.5,
+    0.75,
+    0.9,
+    1.0
+  ],
+  "short_eligibility": {
+    "n_generated": 168,
+    "n_short_correct": 150,
+    "reasoning_type_dist": {
+      "world_knowledge": 127,
+      "commonsense_knowledge": 23
+    },
+    "needle_id_dist": {
+      "0401": 18,
+      "0401Inv": 18,
+      "0402": 6,
+      "0402Inv": 6,
+      "0405": 6,
+      "0405Inv": 5,
+      "0408": 17,
+      "0408Inv": 15,
+      "0409Inv": 28,
+      "0409": 31
+    }
+  },
+  "fresh_set_identity": {
+    "R1QualificationSetSha256": "5d08129ded4bffb83c1e3b35af1b75844cdfde84b90913ffc8fdc0ba0e6407a3",
+    "selectedSetSha256": "0f6632fa804e413493da388284905dd4ea735b9c53defcceeb77f085bc72a75d",
+    "disjoint_from_historical_recovery": true,
+    "overlap_count": 0,
+    "n_historical_uids": 48,
+    "selected_records": [
+      {
+        "pool_idx": 0,
+        "uid": "d1263dad273cd2fecf67f15c70e84be0978f6f7cf66857f219ab58dee0e299e0",
+        "needle_id": "0401",
+        "reasoning_type": "world_knowledge",
+        "test": "T17_C02",
+        "char": "Mandy",
+        "gold": 0,
+        "filler_seed": 20261510000,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 1,
+        "uid": "0af3ed917f7b885687588821a1de25c5c00479a277502de5498c8afbc9c5f95f",
+        "needle_id": "0401",
+        "reasoning_type": "world_knowledge",
+        "test": "T17_C02",
+        "char": "Katie",
+        "gold": 3,
+        "filler_seed": 20261510001,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 2,
+        "uid": "02976a4828a66a81734c5c2c39b7532226cefd1f612754029bd5440da99185f3",
+        "needle_id": "0401",
+        "reasoning_type": "world_knowledge",
+        "test": "T17_C02",
+        "char": "Calvin",
+        "gold": 3,
+        "filler_seed": 20261510002,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 3,
+        "uid": "dd9541dd3d611a9dc8a62496b09c17cc0be92aeca3cd4c6436747aed2aae31b1",
+        "needle_id": "0401",
+        "reasoning_type": "world_knowledge",
+        "test": "T17_C02",
+        "char": "Caleb",
+        "gold": 0,
+        "filler_seed": 20261510003,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 11,
+        "uid": "f6a56439bdc06d6a1c0f94c32dfc2f07b7ac9d1d7ca5fc8613a85bb5a59ab33e",
+        "needle_id": "0401",
+        "reasoning_type": "world_knowledge",
+        "test": "T15_C02",
+        "char": "Mandy",
+        "gold": 1,
+        "filler_seed": 20261510011,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 12,
+        "uid": "597fd549494740378655b9cad8834ce9a89262fadc11ea897ea1afe4136a1543",
+        "needle_id": "0401",
+        "reasoning_type": "world_knowledge",
+        "test": "T16_C02",
+        "char": "Yuki",
+        "gold": 0,
+        "filler_seed": 20261510012,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 15,
+        "uid": "22d1f9c8b6ee6924bd3fea40385e088551826bfa63b8dec9c0e040cb9865e782",
+        "needle_id": "0401",
+        "reasoning_type": "world_knowledge",
+        "test": "T16_C02",
+        "char": "Mandy",
+        "gold": 0,
+        "filler_seed": 20261510015,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 16,
+        "uid": "9a086643411d5f6a098a2a9cae403de4676e6294c567008d23279da9a34a6f1d",
+        "needle_id": "0401",
+        "reasoning_type": "world_knowledge",
+        "test": "T16_C02",
+        "char": "Calvin",
+        "gold": 1,
+        "filler_seed": 20261510016,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 18,
+        "uid": "4d9f684a1b76879fed36e2dcacf2f5e87156933048f3bec5038e138c94a817d4",
+        "needle_id": "0401Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T17_C02",
+        "char": "Katie",
+        "gold": 3,
+        "filler_seed": 20261510018,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 20,
+        "uid": "e7c2fad7b36b198f28f77ba603bf01afaeaaf3473872bc3a97e5deb986241c57",
+        "needle_id": "0401Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T17_C02",
+        "char": "Yuki",
+        "gold": 0,
+        "filler_seed": 20261510020,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 21,
+        "uid": "15028a5e0526cb63f381daba6573e8f0abf041660b92e7ba51309364dabbd296",
+        "needle_id": "0401Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T17_C02",
+        "char": "Katie",
+        "gold": 1,
+        "filler_seed": 20261510021,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 24,
+        "uid": "10ad6b3816887192ed84af9595e2df033733f529ea5d33be1222ec6e42f3c8bc",
+        "needle_id": "0401Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T15_C02",
+        "char": "Caleb",
+        "gold": 3,
+        "filler_seed": 20261510024,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 26,
+        "uid": "b97d38ad2e492168e383b0c03b6ff51cfd609f812c023b72910838dfc1751a9b",
+        "needle_id": "0401Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T15_C02",
+        "char": "Gary",
+        "gold": 2,
+        "filler_seed": 20261510026,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 27,
+        "uid": "59f3aa5ab6afa67739b67899ee40fa0d0f74824f12183117f135cb3b5ac4743f",
+        "needle_id": "0401Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T15_C02",
+        "char": "Megan",
+        "gold": 1,
+        "filler_seed": 20261510027,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 33,
+        "uid": "f04bfbd204150f4f6824d241e1dd46f515350375697c8a554da86d470695da8b",
+        "needle_id": "0401Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T16_C02",
+        "char": "Caleb",
+        "gold": 0,
+        "filler_seed": 20261510033,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 34,
+        "uid": "2381f1dfd7a15545c12f056231871381e6e0b3bcf393f3534d62a48d22b2778a",
+        "needle_id": "0401Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T16_C02",
+        "char": "Veronica",
+        "gold": 1,
+        "filler_seed": 20261510034,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 38,
+        "uid": "bc1277774705f8ff12efe51a80b50262395bc5e6d57a12010f21ba83ce4d2a38",
+        "needle_id": "0402",
+        "reasoning_type": "commonsense_knowledge",
+        "test": "T01_C02",
+        "char": "Calvin",
+        "gold": 2,
+        "filler_seed": 20261510038,
+        "needle_token_pos": 4797,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 39,
+        "uid": "d96497e05b7be916ad95f2bd1e82499c208950242d16018b6e4fa5aae6b77532",
+        "needle_id": "0402",
+        "reasoning_type": "commonsense_knowledge",
+        "test": "T01_C02",
+        "char": "Mandy",
+        "gold": 1,
+        "filler_seed": 20261510039,
+        "needle_token_pos": 4797,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 40,
+        "uid": "4e144a6e47dba1de2bb30474f22f1fff855942936397d9f6259e81fc48685a9e",
+        "needle_id": "0402",
+        "reasoning_type": "commonsense_knowledge",
+        "test": "T01_C02",
+        "char": "Diana",
+        "gold": 1,
+        "filler_seed": 20261510040,
+        "needle_token_pos": 4797,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 42,
+        "uid": "971adab77987546e1df62c74c9874c4dba42a051c8a9ab7eb231c76a6a59e2ab",
+        "needle_id": "0402Inv",
+        "reasoning_type": "commonsense_knowledge",
+        "test": "T01_C02",
+        "char": "Megan",
+        "gold": 1,
+        "filler_seed": 20261510042,
+        "needle_token_pos": 4797,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 44,
+        "uid": "f5ea5b5962577ce6d8927d8cf93463e8a9fd48f090e5463a52c19ab9904da029",
+        "needle_id": "0402Inv",
+        "reasoning_type": "commonsense_knowledge",
+        "test": "T01_C02",
+        "char": "Stuart",
+        "gold": 1,
+        "filler_seed": 20261510044,
+        "needle_token_pos": 4797,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 45,
+        "uid": "77a6b0426e251a472487a4817d58f20e1b3318c3858c8b3480c565d9204d19e2",
+        "needle_id": "0402Inv",
+        "reasoning_type": "commonsense_knowledge",
+        "test": "T01_C02",
+        "char": "Katie",
+        "gold": 0,
+        "filler_seed": 20261510045,
+        "needle_token_pos": 4797,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 49,
+        "uid": "9434174ecf236ae07ef6ee9017f10ca3d1eb116885fb32fac960f98c3e49f670",
+        "needle_id": "0405",
+        "reasoning_type": "commonsense_knowledge",
+        "test": "T01_C02",
+        "char": "Veronica",
+        "gold": 3,
+        "filler_seed": 20261510049,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 50,
+        "uid": "77b4ca96598f9cf6f0556a642a051f13dafc52536d449ba970665e8d20fb2b36",
+        "needle_id": "0405",
+        "reasoning_type": "commonsense_knowledge",
+        "test": "T01_C02",
+        "char": "Gary",
+        "gold": 2,
+        "filler_seed": 20261510050,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 54,
+        "uid": "3ae92c29c465d44d0855cdc36116e0b8c61467b08a1fe84f0192c8086de68bb0",
+        "needle_id": "0405Inv",
+        "reasoning_type": "commonsense_knowledge",
+        "test": "T01_C02",
+        "char": "Mandy",
+        "gold": 0,
+        "filler_seed": 20261510054,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 55,
+        "uid": "333e35bce6472bc76f720694f4d0ecea35471b184809b5c2dfd82cf466e216e1",
+        "needle_id": "0405Inv",
+        "reasoning_type": "commonsense_knowledge",
+        "test": "T01_C02",
+        "char": "Stuart",
+        "gold": 2,
+        "filler_seed": 20261510055,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 60,
+        "uid": "d26d68f0c91b05f6bfbb623ff8900e1d388e50540bfe173859b26b42e0799bbf",
+        "needle_id": "0408",
+        "reasoning_type": "world_knowledge",
+        "test": "T01_C02",
+        "char": "Katie",
+        "gold": 3,
+        "filler_seed": 20261510060,
+        "needle_token_pos": 4796,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 61,
+        "uid": "74fe6115ef81d8575d0e0c3277b74b2061275c1a5dae6874d4b870dcad78c059",
+        "needle_id": "0408",
+        "reasoning_type": "world_knowledge",
+        "test": "T01_C02",
+        "char": "Yuki",
+        "gold": 3,
+        "filler_seed": 20261510061,
+        "needle_token_pos": 4796,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 62,
+        "uid": "13e789beb32a1390682a4322d16f7e87b99444516950ad184a720196397d6f1b",
+        "needle_id": "0408",
+        "reasoning_type": "world_knowledge",
+        "test": "T01_C02",
+        "char": "Katie",
+        "gold": 2,
+        "filler_seed": 20261510062,
+        "needle_token_pos": 4796,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 63,
+        "uid": "e63d11e186a3e7599f5e9acda98d17e2681dbe4a2e3270a2c5463c86262a604e",
+        "needle_id": "0408",
+        "reasoning_type": "world_knowledge",
+        "test": "T01_C02",
+        "char": "Diana",
+        "gold": 2,
+        "filler_seed": 20261510063,
+        "needle_token_pos": 4796,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 64,
+        "uid": "f2a38597090c33ec0adaaff2fba1f8a99972ca985648cfa7d70bae3f8d3db431",
+        "needle_id": "0408",
+        "reasoning_type": "world_knowledge",
+        "test": "T01_C02",
+        "char": "Diana",
+        "gold": 2,
+        "filler_seed": 20261510064,
+        "needle_token_pos": 4796,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 67,
+        "uid": "d3db25b081207c273c2e4f34a91ba7520f33aba5ab1e33020258c1cb3a7d548b",
+        "needle_id": "0408",
+        "reasoning_type": "world_knowledge",
+        "test": "T04_C02",
+        "char": "Katie",
+        "gold": 2,
+        "filler_seed": 20261510067,
+        "needle_token_pos": 4796,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 76,
+        "uid": "2c61ef74d2f0b0f672d55ea43a360ecb3169e7da5fac9338f9469815d6439250",
+        "needle_id": "0408",
+        "reasoning_type": "world_knowledge",
+        "test": "T05_C02",
+        "char": "Katie",
+        "gold": 1,
+        "filler_seed": 20261510076,
+        "needle_token_pos": 4796,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 78,
+        "uid": "6e65dd167183b785a9cd060dbea10e42b22f45ba45d74af2054b0ca3644d4576",
+        "needle_id": "0408Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T01_C02",
+        "char": "Yuki",
+        "gold": 3,
+        "filler_seed": 20261510078,
+        "needle_token_pos": 4795,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 83,
+        "uid": "ccd820de96893469b4ab158334530e7a18f97812291df54b689c009df9c42158",
+        "needle_id": "0408Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T01_C02",
+        "char": "Calvin",
+        "gold": 2,
+        "filler_seed": 20261510083,
+        "needle_token_pos": 4795,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 86,
+        "uid": "7351ea3e78fdaae556e5089f73e9c8ce2d9e12a4fd0a706f739b54a08598e738",
+        "needle_id": "0408Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T04_C02",
+        "char": "Gary",
+        "gold": 2,
+        "filler_seed": 20261510086,
+        "needle_token_pos": 4795,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 90,
+        "uid": "c11d60d0332d091908736afd3c1195150046931ee2502a26deed0ee40db3c573",
+        "needle_id": "0408Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T05_C02",
+        "char": "Yuki",
+        "gold": 2,
+        "filler_seed": 20261510090,
+        "needle_token_pos": 4795,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 91,
+        "uid": "8780efd513bb03e7e35507c74082c46d2f117cd1849e5791d69a4c7e05aa344d",
+        "needle_id": "0408Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T05_C02",
+        "char": "Diana",
+        "gold": 2,
+        "filler_seed": 20261510091,
+        "needle_token_pos": 4796,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 94,
+        "uid": "9fea0c6abba25b06e35b8b5472af32809c2e9ad1bf4cf61dde07ac1221ae855e",
+        "needle_id": "0408Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T05_C02",
+        "char": "Mandy",
+        "gold": 1,
+        "filler_seed": 20261510094,
+        "needle_token_pos": 4795,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 97,
+        "uid": "d8879f231f59f9be2396159729d16666a6cfdbe554ecb36b23dc11a8a489eade",
+        "needle_id": "0409Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T09_C02",
+        "char": "Stuart",
+        "gold": 0,
+        "filler_seed": 20261510097,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 99,
+        "uid": "641832aaeb205c669cbf5a91abefc910eb1672e6c7ac0066bf2e8233c1a16abc",
+        "needle_id": "0409Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T09_C02",
+        "char": "Katie",
+        "gold": 3,
+        "filler_seed": 20261510099,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 102,
+        "uid": "74b5867b9e4a3c1888e59f9757aa6875a63a3787e7daba85199b7fdc958c9ce9",
+        "needle_id": "0409Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T10_C02",
+        "char": "Gary",
+        "gold": 0,
+        "filler_seed": 20261510102,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 104,
+        "uid": "05af0e1d0ad7628436d8647b972635b5203efa178e926c4efc72be6fdb2f6812",
+        "needle_id": "0409Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T10_C02",
+        "char": "Diana",
+        "gold": 1,
+        "filler_seed": 20261510104,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 106,
+        "uid": "6c686e51b6754b29dc59f4e9365a88f5a8bfa7226bfbdc5136251830edb0e350",
+        "needle_id": "0409Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T10_C02",
+        "char": "Yuki",
+        "gold": 1,
+        "filler_seed": 20261510106,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 107,
+        "uid": "38bc6147c3015872dcef29776ff2590335c4be518e52954597388ace167b7c33",
+        "needle_id": "0409Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T10_C02",
+        "char": "Caleb",
+        "gold": 0,
+        "filler_seed": 20261510107,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 109,
+        "uid": "6fe149b392ab1941ce45cdd754ffcaad3362fc91ca5d741e40fb9e59bc395330",
+        "needle_id": "0409Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T04_C02",
+        "char": "Mandy",
+        "gold": 3,
+        "filler_seed": 20261510109,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 111,
+        "uid": "87dde955d12e2d185f511ca0faaab7a724154aff15bee128bfc3ad5515850713",
+        "needle_id": "0409Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T04_C02",
+        "char": "Yuki",
+        "gold": 0,
+        "filler_seed": 20261510111,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 117,
+        "uid": "4fe7bc287b0461935e5610e45abc00af6a9a297da138b76d8d006fb5832db80a",
+        "needle_id": "0409Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T05_C02",
+        "char": "Caleb",
+        "gold": 3,
+        "filler_seed": 20261510117,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 120,
+        "uid": "4802643e393d7ee378d390192c85d43028e9703b705f6e9030ebc4f38960ea39",
+        "needle_id": "0409Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T07_C02",
+        "char": "Yuki",
+        "gold": 3,
+        "filler_seed": 20261510120,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 123,
+        "uid": "87758c21d25f8beb2ea5882128694bbf6d017de57b64c5d59d372f1aed64a6e9",
+        "needle_id": "0409Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T07_C02",
+        "char": "Veronica",
+        "gold": 1,
+        "filler_seed": 20261510123,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 127,
+        "uid": "ff8f54548dfab587e371cfedcbf886a6e6e18ea166a4dfc9f15efd5e417dad81",
+        "needle_id": "0409Inv",
+        "reasoning_type": "world_knowledge",
+        "test": "T08_C02",
+        "char": "Veronica",
+        "gold": 3,
+        "filler_seed": 20261510127,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 132,
+        "uid": "4e3acd692b38bc88a91527a75282563465eeb68d2fe84ba1185031a6f6ad1d76",
+        "needle_id": "0409",
+        "reasoning_type": "world_knowledge",
+        "test": "T09_C02",
+        "char": "Gary",
+        "gold": 2,
+        "filler_seed": 20261510132,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 133,
+        "uid": "ac015d9acd23ca4c63d45db71e29b89c876fe3b77609641b5c243943795bad7e",
+        "needle_id": "0409",
+        "reasoning_type": "world_knowledge",
+        "test": "T09_C02",
+        "char": "Katie",
+        "gold": 1,
+        "filler_seed": 20261510133,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 135,
+        "uid": "c889fbce1f2cbf113a7139acdc566768b1b5ae6b08741f607c11a88ac2159035",
+        "needle_id": "0409",
+        "reasoning_type": "world_knowledge",
+        "test": "T09_C02",
+        "char": "Katie",
+        "gold": 0,
+        "filler_seed": 20261510135,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 136,
+        "uid": "76c3a31e95f8402eed3e26fa694f9071d3505fb09ef6b5b8fb9da253b6810dcc",
+        "needle_id": "0409",
+        "reasoning_type": "world_knowledge",
+        "test": "T09_C02",
+        "char": "Yuki",
+        "gold": 0,
+        "filler_seed": 20261510136,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 138,
+        "uid": "3e324a482592c6d9d4e3581211cd9d3ee1349ada12c8cbee9ddca22c95a9257b",
+        "needle_id": "0409",
+        "reasoning_type": "world_knowledge",
+        "test": "T10_C02",
+        "char": "Mandy",
+        "gold": 1,
+        "filler_seed": 20261510138,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 140,
+        "uid": "3424f7427f449e77f66794a24ff9227418a9440033d3c45ee1da02ee320e9188",
+        "needle_id": "0409",
+        "reasoning_type": "world_knowledge",
+        "test": "T10_C02",
+        "char": "Megan",
+        "gold": 2,
+        "filler_seed": 20261510140,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 151,
+        "uid": "f7b5d29b8cb03485d070bdd247cc01145e87c366fd550f7b486f3762cf7dd950",
+        "needle_id": "0409",
+        "reasoning_type": "world_knowledge",
+        "test": "T05_C02",
+        "char": "Gary",
+        "gold": 2,
+        "filler_seed": 20261510151,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 158,
+        "uid": "68913c685c895ffea48be3277d81bbfda97071e1624a645258a17763865c4af0",
+        "needle_id": "0409",
+        "reasoning_type": "world_knowledge",
+        "test": "T07_C02",
+        "char": "Megan",
+        "gold": 3,
+        "filler_seed": 20261510158,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 160,
+        "uid": "983c9f3191f5ea55567a18dee1201d8167c0cc581e5632e4e6131b9251eca5b0",
+        "needle_id": "0409",
+        "reasoning_type": "world_knowledge",
+        "test": "T07_C02",
+        "char": "Gary",
+        "gold": 2,
+        "filler_seed": 20261510160,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 161,
+        "uid": "c5506fb87d1b78ea6ec80c0231f17b269f16a6a5a186d4dd1bd0d1d541a3c786",
+        "needle_id": "0409",
+        "reasoning_type": "world_knowledge",
+        "test": "T07_C02",
+        "char": "Megan",
+        "gold": 3,
+        "filler_seed": 20261510161,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 163,
+        "uid": "f7975ab1e9ebd942405d67525b04f3db8b7d20e283fe84d2575239e213acbc43",
+        "needle_id": "0409",
+        "reasoning_type": "world_knowledge",
+        "test": "T08_C02",
+        "char": "Katie",
+        "gold": 3,
+        "filler_seed": 20261510163,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 164,
+        "uid": "dbf5d0039038b4aa78dadb3f1e930decb048aab8635b8a73b9de7a88b4c3fc8b",
+        "needle_id": "0409",
+        "reasoning_type": "world_knowledge",
+        "test": "T08_C02",
+        "char": "Calvin",
+        "gold": 3,
+        "filler_seed": 20261510164,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      },
+      {
+        "pool_idx": 166,
+        "uid": "e7137f5733d3c870855bb625332b5378faae75b64ce03d3995fe2a5d42ec4c2e",
+        "needle_id": "0409",
+        "reasoning_type": "world_knowledge",
+        "test": "T08_C02",
+        "char": "Veronica",
+        "gold": 1,
+        "filler_seed": 20261510166,
+        "needle_token_pos": 4798,
+        "n_ctx": 32000
+      }
+    ]
+  },
+  "temporal_identity_replay": {
+    "replay_subset_n": 8,
+    "all_boundary_hashes_match": false,
+    "records": [
+      {
+        "uid": "d1263dad273cd2fecf67f15c70e84be0978f6f7cf66857f219ab58dee0e299e0",
+        "snapshot": "SNAP_25",
+        "match": false
+      },
+      {
+        "uid": "d1263dad273cd2fecf67f15c70e84be0978f6f7cf66857f219ab58dee0e299e0",
+        "snapshot": "SNAP_50",
+        "match": false
+      },
+      {
+        "uid": "d1263dad273cd2fecf67f15c70e84be0978f6f7cf66857f219ab58dee0e299e0",
+        "snapshot": "SNAP_75",
+        "match": false
+      },
+      {
+        "uid": "d1263dad273cd2fecf67f15c70e84be0978f6f7cf66857f219ab58dee0e299e0",
+        "snapshot": "SNAP_90",
+        "match": false
+      },
+      {
+        "uid": "d1263dad273cd2fecf67f15c70e84be0978f6f7cf66857f219ab58dee0e299e0",
+        "snapshot": "FINAL",
+        "match": false
+      },
+      {
+        "uid": "0af3ed917f7b885687588821a1de25c5c00479a277502de5498c8afbc9c5f95f",
+        "snapshot": "SNAP_25",
+        "match": false
+      },
+      {
+        "uid": "0af3ed917f7b885687588821a1de25c5c00479a277502de5498c8afbc9c5f95f",
+        "snapshot": "SNAP_50",
+        "match": false
+      },
+      {
+        "uid": "0af3ed917f7b885687588821a1de25c5c00479a277502de5498c8afbc9c5f95f",
+        "snapshot": "SNAP_75",
+        "match": false
+      },
+      {
+        "uid": "0af3ed917f7b885687588821a1de25c5c00479a277502de5498c8afbc9c5f95f",
+        "snapshot": "SNAP_90",
+        "match": false
+      },
+      {
+        "uid": "0af3ed917f7b885687588821a1de25c5c00479a277502de5498c8afbc9c5f95f",
+        "snapshot": "FINAL",
+        "match": false
+      },
+      {
+        "uid": "02976a4828a66a81734c5c2c39b7532226cefd1f612754029bd5440da99185f3",
+        "snapshot": "SNAP_25",
+        "match": false
+      },
+      {
+        "uid": "02976a4828a66a81734c5c2c39b7532226cefd1f612754029bd5440da99185f3",
+        "snapshot": "SNAP_50",
+        "match": false
+      },
+      {
+        "uid": "02976a4828a66a81734c5c2c39b7532226cefd1f612754029bd5440da99185f3",
+        "snapshot": "SNAP_75",
+        "match": false
+      },
+      {
+        "uid": "02976a4828a66a81734c5c2c39b7532226cefd1f612754029bd5440da99185f3",
+        "snapshot": "SNAP_90",
+        "match": false
+      },
+      {
+        "uid": "02976a4828a66a81734c5c2c39b7532226cefd1f612754029bd5440da99185f3",
+        "snapshot": "FINAL",
+        "match": false
+      },
+      {
+        "uid": "dd9541dd3d611a9dc8a62496b09c17cc0be92aeca3cd4c6436747aed2aae31b1",
+        "snapshot": "SNAP_25",
+        "match": false
+      },
+      {
+        "uid": "dd9541dd3d611a9dc8a62496b09c17cc0be92aeca3cd4c6436747aed2aae31b1",
+        "snapshot": "SNAP_50",
+        "match": false
+      },
+      {
+        "uid": "dd9541dd3d611a9dc8a62496b09c17cc0be92aeca3cd4c6436747aed2aae31b1",
+        "snapshot": "SNAP_75",
+        "match": false
+      },
+      {
+        "uid": "dd9541dd3d611a9dc8a62496b09c17cc0be92aeca3cd4c6436747aed2aae31b1",
+        "snapshot": "SNAP_90",
+        "match": false
+      },
+      {
+        "uid": "dd9541dd3d611a9dc8a62496b09c17cc0be92aeca3cd4c6436747aed2aae31b1",
+        "snapshot": "FINAL",
+        "match": false
+      },
+      {
+        "uid": "f6a56439bdc06d6a1c0f94c32dfc2f07b7ac9d1d7ca5fc8613a85bb5a59ab33e",
+        "snapshot": "SNAP_25",
+        "match": false
+      },
+      {
+        "uid": "f6a56439bdc06d6a1c0f94c32dfc2f07b7ac9d1d7ca5fc8613a85bb5a59ab33e",
+        "snapshot": "SNAP_50",
+        "match": false
+      },
+      {
+        "uid": "f6a56439bdc06d6a1c0f94c32dfc2f07b7ac9d1d7ca5fc8613a85bb5a59ab33e",
+        "snapshot": "SNAP_75",
+        "match": false
+      },
+      {
+        "uid": "f6a56439bdc06d6a1c0f94c32dfc2f07b7ac9d1d7ca5fc8613a85bb5a59ab33e",
+        "snapshot": "SNAP_90",
+        "match": false
+      },
+      {
+        "uid": "f6a56439bdc06d6a1c0f94c32dfc2f07b7ac9d1d7ca5fc8613a85bb5a59ab33e",
+        "snapshot": "FINAL",
+        "match": false
+      },
+      {
+        "uid": "597fd549494740378655b9cad8834ce9a89262fadc11ea897ea1afe4136a1543",
+        "snapshot": "SNAP_25",
+        "match": false
+      },
+      {
+        "uid": "597fd549494740378655b9cad8834ce9a89262fadc11ea897ea1afe4136a1543",
+        "snapshot": "SNAP_50",
+        "match": false
+      },
+      {
+        "uid": "597fd549494740378655b9cad8834ce9a89262fadc11ea897ea1afe4136a1543",
+        "snapshot": "SNAP_75",
+        "match": false
+      },
+      {
+        "uid": "597fd549494740378655b9cad8834ce9a89262fadc11ea897ea1afe4136a1543",
+        "snapshot": "SNAP_90",
+        "match": false
+      },
+      {
+        "uid": "597fd549494740378655b9cad8834ce9a89262fadc11ea897ea1afe4136a1543",
+        "snapshot": "FINAL",
+        "match": false
+      },
+      {
+        "uid": "22d1f9c8b6ee6924bd3fea40385e088551826bfa63b8dec9c0e040cb9865e782",
+        "snapshot": "SNAP_25",
+        "match": false
+      },
+      {
+        "uid": "22d1f9c8b6ee6924bd3fea40385e088551826bfa63b8dec9c0e040cb9865e782",
+        "snapshot": "SNAP_50",
+        "match": false
+      },
+      {
+        "uid": "22d1f9c8b6ee6924bd3fea40385e088551826bfa63b8dec9c0e040cb9865e782",
+        "snapshot": "SNAP_75",
+        "match": false
+      },
+      {
+        "uid": "22d1f9c8b6ee6924bd3fea40385e088551826bfa63b8dec9c0e040cb9865e782",
+        "snapshot": "SNAP_90",
+        "match": false
+      },
+      {
+        "uid": "22d1f9c8b6ee6924bd3fea40385e088551826bfa63b8dec9c0e040cb9865e782",
+        "snapshot": "FINAL",
+        "match": false
+      },
+      {
+        "uid": "9a086643411d5f6a098a2a9cae403de4676e6294c567008d23279da9a34a6f1d",
+        "snapshot": "SNAP_25",
+        "match": false
+      },
+      {
+        "uid": "9a086643411d5f6a098a2a9cae403de4676e6294c567008d23279da9a34a6f1d",
+        "snapshot": "SNAP_50",
+        "match": false
+      },
+      {
+        "uid": "9a086643411d5f6a098a2a9cae403de4676e6294c567008d23279da9a34a6f1d",
+        "snapshot": "SNAP_75",
+        "match": false
+      },
+      {
+        "uid": "9a086643411d5f6a098a2a9cae403de4676e6294c567008d23279da9a34a6f1d",
+        "snapshot": "SNAP_90",
+        "match": false
+      },
+      {
+        "uid": "9a086643411d5f6a098a2a9cae403de4676e6294c567008d23279da9a34a6f1d",
+        "snapshot": "FINAL",
+        "match": false
+      }
+    ]
+  },
+  "arm_accuracy": {
+    "FINAL": 0.328125,
+    "SNAP_25": 0.3125,
+    "SNAP_50": 0.3125,
+    "SNAP_75": 0.328125,
+    "SNAP_90": 0.328125,
+    "MAX_CONFIDENCE": 0.3125,
+    "ORACLE_HISTORICAL_ONLY_diagnostic": 0.34375,
+    "ORACLE_ALL_diagnostic": 0.34375
+  },
+  "fixed_arm_vs_final": {
+    "SNAP_25": {
+      "n_final_wrong": 43,
+      "n_final_correct": 21,
+      "n_recovered": 1,
+      "n_harmed": 2,
+      "net_recovery": -1,
+      "accuracy_delta_vs_final": -0.015625,
+      "ci_lo": -0.0625,
+      "ci_hi": 0.03125
+    },
+    "SNAP_50": {
+      "n_final_wrong": 43,
+      "n_final_correct": 21,
+      "n_recovered": 1,
+      "n_harmed": 2,
+      "net_recovery": -1,
+      "accuracy_delta_vs_final": -0.015625,
+      "ci_lo": -0.0625,
+      "ci_hi": 0.03125
+    },
+    "SNAP_75": {
+      "n_final_wrong": 43,
+      "n_final_correct": 21,
+      "n_recovered": 0,
+      "n_harmed": 0,
+      "net_recovery": 0,
+      "accuracy_delta_vs_final": 0.0,
+      "ci_lo": 0.0,
+      "ci_hi": 0.0
+    },
+    "SNAP_90": {
+      "n_final_wrong": 43,
+      "n_final_correct": 21,
+      "n_recovered": 0,
+      "n_harmed": 0,
+      "net_recovery": 0,
+      "accuracy_delta_vs_final": 0.0,
+      "ci_lo": 0.0,
+      "ci_hi": 0.0
+    }
+  },
+  "max_confidence_vs_final": {
+    "n_final_wrong": 43,
+    "n_final_correct": 21,
+    "n_recovered": 0,
+    "n_harmed": 1,
+    "net_recovery": -1,
+    "accuracy_delta_vs_final": -0.015625,
+    "ci_lo": -0.046875,
+    "ci_hi": 0.0
+  },
+  "historical_information": {
+    "oracle_hist_only_acc": 0.34375,
+    "oracle_hist_only_minus_final": 0.015625,
+    "ci_lo": 0.0,
+    "ci_hi": 0.046875,
+    "n_final_wrong": 43,
+    "historically_recoverable_final_wrong": 1,
+    "recoverability_rate_over_final_wrong": 0.023255813953488372,
+    "recoverability_rate_wilson_lb": 0.004116981177419918
+  },
+  "selector_histogram": {
+    "SNAP_25": 14,
+    "SNAP_50": 10,
+    "SNAP_75": 17,
+    "SNAP_90": 11,
+    "FINAL": 12
+  },
+  "confidence_diagnostics_nongating": {
+    "mean_selected_conf_correct": 0.8591495901346207,
+    "mean_selected_conf_incorrect": 0.8130869364196603,
+    "corr_selected_conf_correctness": 0.17553188074052645
+  },
+  "strata": {
+    "by_needle_id": {
+      "0401": {
+        "n": 8,
+        "final_acc": 0.5,
+        "oracle_hist_only_acc": 0.5,
+        "maxconf_acc": 0.5
+      },
+      "0401Inv": {
+        "n": 8,
+        "final_acc": 0.25,
+        "oracle_hist_only_acc": 0.25,
+        "maxconf_acc": 0.25
+      },
+      "0402": {
+        "n": 3,
+        "final_acc": 0.3333333333333333,
+        "oracle_hist_only_acc": 0.3333333333333333,
+        "maxconf_acc": 0.3333333333333333
+      },
+      "0402Inv": {
+        "n": 3,
+        "final_acc": 0.0,
+        "oracle_hist_only_acc": 0.0,
+        "maxconf_acc": 0.0
+      },
+      "0405": {
+        "n": 2,
+        "final_acc": 0.5,
+        "oracle_hist_only_acc": 0.5,
+        "maxconf_acc": 0.5
+      },
+      "0405Inv": {
+        "n": 2,
+        "final_acc": 0.5,
+        "oracle_hist_only_acc": 0.5,
+        "maxconf_acc": 0.5
+      },
+      "0408": {
+        "n": 7,
+        "final_acc": 0.14285714285714285,
+        "oracle_hist_only_acc": 0.2857142857142857,
+        "maxconf_acc": 0.14285714285714285
+      },
+      "0408Inv": {
+        "n": 6,
+        "final_acc": 0.3333333333333333,
+        "oracle_hist_only_acc": 0.3333333333333333,
+        "maxconf_acc": 0.3333333333333333
+      },
+      "0409": {
+        "n": 13,
+        "final_acc": 0.15384615384615385,
+        "oracle_hist_only_acc": 0.15384615384615385,
+        "maxconf_acc": 0.15384615384615385
+      },
+      "0409Inv": {
+        "n": 12,
+        "final_acc": 0.5833333333333334,
+        "oracle_hist_only_acc": 0.5833333333333334,
+        "maxconf_acc": 0.5
+      }
+    },
+    "by_reasoning_type": {
+      "commonsense_knowledge": {
+        "n": 10,
+        "final_acc": 0.3,
+        "oracle_hist_only_acc": 0.3,
+        "maxconf_acc": 0.3
+      },
+      "world_knowledge": {
+        "n": 54,
+        "final_acc": 0.3333333333333333,
+        "oracle_hist_only_acc": 0.35185185185185186,
+        "maxconf_acc": 0.3148148148148148
+      }
+    }
+  },
+  "thresholds": {
+    "REC_EFFECT_MIN": 0.05,
+    "ADAPT_MIN": 0.05,
+    "PRESENCE_MIN": 0.05,
+    "PRESENCE_FRAC_MIN": 0.2,
+    "MIN_N": 48
+  },
+  "HISTORICAL_INFORMATION_PRESENCE_R1": "NOT_DETECTED",
+  "TRUE_IN_RUN_COARSE_HISTORICAL_RECOVERY_R1": "NO_NET_SIGNAL",
+  "TRUE_IN_RUN_MAX_CONFIDENCE_R1": "NO_SIGNAL",
+  "provenance": {
+    "runner_git_blob": "f7caa5704f73c91546bd3c937444cda53db84069",
+    "runner_dirty": "",
+    "git_head": "abb13fcad26a78df468fdaa25cd391d28dc6ca90",
+    "r1_protocol_sha256": "16d4c9412409a8821fb9ed3db34d22dd23ad9cab377a25caa4ccad31c9ff0897",
+    "external_provenance_sha256": "a1624ddadd0fe294f452464b5499275e4d50eedc7449dd835ed56c39751a5f18",
+    "repo_id": "state-spaces/mamba2-1.3b",
+    "revision": "c5b59d00ec85d313adea86a08cad2a43c962dd3b",
+    "mamba_ssm": "2.2.4"
+  },
+  "fast_path_active": true,
+  "kernel_counts": {
+    "mamba_split_conv1d_scan_combined": 0,
+    "mamba_chunk_scan_combined": 8208,
+    "causal_conv1d_fn": 8208,
+    "causal_conv1d_update": 5138880,
+    "selective_state_update": 5138880
+  },
+  "seconds": 2276.1,
+  "rows": [
+    {
+      "uid": "d1263dad273cd2fecf67f15c70e84be0978f6f7cf66857f219ab58dee0e299e0",
+      "pool_idx": 0,
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "gold": 0,
+      "snap_preds": [
+        2,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.5474308729171753,
+        0.8175607323646545,
+        0.7450786232948303,
+        0.4943678677082062,
+        0.6347047090530396
+      ],
+      "snap_correct": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 1,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "ab69471d254531bc8c7993b402395b14fad205928c40c719fdfd8c3ebee379db",
+        "SNAP_50": "d4659033a59b36263b3e22f15855fba22151c600c28145ba663fbb9d44679e67",
+        "SNAP_75": "3f7885ffeadd17c9453461dce58dd5b212cb4685216a9f66a566a4709c52b362",
+        "SNAP_90": "fe7b15e86c700fa6cb60c9192268f74a6a2f72cf4c9e75bd3cc88ec7aa3ff73f",
+        "FINAL": "b58492055cdf89cc0e82d43c52787d7f6c95b2e7977c42c5f6d34eb67da57601"
+      }
+    },
+    {
+      "uid": "0af3ed917f7b885687588821a1de25c5c00479a277502de5498c8afbc9c5f95f",
+      "pool_idx": 1,
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        2,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.44356364011764526,
+        0.5921465754508972,
+        0.44434231519699097,
+        0.6561231017112732,
+        0.42471805214881897
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 3,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "c0bda39d50f1d432a369e687c5f0ba38064c7d14409450d9e89669c2804cd7ca",
+        "SNAP_50": "772d0a5d0f89efb818a98ef423ac1fd6b44ae5485758b34942440bd1f18fa00d",
+        "SNAP_75": "f99e76d6cd532eff74d66155b62d5bf1c174d36e030adaefb33763c0b91ce462",
+        "SNAP_90": "8b8820c17bbb6c481b5ed6ea8676f31f3742bb90eb4c129fd57466a72fdc4c17",
+        "FINAL": "27c1c3c77b4a548654357bfa0b9a38be2d3485035a14bc8a22101645c0b3fcc7"
+      }
+    },
+    {
+      "uid": "02976a4828a66a81734c5c2c39b7532226cefd1f612754029bd5440da99185f3",
+      "pool_idx": 2,
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.8879303932189941,
+        0.9107162356376648,
+        0.946319043636322,
+        0.8234827518463135,
+        0.9418215751647949
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 2,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "b63fd8a8a6656aaab2be4d19cb379912f99283c62846f12f486d358b93857cc7",
+        "SNAP_50": "b3257475d073db961c65572eff4806d7fe551886d540e0a6a8ad575951cd6b6c",
+        "SNAP_75": "8784c3b4e1eb8020dffbe79cf206412d8a30983cbbb933ad2b914edf625e736f",
+        "SNAP_90": "09d7d1398d1e5168c0fd5e7ff8879237b5c2dc6a1d772455bfd7f5ed083dd50e",
+        "FINAL": "5ca290fcc940deab60c569ff92f060223b61770f17d1e6685f75803269158251"
+      }
+    },
+    {
+      "uid": "dd9541dd3d611a9dc8a62496b09c17cc0be92aeca3cd4c6436747aed2aae31b1",
+      "pool_idx": 3,
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "gold": 0,
+      "snap_preds": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.8061099052429199,
+        0.7666951417922974,
+        0.8250691890716553,
+        0.880347728729248,
+        0.8000918626785278
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 3,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "f8c799b24482484bb7b6a42988f4e9df4503d508aa7fa199e73d6f895eb010fc",
+        "SNAP_50": "99fd3d784306ffaa4f44fd2cdecd44496b468f0b79bb5ef2290cb5bcdb81081a",
+        "SNAP_75": "fcd18fb72c6d8f9269f3c4ed7a1eed2ed795001622d6da0bdbf72e6c0ee25a6f",
+        "SNAP_90": "74ac09857a80206ee725a9661ba068b49e102a61245577a0fca3dc4c6b6c11cb",
+        "FINAL": "c398fde4e6f5534853c65c684a5c580c1be6ef77085f94e22654f3648cf82bd8"
+      }
+    },
+    {
+      "uid": "f6a56439bdc06d6a1c0f94c32dfc2f07b7ac9d1d7ca5fc8613a85bb5a59ab33e",
+      "pool_idx": 11,
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "snap_confs": [
+        0.8687248826026917,
+        0.8835594654083252,
+        0.8025403618812561,
+        0.8810020089149475,
+        0.8971298336982727
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 4,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "446e7dbe07b36b8b170d26946907dcfb630cedf54bcf113a3f2faef99481cfb8",
+        "SNAP_50": "60b266aa30012bf22202cdc2b064ef5083c4ad5a9cfb617b6ec37ed7cc5dc21f",
+        "SNAP_75": "f88386d1edb9795bfb1b4dffe688706e13b90834013536ac5c194ebbe440e61c",
+        "SNAP_90": "945b88edc4058132446a2cd1787be6a43480db4554838c29aa9388457ced5b76",
+        "FINAL": "4c548247152cd4b898f57008232dd78f83ff2ac6c8f694586fe0d1e270471f1f"
+      }
+    },
+    {
+      "uid": "597fd549494740378655b9cad8834ce9a89262fadc11ea897ea1afe4136a1543",
+      "pool_idx": 12,
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "gold": 0,
+      "snap_preds": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "snap_confs": [
+        0.8075392842292786,
+        0.8410044312477112,
+        0.7867807745933533,
+        0.5326840877532959,
+        0.808796226978302
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 1,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "0159ea0af2e03d523e33571dd96e5d4e5546fd9d4a71dfd982a4cdaffa347da0",
+        "SNAP_50": "34fae177c0cec61ea2df2a458dbf22fe39f1a488ac98890535389ad95e59a3a7",
+        "SNAP_75": "e2f4fe163669b448e92401a04e58fcf8f94e4d272829d57fafb106d8e4c7faeb",
+        "SNAP_90": "852b8aac3f0c6b92676a044262f89fedf334a63254699f4256812eed6eebfcab",
+        "FINAL": "0d935482b85d9ab0403a44aa601ff70cbb4000963298f5da63b42c7b8a6fb115"
+      }
+    },
+    {
+      "uid": "22d1f9c8b6ee6924bd3fea40385e088551826bfa63b8dec9c0e040cb9865e782",
+      "pool_idx": 15,
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "gold": 0,
+      "snap_preds": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.8468663096427917,
+        0.886159360408783,
+        0.89071124792099,
+        0.686974823474884,
+        0.8191465735435486
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 2,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "1284270fd05094ea05645baeecd5a364d1cc9d1245bd6d76fdcd93554f156662",
+        "SNAP_50": "0e4fbc76e0c35806d2bf763aa08742f60a7a0ee48e2ec8b299481c76943e8785",
+        "SNAP_75": "e63cd4a1381b450f8e7543cb4ac748fb354ffccfcb1e6785fe7350880b343db7",
+        "SNAP_90": "f79f7164a416b1ef39578bc7ae166ea02a0db894a2c419010795b42f30bf14ff",
+        "FINAL": "434f5500f4cf2d4ded3754fa4491dd6202061eef0d95fc6cc32581ad373eec63"
+      }
+    },
+    {
+      "uid": "9a086643411d5f6a098a2a9cae403de4676e6294c567008d23279da9a34a6f1d",
+      "pool_idx": 16,
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        0,
+        2,
+        3,
+        0,
+        2
+      ],
+      "snap_confs": [
+        0.2885095179080963,
+        0.5281224846839905,
+        0.4109315872192383,
+        0.3076567053794861,
+        0.39258745312690735
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 1,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "a4428dd99d0d1c271556ec3132c49f75f2917d4e1eeebfd9b534b01718922018",
+        "SNAP_50": "9c9d576d504ccc0caa87cb099045161643b6487139b942b87f38cd095ad2607f",
+        "SNAP_75": "0220859ba1410620dd865be50d52fa5e7fb62746d5bba2e2b2d40cbc65031112",
+        "SNAP_90": "1be9087a72ea9c47238bce7fb1aeb3b1bdadd22b15a298c30a9ee9a5e7a20286",
+        "FINAL": "a87194dd4dff5abd61be22fe7464feb66f89ca8afdf75442252417331f81b566"
+      }
+    },
+    {
+      "uid": "4d9f684a1b76879fed36e2dcacf2f5e87156933048f3bec5038e138c94a817d4",
+      "pool_idx": 18,
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        2,
+        2,
+        0,
+        2,
+        0
+      ],
+      "snap_confs": [
+        0.6000845432281494,
+        0.5987067222595215,
+        0.5081325173377991,
+        0.5779565572738647,
+        0.654172420501709
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 4,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "5d8b305658d0f323d7fd1d4e02c9141b6ae5638870bc9fdf7512eee6a8a3f7ad",
+        "SNAP_50": "97e000ad559a585b39e3fc0f3b5e45e8b03cb2a4004e9ce09415810a40edef64",
+        "SNAP_75": "9106a409e5e307145f0b67502bfd9d330aca66cfe353a340993d40597d7a37ec",
+        "SNAP_90": "49fc0f78695b53704ee0bdd4eea9b9b02a2c42f4ca65c53cc683a0f4719b3599",
+        "FINAL": "70107102e9b849afbb2dadeaa9a4779b6f5af61c8d80dec2c433d6f9c3a2433e"
+      }
+    },
+    {
+      "uid": "e7c2fad7b36b198f28f77ba603bf01afaeaaf3473872bc3a97e5deb986241c57",
+      "pool_idx": 20,
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 0,
+      "snap_preds": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "snap_confs": [
+        0.5368103981018066,
+        0.7404069900512695,
+        0.8199314475059509,
+        0.654477059841156,
+        0.8162875175476074
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 2,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "7f03908a11f0ca20f77edf03084e394e1bfbc32bbb307f1bb7f96f915249fa6a",
+        "SNAP_50": "f4dc09883500feb72b9245a28782c8fb382e76d4dc074b1e1c2e8034f4e4f339",
+        "SNAP_75": "f389d1e4288b99dd2aa0da3761d8ecf76af960d9a5dc07f46d32db6601023f79",
+        "SNAP_90": "52bc04b03b49fa2779125188243dd4b0dbc262d1b23826eae1da06fbe7d1eb31",
+        "FINAL": "4b6b68da7bf73adfea0655ab4fd7be82d19fbb6b2d966c414a2f946550f1c2a3"
+      }
+    },
+    {
+      "uid": "15028a5e0526cb63f381daba6573e8f0abf041660b92e7ba51309364dabbd296",
+      "pool_idx": 21,
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "snap_confs": [
+        0.951913595199585,
+        0.889677882194519,
+        0.7219163775444031,
+        0.7629215121269226,
+        0.7322942614555359
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 0,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "c4695eecf0dbeb0d9593a9f3a5fe626e7606f0f3ae51ff5c7c324e3eac6a526f",
+        "SNAP_50": "177d243fa5795a8d18baca8bfe1bc4231c0961cceaa654f6fc7c743d20e9525e",
+        "SNAP_75": "d3818e8d12b80e904416e5efc36a63ba3bf62a9873fae91943274fbbb0d7b716",
+        "SNAP_90": "1dcb45bdfb9eee473f3f75a76785c549e56929b8a2a4cede2a1ec66317418b29",
+        "FINAL": "b4821723d3df7013008c7edc6e702afed9728c42ca561cf84d6d4d66ac1c818b"
+      }
+    },
+    {
+      "uid": "10ad6b3816887192ed84af9595e2df033733f529ea5d33be1222ec6e42f3c8bc",
+      "pool_idx": 24,
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "snap_confs": [
+        0.5765544176101685,
+        0.8042517304420471,
+        0.8820630311965942,
+        0.9207632541656494,
+        0.8598365783691406
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 3,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "ba2ec683a03912e18a29763469de1065be54662c20ee02ca354636362db7f3bd",
+        "SNAP_50": "a6e372e81d6e31f62ae3f9f25c9842e247f12fc1a13297e2eb3367982c8f6f70",
+        "SNAP_75": "7afa7a61276b95d528b1389e80d6ba1244b90dbb10a9c4e52e48c9445cf45606",
+        "SNAP_90": "e0684b048e4c171ac2e2ae4a289598d04000e5035b07c38113015dabd755ea29",
+        "FINAL": "a886fececcace619937f059e1dfb26a2d86d975ffc1eaf12c99342cf0cd3ca72"
+      }
+    },
+    {
+      "uid": "b97d38ad2e492168e383b0c03b6ff51cfd609f812c023b72910838dfc1751a9b",
+      "pool_idx": 26,
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 2,
+      "snap_preds": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "snap_confs": [
+        0.44945985078811646,
+        0.5424370765686035,
+        0.8154987096786499,
+        0.6909930109977722,
+        0.7231791615486145
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 2,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "b6c0c850f296723814c3cda586e058929d07212dc9dd45fb36d66c5a62c930e2",
+        "SNAP_50": "531c06ee6f76e40c808eba379cb0e105349b8cc4000982ace248790e32e1dc29",
+        "SNAP_75": "246b2f4e61e271880dd745d1b5fa08caa77dd75bf525cfb7c06af7f0420ea17e",
+        "SNAP_90": "1811f0f8473b454bb55fff4bf4ff2e6e2cff5b4e9ae417bfbf75c60314cb17b8",
+        "FINAL": "c0fdb039444b547ea0c21bfd0c5c84fd10b54950a81b360cdb68141471b8ed23"
+      }
+    },
+    {
+      "uid": "59f3aa5ab6afa67739b67899ee40fa0d0f74824f12183117f135cb3b5ac4743f",
+      "pool_idx": 27,
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        3,
+        3,
+        3,
+        0,
+        3
+      ],
+      "snap_confs": [
+        0.7881068587303162,
+        0.6268010139465332,
+        0.4878385365009308,
+        0.5485225915908813,
+        0.49077802896499634
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 0,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "03e99840c1a6e6afd2a621471f81809dbdbf6b392c862dfbc5a57623b923b389",
+        "SNAP_50": "f867101dfb75a17c3e180258596647e489e5ae5c433a77041715aea4a3d59bed",
+        "SNAP_75": "536d6367142387a8abb7e9d3d7dcda753ddf4b9845850832a18128065d0a03ac",
+        "SNAP_90": "ec01b03b6588c5ca19acba37cf60fff918a097509fa0f4b036ac14230623d5cc",
+        "FINAL": "b5c298c79b3d63e9a7a018e66a7cf6190d8d4b33506bc32a499b2faa2c29fdce"
+      }
+    },
+    {
+      "uid": "f04bfbd204150f4f6824d241e1dd46f515350375697c8a554da86d470695da8b",
+      "pool_idx": 33,
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 0,
+      "snap_preds": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.5576719045639038,
+        0.6813724040985107,
+        0.49194663763046265,
+        0.6328660845756531,
+        0.6243965029716492
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 1,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "bb92fee7d34bfd7d7effcc67ed489a45cc6fbf595a6cd06be00d790baa7a5661",
+        "SNAP_50": "2cd03e773a520fe47e98b0c36cac1131a1abf21b8ea67fcac5764679569c06be",
+        "SNAP_75": "5fa2e96106784d04e41c8c87b42bd51d4bbc875a334b95c8f0f0537e4c3ac10e",
+        "SNAP_90": "889171896dcc61fdcfb086eb09d33ae6bd86e6526b6ec567039789a9b7c78ccb",
+        "FINAL": "d39c55cdb8690ac7a9a85302a4abdc548436f1d55791f625f53a6c44f23914f3"
+      }
+    },
+    {
+      "uid": "2381f1dfd7a15545c12f056231871381e6e0b3bcf393f3534d62a48d22b2778a",
+      "pool_idx": 34,
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "snap_confs": [
+        0.9265056252479553,
+        0.7809907793998718,
+        0.8785486817359924,
+        0.7214134335517883,
+        0.8567690849304199
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 0,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "d2ff49400506a67fdc1bd38a14130bb3653793c01430038301fbb5b2eed8fc6d",
+        "SNAP_50": "6948aa22c1b23fc92a3e8929f60fe38e44b790c47d43035cf508b1c05e951fd2",
+        "SNAP_75": "95423d5aebceadc201ceadf42f371180a2a55beaf19bf7839d26aa4c027c243e",
+        "SNAP_90": "fae7269c3e6e3b670106c05348fd1916622a1c80e0e91d3cf24f8aa0a172da6f",
+        "FINAL": "3b59c3b39265bebe48bb560627b4fbed00477d3f3793f143dd21259701866fbb"
+      }
+    },
+    {
+      "uid": "bc1277774705f8ff12efe51a80b50262395bc5e6d57a12010f21ba83ce4d2a38",
+      "pool_idx": 38,
+      "needle_id": "0402",
+      "reasoning_type": "commonsense_knowledge",
+      "gold": 2,
+      "snap_preds": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "snap_confs": [
+        0.8680229783058167,
+        0.8465860486030579,
+        0.9445862770080566,
+        0.9344547986984253,
+        0.9132556915283203
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 2,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "12312b4e570e863a788162add518f9d2bd3e01dc5cf8662336e1c98698c7ce83",
+        "SNAP_50": "5a53018470626010bac64f641a4fea3820ad6be99d0e52803da250c0db25acf6",
+        "SNAP_75": "6f88c8762139243c37df79a15ff06cb334f83f3eda6cd94142da440b6b6e2f45",
+        "SNAP_90": "d4e889026d9e39bc8e27bba9f898d4bdb03695739f3dd21d1b84a086d091b25a",
+        "FINAL": "e32ce1ccdf427f0189f04a3c4b8467693df5630aec4e075bd2821164218b68f1"
+      }
+    },
+    {
+      "uid": "d96497e05b7be916ad95f2bd1e82499c208950242d16018b6e4fa5aae6b77532",
+      "pool_idx": 39,
+      "needle_id": "0402",
+      "reasoning_type": "commonsense_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "snap_confs": [
+        0.9361987113952637,
+        0.9415028691291809,
+        0.9772417545318604,
+        0.935438871383667,
+        0.9660786986351013
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 2,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "d951c60ee2ff2b3311bdb09c626e873dc125a5821112c8b16e006fe7be0aeaf8",
+        "SNAP_50": "8db00fd6cd2d41a21ae50585bada333ec441ab482ba6460a752501a44271b7d3",
+        "SNAP_75": "7d0ed817cf632285805561cfcbe9b83ffe7233ce39cec8ef4f89d5210d1f8092",
+        "SNAP_90": "406db6fe9ffd51b910aa34f7a3e53d40cff2c33977b8d47f1f947e8a1568ce87",
+        "FINAL": "e05281d2ef1f7a3cc059328172f56a5e6e51365ffbe5674bd5b799f6a2e55e39"
+      }
+    },
+    {
+      "uid": "4e144a6e47dba1de2bb30474f22f1fff855942936397d9f6259e81fc48685a9e",
+      "pool_idx": 40,
+      "needle_id": "0402",
+      "reasoning_type": "commonsense_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        2,
+        0,
+        2,
+        2,
+        2
+      ],
+      "snap_confs": [
+        0.4422987103462219,
+        0.5423436760902405,
+        0.4701322913169861,
+        0.46788743138313293,
+        0.48866528272628784
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 1,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "f46482b49c3324de6ddf827db1f51a095304b082ac12232c1c1fcc8f867814ad",
+        "SNAP_50": "31d79837853f481b11780543eb27ecc47c0ae83a91a6cab59511ef87fdbfb515",
+        "SNAP_75": "50b81e7f082b5171ef79c3cebdee9935b3ff9982f5a2de8392473799a1f186ab",
+        "SNAP_90": "8ec91357cc160c94631eead77c55a10c96b81485543f3c67abe7bfce968a9960",
+        "FINAL": "62f6b621cef9e47b4f3db7f5402415c01ef7c6cfd601aeb5f9eeda5220773a0e"
+      }
+    },
+    {
+      "uid": "971adab77987546e1df62c74c9874c4dba42a051c8a9ab7eb231c76a6a59e2ab",
+      "pool_idx": 42,
+      "needle_id": "0402Inv",
+      "reasoning_type": "commonsense_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.8322343230247498,
+        0.9162288904190063,
+        0.9128941297531128,
+        0.9372559189796448,
+        0.9493773579597473
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 4,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "bbc3c57d49394920401112079cf12743f8a784f73badd6da177e777b37f5a14c",
+        "SNAP_50": "48eda37fb14ffcd794f74a96d5d0485afb017d70bad46846ce3c6222f0a6bc0e",
+        "SNAP_75": "cd26ad8e494cfb4f2bc602ccf7b192a0c34b977791591c8a489d52a805abefc9",
+        "SNAP_90": "09895d2d058ed19bfedf1a4f1fabf15a43dba7d2ebfc1c11230486fda4c98614",
+        "FINAL": "ce1166b3c77edfca76aa38d1c5505c6ee7b52cbf8046375992fc8948222056a5"
+      }
+    },
+    {
+      "uid": "f5ea5b5962577ce6d8927d8cf93463e8a9fd48f090e5463a52c19ab9904da029",
+      "pool_idx": 44,
+      "needle_id": "0402Inv",
+      "reasoning_type": "commonsense_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "snap_confs": [
+        0.8430522680282593,
+        0.7694283127784729,
+        0.9002288579940796,
+        0.8368642330169678,
+        0.871239185333252
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 2,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "0bd85dcfe3ec37d3350c624a07e932324375084f44faeba370b9fd9d3c017678",
+        "SNAP_50": "99777354b7712cbbabffeaf1102754008dc6645d90c2001032d4fa9f8c62dbdf",
+        "SNAP_75": "b9b70090d408eda0b19909b861dcf7735e1e9e3caa8eeafbfda2ed9d28c8e746",
+        "SNAP_90": "721e025ad7740aba636a4a84605eed51bed319d97d0efe8825176cd9b43db155",
+        "FINAL": "20c273da05b86b31545e8f75aa34d355e47d2669771160a36a0a8a1f16c95053"
+      }
+    },
+    {
+      "uid": "77a6b0426e251a472487a4817d58f20e1b3318c3858c8b3480c565d9204d19e2",
+      "pool_idx": 45,
+      "needle_id": "0402Inv",
+      "reasoning_type": "commonsense_knowledge",
+      "gold": 0,
+      "snap_preds": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "snap_confs": [
+        0.8446267247200012,
+        0.9332655668258667,
+        0.9618160724639893,
+        0.9506924748420715,
+        0.9778684973716736
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 4,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "3d6adc8238cf42e0bfbfd21816ee9aed951aea37f91a08c6a89cfdb9f426045c",
+        "SNAP_50": "a9be9a55d9729e67afb88400ce22895ba244e29f767140f4eb8fccc586bb2dbf",
+        "SNAP_75": "911b5eb911096138bc2768d519c03e90aa94600e80a1a2033edff3d151990cda",
+        "SNAP_90": "06687b830d09da280a9394d9595e92fb54ff6d75a88313da8cc60dcc77a9abd1",
+        "FINAL": "d31020bfbbf3bf5c42bd41a0544fda1b3cd52d6fb9a9f76fb05f91ad3b04b340"
+      }
+    },
+    {
+      "uid": "9434174ecf236ae07ef6ee9017f10ca3d1eb116885fb32fac960f98c3e49f670",
+      "pool_idx": 49,
+      "needle_id": "0405",
+      "reasoning_type": "commonsense_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "snap_confs": [
+        0.9265876412391663,
+        0.8317422270774841,
+        0.9268532991409302,
+        0.7230349183082581,
+        0.9037938714027405
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 2,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "725a29c9d852c91ef4826d6f9d07dd950e641e8ee9daf3d56a8d1ff6e232b5c9",
+        "SNAP_50": "d82370c7e73cc1376dc860905e0fbfce4891ab012d72cb1a6ea0e2ac25d08e97",
+        "SNAP_75": "10055f9bc19c13ad99580ef66aff2a08d027315bec26b6c3edf88c2047a6d6de",
+        "SNAP_90": "21ad2ce308776642f1bf0a802acbe9f9c4af175d9d1156ce912c84b34924cdb1",
+        "FINAL": "eda552779eb9333d75f9bccc236bd7cee43f1d5d1196ab08d3645c211fa2b595"
+      }
+    },
+    {
+      "uid": "77b4ca96598f9cf6f0556a642a051f13dafc52536d449ba970665e8d20fb2b36",
+      "pool_idx": 50,
+      "needle_id": "0405",
+      "reasoning_type": "commonsense_knowledge",
+      "gold": 2,
+      "snap_preds": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "snap_confs": [
+        0.6076734662055969,
+        0.8022927641868591,
+        0.6330056190490723,
+        0.7463476657867432,
+        0.8203015327453613
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 4,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "f542f886f10271366224a80425865bb7459d3c58610d2f73fd33776c66577911",
+        "SNAP_50": "e6758cae0ac66b310acf9817483d0c1a57e93aa7b0cc83b57e707c0311751926",
+        "SNAP_75": "474089ede7fddecf455c0a8c0dd2a6381214fe0268836c27db3836ab238128da",
+        "SNAP_90": "be025054e426d4dd174ab613f66ce70c535153689aeb2318cb881ca110e48338",
+        "FINAL": "098c6dbffd361a4941739baa5035c5c31377592d1e2337894bba02dcb75c6f01"
+      }
+    },
+    {
+      "uid": "3ae92c29c465d44d0855cdc36116e0b8c61467b08a1fe84f0192c8086de68bb0",
+      "pool_idx": 54,
+      "needle_id": "0405Inv",
+      "reasoning_type": "commonsense_knowledge",
+      "gold": 0,
+      "snap_preds": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.9498704671859741,
+        0.9520488381385803,
+        0.9500167369842529,
+        0.9669647812843323,
+        0.9741088151931763
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 4,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "25c719b16b5405b32ee25176df8dd54f52968272fb7b594b212e3dfc357f7ce5",
+        "SNAP_50": "f9758352d50177fb4593e44f63285ccf9df790a69d8f9814b79594edd2aadf6c",
+        "SNAP_75": "ef872f04fbe7451bb45ab7ca500d1f99c2c50cbcaa3d67728f113030cf4c7d24",
+        "SNAP_90": "ea95f2b8b8a98ee853057a067e88a2d3e8b28e4364208292f2468633242105c8",
+        "FINAL": "61ee50a8282867d739fda28040c1a8b14f5adc31dfda5f4c32c15e166424f2ab"
+      }
+    },
+    {
+      "uid": "333e35bce6472bc76f720694f4d0ecea35471b184809b5c2dfd82cf466e216e1",
+      "pool_idx": 55,
+      "needle_id": "0405Inv",
+      "reasoning_type": "commonsense_knowledge",
+      "gold": 2,
+      "snap_preds": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "snap_confs": [
+        0.7622547745704651,
+        0.8336700201034546,
+        0.8826321363449097,
+        0.7956233620643616,
+        0.7878995537757874
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 2,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "14389b130d09620ad663c3f83e476d70e30d654499e9de6dfebf945ad53ab0f5",
+        "SNAP_50": "f30744a8fdd8f244f6082e19d16b6ae22975898eecb3a5f0f437c33afd64320e",
+        "SNAP_75": "c9335a300710a33a336525017f39e40e2b08c8c2bb2a1ffab1d2608dce93e175",
+        "SNAP_90": "ea86e6bca33b45657670ec45f5643eed941e19221e42e48d28c6f15c4ca04dc3",
+        "FINAL": "16f3360e7cc85db15c678bfbf69ed6035ebaff23da3ce56c60bda3793579438b"
+      }
+    },
+    {
+      "uid": "d26d68f0c91b05f6bfbb623ff8900e1d388e50540bfe173859b26b42e0799bbf",
+      "pool_idx": 60,
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.7414860129356384,
+        0.8309696912765503,
+        0.826542854309082,
+        0.9462559223175049,
+        0.9058176875114441
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 3,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "3b95a967a6a9ee628e1f6ac8714ce0e120c819c4f1bc1d390c739140dba9905a",
+        "SNAP_50": "e06c8683eada931267703d3cf7324ddc33066203250e1a725f2a5c7a89f68c7b",
+        "SNAP_75": "863ba94b508c93efe6c512193d3ab39216a2acbde106ff48fa49768cc3bfa2a8",
+        "SNAP_90": "389a6670f921951d62989921f153b82437b97874799f25cd591e12bd34aa9fbc",
+        "FINAL": "4c9c04b2c27253438ebff29c1ad7090766b53d316be5a94a008a096a8fd1a887"
+      }
+    },
+    {
+      "uid": "74fe6115ef81d8575d0e0c3277b74b2061275c1a5dae6874d4b870dcad78c059",
+      "pool_idx": 61,
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "snap_confs": [
+        0.8056567311286926,
+        0.8379827737808228,
+        0.8639033436775208,
+        0.7676180601119995,
+        0.7613820433616638
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 2,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "99659697a2d8c98da07bd728e84cb39d85b467ce8a31c4a8853e0b66c5bf24c2",
+        "SNAP_50": "9a6b592ccf1690a870185af1f7791c636a6102937e50aab83da65e8f142d2d7b",
+        "SNAP_75": "712225803c122d6d0fd0bd5c94b489cff381b9de5ab4167b67d088f99e42a6e1",
+        "SNAP_90": "5c00d5f356a32f0a6ea541ae2e1dc6533837e3ac8e559dc3e6251fe943fe7dcf",
+        "FINAL": "df356541eafe65d9ef1843d90c22d874b167ed9214bfb60a3b32576a70dea4df"
+      }
+    },
+    {
+      "uid": "13e789beb32a1390682a4322d16f7e87b99444516950ad184a720196397d6f1b",
+      "pool_idx": 62,
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "gold": 2,
+      "snap_preds": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "snap_confs": [
+        0.6241305470466614,
+        0.6433516144752502,
+        0.6690980195999146,
+        0.6978882551193237,
+        0.6523461937904358
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 3,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "41961b48e32f1789c2e8f01db4cdb020ed0d21bf1f34e408b627b002ac109554",
+        "SNAP_50": "68304a4bb011dde3a2321330618936d18491284dc007e4dce088272ca7572155",
+        "SNAP_75": "a4f435016b53e0e28e6e66b30070d709a2ff1bf634d3958b8ad222e7b1ae8517",
+        "SNAP_90": "65fbef2189beb3fea863ab26a634a59a532ce6b4649b09a66a470b59df2c6fca",
+        "FINAL": "4533147eaa60d31ff2ede87a8b2e15b41bd03aacc86ad2d8a2289408e2de52af"
+      }
+    },
+    {
+      "uid": "e63d11e186a3e7599f5e9acda98d17e2681dbe4a2e3270a2c5463c86262a604e",
+      "pool_idx": 63,
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "gold": 2,
+      "snap_preds": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "snap_confs": [
+        0.8887395262718201,
+        0.9732432961463928,
+        0.9887868762016296,
+        0.9506834149360657,
+        0.9447059631347656
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 2,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "666d4e730c21c39997989b603da503ba8ad973c6a39b1d17978fe35b4e92a44f",
+        "SNAP_50": "4a5fb98013c91af44385b8856c4327a80865e10568ed99d45d7d644385befaee",
+        "SNAP_75": "6e93e36ddeeedd03dcce306f350c62e111b080ddb9e5363b0a80cb4ee895a3b6",
+        "SNAP_90": "5e9cd074c306a005c74bb5331455db473f12994c846665638c3390ce23ba60b9",
+        "FINAL": "1ec1324d71e44448e5ad5b895cf7f9d9f7f2fc07cf5b998ee021e630eb9836e7"
+      }
+    },
+    {
+      "uid": "f2a38597090c33ec0adaaff2fba1f8a99972ca985648cfa7d70bae3f8d3db431",
+      "pool_idx": 64,
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "gold": 2,
+      "snap_preds": [
+        2,
+        2,
+        1,
+        3,
+        1
+      ],
+      "snap_confs": [
+        0.38176023960113525,
+        0.4536094069480896,
+        0.3076567053794861,
+        0.5790978074073792,
+        0.38060179352760315
+      ],
+      "snap_correct": [
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 3,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "e584ac822b7ae180495c7ed4a3bb6ce1825a5a7a8380079c1b992c57b4a1a4b7",
+        "SNAP_50": "7fe2cf58dac9628cc92452c6e0aae8a956d099fa5af67977fad85ac449ef0fa7",
+        "SNAP_75": "18def5f3b43ff9bbe3a63b4668d4fc346b025d9479d1f82ea1c6532ed4ffd5d6",
+        "SNAP_90": "d81aff9f324b2865467cefbb629d91afa91b2aa17b9f7283b6cfec2fa2c50e6f",
+        "FINAL": "6a901ec1442b957925a91d69a02b9354a2041aab959e5866f6e279091ecfe995"
+      }
+    },
+    {
+      "uid": "d3db25b081207c273c2e4f34a91ba7520f33aba5ab1e33020258c1cb3a7d548b",
+      "pool_idx": 67,
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "gold": 2,
+      "snap_preds": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.6882563233375549,
+        0.3103131949901581,
+        0.358048677444458,
+        0.45775672793388367,
+        0.38109591603279114
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 0,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "b18841204db5f82da6200958bdc751c8d953c9ba5d642595ee43967d5118c0e7",
+        "SNAP_50": "2fd57915a69b74215f9e733b382502acab8d0c7e421dbc37d48ec6379a021f1f",
+        "SNAP_75": "116c1bf4ec7d7d65890318784aa82bc45eb41a9a3ed43f98546d72c4f632aae5",
+        "SNAP_90": "0570b4dcdfe8de4dc32b62e2d350ad6613fb44a522c44c999c7712aeb4cd7b09",
+        "FINAL": "a29d9299db15bb5533e6287d5f0a651678bfb975616ec5a1b9b699f3e8d57eea"
+      }
+    },
+    {
+      "uid": "2c61ef74d2f0b0f672d55ea43a360ecb3169e7da5fac9338f9469815d6439250",
+      "pool_idx": 76,
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.694179117679596,
+        0.5357295870780945,
+        0.5062981843948364,
+        0.42410871386528015,
+        0.7067123055458069
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 4,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "0790bcfa9bdad26e2e7a4eaa07a846ef2e2db8033284d13fb248cf9898c049c0",
+        "SNAP_50": "09912290fe82d6d7d39525a4293f6406e4dc5e735f213d2e54587ec0b0c0e1a7",
+        "SNAP_75": "be980c5214323332dc2a967c599e8e2a511e0610450054d112299598f3b37d60",
+        "SNAP_90": "9b183778cafa6157b9400159c3931e0ae19faf152c9d7328279ab9eccce14e38",
+        "FINAL": "3f60fea95407703d1ee80a6c511b7d94d87e83f8be6e7536e2513f3f522e84be"
+      }
+    },
+    {
+      "uid": "6e65dd167183b785a9cd060dbea10e42b22f45ba45d74af2054b0ca3644d4576",
+      "pool_idx": 78,
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "snap_confs": [
+        0.7638759613037109,
+        0.665780246257782,
+        0.7234299778938293,
+        0.8072605133056641,
+        0.9302829504013062
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 4,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "8dcb61536fe821d408c25995da1e61732ca551f465d660d3f25c5110ade81a03",
+        "SNAP_50": "6a4f83bbd9f6be7202483afab2e812c72c09ea14edffa239677b1de31e345cb8",
+        "SNAP_75": "6ea811705772c36d2fb947632cf0132e51033e0154de7db0db580cb0a242c129",
+        "SNAP_90": "c658aa16702747face0907e32bffb57dc36fcf7ca09f597d6064c60788c25379",
+        "FINAL": "e7faa3186ce8a6535b3db624f8491286d1c660aa31dfe7c848b987f9c4e4a8a1"
+      }
+    },
+    {
+      "uid": "ccd820de96893469b4ab158334530e7a18f97812291df54b689c009df9c42158",
+      "pool_idx": 83,
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 2,
+      "snap_preds": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "snap_confs": [
+        0.6344581842422485,
+        0.6704074144363403,
+        0.5892269015312195,
+        0.7988081574440002,
+        0.6313249468803406
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 3,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "33cb59a739472beeb6d1cc39e00da3b82f3c40388bbcde72912b1207b25d0bfe",
+        "SNAP_50": "844b9e335c5b9598373623fb38e34ffb6f1be502ac7296f4f2f97b5f27710ed4",
+        "SNAP_75": "730e047aebe5c5f2393a069bba63975ecd054db1a9179e2602937c15feaa36b4",
+        "SNAP_90": "65b2760ce9af9c098fc38817dcda716014644ed324aa7c133ee06d8f172e39b0",
+        "FINAL": "6b63d12da1f57d7f96419a0c39fec4f5d787912978e7323d05c4f461b498b707"
+      }
+    },
+    {
+      "uid": "7351ea3e78fdaae556e5089f73e9c8ce2d9e12a4fd0a706f739b54a08598e738",
+      "pool_idx": 86,
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 2,
+      "snap_preds": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.7338905334472656,
+        0.9280778765678406,
+        0.9405900239944458,
+        0.9416089057922363,
+        0.9083442091941833
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 3,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "89c57af158a3cbef909047891776b09cef9c40976c95d8edae6d061168f6d075",
+        "SNAP_50": "f7b90822b9f52c62bdfabe337d2280075d4d4b1ce1223e2ad60afdb0dc7a1ec2",
+        "SNAP_75": "b33c0a26cba5da4c80541b3d1117a0ca97ccc9c5b10b577bba86309d61add189",
+        "SNAP_90": "61ff9854b97a19848e8ec159b64bbf00924a350d87359b89da90ba54d9c5ebd5",
+        "FINAL": "9104cca2150aee588ac348f786217f979f6cf16c3b3908525a3788b6e2c07a44"
+      }
+    },
+    {
+      "uid": "c11d60d0332d091908736afd3c1195150046931ee2502a26deed0ee40db3c573",
+      "pool_idx": 90,
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 2,
+      "snap_preds": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "snap_confs": [
+        0.7795635461807251,
+        0.7813683152198792,
+        0.7477136850357056,
+        0.5191957950592041,
+        0.6376509666442871
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 1,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "281e32d8a42213b31b201ce99717ce68d326c24c3efeec4bcc76f7e0cc37b4d7",
+        "SNAP_50": "e08b4f16a9d4ef159cfa263701670d92c83e89fd0d4ec7c99de2d931649aba9b",
+        "SNAP_75": "66d2ec788bac62940409361762a16581c62cb8032f948ba142171fca58e55807",
+        "SNAP_90": "bc2153dcfb4088832b50f0dfd92d0ef5dee8700ae5345dd36945a8cb858d9147",
+        "FINAL": "f059441270be06900f4807eba776d7a3106bbc0b868ad8e2475e84569133b59d"
+      }
+    },
+    {
+      "uid": "8780efd513bb03e7e35507c74082c46d2f117cd1849e5791d69a4c7e05aa344d",
+      "pool_idx": 91,
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 2,
+      "snap_preds": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.731963038444519,
+        0.624535322189331,
+        0.4061063230037689,
+        0.7476599216461182,
+        0.49634984135627747
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 3,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "8df1da201b025b3c45b646dbe38627c19c5786e0f627436d9044e09ea798596b",
+        "SNAP_50": "5814f63f3a0fb1d46ced010c3806018040e5c7f1578cbd0b46160576525e9e9b",
+        "SNAP_75": "faefbc33a9ba3840afd43d7292383f57a83ac54f82e2008af0c884fedb696a58",
+        "SNAP_90": "47ccfe7448f674360d000cf38f74c31b2e550a06030566aa488c853f1d65dc6d",
+        "FINAL": "a3c9133a3280f2f549a39935100a8d8b8490af2a2b23c1894fd5c03865986df2"
+      }
+    },
+    {
+      "uid": "9fea0c6abba25b06e35b8b5472af32809c2e9ad1bf4cf61dde07ac1221ae855e",
+      "pool_idx": 94,
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      "snap_confs": [
+        0.5934942364692688,
+        0.7408574223518372,
+        0.6465651988983154,
+        0.5598229169845581,
+        0.6886756420135498
+      ],
+      "snap_correct": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 1,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "916b5c8706042557200854c444863f1bdff832af8cea12e7bf5590d0c5065182",
+        "SNAP_50": "8b352cc7729b1ad59952da1bd409c9bb5a58e609898c01a3905a5a153856818d",
+        "SNAP_75": "c9f5cd05426dc2665255055287b5a00bb2954c822dd0a061787f031828043cfe",
+        "SNAP_90": "5423ef6da76a922320abdfc1027cb96d8729c1fba4856caa643879940facf993",
+        "FINAL": "39cede2f4399c26248183503d9a41de5374c62be22faf491a8229f42d6e7958d"
+      }
+    },
+    {
+      "uid": "d8879f231f59f9be2396159729d16666a6cfdbe554ecb36b23dc11a8a489eade",
+      "pool_idx": 97,
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 0,
+      "snap_preds": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "snap_confs": [
+        0.6174492835998535,
+        0.8351349830627441,
+        0.8605634570121765,
+        0.6961007714271545,
+        0.8866151571273804
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 4,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "4d50805ebaadf9ffa6626360fbe32f2ae125625a889a39f0f963018428d37f21",
+        "SNAP_50": "edf2f894163dba3400fbb8f65487e68f02b8c398b7b63ca960dd8a6299eb5666",
+        "SNAP_75": "9099e484ac0c91ac2d361a5e405dd3859c9421841715260eb9d691e9bfc3288b",
+        "SNAP_90": "13dc1ad4b8d6c5d73bfd114f8e4b3f7a0680219b19c1dbbf09ec98309abd5c47",
+        "FINAL": "d0c74103b7e8a2cf063f49da2fe22c1fc805576df3e4dce893be19d5f341916a"
+      }
+    },
+    {
+      "uid": "641832aaeb205c669cbf5a91abefc910eb1672e6c7ac0066bf2e8233c1a16abc",
+      "pool_idx": 99,
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "snap_confs": [
+        0.9859172701835632,
+        0.8120307326316833,
+        0.9023491144180298,
+        0.9750881195068359,
+        0.9620785117149353
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 0,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "1e1cc3bb18aceb336fa7da530e1d7df06542c058238a262ea7dfa85e3ed3f2a5",
+        "SNAP_50": "eb1a64e91fd61287f90bacc65399cfd28c6350faaef0b0366ea6fd8d695fec1f",
+        "SNAP_75": "e41cb3da29051916237d1c205969f99060302f0a5c186dc8256fedf14ad35143",
+        "SNAP_90": "4aed12f10aee981442ff223f3f1ccc637a04d4b37358ee3f9c16858ff32ce08d",
+        "FINAL": "dccda21481530936d78df3af69d5a94c294c580f1b951f5ddacefd256bdab02d"
+      }
+    },
+    {
+      "uid": "74b5867b9e4a3c1888e59f9757aa6875a63a3787e7daba85199b7fdc958c9ce9",
+      "pool_idx": 102,
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 0,
+      "snap_preds": [
+        0,
+        3,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.581911027431488,
+        0.6198310852050781,
+        0.5733975172042847,
+        0.4466121196746826,
+        0.43439969420433044
+      ],
+      "snap_correct": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 1,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "3407ca8a06d52539c521e80e6189a164f5944d25cc26c8ee236b55bd7ac09326",
+        "SNAP_50": "e9c2499ba8145b7400bf62a52ab4c498557e92c6cb64e0e470d232aa4fae3f16",
+        "SNAP_75": "e45947e34e51b85ca6bcfd3d1597ecfb649157b04eb42e22e4ebd30277941381",
+        "SNAP_90": "9db4428cf041f6c26f47b17294bd17716d6526e68bd36d0012ee66e9a488e7a3",
+        "FINAL": "c00ba7b373ddec0c9f933d0ccce1d7001b42805d30a5ae41046324de69de4a32"
+      }
+    },
+    {
+      "uid": "05af0e1d0ad7628436d8647b972635b5203efa178e926c4efc72be6fdb2f6812",
+      "pool_idx": 104,
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        2,
+        0,
+        2,
+        0,
+        2
+      ],
+      "snap_confs": [
+        0.6912943124771118,
+        0.29807472229003906,
+        0.5102875232696533,
+        0.44623687863349915,
+        0.5878419280052185
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 0,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "ee731b37407c2a0ebb1b48df91e5ca22e115a9ae9d6ef9c6ba511e38c80bc21a",
+        "SNAP_50": "9ddd2e9dd622a5770829b0c4de26232c111b0cda95974c16ffe9c61ac48603aa",
+        "SNAP_75": "f9c8d4e10ade8c16324b9b124f778ddaf187bfc7daa9e3c1b12b5b71bf1d32a4",
+        "SNAP_90": "562d0a8e0b894aff7b6c68d6ba92dee084398b1a2c23cbf1d066e06716eb746c",
+        "FINAL": "20f68a9042f706500a01741965554d0e2146d1a72249cb35a767a9f665dba25b"
+      }
+    },
+    {
+      "uid": "6c686e51b6754b29dc59f4e9365a88f5a8bfa7226bfbdc5136251830edb0e350",
+      "pool_idx": 106,
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.4124756455421448,
+        0.4781751334667206,
+        0.7473558783531189,
+        0.4627106785774231,
+        0.4942781627178192
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 2,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "12fbb3d516099e21fd4672985ca592ddb98c41a3aa56d3fe68aeb39ef8c1e0ec",
+        "SNAP_50": "18ecadc4a696d2ccde3b7d456546b903b2b7cc3bdc7ff03a9e46fcbd256ff9e2",
+        "SNAP_75": "304e75068380cf298a8267779d9cb42cb08789d9ad268ee1b63c4411c2d0dbc3",
+        "SNAP_90": "96ff9c15e28636039e2e43c0ed7863ee7c8a6f810f0636831df00f514c432311",
+        "FINAL": "3c42ca0785b4e22daa140c834a010ecad6fd5d5056b6e17c4aa00f7b791fefe5"
+      }
+    },
+    {
+      "uid": "38bc6147c3015872dcef29776ff2590335c4be518e52954597388ace167b7c33",
+      "pool_idx": 107,
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 0,
+      "snap_preds": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.7042967677116394,
+        0.4862942695617676,
+        0.7106702923774719,
+        0.6843147873878479,
+        0.766339123249054
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 4,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "7d5361730fe6093e4cce17ae95023f86de54d89fe0e56e4216bbcef68bd2888f",
+        "SNAP_50": "0137feb63d0794b1fb0301845129db8656f5a17153b714cbda1e79ac72729c48",
+        "SNAP_75": "b1d78477d8c1c906407dcd5130916c023a18ed74281e81554de73e047f794e71",
+        "SNAP_90": "2193abb348a6c151ef5ad84f944ccb1f3bdba7faa8828b8547db1bbab1572251",
+        "FINAL": "649a89dbf7fd17776a3ea648ab97182d3d2b8f4e7f0efef01b8d57305af541b5"
+      }
+    },
+    {
+      "uid": "6fe149b392ab1941ce45cdd754ffcaad3362fc91ca5d741e40fb9e59bc395330",
+      "pool_idx": 109,
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "snap_confs": [
+        0.7786696553230286,
+        0.8554724454879761,
+        0.7891345024108887,
+        0.8552877902984619,
+        0.815102756023407
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 1,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "3c077f90cefd99f926b7f7c4d979cb71bd929a7e0c06a733208ba4886cbef3cc",
+        "SNAP_50": "84fc49ccca394d32b35c9081d3690ddb1f637f36cb5c580058b6ae9c94e40517",
+        "SNAP_75": "e1bf9e09063f33dce9823b09a6e2ccf2b863a3ee46566a5fae6771a90c6a50f5",
+        "SNAP_90": "3441f248bb27a99b8d08cb1ae6a0f697efb27d1e2077f973423dec45f440de93",
+        "FINAL": "e35bc3312fae08b039b8db8cf8c44c893e9e30e03a3cab7098697fe351d688d9"
+      }
+    },
+    {
+      "uid": "87dde955d12e2d185f511ca0faaab7a724154aff15bee128bfc3ad5515850713",
+      "pool_idx": 111,
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 0,
+      "snap_preds": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.9802963733673096,
+        0.9599863886833191,
+        0.8961291909217834,
+        0.8972017168998718,
+        0.860938549041748
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 0,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "79a2bc05cf434810a575698e38ef867d5c9abf2d660b00a2bdc6342d4175e9e0",
+        "SNAP_50": "7578e6339e59afffba5df6ae1381794d5d6f8d553213b2785aef0fbb1863b8b1",
+        "SNAP_75": "7ddc5ee8c7209cbdabd9cc21f5311ed23fa49621e8469faf72ac144696de4bd9",
+        "SNAP_90": "1ff39067d167683d7f239b47d6d5f04e1ddb2ab7eaaa7b678576b2a3f98edaf2",
+        "FINAL": "15a6583caba7ccecf3e3866bf01409b972babba07f92dd03e2471f43af486173"
+      }
+    },
+    {
+      "uid": "4fe7bc287b0461935e5610e45abc00af6a9a297da138b76d8d006fb5832db80a",
+      "pool_idx": 117,
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "snap_confs": [
+        0.5251467227935791,
+        0.5179184079170227,
+        0.7297975420951843,
+        0.4623013734817505,
+        0.4701501429080963
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 2,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "19f4ed4c4ef16fe35ca977c06d1136f25b1de76cd3f03ff6f1b9fa83994398ca",
+        "SNAP_50": "85591c7a321c29b651c9bea9a0548df65b61e09be721bc07475bc0544164f928",
+        "SNAP_75": "5215889baab477f25bccc9d53a40828c52b47dc76874dc736bb12ff74034fb9a",
+        "SNAP_90": "688d80bab0fe4e7a49e0c97ce2d19273fc27ea58db2f847ddc6ed52b3e7a3191",
+        "FINAL": "5e6ff8cafc5f82af17709519f2efe87aec2204d578aa5e0df6b2edea3c836c1f"
+      }
+    },
+    {
+      "uid": "4802643e393d7ee378d390192c85d43028e9703b705f6e9030ebc4f38960ea39",
+      "pool_idx": 120,
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        3,
+        1,
+        3,
+        3,
+        3
+      ],
+      "snap_confs": [
+        0.8004699945449829,
+        0.5106939077377319,
+        0.6362350583076477,
+        0.6463655829429626,
+        0.5545164942741394
+      ],
+      "snap_correct": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 0,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "12db382c7c02eab0a1e8a27743f889b18a3019b497696b1f7ae8e38348993558",
+        "SNAP_50": "e4a3f0e7b620f8365c9fe812aff4d55e9b9ddea68e4bdab65f9194c0bd4b75df",
+        "SNAP_75": "e77361994438fd2e4628555cf9703ab5d6ba932797a5a7bf35a0320620804806",
+        "SNAP_90": "54b2edb29cd0f1a89ae944fa1a2a3c59491984f97201a8f9e385aaf40af0a0b8",
+        "FINAL": "260b81abfc021daca6ea39896b42efa0ff787eb24cab1fd7f7031431722276f2"
+      }
+    },
+    {
+      "uid": "87758c21d25f8beb2ea5882128694bbf6d017de57b64c5d59d372f1aed64a6e9",
+      "pool_idx": 123,
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "snap_confs": [
+        0.8894946575164795,
+        0.6563215851783752,
+        0.6934196949005127,
+        0.8628728985786438,
+        0.7420545816421509
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 0,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "0fe575cba73ab0568b760278da3f0da2debd88e2322eac12f39d4407874fb2e1",
+        "SNAP_50": "812f676ad7f0d04494818f364c4755d88c9f59564f5096bad7cdb5bdab6bc28c",
+        "SNAP_75": "dad3eeb1ecbcf52f2a2b44937c472ccf1ebd7be8ef7941fa348279e624c467df",
+        "SNAP_90": "d49e02ef1bbb71b46615dcf372519794fb03100df448f4cb756c443b4c50a2e3",
+        "FINAL": "318719b3d8aa642c8763329d15cff74be9104fd6f26ed88dab4898994d6479c6"
+      }
+    },
+    {
+      "uid": "ff8f54548dfab587e371cfedcbf886a6e6e18ea166a4dfc9f15efd5e417dad81",
+      "pool_idx": 127,
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "snap_confs": [
+        0.9458379149436951,
+        0.932542622089386,
+        0.9348268508911133,
+        0.8750095367431641,
+        0.8542807102203369
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 0,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "f9a30fc28ad78f51a2ca09d6962c00ba5d25a82f8d3f775212ccc1f53c92f61a",
+        "SNAP_50": "e7f902caf6c020ad1611a153b23590e3cfeb2b645f9701b5b5d0e2d4cf629c38",
+        "SNAP_75": "eca884a3fa992e60df1fcfe3adc30d14e5b784d27c1b85c8545b8e58fa49c295",
+        "SNAP_90": "8d35c9aad951b7c27483655da7d8a982983c399e01a7485479c02f2418a40730",
+        "FINAL": "66291962a5646bd00186ed8ce6747204191b2b51c5a2ec85727ccc5bf9611fd2"
+      }
+    },
+    {
+      "uid": "4e3acd692b38bc88a91527a75282563465eeb68d2fe84ba1185031a6f6ad1d76",
+      "pool_idx": 132,
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "gold": 2,
+      "snap_preds": [
+        0,
+        3,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.5790141820907593,
+        0.36841079592704773,
+        0.8416933417320251,
+        0.692523181438446,
+        0.7826895713806152
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 2,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "7b60e5dafacb1171a2bbc1612239885e2c3ecfa1b610616d9a86fa5211239c28",
+        "SNAP_50": "acdc230b751f5bad4b007f02d2a043fb0f11903ccaa7d46e3f6c263016f18c16",
+        "SNAP_75": "38a2964427343aa852a0ffbc02236dac184bab3cdcdfcc8a83fa592b0d996138",
+        "SNAP_90": "475ad7a16a6764381875316ab59f18e89ba0826d8991e6ed6192f190e000b457",
+        "FINAL": "f0357b4799114274d0b32ef98df29bf898c06dadbc22aef7fda324c113f00efc"
+      }
+    },
+    {
+      "uid": "ac015d9acd23ca4c63d45db71e29b89c876fe3b77609641b5c243943795bad7e",
+      "pool_idx": 133,
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "snap_confs": [
+        0.48215389251708984,
+        0.46894699335098267,
+        0.7123532891273499,
+        0.6535519361495972,
+        0.47633087635040283
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 2,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "f3cf3e24511042069d4ece34b27cee71074feac415d70ac882b07f88baa75b89",
+        "SNAP_50": "06282179b80b4aac64654ea8e8e167ee5ab684f9c5b92545eb833c49c494f901",
+        "SNAP_75": "2d3e7dbd668316dc94dbf325e2ac01f978d82514321763d22fbf63e48cf5e124",
+        "SNAP_90": "21830a8da27b07586f96825f501f62ae7117a810a2bfa85958cb65d292fcb680",
+        "FINAL": "dfb75386f050fe2e4cd911cb03838c4303316859cc069f0775508f25089e983f"
+      }
+    },
+    {
+      "uid": "c889fbce1f2cbf113a7139acdc566768b1b5ae6b08741f607c11a88ac2159035",
+      "pool_idx": 135,
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "gold": 0,
+      "snap_preds": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "snap_confs": [
+        0.8776124715805054,
+        0.9128530025482178,
+        0.9387813210487366,
+        0.8987924456596375,
+        0.9422377347946167
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 4,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "e2333c644f40e8a908ee38001b8aed3bf2978ad5aa116dc7084837fd111baea3",
+        "SNAP_50": "7d80aed2f42c8e6849be80fed40701d423ed6b10328a1a33158aaa8d5fb53920",
+        "SNAP_75": "4a301bcbf081124953a7867b9e276badfc3c6e8ce56b992c29c2317b9c439328",
+        "SNAP_90": "7706c1ac5845859b22a8af94255c1b163b3f85354784674b30827fe8c74984f2",
+        "FINAL": "27cdb923c1cd04288aa83715a3e9becc1002a953d56028ef281b2e494b03287c"
+      }
+    },
+    {
+      "uid": "76c3a31e95f8402eed3e26fa694f9071d3505fb09ef6b5b8fb9da253b6810dcc",
+      "pool_idx": 136,
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "gold": 0,
+      "snap_preds": [
+        3,
+        1,
+        3,
+        3,
+        1
+      ],
+      "snap_confs": [
+        0.550872266292572,
+        0.49430790543556213,
+        0.5354757905006409,
+        0.5853708386421204,
+        0.4716973900794983
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 3,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "4e60fe2835cb64bc97145811a45f64f1ee5331f68b2c965c38cecd78f8405a80",
+        "SNAP_50": "f7c990d17128cd11bfc8b76780ad5f46841c403fee5def72e03343a408def689",
+        "SNAP_75": "2beadc28207b563d84bc1d540c312aad1dc36295f4d6e1050de663ffff0d7caf",
+        "SNAP_90": "f30499f6bff60b989c1398a449c6ec3720936841419d6625e1246999751d07b2",
+        "FINAL": "eb15d351bb521eb01d6c667358ea05dec04d1f1307089c47bd8a018172a81088"
+      }
+    },
+    {
+      "uid": "3e324a482592c6d9d4e3581211cd9d3ee1349ada12c8cbee9ddca22c95a9257b",
+      "pool_idx": 138,
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "snap_confs": [
+        0.6429624557495117,
+        0.6719170808792114,
+        0.6824595928192139,
+        0.5607678294181824,
+        0.796574056148529
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 4,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "ca2e4633f4861b74647c07a37b12c7e233d9d0caf40bb2fc9a72bfee895c66f2",
+        "SNAP_50": "a99fd0651d7d2536e1f033a01ab1c0564e24870fbf6a9c70a10ca20220424259",
+        "SNAP_75": "83e65735caba15e4b3180dbbc61627f33ccee181dc131ef9e1e44be00ffc3724",
+        "SNAP_90": "3e64762e4c7e62054849c9246a8bef6471824d428d25745831783c799ea8db10",
+        "FINAL": "b592d0c277717aa30e072b11276350a2e624426d765d1904d060342b55cf363d"
+      }
+    },
+    {
+      "uid": "3424f7427f449e77f66794a24ff9227418a9440033d3c45ee1da02ee320e9188",
+      "pool_idx": 140,
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "gold": 2,
+      "snap_preds": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.7883710861206055,
+        0.8776718974113464,
+        0.9581542611122131,
+        0.9008085131645203,
+        0.8847830891609192
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 2,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "1eea0eed40c824b494acbe2cd3bb018cbcd6052b4d8ec3dd75c979ac09d46af7",
+        "SNAP_50": "3b16d25c3ee5f9390d6fd7c499d95e19a6eb2fe42c07b61cea3add2bc9b9ed89",
+        "SNAP_75": "09654c90a4a00dbdc1d3120098c8ec8c6a90466d24c189e276e2352d03bf9ccb",
+        "SNAP_90": "a036fddd76010400a01d15abbe6194cd90f3008f6331846307b07df0e588c9db",
+        "FINAL": "e8ed3a1daee4cc97aad4f5191f4385b7aeec78523f66d1b40cdc17d28d420253"
+      }
+    },
+    {
+      "uid": "f7b5d29b8cb03485d070bdd247cc01145e87c366fd550f7b486f3762cf7dd950",
+      "pool_idx": 151,
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "gold": 2,
+      "snap_preds": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "snap_confs": [
+        0.9366645812988281,
+        0.9568777084350586,
+        0.9684491753578186,
+        0.814008891582489,
+        0.9319003224372864
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 2,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "b3080dad4e967b59fa461186b72a8ecb787b2a4a320e2f12d4b0c99bdffbe41b",
+        "SNAP_50": "7847460b03a936a57bf5bedae7cf1654cf425b69f70fbf99dfa409d7578fa3b8",
+        "SNAP_75": "9860d46374ea0d947b6e3331d79d9d0157286aefdd24013662bcd4699f779b3c",
+        "SNAP_90": "d8d137cef9d6fa719a4f2d6bbf60fe9678d12ed8c263293e5b52dfbf48a8c76f",
+        "FINAL": "776e0483d1cbcda8175b0428724045e6f91e553a9ba9856f4e80cd7f49125eec"
+      }
+    },
+    {
+      "uid": "68913c685c895ffea48be3277d81bbfda97071e1624a645258a17763865c4af0",
+      "pool_idx": 158,
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "snap_confs": [
+        0.9781007766723633,
+        0.8405551314353943,
+        0.9085556268692017,
+        0.9718384146690369,
+        0.9485702514648438
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 0,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "025a1967359147879e7c393a94488e45acff1aaa87cebfa4c16fbcca377de308",
+        "SNAP_50": "a14f0da9eafdc2103c6daf2ffcb0a0e4c6dcb42bb719588a503f8d163137d9e2",
+        "SNAP_75": "b712ca5274be6a5cd117879904ffd07726dfc7f549260fc61be48c3d6503a414",
+        "SNAP_90": "89141870742a5e01840aa733ad9e81d21e9a47496a5bf1b3c6f49afe6814f7f3",
+        "FINAL": "fbc3098f4fa397a300db9e3189796c1f5f0c544f321b3f2d4d2fdccfd0663ef2"
+      }
+    },
+    {
+      "uid": "983c9f3191f5ea55567a18dee1201d8167c0cc581e5632e4e6131b9251eca5b0",
+      "pool_idx": 160,
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "gold": 2,
+      "snap_preds": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.8613849878311157,
+        0.7189419269561768,
+        0.7290160655975342,
+        0.7278367280960083,
+        0.5317386388778687
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 0,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "ed77d7ec36e2870d9247fdec9d55680cdc7f8b2d20dd6d3e58ac3d16926c4b90",
+        "SNAP_50": "4cc505d3a02dd2ad79c09b6a6dec49d992ca2833bdc0a0a9d838b9ca7286eba2",
+        "SNAP_75": "e5b278bdee579f0062ab213ccea2ac4d111109bddc24d8915d0cb384d67d58f1",
+        "SNAP_90": "c0823789aef33459fac1af21f6121cd931863990fce6152cd8ca36d54ad3fc2b",
+        "FINAL": "399c0c2ffe2723a22ea1752fc513281f53329eab640eab06184579ba2deebbec"
+      }
+    },
+    {
+      "uid": "c5506fb87d1b78ea6ec80c0231f17b269f16a6a5a186d4dd1bd0d1d541a3c786",
+      "pool_idx": 161,
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        2,
+        2,
+        0,
+        0,
+        2
+      ],
+      "snap_confs": [
+        0.7466922402381897,
+        0.702536940574646,
+        0.5461223125457764,
+        0.5180508494377136,
+        0.5726719498634338
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 0,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "83c3f71a32807173726f0c4bb0cf049f7e4bd0496c567b8162c266b6b9156951",
+        "SNAP_50": "b7e517b3aba19d25e0634b5193033e6dea6577e28fd9858bc186f1c5493e2731",
+        "SNAP_75": "62584af6b071fd355aaddae88f7d8d368f62d2ccda5bca98a729b4d259f64b44",
+        "SNAP_90": "63ca5e54dc8c5cd004c5941d394346e29c2bea8198cfd6122b9c5e3115b686fa",
+        "FINAL": "d2f675213f06b12551dab0a5103c2e688c18f8b40a38d17619002f6a99e7c350"
+      }
+    },
+    {
+      "uid": "f7975ab1e9ebd942405d67525b04f3db8b7d20e283fe84d2575239e213acbc43",
+      "pool_idx": 163,
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "snap_confs": [
+        0.850864827632904,
+        0.8593425154685974,
+        0.7416874766349792,
+        0.7507667541503906,
+        0.715359091758728
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 1,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "e668171001076a5f659470da5c464a491f27132c97db36cd0b1e4ea2eb2c7005",
+        "SNAP_50": "6806a548dae569a14031f105ea5ef3b09c816750a9ffea7e5b0700d13b5a57fb",
+        "SNAP_75": "458714798ee3ba6405ea02cf9528ab6ea94a3d827e2a243c7fe0d7776c60ae28",
+        "SNAP_90": "ebc1da05cc8c847553da77e6116eb10dc1dce8761bd8ed8cbbe9e396ede0cf3a",
+        "FINAL": "8338c62fd682f4d8377afbd39bf67171a4d946fe50b857d98bde2d2ca634f7be"
+      }
+    },
+    {
+      "uid": "dbf5d0039038b4aa78dadb3f1e930decb048aab8635b8a73b9de7a88b4c3fc8b",
+      "pool_idx": 164,
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "gold": 3,
+      "snap_preds": [
+        0,
+        2,
+        0,
+        0,
+        0
+      ],
+      "snap_confs": [
+        0.4972078800201416,
+        0.6085789799690247,
+        0.6803512573242188,
+        0.6965836882591248,
+        0.4895760715007782
+      ],
+      "snap_correct": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_correct": 0,
+      "max_conf_idx": 3,
+      "max_conf_correct": 0,
+      "oracle_hist_only_correct": 0,
+      "oracle_all_correct": 0,
+      "boundary_hashes": {
+        "SNAP_25": "70ad9defbb369016f332bef6dede77ce11cebf7c3f4fd3df6e5095c9dcdbcbc8",
+        "SNAP_50": "a6be76a7e33ae56d49d2d78c589f4ffb337638f6aecc4b1fbded93c3ed8bda4f",
+        "SNAP_75": "8ff1388ccff737350449d0875dacc1037cdabd4feda584791f17d2a944cfb891",
+        "SNAP_90": "5ae79168f596872c4099a25c51dd09dc29882a226290e6c817613ff1135bca4b",
+        "FINAL": "5b35b9e3c8d5ceff2da8fd23ccd4087e33b9f90d1625a2641f151a4977935ebc"
+      }
+    },
+    {
+      "uid": "e7137f5733d3c870855bb625332b5378faae75b64ce03d3995fe2a5d42ec4c2e",
+      "pool_idx": 166,
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "gold": 1,
+      "snap_preds": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "snap_confs": [
+        0.790546715259552,
+        0.6170797348022461,
+        0.7187440395355225,
+        0.41146549582481384,
+        0.6256026029586792
+      ],
+      "snap_correct": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "final_correct": 1,
+      "max_conf_idx": 0,
+      "max_conf_correct": 1,
+      "oracle_hist_only_correct": 1,
+      "oracle_all_correct": 1,
+      "boundary_hashes": {
+        "SNAP_25": "a038fea2529805cea46f02822b9269898c56512d0eb4c995cb0decdb5816d2dd",
+        "SNAP_50": "3c4d20bbf17704052da154b9b88b3da7e4480b78e04842079d7fc2b4a4d337f6",
+        "SNAP_75": "fa176d73287b3ce487f45d7f19b774c5e156a6d49e52d8b618673c1761ddca31",
+        "SNAP_90": "9d541ed249ca2be6f3b56afbb381a5bda71f31a5ac1cfd4c130d3e544459488a",
+        "FINAL": "4259530697043abe90fd32baecc25b5397d9dfb023c7cba0b652e81c4cb6ddf3"
+      }
+    }
+  ]
+}
