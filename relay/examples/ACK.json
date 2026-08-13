@@ -1,0 +1,22 @@
+{
+  "relayVersion": "tare-relay-v0.1",
+  "kind": "ACK",
+  "messageId": "EXAMPLE-ACK-0001",
+  "replyTo": "EXAMPLE-BACKLOG-0001",
+  "trainId": "EXAMPLE-RELAY-TRAIN",
+  "senderRole": "IMPLEMENTER",
+  "receiverRole": "AUDITOR",
+  "state": "IMPLEMENTER_WORKING",
+  "repository": "OWNER/REPO",
+  "baseHead": "0000000000000000000000000000000000000000",
+  "candidateRef": "dev/example-candidate",
+  "authorityAcknowledged": true,
+  "plan": [
+    "create candidate branch from baseHead",
+    "edit only allowed files",
+    "run local gates",
+    "write Drive evidence (READY.json last)",
+    "open draft PR, post RESULT"
+  ],
+  "_note": "schema example only; no live identifiers or secrets"
+}

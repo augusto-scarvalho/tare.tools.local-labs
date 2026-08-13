@@ -1,0 +1,30 @@
+{
+  "relayVersion": "tare-relay-v0.1",
+  "kind": "RESULT",
+  "messageId": "EXAMPLE-RESULT-0001",
+  "replyTo": "EXAMPLE-BACKLOG-0001",
+  "trainId": "EXAMPLE-RELAY-TRAIN",
+  "senderRole": "IMPLEMENTER",
+  "receiverRole": "AUDITOR",
+  "state": "IMPLEMENTER_RESULT_READY",
+  "repository": "OWNER/REPO",
+  "baseHead": "0000000000000000000000000000000000000000",
+  "candidateRef": "dev/example-candidate",
+  "candidateHead": "1111111111111111111111111111111111111111",
+  "candidateTree": "2222222222222222222222222222222222222222",
+  "pullRequest": "https://github.com/OWNER/REPO/pull/0",
+  "driveEvidenceRelativePath": "temporary-evidence/agent-relay/<lane>/<train>/<candidate-head>",
+  "driveManifestSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "gates": [
+    {"name": "json-examples-parse", "status": "PASS"},
+    {"name": "git-diff-check", "status": "PASS"},
+    {"name": "changes-limited-to-allowed-files", "status": "PASS"},
+    {"name": "no-unexpected-untracked", "status": "PASS"}
+  ],
+  "effects": ["candidate branch pushed", "draft PR opened"],
+  "negativeEvidence": ["nothing merged", "no settings/ruleset changes", "no secrets in payload"],
+  "ready": true,
+  "nothingMerged": true,
+  "nextRecommendation": "exactly one follow-up, NOT executed",
+  "_note": "schema example only; no live identifiers or secrets"
+}
