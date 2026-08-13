@@ -1,0 +1,24 @@
+== RNN-07A-BRIDGE-R1 GIT EVIDENCE ==
+generated_head: a7dc569c4d5ceae536ea048de671c996f75fd356
+branch: master
+
+-- R1 commits (append-only) --
+a7dc569 tool(rnn): RNN-07A-BRIDGE-R1 replay -> IN-PROCESS same-shape determinism test (prior cross-process/wrong-shape replays were mis-specified)
+1611bb2 tool(rnn): RNN-07A-BRIDGE-R1 same-batch-shape replay verification (verification-only) + bundle builder
+ccec173 results(rnn): RNN-07A-BRIDGE-R1 true in-run recovery outcome — PRESENCE=NOT_DETECTED, RECOVERY=NO_NET_SIGNAL, MAXCONF=NO_SIGNAL (in-runner replay 0/40 = batch-shape confound, verified next)
+abb13fc fix(rnn): RNN-07A-BRIDGE-R1 pre-outcome fix — build_choice_tokens lives in rnn_07a_lib (A), not bridge_lib (B)
+4c6fdd7 prereg+tool(rnn): RNN-07A-BRIDGE-R1 true in-run recovery — audit recon (append-only), R1 prereg (fresh disjoint stratified set, gates), in-run capture runner (no outcomes)
+bcdb6d7 bundle(rnn): RNN-07A-BRIDGE consolidated audit bundle (invariant enforced, ZIP a3b1db49)
+382154b handoff+tool(rnn): RNN-07A-BRIDGE mobile handoff + consolidated bundle builder
+aaec5f2 decision(rnn): RNN-07A-BRIDGE decision — competence+degradation QUALIFIED, recovery+adaptive NO_SIGNAL; synthetic-MQAR recovery does not transport to NoLiMa
+
+-- subject --
+state-spaces/mamba2-1.3b @ c5b59d00ec85d313adea86a08cad2a43c962dd3b (official mamba_ssm fast path)
+NoLiMa ONLYDirect @ 378115b1 (SEMI_SYNTHETIC_CONTROLLED_BRIDGE)
+
+-- tracked status (RNN-07A R1 paths) --
+?? runs/rnn/RNN-07A/git_evidence_r1.txt
+?? runs/rnn/RNN-07A/stdout_r1_replay.log
+(empty = committed)
+
+NOTHING PUSHED: TRUE
