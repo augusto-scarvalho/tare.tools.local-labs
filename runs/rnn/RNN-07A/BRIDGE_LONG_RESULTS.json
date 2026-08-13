@@ -1,0 +1,1561 @@
+{
+  "packet": "RNN-07A-BRIDGE-LONG",
+  "status": "RUN",
+  "workload": "NoLiMa SEMI_SYNTHETIC_CONTROLLED_BRIDGE",
+  "eligible_population": 90,
+  "thresholds": {
+    "DEGRADE_MARGIN": 0.15,
+    "MIN_FORGOTTEN": 15,
+    "REC_MIN": 0.15,
+    "ADAPT_MIN": 0.05
+  },
+  "per_cell_degradation": {
+    "8K": {
+      "budget": 8000,
+      "n": 90,
+      "long_final_acc": 0.25555555555555554,
+      "long_wilson_lb": 0.17674636135607297,
+      "degradation_short_minus_long": {
+        "point": 0.7444444444444445,
+        "ci_lo": 0.6555555555555556,
+        "ci_hi": 0.8333333333333334
+      },
+      "n_forgotten": 67,
+      "qualifies": true
+    },
+    "16K": {
+      "budget": 16000,
+      "n": 90,
+      "long_final_acc": 0.25555555555555554,
+      "long_wilson_lb": 0.17674636135607297,
+      "degradation_short_minus_long": {
+        "point": 0.7444444444444445,
+        "ci_lo": 0.6555555555555556,
+        "ci_hi": 0.8333333333333334
+      },
+      "n_forgotten": 67,
+      "qualifies": true
+    },
+    "32K": {
+      "budget": 32000,
+      "n": 90,
+      "long_final_acc": 0.2222222222222222,
+      "long_wilson_lb": 0.14871223281666784,
+      "degradation_short_minus_long": {
+        "point": 0.7777777777777778,
+        "ci_lo": 0.6888888888888889,
+        "ci_hi": 0.8666666666666667
+      },
+      "n_forgotten": 70,
+      "qualifies": true
+    }
+  },
+  "BRIDGE_LONG_CONTEXT_DEGRADATION": "QUALIFIED",
+  "recovery_cell": "32K",
+  "recovery": {
+    "cell": "32K",
+    "n_eligible": 48,
+    "n_forgotten": 32,
+    "arm_accuracy": {
+      "FINAL": 0.3333333333333333,
+      "SNAP_25": 0.22916666666666666,
+      "SNAP_50": 0.125,
+      "SNAP_75": 0.25,
+      "SNAP_90": 0.1875,
+      "MAX_CONFIDENCE": 0.20833333333333334,
+      "ORACLE_BEST_GOLD_diagnostic": 0.6041666666666666
+    },
+    "historical_recovery_by_snapshot": {
+      "SNAP_25": {
+        "recovery_rate_over_forgotten": 0.1875,
+        "acc_delta_vs_final": -0.10416666666666666,
+        "ci_lo": -0.27083333333333337,
+        "ci_hi": 0.0625
+      },
+      "SNAP_50": {
+        "recovery_rate_over_forgotten": 0.125,
+        "acc_delta_vs_final": -0.20833333333333331,
+        "ci_lo": -0.375,
+        "ci_hi": -0.04166666666666666
+      },
+      "SNAP_75": {
+        "recovery_rate_over_forgotten": 0.21875,
+        "acc_delta_vs_final": -0.08333333333333331,
+        "ci_lo": -0.25,
+        "ci_hi": 0.08333333333333334
+      },
+      "SNAP_90": {
+        "recovery_rate_over_forgotten": 0.1875,
+        "acc_delta_vs_final": -0.14583333333333331,
+        "ci_lo": -0.3333333333333333,
+        "ci_hi": 0.02083333333333337
+      }
+    },
+    "best_earlier_snapshot": "SNAP_75",
+    "adaptive_max_conf_vs_final": {
+      "delta": -0.12499999999999997,
+      "ci_lo": -0.29166666666666663,
+      "ci_hi": 0.04166666666666663
+    },
+    "selector_histogram": {
+      "SNAP_25": 12,
+      "SNAP_50": 19,
+      "SNAP_75": 8,
+      "SNAP_90": 6,
+      "FINAL": 3
+    },
+    "rows": [
+      {
+        "idx": 0,
+        "reasoning_type": "world_knowledge",
+        "gold": 3,
+        "snap_preds": [
+          1,
+          1,
+          0,
+          0,
+          3
+        ],
+        "snap_confs": [
+          0.9646390080451965,
+          0.8366931676864624,
+          0.7375125885009766,
+          0.9100658297538757,
+          0.6430891752243042
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "final_correct": 1,
+        "max_conf_idx": 0,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 1,
+        "reasoning_type": "world_knowledge",
+        "gold": 3,
+        "snap_preds": [
+          0,
+          0,
+          1,
+          3,
+          1
+        ],
+        "snap_confs": [
+          0.9661819338798523,
+          0.7622551918029785,
+          0.7203293442726135,
+          0.477573424577713,
+          0.7133366465568542
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 0,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 2,
+        "reasoning_type": "world_knowledge",
+        "gold": 1,
+        "snap_preds": [
+          1,
+          1,
+          1,
+          2,
+          2
+        ],
+        "snap_confs": [
+          0.9025603532791138,
+          0.9880585074424744,
+          0.9603325128555298,
+          0.6476646065711975,
+          0.4486689567565918
+        ],
+        "snap_correct": [
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 1,
+        "max_conf_correct": 1,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 3,
+        "reasoning_type": "world_knowledge",
+        "gold": 0,
+        "snap_preds": [
+          1,
+          1,
+          0,
+          2,
+          0
+        ],
+        "snap_confs": [
+          0.3607037663459778,
+          0.5467032790184021,
+          0.6200156211853027,
+          0.5638477802276611,
+          0.7624126672744751
+        ],
+        "snap_correct": [
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        "final_correct": 1,
+        "max_conf_idx": 4,
+        "max_conf_correct": 1,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 4,
+        "reasoning_type": "world_knowledge",
+        "gold": 0,
+        "snap_preds": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "snap_confs": [
+          0.9671695828437805,
+          0.9448012709617615,
+          0.5391051769256592,
+          0.8822433352470398,
+          0.34576699137687683
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 0,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 5,
+        "reasoning_type": "world_knowledge",
+        "gold": 0,
+        "snap_preds": [
+          3,
+          3,
+          0,
+          0,
+          0
+        ],
+        "snap_confs": [
+          0.8382413387298584,
+          0.48501724004745483,
+          0.6318878531455994,
+          0.9300136566162109,
+          0.7099730372428894
+        ],
+        "snap_correct": [
+          0,
+          0,
+          1,
+          1,
+          1
+        ],
+        "final_correct": 1,
+        "max_conf_idx": 3,
+        "max_conf_correct": 1,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 6,
+        "reasoning_type": "world_knowledge",
+        "gold": 0,
+        "snap_preds": [
+          0,
+          2,
+          2,
+          2,
+          0
+        ],
+        "snap_confs": [
+          0.5111752152442932,
+          0.4648275077342987,
+          0.45785510540008545,
+          0.5325304865837097,
+          0.4073379933834076
+        ],
+        "snap_correct": [
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "final_correct": 1,
+        "max_conf_idx": 3,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 7,
+        "reasoning_type": "world_knowledge",
+        "gold": 0,
+        "snap_preds": [
+          3,
+          3,
+          3,
+          3,
+          1
+        ],
+        "snap_confs": [
+          0.9743492007255554,
+          0.9923585057258606,
+          0.7888445854187012,
+          0.8385931253433228,
+          0.9551548957824707
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 1,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 8,
+        "reasoning_type": "world_knowledge",
+        "gold": 1,
+        "snap_preds": [
+          3,
+          0,
+          0,
+          3,
+          0
+        ],
+        "snap_confs": [
+          0.5914925932884216,
+          0.7387336492538452,
+          0.8364186882972717,
+          0.5796487927436829,
+          0.48969903588294983
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 2,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 9,
+        "reasoning_type": "world_knowledge",
+        "gold": 3,
+        "snap_preds": [
+          1,
+          3,
+          1,
+          1,
+          1
+        ],
+        "snap_confs": [
+          0.5219727158546448,
+          0.5588326454162598,
+          0.7424752712249756,
+          0.5051968097686768,
+          0.657960832118988
+        ],
+        "snap_correct": [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 2,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 10,
+        "reasoning_type": "world_knowledge",
+        "gold": 2,
+        "snap_preds": [
+          2,
+          0,
+          0,
+          0,
+          0
+        ],
+        "snap_confs": [
+          0.6811841130256653,
+          0.41925740242004395,
+          0.5761109590530396,
+          0.9439487457275391,
+          0.8689402937889099
+        ],
+        "snap_correct": [
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 3,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 11,
+        "reasoning_type": "world_knowledge",
+        "gold": 1,
+        "snap_preds": [
+          0,
+          2,
+          2,
+          1,
+          1
+        ],
+        "snap_confs": [
+          0.5647971034049988,
+          0.40629085898399353,
+          0.6480494141578674,
+          0.39086446166038513,
+          0.31132373213768005
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "final_correct": 1,
+        "max_conf_idx": 2,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 12,
+        "reasoning_type": "world_knowledge",
+        "gold": 3,
+        "snap_preds": [
+          1,
+          0,
+          0,
+          0,
+          3
+        ],
+        "snap_confs": [
+          0.5126349925994873,
+          0.7045124173164368,
+          0.5106813311576843,
+          0.7141330242156982,
+          0.5966107249259949
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "final_correct": 1,
+        "max_conf_idx": 3,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 13,
+        "reasoning_type": "world_knowledge",
+        "gold": 2,
+        "snap_preds": [
+          0,
+          1,
+          1,
+          1,
+          3
+        ],
+        "snap_confs": [
+          0.5906332731246948,
+          0.728966236114502,
+          0.8409379124641418,
+          0.42564451694488525,
+          0.5015715956687927
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 2,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 14,
+        "reasoning_type": "world_knowledge",
+        "gold": 1,
+        "snap_preds": [
+          0,
+          0,
+          1,
+          3,
+          3
+        ],
+        "snap_confs": [
+          0.9457845687866211,
+          0.8813086152076721,
+          0.4348347783088684,
+          0.7127043008804321,
+          0.8010016679763794
+        ],
+        "snap_correct": [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 0,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 15,
+        "reasoning_type": "world_knowledge",
+        "gold": 0,
+        "snap_preds": [
+          1,
+          1,
+          0,
+          0,
+          2
+        ],
+        "snap_confs": [
+          0.9749123454093933,
+          0.8581929802894592,
+          0.6566000580787659,
+          0.5293552279472351,
+          0.5201230049133301
+        ],
+        "snap_correct": [
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 0,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 16,
+        "reasoning_type": "world_knowledge",
+        "gold": 0,
+        "snap_preds": [
+          1,
+          1,
+          3,
+          1,
+          1
+        ],
+        "snap_confs": [
+          0.8676212430000305,
+          0.9717298746109009,
+          0.5636439919471741,
+          0.6694631576538086,
+          0.48298022150993347
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 1,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 17,
+        "reasoning_type": "world_knowledge",
+        "gold": 3,
+        "snap_preds": [
+          2,
+          0,
+          2,
+          0,
+          0
+        ],
+        "snap_confs": [
+          0.2966017425060272,
+          0.8056076765060425,
+          0.46296438574790955,
+          0.705199658870697,
+          0.6712802052497864
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 1,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 18,
+        "reasoning_type": "world_knowledge",
+        "gold": 1,
+        "snap_preds": [
+          0,
+          3,
+          3,
+          3,
+          1
+        ],
+        "snap_confs": [
+          0.5304523706436157,
+          0.7196927666664124,
+          0.48102134466171265,
+          0.5524399876594543,
+          0.4667049050331116
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "final_correct": 1,
+        "max_conf_idx": 1,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 19,
+        "reasoning_type": "world_knowledge",
+        "gold": 2,
+        "snap_preds": [
+          3,
+          3,
+          3,
+          3,
+          0
+        ],
+        "snap_confs": [
+          0.9758167862892151,
+          0.9561116099357605,
+          0.37303245067596436,
+          0.3538302183151245,
+          0.8231874704360962
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 0,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 20,
+        "reasoning_type": "world_knowledge",
+        "gold": 0,
+        "snap_preds": [
+          3,
+          3,
+          3,
+          1,
+          3
+        ],
+        "snap_confs": [
+          0.9105179309844971,
+          0.9900217652320862,
+          0.6162285804748535,
+          0.6433610320091248,
+          0.49779295921325684
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 1,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 21,
+        "reasoning_type": "world_knowledge",
+        "gold": 0,
+        "snap_preds": [
+          1,
+          2,
+          0,
+          3,
+          3
+        ],
+        "snap_confs": [
+          0.33916300535202026,
+          0.5594625473022461,
+          0.882666826248169,
+          0.4245606064796448,
+          0.6086286306381226
+        ],
+        "snap_correct": [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 2,
+        "max_conf_correct": 1,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 22,
+        "reasoning_type": "world_knowledge",
+        "gold": 2,
+        "snap_preds": [
+          2,
+          0,
+          0,
+          0,
+          2
+        ],
+        "snap_confs": [
+          0.5130041241645813,
+          0.371367871761322,
+          0.5803976655006409,
+          0.4040118455886841,
+          0.7964289784431458
+        ],
+        "snap_correct": [
+          1,
+          0,
+          0,
+          0,
+          1
+        ],
+        "final_correct": 1,
+        "max_conf_idx": 4,
+        "max_conf_correct": 1,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 23,
+        "reasoning_type": "world_knowledge",
+        "gold": 2,
+        "snap_preds": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "snap_confs": [
+          0.9336501955986023,
+          0.9840243458747864,
+          0.8209594488143921,
+          0.925636351108551,
+          0.5718570947647095
+        ],
+        "snap_correct": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "final_correct": 1,
+        "max_conf_idx": 1,
+        "max_conf_correct": 1,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 24,
+        "reasoning_type": "commonsense_knowledge",
+        "gold": 2,
+        "snap_preds": [
+          2,
+          2,
+          2,
+          2,
+          3
+        ],
+        "snap_confs": [
+          0.8383793234825134,
+          0.5842054486274719,
+          0.6443410515785217,
+          0.5949386954307556,
+          0.3495834469795227
+        ],
+        "snap_correct": [
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 0,
+        "max_conf_correct": 1,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 25,
+        "reasoning_type": "commonsense_knowledge",
+        "gold": 2,
+        "snap_preds": [
+          3,
+          3,
+          3,
+          0,
+          2
+        ],
+        "snap_confs": [
+          0.436312735080719,
+          0.5251373648643494,
+          0.4702287018299103,
+          0.6254640817642212,
+          0.46388640999794006
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "final_correct": 1,
+        "max_conf_idx": 3,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 26,
+        "reasoning_type": "commonsense_knowledge",
+        "gold": 0,
+        "snap_preds": [
+          0,
+          1,
+          2,
+          0,
+          2
+        ],
+        "snap_confs": [
+          0.6140795350074768,
+          0.8795433640480042,
+          0.5055789351463318,
+          0.5838531255722046,
+          0.4191650152206421
+        ],
+        "snap_correct": [
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 1,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 27,
+        "reasoning_type": "commonsense_knowledge",
+        "gold": 2,
+        "snap_preds": [
+          3,
+          3,
+          3,
+          1,
+          3
+        ],
+        "snap_confs": [
+          0.9147919416427612,
+          0.9176297783851624,
+          0.8181226849555969,
+          0.5633512735366821,
+          0.48726147413253784
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 1,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 28,
+        "reasoning_type": "commonsense_knowledge",
+        "gold": 3,
+        "snap_preds": [
+          1,
+          1,
+          2,
+          2,
+          2
+        ],
+        "snap_confs": [
+          0.33762049674987793,
+          0.4132159650325775,
+          0.812478244304657,
+          0.44949251413345337,
+          0.8336353898048401
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 4,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 29,
+        "reasoning_type": "commonsense_knowledge",
+        "gold": 1,
+        "snap_preds": [
+          0,
+          0,
+          0,
+          2,
+          0
+        ],
+        "snap_confs": [
+          0.8609911799430847,
+          0.6392375230789185,
+          0.8007607460021973,
+          0.7301468253135681,
+          0.717560350894928
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 0,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 30,
+        "reasoning_type": "commonsense_knowledge",
+        "gold": 0,
+        "snap_preds": [
+          3,
+          1,
+          2,
+          2,
+          2
+        ],
+        "snap_confs": [
+          0.6479812860488892,
+          0.8148553371429443,
+          0.4990745186805725,
+          0.578550398349762,
+          0.6895239353179932
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 1,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 31,
+        "reasoning_type": "commonsense_knowledge",
+        "gold": 2,
+        "snap_preds": [
+          1,
+          1,
+          1,
+          0,
+          1
+        ],
+        "snap_confs": [
+          0.9086464643478394,
+          0.9121858477592468,
+          0.7315910458564758,
+          0.6304256916046143,
+          0.7865132093429565
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 1,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 32,
+        "reasoning_type": "commonsense_knowledge",
+        "gold": 3,
+        "snap_preds": [
+          0,
+          2,
+          2,
+          0,
+          0
+        ],
+        "snap_confs": [
+          0.7717912197113037,
+          0.4225597083568573,
+          0.631095826625824,
+          0.5453278422355652,
+          0.47416019439697266
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 0,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 33,
+        "reasoning_type": "commonsense_knowledge",
+        "gold": 1,
+        "snap_preds": [
+          3,
+          3,
+          3,
+          2,
+          3
+        ],
+        "snap_confs": [
+          0.9814261198043823,
+          0.8023502826690674,
+          0.41001081466674805,
+          0.5705047845840454,
+          0.9165558815002441
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 0,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 34,
+        "reasoning_type": "commonsense_knowledge",
+        "gold": 2,
+        "snap_preds": [
+          2,
+          0,
+          2,
+          3,
+          0
+        ],
+        "snap_confs": [
+          0.6342200040817261,
+          0.4094235897064209,
+          0.47984856367111206,
+          0.5299505591392517,
+          0.49829867482185364
+        ],
+        "snap_correct": [
+          1,
+          0,
+          1,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 0,
+        "max_conf_correct": 1,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 35,
+        "reasoning_type": "commonsense_knowledge",
+        "gold": 2,
+        "snap_preds": [
+          2,
+          2,
+          2,
+          1,
+          2
+        ],
+        "snap_confs": [
+          0.8365716934204102,
+          0.8521137833595276,
+          0.9788274765014648,
+          0.48591843247413635,
+          0.8833701014518738
+        ],
+        "snap_correct": [
+          1,
+          1,
+          1,
+          0,
+          1
+        ],
+        "final_correct": 1,
+        "max_conf_idx": 2,
+        "max_conf_correct": 1,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 36,
+        "reasoning_type": "commonsense_knowledge",
+        "gold": 0,
+        "snap_preds": [
+          0,
+          0,
+          0,
+          3,
+          3
+        ],
+        "snap_confs": [
+          0.38745561242103577,
+          0.48591458797454834,
+          0.36216336488723755,
+          0.389564573764801,
+          0.3716684877872467
+        ],
+        "snap_correct": [
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 1,
+        "max_conf_correct": 1,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 37,
+        "reasoning_type": "commonsense_knowledge",
+        "gold": 2,
+        "snap_preds": [
+          1,
+          1,
+          0,
+          1,
+          1
+        ],
+        "snap_confs": [
+          0.9025020599365234,
+          0.9094333052635193,
+          0.5480703711509705,
+          0.5663619041442871,
+          0.5437819957733154
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 1,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 39,
+        "reasoning_type": "commonsense_knowledge",
+        "gold": 1,
+        "snap_preds": [
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "snap_confs": [
+          0.815809428691864,
+          0.912466287612915,
+          0.6371071934700012,
+          0.3351724147796631,
+          0.7708495855331421
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 1,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 40,
+        "reasoning_type": "world_knowledge",
+        "gold": 3,
+        "snap_preds": [
+          1,
+          1,
+          2,
+          2,
+          0
+        ],
+        "snap_confs": [
+          0.5618824362754822,
+          0.41493093967437744,
+          0.8543970584869385,
+          0.4628604054450989,
+          0.535849928855896
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 2,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 41,
+        "reasoning_type": "world_knowledge",
+        "gold": 2,
+        "snap_preds": [
+          0,
+          0,
+          0,
+          0,
+          2
+        ],
+        "snap_confs": [
+          0.5825836658477783,
+          0.4595663547515869,
+          0.600479245185852,
+          0.7032594680786133,
+          0.4573344588279724
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "final_correct": 1,
+        "max_conf_idx": 3,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 42,
+        "reasoning_type": "world_knowledge",
+        "gold": 2,
+        "snap_preds": [
+          0,
+          0,
+          3,
+          2,
+          3
+        ],
+        "snap_confs": [
+          0.9876043796539307,
+          0.9844517707824707,
+          0.6052091717720032,
+          0.443424791097641,
+          0.7463506460189819
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 0,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 43,
+        "reasoning_type": "world_knowledge",
+        "gold": 3,
+        "snap_preds": [
+          2,
+          0,
+          0,
+          0,
+          3
+        ],
+        "snap_confs": [
+          0.8252536058425903,
+          0.6814484000205994,
+          0.9622368812561035,
+          0.8420632481575012,
+          0.4076865017414093
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "final_correct": 1,
+        "max_conf_idx": 2,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 44,
+        "reasoning_type": "world_knowledge",
+        "gold": 1,
+        "snap_preds": [
+          3,
+          3,
+          0,
+          1,
+          3
+        ],
+        "snap_confs": [
+          0.9201151728630066,
+          0.9957371950149536,
+          0.47361332178115845,
+          0.3944264352321625,
+          0.6629689931869507
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 1,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 45,
+        "reasoning_type": "world_knowledge",
+        "gold": 0,
+        "snap_preds": [
+          3,
+          1,
+          1,
+          1,
+          2
+        ],
+        "snap_confs": [
+          0.5468763709068298,
+          0.8692296147346497,
+          0.7044503688812256,
+          0.7115063071250916,
+          0.45671507716178894
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "final_correct": 0,
+        "max_conf_idx": 1,
+        "max_conf_correct": 0,
+        "oracle_correct": 0
+      },
+      {
+        "idx": 46,
+        "reasoning_type": "world_knowledge",
+        "gold": 2,
+        "snap_preds": [
+          2,
+          0,
+          2,
+          0,
+          2
+        ],
+        "snap_confs": [
+          0.5479550957679749,
+          0.7003024220466614,
+          0.41188952326774597,
+          0.6186972856521606,
+          0.520688533782959
+        ],
+        "snap_correct": [
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "final_correct": 1,
+        "max_conf_idx": 1,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 47,
+        "reasoning_type": "world_knowledge",
+        "gold": 2,
+        "snap_preds": [
+          1,
+          1,
+          3,
+          3,
+          2
+        ],
+        "snap_confs": [
+          0.7121081948280334,
+          0.982032835483551,
+          0.5173630118370056,
+          0.6374988555908203,
+          0.8070268034934998
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "final_correct": 1,
+        "max_conf_idx": 1,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      },
+      {
+        "idx": 48,
+        "reasoning_type": "world_knowledge",
+        "gold": 3,
+        "snap_preds": [
+          0,
+          0,
+          0,
+          2,
+          3
+        ],
+        "snap_confs": [
+          0.8567649722099304,
+          0.9722625017166138,
+          0.5232541561126709,
+          0.5637139081954956,
+          0.6276965737342834
+        ],
+        "snap_correct": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "final_correct": 1,
+        "max_conf_idx": 1,
+        "max_conf_correct": 0,
+        "oracle_correct": 1
+      }
+    ]
+  },
+  "BRIDGE_HISTORICAL_RECOVERY_SIGNAL": "NO_SIGNAL",
+  "BRIDGE_ADAPTIVE_SELECTION_SIGNAL": "NO_SIGNAL",
+  "fast_path_active": true,
+  "kernel_counts": {
+    "mamba_split_conv1d_scan_combined": 0,
+    "mamba_chunk_scan_combined": 24480,
+    "causal_conv1d_fn": 24480,
+    "causal_conv1d_update": 563760,
+    "selective_state_update": 563760
+  },
+  "seconds": 690.1
+}
