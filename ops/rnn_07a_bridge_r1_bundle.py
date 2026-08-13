@@ -24,13 +24,16 @@ FILES = {
     f"{ROOT}/R1_PRE_REGISTRATION.md": f"{A}/R1_PRE_REGISTRATION.md",
     f"{ROOT}/EXTERNAL_WORKLOAD_PROVENANCE.json": f"{A}/EXTERNAL_WORKLOAD_PROVENANCE.json",
     f"{ROOT}/R1_RESULTS.json": f"{A}/R1_RESULTS.json",
+    f"{ROOT}/R1_REPLAY_INPROCESS.json": f"{A}/R1_REPLAY_INPROCESS.json",
     f"{ROOT}/R1_DECISION.md": f"{A}/R1_DECISION.md",
     f"{ROOT}/stdout_r1.log": f"{A}/stdout_r1.log",
+    f"{ROOT}/stdout_r1_replay.log": f"{A}/stdout_r1_replay.log",
     # parent bridge context (preserved, unchanged)
     f"{ROOT}/parent/BRIDGE_DECISION.md": f"{A}/BRIDGE_DECISION.md",
     f"{ROOT}/parent/BRIDGE_LONG_RESULTS.json": f"{A}/BRIDGE_LONG_RESULTS.json",
     # executed source
     f"{ROOT}/ops/rnn_07a_bridge_r1.py": "ops/rnn_07a_bridge_r1.py",
+    f"{ROOT}/ops/rnn_07a_bridge_r1_replay.py": "ops/rnn_07a_bridge_r1_replay.py",
     f"{ROOT}/ops/rnn_07a_bridge_r1_bundle.py": "ops/rnn_07a_bridge_r1_bundle.py",
     f"{ROOT}/ops/rnn_07a_bridge_lib.py": "ops/rnn_07a_bridge_lib.py",
     f"{ROOT}/ops/rnn_07a_lib.py": "ops/rnn_07a_lib.py",
@@ -70,7 +73,8 @@ def main():
             "TRUE_IN_RUN_MAX_CONFIDENCE_R1": gv(f"{A}/R1_RESULTS.json", "TRUE_IN_RUN_MAX_CONFIDENCE_R1"),
             "R1QualificationSetSha256": gv(f"{A}/R1_RESULTS.json", "fresh_set_identity", "R1QualificationSetSha256"),
             "disjoint_from_historical_recovery": gv(f"{A}/R1_RESULTS.json", "fresh_set_identity", "disjoint_from_historical_recovery"),
-            "replay_all_boundary_hashes_match": gv(f"{A}/R1_RESULTS.json", "temporal_identity_replay", "all_boundary_hashes_match"),
+            "in_process_same_shape_replay_all_match": gv(f"{A}/R1_REPLAY_INPROCESS.json", "IN_PROCESS_SAME_SHAPE_ALL_MATCH"),
+            "cross_process_match_to_capture": gv(f"{A}/R1_REPLAY_INPROCESS.json", "CROSS_PROCESS_MATCH_TO_CAPTURE_ALL"),
             "n_recovery": gv(f"{A}/R1_RESULTS.json", "n_recovery"),
         },
         "nothing_pushed": True, "payload_files": [], "skipped_missing": []}
