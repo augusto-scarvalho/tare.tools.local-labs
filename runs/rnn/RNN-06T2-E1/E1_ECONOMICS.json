@@ -1,0 +1,147 @@
+{
+  "packet": "RNN-06T2-E1-ECON-AGGREGATE",
+  "n_process_starts": 2,
+  "timing_method": "randomized_interleaved_cycles_one_iter_per_arm",
+  "output_domain_evidence_per_run": [
+    {
+      "process_index": 0,
+      "ASSERTIONS_PASSED": true,
+      "final_fused_all_in_vt": true,
+      "final_step_all_in_vt": true,
+      "recovery_all_in_vt": true,
+      "recovery_old_colidx_all_in_vt": false,
+      "recovery_fix_changed_output": true,
+      "vt_size": 256,
+      "vt_min": 746,
+      "vt_max": 50220
+    },
+    {
+      "process_index": 1,
+      "ASSERTIONS_PASSED": true,
+      "final_fused_all_in_vt": true,
+      "final_step_all_in_vt": true,
+      "recovery_all_in_vt": true,
+      "recovery_old_colidx_all_in_vt": false,
+      "recovery_fix_changed_output": true,
+      "vt_size": 256,
+      "vt_min": 746,
+      "vt_max": 50220
+    }
+  ],
+  "warm_per_query_ms": {
+    "FINAL_FUSED_EQUIVALENT_WORK": {
+      "n": 80,
+      "median": 37.792,
+      "p25": 37.598,
+      "p75": 38.181,
+      "p95": 39.848,
+      "min": 36.057,
+      "max": 153.509
+    },
+    "FINAL_STEP_EQUIVALENT_WORK": {
+      "n": 80,
+      "median": 991.298,
+      "p25": 920.558,
+      "p75": 1055.029,
+      "p95": 1113.067,
+      "min": 872.969,
+      "max": 1143.267
+    },
+    "RECOVERY_ENABLED_EQUIVALENT_WORK": {
+      "n": 80,
+      "median": 1014.626,
+      "p25": 946.444,
+      "p75": 1066.889,
+      "p95": 1159.144,
+      "min": 893.306,
+      "max": 1178.06
+    }
+  },
+  "added_latency_per_query_ms": {
+    "vs_final_step_PRIMARY": {
+      "n": 80,
+      "median": 37.038,
+      "p25": -106.332,
+      "p75": 144.259,
+      "p95": 222.645,
+      "min": -194.983,
+      "max": 251.542
+    },
+    "vs_final_fused_descriptive": {
+      "n": 80,
+      "median": 974.964,
+      "p25": 906.778,
+      "p75": 1029.111,
+      "p95": 1120.564,
+      "min": 855.54,
+      "max": 1140.488
+    }
+  },
+  "recovery_components_per_query_ms_by_run": [
+    {
+      "trajectory_plus_capture_s": 896.55,
+      "restore_readout_s": 11.95,
+      "selection_s": 0.011,
+      "gpu_to_cpu_snapshot_copy_s": 8.969
+    },
+    {
+      "trajectory_plus_capture_s": 898.219,
+      "restore_readout_s": 12.036,
+      "selection_s": 0.012,
+      "gpu_to_cpu_snapshot_copy_s": 8.855
+    }
+  ],
+  "per_run": [
+    {
+      "process_index": 0,
+      "timing_method": "randomized_interleaved_cycles_one_iter_per_arm",
+      "shuffle_seed": 20261200,
+      "compile_model_load_s": 4.35,
+      "rec_median_ms": 1004.708543419838,
+      "memory": {
+        "peak_vram_gb_final_fused": 4.024,
+        "peak_vram_gb_final_step": 4.403,
+        "peak_vram_gb_recovery": 7.731,
+        "peak_cpu_ram_gb": 2.292
+      }
+    },
+    {
+      "process_index": 1,
+      "timing_method": "randomized_interleaved_cycles_one_iter_per_arm",
+      "shuffle_seed": 20261201,
+      "compile_model_load_s": 3.46,
+      "rec_median_ms": 1032.0094525814056,
+      "memory": {
+        "peak_vram_gb_final_fused": 4.024,
+        "peak_vram_gb_final_step": 4.403,
+        "peak_vram_gb_recovery": 7.731,
+        "peak_cpu_ram_gb": 2.229
+      }
+    }
+  ],
+  "envelope_ms_per_query": 250.0,
+  "cited_frozen_quality_gate": {
+    "source": "runs/rnn/RNN-06T2/T1R_WIDE_RESULTS.json",
+    "q_delta_maxconf_vs_final_wide": 0.5417,
+    "net_recovery_count_wide": 104,
+    "Q_SESOI": 0.05,
+    "quality_ok": true,
+    "note": "cited from frozen T1R; recovery qualification NOT rerun in E1"
+  },
+  "cost_gate": {
+    "p95_added_vs_step_ms": 222.645,
+    "envelope_ms": 250.0,
+    "cost_ok": true
+  },
+  "MINTS": {
+    "ECONOMICS_OUTPUT_COMPARABILITY_E1": "QUALIFIED",
+    "MARGINAL_RECOVERY_UTILITY_ON_STEP_PATH_E1": "QUALIFIED",
+    "RECOVERY_PATH_VS_FUSED_BASELINE_E1": {
+      "verdict": "NOT_COMPETITIVE_WITH_FUSED",
+      "p95_recovery_minus_fused_ms": 1120.564,
+      "median_recovery_minus_fused_ms": 974.964,
+      "note": "orthogonal step-vs-fused path cost; NOT the recovery premium"
+    },
+    "GENERAL_END_TO_END_DEPLOYMENT_UTILITY": "OPEN"
+  }
+}
