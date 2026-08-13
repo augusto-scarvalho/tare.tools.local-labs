@@ -1,0 +1,124 @@
+{
+  "packet": "RNN-07A-SCOUT",
+  "seconds_total": 629.0,
+  "cells_run": [
+    "16K",
+    "32K"
+  ],
+  "competence_cell": null,
+  "operating_point_cell": "32K",
+  "REALISTIC_TASK_COMPETENCE": "INSUFFICIENT",
+  "REALISTIC_FORGETTING_OPERATING_POINT": "BLOCKED",
+  "operating_point_detail": {},
+  "per_cell": {
+    "16K": {
+      "cell": "16K",
+      "budget_tokens": 16000,
+      "n": 8,
+      "seconds": 104.8,
+      "control_accuracy": {
+        "acc": 0.125,
+        "wilson_lb": 0.02241690886329617,
+        "wilson_ub": 0.4708948057698615,
+        "k": 1
+      },
+      "full_accuracy": {
+        "acc": 0.25,
+        "wilson_lb": 0.07147768885802763,
+        "wilson_ub": 0.5907301208974108,
+        "k": 2
+      },
+      "degradation_control_minus_full": {
+        "point": -0.125,
+        "ci_lo": -0.375,
+        "ci_hi": 0.0
+      },
+      "n_eligible": 1,
+      "n_forgotten": 0,
+      "format_adherence_eligible": {
+        "control": 0.0,
+        "full": 0.0,
+        "drop": 0.0
+      },
+      "by_domain": {
+        "Single-Document QA": {
+          "n": 3,
+          "control_acc": 0.3333333333333333,
+          "full_acc": 0.3333333333333333
+        },
+        "Multi-Document QA": {
+          "n": 5,
+          "control_acc": 0.0,
+          "full_acc": 0.2
+        }
+      }
+    },
+    "32K": {
+      "cell": "32K",
+      "budget_tokens": 32000,
+      "n": 35,
+      "seconds": 447.2,
+      "control_accuracy": {
+        "acc": 0.2571428571428571,
+        "wilson_lb": 0.1416286872655014,
+        "wilson_ub": 0.4206962427064873,
+        "k": 9
+      },
+      "full_accuracy": {
+        "acc": 0.3142857142857143,
+        "wilson_lb": 0.18550658059782457,
+        "wilson_ub": 0.47980071879251973,
+        "k": 11
+      },
+      "degradation_control_minus_full": {
+        "point": -0.05714285714285716,
+        "ci_lo": -0.2285714285714286,
+        "ci_hi": 0.1142857142857143
+      },
+      "n_eligible": 9,
+      "n_forgotten": 4,
+      "format_adherence_eligible": {
+        "control": 0.0,
+        "full": 0.2222222222222222,
+        "drop": -0.2222222222222222
+      },
+      "by_domain": {
+        "Single-Document QA": {
+          "n": 20,
+          "control_acc": 0.25,
+          "full_acc": 0.35
+        },
+        "Long-dialogue History Understanding": {
+          "n": 3,
+          "control_acc": 0.3333333333333333,
+          "full_acc": 0.0
+        },
+        "Multi-Document QA": {
+          "n": 11,
+          "control_acc": 0.2727272727272727,
+          "full_acc": 0.36363636363636365
+        },
+        "Long Structured Data Understanding": {
+          "n": 1,
+          "control_acc": 0.0,
+          "full_acc": 0.0
+        }
+      }
+    }
+  },
+  "thresholds": {
+    "COMP_WILSON_LB": 0.35,
+    "MIN_ELIGIBLE": 20,
+    "DEGRADE_MARGIN": 0.1,
+    "FORMAT_TOL": 0.1,
+    "MIN_FORGOTTEN": 15
+  },
+  "fast_path_active": true,
+  "kernel_counts": {
+    "mamba_split_conv1d_scan_combined": 0,
+    "mamba_chunk_scan_combined": 4128,
+    "causal_conv1d_fn": 4128,
+    "causal_conv1d_update": 1081152,
+    "selective_state_update": 1081152
+  }
+}
