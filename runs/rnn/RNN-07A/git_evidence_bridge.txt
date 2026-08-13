@@ -1,0 +1,24 @@
+== RNN-07A-BRIDGE (NoLiMa controlled bridge) GIT EVIDENCE ==
+generated_head: 0baa97117cf45dd7bc19bdf61b98e9b0b5bc1ea1
+branch: master
+
+-- bridge commits (append-only) --
+0baa971 results(rnn): RNN-07A-BRIDGE long -> DEGRADATION=QUALIFIED (short 0.866 -> long chance), RECOVERY & ADAPTIVE = NO_SIGNAL (synthetic-MQAR recovery does NOT transport to NoLiMa)
+c5bab43 results(rnn): RNN-07A-BRIDGE short competence -> BRIDGE_SHORT_CONTEXT_COMPETENCE=SUFFICIENT (acc 0.866, Wilson LB 0.791, 97 eligible)
+bc82a71 prereg+tool(rnn): RNN-07A-BRIDGE NoLiMa controlled bridge — audit reconciliation (append-only), provenance repair, prereg, gated runners (no outcomes)
+57daef4 bundle(rnn): RNN-07A audit bundle zip (invariant enforced, ZIP db906ff8)
+ee9f6ad handoff+tool(rnn): RNN-07A + RNN-06T2-E1 mobile handoff, bundle builder, git evidence
+716c8de results+decision(rnn): RNN-07A scout -> REALISTIC_TASK_COMPETENCE=INSUFFICIENT, FORGETTING_OPERATING_POINT=BLOCKED (1.3B base at chance on LongBench-v2; recovery gate honored, N/A)
+49bea62 results+decision(rnn): RNN-06T2-E1 economics closure -> OUTPUT_COMPARABILITY + MARGINAL_UTILITY QUALIFIED; VS_FUSED NOT_COMPETITIVE; GENERAL_UTILITY OPEN
+
+-- subject --
+state-spaces/mamba2-1.3b @ c5b59d00ec85d313adea86a08cad2a43c962dd3b (official mamba_ssm fast path)
+NoLiMa @ 378115b1f136b6ba78f90f78682bc55f70ec3ddd (SEMI_SYNTHETIC_CONTROLLED_BRIDGE)
+
+-- tracked status (RNN-07A / bridge ops) --
+?? ops/rnn_07a_bridge_bundle.py
+?? runs/rnn/RNN-07A/BRIDGE_DECISION.md
+?? runs/rnn/RNN-07A/git_evidence_bridge.txt
+(empty above = all committed)
+
+NOTHING PUSHED: TRUE
