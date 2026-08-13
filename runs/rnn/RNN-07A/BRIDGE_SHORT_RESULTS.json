@@ -1,0 +1,1161 @@
+{
+  "packet": "RNN-07A-BRIDGE-SHORT",
+  "workload": "NoLiMa SEMI_SYNTHETIC_CONTROLLED_BRIDGE",
+  "n": 112,
+  "short_tokens": 512,
+  "needle_depth": 0.15,
+  "accuracy": {
+    "acc": 0.8660714285714286,
+    "wilson_lb": 0.7907338379805311,
+    "wilson_ub": 0.9171293130809184,
+    "k": 97
+  },
+  "n_eligible": 97,
+  "chance": 0.25,
+  "thresholds": {
+    "COMP_WILSON_LB": 0.5,
+    "MIN_ELIGIBLE": 20
+  },
+  "by_reasoning_type": {
+    "commonsense_knowledge": {
+      "n": 16,
+      "acc": 0.9375
+    },
+    "world_knowledge": {
+      "n": 96,
+      "acc": 0.8541666666666666
+    }
+  },
+  "BRIDGE_SHORT_CONTEXT_COMPETENCE": "SUFFICIENT",
+  "fast_path_active": true,
+  "kernel_counts": {
+    "mamba_split_conv1d_scan_combined": 0,
+    "mamba_chunk_scan_combined": 5376,
+    "causal_conv1d_fn": 5376,
+    "causal_conv1d_update": 123408,
+    "selective_state_update": 123408
+  },
+  "seconds": 66.9,
+  "rows": [
+    {
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "test": "T17_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.758818507194519,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "test": "T17_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.7244738936424255,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "test": "T17_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.9168580770492554,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "test": "T17_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.8382188081741333,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "test": "T15_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.4488733410835266,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "test": "T15_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.9022791385650635,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "test": "T15_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.9992284774780273,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "test": "T15_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.9531134366989136,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "test": "T16_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.868746817111969,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "test": "T16_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.9768459796905518,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "test": "T16_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.9967039227485657,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401",
+      "reasoning_type": "world_knowledge",
+      "test": "T16_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.9802833199501038,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T17_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.9850454926490784,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T17_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.9830275774002075,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T17_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.9737297892570496,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T17_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.8453077673912048,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T15_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.9791373014450073,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T15_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.9536994695663452,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T15_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.9935455918312073,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T15_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.943913996219635,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T16_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.4615444839000702,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T16_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.421697199344635,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T16_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.9996607303619385,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0401Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T16_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.8829649686813354,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0402",
+      "reasoning_type": "commonsense_knowledge",
+      "test": "T01_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.9981595873832703,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0402",
+      "reasoning_type": "commonsense_knowledge",
+      "test": "T01_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.9293491244316101,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0402",
+      "reasoning_type": "commonsense_knowledge",
+      "test": "T01_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.9891447424888611,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0402",
+      "reasoning_type": "commonsense_knowledge",
+      "test": "T01_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.5807222723960876,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0402Inv",
+      "reasoning_type": "commonsense_knowledge",
+      "test": "T01_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.9798169732093811,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0402Inv",
+      "reasoning_type": "commonsense_knowledge",
+      "test": "T01_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.7407811284065247,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0402Inv",
+      "reasoning_type": "commonsense_knowledge",
+      "test": "T01_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.8580470085144043,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0402Inv",
+      "reasoning_type": "commonsense_knowledge",
+      "test": "T01_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.7214307188987732,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0405",
+      "reasoning_type": "commonsense_knowledge",
+      "test": "T01_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.8559744954109192,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0405",
+      "reasoning_type": "commonsense_knowledge",
+      "test": "T01_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.6837859153747559,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0405",
+      "reasoning_type": "commonsense_knowledge",
+      "test": "T01_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.9978871941566467,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0405",
+      "reasoning_type": "commonsense_knowledge",
+      "test": "T01_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.945064902305603,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0405Inv",
+      "reasoning_type": "commonsense_knowledge",
+      "test": "T01_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.8747519850730896,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0405Inv",
+      "reasoning_type": "commonsense_knowledge",
+      "test": "T01_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.9617542624473572,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0405Inv",
+      "reasoning_type": "commonsense_knowledge",
+      "test": "T01_C02",
+      "gold": 1,
+      "pred": 2,
+      "conf": 0.6061616539955139,
+      "correct": 0,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0405Inv",
+      "reasoning_type": "commonsense_knowledge",
+      "test": "T01_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.4437614381313324,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "test": "T01_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.4780648648738861,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "test": "T01_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.9786056876182556,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "test": "T01_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.7063642144203186,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "test": "T01_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.7557907700538635,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "test": "T04_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.6217511296272278,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "test": "T04_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.9692384004592896,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "test": "T04_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.9730653762817383,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "test": "T04_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.9121230840682983,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "test": "T05_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.6867334842681885,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "test": "T05_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.9708260893821716,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "test": "T05_C02",
+      "gold": 3,
+      "pred": 0,
+      "conf": 0.5110061764717102,
+      "correct": 0,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408",
+      "reasoning_type": "world_knowledge",
+      "test": "T05_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.9460926651954651,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T01_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.9787616729736328,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T01_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.8312195539474487,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T01_C02",
+      "gold": 0,
+      "pred": 3,
+      "conf": 0.5613492131233215,
+      "correct": 0,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T01_C02",
+      "gold": 1,
+      "pred": 3,
+      "conf": 0.49289387464523315,
+      "correct": 0,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T04_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.9183828234672546,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T04_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.5592729449272156,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T04_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.7205670475959778,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T04_C02",
+      "gold": 2,
+      "pred": 0,
+      "conf": 0.5643298625946045,
+      "correct": 0,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T05_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.9441079497337341,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T05_C02",
+      "gold": 2,
+      "pred": 0,
+      "conf": 0.5909276604652405,
+      "correct": 0,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T05_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.9802740812301636,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0408Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T05_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.54779452085495,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T09_C02",
+      "gold": 1,
+      "pred": 0,
+      "conf": 0.7002763748168945,
+      "correct": 0,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T09_C02",
+      "gold": 1,
+      "pred": 0,
+      "conf": 0.5667425394058228,
+      "correct": 0,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T09_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.9029141664505005,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T09_C02",
+      "gold": 1,
+      "pred": 2,
+      "conf": 0.4008435010910034,
+      "correct": 0,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T10_C02",
+      "gold": 1,
+      "pred": 0,
+      "conf": 0.43719959259033203,
+      "correct": 0,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T10_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.9960719347000122,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T10_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.815604031085968,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T10_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.754386842250824,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T04_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.47733592987060547,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T04_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.9828945398330688,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T04_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.5116890668869019,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T04_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.9553788900375366,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T05_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.9443393349647522,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T05_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.4045213460922241,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T05_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.8515837788581848,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T05_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.5304363369941711,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T07_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.944680392742157,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T07_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.6763841509819031,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T07_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.999014139175415,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T07_C02",
+      "gold": 0,
+      "pred": 2,
+      "conf": 0.7617762684822083,
+      "correct": 0,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T08_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.9424465298652649,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T08_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.5566380023956299,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T08_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.9223918914794922,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409Inv",
+      "reasoning_type": "world_knowledge",
+      "test": "T08_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.9733983874320984,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T09_C02",
+      "gold": 2,
+      "pred": 3,
+      "conf": 0.3301597535610199,
+      "correct": 0,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T09_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.8859732151031494,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T09_C02",
+      "gold": 2,
+      "pred": 0,
+      "conf": 0.7270663380622864,
+      "correct": 0,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T09_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.5872466564178467,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T10_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.9517385959625244,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T10_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.6206218600273132,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T10_C02",
+      "gold": 1,
+      "pred": 2,
+      "conf": 0.6303539276123047,
+      "correct": 0,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T10_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.6759884357452393,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T04_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.9017679691314697,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T04_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.6189207434654236,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T04_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.8041363954544067,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T04_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.6395320296287537,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T05_C02",
+      "gold": 3,
+      "pred": 3,
+      "conf": 0.9983112812042236,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T05_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.7036553025245667,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T05_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.950222909450531,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T05_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.4985333979129791,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T07_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.981359601020813,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T07_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.998808741569519,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T07_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.8455386161804199,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T07_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.984478235244751,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T08_C02",
+      "gold": 1,
+      "pred": 3,
+      "conf": 0.6776596903800964,
+      "correct": 0,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T08_C02",
+      "gold": 0,
+      "pred": 0,
+      "conf": 0.9830347299575806,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T08_C02",
+      "gold": 1,
+      "pred": 1,
+      "conf": 0.9581564664840698,
+      "correct": 1,
+      "n_ctx": 512
+    },
+    {
+      "needle_id": "0409",
+      "reasoning_type": "world_knowledge",
+      "test": "T08_C02",
+      "gold": 2,
+      "pred": 2,
+      "conf": 0.7853313684463501,
+      "correct": 1,
+      "n_ctx": 512
+    }
+  ]
+}
