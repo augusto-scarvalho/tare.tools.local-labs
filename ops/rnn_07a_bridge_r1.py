@@ -103,7 +103,7 @@ def build_pool_meta(tok, seed, n_char, max_pool):
                              "option_order": "|".join(options),
                              "needle_ids": A.enc(tok, " " + needle_text.strip() + " "),
                              "stem_ids": A.build_query_stem(tok, question),
-                             "choice_ids": B.build_choice_tokens(tok, options)})
+                             "choice_ids": A.build_choice_tokens(tok, options)})
                 if len(pool) >= max_pool:
                     return pool
     return pool
