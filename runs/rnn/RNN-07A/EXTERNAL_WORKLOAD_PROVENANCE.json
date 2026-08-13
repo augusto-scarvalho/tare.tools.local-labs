@@ -1,0 +1,31 @@
+{
+  "packet": "RNN-07A-EXTERNAL-WORKLOAD-PROVENANCE",
+  "recorded_before_new_outcomes": true,
+  "note": "Provenance repair for the RNN-07A-BRIDGE corrective. Datasets live outside the repo and are EXCLUDED from the audit bundle; this file is the authoritative provenance record (source repo, revision commit, per-file SHA-256).",
+  "workloads": {
+    "LongBench_v2_natural_parent": {
+      "role": "natural workload (parent RNN-07A; results UNCHANGED)",
+      "hf_repo": "THUDM/LongBench-v2",
+      "resolve_url": "https://huggingface.co/datasets/THUDM/LongBench-v2/resolve/main/data.json",
+      "local_path": "/home/augus/data/longbench_v2/data.json",
+      "files": [
+        {"name": "data.json", "size": 465490535, "sha256": "15d61c22d92c96900b3c4948b6aeea218d3214b676a65df48e7b8555604c7fe2"}
+      ]
+    },
+    "NoLiMa_semi_synthetic_controlled_bridge": {
+      "role": "SEMI_SYNTHETIC_CONTROLLED_BRIDGE (never a natural-workload qualification)",
+      "hf_repo": "amodaresi/NoLiMa",
+      "hf_repo_gated": false,
+      "revision_commit": "378115b1f136b6ba78f90f78682bc55f70ec3ddd",
+      "license": "see haystack/LICENSES.md and repo LICENSE (book haystacks are shuffled public-domain-derived text)",
+      "local_root": "/home/augus/data/nolima",
+      "files": [
+        {"name": "needlesets/needle_set_MC.json", "size": 12946, "sha256": "69ebfe8495b1a14b4565a90534b57aa03a948becc364959670c81b64373d4956"},
+        {"name": "needlesets/needle_set_ONLYDirect.json", "size": 11416, "sha256": "0f44e4d277f72bd05780a6cf449b7691636837e1e8da254d3ab73fa3b38c071e"},
+        {"name": "needlesets/needle_set.json", "size": 12286, "sha256": "b197f5633668be11aa5855144716b3009d6246c5fb05a508c37db0d08303aa99"},
+        {"name": "haystack/rand_shuffle/rand_book_1.txt", "size": 418037, "sha256": "1f7bdc697141b888565c851e6c34dbd649aaf580280eae92199561c4f0e93dab"}
+      ],
+      "bridge_construction": "ONLYDirect needle templates ('Actually, {CHAR} lives next to {1}.') with the DIRECT literal question ('Which character lives next to {1}?'), scored as 4-way option-likelihood over character names (gold {CHAR} + 3 seeded distractors from the needle's character_set). Real book text (rand_shuffle/rand_book_1.txt) is the haystack filler; the needle is planted at a fixed a-priori depth. Semi-synthetic + controlled."
+    }
+  }
+}
