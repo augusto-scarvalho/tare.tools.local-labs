@@ -56,17 +56,21 @@ bash ops/wsl/wslx.sh ops/qwen38-bringup/mtp_tensor_check.sh -- MODEL=<other.gguf
 is NOT needed. (Gotcha found here: the base/login python3 has no numpy → the reader false-negatives;
 the gate now auto-discovers `/home/augus/sglang-venv/bin/python3`, which has numpy+gguf.)
 
-## Phase 2 — prefix reuse actually works?  (gate: "restored context checkpoint" in log)  ← CRITICAL
+## Phase 2 — prefix reuse actually works?  ✅ RESOLVED 2026-08-16: PASS (build 068764d92)  ← CRITICAL
 This is the single biggest agentic-latency lever AND the biggest risk. Hybrid (recurrent) models
 can't do token-granular `--cache-reuse`; reuse happens only via **context checkpoints**, and there
 is an OPEN upstream regression (#24055) that can force full re-prefill on some builds.
 ```bash
-bash ops/qwen38-bringup/checkpoint_reuse_gate.sh
+bash ops/wsl/wslx.sh ops/qwen38-bringup/checkpoint_reuse_gate.sh
 ```
-PASS = turn-2 server log shows `restored context checkpoint` and turn-2 prompt-eval time is a small
-fraction of turn-1. FAIL (`forcing full prompt re-processing due to lack of cache data`) = wrong
-build; pin a known-good one (Fable flagged a b9309-era build + `--checkpoint-every-n-tokens`) and
-re-run. Do NOT tune MTP until this passes — under cache thrash MTP acceptance craters.
+**Result:** on `/home/augus/src/llama.cpp-master` (v10159, 068764d92), a 2-turn test over a ~51k-token
+shared context gave **TURN1 prompt_n=51015 (52.0s) → TURN2 prompt_n=517, cache_n=50499 (0.66s)** — the
+warm turn reused 50,499 tokens and reprocessed only 517 (~78× faster prefill). On a 48-recurrent-layer
+hybrid that is only possible via state checkpointing, so checkpoints work and **#24055 does NOT affect
+this build.** Flags present: `--ctx-checkpoints`, `--checkpoint-min-step` (default 8192; gate lowers it
+to 256 so checkpoints form within the test), `--cache-reuse`. NB this build logs reuse as "selected
+slot by LCP similarity", not "restored context checkpoint" — the authoritative signal is turn-2 cache_n.
+Client hygiene below still applies. (If a future build regresses: pin a known-good one and re-run.)
 
 **Client hygiene (equally important):** any volatile byte early in the prompt (timestamp,
 session-id, attribution header, reordered tool schemas) kills the prefix. Keep the system prompt +
@@ -113,7 +117,7 @@ trigger fires — full triggers + recipe in `ops/qwen38-bringup/CUSTOM_QUANT_DEC
 
 ## Open items to verify (honest register)
 - ~~MTP tensors in Unsloth GGUF~~ ✅ RESOLVED 2026-08-16: PRESENT in all 3 quants (UD-Q4_K_XL, IQ4_XS, bartowski Q4_K_M).
-- #24055 checkpoint regression scope on the pinned build (Phase 2 resolves).
+- ~~#24055 checkpoint regression scope~~ ✅ RESOLVED 2026-08-16: build 068764d92 reuses prefix correctly (52s→0.66s warm turn); no regression.
 - q4_0-lossless holds on the DENSE 27B, not just the 35B MoE (Phase 3 resolves).
 - Quant-quality numbers borrowed from Qwen3.6-27B studies (assumed transfer).
 - ThinkingCap-style / coder fine-tunes for 3.8 — see `VARIANTS.md` (Fable research, pending).

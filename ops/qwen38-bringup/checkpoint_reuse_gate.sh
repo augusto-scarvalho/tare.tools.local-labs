@@ -30,11 +30,14 @@ echo "== checkpoint-related flags in this build =="
 "$BIN" --help 2>&1 | grep -iE "checkpoint|cache-reuse|ctx-checkpoint" || echo "  (none found -> old/unsupported build?)"
 echo
 
-CKPT_FLAGS=${CKPT_FLAGS:---ctx-checkpoints 32}   # override if --help above shows different names
+# min-step default is 8192 tok -> a checkpoint only forms after 8192 tokens of prompt. We force a
+# small spacing so checkpoints form within our test context and turn-2 reuse is near-total.
+CKPT_FLAGS=${CKPT_FLAGS:---ctx-checkpoints 32 --checkpoint-min-step 256}
 
 SLOG=$(mktemp)
 echo "== starting server (log: $SLOG) =="
-"$BIN" -m "$MODEL" -c 32768 -ngl 999 -fa 1 --no-mmproj \
+# -c 65536: the ~28k-token test context must fit with room for checkpoints + answer (q4_0 KV is cheap).
+"$BIN" -m "$MODEL" -c 65536 -ngl 999 -fa 1 --no-mmproj \
   --cache-type-k q4_0 --cache-type-v q4_0 \
   $CKPT_FLAGS --jinja -np 1 \
   --host 127.0.0.1 --port "$PORT" </dev/null > "$SLOG" 2>&1 &
@@ -44,7 +47,8 @@ for i in $(seq 1 120); do curl -sf "http://127.0.0.1:$PORT/health" >/dev/null 2>
 
 # --- build a long, byte-STABLE context (~6-8k tokens of filler) shared by both turns ---
 CTX=$(python3 - <<'PY'
-lines=[f"Record {i:04d}: module_{i} exports handler_{i}(payload) -> status_{i%7}; retries={i%4}; owner=team_{i%9}." for i in range(700)]
+# ~1400 records -> comfortably above checkpoint-min-step so at least one checkpoint forms.
+lines=[f"Record {i:04d}: module_{i} exports handler_{i}(payload) -> status_{i%7}; retries={i%4}; owner=team_{i%9}." for i in range(1400)]
 print("You are reviewing this service registry. Answer only from it.\n" + "\n".join(lines))
 PY
 )
@@ -53,16 +57,20 @@ PY
 export CTX
 turn() {  # label question
   python3 - "$PORT" "$1" "$2" <<'PY'
-import json,os,sys,urllib.request
+import json,os,sys,urllib.request,urllib.error
 port,label,q=sys.argv[1],sys.argv[2],sys.argv[3]
 body={"messages":[{"role":"user","content":os.environ["CTX"]+"\n\nQUESTION: "+q}],
       "max_tokens":16,"temperature":0.0,"top_k":1,"stream":False,"cache_prompt":True,
       "chat_template_kwargs":{"enable_thinking":False}}
-r=json.load(urllib.request.urlopen(urllib.request.Request(
-   f"http://127.0.0.1:{port}/v1/chat/completions",data=json.dumps(body).encode(),
-   headers={"Content-Type":"application/json"}),timeout=600))
-t=r.get("timings",{})
-print(f"{label}: prompt_n={t.get('prompt_n')}  prompt_ms={t.get('prompt_ms'):.0f}  "
+try:
+    r=json.load(urllib.request.urlopen(urllib.request.Request(
+       f"http://127.0.0.1:{port}/v1/chat/completions",data=json.dumps(body).encode(),
+       headers={"Content-Type":"application/json"}),timeout=600))
+except urllib.error.HTTPError as e:
+    print(f"{label}: HTTP {e.code} -> {e.read()[:300].decode(errors='replace')}"); sys.exit(0)
+t=r.get("timings",{}); u=r.get("usage",{}).get("prompt_tokens_details",{})
+print(f"{label}: prompt_n={t.get('prompt_n')}  cache_n={t.get('cache_n')}  "
+      f"cached_tokens={u.get('cached_tokens')}  prompt_ms={t.get('prompt_ms',0):.0f}  "
       f"({t.get('prompt_per_second',0):.0f} tok/s)")
 PY
 }
@@ -74,7 +82,10 @@ turn "TURN2" "What status does module_42 return?"
 
 echo
 echo "== checkpoint / reuse evidence in server log =="
-grep -iE "restored context checkpoint|forcing full prompt re-processing|checkpoint" "$SLOG" | tail -20 || true
+# This build reuses via "selected slot by LCP similarity" rather than a "restored context checkpoint"
+# string, so match both wordings. The AUTHORITATIVE signal is TURN2 cache_n/cached_tokens above.
+grep -iE "restored context checkpoint|forcing full prompt re-processing|LCP similarity|checkpoint" "$SLOG" | tail -20 || true
 echo
-echo ">> PASS if TURN2 prompt_n is a small fraction of TURN1 AND log shows 'restored context checkpoint'."
-echo ">> FAIL (a #24055-class regression) if TURN2 ~= TURN1 or log shows 'forcing full prompt re-processing'."
+echo ">> PASS  = TURN2 prompt_n is a small fraction of TURN1 (turn-2 cache_n >> 0). Prefix reuse works."
+echo ">> FAIL  = TURN2 prompt_n ~= TURN1 or log shows 'forcing full prompt re-processing' (#24055 regression)."
+echo ">> RESULT 2026-08-16 (build 068764d92): PASS — TURN1 prompt_n=51015 -> TURN2 prompt_n=517 (cache_n=50499), 52s -> 0.66s."
