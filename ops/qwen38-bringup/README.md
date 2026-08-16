@@ -107,18 +107,22 @@ public reference (nextn head has high acceptance on deterministic code). n3 > n2
 free win here. (The MoE-flavored `ops/spec-drafter-bench.sh` is the deploy-model gate; this dense one
 supersedes it for Qwen3.8.)
 
-## Phase 5 — freeze the launch config
-Bake the Phase-3 KV choice and Phase-1 MTP path into the launch line. Candidate (pending Phases):
+## Phase 5 — FROZEN launch config  ✅ 2026-08-16: `ops/qwen38-bringup/serve.sh` (validated)
+All phase results baked into a runnable launcher:
 ```bash
-llama-server -m /home/augus/models/qwen38-27b/Qwen3.8-27B-UD-Q4_K_XL.gguf \
-  -c 262144 -ngl 999 -fa 1 --no-mmproj \
-  --cache-type-k q4_0 --cache-type-v q4_0 \
-  --spec-type draft-mtp --spec-draft-n-max 2 -np 1 \
-  --ctx-checkpoints 64 --cache-ram 12000 \
-  --jinja --temp 0.7 --top-p 0.8 --top-k 20 --min-p 0
-# instruct/agent loop; reasoning_effort=medium via chat_template_kwargs; consider presence_penalty 0-0.5 for code.
-# NOTE: checkpoint flag NAMES depend on the pinned build — Phase 2 discovers the real ones from --help.
+bash ops/wsl/wslx.sh ops/qwen38-bringup/serve.sh              # UD-Q4_K_XL @256k, draft-mtp-n3, q4_0 KV
+# equivalent llama-server line:
+#   -c 262144 -ngl 999 -fa 1 --no-mmproj --cache-type-k q4_0 --cache-type-v q4_0 \
+#   --spec-type draft-mtp --spec-draft-n-max 3 -np 1 --ctx-checkpoints 32 --jinja
 ```
+**Validated:** boots @256k, health OK, coding request **80.4 t/s decode** (MTP active), VRAM
+**24193/24576 MiB (98.4%)** — fits, stable for `-np 1` (KV preallocated = steady peak). Tight, so
+`CTX=131072` (~22GB) is the saner everyday default (and the model's effective multi-fact retrieval
+degrades before 256k anyway); 256k is there when needed.
+
+**Per-request (agent loop):** `chat_template_kwargs={"enable_thinking":false}` (model defaults to
+thinking), `reasoning_effort:"medium"` for steps; code sampling temp 0.7 / top_p 0.8 / top_k 20 /
+min_p 0 (consider presence_penalty 0–0.5). Keep system prompt + tool schemas byte-stable for reuse.
 
 ---
 
