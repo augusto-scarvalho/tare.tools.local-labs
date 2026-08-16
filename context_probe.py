@@ -15,6 +15,9 @@ import json, subprocess, sys, time, urllib.request
 MODELS = {"moe": "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
           "dense": "/home/augus/models/qwen36-27b-mtp/Qwen3.6-27B-Q4_K_M.gguf",
           # LAB-CTX-001 (2026-08-16): Qwen3.8-27B dense GDN-hybrid; dense placement (-ngl 99).
+          # WARNING: this harness uses the /completion (raw-prompt) endpoint, which UNDER-MEASURES
+          # instruct/thinking models — Qwen3.8 scored NIAH 0% @16k+ here but 100% @131k via the CHAT
+          # endpoint. For Qwen3.8 use ops/qwen38-bringup/ctx_curve.sh (chat, enable_thinking:false).
           "qwen38": "/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf"}
 BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
 MK, NC, KV, CTX = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4])

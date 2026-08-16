@@ -132,6 +132,14 @@ UD-Q4_K_XL, full 164, temp 0, enable_thinking:false: **HumanEval base pass@1 = 0
 pass@1 = 0.890**, 164/164 fenced (zero format failures), decode ~92 t/s. Qwen3.8-27B at 4-bit is a
 strong coder — the payoff of the bring-up.
 
+## LAB-CTX-001 — effective-context curve  ✅ 2026-08-16
+`bash ops/qwen38-bringup/ctx_curve.sh` (chat endpoint, enable_thinking:false, distinctive needle).
+**Single-needle NIAH = 100% through 131k** (matches the 166k deep-probe) — the model does not lose a
+lone needle at depth. Decode degrades ~33% (45→30 t/s, 8k→131k; no-MTP baseline, deploy MTP ~2×).
+Reconciles with Phase 3: single needle survives deep; MULTI-needle (32–48 near-identical) collapses at
+~168k (interference). NB `context_probe.py` (the shared /completion harness) FALSE-collapses at 16k on
+this instruct model — a raw-endpoint artifact; use ctx_curve.sh for Qwen3.8.
+
 ## Custom quantization: NO-GO now (see decision below)
 Community UD-imatrix quants already exist and calibrate on code; 4-bit knee ≈ 94% of FP with Q5
 marginal; 64GB RAM makes the BF16 (54.7GB) workflow feasible-but-tight. Flip to GO only if a
