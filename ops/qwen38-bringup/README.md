@@ -45,13 +45,16 @@ huggingface-cli download unsloth/Qwen3.8-27B-GGUF \
 Also grab a fallback MTP-only draft in case the main GGUF lacks the head (see Phase 1):
 `a4lg/Qwen3.8-27B-MTP-ONLY-GGUF` (Q4_K_M / Q5_K_M — NOT Q8, too big for our budget).
 
-## Phase 1 — MTP tensors present?  (gate: MTP head found, else graft draft)
+## Phase 1 — MTP tensors present?  ✅ RESOLVED 2026-08-16: PRESENT in all 3 quants
 ```bash
-bash ops/qwen38-bringup/mtp_tensor_check.sh
+bash ops/wsl/wslx.sh ops/qwen38-bringup/mtp_tensor_check.sh                       # default = UD-Q4_K_XL
+bash ops/wsl/wslx.sh ops/qwen38-bringup/mtp_tensor_check.sh -- MODEL=<other.gguf> # any file
 ```
-Community reports CONFLICT on whether Unsloth's GGUF ships the MTP tensors. If absent, use the
-a4lg MTP-only GGUF via `--model-draft` (or graft per their README). MTP is our +33–70% decode
-lever — do not skip this check.
+**Result:** UD-Q4_K_XL, IQ4_XS, and bartowski Q4_K_M ALL carry the MTP head — the `nextn` layer at
+`blk.64.nextn.{eh_proj,enorm,hnorm,shared_head_norm}.weight` (866 tensors, arch `qwen35`,
+`nextn_predict_layers=1`). So `--spec-type draft-mtp` runs on the single GGUF; the a4lg MTP-only graft
+is NOT needed. (Gotcha found here: the base/login python3 has no numpy → the reader false-negatives;
+the gate now auto-discovers `/home/augus/sglang-venv/bin/python3`, which has numpy+gguf.)
 
 ## Phase 2 — prefix reuse actually works?  (gate: "restored context checkpoint" in log)  ← CRITICAL
 This is the single biggest agentic-latency lever AND the biggest risk. Hybrid (recurrent) models
@@ -109,7 +112,7 @@ marginal; 64GB RAM makes the BF16 (54.7GB) workflow feasible-but-tight. Flip to 
 trigger fires — full triggers + recipe in `ops/qwen38-bringup/CUSTOM_QUANT_DECISION.md`.
 
 ## Open items to verify (honest register)
-- MTP tensors in Unsloth GGUF (Phase 1 resolves).
+- ~~MTP tensors in Unsloth GGUF~~ ✅ RESOLVED 2026-08-16: PRESENT in all 3 quants (UD-Q4_K_XL, IQ4_XS, bartowski Q4_K_M).
 - #24055 checkpoint regression scope on the pinned build (Phase 2 resolves).
 - q4_0-lossless holds on the DENSE 27B, not just the 35B MoE (Phase 3 resolves).
 - Quant-quality numbers borrowed from Qwen3.6-27B studies (assumed transfer).

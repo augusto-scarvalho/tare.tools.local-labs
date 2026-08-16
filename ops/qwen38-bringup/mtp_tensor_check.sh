@@ -2,51 +2,68 @@
 # mtp_tensor_check.sh — Phase 1 gate: does this GGUF carry the MTP draft head?
 #
 # WHY: MTP spec-decode (`--spec-type draft-mtp`) is our +33-70% decode lever, but community reports
-# CONFLICT on whether Unsloth's Qwen3.8-27B GGUF ships the MTP tensors (some quants may strip them).
-# A merged/finetuned variant can also drop them. This is a 5-second check; do it before relying on MTP.
+# CONFLICT on whether Qwen3.8-27B GGUFs ship the MTP tensors. A 5-second check settles it per-file.
 #
-# PASS: MTP/nextn/mtp tensors listed -> use --spec-type draft-mtp on the single GGUF.
-# FAIL: none found -> download a4lg/Qwen3.8-27B-MTP-ONLY-GGUF (Q4_K_M or Q5_K_M; NOT Q8, too big) and
-#       pass it as --model-draft <mtp.gguf> --spec-type draft-mtp, OR graft per their README.
+# In these GGUFs the MTP head is the `nextn` layer: tensors `blk.<N>.nextn.{eh_proj,enorm,hnorm,
+# shared_head_norm}.weight` at block N = block_count-1, plus metadata `*.nextn_predict_layers`.
 #
-# Usage: MODEL=/home/augus/models/qwen38-27b/Qwen3.8-27B-UD-Q4_K_XL.gguf bash ops/qwen38-bringup/mtp_tensor_check.sh
+# NOTE (learned the hard way): the base/login python3 has NO numpy, so the gguf reader silently fails
+# and a naive check FALSE-NEGATIVES. This script AUTO-DISCOVERS a python that has numpy+gguf (scans
+# known venvs) before falling back. Confirmed working reader: /home/augus/sglang-venv/bin/python3.
+#
+# PASS: nextn tensors present -> use --spec-type draft-mtp on the single GGUF.
+# FAIL: none found -> a4lg/Qwen3.8-27B-MTP-ONLY-GGUF via --model-draft, or graft per their README.
+#
+# Usage: MODEL=/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf bash ops/qwen38-bringup/mtp_tensor_check.sh
 set -u
 LLAMA=${LLAMA:-/home/augus/src/llama.cpp-master}
-MODEL=${MODEL:-/home/augus/models/qwen38-27b/Qwen3.8-27B-UD-Q4_K_XL.gguf}
+MODEL=${MODEL:-/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf}
+
+# --- find a python3 that can import BOTH numpy and gguf ---
+find_py() {
+  for py in /home/augus/sglang-venv/bin/python3 \
+            /home/augus/miniforge3/envs/*/bin/python3 \
+            /home/augus/*venv*/bin/python3 \
+            python3; do
+    [ -x "$(command -v "$py" 2>/dev/null || echo "$py")" ] 2>/dev/null || continue
+    if PYTHONPATH="$LLAMA/gguf-py" "$py" -c "import numpy, gguf" >/dev/null 2>&1; then
+      echo "$py"; return 0
+    fi
+  done
+  return 1
+}
 
 echo "== inspecting: $MODEL =="
-
-# Prefer the python gguf reader (ships with llama.cpp); fall back to the C++ dumper.
-if python3 - "$MODEL" <<'PY' 2>/dev/null
+PY="$(find_py)" || PY=""
+if [ -n "$PY" ]; then
+  echo "(reader: $PY)"
+  PYTHONPATH="$LLAMA/gguf-py" "$PY" - "$MODEL" <<'PY'
 import sys
-try:
-    from gguf import GGUFReader
-except Exception:
-    sys.exit(2)
-r = GGUFReader(sys.argv[1])
-names = [t.name for t in r.tensors]
-mtp = [n for n in names if any(k in n.lower() for k in ("mtp", "nextn", "next_n", "draft", "eh_proj", "shared_head"))]
-# also surface the KV-metadata hint some converters set
-meta = {k: str(v) for k, v in r.fields.items() if any(s in k.lower() for s in ("mtp","nextn","predict"))}
-print(f"total tensors: {len(names)}")
-print(f"MTP-ish tensors ({len(mtp)}):")
-for n in mtp[:40]:
-    print("   ", n)
-if meta:
-    print("MTP-ish metadata:", meta)
-sys.exit(0 if mtp else 1)
+from gguf import GGUFReader
+r=GGUFReader(sys.argv[1])
+names=[t.name for t in r.tensors]
+keys=("nextn","mtp","next_n","eh_proj","shared_head")
+hit=sorted(n for n in names if any(k in n.lower() for k in keys))
+print(f"  total tensors: {len(names)}   MTP-ish: {len(hit)}")
+for n in hit[:40]: print("     ", n)
+for k in r.fields:
+    if "nextn" in k.lower() or "mtp" in k.lower():
+        print(f"  META {k} present")
+sys.exit(0 if hit else 1)
 PY
-then
-  echo ">> PASS: MTP tensors present -> --spec-type draft-mtp on this GGUF."
-else
   rc=$?
-  if [ "$rc" = 2 ]; then
-    echo "(python gguf reader unavailable; falling back to llama-gguf dumper)"
-    "$LLAMA/build/bin/llama-gguf" "$MODEL" r 2>/dev/null | grep -iE "mtp|nextn|next_n|draft|eh_proj|shared_head" \
-      && echo ">> PASS (via dumper)" \
-      || echo ">> FAIL: no MTP tensors found -> use a4lg MTP-ONLY GGUF as --model-draft."
+else
+  echo "(no python with numpy+gguf found; falling back to llama-gguf binary)"
+  GB="$LLAMA/build/bin/llama-gguf"
+  if [ -x "$GB" ]; then
+    "$GB" "$MODEL" r 2>/dev/null | grep -iE "nextn|mtp|eh_proj|shared_head" && rc=0 || rc=1
   else
-    echo ">> FAIL: no MTP tensors in this GGUF -> download a4lg/Qwen3.8-27B-MTP-ONLY-GGUF"
-    echo "         and run with --model-draft <mtp.gguf> --spec-type draft-mtp."
+    echo "  !! no reader available (install numpy+gguf, or build llama-gguf). Cannot verify."; rc=2
   fi
 fi
+
+case "${rc:-2}" in
+  0) echo ">> PASS: MTP (nextn) head present -> --spec-type draft-mtp on this GGUF." ;;
+  1) echo ">> FAIL: no MTP tensors -> use a4lg/Qwen3.8-27B-MTP-ONLY-GGUF as --model-draft." ;;
+  *) echo ">> UNKNOWN: reader unavailable; do not assume either way." ;;
+esac

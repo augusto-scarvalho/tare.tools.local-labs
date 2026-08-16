@@ -12,7 +12,7 @@ NEO/Brainstorm merge family. (See memory `tc-humaneval-harness-bug` — our ~93%
 
 | # | Variant | What / verdict | MTP |
 |---|---|---|---|
-| 1 | **Base Qwen3.8-27B** — Unsloth UD-Q4_K_XL **or bartowski imatrix** | **USE THIS.** 3.8 *is* the coding/agentic upgrade (+15.1% Terminal-Bench vs 3.6, better nested tool-call parsing, developer-role). bartowski's imatrix calibrates on tool-calling+reasoning convos → best-matched community quant; A/B it vs Unsloth. | gguf-dump to confirm (reports conflict) |
+| 1 | **Base Qwen3.8-27B** — Unsloth UD-Q4_K_XL **or bartowski imatrix** | **USE THIS.** 3.8 *is* the coding/agentic upgrade (+15.1% Terminal-Bench vs 3.6, better nested tool-call parsing, developer-role). bartowski's imatrix calibrates on tool-calling+reasoning convos → best-matched community quant; A/B it vs Unsloth. | **CONFIRMED present** (nextn @ blk.64) in UD-Q4_K_XL, IQ4_XS, bartowski Q4_K_M — 2026-08-16 |
 | 2 | JonathanColetti/Qwen3.8-27B-Uncensored-GGUF | Heretic refusal-removal, cap cost ~−0.5pt (no code bench). **Only if refusals actually block the agent** (security/exploit-adjacent code). Else pure tail-risk. | **Retained + verified** (inspection script; noMTP variants labeled) |
 | 3 | bottlecapai/ThinkingCap — **3.6 only** | Halves thinking tokens at ~same accuracy. **Wrong base** — swapping loses 3.8's +15.1%, and 3.8's `reasoning_effort=medium/low` kwarg is a native tune-free lever for the same goal. **Not for deploy; #1 watch item.** | Retained (bf16 in FP8 build) |
 | 4 | DavidAU NEO-CODE / Heretic / Fable-Fusion | Pipeline active on 3.6 (some repos carry an explicit `-MTP-` tag) but **nothing for 3.8 yet.** Watch. | Tracks MTP in 3.6 naming |

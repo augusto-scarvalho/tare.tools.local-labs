@@ -21,7 +21,7 @@
 set -u
 LLAMA=${LLAMA:-/home/augus/src/llama.cpp-master}
 BIN="$LLAMA/build/bin/llama-server"
-MODEL=${MODEL:-/home/augus/models/qwen38-27b/Qwen3.8-27B-UD-Q4_K_XL.gguf}
+MODEL=${MODEL:-/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf}
 PORT=${PORT:-8080}
 export CUDA_VISIBLE_DEVICES=0
 

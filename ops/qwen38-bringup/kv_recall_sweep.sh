@@ -18,7 +18,7 @@
 set -u
 LLAMA=${LLAMA:-/home/augus/src/llama.cpp-master}
 BIN="$LLAMA/build/bin/llama-server"
-MODEL=${MODEL:-/home/augus/models/qwen38-27b/Qwen3.8-27B-UD-Q4_K_XL.gguf}
+MODEL=${MODEL:-/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf}
 PORT=${PORT:-8080}
 DEPTH=${DEPTH:-131072}        # target context depth in tokens (start 131072; repeat at 262144)
 NEEDLES=${NEEDLES:-24}        # needles spread evenly across depth
