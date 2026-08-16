@@ -86,14 +86,21 @@ bash ops/qwen38-bringup/kv_recall_sweep.sh
 Decide: if q4_0 recall == f16 recall at your target depth → ship q4_0/q4_0 @256k. If it degrades
 on the dense variant → step up to q8_0/q8_0 and, if needed, drop to 128k.
 
-## Phase 4 — MTP throughput on OUR traces  (gate: draft-mtp beats no-spec floor)
-Reuse the standing gate, just point it at qwen38:
+## Phase 4 — MTP throughput  ✅ RESOLVED 2026-08-16: draft-mtp ~2.1x, n-max 3 wins
 ```bash
-MODEL=/home/augus/models/qwen38-27b/Qwen3.8-27B-UD-Q4_K_XL.gguf \
-  bash ops/spec-drafter-bench.sh
+bash ops/wsl/wslx.sh ops/qwen38-bringup/mtp_throughput.sh    # dense analogue of spec-drafter-bench (no ncmoe)
 ```
-Escalate `--spec-draft-n-max` 2→3 (+ `--spec-draft-p-min 0.6`) only if measured acceptance on real
-agent traces supports it. Record numbers in that script's header for qwen38.
+**Result** (UD-Q4_K_XL, 3090, 5 reps, temp 0, enable_thinking:false):
+
+| regime | no-spec | draft-mtp n2 | draft-mtp n3 |
+|---|---|---|---|
+| GEN  | 39.5 t/s | 76.6 (+94%)  | **83.6 (+112%)** |
+| EDIT | 39.4 t/s | 83.3 (+111%) | **88.0 (+123%)** |
+
+**WINNER: `--spec-type draft-mtp --spec-draft-n-max 3`** — ~2.1–2.2× on code, far exceeding the +33%
+public reference (nextn head has high acceptance on deterministic code). n3 > n2 clearly; n2→n3 is a
+free win here. (The MoE-flavored `ops/spec-drafter-bench.sh` is the deploy-model gate; this dense one
+supersedes it for Qwen3.8.)
 
 ## Phase 5 — freeze the launch config
 Bake the Phase-3 KV choice and Phase-1 MTP path into the launch line. Candidate (pending Phases):
