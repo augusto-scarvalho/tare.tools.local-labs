@@ -6,6 +6,12 @@
 # this script GENERATES and records, never executes model code. draft-mtp is EXACT at temp 0 (quality-
 # neutral, just faster). Scoring uses the dedicated /home/augus/evalplus-venv (where evalplus lives).
 #
+# RESULT 2026-08-16 (UD-Q4_K_XL, full 164, temp 0, enable_thinking:false, draft-mtp-n3):
+#     HumanEval  base  pass@1 = 0.933 (93.3%)
+#     HumanEval+ (base+extra) pass@1 = 0.890 (89.0%)
+#     format: 164/164 fenced (zero format failures); decode median ~92 t/s.
+#   => Qwen3.8-27B at 4-bit is a STRONG coder. (draft-mtp is exact at temp 0 -> speed only, not quality.)
+#
 # Usage: MODEL=<gguf> SUBSET=164 bash ops/qwen38-bringup/code_eval.sh   (via ops/wsl/wslx.sh)
 set -u
 LLAMA=/home/augus/src/llama.cpp-master

@@ -126,6 +126,12 @@ min_p 0 (consider presence_penalty 0–0.5). Keep system prompt + tool schemas b
 
 ---
 
+## LAB-CODE-001 — coding quality  ✅ 2026-08-16: strong
+`bash ops/qwen38-bringup/code_eval.sh` (HumanEval+ via serve endpoint, real evalplus scoring).
+UD-Q4_K_XL, full 164, temp 0, enable_thinking:false: **HumanEval base pass@1 = 0.933**, **HumanEval+
+pass@1 = 0.890**, 164/164 fenced (zero format failures), decode ~92 t/s. Qwen3.8-27B at 4-bit is a
+strong coder — the payoff of the bring-up.
+
 ## Custom quantization: NO-GO now (see decision below)
 Community UD-imatrix quants already exist and calibrate on code; 4-bit knee ≈ 94% of FP with Q5
 marginal; 64GB RAM makes the BF16 (54.7GB) workflow feasible-but-tight. Flip to GO only if a
