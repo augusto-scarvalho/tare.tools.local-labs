@@ -47,7 +47,19 @@ wsl -d Ubuntu-24.04 -- bash -lc 'tail -f ~/.cache/wslx/pull_models.log'
 Flags: `--detached`, `--log <wsl_path>`, `--distro <name>` (default `Ubuntu-24.04`), `-- ARGS...`.
 Accepts Windows (`C:\..`), Git Bash (`/c/..`), `/mnt/c/..`, or WSL (`/home/..`) script paths.
 
-**Detached-job convention:** end your script with an `echo "=== DONE $(date -u) ==="` marker, then
+**Long detached jobs — use the harness, not `--detached`.** `wslx --detached` uses `setsid` inside a
+transient `wsl` call; that call exits immediately, and there is a race that can kill the job before it
+writes anything (observed: empty log, no process). `--detached` now adds `disown` + a 3s settle to
+mitigate, but the ROBUST pattern for a multi-minute job is to stage once, then launch by LITERAL PATH
+(no `$`) through the harness's own background runner, which keeps `wsl.exe` alive for the whole run and
+notifies on completion:
+```bash
+bash ops/wsl/wslx.sh path/to/job.sh --detached   # only to STAGE (ignore the detached launch)
+# then run the staged copy via Bash run_in_background (literal path, zero $):
+wsl -d Ubuntu-24.04 -- bash -lc 'bash /home/augus/.cache/wslx/job.sh > /home/augus/.cache/wslx/job.log 2>&1'
+```
+
+**Short detached convention:** end your script with an `echo "=== DONE $(date -u) ==="` marker, then
 watch completion with a `$`-free Monitor:
 ```
 wsl -d Ubuntu-24.04 -- bash -lc 'while true; do grep -q "=== DONE" ~/.cache/wslx/<name>.log && { echo FINISHED; break; }; sleep 30; done'

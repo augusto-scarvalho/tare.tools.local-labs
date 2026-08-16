@@ -13,7 +13,9 @@ temp=0 (deterministic). One server launch per (model,kv); loops L x d against it
 import json, subprocess, sys, time, urllib.request
 
 MODELS = {"moe": "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
-          "dense": "/home/augus/models/qwen36-27b-mtp/Qwen3.6-27B-Q4_K_M.gguf"}
+          "dense": "/home/augus/models/qwen36-27b-mtp/Qwen3.6-27B-Q4_K_M.gguf",
+          # LAB-CTX-001 (2026-08-16): Qwen3.8-27B dense GDN-hybrid; dense placement (-ngl 99).
+          "qwen38": "/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf"}
 BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
 MK, NC, KV, CTX = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4])
 LS = [int(x) for x in sys.argv[5:]] or [8000, 32000, 65000, 131000]

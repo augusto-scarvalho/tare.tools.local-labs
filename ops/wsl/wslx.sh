@@ -75,7 +75,11 @@ wsl -d "$DISTRO" -- bash -lc "mkdir -p \$HOME/.cache/wslx && tr -d '\r' < '$SRC_
 
 if [ "$DETACHED" = 1 ]; then
   # $!/$? don't survive the Git Bash -> wsl.exe boundary, so we don't rely on them.
-  wsl -d "$DISTRO" -- bash -lc "setsid bash -lc '${ENVSTR}bash $DEST$ARGSTR' </dev/null > $LOG 2>&1 & echo 'wslx: detached'"
+  # disown + a short settle sleep let setsid fully reparent BEFORE this transient wsl exits — without
+  # it there is a race that can kill the job instantly (observed: empty log, no process).
+  # For LONG jobs prefer the harness run_in_background with a literal-path wsl command (keeps wsl.exe
+  # alive the whole run + notifies on completion) — see ops/wsl/README.md "Long detached jobs".
+  wsl -d "$DISTRO" -- bash -lc "setsid bash -lc '${ENVSTR}bash $DEST$ARGSTR' </dev/null > $LOG 2>&1 & disown; sleep 3; echo 'wslx: detached'"
   echo "wslx: log  -> $LOG   (in $DISTRO)"
   echo "wslx: tail -> wsl -d $DISTRO -- bash -lc 'tail -f $LOG'"
   echo "wslx: done -> wsl -d $DISTRO -- bash -lc 'grep -q \"=== DONE\" $LOG && echo FINISHED'   (add a DONE marker in your script)"
