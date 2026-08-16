@@ -77,14 +77,19 @@ session-id, attribution header, reordered tool schemas) kills the prefix. Keep t
 tool schemas byte-stable; put volatile content at the END. (Documented real case: Claude Code's
 attribution header broke caching; fix `CLAUDE_CODE_ATTRIBUTION_HEADER=0`.)
 
-## Phase 3 — KV-quant recall at long context  (gate: pick smallest KV that holds recall)
-Confirm on the DENSE 27B that q4_0/q4_0 is still lossless (our gate proved it on the 35B MoE).
+## Phase 3 — KV-quant recall at long context  ✅ RESOLVED 2026-08-16: q4_0 lossless → SHIP q4_0/q4_0
 Symmetric arms only (asymmetric falls off GPU — see prior-work #1).
 ```bash
-bash ops/qwen38-bringup/kv_recall_sweep.sh
+bash ops/wsl/wslx.sh ops/qwen38-bringup/kv_recall_sweep.sh -- DEPTH=65536 NEEDLES=32
 ```
-Decide: if q4_0 recall == f16 recall at your target depth → ship q4_0/q4_0 @256k. If it degrades
-on the dense variant → step up to q8_0/q8_0 and, if needed, drop to 128k.
+**Result:** at real depth 41,165 tok / 32 needles, **f16 == q8_0 == q4_0 == 100%** → q4_0/q4_0 is
+**lossless** on the dense 27B (matches the 35B-MoE result in `ops/kv-quant-bench.sh`: QK-Norm kills the
+outliers, so q4 KV is lossless on GDN hybrids). VRAM aside: q8_0 KV at real ~168k needed ~23.9/24GB
+(borderline); q4_0 is half → another reason to ship q4. **Ship `--cache-type-k q4_0 --cache-type-v q4_0`.**
+
+*Off-topic observation (not a KV effect):* at real ~168k with 32–48 near-identical needles, recall
+collapses for ALL KV types (multi-needle interference); a SINGLE needle at 166k retrieves fine. That's
+a model long-context/interference property (forgetting-regime research), out of scope for the KV choice.
 
 ## Phase 4 — MTP throughput  ✅ RESOLVED 2026-08-16: draft-mtp ~2.1x, n-max 3 wins
 ```bash
