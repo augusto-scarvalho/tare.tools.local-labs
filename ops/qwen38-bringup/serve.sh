@@ -10,8 +10,10 @@
 #   * --jinja             : REQUIRED for tool-calling; without it tool-call parsing breaks.
 #   * --no-mmproj         : vision not needed for code; saves VRAM.
 #   * instruct/agent loop : send chat_template_kwargs {enable_thinking:false} per-request (model defaults
-#                           to thinking); reasoning_effort "medium" for agent steps. Sampling for code:
-#                           temp 0.7 top_p 0.8 top_k 20 min_p 0; consider presence_penalty 0-0.5.
+#                           to thinking). For CODING, measured best -> WORST is instruct > low > med >>
+#                           xhigh; the DEFAULT xhigh runs away and truncates (ab60_vs_frota.sh). So use
+#                           enable_thinking:false (or reasoning_effort "low"), NEVER xhigh, for code.
+#                           Sampling for code: temp 0.7 top_p 0.8 top_k 20 min_p 0; consider presence_penalty 0-0.5.
 #
 # CLIENT HYGIENE for prefix reuse: keep the system prompt + tool schemas byte-stable; put volatile
 # content (timestamps, session ids) at the END of the prompt, or every turn re-prefills.

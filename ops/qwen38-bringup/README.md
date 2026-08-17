@@ -132,6 +132,23 @@ UD-Q4_K_XL, full 164, temp 0, enable_thinking:false: **HumanEval base pass@1 = 0
 pass@1 = 0.890**, 164/164 fenced (zero format failures), decode ~92 t/s. Qwen3.8-27B at 4-bit is a
 strong coder — the payoff of the bring-up.
 
+## Qwen3.8 vs frota on the EXACT market-r0 n=60  ✅ 2026-08-16 (`ab60_vs_frota.sh`)
+Same 60 HumanEval+ problems ThinkingCap/fable were scored on; MTP off, temp 0; effort swept.
+
+| arm | HumanEval+ | trunc@6144 |     | reference (same 60) | HumanEval+ |
+|---|---|---|---|---|---|
+| Qwen3.8 **instruct** | **95.0%** | 0/60 | | ThinkingCap-3.6 | 93.3% |
+| Qwen3.8 **think-low** | **93.3%** | 0/60 | | fable-tc-l1.0 | 88.3% |
+| Qwen3.8 think-med | 88.3% | 0/60 | | fable-fusion-711 | 40.0% |
+| Qwen3.8 think-xhigh (default) | 45.0% | 31/60 | | | |
+
+**Qwen3.8 instruct (95.0%, zero thinking tokens) BEATS ThinkingCap-3.6 (93.3%)**; think-low ties it.
+Counter-intuitive: MORE thinking = WORSE on code (instruct>low>med). The DEFAULT **xhigh is a trap** —
+runaway thinking truncates half the problems at a 6144 cap (that 45% is truncation-deflated, but the
+verdict holds: xhigh is impractically verbose for code). **Deploy coding: instruct or
+`reasoning_effort=low`, NEVER xhigh.** (Answers the thinking-budget question: the correct budget for
+Qwen3.8 coding is *minimal*.)
+
 ## LAB-CTX-001 — effective-context curve  ✅ 2026-08-16
 `bash ops/qwen38-bringup/ctx_curve.sh` (chat endpoint, enable_thinking:false, distinctive needle).
 **Single-needle NIAH = 100% through 131k** (matches the 166k deep-probe) — the model does not lose a
