@@ -132,6 +132,19 @@ UD-Q4_K_XL, full 164, temp 0, enable_thinking:false: **HumanEval base pass@1 = 0
 pass@1 = 0.890**, 164/164 fenced (zero format failures), decode ~92 t/s. Qwen3.8-27B at 4-bit is a
 strong coder — the payoff of the bring-up.
 
+## Thinking budget — what the community uses (researched 2026-08-16)
+The `xhigh` default is widely flagged as broken-verbose; the loud consensus is **run low or no reasoning**.
+- Simon Willison (simonwillison.net/2026/Aug/16/qwen-38-27b): default xhigh spent **22,276 reasoning
+  tokens / 21 min** on one prompt vs **3,715 tokens / 137s** with reasoning OFF. His advice: "ignore that
+  default. Run Qwen3.8-27B on low or even no reasoning levels at first." Some reasoning helped one complex
+  tool-building task.
+- **Two knobs.** `reasoning_effort` (soft: low/med/xhigh — what we swept) AND `thinking_budget` (HARD numeric
+  cap that forces `</think>` after N tokens — Qwen3 docs; vLLM exposes it; **our llama.cpp v10159 does NOT**,
+  so it needs client-side emulation). Qwen publishes no recommended values (doc example uses 512).
+- This EXPLAINS our xhigh=45%: xhigh wants ~20k+ thinking tokens, our 6144 cap truncated 31/60. Natural
+  xhigh is ~9h/60 = infeasible; a hard budget is the only practical way to run it. Our instruct-95%/low-93.3%
+  matches the community "low or none" for code.
+
 ## Qwen3.8 vs frota on the EXACT market-r0 n=60  ✅ 2026-08-16 (`ab60_vs_frota.sh`)
 Same 60 HumanEval+ problems ThinkingCap/fable were scored on; MTP off, temp 0; effort swept.
 
