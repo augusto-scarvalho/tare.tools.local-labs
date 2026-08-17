@@ -17,10 +17,13 @@ PROBLEMS="$REPO/workloads/humaneval_plus.jsonl"
 SUBSET=/tmp/subset60.txt
 OUT=/home/augus/models/qwen38-27b/budget; mkdir -p "$OUT"
 BUDGETS=${BUDGETS:-"512 1024 2048"}; SUBSET_N=${SUBSET_N:-60}
+# ctx MUST exceed prompt + max(BUDGETS) + answer(768). At budget>=8192 the default 8192 overflows
+# (server 400: "request exceeds the available context size") -> pass CTX=16384 for the 8192 arm.
+CTX=${CTX:-8192}
 PORT=8080; export CUDA_VISIBLE_DEVICES=0
 
-echo "== boot Qwen3.8 (draft-mtp, ctx 8192) =="
-"$BIN" -m "$MODEL" -c 8192 -ngl 999 -fa 1 --no-mmproj --cache-type-k q4_0 --cache-type-v q4_0 \
+echo "== boot Qwen3.8 (draft-mtp, ctx $CTX) =="
+"$BIN" -m "$MODEL" -c "$CTX" -ngl 999 -fa 1 --no-mmproj --cache-type-k q4_0 --cache-type-v q4_0 \
   --spec-type draft-mtp --spec-draft-n-max 3 -np 1 --jinja --host 127.0.0.1 --port "$PORT" \
   </dev/null >/tmp/budget_server.log 2>&1 &
 PID=$!; trap 'kill "$PID" 2>/dev/null; wait "$PID" 2>/dev/null' EXIT
@@ -49,10 +52,14 @@ def extract_code(t):
     return b.strip()
 def comp(prompt,n):
     body={"prompt":prompt,"n_predict":n,"temperature":0.0,"top_k":1,"cache_prompt":True,"stream":False}
-    d=json.loads(urllib.request.urlopen(urllib.request.Request(
-       f"http://127.0.0.1:{port}/completion",data=json.dumps(body).encode(),
-       headers={"Content-Type":"application/json"}),timeout=600).read())
-    return d.get("content","")
+    try:
+        d=json.loads(urllib.request.urlopen(urllib.request.Request(
+           f"http://127.0.0.1:{port}/completion",data=json.dumps(body).encode(),
+           headers={"Content-Type":"application/json"}),timeout=600).read())
+        return d.get("content","")
+    except Exception as e:                     # one bad request must not nuke the whole run
+        print(f"  WARN comp failed (n_predict={n}): {e}", flush=True)
+        return ""
 prompts={json.loads(l)["task_id"]:json.loads(l)["prompt"] for l in open(problems_f)}
 ids=[x.strip() for x in open(subset_f) if x.strip()][:subn]
 for B in budgets:
