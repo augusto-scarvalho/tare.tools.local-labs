@@ -28,9 +28,10 @@ BIN="$LLAMA/build/bin/llama-server"
 MODEL=${MODEL:-/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf}
 PORT=8100; export CUDA_VISIBLE_DEVICES=0
 LS=${LS:-"8000 16000 32000 65000 131000"}
+CTX=${CTX:-140000}
 
-echo "== boot server (chat, q4_0 KV, ctx 140k) =="
-"$BIN" -m "$MODEL" -c 140000 -ngl 999 -fa 1 --no-mmproj --cache-type-k q4_0 --cache-type-v q4_0 \
+echo "== boot server (chat, q4_0 KV, ctx $CTX) =="
+"$BIN" -m "$MODEL" -c "$CTX" -ngl 999 -fa 1 --no-mmproj --cache-type-k q4_0 --cache-type-v q4_0 \
   --jinja -np 1 --host 127.0.0.1 --port "$PORT" </dev/null >/tmp/ctx_curve_server.log 2>&1 &
 PID=$!; trap 'kill "$PID" 2>/dev/null; wait "$PID" 2>/dev/null' EXIT
 for i in $(seq 1 200); do curl -sf "http://127.0.0.1:$PORT/health" >/dev/null 2>&1 && break; sleep 2; done

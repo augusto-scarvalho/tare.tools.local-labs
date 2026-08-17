@@ -81,9 +81,32 @@ deploy target, freeing ~7GB VRAM vs the 16.7G Q4_K_XL with no measurable quality
 2. **Thinking is off.** instruct beats thinking on every benchmark; deploy `enable_thinking:false`.
 3. Freed VRAM (~7GB) is available for context — tested next in Stage 3.
 
-## Stage 3 — Long-context — PENDING
-Needle/recall vs ctx per surviving quant; does the smaller quant hold retrieval further, and does its VRAM
-headroom buy usable context.
+## Stage 3 — Long-context retrieval — COMPLETE (the one axis where quant DOES matter)
+
+Single-needle NIAH via chat endpoint (`ctx_curve.sh`, instruct, q4_0 KV, no-MTP), depths d=0.25/0.75.
+
+| Quant | 8k | 16k | 32k | 65k | 131k |
+|---|---|---|---|---|---|
+| q4kxl (16.7G) | 100% | 100% | **100%** | **100%** | (base: 100% d=.25) |
+| q2kxl (9.9G) | — | — | **100%** | **100%** | — |
+| iq2m (9.6G) | 100% | 100% | **50%** | **50%** | **50%** |
+
+**Finding: IQ2_M breaks deep long-context retrieval.** From 32k up, IQ2_M reliably finds the shallow needle
+(d=0.25) but MISSES the deep one (d=0.75) — a systematic, reproducible positional failure at every length
+≥32k. The base q4kxl and **q2kxl both retrieve 100% (both depths) at the same 32k/65k points** with the
+identical needle/harness (foreground control, ctx 70k) — so this is a genuine quant effect, not a harness
+artifact. Code (Stage 1) and hard math (Stage 2) never exposed it; **long-context deep retrieval is the
+only axis where aggressive quantization costs.** The transition is precisely q2kxl→iq2m (the aggressive IQ2
+scheme, not the ~0.3G size gap).
+
+## CAMPAIGN CONCLUSION
+
+**Q2_K_XL (9.9G) is the sweet spot.** It is the smallest quant with NO measurable loss on ANY axis —
+code (0.896 = ties base), hard math (90% = ties base), and long-context deep retrieval (100% = ties base) —
+while freeing ~7GB VRAM vs the 16.7G Q4_K_XL. Go one rung smaller to IQ2_M (9.6G) and you save only 0.3G
+more but lose deep long-context retrieval; not worth it. Deploy **Q2_K_XL, instruct (enable_thinking:false)**.
+Recommend updating serve.sh default MODEL to Q2_K_XL for the VRAM headroom (verify draft-mtp accept-rate
+holds — MTP tensors present/PASS).
 
 ## Ops notes
 - **WSL bg reaper:** long multi-quant/multi-arm background jobs get externally killed (observed 2×, always
