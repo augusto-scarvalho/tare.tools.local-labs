@@ -150,12 +150,12 @@ Same 60 HumanEval+ problems ThinkingCap/fable were scored on; MTP off, temp 0; e
 
 | arm | HumanEval+ | trunc@6144 |     | reference (same 60) | HumanEval+ |
 |---|---|---|---|---|---|
-| Qwen3.8 **instruct** | **95.0%** | 0/60 | | ThinkingCap-3.6 | 93.3% |
-| Qwen3.8 **think-low** | **93.3%** | 0/60 | | fable-tc-l1.0 | 88.3% |
-| Qwen3.8 think-med | 88.3% | 0/60 | | fable-fusion-711 | 40.0% |
+| Qwen3.8 **instruct** | **95.0%** | 0/60 | | ThinkingCap-3.6 (BottleCapAI tune) | 93.3% |
+| Qwen3.8 **think-low** | **93.3%** | 0/60 | | fable-tc-l1.0 (Author merge: Fable + TC) | 88.3% |
+| Qwen3.8 think-med | 88.3% | 0/60 | | fable-fusion-711 (DavidAU merge) | 40.0% |
 | Qwen3.8 think-xhigh (default) | 45.0% | 31/60 | | | |
 
-**Qwen3.8 instruct (95.0%, zero thinking tokens) BEATS ThinkingCap-3.6 (93.3%)**; think-low ties it.
+**Qwen3.8 instruct (95.0%, zero thinking tokens) BEATS ThinkingCap-3.6 (93.3%) and Fable-TC (88.3%)**; think-low ties ThinkingCap.
 Counter-intuitive: MORE thinking = WORSE on code (instruct>low>med). The DEFAULT **xhigh is a trap** —
 runaway thinking truncates half the problems at a 6144 cap (that 45% is truncation-deflated, but the
 verdict holds: xhigh is impractically verbose for code). **Deploy coding: instruct or

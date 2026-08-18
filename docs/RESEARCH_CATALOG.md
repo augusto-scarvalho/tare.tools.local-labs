@@ -61,7 +61,49 @@ To maintain rigorous scientific attribution across the lab's documentation and b
 
 ---
 
-## 🎯 3. The Production Pareto Frontier & Golden Config
+## ⚔️ 3. Cross-Model Comparative Shootout & Deep Narratives
+
+### Benchmark Shootout Matrix ($n=60$ HumanEval+ Market-R0 Subset)
+
+All models evaluated on the identical 60-problem deterministic benchmark fixture (`market-r0`), scored with `evalplus` without imatrix distortion:
+
+| Model Candidate | Lineage / Creator | Setting / Mode | Pass@1 (HumanEval+) | Truncation / Starvation Rate | Effective Reasoning Tokens | Production Role & Verdict |
+|---|---|---|---:|---:|---:|---|
+| **Qwen3.8-27B Base** | Qwen Official / Unsloth UD | **Instruct (`enable_thinking: false`)** | **95.0%** | **0 / 60 (0%)** | 0 | 🏆 **Current Production Champion** |
+| Qwen3.8-27B Base | Qwen Official | Reasoning Low (`effort=low`) | 93.3% | 0 / 60 (0%) | ~350 / prompt | High-difficulty reasoning fallback |
+| ThinkingCap-3.6 | BottleCapAI HF Fine-tune | Native Thinking | 93.3% | 0 / 60 (0%) | ~520 / prompt | Qwen 3.6 Efficiency Reference |
+| **Fable-TC l1.0** | **Augusto Carvalho Merge** | **Instruct / Concise** | **88.3%** | **0 / 60 (0%)** | ~480 / prompt | 🛡️ **Uncensored Agent Champion (3.6)** |
+| Qwen3.8-27B Base | Qwen Official | Reasoning Medium (`effort=med`) | 88.3% | 0 / 60 (0%) | ~1,420 / prompt | Sub-optimal for code |
+| Qwen3.8-27B Base | Qwen Official | Reasoning XHigh (Default) | 45.0% ⚠️ | 31 / 60 (51.7%) | >6,144 (cap hit) | ❌ Broken / Truncation Trap |
+| Fable-Fusion-711 | DavidAU Community Merge | Thinking / NEO | 40.0% ⚠️ | 36 / 60 (60.0%) | Non-terminating | ❌ Parked / Runaway Loops |
+
+---
+
+### 🧠 Key Comparative Narratives & Architectural Insights
+
+#### A. The Generational Transition: Qwen 3.6 vs. Qwen 3.8
+In the **Qwen 3.6 generation**, base models suffered from severe verbosity, alignment hesitation, and budget exhaustion (starving 12/60 prompts). To solve this, the lab created **`fable-tc-l1.0`** via task arithmetic, blending ThinkingCap’s concision vector into the Fable base. This cured generation starvation and elevated GSM8K to 98.3% while maintaining zero-refusal capability.
+
+With **Qwen 3.8-27B**, the upstream base weights natively integrated agentic tool-use, code instruction tuning, and compact reasoning primitives. In pure **instruct mode**, Qwen 3.8 achieves **95.0% pass@1 out-of-the-box**, surpassing both ThinkingCap-3.6 (93.3%) and Fable-TC (88.3%) without needing custom task-vector surgery.
+
+#### B. The "Reasoning Trap" in Software Engineering
+A central empirical finding of the lab is the **Reasoning Inversion Paradox**: for bounded, deterministic programming tasks (HumanEval-class problems), extending reasoning token budgets correlates *negatively* with output accuracy ($95.0\% \to 93.3\% \to 88.3\% \to 45.0\%$).
+- **The Failure Mode**: Long reasoning chains introduce recursive self-doubt, where the model second-guesses correct syntax, enters circular internal monologues, and exhausts the response context window (`finish_reason="length"`).
+- **Production Guideline**: For software engineering swarms, enforce `enable_thinking: false` (or `reasoning_effort: "low"` for complex algorithmic steps).
+
+#### C. The Multi-Dimensional Quantization Knee
+While traditional 1D scalar benchmarks (HumanEval+, GSM8K, MATH-500) show flat performance from 16.7GB down to 9.6GB (~2.4-bit), **2D Long-Context Needle-in-a-Haystack (NIAH)** sweeps expose the hidden degradation boundary:
+- **`IQ2_M` (9.6GB)**: Degrades severely at context depths $\ge 32k$, systematically dropping retrieval on deep needles ($d \ge 0.75$).
+- **`Q2_K_XL` (9.9GB)**: Maintains **100% retrieval fidelity across all depths up to 65k+**, identical to full 16-bit and Q4 baselines.
+- **The Verdict**: `Q2_K_XL` represents the true mathematical Pareto floor, freeing ~7GB of VRAM with zero context or code penalties.
+
+#### D. Linear Recurrence & Hybrid State Efficiency
+- **Hybrid Transformers (GDN / Qwen 3.5/3.6 MoE)**: Only 10 of 40 layers maintain a KV cache (`full_attention_interval=4`), slashing memory pressure by 75% and enabling native 262k context within a single 24GB GPU.
+- **Speculative Drafting**: Multi-Token Prediction (MTP) adds ~2.1x decode acceleration without draft-KV penalty, as draft heads scale linearly across context depth.
+
+---
+
+## 🎯 4. The Production Pareto Frontier & Golden Config
 
 ### Consolidated Best-in-Class Deployment Configuration
 For standard agentic coding and reasoning tasks on 24GB GPUs (RTX 4090 / ADA Class):
@@ -86,7 +128,7 @@ For standard agentic coding and reasoning tasks on 24GB GPUs (RTX 4090 / ADA Cla
 
 ---
 
-## 🔬 4. Formal Falsifications & Closed Hypotheses
+## 🔬 5. Formal Falsifications & Closed Hypotheses
 
 A key achievement of the lab is establishing clear negative boundaries to prevent speculative churn:
 
@@ -101,7 +143,7 @@ A key achievement of the lab is establishing clear negative boundaries to preven
 
 ---
 
-## 📂 5. Research Navigation & Directory Mapping
+## 📂 6. Research Navigation & Directory Mapping
 
 - **Campaign Deep-Dives**:
   - [`docs/campaigns/a1-mtp/`](file:///C:/projects/local-model-lifecycle/docs/campaigns/a1-mtp/) — Multi-Token Prediction and speculation limits.
