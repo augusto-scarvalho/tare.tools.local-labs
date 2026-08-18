@@ -4,6 +4,8 @@
 
 `tare.tools.local-labs` is the dedicated empirical research, lifecycle benchmarking, and local inference optimization test bench for high-performance open-source models (Qwen, Llama, Gemma, Mamba/RNN, Mistral). It hosts automated harnesses for long-context evaluation, speculative decoding (MTP), aggressive quantization frontier sweeps, latency/throughput profiling, and multi-stage lexicographic promotion gating.
 
+📖 **Canonical Research Catalog**: For the complete curated index of all studies, hypotheses, empirical results, and negative boundaries, see [`docs/RESEARCH_CATALOG.md`](docs/RESEARCH_CATALOG.md).
+
 ---
 
 ## 📁 Repository Architecture
@@ -31,8 +33,9 @@ tare.tools.local-labs/
 │   ├── scripts_sh/             # Campaign automation shell scripts
 │   └── scripts_ps1/            # Windows / WSL environment configuration scripts
 │
-├── docs/                       # Research documentation & campaign ledgers
-│   ├── campaigns/              # Focused empirical campaign reports:
+├── docs/                       # Curated research documentation & campaign ledgers
+│   ├── RESEARCH_CATALOG.md     # Master scientific catalog & findings matrix
+│   ├── campaigns/              # Focused empirical campaign directories:
 │   │   ├── a1-mtp/             # Multi-token prediction (MTP) spec-decode
 │   │   ├── a2-ablation-merging/# Layer ablation, merging, and refusal gates
 │   │   ├── a3-kv-quant/        # KV-cache quantization limits (Q4, Q8, Asymmetric)
@@ -56,7 +59,7 @@ tare.tools.local-labs/
 
 1. **Quantization Frontier (Qwen 3.8 / 27B)**:
    - **`Q2_K_XL` (9.9GB) is the optimal Pareto point**: Frees ~7GB VRAM vs `Q4_K_XL` (16.7GB) with **zero measurable loss** on coding (HumanEval+ `0.896`), competition math (MATH-500 L5 `90%`), and deep long-context retrieval (100% up to 65k+).
-   - **`IQ2_M` Long-Context Cliff**: Extreme quantization (`9.6GB`) holds on short benchmarks but systematically drops deep needle retrieval at $\ge 32k$ context.
+   - **`IQ2_M` Long-Context Cliff**: Extreme quantization (`9.6GB`) holds on short benchmarks but systematically drops deep needle retrieval at $\ge 32k$.
 
 2. **Reasoning vs. Direct Instruction**:
    - For HumanEval-class coding and bounded mathematical tasks, pure `instruct` mode consistently outperforms thinking mode (95.0% vs 86.7% at budget 8192) without token bloat or truncation artifacts.
@@ -65,7 +68,7 @@ tare.tools.local-labs/
    - Speculative decoding with multi-token prediction heads yields a **~2.1x throughput speedup** on code generation workloads with `n-max 3` draft depth.
 
 4. **RNN & State Caching**:
-   - Deterministic in-process state reload and memory caching verified for linear-time architectures (Mamba-2 / GDN).
+   - Deterministic in-process state reload and memory caching verified for linear-time architectures (Mamba-2 / GDN) with bit-exact reproducibility (40/40).
 
 ---
 
