@@ -103,7 +103,70 @@ While traditional 1D scalar benchmarks (HumanEval+, GSM8K, MATH-500) show flat p
 
 ---
 
-## 🎯 4. The Production Pareto Frontier & Golden Config
+## ⚙️ 4. llama.cpp Fork Engineering & Authorial Kernel Levers
+
+Our local inference runtime is powered by a consolidated, custom-engineered `llama.cpp` fork (`llama.cpp-master @ branch lifecycle`), designed to eliminate offload bottlenecks, memory copies, and scheduling overhead on a single consumer GPU rig (RTX 3090 24GB + 64GB DDR4 Host RAM).
+
+```mermaid
+graph LR
+    subgraph Host RAM 64GB
+        E_OFF[Offloaded MoE Experts]
+        KV_HOST[Host KV Buffer]
+    end
+
+    subgraph PCIe Gen4 x16
+        DMA1[Direct DMA Stream 1: Pinned Weights]
+        DMA2[Direct DMA Stream 2: Prefetched Experts]
+        DMA3[Direct DMA B2b: Pinned KV Cache]
+    end
+
+    subgraph GPU VRAM 24GB
+        MODEL[Active Base Model / Router]
+        HOT_CACHE[Top-N Hot Expert Cache]
+        GPU_KV[Symmetric Q4_0 KV Cache]
+        MTP_HEAD[Next-N MTP Draft Head]
+    end
+
+    E_OFF -->|cudaHostRegister| DMA1 --> MODEL
+    E_OFF -->|Skip-Staging Prefetch| DMA2 --> HOT_CACHE
+    KV_HOST -->|B2b KV Host-Pin| DMA3 --> GPU_KV
+```
+
+### The 4 Authorial Levers (Consolidated `lifecycle` Build)
+
+All levers are designed for zero-regression: they remain **runtime-toggleable** (via CLI flags or environment variables) and default to byte-identical upstream behaviour (`720d7fa40`):
+
+| Lever | Toggle Switch | Mechanism & Modification | Measured Empirical Delta | Production Status |
+|---|---|---|---|---|
+| **`[B2b]` KV Host-Buffer Pinning** | `GGML_KV_PIN_HOST=1` | Intercepts `src/llama-kv-cache.cpp` to allocate `CUDA_Host` (`cudaHostRegister` page-locked) memory for `--no-kv-offload`. Eliminates CPU bounce-buffers for per-token KV copies. | **+17% throughput boost** on deep context ($128k$) under VRAM-starved regimes. | **OPERATIONALIZED** (Novel authorial lever, [`patches/b2b-kv-host-pin.patch`](file:///C:/projects/local-model-lifecycle/patches/b2b-kv-host-pin.patch)) |
+| **Prefetch Skip-When-Pinned** | `--prefetch-experts N`<br>`GGML_SCHED_PREFETCH_EXPERTS=N` | Refined the Fable 2-stream CUDA scheduler to detect pre-pinned mmap buffers (`--no-mmap`), bypassing the intermediate staging hop directly to the compute stream. | **+58% prefill speedup** on smaller GPUs; eliminated the prior -22.9% staging penalty. | **OPERATIONALIZED** (Authorial refinement of Fable fork) |
+| **MoE Hot-Expert VRAM Cache** | `--moe-cache-slots N`<br>`--moe-cache-profile <csv>` | Custom profiler (`llama-moe-trace`) generates routing histograms; scheduler pins top-$N$ hot experts in GPU VRAM (`mul_mat_id`) to skip PCIe transfers entirely. | **High gain on skewed routers**; neutral on uniform/balanced routers (e.g. Qwen 3.5). | **VALIDATED** (Harness & profiler in repo) |
+| **GDN Chunk-Parallel Prefill** | `GGML_CUDA_GDN_CHUNKED=1` | Chunk-parallel TensorFloat-32 (TF32) CUDA rewrite of the sequential Gated Delta Net recurrence scan for prompts $\ge 1024$ tokens. | **Bit-exact 46/46 unit tests** ($\le 2 \times 10^{-7}$ tolerance); shape-bound at $H=32$. | **GATED / OPT-IN** (Verified zero-regression, [`GDN_M4_RESUME.md`](file:///C:/projects/local-model-lifecycle/docs/campaigns/gdn-kernel/GDN_M4_RESUME.md)) |
+
+---
+
+### The Two MoE Offloading Paradigms
+
+1. **Philosophy (a) Stream-to-GPU (The Fable/Lifecycle Path)**:
+   - Offloaded expert weights live in host RAM and are transferred across PCIe Gen4 x16 per token for GPU compute.
+   - *Key optimizations*: `GGML_CUDA_REGISTER_HOST=1` (+104% to +123% prefill across Qwen 35B, 30B, and GPT-OSS 20B) + `B2b` KV pinning.
+2. **Philosophy (b) Compute-on-CPU (`ik_llama.cpp` / KTransformers)**:
+   - Offloaded experts remain in host RAM and execute on multi-threaded CPU AVX-512 GEMM kernels without crossing PCIe.
+   - *Operating Point*: Superior when PCIe bandwidth is constrained; inferior when GPU compute and DMA pinning are saturated.
+
+---
+
+### The `bless_fork.sh` 3-Tier Qualification Suite
+
+Every kernel modification, cherry-pick, or upstream merge must pass the automated qualification gate before being deployed:
+- **Gate 1 (`G1_PIN`)**: Verifies `B2b` host-buffer pin engagement on `--no-kv-offload`.
+- **Gate 2 (`G2_MTP`)**: Verifies strict token-identity of Multi-Token Prediction against upstream reference (`#23335`).
+- **Gate 3 (`G3_NKVO`)**: Verifies numerical and memory coherence under heavy offloading (`#20140`).
+- **Status**: **3/3 PASS (ALL GREEN)** on `lifecycle` @ `068764d92`.
+
+---
+
+## 🎯 5. The Production Pareto Frontier & Golden Config
 
 ### Consolidated Best-in-Class Deployment Configuration
 For standard agentic coding and reasoning tasks on 24GB GPUs (RTX 4090 / ADA Class):
@@ -128,7 +191,7 @@ For standard agentic coding and reasoning tasks on 24GB GPUs (RTX 4090 / ADA Cla
 
 ---
 
-## 🔬 5. Formal Falsifications & Closed Hypotheses
+## 🔬 6. Formal Falsifications & Closed Hypotheses
 
 A key achievement of the lab is establishing clear negative boundaries to prevent speculative churn:
 
@@ -143,7 +206,7 @@ A key achievement of the lab is establishing clear negative boundaries to preven
 
 ---
 
-## 📂 6. Research Navigation & Directory Mapping
+## 📂 7. Research Navigation & Directory Mapping
 
 - **Campaign Deep-Dives**:
   - [`docs/campaigns/a1-mtp/`](file:///C:/projects/local-model-lifecycle/docs/campaigns/a1-mtp/) — Multi-Token Prediction and speculation limits.
