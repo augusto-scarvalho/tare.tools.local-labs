@@ -1,0 +1,28 @@
+RNN-05A git evidence
+generated: session 24b2edf7 (2026-08-10)
+start_HEAD: 40ced9300b0e6c8c7ce07e81093559eae4e77196
+end_HEAD:   25691f611d1c2ee3006eb4d9d27ba14e28200608
+branch:     master  (not pushed)
+checkpoint (external, NOT committed): scratchpad/rnn05a_backbone.pt
+checkpoint_sha256: 8b5977439f4e31c41e77326b698511bba581f335d80d12359cad158fd621762e  bytes: 270849
+
+=== last 5 commits ===
+25691f6 results(rnn): RNN-05A fixed-backbone MC = negative; validity gates PASS
+51f3c6f experiment(rnn): RNN-05A fixed-backbone Memory Caching harness
+8b61801 stage0(rnn): RNN-05A carry-forward + correct linear-attention docstring
+40ced93 experiment(rnn): reproduce Memory Caching mechanism
+8110b97 test(rnn): qualify MQAR benchmark
+
+=== RNN-05A commits (diff --stat vs start) ===
+ ops/rnn_mc_05a.py                                  | 568 +++++++++++++++++++++
+ ops/rnn_mc_substrate.py                            |  17 +-
+ .../RNN-05A-fixed-backbone/RNN04_CARRYFORWARD.md   |  50 ++
+ .../RNN-05A-fixed-backbone/backbone_identity.json  |  53 ++
+ .../RNN-05A-fixed-backbone/immutability_gate.json  |  10 +
+ .../RNN-05A-fixed-backbone/lifecycle_proofs.json   |  18 +
+ .../RNN-05A-fixed-backbone/param_accounting.json   |  14 +
+ .../pareto_fixed_backbone.csv                      |   6 +
+ .../RNN-05A-fixed-backbone/rnn05a_outcomes.json    |  19 +
+ .../rnn/RNN-05A-fixed-backbone/rnn05a_results.json | 385 ++++++++++++++
+ runs/rnn/RNN-05A-fixed-backbone/run.log            |  89 ++++
+ 11 files changed, 1224 insertions(+), 5 deletions(-)

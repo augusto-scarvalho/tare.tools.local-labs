@@ -5,30 +5,39 @@ __pycache__/
 build/
 dist/
 
-# Virtual envs (the sglang venv lives in WSL, outside this tree, but guard anyway)
+# Virtual envs (e.g. sglang, evalplus in WSL or Windows)
 .venv/
 venv/
 env/
+*_env/
+*-venv/
 
-# The SQLite store is a BINARY, secondary record. The durable evidence is the JSON in
-# runs/ (each run's raw record, which STATUS.md's provenance depends on); the .db is
-# derived from those and is git-hostile (binary diffs, merge conflicts). Keep it out.
+# Durable SQLite store is a binary derivative; durable evidence lives in JSON/JSONL
 runs/*.db
 runs/*.db-journal
 runs/*.db-wal
 
-# Transient llama.cpp server log (rotated per run; not evidence)
-llama.log
-
-# Driver stdout redirects (the report is regenerable from runs/<dir>/records.json)
+# Log files and runtime outputs
+*.log
 runs_*.log
-# A2 driver stdout redirects (the structured data lives in runs/a2/*.json)
+llama.log
 runs/a2/_*.log
 runs/a2/_log_*.txt
 
-# evalplus scoring intermediates (derived from the samples.jsonl; regenerable via score_subset.py)
+# Heavy audit bundles, zip archives, and large adapter weights
+*.zip
+.harness/artifacts/
+.harness/artifacts_ext/
+runs/**/adapter_*/
+runs/**/canary_*/
+runs/**/gates/*/
+
+# evalplus scoring intermediates (derived from samples.jsonl; regenerable)
 runs/quality/*.padded.jsonl
 runs/quality/*_eval_results.json
+
+# Scratch workspace and ad-hoc outputs
+scratch/
 
 # OS / editor cruft
 .DS_Store

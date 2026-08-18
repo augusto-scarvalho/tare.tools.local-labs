@@ -1,4 +1,4 @@
-"""Promotion semantics — the LEXICOGRAPHIC decision that turns measurements into a choice
+﻿"""Promotion semantics â€” the LEXICOGRAPHIC decision that turns measurements into a choice
 (LAB-QA-003).
 
 The lab already uses this order informally; this makes it code. A candidate is compared to the
@@ -23,7 +23,7 @@ import sys
 from .gates import Gates, evaluate as evaluate_gates
 
 sys.path.insert(0, __import__("pathlib").Path(__file__).resolve().parents[3].as_posix())
-from benchmark_harness_qa import check_comparable  # identity comparability guard (WA-CLOSE-003)
+from .benchmark_qa import check_comparable  # identity comparability guard (WA-CLOSE-003)
 
 
 @dataclass(frozen=True)
@@ -31,8 +31,8 @@ class PromotionMargins:
     """Non-inferiority margins and the performance-win threshold.
 
     PROVENANCE of the numeric defaults (WA-CLOSE-004): these are **OPERATOR POLICY**, proposed as
-    promotion-gate margins in IDEAS_BACKLOG.md §B3 ("±1pp quality, ≥15% wall-clock, ≥20%
-    reasoning-tokens, 0.5pp crash ceiling") — NOT empirically derived from a measured noise floor,
+    promotion-gate margins in IDEAS_BACKLOG.md Â§B3 ("Â±1pp quality, â‰¥15% wall-clock, â‰¥20%
+    reasoning-tokens, 0.5pp crash ceiling") â€” NOT empirically derived from a measured noise floor,
     and NOT a scientific invariant. They are configurable per decision (pass a PromotionMargins).
     `perf_win_pct=15.0` in particular is an operator-chosen "is this worth switching for" bar, to be
     revisited once LAB-SERVE-001 establishes the real serving noise floor. Do not read it as ratified.
@@ -74,7 +74,7 @@ def decide(candidate: dict, baseline: dict, *, margins: PromotionMargins | None 
       termination: `termination_rate` in 0..1    performance: `wall_clock_s` (lower is better)
 
     If both identity blocks are supplied, comparison FAILS CLOSED when they are not comparable
-    (different benchmark/dataset/scorer) — returning an INCOMPARABLE verdict instead of silently
+    (different benchmark/dataset/scorer) â€” returning an INCOMPARABLE verdict instead of silently
     ranking apples vs oranges (WA-CLOSE-003). Commit/timestamp differences are advisory only.
     """
     m = margins or PromotionMargins()
@@ -131,7 +131,7 @@ def decide(candidate: dict, baseline: dict, *, margins: PromotionMargins | None 
                                   f"{improvement:.1f}% faster (>= {m.perf_win_pct}%)"], detail)
     return PromotionDecision("HOLD", "performance",
                              [f"acceptable but only {improvement:.1f}% faster "
-                              f"(< {m.perf_win_pct}% win threshold) — keep incumbent"], detail)
+                              f"(< {m.perf_win_pct}% win threshold) â€” keep incumbent"], detail)
 
 
 if __name__ == "__main__":

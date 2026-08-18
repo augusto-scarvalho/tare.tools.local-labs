@@ -1,0 +1,89 @@
+=== HEAD lineage ===
+40ced93 experiment(rnn): reproduce Memory Caching mechanism
+8110b97 test(rnn): qualify MQAR benchmark
+743b799 research(rnn): specify Memory Caching reproduction
+4f5b139 research(rnn): RNN-08b corrected TPTT re-run — valid lifecycle, QUALITY_REGRESSION
+2d4ef6a research(rnn): RNN-08/09 TPTT canary + controlled retrofit smoke (state-leak finding)
+09a012e research(rnn): RNN Foundation R0/R1 — ledger, arch matrix, GDN state archaeology
+
+=== RNN-04 commits (start 4f5b139 -> end 40ced93) ===
+commit 40ced9300b0e6c8c7ce07e81093559eae4e77196
+Author: Augusto Carvalho <augustosc4rvalho@gmail.com>
+Date:   Mon Aug 10 22:34:19 2026 -0300
+
+    experiment(rnn): reproduce Memory Caching mechanism
+    
+    RNN-04 phase 3: pure-PyTorch linear-attention DeltaNet substrate (state = [d_k,d_v]
+    matrix = Qwen GDN state shape) + all four aggregation variants; toy MQAR arms.
+    
+    Substrate/benchmark refinements during implementation:
+    - AGGREGATION_UNIT_TEST=PASS, CHECKPOINT_RESTORE=BIT_EXACT (residual/grm/soup/
+      moving-avg vs hand computation; residual-collapse-for-linear identity = 0.0).
+    - Benchmark upgraded to SPREAD-write layout (pairs distributed across the sequence so
+      caching can reduce per-segment load) + re-qualified (SYNTHETIC_DATASET_
+      REPRODUCIBILITY=QUALIFIED, BENCHMARK_SELFTEST=PASS).
+    - Spec section 7 corrected: trained arms backprop END-TO-END through cached states
+      (detach starved the recall pathway -> chance; paper trains with MC enabled).
+    
+    Findings (MC_TASK D=72, seg=32, N=8; MEMORY_AXIS=QUALIFIED):
+    - GRM > matched single state +0.1145 (main), +0.1267 (replication, fresh seeds) -> the
+      benefit REPLICATES; GRM also more robust as L grows (256/384/512).
+    - Residual (training-free) == base exactly (0.696) -> Eq.7 linear collapse confirmed.
+    - Equal-byte SINGLE state = 0.997 -> MC_OUTCOME=MC_ONLY_HELPS_WITH_MORE_MEMORY.
+    - SSC learned 0.656 vs random 0.288 -> selection policy genuinely learns relevance.
+    - Monotonic acc vs N-cached (0.68->0.87) at rising bytes/agg-compute; state-update
+      time flat -> storage vs compute cleanly separated (section 16).
+    - POST_TRAINING_MC (frozen base, param-free moving-avg) = 0.361 < base -> honest
+      negative at this scale (paper's post-training claim was length-extrapolation).
+    - QWEN_GDN_TRANSPLANT_GATE=PASS (6/6) with caveat: mechanism reproduced + mappable,
+      NOT "will improve Qwen"; transplant must use trained-with-MC, not naive post-training.
+    
+    No model weights/venv/clones committed. Serving CLOSED; Qwen GDN untouched; no push.
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    Claude-Session: https://claude.ai/code/session_017ZnrvLreM4xKA8sq6tcR59
+
+ RNN_MEMORY_CACHING_SPEC.md                         |   8 +-
+ ops/rnn_mc_analyze.py                              | 151 ++++++++++
+ ops/rnn_mc_bench.py                                |  58 ++--
+ ops/rnn_mc_experiment.py                           | 296 ++++++++++++++++++++
+ ops/rnn_mc_substrate.py                            | 307 +++++++++++++++++++++
+ .../RNN-04-benchmark-selftest.json                 |   9 +-
+ runs/rnn/RNN-04-memory-caching/pareto.csv          |  41 +++
+ runs/rnn/RNN-04-memory-caching/rnn04_analysis.json | 161 +++++++++++
+ runs/rnn/RNN-04-memory-caching/rnn04_results.json  | 277 +++++++++++++++++++
+ runs/rnn/RNN-04-memory-caching/run.log             | 261 ++++++++++++++++++
+ .../RNN-04-memory-caching/substrate_unittest.json  |  27 ++
+ 11 files changed, 1565 insertions(+), 31 deletions(-)
+
+commit 8110b97258edb9963ec010ecee1d7a066bd85821
+Author: Augusto Carvalho <augustosc4rvalho@gmail.com>
+Date:   Mon Aug 10 21:48:32 2026 -0300
+
+    test(rnn): qualify MQAR benchmark
+    
+    RNN-04 phase 2: process-stable MQAR generator + section-10 self-qualification.
+    
+    - Fixes the RNN-08b seeding defect: per-example seeds derive from
+      hashlib.blake2b(canonical_spec + idx), NOT Python builtin hash(). Proven with a
+      TWO-fresh-subprocess determinism check -> SYNTHETIC_DATASET_REPRODUCIBILITY=QUALIFIED.
+    - Every sample carries a stable canonical ID (blake2b of token stream + labels).
+    - Self-qualification (BENCHMARK_SELFTEST=PASS): oracle 1.0, random 0.0117 (~chance
+      0.0156), exact seq length, kv survives construction, scorer exact/perturbed 1.0/0.0,
+      no answer leak in query region, no lexical shortcut (all 64 keys map to >1 value).
+    - Independent axes: seq_len, num_pairs, num_queries, distractor_density; write->query
+      distance recorded per pair. Values never appear in the query region (no leak).
+    
+    No self-test -> no experiment: gate PASSED. Serving CLOSED; no push.
+    Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+    Claude-Session: https://claude.ai/code/session_017ZnrvLreM4xKA8sq6tcR59
+
+ ops/rnn_mc_bench.py                                | 240 +++++++++++++++++++++
+ .../RNN-04-benchmark-selftest.json                 |  58 +++++
+ 2 files changed, 298 insertions(+)
+
+commit 743b7999c55c868f3007f2641f2a96b611467d48
+Author: Augusto Carvalho <augustosc4rvalho@gmail.com>
+Date:   Mon Aug 10 21:45:14 2026 -0300
+
+    research(rnn): specify Memory Caching reproduction
+    

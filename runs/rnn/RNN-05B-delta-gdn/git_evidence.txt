@@ -1,0 +1,33 @@
+RNN-05B git evidence — refreshed 2026-08-11T09:13:15Z (post audit reconciliation)
+rnn05b_start_head:        40c5e7c813749ba10d8c8b543c0ee40e9195faf2
+rnn05b_results_head:      25c28f031917eb4205e1fa74bb078b89acbd5339
+reconciliation_end_head:  aad66fc66edb5549dd4eec7dc70a3afd05e8c9c2
+branch:                   master   (NOT pushed)
+
+=== git log (last 5) ===
+aad66fc clarify(rnn): RNN-05B audit reconciliation — semantics/provenance + self-checks
+25c28f0 results(rnn): record RNN-05B evidence — co-adaptation SUPPORTED; frozen MC no gain
+37d7584 experiment(rnn): RNN-05B DeltaNet/Gated-DeltaNet Memory Caching substrate + harness
+40c5e7c docs(rnn): preserve RNN-04 audit supersession
+ea38a45 clarify(rnn): RNN-05A audit reconciliation + cost-probe instrumentation fix
+
+=== reconciliation commit diffstat (25c28f0..HEAD) ===
+ ops/rnn_delta_substrate.py                         |  66 +++++++++++-
+ ops/rnn_mc_05b.py                                  |  48 +++++++--
+ runs/rnn/RNN-05B-delta-gdn/AUDIT_RECONCILIATION.md |  82 +++++++++++++++
+ .../calibration_rule_selfcheck.json                |  13 +++
+ .../rnn05b_audit_reconciliation.json               | 111 +++++++++++++++++++++
+ runs/rnn/RNN-05B-delta-gdn/single_blob_fork.json   |  33 ++++++
+ 6 files changed, 345 insertions(+), 8 deletions(-)
+
+=== working tree (untracked-by-policy retained) ===
+?? .harness/
+?? runs/rnn/RNN-04-memory-caching/git_evidence.txt
+?? runs/rnn/RNN-05A-fixed-backbone/git_evidence.txt
+?? runs/rnn/RNN-05A-fixed-backbone/git_evidence_reconciliation.txt
+?? runs/rnn/RNN-05B-delta-gdn/git_evidence.txt
+?? runs/rnn/RNN-08-tptt/adapter_lora/
+?? runs/rnn/RNN-08-tptt/canary/canary_lora_adapter/
+?? runs/rnn/RNN-08b-tptt-corrected/adapter_lora/
+?? runs/rnn/RNN-08b-tptt-corrected/adapter_tptt/
+?? runs/rnn/RNN-08b-tptt-corrected/gates/gate_tptt_adapter/

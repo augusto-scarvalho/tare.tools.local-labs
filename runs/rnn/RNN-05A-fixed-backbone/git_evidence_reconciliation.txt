@@ -1,0 +1,33 @@
+RNN-05A audit bundle git evidence (final durability closure, 2026-08-10)
+start_HEAD (RNN-05A results):        25691f611d1c2ee3006eb4d9d27ba14e28200608
+reconciliation_commit:               ea38a4507bff3799e5d8eb1e857e9c3dc42d172f
+durability_closure_commit (FINAL):   40c5e7c813749ba10d8c8b543c0ee40e9195faf2
+branch:                              master  (not pushed)
+tracked tree: CLEAN ; staged tree: CLEAN
+tests: COST_PROBE_SELFCHECK=PASS (N in {2,4,8,16}) ; py_compile OK ; no training run
+checkpoint: durable non-Git .harness/artifacts/rnn05a_backbone.pt + bundle external_artifacts/  sha256 8b5977439f4e...762e (270849 B); reader ckpt NONE
+
+=== RNN-05A + reconciliation + closure commits ===
+40c5e7c docs(rnn): preserve RNN-04 audit supersession
+ea38a45 clarify(rnn): RNN-05A audit reconciliation + cost-probe instrumentation fix
+25691f6 results(rnn): RNN-05A fixed-backbone MC = negative; validity gates PASS
+51f3c6f experiment(rnn): RNN-05A fixed-backbone Memory Caching harness
+
+=== diff --stat 25691f6..HEAD ===
+ ops/rnn_mc_05a.py                                  |  86 ++++++++++++++--
+ .../rnn/RNN-04-memory-caching/AUDIT_CORRECTIONS.md |  53 ++++++++++
+ .../RNN-05A-fixed-backbone/AUDIT_RECONCILIATION.md |  64 ++++++++++++
+ .../cost_probe_selfcheck.json                      | 112 +++++++++++++++++++++
+ .../rnn05a_audit_reconciliation.json               |  76 ++++++++++++++
+ 5 files changed, 380 insertions(+), 11 deletions(-)
+
+=== intentional untracked set ===
+?? .harness/
+?? runs/rnn/RNN-04-memory-caching/git_evidence.txt
+?? runs/rnn/RNN-05A-fixed-backbone/git_evidence.txt
+?? runs/rnn/RNN-05A-fixed-backbone/git_evidence_reconciliation.txt
+?? runs/rnn/RNN-08-tptt/adapter_lora/
+?? runs/rnn/RNN-08-tptt/canary/canary_lora_adapter/
+?? runs/rnn/RNN-08b-tptt-corrected/adapter_lora/
+?? runs/rnn/RNN-08b-tptt-corrected/adapter_tptt/
+?? runs/rnn/RNN-08b-tptt-corrected/gates/gate_tptt_adapter/
