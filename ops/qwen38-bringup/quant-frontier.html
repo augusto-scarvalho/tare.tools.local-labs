@@ -1,0 +1,355 @@
+<title>Quant Frontier</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    color-scheme: light;
+    --plane:#f4f4f1; --surface:#fcfcfb; --surface-2:#f0efec;
+    --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10);
+    --code:#2a78d6; --math:#eb6834;
+    --good:#0ca30c; --crit:#d03b3b;
+    --accent:#2a78d6;
+    --shadow:0 1px 2px rgba(11,11,11,.05),0 8px 24px -12px rgba(11,11,11,.12);
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    color-scheme: dark;
+    --plane:#0d0d0d; --surface:#1a1a19; --surface-2:#232321;
+    --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+    --code:#3987e5; --math:#d95926;
+    --good:#0ca30c; --crit:#e05656;
+    --accent:#3987e5;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -12px rgba(0,0,0,.6);
+  }}
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --plane:#0d0d0d; --surface:#1a1a19; --surface-2:#232321;
+    --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10);
+    --code:#3987e5; --math:#d95926;
+    --good:#0ca30c; --crit:#e05656;
+    --accent:#3987e5;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px -12px rgba(0,0,0,.6);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+    line-height:1.5; letter-spacing:-.005em;
+    padding:clamp(16px,4vw,56px) clamp(14px,4vw,40px) 72px;
+  }
+  .wrap{max-width:980px;margin:0 auto}
+  .mono{font-family:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,monospace}
+  .tnum{font-variant-numeric:tabular-nums}
+
+  header{margin-bottom:38px}
+  .eyebrow{font:600 12px/1 ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+  h1{font-size:clamp(30px,6vw,52px);line-height:1.02;margin:0 0 16px;font-weight:680;letter-spacing:-.03em;text-wrap:balance;max-width:16ch}
+  .lede{font-size:clamp(16px,2.4vw,20px);color:var(--ink-2);margin:0;max-width:62ch;text-wrap:pretty}
+  .lede b{color:var(--ink);font-weight:640}
+
+  .herorow{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .stat{flex:1 1 150px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+  .stat .v{font:700 30px/1 ui-monospace,monospace;letter-spacing:-.02em;display:flex;align-items:baseline;gap:.18em}
+  .stat .v small{font-size:15px;color:var(--muted);font-weight:600}
+  .stat .k{font-size:12.5px;color:var(--ink-2);margin-top:7px;letter-spacing:.01em}
+  .stat.accent .v{color:var(--accent)}
+
+  section{margin-top:44px}
+  .ptitle{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  h2{font-size:clamp(19px,3vw,23px);margin:0;font-weight:660;letter-spacing:-.02em}
+  .tag{font:600 11px/1 ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:6px;background:var(--surface-2);color:var(--ink-2);border:1px solid var(--border)}
+  .tag.good{color:var(--good);border-color:color-mix(in srgb,var(--good) 40%,transparent)}
+  .tag.crit{color:var(--crit);border-color:color-mix(in srgb,var(--crit) 45%,transparent)}
+  .psub{color:var(--ink-2);font-size:14.5px;margin:2px 0 18px;max-width:70ch;text-wrap:pretty}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:clamp(14px,2.4vw,24px);box-shadow:var(--shadow)}
+
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin:0 0 14px;font-size:13px;color:var(--ink-2)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .swatch{width:14px;height:3px;border-radius:2px;display:inline-block}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+  figure{margin:0;overflow-x:auto}
+  svg{display:block;max-width:100%;height:auto}
+  text{font-family:ui-monospace,"SF Mono",monospace}
+
+  /* heatmap */
+  .hm{display:grid;gap:10px;margin-top:6px}
+  .hmrow{display:grid;grid-template-columns:132px 1fr;align-items:center;gap:12px}
+  .hmrow .lab{font:600 12.5px/1.2 ui-monospace,monospace;color:var(--ink-2)}
+  .hmrow .lab small{display:block;color:var(--muted);font-weight:500;font-size:11px;margin-top:3px}
+  .cells{display:grid;grid-template-columns:repeat(9,1fr);gap:5px}
+  .cell{aspect-ratio:1/1;border-radius:6px;display:flex;align-items:center;justify-content:center;font:700 13px/1 ui-monospace,monospace;color:#fff;min-height:30px}
+  .cell.hit{background:var(--good)}
+  .cell.miss{background:var(--crit);box-shadow:0 0 0 2px color-mix(in srgb,var(--crit) 35%,transparent)}
+  .cell.na{background:var(--surface-2);color:var(--muted);box-shadow:inset 0 0 0 1px var(--border)}
+  .axisrow{display:grid;grid-template-columns:132px 1fr;gap:12px;margin-top:2px}
+  .axisrow .cells span{text-align:center;font:600 11px/1 ui-monospace,monospace;color:var(--muted)}
+  .hmnote{font-size:12.5px;color:var(--muted);margin-top:12px}
+
+  .rec{margin-top:44px;background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 8%,var(--surface)),var(--surface));border:1px solid color-mix(in srgb,var(--accent) 30%,var(--border));border-radius:16px;padding:clamp(18px,3vw,28px);box-shadow:var(--shadow)}
+  .rec h2{margin-bottom:8px}
+  .rec p{color:var(--ink-2);margin:.5em 0 0;max-width:72ch}
+  .rec .pick{font:700 22px/1.1 ui-monospace,monospace;color:var(--accent);margin:2px 0 10px;letter-spacing:-.01em}
+  .rec code{background:var(--surface-2);border:1px solid var(--border);border-radius:5px;padding:1.5px 6px;font-size:.88em}
+
+  table{border-collapse:collapse;width:100%;font-size:13.5px;margin-top:4px}
+  th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--grid)}
+  th:first-child,td:first-child{text-align:left}
+  thead th{font:600 11px/1 ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--baseline)}
+  td.q{font-family:ui-monospace,monospace;color:var(--ink)}
+  tr.best td{background:color-mix(in srgb,var(--accent) 7%,transparent)}
+  .pill{font:600 11px/1 ui-monospace,monospace;padding:3px 7px;border-radius:999px;display:inline-block}
+  .pill.hold{color:var(--good);background:color-mix(in srgb,var(--good) 14%,transparent)}
+  .pill.break{color:var(--crit);background:color-mix(in srgb,var(--crit) 14%,transparent)}
+
+  /* shootout bars */
+  .bars{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+  .bar{display:grid;grid-template-columns:158px 1fr 52px;align-items:center;gap:12px}
+  .bar .nm{font:600 12.5px/1.2 ui-monospace,monospace;color:var(--ink)}
+  .bar .nm small{display:block;color:var(--muted);font-weight:500;font-size:10.5px;margin-top:2px}
+  .bar .track{height:26px;background:var(--surface-2);border-radius:6px;overflow:hidden;border:1px solid var(--border)}
+  .bar .fill{height:100%;border-radius:5px 0 0 5px;min-width:2px}
+  .bar .fill.q{background:var(--code)}
+  .bar .fill.alt{background:var(--math)}
+  .bar .fill.flag{background:repeating-linear-gradient(45deg,var(--crit),var(--crit) 6px,color-mix(in srgb,var(--crit) 66%,#000) 6px,color-mix(in srgb,var(--crit) 66%,#000) 12px)}
+  .bar .val{font:700 13px/1 ui-monospace,monospace;text-align:right;color:var(--ink)}
+  .bar.win .nm,.bar.win .val{color:var(--accent)}
+  @media (max-width:560px){.bar{grid-template-columns:104px 1fr 44px}}
+  .foot{margin-top:40px;padding-top:18px;border-top:1px solid var(--grid);color:var(--muted);font-size:12.5px;line-height:1.6}
+  .foot b{color:var(--ink-2);font-weight:600}
+  details{margin-top:12px}
+  summary{cursor:pointer;color:var(--accent);font-size:13px;font-weight:600}
+  @media (max-width:560px){
+    .hmrow,.axisrow{grid-template-columns:88px 1fr}
+    .cell{min-height:26px;font-size:11px}
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Qwen3.8-27B · local quant lab · single 3090</div>
+    <h1>The 9.9-gigabyte line</h1>
+    <p class="lede">Seven quantizations of the same 27B coder, from <b>16.7 GB</b> down to <b>9.6 GB</b>, measured on code, competition math, thinking, and long-context recall. Quality stays <b>flat</b> almost the whole way down — the price of compression shows up in exactly one place.</p>
+    <div class="herorow">
+      <div class="stat accent"><div class="v">9.9<small>GB</small></div><div class="k">Q2_K_XL — smallest quant with no measurable loss on any axis</div></div>
+      <div class="stat"><div class="v">~7<small>GB</small></div><div class="k">VRAM freed vs the 16.7 GB Q4_K_XL baseline</div></div>
+      <div class="stat"><div class="v">0<small>pp</small></div><div class="k">quality gap on code &amp; hard math, 16.7 → 9.9 GB</div></div>
+    </div>
+  </header>
+
+  <!-- PANEL A -->
+  <section>
+    <div class="ptitle"><h2>No quality cliff</h2><span class="tag good">flat to 9.9 GB</span></div>
+    <p class="psub">Pass-rate against quant size. HumanEval+ (164, evalplus) and MATH-500 Level-5 (competition tier, sympy-scored). Every point sits inside the measurement noise — shrinking the model does not cost accuracy.</p>
+    <div class="card">
+      <div class="legend">
+        <span><i class="swatch" style="background:var(--code)"></i> Code · HumanEval+</span>
+        <span><i class="swatch" style="background:var(--math)"></i> Hard math · MATH-500 L5</span>
+        <span style="color:var(--muted)">x-axis: quant, largest → smallest</span>
+      </div>
+      <figure><svg id="frontier" viewBox="0 0 760 340" role="img" aria-label="Pass-rate stays flat across the quant ladder"></svg></figure>
+    </div>
+  </section>
+
+  <!-- PANEL B -->
+  <section>
+    <div class="ptitle"><h2>Where compression finally bites</h2><span class="tag crit">long-context only</span></div>
+    <p class="psub">Single-needle recall (needle-in-a-haystack, chat endpoint) by depth. Q4_K_XL and Q2_K_XL find every needle at every depth and length. The most aggressive quant, IQ2_M, starts <b>dropping needles sporadically</b> once the context passes ~32k — invisible on code and math, real here.</p>
+    <div class="card">
+      <div class="hm">
+        <div class="hmrow">
+          <div class="lab">Q4_K_XL · Q2_K_XL<small>16.7 &amp; 9.9 GB · all lengths</small></div>
+          <div class="cells" id="baseRow"></div>
+        </div>
+        <div class="hmrow">
+          <div class="lab">IQ2_M @ 32k<small>9.6 GB · 23.8k tokens</small></div>
+          <div class="cells" id="iq32"></div>
+        </div>
+        <div class="hmrow">
+          <div class="lab">IQ2_M @ 65k<small>9.6 GB · 48.2k tokens</small></div>
+          <div class="cells" id="iq65"></div>
+        </div>
+        <div class="axisrow"><div></div><div class="cells" id="depthAxis"></div></div>
+      </div>
+      <p class="hmnote">Needle depth = fractional position in the context. IQ2_M holds 100% through 16k; at ≥32k it lands ~78–89% with misses scattered across depths (not a clean “deep half”). Cells: <span style="color:var(--good);font-weight:700">✓ found</span> · <span style="color:var(--crit);font-weight:700">✗ missed</span>.</p>
+    </div>
+  </section>
+
+  <!-- PANEL C -->
+  <section>
+    <div class="ptitle"><h2>Thinking doesn’t help this model</h2><span class="tag">instruct wins</span></div>
+    <p class="psub">Same base quant, instruct (no reasoning) vs. reasoning turned on, across three difficulty tiers. The 27B is already near its ceiling everywhere, so thinking only adds cost — and on hard math it rambles into truncation and <em>loses</em>. Deploy with reasoning off.</p>
+    <div class="card">
+      <div class="legend">
+        <span><i class="dot" style="background:var(--ink-2)"></i> instruct</span>
+        <span><i class="dot" style="background:var(--math)"></i> thinking on</span>
+        <span style="color:var(--muted)">lines drop = thinking is worse</span>
+      </div>
+      <figure><svg id="slope" viewBox="0 0 760 300" role="img" aria-label="Instruct beats thinking on all three tasks"></svg></figure>
+    </div>
+  </section>
+
+  <!-- PANEL D: shootout -->
+  <section>
+    <div class="ptitle"><h2>Config &amp; model shootout</h2><span class="tag">HumanEval+ · n=60</span></div>
+    <p class="psub">The other half of the deployment question: which weights, which setting? Same 60 HumanEval+ problems, evalplus-scored on the market-r0 set. Plain Qwen3.8-27B on <b>instruct</b> beats every reasoning setting <em>and</em> every alternative fine-tune tried — the token-efficiency tune (ThinkingCap) and the DavidAU fable merges included.</p>
+    <div class="card">
+      <div class="legend">
+        <span><i class="swatch" style="background:var(--code)"></i> Qwen3.8-27B — one model, different settings</span>
+        <span><i class="swatch" style="background:var(--math)"></i> Alternative fine-tune</span>
+      </div>
+      <div class="bars" id="shootout"></div>
+      <p class="hmnote">✷ <b>xhigh 45.0%</b> is truncation-deflated — default <span class="mono">reasoning_effort</span> runs away and fills the 6144-token cap without emitting code (31/60 empty); the verdict (impractical for code) holds regardless. <b>fable-Fusion-711</b> does not terminate in thinking mode at all — parked. All bars share the exact same 60 problems.</p>
+    </div>
+  </section>
+
+  <!-- RECOMMENDATION -->
+  <div class="rec">
+    <div class="ptitle"><h2>Deploy target</h2></div>
+    <div class="pick">Q2_K_XL · 9.9 GB · instruct</div>
+    <p>The smallest quant that gives up nothing measurable: code <b>0.896</b>, hard math <b>90%</b>, long-context recall <b>100%</b> — all tied with the 16.7 GB baseline, while freeing ~7 GB of VRAM for a bigger context window. Going one rung further to IQ2_M saves just 0.3 GB but breaks deep long-context recall. Serve it with <code>enable_thinking:false</code>; all quants keep the MTP draft head for speculative decode.</p>
+  </div>
+
+  <!-- TABLE -->
+  <section>
+    <div class="ptitle"><h2>The full ladder</h2></div>
+    <figure><table>
+      <thead><tr><th>Quant</th><th>Size</th><th>Code HE+</th><th>Math L5</th><th>Long-ctx</th><th>Verdict</th></tr></thead>
+      <tbody id="ladder"></tbody>
+    </table></figure>
+    <details>
+      <summary>Method &amp; caveats</summary>
+      <p class="hmnote" style="margin-top:10px;line-height:1.65">
+        Subject: Qwen3.8-27B, unsloth dynamic (UD) GGUFs + bartowski imatrix Q4_K_M, llama.cpp fast path, draft-mtp (exact at temp 0), greedy. Code: HumanEval+ 164 via evalplus. Hard math: MATH-500 Level-5, n=50, extracted <span class="mono">\boxed{}</span> + sympy equivalence (scorer self-test 10/11). Long-context: single-needle NIAH, chat endpoint, q4_0 KV, no-MTP. Thinking gate on the base quant: code instruct 89.0 vs 86.7 (budget 8192); GSM8K 96.7 vs 95.0; MATH-L5 92.0 vs 80.0 (high). Noise: code ±~4.8pp at n=164, math ±~9pp at n=50 — the flat spreads sit within it. Long-context cells are one sample each; IQ2_M’s elevated miss-rate vs the base’s clean 100% is the signal.
+      </p>
+    </details>
+  </section>
+
+  <div class="foot">
+    <b>Bottom line.</b> A 27B coder compresses from 16.7 GB to 9.9 GB with no measurable quality loss on code or competition math, and full long-context recall. Push to ~2.4-bit (IQ2_M, 9.6 GB) and the only thing that breaks is sporadic deep-context needle recall. Thinking is a null-to-negative lever throughout. &nbsp;·&nbsp; <b>Local model lifecycle lab</b> — measured on one headless RTX 3090.
+  </div>
+</div>
+
+<script>
+const SVGNS="http://www.w3.org/2000/svg";
+const el=(n,a={})=>{const e=document.createElementNS(SVGNS,n);for(const k in a)e.setAttribute(k,a[k]);return e;};
+const V=r=>`var(${r})`;
+
+/* ---------- PANEL A: frontier line chart ---------- */
+(function(){
+  const svg=document.getElementById("frontier");
+  const W=760,H=340,L=46,R=104,T=22,B=44, pw=W-L-R, ph=H-T-B;
+  const quants=[
+    {t:"Q4_K_XL",g:"16.7"},{t:"Q4_K_M",g:"16.6"},{t:"IQ4_XS",g:"14.6"},
+    {t:"Q3_K_XL",g:"12.5"},{t:"IQ3_XXS",g:"11.1"},{t:"Q2_K_XL",g:"9.9"},{t:"IQ2_M",g:"9.6"}];
+  const code=[89.0,89.0,89.6,88.4,87.2,89.6,88.4];
+  const math=[92,90,90,94,92,90,88];
+  const yMin=78,yMax=100;
+  const X=i=>L+ (quants.length===1?pw/2 : i*pw/(quants.length-1));
+  const Y=v=>T+(yMax-v)/(yMax-yMin)*ph;
+  // gridlines
+  [80,85,90,95,100].forEach(v=>{
+    svg.appendChild(el("line",{x1:L,x2:L+pw,y1:Y(v),y2:Y(v),stroke:V("--grid"),"stroke-width":1}));
+    svg.appendChild(el("text",{x:L-8,y:Y(v)+3.5,"text-anchor":"end","font-size":11,fill:V("--muted")})).textContent=v;
+  });
+  // x labels (size)
+  quants.forEach((q,i)=>{
+    const g=el("text",{x:X(i),y:H-24,"text-anchor":"middle","font-size":11,fill:V("--ink-2")});g.textContent=q.g;svg.appendChild(g);
+    const t=el("text",{x:X(i),y:H-10,"text-anchor":"middle","font-size":9.5,fill:V("--muted")});t.textContent=q.t;svg.appendChild(t);
+  });
+  svg.appendChild(el("text",{x:L-8,y:T-8,"text-anchor":"end","font-size":10,fill:V("--muted")})).textContent="pass%";
+  function series(data,color,name){
+    let d="";data.forEach((v,i)=>d+=(i?"L":"M")+X(i)+" "+Y(v));
+    svg.appendChild(el("path",{d,fill:"none",stroke:color,"stroke-width":2.4,"stroke-linejoin":"round","stroke-linecap":"round"}));
+    data.forEach((v,i)=>{
+      svg.appendChild(el("circle",{cx:X(i),cy:Y(v),r:4.5,fill:V("--surface"),stroke:color,"stroke-width":2.4}))
+        .appendChild(el("title")).textContent=`${name} · ${quants[i].t}: ${v}`;
+    });
+    const last=data.length-1;
+    const lab=el("text",{x:X(last)+12,y:Y(data[last])+4,"font-size":12.5,"font-weight":700,fill:color});lab.textContent=name;svg.appendChild(lab);
+  }
+  series(math,V("--math"),"Math");
+  series(code,V("--code"),"Code");
+})();
+
+/* ---------- PANEL B: heatmap ---------- */
+(function(){
+  const depths=[.1,.2,.3,.4,.5,.6,.7,.8,.9];
+  const iq32=[1,1,1,0,1,1,1,0,1];
+  const iq65=[1,1,1,1,1,1,0,1,1];
+  const mk=(host,arr)=>{const c=document.getElementById(host);arr.forEach((h,i)=>{
+    const d=document.createElement("div");d.className="cell "+(h?"hit":"miss");d.textContent=h?"✓":"✗";
+    d.title=`depth ${depths[i]} · ${h?"found":"MISSED"}`;c.appendChild(d);});};
+  const base=document.getElementById("baseRow");depths.forEach(dp=>{const d=document.createElement("div");d.className="cell hit";d.textContent="✓";d.title=`depth ${dp} · found`;base.appendChild(d);});
+  mk("iq32",iq32);mk("iq65",iq65);
+  const ax=document.getElementById("depthAxis");depths.forEach(dp=>{const s=document.createElement("span");s.textContent=dp;ax.appendChild(s);});
+})();
+
+/* ---------- PANEL C: slope chart ---------- */
+(function(){
+  const svg=document.getElementById("slope");
+  const W=760,H=300,L=120,R=140,T=26,B=34,pw=W-L-R,ph=H-T-B;
+  const tasks=[
+    {n:"MATH-500 L5",a:92.0,b:80.0},
+    {n:"HumanEval+",a:89.0,b:86.7},
+    {n:"GSM8K",a:96.7,b:95.0}];
+  const yMin=76,yMax=100;
+  const xa=L, xb=L+pw;
+  const Y=v=>T+(yMax-v)/(yMax-yMin)*ph;
+  [80,85,90,95,100].forEach(v=>{
+    svg.appendChild(el("line",{x1:L,x2:xb,y1:Y(v),y2:Y(v),stroke:V("--grid"),"stroke-width":1}));
+    svg.appendChild(el("text",{x:xb+52,y:Y(v)+3.5,"font-size":10,fill:V("--muted")})).textContent=v;
+  });
+  svg.appendChild(el("text",{x:xa,y:T-10,"text-anchor":"middle","font-size":12,"font-weight":700,fill:V("--ink-2")})).textContent="instruct";
+  svg.appendChild(el("text",{x:xb,y:T-10,"text-anchor":"middle","font-size":12,"font-weight":700,fill:V("--math")})).textContent="thinking";
+  tasks.forEach(t=>{
+    svg.appendChild(el("line",{x1:xa,y1:Y(t.a),x2:xb,y2:Y(t.b),stroke:V("--math"),"stroke-width":2.4,"stroke-linecap":"round","opacity":.9}));
+    svg.appendChild(el("circle",{cx:xa,cy:Y(t.a),r:5,fill:V("--ink-2")})).appendChild(el("title")).textContent=`${t.n} instruct ${t.a}`;
+    svg.appendChild(el("circle",{cx:xb,cy:Y(t.b),r:5,fill:V("--math")})).appendChild(el("title")).textContent=`${t.n} thinking ${t.b}`;
+    const nm=el("text",{x:xa-14,y:Y(t.a)+4,"text-anchor":"end","font-size":12,"font-weight":600,fill:V("--ink")});nm.textContent=t.n;svg.appendChild(nm);
+    const va=el("text",{x:xa-14,y:Y(t.a)+18,"text-anchor":"end","font-size":10.5,fill:V("--muted")});va.textContent=t.a.toFixed(1);svg.appendChild(va);
+    const d=(t.b-t.a);
+    const db=el("text",{x:xb+14,y:Y(t.b)+4,"font-size":12,"font-weight":700,fill:d<0?V("--crit"):V("--good")});db.textContent=`${t.b.toFixed(1)} (${d>0?"+":""}${d.toFixed(1)})`;svg.appendChild(db);
+  });
+})();
+
+/* ---------- TABLE ---------- */
+(function(){
+  const rows=[
+    ["Q4_K_XL","16.7","0.890","92%","100%","hold"],
+    ["Q4_K_M","16.6","0.890","90%","—","hold"],
+    ["IQ4_XS","14.6","0.896","90%","—","hold"],
+    ["Q3_K_XL","12.5","0.884","94%","—","hold"],
+    ["IQ3_XXS","11.1","0.872","92%","—","hold"],
+    ["Q2_K_XL","9.9","0.896","90%","100%","hold"],
+    ["IQ2_M","9.6","0.884","88%","78–89%","break"]];
+  const tb=document.getElementById("ladder");
+  rows.forEach(r=>{
+    const tr=document.createElement("tr");if(r[0]==="Q2_K_XL")tr.className="best";
+    const pill=r[5]==="hold"?'<span class="pill hold">holds</span>':'<span class="pill break">deep-ctx break</span>';
+    tr.innerHTML=`<td class="q">${r[0]}</td><td class="tnum">${r[1]} GB</td><td class="tnum">${r[2]}</td><td class="tnum">${r[3]}</td><td class="tnum">${r[4]}</td><td>${pill}</td>`;
+    tb.appendChild(tr);
+  });
+})();
+
+/* ---------- PANEL D: shootout bars ---------- */
+(function(){
+  const rows=[
+    {n:"instruct",s:"Qwen3.8 · no thinking",v:95.0,c:"q",win:true},
+    {n:"reasoning low",s:"Qwen3.8 · concise",v:93.3,c:"q"},
+    {n:"ThinkingCap-3.6",s:"token-efficiency tune",v:93.3,c:"alt"},
+    {n:"reasoning med",s:"Qwen3.8",v:88.3,c:"q"},
+    {n:"fable-TC",s:"DavidAU merge",v:88.3,c:"alt"},
+    {n:"reasoning xhigh ✷",s:"Qwen3.8 · runaway",v:45.0,c:"flag"},
+    {n:"fable-Fusion-711 ✷",s:"non-terminating",v:40.0,c:"flag"}];
+  const host=document.getElementById("shootout");
+  rows.forEach(r=>{
+    const row=document.createElement("div");row.className="bar"+(r.win?" win":"");
+    row.innerHTML=`<div class="nm">${r.n}<small>${r.s}</small></div>`+
+      `<div class="track"><div class="fill ${r.c}" style="width:${r.v}%" title="${r.n}: ${r.v}% pass@1"></div></div>`+
+      `<div class="val">${r.v.toFixed(1)}</div>`;
+    host.appendChild(row);
+  });
+})();
+</script>
