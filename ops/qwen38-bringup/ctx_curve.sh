@@ -28,6 +28,7 @@ BIN="$LLAMA/build/bin/llama-server"
 MODEL=${MODEL:-/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf}
 PORT=8100; export CUDA_VISIBLE_DEVICES=0
 LS=${LS:-"8000 16000 32000 65000 131000"}
+DS=${DS:-"0.25 0.75"}
 CTX=${CTX:-140000}
 
 echo "== boot server (chat, q4_0 KV, ctx $CTX) =="
@@ -37,9 +38,9 @@ PID=$!; trap 'kill "$PID" 2>/dev/null; wait "$PID" 2>/dev/null' EXIT
 for i in $(seq 1 200); do curl -sf "http://127.0.0.1:$PORT/health" >/dev/null 2>&1 && break; sleep 2; done
 curl -sf "http://127.0.0.1:$PORT/health" >/dev/null 2>&1 || { echo "SERVER FAILED"; tail -8 /tmp/ctx_curve_server.log; exit 1; }
 
-python3 - "$PORT" "$LS" <<'PY'
+python3 - "$PORT" "$LS" "$DS" <<'PY'
 import json,sys,urllib.request
-port=sys.argv[1]; LS=[int(x) for x in sys.argv[2].split()]; DS=[0.25,0.75]
+port=sys.argv[1]; LS=[int(x) for x in sys.argv[2].split()]; DS=[float(x) for x in sys.argv[3].split()]
 FILLER=("The quarterly maintenance log for sector 7 records routine checks with no anomalies "
         "and nominal readings across all subsystems. ")  # ~22 tokens/unit
 def niah(L,depth,code):
