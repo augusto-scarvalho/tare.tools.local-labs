@@ -44,7 +44,24 @@ graph TD
 
 ---
 
-## 🎯 2. The Production Pareto Frontier & Golden Config
+## 🧬 2. Model Lineage & Provenance Registry
+
+To maintain rigorous scientific attribution across the lab's documentation and benchmarks:
+
+* **`Qwen3.6-Fable-Heretic` (Hugging Face upstream fine-tune)**:
+  * *Origin*: Community fine-tune from Hugging Face based on Qwen 3.6 27B, trained to remove standard alignment refusals and unlock unrestricted creative/system task execution.
+* **`Qwen3.6-ThinkingCap` (BottleCapAI fine-tune)**:
+  * *Origin*: Token-efficiency fine-tune by BottleCapAI (`bottlecapai`) on Hugging Face that achieves near-identical reasoning accuracy while halving generated reasoning tokens.
+* **`Qwen3.6-Fable-TC` / `fable-tc-l1.0` (Author-Created Original Merge by Augusto Carvalho)**:
+  * *Origin*: Proprietary model merge designed and built in this lab by Augusto Carvalho using full-rank task arithmetic:
+    $$W = W_{\text{Fable}} + \lambda (W_{\text{ThinkingCap}} - W_{\text{Base}})$$
+  * *Methodology*: Empirical sweep across $\lambda \in \{0.4, 0.7, 1.0\}$. The $\lambda=1.0$ candidate proved dominant, achieving **98.3% GSM8K accuracy**, reducing reasoning tokens by **-54.8%**, eliminating generation starvation (0 timeouts vs 12 on base), and passing the Gate 3 multi-judge writing parity quorum.
+* **`Qwen3.6-Fable-Fusion-711` (DavidAU Community Merge)**:
+  * *Origin*: External community merge by DavidAU (`Qwen3.6-27B-Fable-Fus-711-UnHeretic-NM-DAU-NEO-MAX-NEO-MTP-Q4_K_M.gguf`), evaluated strictly as an external baseline (identified in `ops/close-outs/fable_termination.sh` as non-terminating in thinking mode).
+
+---
+
+## 🎯 3. The Production Pareto Frontier & Golden Config
 
 ### Consolidated Best-in-Class Deployment Configuration
 For standard agentic coding and reasoning tasks on 24GB GPUs (RTX 4090 / ADA Class):
@@ -69,7 +86,7 @@ For standard agentic coding and reasoning tasks on 24GB GPUs (RTX 4090 / ADA Cla
 
 ---
 
-## 🔬 3. Formal Falsifications & Closed Hypotheses
+## 🔬 4. Formal Falsifications & Closed Hypotheses
 
 A key achievement of the lab is establishing clear negative boundaries to prevent speculative churn:
 
@@ -84,7 +101,7 @@ A key achievement of the lab is establishing clear negative boundaries to preven
 
 ---
 
-## 📂 4. Research Navigation & Directory Mapping
+## 📂 5. Research Navigation & Directory Mapping
 
 - **Campaign Deep-Dives**:
   - [`docs/campaigns/a1-mtp/`](file:///C:/projects/local-model-lifecycle/docs/campaigns/a1-mtp/) — Multi-Token Prediction and speculation limits.

@@ -193,7 +193,7 @@
   <!-- PANEL D: shootout -->
   <section>
     <div class="ptitle"><h2>Config &amp; model shootout</h2><span class="tag">HumanEval+ · n=60</span></div>
-    <p class="psub">The other half of the deployment question: which weights, which setting? Same 60 HumanEval+ problems, evalplus-scored on the market-r0 set. Plain Qwen3.8-27B on <b>instruct</b> beats every reasoning setting <em>and</em> every alternative fine-tune tried — the token-efficiency tune (ThinkingCap) and the DavidAU fable merges included.</p>
+    <p class="psub">The other half of the deployment question: which weights, which setting? Same 60 HumanEval+ problems, evalplus-scored on the market-r0 set. Plain Qwen3.8-27B on <b>instruct</b> beats every reasoning setting <em>and</em> every alternative fine-tune tried — the token-efficiency tune (ThinkingCap-3.6), the author's custom Fable-TC merge, and the DavidAU fable-fusion merge included.</p>
     <div class="card">
       <div class="legend">
         <span><i class="swatch" style="background:var(--code)"></i> Qwen3.8-27B — one model, different settings</span>
@@ -340,9 +340,9 @@ const V=r=>`var(${r})`;
     {n:"reasoning low",s:"Qwen3.8 · concise",v:93.3,c:"q"},
     {n:"ThinkingCap-3.6",s:"token-efficiency tune",v:93.3,c:"alt"},
     {n:"reasoning med",s:"Qwen3.8",v:88.3,c:"q"},
-    {n:"fable-TC",s:"DavidAU merge",v:88.3,c:"alt"},
+    {n:"fable-TC (l1.0)",s:"Author custom merge (Fable + TC)",v:88.3,c:"alt"},
     {n:"reasoning xhigh ✷",s:"Qwen3.8 · runaway",v:45.0,c:"flag"},
-    {n:"fable-Fusion-711 ✷",s:"non-terminating",v:40.0,c:"flag"}];
+    {n:"fable-Fusion-711 ✷",s:"DavidAU merge (non-terminating)",v:40.0,c:"flag"}];
   const host=document.getElementById("shootout");
   rows.forEach(r=>{
     const row=document.createElement("div");row.className="bar"+(r.win?" win":"");
