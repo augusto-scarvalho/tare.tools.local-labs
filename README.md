@@ -5,6 +5,7 @@
 `tare.tools.local-labs` is the dedicated empirical research, lifecycle benchmarking, and local inference optimization test bench for high-performance open-source models (Qwen, Llama, Gemma, Mamba/RNN, Mistral). It hosts automated harnesses for long-context evaluation, speculative decoding (MTP), aggressive quantization frontier sweeps, latency/throughput profiling, and multi-stage lexicographic promotion gating.
 
 📖 **Canonical Research Catalog**: For the complete curated index of all studies, hypotheses, empirical results, and negative boundaries, see [`docs/RESEARCH_CATALOG.md`](docs/RESEARCH_CATALOG.md).
+📋 **Living Handoff & Research Backlog**: For active operational state, completed milestones (Realizado), ongoing research tracks (Em Andamento), and runbooks, see [`docs/HANDOFF.md`](docs/HANDOFF.md).
 
 ---
 
@@ -23,6 +24,7 @@ tare.tools.local-labs/
 │
 ├── ops/                        # Operational campaign playbooks & runners
 │   ├── qwen38-bringup/         # Qwen3.8 bringup, quant frontier, budget curves
+│   ├── fork-consolidation/     # Llama.cpp build trees preservation & audit
 │   └── wsl/                    # Reusable low-friction WSL runner (`wslx.sh`)
 │
 ├── tools/                      # Modular research tools & probe suites
@@ -34,6 +36,7 @@ tare.tools.local-labs/
 │   └── scripts_ps1/            # Windows / WSL environment configuration scripts
 │
 ├── docs/                       # Curated research documentation & campaign ledgers
+│   ├── HANDOFF.md              # Living master handoff (Realizado / Em Andamento / Encerrado)
 │   ├── RESEARCH_CATALOG.md     # Master scientific catalog & findings matrix
 │   ├── campaigns/              # Focused empirical campaign directories:
 │   │   ├── a1-mtp/             # Multi-token prediction (MTP) spec-decode
@@ -44,13 +47,14 @@ tare.tools.local-labs/
 │   │   ├── rnn-mamba/          # State model caching & Mamba-2 integration
 │   │   ├── vlm/                # Vision-Language Model latency & refusal probes
 │   │   └── serving/            # Parallel slot capacity, scheduling & serving
+│   ├── architecture/           # System design & relay protocol specifications
 │   └── research/               # STATUS.md, EXPERIMENTS.md, LANDSCAPE.md, MECHANISMS.md
 │
+├── patches/                    # Custom engine kernel patches (e.g. B2b KV host-pin)
 ├── runs/                       # Durable empirical run logs (JSON/JSONL evidence)
 ├── tests/                      # Deterministic harness verification suites
 │   └── benchmark_harness/      # LAB-QA-001 / LAB-QA-002 harness qualification
-├── workloads/                  # Benchmark problem sets (GSM8K, HumanEval+)
-└── relay/                      # Autonomous swarm relay interfaces & schemas
+└── workloads/                  # Benchmark problem sets (GSM8K, HumanEval+)
 ```
 
 ---
