@@ -1,8 +1,30 @@
-# tare.tools.local-labs — Master Research Catalog & Empirical Index 🔬📚
+<div align="center">
 
-> **Epistemic Standard**: All findings in this catalog are backed by committed empirical evidence in `runs/`, verified against the hardware noise floor (~2.3% paired scatter on host `aaaaa`), and evaluated using distribution-free robust statistics (exact sign tests, percentile bootstrap CIs, and Cliff's $\delta$).
+# 🔬 tare.tools.local-labs — Master Research Catalog & Empirical Index
+
+**The Definitive Scientific Matrix, Pareto Frontiers, Epistemic Bounds, and Architectural Evidence for Local LLM Lifecycle Optimization.**
+
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Epistemic Standard](https://img.shields.io/badge/Epistemic_Standard-Exact_Sign_Test_%26_Bootstrap_CI-success.svg)](#-epistemic-standard--noise-floor)
+[![Evidence](https://img.shields.io/badge/Evidence-Committed_Runs_in_runs%2F-purple.svg)](#-1-master-research--campaign-index)
+[![Status](https://img.shields.io/badge/Status-7_Pillars_Operationalized-brightgreen.svg)](#-the-7-research-pillars)
+
+<p align="center">
+  <a href="#-the-7-research-pillars">7 Research Pillars</a> •
+  <a href="#-1-master-research--campaign-index">Campaign Index</a> •
+  <a href="#-2-model-lineage--provenance-registry">Model Lineage</a> •
+  <a href="#-3-cross-model-comparative-shootout--deep-narratives">Comparative Shootout</a> •
+  <a href="#-4-llamacpp-fork-engineering--authorial-kernel-levers">Fork Engineering</a> •
+  <a href="#-5-the-production-pareto-frontier--golden-config">Golden Config</a> •
+  <a href="#-6-formal-falsifications--closed-hypotheses">Closed Hypotheses</a>
+</p>
+
+</div>
 
 ---
+
+### 🛡️ Epistemic Standard & Noise Floor
+All findings in this catalog are backed by committed empirical evidence in `runs/`, verified against the hardware noise floor ($\sim 2.3\%$ paired scatter on host `aaaaa`), and evaluated using distribution-free robust statistics (exact sign tests, percentile bootstrap CIs, and Cliff's $\delta$). Zero reliance on unseeded means or unrepeatable single-turn completions.
 
 ## 🏛️ The 7 Research Pillars
 

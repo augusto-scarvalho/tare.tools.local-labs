@@ -1,4 +1,26 @@
-# tare.tools.local-labs — Living Master Handoff & Research Backlog 📋🚀
+<div align="center">
+
+# 📋 tare.tools.local-labs — Master Handoff & Living Backlog
+
+**Canonical State Ledger: Settled Milestones (Realizado), Active Engineering Backlog (Em Andamento), and Falsified Epistemic Bounds (Encerrado).**
+
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Status](https://img.shields.io/badge/Status-Active_Production_State-brightgreen.svg)](#-1-environment--operational-baseline)
+[![Completed](https://img.shields.io/badge/Completed-10_Milestones_Operationalized-success.svg)](#-2-realizado-settled--operationalized-milestones)
+[![Backlog](https://img.shields.io/badge/Backlog-P1_to_P5_Active-orange.svg)](#-3-em-andamento--backlog-ativo-in-progress--queued-tracks)
+[![Boundaries](https://img.shields.io/badge/Boundaries-6_Hypotheses_Falsified-red.svg)](#-4-encerrado--falsificado--negativo-closed-hypotheses)
+
+<p align="center">
+  <a href="#-1-environment--operational-baseline">Environment</a> •
+  <a href="#-2-realizado-settled--operationalized-milestones">Realizado (Completed)</a> •
+  <a href="#-3-em-andamento--backlog-ativo-in-progress--queued-tracks">Em Andamento (Backlog)</a> •
+  <a href="#-4-encerrado--falsificado--negativo-closed-hypotheses">Encerrado (Closed)</a> •
+  <a href="#-5-quick-start-runbook-for-incoming-operators">Operator Runbook</a>
+</p>
+
+</div>
+
+---
 
 > **Document Role**: Canonical, living state ledger for `tare.tools.local-labs`. It materializes what has been **settled and operationalized** (Realizado), what is **actively in progress or queued** (Em Andamento), and what hypotheses have been **falsified and closed** (Encerrado). Incoming agents, operators, and developers must read this first after a context reset.
 
