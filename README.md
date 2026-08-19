@@ -226,7 +226,8 @@ print(f"Promotion verdict: {result.verdict} (p-value: {result.p_value})")
 
 | Repository | Role in Ecosystem | Primary Architecture |
 |---|---|---|
-| **`tare.tools.local-labs`** | **Inference & Model Lifecycle Lab** | Empirical Benchmarks, `llama.cpp` Kernels, Pareto Frontier |
+| **`tare.tools.local-labs`** | **Inference & Model Lifecycle Lab** | Empirical Benchmarks, `slop.cpp` Integration, Pareto Frontier |
+| **[`slop.cpp`](https://github.com/augusto-scarvalho/slop.cpp)** | **AI-Augmented Inference Engine** | CUDA Levers (`B2b` Pinning, Skip-Staging Prefetch, GDN TF32), MTP |
 | **[`tare.tools.kernel`](https://github.com/augusto-scarvalho/tare.tools.kernel)** | **Agent OS 2.0 Microkernel** | 5-Plane Architecture, CAS WAL, Single-Writer Microkernel |
 | **[`tare.tools.harness`](https://github.com/augusto-scarvalho/tare.tools.harness)** | **Universal Agent Harness** | Agnostic Execution Harness, Validation Gates, Handoffs |
 | **[`tare.tools.dialog-engine`](https://github.com/augusto-scarvalho/tare.tools.dialog-engine)** | **Multi-Agent Deliberation** | Structured Dialogue Loops, Consensus Protocols |
