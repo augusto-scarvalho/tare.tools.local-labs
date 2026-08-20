@@ -1,0 +1,88 @@
+{
+  "schema_version": "liger-feasibility-v1",
+  "runner_path": "/mnt/c/projects/local-model-lifecycle/tools/benchmarks/liger_feasibility.py",
+  "runner_sha256": "a5a2dea5dba0996bb373d9de519aa116006df31d1a29576dd7f8e6492b34ca2a",
+  "python": "3.10.20 (main, Jul 23 2026, 14:44:19) [Clang 22.1.3 ]",
+  "executable": "/home/augus/.venvs/liger-feasibility-20260820/bin/python",
+  "versions": {
+    "torch": "2.5.1",
+    "triton": "3.1.0",
+    "transformers": "4.52.4",
+    "datasets": "3.6.0",
+    "peft": "0.15.2",
+    "evaluate": "0.4.3",
+    "omegaconf": "2.3.0",
+    "einops": "0.8.1",
+    "flash-attn": "2.7.4.post1",
+    "flash-linear-attention": "0.3.0"
+  },
+  "architecture": "llama",
+  "provenance": {
+    "repositories": {
+      ".": {
+        "path": "/home/augus/src/Linearization",
+        "expected_head": "0b364eb81d2159cc0fd9818b95d2d07d75522043",
+        "actual_head": "0b364eb81d2159cc0fd9818b95d2d07d75522043",
+        "head_matches": true,
+        "clean": true,
+        "status": ""
+      },
+      "third_party/flash-linear-attention": {
+        "path": "/home/augus/src/Linearization/third_party/flash-linear-attention",
+        "expected_head": "72aa949f27dba47767f13226c45de29600d77312",
+        "actual_head": "72aa949f27dba47767f13226c45de29600d77312",
+        "head_matches": true,
+        "clean": true,
+        "status": ""
+      },
+      "third_party/lm-evaluation-harness": {
+        "path": "/home/augus/src/Linearization/third_party/lm-evaluation-harness",
+        "expected_head": "1ba35e623b9bd9ca48df926f1a028043e159a6f2",
+        "actual_head": "1ba35e623b9bd9ca48df926f1a028043e159a6f2",
+        "head_matches": true,
+        "clean": true,
+        "status": ""
+      }
+    },
+    "pass": true
+  },
+  "state_transfer": {
+    "architecture": "llama",
+    "config": {
+      "vocab_size": 256,
+      "hidden_size": 128,
+      "intermediate_size": 256,
+      "num_hidden_layers": 2,
+      "num_attention_heads": 4,
+      "num_key_value_heads": 2,
+      "head_dim": 32,
+      "max_position_embeddings": 256,
+      "attention_bias": false,
+      "use_cache": true,
+      "tie_word_embeddings": false,
+      "rope_theta": 1000000
+    },
+    "base_parameter_count": 361088,
+    "candidate_parameter_count": 361088,
+    "candidate_only_keys": [],
+    "base_only_keys": [],
+    "shape_mismatches": [],
+    "load_missing_keys": [],
+    "load_unexpected_keys": [],
+    "load_error": null,
+    "decision": {
+      "pass": true,
+      "missing_count": 0,
+      "unexpected_count": 0,
+      "shape_mismatch_count": 0,
+      "stop_reason": null
+    }
+  },
+  "construction_gate": {
+    "pass": false,
+    "error": "ValueError: too many values to unpack (expected 2)",
+    "traceback": "Traceback (most recent call last):\n  File \"/mnt/c/projects/local-model-lifecycle/tools/benchmarks/liger_feasibility.py\", line 211, in llama_tensor_gates\n    output = candidate(input_ids=ids, labels=ids, use_cache=False)\n  File \"/home/augus/.venvs/liger-feasibility-20260820/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1736, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n  File \"/home/augus/.venvs/liger-feasibility-20260820/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1747, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/home/augus/.venvs/liger-feasibility-20260820/lib/python3.10/site-packages/transformers/utils/generic.py\", line 969, in wrapper\n    output = func(self, *args, **kwargs)\n  File \"/home/augus/.venvs/liger-feasibility-20260820/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py\", line 688, in forward\n    outputs: BaseModelOutputWithPast = self.model(\n  File \"/home/augus/.venvs/liger-feasibility-20260820/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1736, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n  File \"/home/augus/.venvs/liger-feasibility-20260820/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1747, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/home/augus/src/Linearization/liger/models/liger_gla/modeling_liger_gla.py\", line 307, in forward\n    layer_outputs = decoder_layer(\n  File \"/home/augus/.venvs/liger-feasibility-20260820/lib/python3.10/site-packages/transformers/modeling_layers.py\", line 48, in __call__\n    return super().__call__(*args, **kwargs)\n  File \"/home/augus/.venvs/liger-feasibility-20260820/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1736, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n  File \"/home/augus/.venvs/liger-feasibility-20260820/lib/python3.10/site-packages/torch/nn/modules/module.py\", line 1747, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/home/augus/.venvs/liger-feasibility-20260820/lib/python3.10/site-packages/transformers/models/llama/modeling_llama.py\", line 308, in forward\n    hidden_states, self_attn_weights = self.self_attn(\nValueError: too many values to unpack (expected 2)\n"
+  },
+  "recurrence_gate": "not_run_fail_closed",
+  "status": "blocked_construction"
+}
