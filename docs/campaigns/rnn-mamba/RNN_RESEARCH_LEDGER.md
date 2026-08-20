@@ -43,6 +43,9 @@ Classification (§27): `ADOPT` / `ADAPT` / `REPRODUCE` / `INSPIRE` / `RESEARCH` 
 | 16 | TPTT | 2506.17671 | 2025-06-21 | preprint | fabienfrfr/tptt | `242e214` | Apache-2.0 | INSPIRE / ADAPT |
 | 17 | LoLCATs | 2410.10254 | 2024-10-14 | ICLR 2025 | HazyResearch/lolcats | `375df84` | Apache-2.0 | ADOPT / REPRODUCE |
 | 18 | Liger | 2503.01496 | 2025-03-03 | ICML 2025 | OpenSparseLLMs/Linearization | `0b364eb` | Apache-2.0 | ADOPT / REPRODUCE |
+| 19 | Gated DeltaNet-2 (GDN-2) | 2605.08988 | 2026-05-14 | preprint | NVlabs/GatedDeltaNet-2 | `9f2a81c` | NVIDIA NC | ADAPT |
+| 20 | RWKV-7 ("Goose") | — | 2026-01 | Open Source | BlinkDL/RWKV-LM | `c481b7e` | Apache-2.0 | INSPIRE / ADAPT |
+| 21 | YOCO (You Only Cache Once) | 2405.05254 | 2024-05-08 | preprint | microsoft/unilm | `91ea83f` | MIT | INSPIRE / ADAPT |
 
 \* RetNet SHA is the `microsoft/unilm` monorepo head, not a retnet-subfolder-specific commit.
 

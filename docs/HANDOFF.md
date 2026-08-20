@@ -98,6 +98,14 @@ graph TD
 #### `ACT-05` [Priority P5]: TPTT (Test-Time Prompt Tuning) Adapter Integration
 - **Objective**: Evaluate test-time prompt adaptation on dense Qwen 3.8 checkpoints to dynamically adjust prompt representations during multi-agent deliberation.
 
+#### `ACT-06` [Priority P6]: Active Hybrid Memory Caching (GRM / SSC) on Idiap Checkpoint
+- **Objective**: Implement active state checkpointing and evaluate Gated Residual Memory (GRM) / Sparse Selective Caching (SSC) on `Idiap/gated-deltanet-attn-1.4B-30B` to recover degraded associative memory at $P \ge 64$.
+- **Reference**: [`REPLICATION_CATALOG_AND_PRELIMINARY_RESULTS.md`](file:///C:/projects/local-model-lifecycle/docs/campaigns/rnn-mamba/REPLICATION_CATALOG_AND_PRELIMINARY_RESULTS.md) and [`COMPREHENSIVE_AUDIT_HYBRID_MEMORY_AND_ROADMAP_2026.md`](file:///C:/projects/local-model-lifecycle/docs/campaigns/rnn-mamba/COMPREHENSIVE_AUDIT_HYBRID_MEMORY_AND_ROADMAP_2026.md).
+
+#### `ACT-07` [Priority P7]: Qwen Linearization via Liger (Reusing Key Matrices)
+- **Objective**: Linearize dense Qwen 2.5 attention layers into Gated DeltaNet recurrent blocks without adding new parameters using `OpenSparseLLMs/Linearization`.
+- **Target**: Retain $\ge 93\%$ benchmark quality with $0.02\%$ fine-tuning tokens on RTX 3090.
+
 ---
 
 ## 🛑 4. Encerrado / Falsificado / Negativo (Closed Hypotheses)

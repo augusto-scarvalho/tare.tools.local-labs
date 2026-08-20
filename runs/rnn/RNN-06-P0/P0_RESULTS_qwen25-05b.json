@@ -1,0 +1,53 @@
+{
+  "packet": "RNN-06-P0",
+  "candidate_tag": "qwen25-05b",
+  "model_id": "Qwen/Qwen2.5-0.5B",
+  "requested_revision": null,
+  "resolved_revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+  "status": {
+    "MODEL_RUNNABLE": "NO",
+    "P0_GRADED_BAND": "MODEL_NOT_RUNNABLE"
+  },
+  "env": {
+    "python": "3.12.3",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "torch": "2.6.0+cu124",
+    "cuda": "12.4",
+    "transformers": "4.48.3",
+    "fla": "0.5.2",
+    "flash_linear_attention": null,
+    "triton": "3.2.0",
+    "mamba_ssm": "2.2.4",
+    "causal_conv1d": "1.5.0.post8",
+    "accelerate": "1.14.0",
+    "numpy": "2.5.2",
+    "huggingface_hub": "0.36.2",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "gpu_total_gb": 25.77
+  },
+  "config": {
+    "dose_ladder_pairs": [
+      4,
+      8,
+      16,
+      32,
+      64,
+      128
+    ],
+    "n_eval": 64,
+    "master_seed": 20260811,
+    "pool_size": 256,
+    "p_min": 4,
+    "p_max": 128,
+    "dtype": "torch.bfloat16",
+    "batch_size": 32,
+    "competence_tau_hi": 0.75,
+    "low_dose": 4,
+    "config_overrides_requested": {},
+    "impl": "transformers",
+    "autobatch_budget": 0
+  },
+  "notes": [],
+  "load_error": "AttributeError: 'Qwen2Config' object has no attribute 'residual_in_fp32'",
+  "load_traceback": "Traceback (most recent call last):\n  File \"/mnt/c/projects/local-model-lifecycle/ops/rnn-campaign/rnn_06_p0_mqar.py\", line 380, in run_candidate\n    model, tok, cfg, applied = load_model(args.model_id, args.revision, dtype,\n                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/c/projects/local-model-lifecycle/ops/rnn-campaign/rnn_06_p0_mqar.py\", line 285, in load_model\n    model = Mamba2ForCausalLM.from_pretrained(\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/augus/rnn06_env/lib/python3.12/site-packages/transformers/modeling_utils.py\", line 4111, in from_pretrained\n    model = cls(config, *model_args, **model_kwargs)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/augus/rnn06_env/lib/python3.12/site-packages/transformers/models/mamba2/modeling_mamba2.py\", line 1008, in __init__\n    self.backbone = Mamba2Model(config)\n                    ^^^^^^^^^^^^^^^^^^^\n  File \"/home/augus/rnn06_env/lib/python3.12/site-packages/transformers/models/mamba2/modeling_mamba2.py\", line 892, in __init__\n    self.layers = nn.ModuleList([Mamba2Block(config, layer_idx=idx) for idx in range(config.num_hidden_layers)])\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/augus/rnn06_env/lib/python3.12/site-packages/transformers/models/mamba2/modeling_mamba2.py\", line 695, in __init__\n    self.residual_in_fp32 = config.residual_in_fp32\n                            ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/augus/rnn06_env/lib/python3.12/site-packages/transformers/configuration_utils.py\", line 211, in __getattribute__\n    return super().__getattribute__(key)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'Qwen2Config' object has no attribute 'residual_in_fp32'\n"
+}
