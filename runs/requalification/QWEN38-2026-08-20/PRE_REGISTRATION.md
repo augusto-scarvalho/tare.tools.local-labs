@@ -77,3 +77,16 @@ argv, model metadata, context limit, and chat-template SHA-256 before and after 
 
 The scorer changes, self-tests, runner, and this pre-registration are committed before any
 outcome-bearing request. Results are committed separately. Nothing is pushed automatically.
+
+## Amendment A1 — MQAR context-ceiling accommodation (append-only, 2026-08-20)
+
+The first live block preflight measured `P=2048` at **32,972 actual chat-template tokens**, above
+the live server's `n_ctx=32,768`; the declared abandon condition fired before a `P=2048` request.
+Five earlier cells from that first block (`P<=1024`) are preserved under
+`mqar_attempt1_context_ceiling/` as an **invalid instrumentation attempt**, never pooled into the
+campaign result. The attempt stopped automatically and did not inspect an outcome at `P=2048`.
+
+The terminal dose is changed from `2048` to **`1792`**, expected around 29k rendered tokens with
+the same fixed-width mapping. All other factors, thresholds, depths, replicates, seeds, ordering,
+and scorer remain unchanged. The full six-dose campaign restarts in a clean `mqar/` namespace
+after this amendment and runner change are committed.

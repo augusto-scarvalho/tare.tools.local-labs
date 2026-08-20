@@ -565,7 +565,7 @@ def parse_args():
 
     mqar = sub.add_parser("mqar")
     common(mqar, "mqar")
-    mqar.add_argument("--doses", type=int, nargs="+", default=[4, 32, 128, 512, 1024, 2048])
+    mqar.add_argument("--doses", type=int, nargs="+", default=[4, 32, 128, 512, 1024, 1792])
     mqar.add_argument("--depths", type=float, nargs="+", default=[0.10, 0.25, 0.50, 0.75, 0.90])
     mqar.add_argument("--replicates", type=int, default=8)
 
