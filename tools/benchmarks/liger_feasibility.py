@@ -11,6 +11,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import traceback
 from typing import Any
 
 
@@ -232,6 +233,7 @@ def llama_tensor_gates(source_root: Path) -> dict[str, Any]:
         construction = {
             "pass": False,
             "error": f"{type(exc).__name__}: {exc}",
+            "traceback": traceback.format_exc(),
         }
 
     if not construction["pass"]:
@@ -273,6 +275,7 @@ def llama_tensor_gates(source_root: Path) -> dict[str, Any]:
         recurrence = {
             "pass": False,
             "error": f"{type(exc).__name__}: {exc}",
+            "traceback": traceback.format_exc(),
         }
     return {"construction": construction, "recurrence": recurrence}
 
