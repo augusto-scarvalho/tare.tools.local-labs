@@ -1,7 +1,7 @@
 {
   "suite": "LAB-QA-001 benchmark_harness_selftest",
-  "total": 16,
-  "passed": 16,
+  "total": 20,
+  "passed": 20,
   "failed": 0,
   "cases": [
     {
@@ -74,6 +74,30 @@
       "name": "wrong dataset hash -> detected",
       "status": "pass",
       "incident": "an edited/swapped dataset changes its content hash -> caught before the score is trusted",
+      "detail": ""
+    },
+    {
+      "name": "exact-value scorer rejects substring and wrappers",
+      "status": "pass",
+      "incident": "INCIDENT 2026-08-20: MQAR accepted `gold in answer`, so gold 100 could pass as 1000",
+      "detail": ""
+    },
+    {
+      "name": "GSM8K strict final-line contract",
+      "status": "pass",
+      "incident": "requalification requires the declared #### answer line; last-number fallback is diagnostic",
+      "detail": ""
+    },
+    {
+      "name": "score-bearing benchmark hash includes gold answers",
+      "status": "pass",
+      "incident": "an edited gold answer must invalidate benchmark identity even when prompts are unchanged",
+      "detail": ""
+    },
+    {
+      "name": "Wilson interval sanity and denominator guards",
+      "status": "pass",
+      "incident": "accuracy claims expose finite-sample uncertainty and cannot use an empty denominator",
       "detail": ""
     },
     {

@@ -185,6 +185,48 @@ def _():
     assert any(m["field"] == "dataset_hash" for m in mism), mism
 
 
+@case("exact-value scorer rejects substring and wrappers",
+      "INCIDENT 2026-08-20: MQAR accepted `gold in answer`, so gold 100 could pass as 1000")
+def _():
+    assert q.strict_exact_reply("100", "100")
+    assert not q.strict_exact_reply("1000", "100")
+    assert not q.strict_exact_reply("the answer is 100", "100")
+    assert not q.strict_exact_reply("`100`", "100")
+
+
+@case("GSM8K strict final-line contract",
+      "requalification requires the declared #### answer line; last-number fallback is diagnostic")
+def _():
+    assert q.strict_gsm8k_answer("work\n#### 1,234") == "1234"
+    assert q.strict_gsm8k_answer("#### -2.5\n") == "-2.5"
+    assert q.strict_gsm8k_answer("work gives 18") is None
+    assert q.strict_gsm8k_answer("#### 18\nextra") is None
+    assert q.lenient_last_number("work gives 18") == "18"
+    assert q.numeric_equal("18.0", "18")
+
+
+@case("score-bearing benchmark hash includes gold answers",
+      "an edited gold answer must invalidate benchmark identity even when prompts are unchanged")
+def _():
+    a = [{"task_id": "fx/0", "prompt": "P0", "answer": "1"}]
+    b = [{"task_id": "fx/0", "prompt": "P0", "answer": "2"}]
+    assert q.dataset_hash(a) == q.dataset_hash(b), "historical prompt hash contract changed"
+    assert q.benchmark_content_hash(a) != q.benchmark_content_hash(b)
+
+
+@case("Wilson interval sanity and denominator guards",
+      "accuracy claims expose finite-sample uncertainty and cannot use an empty denominator")
+def _():
+    lo, hi = q.wilson_interval(40, 40)
+    assert 0.91 < lo < 0.92 and hi == 1.0, (lo, hi)
+    try:
+        q.wilson_interval(0, 0)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("empty denominator must fail closed")
+
+
 # ==================================================================================================
 # Metamorphic tests (same-meaning input -> same result)
 # ==================================================================================================

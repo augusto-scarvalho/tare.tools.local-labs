@@ -14,7 +14,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import pathlib
+import re
 
 # --------------------------------------------------------------------------------------------
 # Incident-hardened glue (each carries the incident that motivated it)
@@ -137,6 +139,77 @@ def dataset_hash(problems: list[dict]) -> str:
         h.update(str(p.get("task_id")).encode()); h.update(b"\x00")
         h.update(str(p.get("prompt", "")).encode()); h.update(b"\x00")
     return h.hexdigest()
+
+
+def benchmark_content_hash(records: list[dict], fields=("task_id", "prompt", "answer")) -> str:
+    """Hash all score-bearing benchmark content, including gold answers.
+
+    ``dataset_hash`` intentionally preserves its historical prompt-only contract.  New
+    requalification runs use this stricter companion so an edited gold answer cannot retain the
+    same identity.  Records are sorted by task id and serialized canonically.
+    """
+    material = [
+        {field: record.get(field) for field in fields}
+        for record in sorted(records, key=lambda d: str(d.get("task_id")))
+    ]
+    payload = json.dumps(material, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def strict_exact_reply(text: str | None, expected: str) -> bool:
+    """True only when the complete stripped reply is exactly ``expected``.
+
+    This deliberately rejects substring matches (``100`` inside ``1000``), prose wrappers,
+    quotes, and code fences.  It is for prompts whose declared output contract is "ONLY the
+    value"; lenient diagnostics may be recorded separately but never drive the primary score.
+    """
+    return (text or "").strip() == str(expected).strip()
+
+
+_STRICT_NUMERIC_FINAL = re.compile(
+    r"^####\s+([-+]?(?:\d+(?:,\d{3})*|\d*)(?:\.\d+)?)\s*$"
+)
+_LENIENT_NUMBER = re.compile(r"[-+]?(?:\d+(?:,\d{3})*|\d+)(?:\.\d+)?")
+
+
+def strict_gsm8k_answer(text: str | None) -> str | None:
+    """Extract GSM8K only when the final non-empty line obeys ``#### <number>`` exactly."""
+    lines = [line.strip() for line in (text or "").splitlines() if line.strip()]
+    if not lines:
+        return None
+    match = _STRICT_NUMERIC_FINAL.fullmatch(lines[-1])
+    if not match or not match.group(1):
+        return None
+    return match.group(1).replace(",", "")
+
+
+def lenient_last_number(text: str | None) -> str | None:
+    """Diagnostic-only fallback: last numeric token in a reply. Never a promotion score."""
+    matches = _LENIENT_NUMBER.findall(text or "")
+    return matches[-1].replace(",", "") if matches else None
+
+
+def numeric_equal(actual: str | None, expected: str | None, *, atol: float = 1e-9) -> bool:
+    """Compare finite numeric strings without treating NaN/Inf as valid answers."""
+    if actual is None or expected is None:
+        return False
+    try:
+        a, b = float(actual), float(expected)
+        return math.isfinite(a) and math.isfinite(b) and abs(a - b) <= atol
+    except (TypeError, ValueError):
+        return str(actual).strip() == str(expected).strip()
+
+
+def wilson_interval(successes: int, total: int, *, z: float = 1.959963984540054) -> tuple[float, float]:
+    """Wilson score interval for a Bernoulli proportion (95% by default), stdlib-only."""
+    if total <= 0 or successes < 0 or successes > total:
+        raise ValueError("require 0 <= successes <= total and total > 0")
+    p = successes / total
+    z2 = z * z
+    denom = 1.0 + z2 / total
+    centre = (p + z2 / (2.0 * total)) / denom
+    radius = z * math.sqrt((p * (1.0 - p) + z2 / (4.0 * total)) / total) / denom
+    return max(0.0, centre - radius), min(1.0, centre + radius)
 
 
 def check_identity(actual: dict, expected: dict) -> list[dict]:

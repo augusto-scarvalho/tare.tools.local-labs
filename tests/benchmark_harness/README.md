@@ -30,6 +30,10 @@ EvalPlus uses, on a fixture instead of the dataset. Emits `benchmark_selftest_re
 | **stale result cache → invalidation forced** | **2026-08-10 `81eed6d`**: EvalPlus reuses `<padded>_eval_results.json` if present → re-scoring a corrected file returned **stale** verdicts. The test emulates EvalPlus's skip-if-exists and proves `bust_stale_results` fixes it. |
 | wrong benchmark version | a score under a different version must not be compared as-is |
 | wrong dataset hash | an edited/swapped dataset changes its content hash |
+| exact-value substring/wrapper rejection | MQAR must not accept `100` inside `1000` or prose |
+| strict GSM8K final line | primary scoring requires the declared `#### <number>` contract |
+| score-bearing content hash | changing a gold answer invalidates benchmark identity |
+| Wilson interval guards | finite-sample accuracy exposes uncertainty; empty denominators fail closed |
 
 ## Metamorphic tests (same-meaning input → same result)
 reorder samples · rerun scorer · irrelevant metadata · fresh-vs-cached evaluation.
