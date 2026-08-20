@@ -16,10 +16,17 @@ from typing import Any
 
 
 SCHEMA = "liger-feasibility-v1"
-EXPECTED_REVISIONS = {
-    ".": "0b364eb81d2159cc0fd9818b95d2d07d75522043",
-    "third_party/flash-linear-attention": "72aa949f27dba47767f13226c45de29600d77312",
-    "third_party/lm-evaluation-harness": "1ba35e623b9bd9ca48df926f1a028043e159a6f2",
+REVISION_PROFILES = {
+    "main": {
+        ".": "0b364eb81d2159cc0fd9818b95d2d07d75522043",
+        "third_party/flash-linear-attention": "72aa949f27dba47767f13226c45de29600d77312",
+        "third_party/lm-evaluation-harness": "1ba35e623b9bd9ca48df926f1a028043e159a6f2",
+    },
+    "paper": {
+        ".": "0e3cfae33a700fa5f644cf5752d8434c6afc2412",
+        "third_party/flash-linear-attention": "95a895680065346884f08fb31dfb9f297fa2b8d8",
+        "third_party/lm-evaluation-harness": "1ba35e623b9bd9ca48df926f1a028043e159a6f2",
+    },
 }
 VERSION_PACKAGES = [
     "torch",
@@ -32,6 +39,7 @@ VERSION_PACKAGES = [
     "einops",
     "flash-attn",
     "flash-linear-attention",
+    "fla",
 ]
 
 
@@ -54,9 +62,9 @@ def git(path: Path, *args: str) -> str:
     return result.stdout.strip()
 
 
-def provenance(source_root: Path) -> dict[str, Any]:
+def provenance(source_root: Path, expected_revisions: dict[str, str]) -> dict[str, Any]:
     repos: dict[str, Any] = {}
-    for relative, expected in EXPECTED_REVISIONS.items():
+    for relative, expected in expected_revisions.items():
         path = source_root if relative == "." else source_root / relative
         actual = git(path, "rev-parse", "HEAD")
         status = git(path, "status", "--porcelain")
@@ -291,6 +299,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--source-root", type=Path, default=Path("/home/augus/src/Linearization"))
     parser.add_argument("--architecture", choices=["qwen3", "llama"], default="qwen3")
+    parser.add_argument("--source-profile", choices=sorted(REVISION_PROFILES), default="main")
     parser.add_argument("--out", type=Path)
     parser.add_argument("--selfcheck", action="store_true")
     args = parser.parse_args()
@@ -310,7 +319,8 @@ def main() -> int:
         "executable": sys.executable,
         "versions": installed_versions(),
         "architecture": args.architecture,
-        "provenance": provenance(source_root),
+        "source_profile": args.source_profile,
+        "provenance": provenance(source_root, REVISION_PROFILES[args.source_profile]),
     }
     if result["provenance"]["pass"]:
         result["state_transfer"] = state_transfer_gate(source_root, args.architecture)
