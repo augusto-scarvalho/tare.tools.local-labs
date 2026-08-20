@@ -94,14 +94,11 @@ def transfer_decision(missing: list[str], unexpected: list[str], shape_mismatche
     }
 
 
-def state_transfer_gate(source_root: Path) -> dict[str, Any]:
+def model_pair(source_root: Path, architecture: str):
     sys.path.insert(0, str(source_root))
     os.chdir(source_root)
 
     import torch
-    from transformers.models.qwen3.configuration_qwen3 import Qwen3Config
-    from transformers.models.qwen3.modeling_qwen3 import Qwen3ForCausalLM
-    from liger.models.liger_qwen3_gla import LigerQwen3GLAConfig, LigerQwen3GLAForCausalLM
 
     common = {
         "vocab_size": 256,
@@ -117,10 +114,36 @@ def state_transfer_gate(source_root: Path) -> dict[str, Any]:
         "tie_word_embeddings": False,
         "rope_theta": 1_000_000,
     }
+    if architecture == "qwen3":
+        from transformers.models.qwen3.configuration_qwen3 import Qwen3Config
+        from transformers.models.qwen3.modeling_qwen3 import Qwen3ForCausalLM
+        from liger.models.liger_qwen3_gla import LigerQwen3GLAConfig, LigerQwen3GLAForCausalLM
+
+        base_config = Qwen3Config(**common)
+        candidate_config = LigerQwen3GLAConfig(**common)
+        base_class = Qwen3ForCausalLM
+        candidate_class = LigerQwen3GLAForCausalLM
+    elif architecture == "llama":
+        from transformers.models.llama.configuration_llama import LlamaConfig
+        from transformers.models.llama.modeling_llama import LlamaForCausalLM
+        from liger.models.liger_gla import LigerGLAConfig, LigerGLAForCausalLM
+
+        base_config = LlamaConfig(**common)
+        candidate_config = LigerGLAConfig(**common)
+        base_class = LlamaForCausalLM
+        candidate_class = LigerGLAForCausalLM
+    else:  # argparse prevents this; keep library use fail-closed
+        raise ValueError(f"unsupported architecture: {architecture}")
+
     torch.manual_seed(20260820)
-    base = Qwen3ForCausalLM(Qwen3Config(**common))
+    base = base_class(base_config)
     torch.manual_seed(20260820)
-    candidate = LigerQwen3GLAForCausalLM(LigerQwen3GLAConfig(**common))
+    candidate = candidate_class(candidate_config)
+    return torch, common, base, candidate
+
+
+def state_transfer_gate(source_root: Path, architecture: str) -> dict[str, Any]:
+    _torch, common, base, candidate = model_pair(source_root, architecture)
 
     base_state = base.state_dict()
     candidate_state = candidate.state_dict()
@@ -158,6 +181,7 @@ def state_transfer_gate(source_root: Path) -> dict[str, Any]:
         }
 
     return {
+        "architecture": architecture,
         "config": common,
         "base_parameter_count": sum(parameter.numel() for parameter in base.parameters()),
         "candidate_parameter_count": sum(parameter.numel() for parameter in candidate.parameters()),
@@ -171,6 +195,88 @@ def state_transfer_gate(source_root: Path) -> dict[str, Any]:
     }
 
 
+def llama_tensor_gates(source_root: Path) -> dict[str, Any]:
+    torch, _common, base, candidate = model_pair(source_root, "llama")
+    candidate.load_state_dict(base.state_dict(), strict=True)
+    device = torch.device("cuda")
+    ids = torch.tensor([[3, 17, 29, 41, 53, 67, 79, 91]], dtype=torch.long, device=device)
+    candidate = candidate.to(device=device, dtype=torch.bfloat16)
+
+    construction: dict[str, Any]
+    try:
+        torch.manual_seed(20260820)
+        candidate.train()
+        candidate.zero_grad(set_to_none=True)
+        output = candidate(input_ids=ids, labels=ids, use_cache=False)
+        output.loss.backward()
+        finite_gradients = all(
+            torch.isfinite(parameter.grad).all().item()
+            for parameter in candidate.parameters()
+            if parameter.grad is not None
+        )
+        construction = {
+            "pass": bool(
+                list(output.logits.shape) == [1, 8, 256]
+                and torch.isfinite(output.logits).all().item()
+                and torch.isfinite(output.loss).item()
+                and finite_gradients
+            ),
+            "logits_shape": list(output.logits.shape),
+            "loss": float(output.loss.detach().float().cpu()),
+            "finite_logits": bool(torch.isfinite(output.logits).all().item()),
+            "finite_loss": bool(torch.isfinite(output.loss).item()),
+            "finite_gradients": finite_gradients,
+            "error": None,
+        }
+    except Exception as exc:
+        construction = {
+            "pass": False,
+            "error": f"{type(exc).__name__}: {exc}",
+        }
+
+    if not construction["pass"]:
+        return {"construction": construction, "recurrence": "not_run_fail_closed"}
+
+    recurrence: dict[str, Any]
+    try:
+        candidate.eval()
+        with torch.no_grad():
+            full = candidate(input_ids=ids, use_cache=True).logits.float()
+            past = None
+            token_logits = []
+            cache_lengths = []
+            for index in range(ids.shape[1]):
+                step = candidate(
+                    input_ids=ids[:, index : index + 1],
+                    past_key_values=past,
+                    use_cache=True,
+                )
+                token_logits.append(step.logits.float())
+                past = step.past_key_values
+                cache_lengths.append(int(past.get_seq_length()))
+            incremental = torch.cat(token_logits, dim=1)
+        absolute = (full - incremental).abs()
+        relative = absolute / full.abs().clamp_min(1e-6)
+        max_abs = float(absolute.max().cpu())
+        max_rel = float(relative.max().cpu())
+        recurrence = {
+            "pass": bool(max_abs <= 5e-2 and max_rel <= 5e-2 and cache_lengths == list(range(1, 9))),
+            "full_shape": list(full.shape),
+            "incremental_shape": list(incremental.shape),
+            "cache_lengths": cache_lengths,
+            "expected_cache_lengths": list(range(1, 9)),
+            "max_abs": max_abs,
+            "max_rel": max_rel,
+            "error": None,
+        }
+    except Exception as exc:
+        recurrence = {
+            "pass": False,
+            "error": f"{type(exc).__name__}: {exc}",
+        }
+    return {"construction": construction, "recurrence": recurrence}
+
+
 def selfcheck() -> None:
     assert transfer_decision([], [], [])["pass"] is True
     rejected = transfer_decision(["layer.bias"], [], [])
@@ -181,6 +287,7 @@ def selfcheck() -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--source-root", type=Path, default=Path("/home/augus/src/Linearization"))
+    parser.add_argument("--architecture", choices=["qwen3", "llama"], default="qwen3")
     parser.add_argument("--out", type=Path)
     parser.add_argument("--selfcheck", action="store_true")
     args = parser.parse_args()
@@ -199,14 +306,26 @@ def main() -> int:
         "python": sys.version,
         "executable": sys.executable,
         "versions": installed_versions(),
+        "architecture": args.architecture,
         "provenance": provenance(source_root),
     }
     if result["provenance"]["pass"]:
-        result["state_transfer"] = state_transfer_gate(source_root)
+        result["state_transfer"] = state_transfer_gate(source_root, args.architecture)
         static_pass = result["state_transfer"]["decision"]["pass"]
-        result["status"] = "static_compatibility_pass" if static_pass else "blocked_static_compatibility"
-        result["construction_gate"] = "pending" if static_pass else "not_run_fail_closed"
-        result["recurrence_gate"] = "pending" if static_pass else "not_run_fail_closed"
+        if static_pass and args.architecture == "llama":
+            tensor_gates = llama_tensor_gates(source_root)
+            result["construction_gate"] = tensor_gates["construction"]
+            result["recurrence_gate"] = tensor_gates["recurrence"]
+            if not tensor_gates["construction"]["pass"]:
+                result["status"] = "blocked_construction"
+            elif not tensor_gates["recurrence"]["pass"]:
+                result["status"] = "blocked_recurrence"
+            else:
+                result["status"] = "complete_pass"
+        else:
+            result["status"] = "static_compatibility_pass" if static_pass else "blocked_static_compatibility"
+            result["construction_gate"] = "pending" if static_pass else "not_run_fail_closed"
+            result["recurrence_gate"] = "pending" if static_pass else "not_run_fail_closed"
     else:
         result["status"] = "blocked_provenance"
         result["state_transfer"] = "not_run_fail_closed"
@@ -216,7 +335,7 @@ def main() -> int:
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"status": result["status"], "out": str(args.out)}, indent=2))
-    return 0 if result["status"] == "static_compatibility_pass" else 2
+    return 0 if result["status"] in {"static_compatibility_pass", "complete_pass"} else 2
 
 
 if __name__ == "__main__":
