@@ -7,7 +7,7 @@ foreach ($n in 'python','python3') {
 '--- binario real instalado ---'
 if (Test-Path $real) { & $real --version } else { "NAO ENCONTRADO: $real" }
 '--- self-checks com o binario real ---'
-Push-Location 'C:\projects\local-model-lifecycle\src'
+Push-Location 'C:\projects\tare.tools.local-labs\src'
 & $real -m model_lifecycle.collectors.host
 & $real -m model_lifecycle.analysis.statistics
 Pop-Location

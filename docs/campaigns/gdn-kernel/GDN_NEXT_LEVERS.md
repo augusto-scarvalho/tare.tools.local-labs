@@ -17,7 +17,7 @@ two remaining levers so we can resume without re-deriving. **Order: A done → (
   `if constexpr(TC&&!KDA){mma}else{scalar}`. Tolerance override 2e-7 in `test_gated_delta_net::max_nmse_err()`.
 - Validate: `GGML_CUDA_GDN_CHUNKED=1 GGML_CUDA_GDN_CHUNKED_MIN_TOKENS=2 test-backend-ops test -o GATED_DELTA_NET`
   (forces chunked on small cases). Perf sweep: `python3 ~/gdn_perf_sweep.py 3` (median of 3, seq/fp32/tf32 table).
-  Build: `wsl.exe -d Ubuntu-24.04 -- bash -lc 'cd /home/augus/src/llama.cpp-master && cmake --build build --target test-backend-ops -j'`.
+  Build: `wsl.exe -d Ubuntu-24.04 -- bash -lc 'cd /home/augus/src/slop.cpp-main && cmake --build build --target test-backend-ops -j'`.
 
 ---
 

@@ -79,11 +79,11 @@ Abaixo comparamos o que os artigos originais alegam (*Published Claims*) com o q
 
 Todos os scripts, logs e evidências estão preservados e versionados no repositório:
 
-- **Catálogo de Pesquisa Geral:** [`docs/campaigns/rnn-mamba/RNN_RESEARCH_LEDGER.md`](file:///C:/projects/local-model-lifecycle/docs/campaigns/rnn-mamba/RNN_RESEARCH_LEDGER.md)
-- **Panorama do Ecossistema 2026:** [`docs/campaigns/rnn-mamba/HYBRID_RECURRENT_ECOSYSTEM_2026.md`](file:///C:/projects/local-model-lifecycle/docs/campaigns/rnn-mamba/HYBRID_RECURRENT_ECOSYSTEM_2026.md)
-- **Auditoria Master e Roadmap:** [`docs/campaigns/rnn-mamba/COMPREHENSIVE_AUDIT_HYBRID_MEMORY_AND_ROADMAP_2026.md`](file:///C:/projects/local-model-lifecycle/docs/campaigns/rnn-mamba/COMPREHENSIVE_AUDIT_HYBRID_MEMORY_AND_ROADMAP_2026.md)
-- **Substrato Matemático de Memory Caching:** [`ops/rnn-campaign/rnn_delta_substrate.py`](file:///C:/projects/local-model-lifecycle/ops/rnn-campaign/rnn_delta_substrate.py) e [`rnn_mc_substrate.py`](file:///C:/projects/local-model-lifecycle/ops/rnn-campaign/rnn_mc_substrate.py)
-- **Harness de Benchmark MQAR:** [`ops/rnn-campaign/rnn_06_p0_mqar.py`](file:///C:/projects/local-model-lifecycle/ops/rnn-campaign/rnn_06_p0_mqar.py) e [`qwen38_mqar_bench.py`](file:///C:/projects/local-model-lifecycle/ops/rnn-campaign/qwen38_mqar_bench.py)
-- **Dados Brutos das Curvas de Memória:** [`runs/rnn/RNN-06-P0/P0_CURVES.csv`](file:///C:/projects/local-model-lifecycle/runs/rnn/RNN-06-P0/P0_CURVES.csv)
-- **Resultados de Contexto Longo Qwen 3.8:** [`runs/qwen38-niah/niah_summary.json`](file:///C:/projects/local-model-lifecycle/runs/qwen38-niah/niah_summary.json)
-- **Resultados de Raciocínio GSM8K Qwen 3.8:** [`runs/qwen38-gsm8k/gsm8k_eval_summary.json`](file:///C:/projects/local-model-lifecycle/runs/qwen38-gsm8k/gsm8k_eval_summary.json)
+- **Catálogo de Pesquisa Geral:** [`docs/campaigns/rnn-mamba/RNN_RESEARCH_LEDGER.md`](file:///C:/projects/tare.tools.local-labs/docs/campaigns/rnn-mamba/RNN_RESEARCH_LEDGER.md)
+- **Panorama do Ecossistema 2026:** [`docs/campaigns/rnn-mamba/HYBRID_RECURRENT_ECOSYSTEM_2026.md`](file:///C:/projects/tare.tools.local-labs/docs/campaigns/rnn-mamba/HYBRID_RECURRENT_ECOSYSTEM_2026.md)
+- **Auditoria Master e Roadmap:** [`docs/campaigns/rnn-mamba/COMPREHENSIVE_AUDIT_HYBRID_MEMORY_AND_ROADMAP_2026.md`](file:///C:/projects/tare.tools.local-labs/docs/campaigns/rnn-mamba/COMPREHENSIVE_AUDIT_HYBRID_MEMORY_AND_ROADMAP_2026.md)
+- **Substrato Matemático de Memory Caching:** [`ops/rnn-campaign/rnn_delta_substrate.py`](file:///C:/projects/tare.tools.local-labs/ops/rnn-campaign/rnn_delta_substrate.py) e [`rnn_mc_substrate.py`](file:///C:/projects/tare.tools.local-labs/ops/rnn-campaign/rnn_mc_substrate.py)
+- **Harness de Benchmark MQAR:** [`ops/rnn-campaign/rnn_06_p0_mqar.py`](file:///C:/projects/tare.tools.local-labs/ops/rnn-campaign/rnn_06_p0_mqar.py) e [`qwen38_mqar_bench.py`](file:///C:/projects/tare.tools.local-labs/ops/rnn-campaign/qwen38_mqar_bench.py)
+- **Dados Brutos das Curvas de Memória:** [`runs/rnn/RNN-06-P0/P0_CURVES.csv`](file:///C:/projects/tare.tools.local-labs/runs/rnn/RNN-06-P0/P0_CURVES.csv)
+- **Resultados de Contexto Longo Qwen 3.8:** [`runs/qwen38-niah/niah_summary.json`](file:///C:/projects/tare.tools.local-labs/runs/qwen38-niah/niah_summary.json)
+- **Resultados de Raciocínio GSM8K Qwen 3.8:** [`runs/qwen38-gsm8k/gsm8k_eval_summary.json`](file:///C:/projects/tare.tools.local-labs/runs/qwen38-gsm8k/gsm8k_eval_summary.json)

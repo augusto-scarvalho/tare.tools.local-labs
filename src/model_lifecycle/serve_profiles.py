@@ -19,13 +19,17 @@ and always accepted, so they are the safe choice across builds.
 """
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass, field
 
 from .models import MODELS
 
-# The consolidated fork / deploy binary (branch `lifecycle`). This is THE binary now, newer
-# than the older llama.cpp-local that serve.py still points at. Judges + deploy both use it.
-DEFAULT_BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+# The canonical worktree can be overridden without editing the repository. The default
+# follows docs/PATH_CONTRACT.md; the legacy llama.cpp-master alias remains compatible.
+DEFAULT_BIN = os.environ.get(
+    "SLOP_CPP_MAIN_SERVER_BIN",
+    "/home/augus/src/slop.cpp-main/build/bin/llama-server",
+)
 
 
 @dataclass(frozen=True)

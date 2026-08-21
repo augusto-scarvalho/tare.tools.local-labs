@@ -5,7 +5,7 @@
 # top64=79%. If decode climbs with N toward the resident (~98 t/s) level, the cache is a real
 # lever; the VRAM it costs is the price. Reports decode t/s AND VRAM used per arm.
 set -u
-BIN=/home/augus/src/llama.cpp-stack/build/bin/llama-server
+BIN=/home/augus/src/slop.cpp-stack/build/bin/llama-server
 MODEL=/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
 PROF=/home/augus/models/qwen36-35b-moe-trace.csv
 NCMOE=40

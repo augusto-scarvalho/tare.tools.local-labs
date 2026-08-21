@@ -9,7 +9,7 @@ Reports D (char + approx token) for a few coding prompts on the deploy config.
 """
 import json, os, subprocess, sys, time, urllib.request
 
-BIN = os.environ.get("MTP_BIN", "/home/augus/src/llama.cpp-master/build/bin/llama-server")
+BIN = os.environ.get("MTP_BIN", "/home/augus/src/slop.cpp-main/build/bin/llama-server")
 MODEL = "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf"
 PORT = 8098
 COMMON = ["-m", MODEL, "--host", "127.0.0.1", "--port", str(PORT), "-fa", "on",

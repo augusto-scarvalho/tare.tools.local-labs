@@ -8,7 +8,7 @@ VRAM across N parallel slots. MoE, ncmoe=8, q4 KV, ub2048; each stream decodes N
 import json, subprocess, sys, time, urllib.request, concurrent.futures
 
 MODEL = "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf"
-BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"
 PORT, NC, KV, NPRED = 8102, "8", "q4_0", 200
 NS = [1, 2, 4, 8]
 MTP = len(sys.argv) > 1 and sys.argv[1] == "mtp"

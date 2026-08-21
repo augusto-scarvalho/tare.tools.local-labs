@@ -4,7 +4,7 @@
 # - Refusal: full 20-prompt probe (mild+HARD tier) on all 4 Fable arms + aligned anchors
 #   (thinkingcap = aligned ceiling, dense-base = second ceiling). Overwrites the 12-prompt pilot.
 # Incremental JSON per arm => crash-safe/resumable. ~2-2.5h.
-cd C:\projects\local-model-lifecycle
+cd C:\projects\tare.tools.local-labs
 $ErrorActionPreference = 'Continue'
 $stamp = { (Get-Date).ToString('HH:mm:ss') }
 

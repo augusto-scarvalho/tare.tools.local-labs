@@ -4,7 +4,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 search_files = []
 
-for base_dir in [r'C:\projects\local-model-lifecycle', r'C:\projects\_lab_handoff_build\local-ai-lab-handoff-2026-08-10']:
+for base_dir in [r'C:\projects\tare.tools.local-labs', r'C:\projects\_lab_handoff_build\local-ai-lab-handoff-2026-08-10']:
     for root, dirs, files in os.walk(base_dir):
         if 'node_modules' in root or '.git' in root or '_lab_handoff_build\\local-ai-lab-handoff-2026-08-10\\05_models' in root:
             continue

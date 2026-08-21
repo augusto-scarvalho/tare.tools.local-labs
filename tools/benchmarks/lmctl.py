@@ -45,7 +45,7 @@ from model_lifecycle.serve_profiles import (                    # noqa: E402
 
 DISTRO = "Ubuntu-24.04"          # NOT the default `Ubuntu` (empty home, wrong user)
 FCREAD = r"C:\CrashWatch\fcread\fcread.exe"
-SRC_DIR = "/home/augus/src/llama.cpp-master"   # the deploy fork; build targets live here
+SRC_DIR = "/home/augus/src/slop.cpp-main"   # the deploy fork; build targets live here
 KNOWN_PORTS = (8080, 8090, 8091)               # deploy + the two judges
 
 

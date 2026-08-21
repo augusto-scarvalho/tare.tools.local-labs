@@ -124,7 +124,7 @@ graph TD
 ### 📝 C. Template Canônico de Registro no Repositório
 
 Ao validar uma nova tecnologia pelo SOP, o assistente atualizará automaticamente os arquivos canônicos:
-1. Adicionar linha no [`docs/campaigns/rnn-mamba/RNN_RESEARCH_LEDGER.md`](file:///C:/projects/local-model-lifecycle/docs/campaigns/rnn-mamba/RNN_RESEARCH_LEDGER.md) ou [`docs/RESEARCH_CATALOG.md`](file:///C:/projects/local-model-lifecycle/docs/RESEARCH_CATALOG.md).
-2. Adicionar checkpoint em [`docs/campaigns/rnn-mamba/REPLICATION_CATALOG_AND_PRELIMINARY_RESULTS.md`](file:///C:/projects/local-model-lifecycle/docs/campaigns/rnn-mamba/REPLICATION_CATALOG_AND_PRELIMINARY_RESULTS.md).
-3. Registrar no backlog de [`docs/HANDOFF.md`](file:///C:/projects/local-model-lifecycle/docs/HANDOFF.md) com prioridade e métrica de sucesso pré-declarada.
+1. Adicionar linha no [`docs/campaigns/rnn-mamba/RNN_RESEARCH_LEDGER.md`](file:///C:/projects/tare.tools.local-labs/docs/campaigns/rnn-mamba/RNN_RESEARCH_LEDGER.md) ou [`docs/RESEARCH_CATALOG.md`](file:///C:/projects/tare.tools.local-labs/docs/RESEARCH_CATALOG.md).
+2. Adicionar checkpoint em [`docs/campaigns/rnn-mamba/REPLICATION_CATALOG_AND_PRELIMINARY_RESULTS.md`](file:///C:/projects/tare.tools.local-labs/docs/campaigns/rnn-mamba/REPLICATION_CATALOG_AND_PRELIMINARY_RESULTS.md).
+3. Registrar no backlog de [`docs/HANDOFF.md`](file:///C:/projects/tare.tools.local-labs/docs/HANDOFF.md) com prioridade e métrica de sucesso pré-declarada.
 4. Executar `git add` e `git commit` para manter o histórico blindado.

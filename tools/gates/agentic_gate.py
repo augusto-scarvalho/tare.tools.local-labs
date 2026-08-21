@@ -35,7 +35,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent / "src"))
 from model_lifecycle.servers.llama_cpp import (                    # noqa: E402
     LlamaCppAdapter, ServerProfile)
 
-LOCAL_BIN = "/home/augus/src/llama.cpp-local/build/bin/llama-server"
+LOCAL_BIN = "/home/augus/src/slop.cpp-local/build/bin/llama-server"
 
 MODELS = {
     "qwen36-35b": ("/home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf", 40),

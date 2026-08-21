@@ -4,7 +4,7 @@
 # omit it to restore the exact baseline argv used by the requalification campaigns.
 set -euo pipefail
 
-BIN=${BIN:-/home/augus/src/llama.cpp/build/bin/llama-server}
+BIN=${BIN:-/home/augus/src/slop.cpp/build/bin/llama-server}
 MODEL=${MODEL:-/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-IQ4_XS.gguf}
 TEMPLATE=${TEMPLATE:-/home/augus/models/templates/qwen-sharp.jinja}
 PORT=${PORT:-8080}

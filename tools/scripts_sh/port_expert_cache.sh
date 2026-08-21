@@ -5,11 +5,11 @@
 # (the G2 bless verifies). Stack base is only 15 commits behind 720d7fa40 and those 15 touch
 # only UI/httplib -> no overlap with these files, so the range should apply cleanly.
 set -u
-cd /home/augus/src/llama.cpp-master
+cd /home/augus/src/slop.cpp-main
 git rev-parse --abbrev-ref HEAD | grep -q lifecycle || { echo "REFUSING: not on lifecycle"; exit 2; }
 
 echo "== wire up stack repo as remote + fetch =="
-git remote get-url stacksrc >/dev/null 2>&1 || git remote add stacksrc /home/augus/src/llama.cpp-stack
+git remote get-url stacksrc >/dev/null 2>&1 || git remote add stacksrc /home/augus/src/slop.cpp-stack
 git fetch -q stacksrc
 
 echo "== cherry-pick the expert-cache range 3d3efff79^..cca05a3ac (linear, no merges) =="

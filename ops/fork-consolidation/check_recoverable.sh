@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # For each build tree: remotes, and whether HEAD is recoverable (pushed to any remote).
-for d in /home/augus/src/llama.cpp-*; do
+for d in /home/augus/src/slop.cpp-*; do
   echo "===================== $d ====================="
   echo "remotes:"; git -C "$d" remote -v 2>/dev/null | sed 's/^/  /'
   head=$(git -C "$d" rev-parse HEAD 2>/dev/null)

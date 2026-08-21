@@ -10,7 +10,7 @@
 # GEMMA4 arch (verified 2026-08-05). Prefill-tuned like the Mistral serve script.
 set -euo pipefail
 
-BIN=/home/augus/src/llama.cpp-master/build/bin/llama-server
+BIN=/home/augus/src/slop.cpp-main/build/bin/llama-server
 MODEL=/home/augus/models/gemma4-26b-heretic/Gemma-4-26B-A4B-it-heretic-antislop.i1-Q4_K_M.gguf
 PORT=8091
 

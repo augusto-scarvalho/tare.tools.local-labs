@@ -11,7 +11,7 @@ Measures prompt_per_second on a ~fixed long prompt; reports est. 128k prefill ti
 import json, os, subprocess, sys, time, urllib.request
 
 MODEL = "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf"
-BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"
 PORT, NCMOE, KV, CTX = 8101, "8", "q4_0", 65536
 PROMPT_WORDS = 36000  # ~48k tokens
 PF = {"GGML_SCHED_PREFETCH_EXPERTS": "3", "GGML_CUDA_REGISTER_HOST": "1"}

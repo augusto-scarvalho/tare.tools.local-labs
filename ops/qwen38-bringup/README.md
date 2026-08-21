@@ -63,7 +63,7 @@ is an OPEN upstream regression (#24055) that can force full re-prefill on some b
 ```bash
 bash ops/wsl/wslx.sh ops/qwen38-bringup/checkpoint_reuse_gate.sh
 ```
-**Result:** on `/home/augus/src/llama.cpp-master` (v10159, 068764d92), a 2-turn test over a ~51k-token
+**Result:** on `/home/augus/src/slop.cpp-main` (v10159, 068764d92), a 2-turn test over a ~51k-token
 shared context gave **TURN1 prompt_n=51015 (52.0s) → TURN2 prompt_n=517, cache_n=50499 (0.66s)** — the
 warm turn reused 50,499 tokens and reprocessed only 517 (~78× faster prefill). On a 48-recurrent-layer
 hybrid that is only possible via state checkpointing, so checkpoints work and **#24055 does NOT affect

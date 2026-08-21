@@ -6,7 +6,7 @@ each follow-up query that shares it skips re-prefilling (KV reused in the slot).
 import json, subprocess, time, urllib.request
 
 MODEL = "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf"
-BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"
 PORT = 8101
 PREFIX = (("The maintenance log records routine checks with nominal readings across all monitored "
            "subsystems this cycle and no anomalies were detected anywhere. ") * 1800)  # ~40k tok

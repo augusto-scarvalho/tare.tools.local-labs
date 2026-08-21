@@ -3,7 +3,7 @@
 **Authority:** current dated handoff for the Qwen3.8 requalification, broad portfolio, artifact assessment,
 and next controlled-maintenance wave.
 
-**Repository:** `C:\projects\local-model-lifecycle`
+**Repository:** `C:\projects\tare.tools.local-labs`
 
 **Handoff parent HEAD:** `294990b` (`docs(research): make qualification explicitly supersedable`)
 
@@ -13,6 +13,11 @@ this handoff commit. Nothing was pushed.
 **Incoming-agent rule:** read this document before the older `docs/HANDOFF.md`. The older handoff remains
 valuable historical evidence, but several of its deployment statements and closed/dogmatic labels have been
 superseded or reopened by the 2026-08-20/21 work.
+
+> **Operational amendment, 2026-08-21:** the repository and fork worktrees were migrated to their canonical
+> ecosystem names after this state capture. The text service was intentionally stopped for the maintenance
+> window and remains inactive; the embedding endpoint on port 8081 remained healthy. Read
+> [`PATH_CONTRACT.md`](PATH_CONTRACT.md) for the canonical paths, compatibility aliases, and rollback evidence.
 
 ## 1. User intent and operating posture
 
@@ -44,7 +49,7 @@ Captured on 2026-08-21 in the `America/Sao_Paulo` timezone.
 - restart policy: `Restart=always`;
 - Linux PID at capture: `135546`;
 - unit file: `/etc/systemd/system/llm-inference.service`;
-- binary: `/home/augus/src/llama.cpp/build/bin/llama-server`;
+- binary: `/home/augus/src/slop.cpp/build/bin/llama-server`;
 - model: `/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-IQ4_XS.gguf`;
 - model alias: `qwen38-27b`;
 - port: `8080`;
@@ -60,7 +65,7 @@ Captured on 2026-08-21 in the `America/Sao_Paulo` timezone.
 Exact observed argv:
 
 ```text
-/home/augus/src/llama.cpp/build/bin/llama-server
+/home/augus/src/slop.cpp/build/bin/llama-server
   -m /home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-IQ4_XS.gguf
   --alias qwen38-27b --host 0.0.0.0 --port 8080 --ctx-size 32768
   --flash-attn on --cache-type-k q8_0 --cache-type-v q8_0
@@ -76,7 +81,7 @@ stock-tree substrate above, not the authorial fork levers.
 An independent embedding server was also running:
 
 - Linux PID at capture: `34282`;
-- binary: `/home/augus/src/llama.cpp/build/bin/llama-server`;
+- binary: `/home/augus/src/slop.cpp/build/bin/llama-server`;
 - model: `/home/augus/models/embedding/nomic-embed-text-v1.5.Q8_0.gguf`;
 - port: `8081`;
 - embedding mode, context 32768, eight slots.
@@ -113,7 +118,7 @@ classify it accidentally.
 
 ### 3.2 `slop.cpp` / llama.cpp fork tree
 
-Path: `/home/augus/src/llama.cpp-master`
+Path: `/home/augus/src/slop.cpp-main`
 
 Captured state:
 

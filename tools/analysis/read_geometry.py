@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Read the KV-relevant geometry from a GGUF so we can DEDUCE max context per lever config.
 KV bytes/token = 2 (K+V) * n_layer * n_head_kv * head_dim * bytes_per_elem.
-Run:  PYTHONPATH=/home/augus/src/llama.cpp-master/gguf-py python3 read_geometry.py <gguf...>"""
+Run:  PYTHONPATH=/home/augus/src/slop.cpp-main/gguf-py python3 read_geometry.py <gguf...>"""
 import sys
 from gguf import GGUFReader, GGUFValueType
 

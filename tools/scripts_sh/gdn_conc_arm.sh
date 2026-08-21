@@ -5,7 +5,7 @@
 set -u
 ARM="${1:-off}"
 NCMOE="${2:-0}"
-BIN=/home/augus/src/llama.cpp-master/build/bin/llama-server
+BIN=/home/augus/src/slop.cpp-main/build/bin/llama-server
 MODEL=/home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
 DRIVER=/mnt/c/projects/local-model-lifecycle/gdn_conc_bench.py
 OUT=/mnt/c/projects/local-model-lifecycle/runs/gdn

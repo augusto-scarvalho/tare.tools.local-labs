@@ -13,7 +13,7 @@
 #
 # Usage: MODEL=<gguf> TAG=<tag> MODE=high SUBSET=50 LEVEL=5 CTX=16384 MAXTOK=8192 bash ops/qwen38-bringup/math_eval.sh
 set -u
-LLAMA=/home/augus/src/llama.cpp-master
+LLAMA=/home/augus/src/slop.cpp-main
 BIN="$LLAMA/build/bin/llama-server"
 PY=/home/augus/sglang-venv/bin/python3
 MODEL=${MODEL:-/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf}

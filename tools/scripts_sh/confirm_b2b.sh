@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Confirm the §B2b patch flips the KV buffer from pageable CPU to pinned CUDA_Host, per layer.
 set -u
-BIN=/home/augus/src/llama.cpp-master/build/bin/llama-server
+BIN=/home/augus/src/slop.cpp-main/build/bin/llama-server
 MODEL=/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
 PORT=8095
 for arm in base pin; do

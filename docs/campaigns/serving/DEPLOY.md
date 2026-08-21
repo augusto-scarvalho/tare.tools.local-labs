@@ -9,7 +9,7 @@ records. This is the durable handoff — read it first after a context reset.
 ## TL;DR — the recommended serve config (MoE, the deploy model)
 
 ```bash
-/home/augus/src/llama.cpp-master/build/bin/llama-server \
+/home/augus/src/slop.cpp-main/build/bin/llama-server \
   -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf \
   -fa on \
   --n-cpu-moe 8 \
@@ -171,7 +171,7 @@ VRAM is the binding constraint for the MoE; system RAM for the dense and for com
 - **WSL** Ubuntu-24.04, `.wslconfig`: `memory=44GB`, **`swap=16GB`** (added this session — turned the
   ik ncmoe=40 hard-crash into a measurable REJECTED; near-zero SSD wear), `processors=20`,
   `autoMemoryReclaim=gradual`. Backup at `~/.wslconfig.bak-*`.
-- **THE fork / deploy binary** (2026-08-02): `/home/augus/src/llama.cpp-master`, branch **`lifecycle`**
+- **THE fork / deploy binary** (2026-08-02): `/home/augus/src/slop.cpp-main`, branch **`lifecycle`**
   = upstream **`720d7fa40`** + **four runtime-gated non-upstream levers, all OFF by default** (§B2b
   KV-host-pin, Fable prefetch, CPU-weight pinning, MoE expert cache) → the one binary is baseline *and*
   fork. Default (nothing toggled) is byte-identical to `720d7fa40`. **BLESSED** (`bless_fork.sh`):

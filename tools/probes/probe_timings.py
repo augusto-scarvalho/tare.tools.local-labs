@@ -6,7 +6,7 @@ outside on a thinking model that never emits content.
 """
 import json, subprocess, sys, time, urllib.request
 
-BIN = "/home/augus/src/llama.cpp-base/build/bin/llama-server"
+BIN = "/home/augus/src/slop.cpp-base/build/bin/llama-server"
 MODEL = "/home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf"
 p = subprocess.Popen(["wsl", "-d", "Ubuntu-24.04", "--", BIN, "-m", MODEL,
                       "--host", "0.0.0.0", "--port", "8099", "-ncmoe", "8",

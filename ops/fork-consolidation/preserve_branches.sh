@@ -2,8 +2,8 @@
 # Phase 1 — non-destructive preservation. Give the fragile detached Turbo HEAD a real branch,
 # then create local branches in the fork repo for every stranded line. Nothing deleted.
 set -u
-STACK=/home/augus/src/llama.cpp-stack
-FORK=/home/augus/src/llama.cpp-master
+STACK=/home/augus/src/slop.cpp-stack
+FORK=/home/augus/src/slop.cpp-main
 
 echo "=== 1. branch the detached Turbo HEAD in the stack tree ==="
 if git -C "$STACK" show-ref --verify -q refs/heads/turbo-stack; then

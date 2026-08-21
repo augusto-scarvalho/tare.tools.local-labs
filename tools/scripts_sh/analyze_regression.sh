@@ -2,7 +2,7 @@
 # Find the fresh-master commit(s) that broke draft-mtp token-exactness for our model, by
 # filtering the 720d7fa40..f5919bf45 range to paths that can change greedy decode output.
 set -u
-cd /home/augus/src/llama.cpp-master
+cd /home/augus/src/slop.cpp-main
 RANGE="720d7fa40..upstream/master"
 echo "range $RANGE -> $(git rev-list --count $RANGE) commits"
 echo

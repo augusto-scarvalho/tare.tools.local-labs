@@ -17,7 +17,7 @@
 #
 # Usage: bash ops/close-outs/fable_termination.sh   (via ops/wsl/wslx.sh; run_in_background if slow)
 set -u
-LLAMA=/home/augus/src/llama.cpp-master
+LLAMA=/home/augus/src/slop.cpp-main
 BIN="$LLAMA/build/bin/llama-server"
 MODEL=/home/augus/models/fable-fusion-711/Qwen3.6-27B-Fable-Fus-711-UnHeretic-NM-DAU-NEO-MAX-NEO-MTP-Q4_K_M.gguf
 PORT=8080; export CUDA_VISIBLE_DEVICES=0

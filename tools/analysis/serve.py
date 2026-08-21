@@ -39,7 +39,7 @@ from model_lifecycle.models import MODELS                             # noqa: E4
 from model_lifecycle.servers.llama_cpp import (                       # noqa: E402
     LlamaCppAdapter, ServerProfile)
 
-LOCAL_BIN = "/home/augus/src/llama.cpp-local/build/bin/llama-server"
+LOCAL_BIN = "/home/augus/src/slop.cpp-local/build/bin/llama-server"
 
 # MODELS is now the shared registry (model_lifecycle.models). Was a copied dict here.
 

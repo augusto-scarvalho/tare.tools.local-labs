@@ -42,7 +42,7 @@ from model_lifecycle.servers.llama_cpp import (                     # noqa: E402
 from residency_sweep import (                                       # noqa: E402
     MODELS, resolve, windows_free_gb, windows_pagefile_gb, swap_used_gb)
 
-LOCAL_BIN = "/home/augus/src/llama.cpp-local/build/bin/llama-server"
+LOCAL_BIN = "/home/augus/src/slop.cpp-local/build/bin/llama-server"
 
 # Pinning ON, prefetch OFF. This is not a default, it is the configuration this project
 # measured across three expert geometries: pinning is worth +105% to +123% prefill and the

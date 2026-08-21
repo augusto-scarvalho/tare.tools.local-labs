@@ -2,7 +2,7 @@
 # From the lifecycle fork repo (llama.cpp-master), fetch every sibling line and audit what
 # unique work each holds that is NOT already in lifecycle. NON-DESTRUCTIVE (fetch + read only).
 set -u
-M=/home/augus/src/llama.cpp-master
+M=/home/augus/src/slop.cpp-main
 cd "$M" || exit 1
 
 echo "=== current remotes ==="; git remote -v | awk '{print $1, $2}' | sort -u

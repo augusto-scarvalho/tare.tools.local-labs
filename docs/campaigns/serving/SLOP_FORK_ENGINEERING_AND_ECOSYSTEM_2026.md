@@ -38,7 +38,7 @@ graph LR
 ### As 4 Alavancas Autorais Consolidadas no Nosso Fork:
 
 1. **`[B2b]` KV Host-Buffer Pinning (`GGML_KV_PIN_HOST=1` / `cudaHostRegister`)**:
-   - **Patch:** [`patches/b2b-kv-host-pin.patch`](file:///C:/projects/local-model-lifecycle/patches/b2b-kv-host-pin.patch).
+   - **Patch:** [`patches/b2b-kv-host-pin.patch`](file:///C:/projects/tare.tools.local-labs/patches/b2b-kv-host-pin.patch).
    - **O que faz:** Aloca memória `CUDA_Host` com páginas travadas (*page-locked DMA*) para `--no-kv-offload`, eliminando bounce-buffers intermediários.
    - **Impacto Medido no Lab:** **+17.0% de velocidade de decode** em 128k context e **+104.9% de prefill** ($p=0.0312$, Cliff's $\delta = +1.00$).
 2. **Prefetch Skip-When-Pinned (`GGML_SCHED_PREFETCH_EXPERTS`)**:

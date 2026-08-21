@@ -27,7 +27,7 @@
 # Usage: bash ops/wsl/wslx.sh ops/qwen38-bringup/serve.sh              # default UD-Q4_K_XL @256k
 #        MODEL=<gguf> CTX=131072 bash ops/qwen38-bringup/serve.sh      # overrides
 set -u
-LLAMA=${LLAMA:-/home/augus/src/llama.cpp-master}
+LLAMA=${LLAMA:-/home/augus/src/slop.cpp-main}
 BIN="$LLAMA/build/bin/llama-server"
 MODEL=${MODEL:-/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf}
 CTX=${CTX:-262144}

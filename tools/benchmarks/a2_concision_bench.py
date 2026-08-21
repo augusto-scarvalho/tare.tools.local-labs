@@ -60,7 +60,7 @@ from model_lifecycle.servers.llama_cpp import (                    # noqa: E402
 
 # Same consolidated fork we deploy and measure quality on, so token counts and the tokenizer
 # behind /tokenize are the ones that ship.
-LOCAL_BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+LOCAL_BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"
 
 # The subset is drawn ONCE from this seed and reused by BOTH arms -- the same discipline
 # quality_bench enforces, and here it is load-bearing twice over: a paired reduction needs

@@ -8,7 +8,7 @@ set -u
 declare -A MODELS=(
   [moe]=/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
   [dense]=/home/augus/models/qwen36-27b-mtp/Qwen3.6-27B-Q4_K_M.gguf )
-BIN=/home/augus/src/llama.cpp-master/build/bin/llama-server
+BIN=/home/augus/src/slop.cpp-main/build/bin/llama-server
 MK=${1:-moe}; NC=${2:-8}; KV=${3:-q8_0}; shift 3 2>/dev/null || shift $#
 CTXS=("$@"); [ ${#CTXS[@]} -eq 0 ] && CTXS=(8192 32768 65536 131072 262144)
 MODEL=${MODELS[$MK]}; PORT=8099

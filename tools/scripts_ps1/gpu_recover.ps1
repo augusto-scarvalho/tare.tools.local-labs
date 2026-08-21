@@ -1,6 +1,6 @@
 # Elevated GPU recovery: restart the RTX 3090 device to try clearing a "GPU is lost" bus wedge
 # without a reboot. Logs the result so the non-elevated caller can read it.
-$log = 'C:\projects\local-model-lifecycle\scratch\gpu_restart.log'
+$log = 'C:\projects\tare.tools.local-labs\scratch\gpu_restart.log'
 $id  = 'PCI\VEN_10DE&DEV_2204&SUBSYS_39873842&REV_A1\4&2635B274&0&0008'
 "[$(Get-Date -Format HH:mm:ss)] restarting device $id" | Out-File $log
 pnputil /restart-device $id *>> $log

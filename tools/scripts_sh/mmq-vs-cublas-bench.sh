@@ -50,7 +50,7 @@
 # Usage: mmq-vs-cublas-bench.sh              (builds build-cublas on demand, A/Bs dense + MoE prefill)
 #        REPS=3 mmq-vs-cublas-bench.sh
 set -u
-SRC=/home/augus/src/llama.cpp-master
+SRC=/home/augus/src/slop.cpp-main
 BENCH_MMQ="$SRC/build/bin/llama-bench"                 # default build = MMQ int8-TC
 BENCH_CUB="$SRC/build-cublas/bin/llama-bench"          # FORCE_CUBLAS build = dequant->FP16->cuBLAS
 DENSE="${DENSE:-/home/augus/models/qwen36-27b-dense/Qwen_Qwen3.6-27B-Q4_K_M.gguf}"

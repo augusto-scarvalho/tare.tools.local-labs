@@ -47,7 +47,7 @@ from model_lifecycle.servers.llama_cpp import (                    # noqa: E402
 
 # The consolidated fork (branch `lifecycle` = 720d7fa40 + §B2b + prefetch + expert-cache), so
 # quality is measured on the SAME binary we deploy and the lever knobs below actually engage.
-LOCAL_BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+LOCAL_BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"
 
 # MODELS is the shared registry (model_lifecycle.models), quant-keyed. Quantisations of the
 # same weights stay separate entries on purpose: quant is a FACTOR in the screen, not a

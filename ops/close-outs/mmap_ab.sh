@@ -15,7 +15,7 @@
 #
 # Usage: bash ops/close-outs/mmap_ab.sh   (WSL; ~8 min). MODEL/NCMOE/DEPTH/REPS overridable.
 set -u
-cd /home/augus/src/llama.cpp-master
+cd /home/augus/src/slop.cpp-main
 export CUDA_VISIBLE_DEVICES=0
 M=${MODEL:-/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf}
 NCMOE=${NCMOE:-6}

@@ -60,8 +60,8 @@ MODEL = "/home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf"
 
 ARMS = {
     # name        binary
-    "base": "/home/augus/src/llama.cpp-base/build/bin/llama-server",   # upstream 4fc4ec554
-    "fork": "/home/augus/src/llama.cpp/build/bin/llama-server",        # +232 lines
+    "base": "/home/augus/src/slop.cpp-base/build/bin/llama-server",   # upstream 4fc4ec554
+    "fork": "/home/augus/src/slop.cpp/build/bin/llama-server",        # +232 lines
 }
 
 # THE FORK'S HEADLINE FEATURE IS OPT-IN AND DEFAULTS TO OFF:

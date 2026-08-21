@@ -2,7 +2,7 @@
 # §E5 step 1 — generate a routing profile for Qwen3.6-35B-A3B with llama-moe-trace.
 # Routing (which experts fire) is independent of placement, so trace at ncmoe=6 (fast).
 set -u
-BIN=/home/augus/src/llama.cpp-stack/build/bin/llama-moe-trace
+BIN=/home/augus/src/slop.cpp-stack/build/bin/llama-moe-trace
 MODEL=/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
 OUT=/home/augus/models/qwen36-35b-moe-trace.csv
 [ -x "$BIN" ] || { echo "REFUSING: no trace bin"; exit 2; }

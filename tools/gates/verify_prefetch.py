@@ -5,9 +5,9 @@ size (ids count >= 2*n_expert, i.e. >=64 tokens for this model). Neither is visi
 the command line, which is how three A/B runs measured a disabled feature.
 """
 import json, subprocess, sys, time, urllib.request
-sys.path.insert(0, r"C:\projects\local-model-lifecycle\src")
+sys.path.insert(0, r"C:\projects\tare.tools.local-labs\src")
 
-BIN = "/home/augus/src/llama.cpp/build/bin/llama-server"
+BIN = "/home/augus/src/slop.cpp/build/bin/llama-server"
 MODEL = "/home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf"
 from ab_compare import PROMPT  # the long prompt, so this tests the real thing
 

@@ -58,12 +58,12 @@ from model_lifecycle.workloads.throughput import run_config         # noqa: E402
 MODELS = ab_models()
 MODEL = MODELS["qwen36-35b"][0]      # replaced by main() from --model
 
-BASE_BIN   = "/home/augus/src/llama.cpp-base/build/bin/llama-server"     # 4fc4ec554
-FORK_BIN   = "/home/augus/src/llama.cpp/build/bin/llama-server"          # 5e7f6271c
-MASTER_BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"   # upstream 720d7fa40
-REBASE_BIN = "/home/augus/src/llama.cpp-rebase/build/bin/llama-server"   # fork rebased on it
-STACK_BIN  = "/home/augus/src/llama.cpp-stack/build/bin/llama-server"    # all 8 branches
-LOCAL_BIN  = "/home/augus/src/llama.cpp-local/build/bin/llama-server"    # ours
+BASE_BIN   = "/home/augus/src/slop.cpp-base/build/bin/llama-server"     # 4fc4ec554
+FORK_BIN   = "/home/augus/src/slop.cpp/build/bin/llama-server"          # 5e7f6271c
+MASTER_BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"   # upstream 720d7fa40
+REBASE_BIN = "/home/augus/src/slop.cpp-rebase/build/bin/llama-server"   # fork rebased on it
+STACK_BIN  = "/home/augus/src/slop.cpp-stack/build/bin/llama-server"    # all 8 branches
+LOCAL_BIN  = "/home/augus/src/slop.cpp-local/build/bin/llama-server"    # ours
 IK_BIN     = "/home/augus/src/ik_llama.cpp/build/bin/llama-server"       # ikawrakow, §E2
 
 # THE consolidated fork (2026-08-02). The llama.cpp-master repo is on branch `lifecycle` =

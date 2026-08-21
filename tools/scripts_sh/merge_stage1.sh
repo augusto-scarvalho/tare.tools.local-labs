@@ -8,7 +8,7 @@
 set -e
 FP16=/home/augus/models/fp16
 OUT=/home/augus/models/merges           # final Q4 GGUFs live here
-LC=/home/augus/src/llama.cpp-master
+LC=/home/augus/src/slop.cpp-main
 PY=/home/augus/sglang-venv/bin/python3
 QUANT=$LC/build/bin/llama-quantize
 CONVERT=$LC/convert_hf_to_gguf.py

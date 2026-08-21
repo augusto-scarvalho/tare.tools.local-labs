@@ -4,7 +4,7 @@
 # fork question: at equal VRAM, does dynamic hot-expert caching beat static layer placement?
 # Cache points (stack, depth256): off/ncmoe40=37.2t/s@4229MiB, s8=35.9@4741, s32=38.5@6491, s64=45.8@8823.
 set -u
-BIN=/home/augus/src/llama.cpp-stack/build/bin/llama-server
+BIN=/home/augus/src/slop.cpp-stack/build/bin/llama-server
 MODEL=/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
 CTX=4096; GEN=120; DEPTH=256; PORT=8096
 [ -x "$BIN" ] || { echo "REFUSING"; exit 2; }

@@ -43,7 +43,7 @@ Ad-hoc intuition fails when optimizing for latency, context length, and accuracy
 The consolidated, battle-tested deployment configuration for agentic software engineering and reasoning workloads on **24GB GPUs (RTX 3090 / RTX 4090 / ADA)**:
 
 ```bash
-/home/augus/src/llama.cpp-master/build/bin/llama-server \
+/home/augus/src/slop.cpp-main/build/bin/llama-server \
   -m /home/augus/models/qwen38-27b/Qwen3.8-27B-UD-Q2_K_XL.gguf \
   -fa on \
   --ctx-size 65536 \

@@ -59,7 +59,7 @@ MODEL = "/home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf"
 # The full stack: 34 commits ahead of upstream, only 16 behind, and every feature below
 # is a switch on THIS ONE binary. That is what makes an orthogonal array possible at all
 # -- comparing branches instead would change dozens of things per "level".
-STACK_BIN = "/home/augus/src/llama.cpp-stack/build/bin/llama-server"
+STACK_BIN = "/home/augus/src/slop.cpp-stack/build/bin/llama-server"
 
 # Standard L18 (2^1 x 3^7). Columns 1..8; we use 1-6 and leave 7-8 empty as an error
 # estimate -- their apparent "effect" is pure noise and calibrates how big a real one

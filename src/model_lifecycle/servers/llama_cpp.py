@@ -6,11 +6,18 @@ which is most of what the platform needs. It stays a cheap pre-filter elsewhere.
 """
 from __future__ import annotations
 
+import os
 import subprocess
 import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
+
+
+DEFAULT_SERVER_BIN = os.environ.get(
+    "SLOP_CPP_SERVER_BIN",
+    "/home/augus/src/slop.cpp/build/bin/llama-server",
+)
 
 
 @dataclass(frozen=True)
@@ -47,7 +54,7 @@ class ServerHandle:
 
 class LlamaCppAdapter:
     def __init__(self, *, distro: str = "Ubuntu-24.04",
-                 server_bin: str = "/home/augus/src/llama.cpp/build/bin/llama-server",
+                 server_bin: str = DEFAULT_SERVER_BIN,
                  env: dict[str, str] | None = None):
         # NOT the default distro: the default is `Ubuntu` and it is Stopped. A bare
         # `wsl` command lands in the wrong place and reports nothing useful.

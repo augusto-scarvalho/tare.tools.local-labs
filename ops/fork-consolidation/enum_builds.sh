@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Enumerate all llama.cpp-* build trees: branch, HEAD, bins, sizes, git status.
-for d in /home/augus/src/llama.cpp-*; do
+for d in /home/augus/src/slop.cpp-*; do
   echo "===================== $d ====================="
   echo -n "branch: "; git -C "$d" branch --show-current 2>/dev/null
   echo -n "HEAD:   "; git -C "$d" log --oneline -1 2>/dev/null
@@ -11,5 +11,5 @@ for d in /home/augus/src/llama.cpp-*; do
   echo -n "ahead of pinned 720d7fa40: "; git -C "$d" rev-list --count 720d7fa40..HEAD 2>/dev/null || echo "n/a"
 done
 echo "===================== TOTAL disk ====================="
-du -sh /home/augus/src/llama.cpp-* 2>/dev/null
-echo "combined: $(du -sch /home/augus/src/llama.cpp-* 2>/dev/null | tail -1 | cut -f1)"
+du -sh /home/augus/src/slop.cpp-* 2>/dev/null
+echo "combined: $(du -sch /home/augus/src/slop.cpp-* 2>/dev/null | tail -1 | cut -f1)"

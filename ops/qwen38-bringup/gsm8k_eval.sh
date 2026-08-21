@@ -11,7 +11,7 @@
 #
 # Usage: MODEL=<gguf> TAG=<tag> MODE=high SUBSET=60 CTX=8192 bash ops/qwen38-bringup/gsm8k_eval.sh
 set -u
-LLAMA=/home/augus/src/llama.cpp-master
+LLAMA=/home/augus/src/slop.cpp-main
 BIN="$LLAMA/build/bin/llama-server"
 MODEL=${MODEL:-/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf}
 REPO=/mnt/c/projects/local-model-lifecycle
