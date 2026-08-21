@@ -6,8 +6,9 @@
 
 **Hardware target:** RTX 3090 24 GB, 64 GB host RAM, WSL2
 
-**Operational decision:** preserve the already-qualified artifacts; admit the current Unsloth revision and
-Cold Fusion as new, revision-pinned candidates rather than overwriting the existing model files.
+**Operational decision:** preserve the identity of already-qualified artifacts as historical evidence, not
+their operational primacy. Admit the current Unsloth revision and Cold Fusion as revision-pinned candidates;
+if stronger evidence wins, supersede the old quant, experiment conclusion, or operating rule explicitly.
 
 ## 1. Why this assessment exists
 
@@ -25,7 +26,27 @@ quantization arm of the Qwen3.8 base.
 
 The assessment also found material upstream artifact drift: the current Unsloth files differ in size and
 content identity from the files already present in the lab. Historical results therefore remain bound to
-their original local hashes and cannot be transferred automatically to the current Hub revision.
+their original local hashes and cannot be transferred automatically to the current Hub revision. This
+binding is a provenance rule, not a veto on evolution: the new revision may supersede the historical Pareto
+frontier as soon as it passes a stronger or equally qualified comparison.
+
+## 1.1 Supersession posture
+
+The lab is evidence-seeking, not artifact-preserving. Models, quantization recipes, experiment designs,
+promotion rules, and working assumptions are all provisional. A new result should supersede an old one when
+it has better controls, stronger measurement, broader relevant coverage, or a clearly better operational
+trade-off.
+
+Supersession means:
+
+1. preserve the old artifact hash, receipts, and conclusion as historical evidence;
+2. identify the exact new candidate and the evidence that defeats the old conclusion;
+3. mark the old decision `SUPERSEDED`, not `WRONG` or silently deleted;
+4. promote the new operational default when its declared gates pass;
+5. reopen even the new default when later evidence challenges it.
+
+A hash change is neither positive nor negative evidence by itself. It only prevents accidental pooling.
+The purpose of version pinning is to make a genuine improvement attributable and reproducible.
 
 ## 2. Frozen external identities
 
@@ -101,7 +122,11 @@ Therefore:
 2. the current Unsloth Dynamic release is a new artifact generation;
 3. `Q2_K_XL is the Pareto floor` is a hypothesis to requalify, not a fact to copy to the new hashes;
 4. current downloads must never overwrite the old paths;
-5. custom quantization should be considered only after testing the ready-made current-revision quants.
+5. custom quantization should be considered only after testing the ready-made current-revision quants;
+6. if a current-revision requant wins, it should supersede the old deployment candidate without waiting for
+   artificial continuity with the historical file;
+7. if the new imatrix changes the observed quantization frontier, the old frontier and any derived dogma
+   should be relabeled `SUPERSEDED` while their receipts remain intact.
 
 ## 4. Cold Fusion: evidence posture
 
@@ -256,11 +281,15 @@ qualitative gates are already binding:
 6. claimed reasoning-token reduction must coexist with non-inferior strict correctness;
 7. MTP promotion requires an end-to-end latency or energy win, not merely a reported acceptance rate;
 8. any result remains bound to model SHA, Hub revision, engine commit, template SHA, quant recipe, and runtime
-   lever vector.
+   lever vector;
+9. an admitted candidate that passes stronger gates and improves the relevant Pareto trade-off supersedes the
+   prior candidate; prior promotion is not a tie-breaker in its favor.
 
 ## 8. Explicit non-actions
 
 - Do not overwrite the already-qualified local Qwen3.8 files.
+- Do not treat preservation of an old artifact as preservation of its deployment status.
+- Do not treat hash or size drift as a defect; treat it as a new experimental identity.
 - Do not apply an imatrix to an already-quantized GGUF and call the result qualified.
 - Do not begin with Cold Fusion IQ2_M.
 - Do not treat the model-card benchmarks as local evidence.
@@ -274,7 +303,8 @@ qualitative gates are already binding:
 
 1. Create a controlled LAB maintenance mode that records and restores the exact current service argv.
 2. Admit the current Unsloth IQ4_XS and Q2_K_XL under revision-qualified paths.
-3. Run E1 and decide whether the current Q2_K_XL remains the quant Pareto candidate.
+3. Run E1 and decide whether the current Q2_K_XL remains, improves, or supersedes the historical quant Pareto
+   candidate; promote the winner rather than privileging continuity.
 4. Admit only Cold Fusion `NEO-MTP-IQ4_XS` and run E0.
 5. Run E2–E4 with MTP off/on and the new agent/context/termination packet.
 6. Run E5 only if the end-product candidate wins and causal attribution remains valuable.
@@ -284,5 +314,6 @@ qualitative gates are already binding:
 
 This document records a repository/API inspection and an experiment design. It does not claim that the
 current Unsloth quants, the supplied imatrix, NEO imatrix, Cold Fusion weights, or Cold Fusion MTP variants
-have passed local qualification. The only locally qualified Qwen3.8 artifact in this assessment remains the
-historical IQ4_XS identified above.
+have passed local qualification. At the time of writing, the historical IQ4_XS identified above is the only
+locally qualified Qwen3.8 artifact in this assessment. That status is explicitly temporary: it carries no
+presumption against a newer requant, model, method, or result that earns supersession through evidence.
