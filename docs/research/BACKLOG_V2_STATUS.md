@@ -27,8 +27,8 @@ Serving campaign ran and is closed as of LAB-SERVE-001c. Final status table:
 | **LAB-SERVE-001d** Closed-loop concurrency × MTP TPOT isolation | ⏸ **PARKED / OPTIONAL** | 001c answered the practical serving question sufficiently for the lab's current purpose. 001d would isolate the mechanistic closed-loop concurrency×MTP-TPOT interaction, but is NOT required for endpoint qualification now. Preserved for future investigation. |
 | **LAB-SERVE-002** Workload-specific profiles | ○ **NOT PROMOTED / future** | `serve_profiles.py` has `ServeSpec`+`SERVE_PROFILES` but not workload-typed. 001c produced *candidate* interactive/throughput characterizations but explicitly did NOT promote a profile (deploy defaults unchanged). Promotion belongs to a later explicit packet after serving + reliability evidence exist. |
 
-## Wave 2 — reliability/soak (P0/P1) — RUNNING
-| LAB-REL-001 24h soak | ⚑ **RUNNING 2026-08-21** | Qualified 10.8-second pilot passed 3/3. The 24h baseline is live in `runs/reliability/LAB-REL-001-24h-2026-08-21/`: 60-second cadence, eight agentic operations plus periodic long known-answer control, health and GPU/RAM/power/temp telemetry, append-only receipts and atomic summary. Do not classify until the full duration closes. |
+## Wave 2 — reliability/soak (P0/P1) — CANCELLED
+| LAB-REL-001 24h soak | ◼ **CANCELLED_BY_USER 2026-08-21** | Stopped by request after 369/369 successful partial operations, with zero operation or health failures. Receipts remain in `runs/reliability/LAB-REL-001-24h-2026-08-21/`. The incomplete run is preserved but has no pass/fail classification. |
 | LAB-REL-002 48/72h soak | ○ ⛔ | only after 24h is clean. |
 
 ## Wave 3 — cache correctness (P0/P1) — PARTIAL
@@ -82,6 +82,6 @@ Old backlog **B4** (hybrid cache probes) → promoted to **LAB-CACHE-001**. Old 
 ## Recommended next executable step
 The serving-characterization campaign (LAB-SERVE-001 → 001b → 001c) is **CLOSED**. Recommendation:
 **close/compact the serving session and choose the next independent research campaign separately.** Do
-NOT auto-execute LAB-SERVE-001d (parked). Candidate next campaigns (pick deliberately, not by default):
-LAB-REL-001 (soak), LAB-ENERGY-001 (qualified J/token), LAB-CODE-001 (2nd coding axis), or LAB-SERVE-001d
-(mechanistic TPOT isolation) if a later question makes it useful.
+NOT auto-execute LAB-SERVE-001d (parked), LAB-REL-001, or any longer soak. Candidate next campaigns
+(pick deliberately, not by default): LAB-ENERGY-001 (qualified J/token), LAB-CODE-001 (2nd coding axis),
+or LAB-SERVE-001d (mechanistic TPOT isolation) if a later question makes it useful.

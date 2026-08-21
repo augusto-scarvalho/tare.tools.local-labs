@@ -1,7 +1,7 @@
 # Local inference experiment portfolio — 2026-08-20/21
 
 This packet resumes the lab broadly after the earlier Qwen3.8/Liger-only requalification. It records
-completed evidence, invalid/superseded attempts, current blockers, and the one long-running campaign.
+completed evidence, invalid/superseded attempts, current blockers, and the cancelled reliability campaign.
 No remote push or deployment-default change was performed.
 
 ## Frozen live substrate
@@ -38,12 +38,12 @@ No remote push or deployment-default change was performed.
 5. EvalPlus rejected direct n=50 scoring because MBPP+ requires all 378 IDs. The qualified scorer pads
    missing IDs with guaranteed failures, busts stale result caches, then reports only the selected denominator.
 
-## Running and blocked
+## Cancelled and blocked
 
-- **LAB-REL-001 24h is RUNNING** from `2026-08-21T03:01:35Z` (00:01:35 BRT), PID recorded in
-  `runs/reliability/LAB-REL-001-24h-2026-08-21/soak.pid`. It rotates the eight agentic cases and a periodic
-  long known-answer control every 60 seconds, with health/RAM/VRAM/power/temp receipts. Do not classify
-  before the full duration ends.
+- **LAB-REL-001 24h was CANCELLED_BY_USER** at `2026-08-21T09:10:21Z`, after 369/369 successful partial
+  operations and zero operation or health failures. Its health/RAM/VRAM/power/temp receipts remain in
+  `runs/reliability/LAB-REL-001-24h-2026-08-21/`; because the requested duration did not complete, the run
+  has no pass/fail classification.
 - Explicit slot file save/restore is implemented, but the live unit cannot be stopped by the current user:
   `systemctl stop llm-inference.service` requires interactive authentication and direct PID termination is
   immediately undone by `Restart=always`. The baseline was left healthy. The same blocker prevents clean
@@ -52,7 +52,7 @@ No remote push or deployment-default change was performed.
 
 ## Next autonomous queue
 
-1. Close LAB-REL-001 only after 24 elapsed hours; if clean, define the envelope before any 48/72h run.
+1. Keep LAB-REL-001 closed as user-cancelled; do not schedule a 48/72h continuation unless explicitly requested.
 2. With authorized service control, run slot save/erase/restore, speculative rollback, and paired mmap on/off;
    restore the exact baseline argv afterward.
 3. Add agent perturbation robustness and stress scale, then BigCodeBench Tier-1 rather than another easy code
