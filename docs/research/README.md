@@ -12,3 +12,4 @@ Houses long-range architectural analyses, experimental registries, mechanism dee
 - [`MECHANISMS.md`](MECHANISMS.md): Low-level hardware, memory bandwidth, and kernel mechanics.
 - [`CONTEXT_PLAN.md`](CONTEXT_PLAN.md): Context extension planning and YaRN frequency scaling.
 - [`FORK.md`](FORK.md): Fork maintenance and upstream synchronization policy.
+- [`QWEN38_IMATRIX_COLD_FUSION_ASSESSMENT_2026-08-21.md`](QWEN38_IMATRIX_COLD_FUSION_ASSESSMENT_2026-08-21.md): Revision-pinned assessment and proposed qualification plan for the current Unsloth imatrix/quants and DavidAU Cold Fusion.
