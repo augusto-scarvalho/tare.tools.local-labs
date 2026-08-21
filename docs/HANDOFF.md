@@ -1,3 +1,8 @@
+> **CURRENT HANDOFF (2026-08-21):** Read
+> [`HANDOFF_2026-08-21_QWEN38_REQUAL_AND_NEXT_WAVE.md`](HANDOFF_2026-08-21_QWEN38_REQUAL_AND_NEXT_WAVE.md)
+> first. This master ledger remains historical context, but some deployment claims, closed labels, and the
+> next-work queue below are supersedable and no longer authoritative by themselves.
+
 <div align="center">
 
 # 📋 tare.tools.local-labs — Master Handoff & Living Backlog
