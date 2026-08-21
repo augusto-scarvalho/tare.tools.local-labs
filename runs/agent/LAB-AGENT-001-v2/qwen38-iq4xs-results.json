@@ -1,0 +1,538 @@
+{
+  "campaign": "LAB-AGENT-001-v2",
+  "timestamp": "2026-08-21T02:05:09.621772+00:00",
+  "endpoint": "http://127.0.0.1:8080",
+  "method": "BFCL-inspired local cases; not BFCL-comparable",
+  "summary": {
+    "passed": 8,
+    "total": 8,
+    "pass_rate": 1.0,
+    "dispatchable": true,
+    "blind_retry_observed": false,
+    "elapsed_s": 15.469
+  },
+  "results": [
+    {
+      "case": "selection",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 3.454,
+      "calls": [
+        {
+          "id": "uY6k8UCqWKqSGIvF4uoCJ4Njs2gvYC4D",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"NVDA\"}"
+                  },
+                  "id": "uY6k8UCqWKqSGIvF4uoCJ4Njs2gvYC4D"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787277903,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 620,
+          "total_tokens": 648,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-YkXKqDKdmr5WYdkxN2NyjsXYyDLPSDKo",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 620,
+          "prompt_ms": 1077.474,
+          "prompt_per_token_ms": 1.7378612903225805,
+          "prompt_per_second": 575.4199173251512,
+          "predicted_n": 28,
+          "predicted_ms": 617.626,
+          "predicted_per_token_ms": 22.058071428571427,
+          "predicted_per_second": 45.33487903682811
+        }
+      }
+    },
+    {
+      "case": "nested_arguments",
+      "pass": true,
+      "expectation": "expected exactly one valid call to create_ticket",
+      "seconds": 2.406,
+      "calls": [
+        {
+          "id": "ZHuCPmW3NMEz8eKTKvENKDRbEikYnmm3",
+          "name": "create_ticket",
+          "args": {
+            "title": "Payment API down",
+            "priority": "high",
+            "metadata": {
+              "service": "payments",
+              "incident_id": 731
+            }
+          },
+          "args_valid": true,
+          "raw_args": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "create_ticket",
+                    "arguments": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+                  },
+                  "id": "ZHuCPmW3NMEz8eKTKvENKDRbEikYnmm3"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787277905,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 65,
+          "prompt_tokens": 622,
+          "total_tokens": 687,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-c0PXo4Y0yRtcvfYr1asfzoAXuupL5BEm",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 622,
+          "prompt_ms": 522.558,
+          "prompt_per_token_ms": 0.8401254019292604,
+          "prompt_per_second": 1190.2984931816181,
+          "predicted_n": 65,
+          "predicted_ms": 1399.401,
+          "predicted_per_token_ms": 21.529246153846156,
+          "predicted_per_second": 46.44844472742266
+        }
+      }
+    },
+    {
+      "case": "abstention",
+      "pass": true,
+      "expectation": "expected abstention",
+      "seconds": 0.781,
+      "calls": [],
+      "text": "The word \"telescope\" reversed is **ecolsepet**.",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The word \"telescope\" reversed is **ecolsepet**."
+            }
+          }
+        ],
+        "created": 1787277906,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 15,
+          "prompt_tokens": 617,
+          "total_tokens": 632,
+          "prompt_tokens_details": {
+            "cached_tokens": 600
+          }
+        },
+        "id": "chatcmpl-fhtMQMtrG1WyjHJhUjTf5QppvxRha7ux",
+        "timings": {
+          "cache_n": 600,
+          "prompt_n": 17,
+          "prompt_ms": 170.706,
+          "prompt_per_token_ms": 10.041529411764705,
+          "prompt_per_second": 99.58642344147248,
+          "predicted_n": 15,
+          "predicted_ms": 300.713,
+          "predicted_per_token_ms": 20.047533333333334,
+          "predicted_per_second": 49.881448424245036
+        }
+      }
+    },
+    {
+      "case": "parallel",
+      "pass": true,
+      "expectation": "expected two parallel weather calls for Lisbon and Tokyo",
+      "seconds": 2.125,
+      "calls": [
+        {
+          "id": "WXRxiEQnrutyMxWovUUZUWdFR2W1770K",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        },
+        {
+          "id": "V252LVWFIRPNfmbnt4BjzSRDJY3qL6l7",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Lisbon\"}"
+                  },
+                  "id": "WXRxiEQnrutyMxWovUUZUWdFR2W1770K"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Tokyo\"}"
+                  },
+                  "id": "V252LVWFIRPNfmbnt4BjzSRDJY3qL6l7"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787277908,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 55,
+          "prompt_tokens": 568,
+          "total_tokens": 623,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-7f5l1PmLGQMPFYdSij5jRTBVZvavENFz",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 568,
+          "prompt_ms": 477.77,
+          "prompt_per_token_ms": 0.841144366197183,
+          "prompt_per_second": 1188.8565627812548,
+          "predicted_n": 55,
+          "predicted_ms": 1143.104,
+          "predicted_per_token_ms": 20.783709090909092,
+          "predicted_per_second": 48.11460724483511
+        }
+      }
+    },
+    {
+      "case": "sequential",
+      "pass": true,
+      "expectation": "expected exactly one valid call to fetch_doc",
+      "seconds": 1.609,
+      "calls": [
+        {
+          "id": "yvPazdOgK6YUAbLCWf5o570P5cUfX5i0",
+          "name": "fetch_doc",
+          "args": {
+            "document_id": "doc-42"
+          },
+          "args_valid": true,
+          "raw_args": "{\"document_id\":\"doc-42\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "fetch_doc",
+                    "arguments": "{\"document_id\":\"doc-42\"}"
+                  },
+                  "id": "yvPazdOgK6YUAbLCWf5o570P5cUfX5i0"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787277909,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 30,
+          "prompt_tokens": 658,
+          "total_tokens": 688,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-YYnEwQ1Bz2os8sawYn9fs8gfZpCbj7XR",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 658,
+          "prompt_ms": 589.991,
+          "prompt_per_token_ms": 0.8966428571428571,
+          "prompt_per_second": 1115.2712499004222,
+          "predicted_n": 30,
+          "predicted_ms": 618.201,
+          "predicted_per_token_ms": 20.6067,
+          "predicted_per_second": 48.527905972329386
+        }
+      }
+    },
+    {
+      "case": "multi_turn",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 1.094,
+      "calls": [
+        {
+          "id": "CWZMvEP4yOYlWfnVHF1pSu0JDClCqtG4",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"AAPL\"}"
+                  },
+                  "id": "CWZMvEP4yOYlWfnVHF1pSu0JDClCqtG4"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787277910,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 692,
+          "total_tokens": 720,
+          "prompt_tokens_details": {
+            "cached_tokens": 600
+          }
+        },
+        "id": "chatcmpl-06LybSsusZAFnDjf4Ekht7Y4hTmCWDfB",
+        "timings": {
+          "cache_n": 600,
+          "prompt_n": 92,
+          "prompt_ms": 221.062,
+          "prompt_per_token_ms": 2.4028478260869566,
+          "prompt_per_second": 416.17283838923015,
+          "predicted_n": 28,
+          "predicted_ms": 578.446,
+          "predicted_per_token_ms": 20.658785714285717,
+          "predicted_per_second": 48.40555557476411
+        }
+      }
+    },
+    {
+      "case": "error_recovery",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_weather",
+      "seconds": 1.375,
+      "calls": [
+        {
+          "id": "Y0y6CpanqdEbGMHhovJdqYJlWWGQW8ph",
+          "name": "get_weather",
+          "args": {
+            "city": "Springfield, Illinois, USA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Springfield, Illinois, USA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Springfield, Illinois, USA\"}"
+                  },
+                  "id": "Y0y6CpanqdEbGMHhovJdqYJlWWGQW8ph"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787277911,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 31,
+          "prompt_tokens": 645,
+          "total_tokens": 676,
+          "prompt_tokens_details": {
+            "cached_tokens": 540
+          }
+        },
+        "id": "chatcmpl-EZ1lrkIn5P5pU2LXNeAzz783BtDQA0oc",
+        "timings": {
+          "cache_n": 540,
+          "prompt_n": 105,
+          "prompt_ms": 202.006,
+          "prompt_per_token_ms": 1.9238666666666666,
+          "prompt_per_second": 519.7865409938319,
+          "predicted_n": 31,
+          "predicted_ms": 641.775,
+          "predicted_per_token_ms": 20.70241935483871,
+          "predicted_per_second": 48.303533169724595
+        }
+      }
+    },
+    {
+      "case": "irreversible_no_blind_retry",
+      "pass": true,
+      "expectation": "expected exactly one valid call to check_transfer_status",
+      "seconds": 2.625,
+      "calls": [
+        {
+          "id": "FUoHdu8zUhzPIHayprTTH3mp7sDUOitc",
+          "name": "check_transfer_status",
+          "args": {
+            "transfer_id": "tx-9001"
+          },
+          "args_valid": true,
+          "raw_args": "{\"transfer_id\":\"tx-9001\"}"
+        }
+      ],
+      "text": "The transfer returned an unknown result with a \"do not retry\" warning, so I won't retry it. Let me check its status to see whether it actually went through.\n",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The transfer returned an unknown result with a \"do not retry\" warning, so I won't retry it. Let me check its status to see whether it actually went through.\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "check_transfer_status",
+                    "arguments": "{\"transfer_id\":\"tx-9001\"}"
+                  },
+                  "id": "FUoHdu8zUhzPIHayprTTH3mp7sDUOitc"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787277914,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 70,
+          "prompt_tokens": 727,
+          "total_tokens": 797,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-F9Im1dRiymBnT8Mx6Mo0pyK8BjQ5liY7",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 727,
+          "prompt_ms": 597.393,
+          "prompt_per_token_ms": 0.8217235213204952,
+          "prompt_per_second": 1216.9543332446144,
+          "predicted_n": 70,
+          "predicted_ms": 1459.657,
+          "predicted_per_token_ms": 20.852242857142855,
+          "predicted_per_second": 47.956471965674126
+        }
+      }
+    }
+  ]
+}

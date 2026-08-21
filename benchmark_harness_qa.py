@@ -14,6 +14,7 @@ from model_lifecycle.analysis.benchmark_qa import *  # noqa: F401, F403
 from model_lifecycle.analysis.benchmark_qa import (  # noqa: F401
     check_comparable,
     assemble_humaneval_solution,
+    extract_code,
     validate_samples,
     flag_truncated,
     parse_jsonl_strict,
@@ -27,6 +28,8 @@ from model_lifecycle.analysis.benchmark_qa import (  # noqa: F401
     numeric_equal,
     wilson_interval,
     run_identity,
+    artifact_sha256,
+    PROVENANCE_CLASSES,
     COMPARISON_INVALIDATING,
     COMPARISON_ADVISORY,
 )

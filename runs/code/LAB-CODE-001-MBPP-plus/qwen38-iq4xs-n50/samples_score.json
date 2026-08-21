@@ -1,0 +1,76 @@
+{
+  "benchmark": "MBPP+",
+  "subset_samples": "/mnt/c/projects/local-model-lifecycle/runs/code/LAB-CODE-001-MBPP-plus/qwen38-iq4xs-n50/samples.jsonl",
+  "n": 50,
+  "base_pass": 47,
+  "base_pass_at_1": 0.94,
+  "base_wilson_95": [
+    0.8378290831116182,
+    0.979385029651026
+  ],
+  "plus_pass": 39,
+  "plus_pass_at_1": 0.78,
+  "plus_wilson_95": [
+    0.6475845041874634,
+    0.8724608402978559
+  ],
+  "failures": [
+    {
+      "task_id": "Mbpp/99",
+      "base_status": "pass",
+      "plus_status": "fail"
+    },
+    {
+      "task_id": "Mbpp/119",
+      "base_status": "pass",
+      "plus_status": "fail"
+    },
+    {
+      "task_id": "Mbpp/161",
+      "base_status": "pass",
+      "plus_status": "fail"
+    },
+    {
+      "task_id": "Mbpp/427",
+      "base_status": "pass",
+      "plus_status": "fail"
+    },
+    {
+      "task_id": "Mbpp/459",
+      "base_status": "pass",
+      "plus_status": "fail"
+    },
+    {
+      "task_id": "Mbpp/559",
+      "base_status": "pass",
+      "plus_status": "fail"
+    },
+    {
+      "task_id": "Mbpp/581",
+      "base_status": "fail",
+      "plus_status": "fail"
+    },
+    {
+      "task_id": "Mbpp/622",
+      "base_status": "fail",
+      "plus_status": "fail"
+    },
+    {
+      "task_id": "Mbpp/739",
+      "base_status": "pass",
+      "plus_status": "fail"
+    },
+    {
+      "task_id": "Mbpp/742",
+      "base_status": "fail",
+      "plus_status": "fail"
+    },
+    {
+      "task_id": "Mbpp/800",
+      "base_status": "pass",
+      "plus_status": "fail"
+    }
+  ],
+  "padded_n": 378,
+  "stale_result_cache_busted": true
+}

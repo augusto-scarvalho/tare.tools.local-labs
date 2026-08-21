@@ -227,6 +227,49 @@ def _():
         raise AssertionError("empty denominator must fail closed")
 
 
+@case("artifact identity hashes on demand and classifies lineage",
+      "LAB-PROV-001 requires a full content hash and explicit source/requant class")
+def _():
+    with tempfile.TemporaryDirectory() as d:
+        artifact = pathlib.Path(d) / "fixture.gguf"
+        artifact.write_bytes(b"GGUF-fixture")
+        assert q.artifact_sha256(artifact) == __import__("hashlib").sha256(b"GGUF-fixture").hexdigest()
+    identity = q.run_identity(
+        benchmark_name="fixture", benchmark_version="v1", dataset_version="fixture-v1",
+        problems=[{"task_id": "f/0", "prompt": "p"}], sampling={"temperature": 0},
+        model_id="fixture", model_path="fixture.gguf", quant="IQ4_XS",
+        engine_commit="abc", timestamp="2026-08-20T00:00:00Z", repo_root=ROOT,
+        model_sha256="a" * 64, model_bytes=12, source_repo="org/repo",
+        source_revision="rev", quantizer="llama-quantize", imatrix="none",
+        provenance_class="COMMUNITY_REQUANT")
+    assert identity["source_repo"] == "org/repo"
+    assert identity["provenance_class"] == "COMMUNITY_REQUANT"
+    assert identity["model_sha256"] == "a" * 64
+
+
+@case("shared code-fence extraction keeps executable code and format remains observable",
+      "HumanEval+ and MBPP+ must use the same extraction glue before isolated execution")
+def _():
+    assert q.extract_code("```python\ndef f():\n    return 1\n```") == "def f():\n    return 1"
+    assert q.extract_code("```py\ndef f(): pass\n```") == "def f(): pass"
+    assert q.extract_code("def f(): return 2") == "def f(): return 2"
+    assert "```" not in q.extract_code("```python\nx = 1\n```")
+
+
+@case("unknown artifact lineage fails closed instead of inventing provenance",
+      "unrecognized provenance classes must not silently enter historical run identity")
+def _():
+    try:
+        q.run_identity(
+            benchmark_name="fixture", benchmark_version="v1", dataset_version="v1",
+            problems=[], sampling={}, model_id="m", model_path="m.gguf",
+            timestamp="2026-08-20T00:00:00Z", provenance_class="OFFICIALISH")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("invalid provenance class accepted")
+
+
 # ==================================================================================================
 # Metamorphic tests (same-meaning input -> same result)
 # ==================================================================================================

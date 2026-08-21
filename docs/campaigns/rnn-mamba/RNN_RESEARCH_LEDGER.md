@@ -78,6 +78,13 @@ mechanism now absorbed into modern long-context stacks. State = fixed-length cac
 chunkwise (long-seq). New arch, trained from scratch; no widely adopted large checkpoints → reproduce/
 experiment rather than deploy. Reference kernels also in microsoft/torchscale.
 
+**Local mechanism qualification (RNN-09, 2026-08-21): COMPLETE.** The frozen CPU microbenchmark
+qualified parallel↔recurrent parity (max abs `4.27e-14` through T=513), bit-exact chunkwise carry,
+save/reload, batch isolation and explicit reset, gradient parity (`3.56e-15` max), and finite fp32
+recurrence through T=4096. Reusing one sequence's state in another produced a large detectable delta
+(`47.08`), confirming that state ownership/reset is load-bearing. This verifies the algebra and lifecycle,
+not an official RetNet checkpoint or model-quality claim; official-checkpoint reproduction remains open.
+
 ### 3 Longhorn — RESEARCH
 SSM whose state-update is the closed-form solution to an online associative-recall objective. CLAIMS
 ~1.8× sample efficiency vs Mamba and 16× context extrapolation. **No LICENSE file in the repo** →

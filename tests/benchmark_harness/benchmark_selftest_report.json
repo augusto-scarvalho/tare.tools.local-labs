@@ -1,7 +1,7 @@
 {
   "suite": "LAB-QA-001 benchmark_harness_selftest",
-  "total": 20,
-  "passed": 20,
+  "total": 23,
+  "passed": 23,
   "failed": 0,
   "cases": [
     {
@@ -98,6 +98,24 @@
       "name": "Wilson interval sanity and denominator guards",
       "status": "pass",
       "incident": "accuracy claims expose finite-sample uncertainty and cannot use an empty denominator",
+      "detail": ""
+    },
+    {
+      "name": "artifact identity hashes on demand and classifies lineage",
+      "status": "pass",
+      "incident": "LAB-PROV-001 requires a full content hash and explicit source/requant class",
+      "detail": ""
+    },
+    {
+      "name": "shared code-fence extraction keeps executable code and format remains observable",
+      "status": "pass",
+      "incident": "HumanEval+ and MBPP+ must use the same extraction glue before isolated execution",
+      "detail": ""
+    },
+    {
+      "name": "unknown artifact lineage fails closed instead of inventing provenance",
+      "status": "pass",
+      "incident": "unrecognized provenance classes must not silently enter historical run identity",
       "detail": ""
     },
     {

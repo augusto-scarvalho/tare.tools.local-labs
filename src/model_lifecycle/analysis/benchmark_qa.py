@@ -36,6 +36,22 @@ def assemble_humaneval_solution(prompt: str, completion: str) -> str:
     return prompt + "\n" + completion
 
 
+def extract_code(text: str) -> str:
+    """Extract the first Python fence while preserving unfenced code as a format diagnostic.
+
+    Callers must separately record whether a fence was present. Extraction makes the
+    sample executable; it does not turn a format failure into a format pass.
+    """
+    if "```" not in text:
+        return text.strip()
+    parts = text.split("```")
+    block = parts[1] if len(parts) > 1 else text
+    first_line, separator, rest = block.partition("\n")
+    if first_line.strip().lower() in {"python", "py"}:
+        block = rest if separator else ""
+    return block.strip()
+
+
 def pad_subset(mine: dict[str, str], all_ids: list[str]) -> list[dict]:
     """Pad a subset of {task_id: solution} up to the full benchmark id list; missing ids get an
     empty (guaranteed-failing) solution — evalplus insists on the full set."""
@@ -257,15 +273,35 @@ def _git_head(repo_root) -> str:
         return "UNKNOWN"
 
 
+PROVENANCE_CLASSES = frozenset({"VERIFIED_SOURCE", "COMMUNITY_REQUANT", "UNKNOWN"})
+
+
+def artifact_sha256(path, chunk_bytes: int = 8 * 1024 * 1024) -> str:
+    """Hash a local artifact on demand without loading multi-GB weights into memory."""
+    if chunk_bytes <= 0:
+        raise ValueError("chunk_bytes must be positive")
+    digest = hashlib.sha256()
+    with pathlib.Path(path).open("rb") as handle:
+        while chunk := handle.read(chunk_bytes):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def run_identity(*, benchmark_name: str, benchmark_version: str, dataset_version: str,
                  problems: list[dict], sampling: dict, model_id: str, model_path: str,
                  quant: str = "", engine_commit: str = "UNKNOWN", timestamp: str,
-                 repo_root=None, model_sha256=None) -> dict:
+                 repo_root=None, model_sha256=None, model_bytes=None,
+                 source_repo: str = "UNKNOWN", source_revision: str = "UNKNOWN",
+                 quantizer: str = "UNKNOWN", imatrix: str = "UNKNOWN",
+                 provenance_class: str = "UNKNOWN") -> dict:
     """Assemble the LAB-QA-002 identity block for a run so a historical score is auditable without
     the current filesystem. Cheap by design: dataset content is hashed; the harness/scorer commit
     is the repo HEAD; the model is identified by registry path + quant (full GGUF sha256 is left
     on-demand — LAB-PROV-001 — since the weights live in the WSL VHDX, not stat-able here).
     """
+    if provenance_class not in PROVENANCE_CLASSES:
+        raise ValueError(f"invalid provenance_class={provenance_class!r}; "
+                         f"expected one of {sorted(PROVENANCE_CLASSES)}")
     repo_root = repo_root or pathlib.Path(__file__).resolve().parent
     head = _git_head(repo_root)
     return {
@@ -280,7 +316,13 @@ def run_identity(*, benchmark_name: str, benchmark_version: str, dataset_version
         "model_id": model_id,
         "model_path": model_path,
         "quantization": quant,
-        "model_sha256": model_sha256,              # null = compute on demand (LAB-PROV-001)
+        "model_sha256": model_sha256,
+        "model_bytes": model_bytes,
+        "source_repo": source_repo,
+        "source_revision": source_revision,
+        "quantizer": quantizer,
+        "imatrix": imatrix,
+        "provenance_class": provenance_class,
         "engine_commit": engine_commit,
         "sampling_config": sampling,
         "timestamp": timestamp,
