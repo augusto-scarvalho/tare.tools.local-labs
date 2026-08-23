@@ -5,7 +5,7 @@
 #   G2  draft-mtp token-identity (#23335): base vs mtp greedy output byte-identical.
 #   G3  coherence + -nkvo spot-check (#20140): KV-on-GPU and -nkvo output both non-degenerate.
 set -u
-FORK=/home/augus/src/llama.cpp-master/build/bin/llama-server  # branch 'lifecycle' = 720d7fa40 + §B2b
+FORK=/home/augus/src/slop.cpp-main/build/bin/llama-server  # branch 'lifecycle' = 720d7fa40 + §B2b
 MODEL=/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
 PROJ=/mnt/c/projects/local-model-lifecycle
 PORT=8097

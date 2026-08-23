@@ -18,7 +18,7 @@ param(
   [string]$Spec = "draft-mtp"
 )
 $ErrorActionPreference = "Continue"
-Set-Location C:\projects\local-model-lifecycle
+Set-Location C:\projects\tare.tools.local-labs
 $env:PYTHONPATH = "src"
 $MODEL = $Model
 $OUT = "runs\quality-market"

@@ -2,7 +2,7 @@
 # Prove/deny that #25832 is the draft-mtp exactness regression: revert it in the fresh-master
 # fork worktree, incremental-rebuild, and let the caller re-run the G2 identity gate.
 set -u
-WT=/home/augus/src/llama.cpp-fork
+WT=/home/augus/src/slop.cpp-fork
 cd "$WT" || exit 2
 
 echo "== current HEAD =="; git log --oneline -2
@@ -15,7 +15,7 @@ else
   # remove just the line that newly skips FA_EXT from weight-backend offload (the hypothesis)
   python3 - <<'PY'
 import pathlib
-F=pathlib.Path("/home/augus/src/llama.cpp-fork/ggml/src/ggml-backend.cpp")
+F=pathlib.Path("/home/augus/src/slop.cpp-fork/ggml/src/ggml-backend.cpp")
 s=F.read_text()
 needle='    // skip FLASH_ATTN_EXT since the sinks tensor is too small to choose a based based on it\n    allow = allow && tensor->op != GGML_OP_FLASH_ATTN_EXT;\n\n'
 if needle in s:

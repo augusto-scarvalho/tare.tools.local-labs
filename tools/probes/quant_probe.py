@@ -10,7 +10,7 @@ QUANTS = [("Q4_K_M", D + "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf"),
           ("Q5_K_M", D + "Qwen3.6-35B-A3B-UD-Q5_K_M.gguf"),
           ("Q6_K",   D + "Qwen3.6-35B-A3B-UD-Q6_K.gguf"),
           ("Q8_0",   D + "Qwen3.6-35B-A3B-Q8_0.gguf")]
-BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"
 PORT = 8103
 NCMOE_TRY = [8, 16, 24, 32, 40]
 

@@ -1,0 +1,219 @@
+{
+  "schema_version": "qwen38-requal-v1",
+  "kind": "gsm8k",
+  "config": {
+    "dataset_path": "workloads\\gsm8k.jsonl",
+    "dataset_file_sha256": "68a72276898a45dacb893154477621ff3d05ae7e043a10820644b691d8b63d77",
+    "dataset_content_sha256": "ae9f014e00b29e8cdbeb65d2b8d37fc4fb42d70dd691052e682c65f2f65dedf2",
+    "dataset_n": 1319,
+    "subset": 100,
+    "subset_seed": 20260820,
+    "subset_task_ids": [
+      "gsm8k/153"
+    ],
+    "max_tokens": 512,
+    "reasoning_strength": "low",
+    "primary_scorer": "strict final non-empty line: #### <number>",
+    "lenient_scorer": "diagnostic only: last numeric token"
+  },
+  "source_sha256": "48d8923c9144555ced364f6df359269e6aaa1ec48fa42831a1adc8510d998028",
+  "repo_head": "dcc0c55bae4db202176518575d479ce934369613",
+  "server_identity_start": {
+    "captured_at": "2026-08-22T03:50:19.033297+00:00",
+    "base_url": "http://127.0.0.1:8092",
+    "health": {
+      "status": "ok"
+    },
+    "model_alias": "qwen38-cold-fusion-iq4xs",
+    "model_path": "/home/augus/models/qwen38-27b/cold-fusion-27a5cb2c/Qwen3.8-27B-Cold-Fusion-GAIN-V1.1-NM-DAU-NEO-MAX-NEO-MTP-IQ4_XS.gguf",
+    "model_sha256": "523bf4fbe2a2e0ce7aa54f812d85746294483b579443dd6e50e8ab684d7852f9",
+    "build_info": "b9863-5e7f6271c",
+    "n_ctx": 65536,
+    "total_slots": 1,
+    "default_params": {
+      "seed": 4294967295,
+      "temperature": 1.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 20,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": -1,
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "max_tokens": -1,
+      "n_predict": -1,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "n_probs": 0,
+      "min_keep": 0,
+      "chat_format": "Content-only",
+      "reasoning_format": "none",
+      "reasoning_in_content": false,
+      "generation_prompt": "",
+      "samplers": [
+        "penalties",
+        "dry",
+        "top_n_sigma",
+        "top_k",
+        "typ_p",
+        "top_p",
+        "min_p",
+        "xtc",
+        "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+    },
+    "model_meta": {
+      "vocab_type": 2,
+      "n_vocab": 248320,
+      "n_ctx": 65536,
+      "n_ctx_train": 262144,
+      "n_embd": 5120,
+      "n_params": 27320697856,
+      "size": 17022685184
+    },
+    "chat_template_sha256": "d1f22a89eac3609dcfaa7b471b1f7d23bee2f084d275d26f4f8231d1d7908f4e",
+    "chat_template_chars": 23014,
+    "process_argv": "/home/augus/src/slop.cpp/build/bin/llama-server -m /home/augus/models/qwen38-27b/cold-fusion-27a5cb2c/Qwen3.8-27B-Cold-Fusion-GAIN-V1.1-NM-DAU-NEO-MAX-NEO-MTP-IQ4_XS.gguf --alias qwen38-cold-fusion-iq4xs --host 0.0.0.0 --port 8092 --ctx-size 65536 -np 1 --gpu-layers all --flash-attn on --metrics --jinja --chat-template-file /home/augus/models/templates/qwen-sharp.jinja --cache-type-k q4_0 --cache-type-v q4_0 --no-mmproj"
+  },
+  "started_at": "2026-08-22T03:50:19.070337+00:00",
+  "status": "complete",
+  "completed_at": "2026-08-22T03:50:31.494178+00:00",
+  "server_identity_after": {
+    "captured_at": "2026-08-22T03:50:31.479468+00:00",
+    "base_url": "http://127.0.0.1:8092",
+    "health": {
+      "status": "ok"
+    },
+    "model_alias": "qwen38-cold-fusion-iq4xs",
+    "model_path": "/home/augus/models/qwen38-27b/cold-fusion-27a5cb2c/Qwen3.8-27B-Cold-Fusion-GAIN-V1.1-NM-DAU-NEO-MAX-NEO-MTP-IQ4_XS.gguf",
+    "model_sha256": "523bf4fbe2a2e0ce7aa54f812d85746294483b579443dd6e50e8ab684d7852f9",
+    "build_info": "b9863-5e7f6271c",
+    "n_ctx": 65536,
+    "total_slots": 1,
+    "default_params": {
+      "seed": 4294967295,
+      "temperature": 1.0,
+      "dynatemp_range": 0.0,
+      "dynatemp_exponent": 1.0,
+      "top_k": 20,
+      "top_p": 0.949999988079071,
+      "min_p": 0.05000000074505806,
+      "top_n_sigma": -1.0,
+      "xtc_probability": 0.0,
+      "xtc_threshold": 0.10000000149011612,
+      "typical_p": 1.0,
+      "repeat_last_n": 64,
+      "repeat_penalty": 1.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0,
+      "dry_multiplier": 0.0,
+      "dry_base": 1.75,
+      "dry_allowed_length": 2,
+      "dry_penalty_last_n": -1,
+      "mirostat": 0,
+      "mirostat_tau": 5.0,
+      "mirostat_eta": 0.10000000149011612,
+      "max_tokens": -1,
+      "n_predict": -1,
+      "n_keep": 0,
+      "n_discard": 0,
+      "ignore_eos": false,
+      "stream": false,
+      "n_probs": 0,
+      "min_keep": 0,
+      "chat_format": "Content-only",
+      "reasoning_format": "none",
+      "reasoning_in_content": false,
+      "generation_prompt": "",
+      "samplers": [
+        "penalties",
+        "dry",
+        "top_n_sigma",
+        "top_k",
+        "typ_p",
+        "top_p",
+        "min_p",
+        "xtc",
+        "temperature"
+      ],
+      "speculative.types": "none",
+      "timings_per_token": false,
+      "post_sampling_probs": false,
+      "backend_sampling": false,
+      "lora": []
+    },
+    "model_meta": {
+      "vocab_type": 2,
+      "n_vocab": 248320,
+      "n_ctx": 65536,
+      "n_ctx_train": 262144,
+      "n_embd": 5120,
+      "n_params": 27320697856,
+      "size": 17022685184
+    },
+    "chat_template_sha256": "d1f22a89eac3609dcfaa7b471b1f7d23bee2f084d275d26f4f8231d1d7908f4e",
+    "chat_template_chars": 23014,
+    "process_argv": "/home/augus/src/slop.cpp/build/bin/llama-server -m /home/augus/models/qwen38-27b/cold-fusion-27a5cb2c/Qwen3.8-27B-Cold-Fusion-GAIN-V1.1-NM-DAU-NEO-MAX-NEO-MTP-IQ4_XS.gguf --alias qwen38-cold-fusion-iq4xs --host 0.0.0.0 --port 8092 --ctx-size 65536 -np 1 --gpu-layers all --flash-attn on --metrics --jinja --chat-template-file /home/augus/models/templates/qwen-sharp.jinja --cache-type-k q4_0 --cache-type-v q4_0 --no-mmproj"
+  },
+  "server_identity_stable": true,
+  "row_count": 1,
+  "summary": {
+    "primary_metric": "strict numeric accuracy",
+    "strict_accuracy": {
+      "n": 1,
+      "successes": 1,
+      "rate": 1.0,
+      "wilson95": [
+        0.20654931437723745,
+        1.0
+      ]
+    },
+    "lenient_accuracy_diagnostic": {
+      "n": 1,
+      "successes": 1,
+      "rate": 1.0,
+      "wilson95": [
+        0.20654931437723745,
+        1.0
+      ]
+    },
+    "format_adherence": {
+      "n": 1,
+      "successes": 1,
+      "rate": 1.0,
+      "wilson95": [
+        0.20654931437723745,
+        1.0
+      ]
+    },
+    "truncation": {
+      "n": 1,
+      "successes": 0,
+      "rate": 0.0,
+      "wilson95": [
+        0.0,
+        0.7934506856227626
+      ]
+    }
+  }
+}

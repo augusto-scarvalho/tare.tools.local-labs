@@ -13,7 +13,7 @@ from model_lifecycle.servers.llama_cpp import (                           # noqa
     LlamaCppAdapter, ServerProfile)
 from a2_refusal_probe import PROMPTS, is_refusal                          # noqa: E402
 
-LOCAL_BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+LOCAL_BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"
 
 
 def main() -> int:

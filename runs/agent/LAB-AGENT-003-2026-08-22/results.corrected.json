@@ -1,0 +1,1574 @@
+{
+  "campaign": "LAB-AGENT-003-v2",
+  "timestamp": "2026-08-22T11:05:40.112538+00:00",
+  "endpoint": "http://127.0.0.1:8080",
+  "seed": 0,
+  "axes": [
+    "distractors",
+    "parallel",
+    "sequential",
+    "history"
+  ],
+  "method": "bounded local stress curves; not BFCL-comparable",
+  "summary": {
+    "passed": 16,
+    "total": 16,
+    "all_pass": true,
+    "by_axis": {
+      "distractors": {
+        "passed": 4,
+        "total": 4,
+        "all_pass": true,
+        "largest_contiguous_passing_level": 32
+      },
+      "parallel": {
+        "passed": 4,
+        "total": 4,
+        "all_pass": true,
+        "largest_contiguous_passing_level": 12
+      },
+      "sequential": {
+        "passed": 4,
+        "total": 4,
+        "all_pass": true,
+        "largest_contiguous_passing_level": 8
+      },
+      "history": {
+        "passed": 4,
+        "total": 4,
+        "all_pass": true,
+        "largest_contiguous_passing_level": 16
+      }
+    }
+  },
+  "results": [
+    {
+      "axis": "distractors",
+      "level": 2,
+      "pass": true,
+      "seconds": 1.296,
+      "metadata": {
+        "tool_count": 2,
+        "target_position": 0
+      },
+      "calls": [
+        {
+          "id": "q9JOLySnIhr9Z5i4b6RmcUKDGMG27W6n",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"NVDA\"}"
+                  },
+                  "id": "q9JOLySnIhr9Z5i4b6RmcUKDGMG27W6n"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396725,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 357,
+          "total_tokens": 385,
+          "prompt_tokens_details": {
+            "cached_tokens": 332
+          }
+        },
+        "id": "chatcmpl-r0zEqn2CC7t7hWq9RZtJxZwgMhQvgxL3",
+        "timings": {
+          "cache_n": 332,
+          "prompt_n": 25,
+          "prompt_ms": 379.997,
+          "prompt_per_token_ms": 15.19988,
+          "prompt_per_second": 65.78999307889273,
+          "predicted_n": 28,
+          "predicted_ms": 317.011,
+          "predicted_per_token_ms": 11.321821428571429,
+          "predicted_per_second": 88.3250108040415,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    },
+    {
+      "axis": "distractors",
+      "level": 8,
+      "pass": true,
+      "seconds": 0.688,
+      "metadata": {
+        "tool_count": 8,
+        "target_position": 3
+      },
+      "calls": [
+        {
+          "id": "l9QV3OnjfDZ630la9h5aHH7dEyZS61tB",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"NVDA\"}"
+                  },
+                  "id": "l9QV3OnjfDZ630la9h5aHH7dEyZS61tB"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396725,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 783,
+          "total_tokens": 811,
+          "prompt_tokens_details": {
+            "cached_tokens": 758
+          }
+        },
+        "id": "chatcmpl-1qOQGWzex1HIZt7jk8mNiAAbcKkEZRO1",
+        "timings": {
+          "cache_n": 758,
+          "prompt_n": 25,
+          "prompt_ms": 153.465,
+          "prompt_per_token_ms": 6.1386,
+          "prompt_per_second": 162.90359365327598,
+          "predicted_n": 28,
+          "predicted_ms": 305.264,
+          "predicted_per_token_ms": 10.902285714285714,
+          "predicted_per_second": 91.72388489962785,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    },
+    {
+      "axis": "distractors",
+      "level": 16,
+      "pass": true,
+      "seconds": 0.75,
+      "metadata": {
+        "tool_count": 16,
+        "target_position": 7
+      },
+      "calls": [
+        {
+          "id": "K80DsavpWdEli6e20o3KghOPwwHDZ3Et",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"NVDA\"}"
+                  },
+                  "id": "K80DsavpWdEli6e20o3KghOPwwHDZ3Et"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396726,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 1356,
+          "total_tokens": 1384,
+          "prompt_tokens_details": {
+            "cached_tokens": 1331
+          }
+        },
+        "id": "chatcmpl-e1JknaaUQrWxgWA0CSZPUZpZo8xmOesu",
+        "timings": {
+          "cache_n": 1331,
+          "prompt_n": 25,
+          "prompt_ms": 149.166,
+          "prompt_per_token_ms": 5.96664,
+          "prompt_per_second": 167.5985144067683,
+          "predicted_n": 28,
+          "predicted_ms": 307.785,
+          "predicted_per_token_ms": 10.99232142857143,
+          "predicted_per_second": 90.97259450590508,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    },
+    {
+      "axis": "distractors",
+      "level": 32,
+      "pass": true,
+      "seconds": 0.891,
+      "metadata": {
+        "tool_count": 32,
+        "target_position": 15
+      },
+      "calls": [
+        {
+          "id": "duENAfDegjzQCBLlX5kNqz237JN2tEmi",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"NVDA\"}"
+                  },
+                  "id": "duENAfDegjzQCBLlX5kNqz237JN2tEmi"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396727,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 2508,
+          "total_tokens": 2536,
+          "prompt_tokens_details": {
+            "cached_tokens": 2483
+          }
+        },
+        "id": "chatcmpl-t6TVpUumYTR5bZdGkJ6jwscNYEYGyumJ",
+        "timings": {
+          "cache_n": 2483,
+          "prompt_n": 25,
+          "prompt_ms": 157.423,
+          "prompt_per_token_ms": 6.29692,
+          "prompt_per_second": 158.80779809811781,
+          "predicted_n": 28,
+          "predicted_ms": 309.628,
+          "predicted_per_token_ms": 11.058142857142856,
+          "predicted_per_second": 90.43109796271655,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    },
+    {
+      "axis": "parallel",
+      "level": 2,
+      "pass": true,
+      "seconds": 1.125,
+      "metadata": {
+        "fanout": 2,
+        "cities": [
+          "Lisbon",
+          "Tokyo"
+        ]
+      },
+      "calls": [
+        {
+          "id": "jwKe7YBXPlM2hGAl57ATXtbDvPxCwtQt",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        },
+        {
+          "id": "NvsWg43NuwzYfdz9InOFTXqr4SeaHUga",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        }
+      ],
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Lisbon\"}"
+                  },
+                  "id": "jwKe7YBXPlM2hGAl57ATXtbDvPxCwtQt"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Tokyo\"}"
+                  },
+                  "id": "NvsWg43NuwzYfdz9InOFTXqr4SeaHUga"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396728,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 55,
+          "prompt_tokens": 308,
+          "total_tokens": 363,
+          "prompt_tokens_details": {
+            "cached_tokens": 278
+          }
+        },
+        "id": "chatcmpl-S9Ip4TYWOU2KGge074SpPqk4mYBtJLN8",
+        "timings": {
+          "cache_n": 278,
+          "prompt_n": 30,
+          "prompt_ms": 156.438,
+          "prompt_per_token_ms": 5.2146,
+          "prompt_per_second": 191.76926322249074,
+          "predicted_n": 55,
+          "predicted_ms": 615.564,
+          "predicted_per_token_ms": 11.192072727272727,
+          "predicted_per_second": 89.34895477968172,
+          "draft_n": 42,
+          "draft_n_accepted": 42
+        }
+      }
+    },
+    {
+      "axis": "parallel",
+      "level": 4,
+      "pass": true,
+      "seconds": 1.5,
+      "metadata": {
+        "fanout": 4,
+        "cities": [
+          "Lisbon",
+          "Tokyo",
+          "Nairobi",
+          "Lima"
+        ]
+      },
+      "calls": [
+        {
+          "id": "SEhvPm4vKOYcuL8nr9nQByB2A163auM7",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        },
+        {
+          "id": "d1jdBuStxaP7Jq4vZnLXELQsGedO8fdi",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        },
+        {
+          "id": "pxjMLQXsKJD4zUhDiBoUvRxj5rSTQhRh",
+          "name": "get_weather",
+          "args": {
+            "city": "Nairobi"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Nairobi\"}"
+        },
+        {
+          "id": "45S0cLv4jrktsSOn8Q2apFxiAAcQgpAK",
+          "name": "get_weather",
+          "args": {
+            "city": "Lima"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lima\"}"
+        }
+      ],
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Lisbon\"}"
+                  },
+                  "id": "SEhvPm4vKOYcuL8nr9nQByB2A163auM7"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Tokyo\"}"
+                  },
+                  "id": "d1jdBuStxaP7Jq4vZnLXELQsGedO8fdi"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Nairobi\"}"
+                  },
+                  "id": "pxjMLQXsKJD4zUhDiBoUvRxj5rSTQhRh"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Lima\"}"
+                  },
+                  "id": "45S0cLv4jrktsSOn8Q2apFxiAAcQgpAK"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396733,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 109,
+          "prompt_tokens": 312,
+          "total_tokens": 421,
+          "prompt_tokens_details": {
+            "cached_tokens": 278
+          }
+        },
+        "id": "chatcmpl-OPugwuHkJXt1srh3UTJeg1xI3XHdj8mL",
+        "timings": {
+          "cache_n": 278,
+          "prompt_n": 34,
+          "prompt_ms": 159.373,
+          "prompt_per_token_ms": 4.687441176470588,
+          "prompt_per_second": 213.33601049111206,
+          "predicted_n": 109,
+          "predicted_ms": 1157.618,
+          "predicted_per_token_ms": 10.62034862385321,
+          "predicted_per_second": 94.15886760572141,
+          "draft_n": 81,
+          "draft_n_accepted": 81
+        }
+      }
+    },
+    {
+      "axis": "parallel",
+      "level": 8,
+      "pass": true,
+      "seconds": 2.781,
+      "metadata": {
+        "fanout": 8,
+        "cities": [
+          "Lisbon",
+          "Tokyo",
+          "Nairobi",
+          "Lima",
+          "Oslo",
+          "Seoul",
+          "Cairo",
+          "Perth"
+        ]
+      },
+      "calls": [
+        {
+          "id": "q7liaRet4km8nbALtmE0SCZFNiLwYBnf",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        },
+        {
+          "id": "y5XreDeWr1PtR67C8uGCsBcaHug49xGv",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        },
+        {
+          "id": "d6zUPZVSJcKzlG5lLzW63zJqppU4zRLf",
+          "name": "get_weather",
+          "args": {
+            "city": "Nairobi"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Nairobi\"}"
+        },
+        {
+          "id": "fw1GOMMlI7YTuo3b7D9Sb5Hf2VQxgaMU",
+          "name": "get_weather",
+          "args": {
+            "city": "Lima"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lima\"}"
+        },
+        {
+          "id": "GtgHombT3ecfGmBZQZ2pY2N2reL93zSk",
+          "name": "get_weather",
+          "args": {
+            "city": "Oslo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Oslo\"}"
+        },
+        {
+          "id": "6wqxni7Vl6UMdNKJBoXB2LbohMMtJ1QA",
+          "name": "get_weather",
+          "args": {
+            "city": "Seoul"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Seoul\"}"
+        },
+        {
+          "id": "pUX5WHXw7xqCza49oPXbSouLLfDvh1N5",
+          "name": "get_weather",
+          "args": {
+            "city": "Cairo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Cairo\"}"
+        },
+        {
+          "id": "VdfTSqC2YPKTGUDLHEUvBvvnylhDKABL",
+          "name": "get_weather",
+          "args": {
+            "city": "Perth"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Perth\"}"
+        }
+      ],
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Lisbon\"}"
+                  },
+                  "id": "q7liaRet4km8nbALtmE0SCZFNiLwYBnf"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Tokyo\"}"
+                  },
+                  "id": "y5XreDeWr1PtR67C8uGCsBcaHug49xGv"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Nairobi\"}"
+                  },
+                  "id": "d6zUPZVSJcKzlG5lLzW63zJqppU4zRLf"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Lima\"}"
+                  },
+                  "id": "fw1GOMMlI7YTuo3b7D9Sb5Hf2VQxgaMU"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Oslo\"}"
+                  },
+                  "id": "GtgHombT3ecfGmBZQZ2pY2N2reL93zSk"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Seoul\"}"
+                  },
+                  "id": "6wqxni7Vl6UMdNKJBoXB2LbohMMtJ1QA"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Cairo\"}"
+                  },
+                  "id": "pUX5WHXw7xqCza49oPXbSouLLfDvh1N5"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Perth\"}"
+                  },
+                  "id": "VdfTSqC2YPKTGUDLHEUvBvvnylhDKABL"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396735,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 217,
+          "prompt_tokens": 320,
+          "total_tokens": 537,
+          "prompt_tokens_details": {
+            "cached_tokens": 278
+          }
+        },
+        "id": "chatcmpl-CSRiV85cwgEcnjxk15EMxysQVZrsIYwh",
+        "timings": {
+          "cache_n": 278,
+          "prompt_n": 42,
+          "prompt_ms": 179.024,
+          "prompt_per_token_ms": 4.262476190476191,
+          "prompt_per_second": 234.6054160336044,
+          "predicted_n": 217,
+          "predicted_ms": 2304.196,
+          "predicted_per_token_ms": 10.61841474654378,
+          "predicted_per_second": 94.17601627639316,
+          "draft_n": 162,
+          "draft_n_accepted": 162
+        }
+      }
+    },
+    {
+      "axis": "parallel",
+      "level": 12,
+      "pass": true,
+      "seconds": 4.125,
+      "metadata": {
+        "fanout": 12,
+        "cities": [
+          "Lisbon",
+          "Tokyo",
+          "Nairobi",
+          "Lima",
+          "Oslo",
+          "Seoul",
+          "Cairo",
+          "Perth",
+          "Dublin",
+          "Mumbai",
+          "Quebec City",
+          "Santiago"
+        ]
+      },
+      "calls": [
+        {
+          "id": "Rn8fdVQOkel8GmfEgKqqaWeFf7T9FpDX",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        },
+        {
+          "id": "ljM5Yb3Tjm327nNRKj5YorNStBtQnnni",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        },
+        {
+          "id": "Lc6oi3JDsH7OBwwHpzFLXk5HoropBnsu",
+          "name": "get_weather",
+          "args": {
+            "city": "Nairobi"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Nairobi\"}"
+        },
+        {
+          "id": "sAdcfwwJeHhPCraXoYNXkfgifECum7nq",
+          "name": "get_weather",
+          "args": {
+            "city": "Lima"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lima\"}"
+        },
+        {
+          "id": "bdEO5kXUVLQlyjuPJx4vZu4uX1QgTSpK",
+          "name": "get_weather",
+          "args": {
+            "city": "Oslo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Oslo\"}"
+        },
+        {
+          "id": "sf43GkrcYbr54jKZ4gY75bf29AWfjsEp",
+          "name": "get_weather",
+          "args": {
+            "city": "Seoul"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Seoul\"}"
+        },
+        {
+          "id": "XhDsaSfWQP5LPNHEPl83BtTvuGaKWelX",
+          "name": "get_weather",
+          "args": {
+            "city": "Cairo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Cairo\"}"
+        },
+        {
+          "id": "kFOVzEqUecnCkBVLFUsXLB2JC9jsgR5R",
+          "name": "get_weather",
+          "args": {
+            "city": "Perth"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Perth\"}"
+        },
+        {
+          "id": "MWj3rxiFwRq0KshnSMgTSWAKEDlMG3dJ",
+          "name": "get_weather",
+          "args": {
+            "city": "Dublin"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Dublin\"}"
+        },
+        {
+          "id": "4oP3WhXxHb2Du6VT6nJvlFikiwpZYyfh",
+          "name": "get_weather",
+          "args": {
+            "city": "Mumbai"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Mumbai\"}"
+        },
+        {
+          "id": "BFvyyevoRx7cbxolQIOGLnetq9ZBjmoT",
+          "name": "get_weather",
+          "args": {
+            "city": "Quebec City"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Quebec City\"}"
+        },
+        {
+          "id": "C3LSiz16kdcLLMF8fJrMZi5jcPoxXvaW",
+          "name": "get_weather",
+          "args": {
+            "city": "Santiago"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Santiago\"}"
+        }
+      ],
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Lisbon\"}"
+                  },
+                  "id": "Rn8fdVQOkel8GmfEgKqqaWeFf7T9FpDX"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Tokyo\"}"
+                  },
+                  "id": "ljM5Yb3Tjm327nNRKj5YorNStBtQnnni"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Nairobi\"}"
+                  },
+                  "id": "Lc6oi3JDsH7OBwwHpzFLXk5HoropBnsu"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Lima\"}"
+                  },
+                  "id": "sAdcfwwJeHhPCraXoYNXkfgifECum7nq"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Oslo\"}"
+                  },
+                  "id": "bdEO5kXUVLQlyjuPJx4vZu4uX1QgTSpK"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Seoul\"}"
+                  },
+                  "id": "sf43GkrcYbr54jKZ4gY75bf29AWfjsEp"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Cairo\"}"
+                  },
+                  "id": "XhDsaSfWQP5LPNHEPl83BtTvuGaKWelX"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Perth\"}"
+                  },
+                  "id": "kFOVzEqUecnCkBVLFUsXLB2JC9jsgR5R"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Dublin\"}"
+                  },
+                  "id": "MWj3rxiFwRq0KshnSMgTSWAKEDlMG3dJ"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Mumbai\"}"
+                  },
+                  "id": "4oP3WhXxHb2Du6VT6nJvlFikiwpZYyfh"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Quebec City\"}"
+                  },
+                  "id": "BFvyyevoRx7cbxolQIOGLnetq9ZBjmoT"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Santiago\"}"
+                  },
+                  "id": "C3LSiz16kdcLLMF8fJrMZi5jcPoxXvaW"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396739,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 326,
+          "prompt_tokens": 329,
+          "total_tokens": 655,
+          "prompt_tokens_details": {
+            "cached_tokens": 278
+          }
+        },
+        "id": "chatcmpl-c87Ail1qnUa8e7ma3PE5KML55nVyp30H",
+        "timings": {
+          "cache_n": 278,
+          "prompt_n": 51,
+          "prompt_ms": 186.833,
+          "prompt_per_token_ms": 3.663392156862745,
+          "prompt_per_second": 272.9710490116842,
+          "predicted_n": 326,
+          "predicted_ms": 3509.26,
+          "predicted_per_token_ms": 10.764601226993866,
+          "predicted_per_second": 92.8970780164479,
+          "draft_n": 246,
+          "draft_n_accepted": 245
+        }
+      }
+    },
+    {
+      "axis": "sequential",
+      "level": 0,
+      "pass": true,
+      "seconds": 1.547,
+      "metadata": {
+        "completed_depth": 0,
+        "next_stage": 1
+      },
+      "calls": [
+        {
+          "id": "hExODfpTQ8RS1guFdrtr4hvqfNQ9FDB1",
+          "name": "advance_pipeline",
+          "args": {
+            "workflow_id": "wf-77",
+            "stage": 1,
+            "token": "root"
+          },
+          "args_valid": true,
+          "raw_args": "{\"workflow_id\":\"wf-77\",\"stage\":1,\"token\":\"root\"}"
+        }
+      ],
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "advance_pipeline",
+                    "arguments": "{\"workflow_id\":\"wf-77\",\"stage\":1,\"token\":\"root\"}"
+                  },
+                  "id": "hExODfpTQ8RS1guFdrtr4hvqfNQ9FDB1"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396740,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 55,
+          "prompt_tokens": 342,
+          "total_tokens": 397,
+          "prompt_tokens_details": {
+            "cached_tokens": 290
+          }
+        },
+        "id": "chatcmpl-ENSHPPOyMAPHDanGN7OAMngzVmyBEKXO",
+        "timings": {
+          "cache_n": 290,
+          "prompt_n": 52,
+          "prompt_ms": 170.961,
+          "prompt_per_token_ms": 3.2877115384615387,
+          "prompt_per_second": 304.16293774603565,
+          "predicted_n": 55,
+          "predicted_ms": 618.597,
+          "predicted_per_token_ms": 11.247218181818182,
+          "predicted_per_second": 88.91087412321754,
+          "draft_n": 42,
+          "draft_n_accepted": 42
+        }
+      }
+    },
+    {
+      "axis": "sequential",
+      "level": 2,
+      "pass": true,
+      "seconds": 1.093,
+      "metadata": {
+        "completed_depth": 2,
+        "next_stage": 3
+      },
+      "calls": [
+        {
+          "id": "Vmc68Pnz6HDuXbPp3oG08BvHUmVuETAk",
+          "name": "advance_pipeline",
+          "args": {
+            "workflow_id": "wf-77",
+            "stage": 3,
+            "token": "tok-3"
+          },
+          "args_valid": true,
+          "raw_args": "{\"workflow_id\":\"wf-77\",\"stage\":3,\"token\":\"tok-3\"}"
+        }
+      ],
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "advance_pipeline",
+                    "arguments": "{\"workflow_id\":\"wf-77\",\"stage\":3,\"token\":\"tok-3\"}"
+                  },
+                  "id": "Vmc68Pnz6HDuXbPp3oG08BvHUmVuETAk"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396741,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 57,
+          "prompt_tokens": 534,
+          "total_tokens": 591,
+          "prompt_tokens_details": {
+            "cached_tokens": 290
+          }
+        },
+        "id": "chatcmpl-xPzKYQOMWVZa9EZxXy7uW4KKICoxX7vm",
+        "timings": {
+          "cache_n": 290,
+          "prompt_n": 244,
+          "prompt_ms": 355.257,
+          "prompt_per_token_ms": 1.4559713114754098,
+          "prompt_per_second": 686.8267198112915,
+          "predicted_n": 57,
+          "predicted_ms": 601.974,
+          "predicted_per_token_ms": 10.560947368421054,
+          "predicted_per_second": 94.68847491752135,
+          "draft_n": 42,
+          "draft_n_accepted": 42
+        }
+      }
+    },
+    {
+      "axis": "sequential",
+      "level": 4,
+      "pass": true,
+      "seconds": 1.297,
+      "metadata": {
+        "completed_depth": 4,
+        "next_stage": 5
+      },
+      "calls": [
+        {
+          "id": "min9p8n3upPMqHHqjZ5ITdcR0TRBhaSP",
+          "name": "advance_pipeline",
+          "args": {
+            "workflow_id": "wf-77",
+            "stage": 5,
+            "token": "tok-5"
+          },
+          "args_valid": true,
+          "raw_args": "{\"workflow_id\":\"wf-77\",\"stage\":5,\"token\":\"tok-5\"}"
+        }
+      ],
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "advance_pipeline",
+                    "arguments": "{\"workflow_id\":\"wf-77\",\"stage\":5,\"token\":\"tok-5\"}"
+                  },
+                  "id": "min9p8n3upPMqHHqjZ5ITdcR0TRBhaSP"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396742,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 57,
+          "prompt_tokens": 728,
+          "total_tokens": 785,
+          "prompt_tokens_details": {
+            "cached_tokens": 290
+          }
+        },
+        "id": "chatcmpl-I5sd57GmhplqztVq9z0bXaXRJTyDO1tU",
+        "timings": {
+          "cache_n": 290,
+          "prompt_n": 438,
+          "prompt_ms": 543.624,
+          "prompt_per_token_ms": 1.2411506849315068,
+          "prompt_per_second": 805.7039424307977,
+          "predicted_n": 57,
+          "predicted_ms": 607.182,
+          "predicted_per_token_ms": 10.652315789473684,
+          "predicted_per_second": 93.87630068085022,
+          "draft_n": 42,
+          "draft_n_accepted": 42
+        }
+      }
+    },
+    {
+      "axis": "sequential",
+      "level": 8,
+      "pass": true,
+      "seconds": 2.016,
+      "metadata": {
+        "completed_depth": 8,
+        "next_stage": 9
+      },
+      "calls": [
+        {
+          "id": "K9NSPsACPsMkMwoWGDGZvHh6Evi3VdTp",
+          "name": "advance_pipeline",
+          "args": {
+            "workflow_id": "wf-77",
+            "stage": 9,
+            "token": "tok-9"
+          },
+          "args_valid": true,
+          "raw_args": "{\"workflow_id\":\"wf-77\",\"stage\":9,\"token\":\"tok-9\"}"
+        }
+      ],
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "advance_pipeline",
+                    "arguments": "{\"workflow_id\":\"wf-77\",\"stage\":9,\"token\":\"tok-9\"}"
+                  },
+                  "id": "K9NSPsACPsMkMwoWGDGZvHh6Evi3VdTp"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396744,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 57,
+          "prompt_tokens": 1116,
+          "total_tokens": 1173,
+          "prompt_tokens_details": {
+            "cached_tokens": 290
+          }
+        },
+        "id": "chatcmpl-eQEcBCpZc0qXiO883JvcdV63X27Ral9c",
+        "timings": {
+          "cache_n": 290,
+          "prompt_n": 826,
+          "prompt_ms": 946.575,
+          "prompt_per_token_ms": 1.1459745762711866,
+          "prompt_per_second": 872.6197078942504,
+          "predicted_n": 57,
+          "predicted_ms": 605.534,
+          "predicted_per_token_ms": 10.62340350877193,
+          "predicted_per_second": 94.13179111329835,
+          "draft_n": 42,
+          "draft_n_accepted": 42
+        }
+      }
+    },
+    {
+      "axis": "history",
+      "level": 0,
+      "pass": true,
+      "seconds": 0.781,
+      "metadata": {
+        "history_turns": 0
+      },
+      "calls": [
+        {
+          "id": "rOYXZSzTsDj0M0cQQOHun0TwNl86As3K",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"AAPL\"}"
+                  },
+                  "id": "rOYXZSzTsDj0M0cQQOHun0TwNl86As3K"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396745,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 359,
+          "total_tokens": 387,
+          "prompt_tokens_details": {
+            "cached_tokens": 338
+          }
+        },
+        "id": "chatcmpl-cgY3c2ROMVu88zPUbPepUjsZ7TSIKskf",
+        "timings": {
+          "cache_n": 338,
+          "prompt_n": 21,
+          "prompt_ms": 158.577,
+          "prompt_per_token_ms": 7.551285714285714,
+          "prompt_per_second": 132.4277795645018,
+          "predicted_n": 28,
+          "predicted_ms": 306.105,
+          "predicted_per_token_ms": 10.932321428571429,
+          "predicted_per_second": 91.4718805638588,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    },
+    {
+      "axis": "history",
+      "level": 4,
+      "pass": true,
+      "seconds": 0.781,
+      "metadata": {
+        "history_turns": 4
+      },
+      "calls": [
+        {
+          "id": "pGeQsnBmgbjfAfWNJ7a10dPpJAgP7RGU",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"AAPL\"}"
+                  },
+                  "id": "pGeQsnBmgbjfAfWNJ7a10dPpJAgP7RGU"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396746,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 499,
+          "total_tokens": 527,
+          "prompt_tokens_details": {
+            "cached_tokens": 338
+          }
+        },
+        "id": "chatcmpl-vmvb4ntc4vMhAsN0O3klG4LM5CKMMcPK",
+        "timings": {
+          "cache_n": 338,
+          "prompt_n": 161,
+          "prompt_ms": 357.196,
+          "prompt_per_token_ms": 2.2186086956521742,
+          "prompt_per_second": 450.73293093987616,
+          "predicted_n": 28,
+          "predicted_ms": 317.49,
+          "predicted_per_token_ms": 11.338928571428571,
+          "predicted_per_second": 88.19175407099436,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    },
+    {
+      "axis": "history",
+      "level": 8,
+      "pass": true,
+      "seconds": 0.782,
+      "metadata": {
+        "history_turns": 8
+      },
+      "calls": [
+        {
+          "id": "6zUZw7rUP1MdU8MfADWFmzFeDgclVF8z",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"AAPL\"}"
+                  },
+                  "id": "6zUZw7rUP1MdU8MfADWFmzFeDgclVF8z"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396746,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 639,
+          "total_tokens": 667,
+          "prompt_tokens_details": {
+            "cached_tokens": 478
+          }
+        },
+        "id": "chatcmpl-JttvVQqDiqz7bwO4c8TuHoLwr6kP6tu5",
+        "timings": {
+          "cache_n": 478,
+          "prompt_n": 161,
+          "prompt_ms": 380.169,
+          "prompt_per_token_ms": 2.3612981366459627,
+          "prompt_per_second": 423.4958663120875,
+          "predicted_n": 28,
+          "predicted_ms": 308.978,
+          "predicted_per_token_ms": 11.034928571428571,
+          "predicted_per_second": 90.62133873609125,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    },
+    {
+      "axis": "history",
+      "level": 16,
+      "pass": true,
+      "seconds": 1.047,
+      "metadata": {
+        "history_turns": 16
+      },
+      "calls": [
+        {
+          "id": "fZVlf91u4X6A0IBPTi6jYPSTWNCwnQ2a",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"AAPL\"}"
+                  },
+                  "id": "fZVlf91u4X6A0IBPTi6jYPSTWNCwnQ2a"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396747,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 931,
+          "total_tokens": 959,
+          "prompt_tokens_details": {
+            "cached_tokens": 618
+          }
+        },
+        "id": "chatcmpl-0vPh80tvM49qB3kfyHN2fo8FOv4UKSEb",
+        "timings": {
+          "cache_n": 618,
+          "prompt_n": 313,
+          "prompt_ms": 593.989,
+          "prompt_per_token_ms": 1.8977284345047924,
+          "prompt_per_second": 526.9457851913082,
+          "predicted_n": 28,
+          "predicted_ms": 309.47,
+          "predicted_per_token_ms": 11.0525,
+          "predicted_per_second": 90.47726758651888,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    }
+  ]
+}

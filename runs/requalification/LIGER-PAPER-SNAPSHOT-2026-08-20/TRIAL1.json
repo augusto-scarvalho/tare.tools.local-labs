@@ -1,0 +1,133 @@
+{
+  "schema_version": "liger-feasibility-v1",
+  "runner_path": "/mnt/c/projects/local-model-lifecycle/tools/benchmarks/liger_feasibility.py",
+  "runner_sha256": "e74edd918656dd3abf651cb7121618de13ef528d551fe84b00135b226b33ab89",
+  "python": "3.10.20 (main, Jul 23 2026, 14:44:19) [Clang 22.1.3 ]",
+  "executable": "/home/augus/.venvs/liger-paper-20260820/bin/python",
+  "versions": {
+    "torch": "2.5.1",
+    "triton": "3.1.0",
+    "transformers": "4.47.1",
+    "datasets": "3.6.0",
+    "peft": "0.15.2",
+    "evaluate": "0.4.3",
+    "omegaconf": "2.3.0",
+    "einops": "0.8.1",
+    "flash-attn": "2.7.4.post1",
+    "flash-linear-attention": null,
+    "fla": "0.1"
+  },
+  "architecture": "llama",
+  "source_profile": "paper",
+  "provenance": {
+    "repositories": {
+      ".": {
+        "path": "/home/augus/src/Linearization-paper-0e3cfae",
+        "expected_head": "0e3cfae33a700fa5f644cf5752d8434c6afc2412",
+        "actual_head": "0e3cfae33a700fa5f644cf5752d8434c6afc2412",
+        "head_matches": true,
+        "clean": true,
+        "status": ""
+      },
+      "third_party/flash-linear-attention": {
+        "path": "/home/augus/src/Linearization-paper-0e3cfae/third_party/flash-linear-attention",
+        "expected_head": "95a895680065346884f08fb31dfb9f297fa2b8d8",
+        "actual_head": "95a895680065346884f08fb31dfb9f297fa2b8d8",
+        "head_matches": true,
+        "clean": true,
+        "status": ""
+      },
+      "third_party/lm-evaluation-harness": {
+        "path": "/home/augus/src/Linearization-paper-0e3cfae/third_party/lm-evaluation-harness",
+        "expected_head": "1ba35e623b9bd9ca48df926f1a028043e159a6f2",
+        "actual_head": "1ba35e623b9bd9ca48df926f1a028043e159a6f2",
+        "head_matches": true,
+        "clean": true,
+        "status": ""
+      }
+    },
+    "pass": true
+  },
+  "state_transfer": {
+    "architecture": "llama",
+    "config": {
+      "vocab_size": 256,
+      "hidden_size": 128,
+      "intermediate_size": 256,
+      "num_hidden_layers": 2,
+      "num_attention_heads": 4,
+      "num_key_value_heads": 2,
+      "head_dim": 32,
+      "max_position_embeddings": 256,
+      "attention_bias": false,
+      "use_cache": true,
+      "tie_word_embeddings": false,
+      "rope_theta": 1000000
+    },
+    "base_parameter_count": 361088,
+    "candidate_parameter_count": 361088,
+    "candidate_only_keys": [],
+    "base_only_keys": [],
+    "shape_mismatches": [],
+    "load_missing_keys": [],
+    "load_unexpected_keys": [],
+    "load_error": null,
+    "decision": {
+      "pass": true,
+      "missing_count": 0,
+      "unexpected_count": 0,
+      "shape_mismatch_count": 0,
+      "stop_reason": null
+    }
+  },
+  "construction_gate": {
+    "pass": true,
+    "logits_shape": [
+      1,
+      8,
+      256
+    ],
+    "loss": 5.574553966522217,
+    "finite_logits": true,
+    "finite_loss": true,
+    "finite_gradients": true,
+    "error": null
+  },
+  "recurrence_gate": {
+    "pass": false,
+    "full_shape": [
+      1,
+      8,
+      256
+    ],
+    "incremental_shape": [
+      1,
+      8,
+      256
+    ],
+    "cache_lengths": [
+      4,
+      8,
+      12,
+      16,
+      20,
+      24,
+      28,
+      32
+    ],
+    "expected_cache_lengths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "max_abs": 0.935546875,
+    "max_rel": 39322.6015625,
+    "error": null
+  },
+  "status": "blocked_recurrence"
+}

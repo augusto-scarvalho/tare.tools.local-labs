@@ -12,8 +12,8 @@
 #
 # Usage: moe-routing-screen.sh [model-dir-name ...]   (defaults to the on-disk MoE set)
 set -u
-BIN=/home/augus/src/llama.cpp-master/build/bin/llama-moe-trace
-SIM=/home/augus/src/llama.cpp-master/tools/moe-trace/simulate.py
+BIN=/home/augus/src/slop.cpp-main/build/bin/llama-moe-trace
+SIM=/home/augus/src/slop.cpp-main/tools/moe-trace/simulate.py
 MODELS_ROOT=/home/augus/models
 PROMPT="Write a Python function that parses a CSV file, validates each row against a schema, and returns typed records. Include error handling and unit tests."
 STEPS="${MOE_SCREEN_STEPS:-128}"

@@ -1,0 +1,466 @@
+{
+  "campaign": "LAB-AGENT-001-v2",
+  "timestamp": "2026-08-22T22:44:59.674557+00:00",
+  "endpoint": "http://127.0.0.1:8090",
+  "method": "BFCL-inspired local cases; not BFCL-comparable",
+  "reasoning_strength": null,
+  "summary": {
+    "passed": 6,
+    "total": 8,
+    "pass_rate": 0.75,
+    "dispatchable": false,
+    "blind_retry_observed": false,
+    "elapsed_s": 4.157
+  },
+  "results": [
+    {
+      "case": "selection",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 0.938,
+      "calls": [
+        {
+          "id": "PPO4kPOV0GknGBNuLfwgdnvYofDMcXEh",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\": \"NVDA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\": \"NVDA\"}"
+                  },
+                  "id": "PPO4kPOV0GknGBNuLfwgdnvYofDMcXEh"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787438696,
+        "model": "/home/augus/models/mistral-small-24b-heretic/Mistral-Small-3.2-24B-Instruct-2506-Heretic-v1.2-2.i1-Q4_K_M.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 16,
+          "prompt_tokens": 710,
+          "total_tokens": 726,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-OZWz9Lye7nnIinbp2neV3GsKWjw8La9d",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 710,
+          "prompt_ms": 579.08,
+          "prompt_per_token_ms": 0.8156056338028169,
+          "prompt_per_second": 1226.082751951371,
+          "predicted_n": 16,
+          "predicted_ms": 314.736,
+          "predicted_per_token_ms": 19.671,
+          "predicted_per_second": 50.836256418077376
+        }
+      }
+    },
+    {
+      "case": "nested_arguments",
+      "pass": true,
+      "expectation": "expected exactly one valid call to create_ticket",
+      "seconds": 0.906,
+      "calls": [
+        {
+          "id": "TDXDpy4iePMfhyJtzinmADm4WjS3ZaIM",
+          "name": "create_ticket",
+          "args": {
+            "title": "Payment API down",
+            "priority": "high",
+            "metadata": {
+              "service": "payments",
+              "incident_id": 731
+            }
+          },
+          "args_valid": true,
+          "raw_args": "{\"title\": \"Payment API down\", \"priority\": \"high\", \"metadata\": {\"service\": \"payments\", \"incident_id\": 731}}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "create_ticket",
+                    "arguments": "{\"title\": \"Payment API down\", \"priority\": \"high\", \"metadata\": {\"service\": \"payments\", \"incident_id\": 731}}"
+                  },
+                  "id": "TDXDpy4iePMfhyJtzinmADm4WjS3ZaIM"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787438697,
+        "model": "/home/augus/models/mistral-small-24b-heretic/Mistral-Small-3.2-24B-Instruct-2506-Heretic-v1.2-2.i1-Q4_K_M.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 41,
+          "prompt_tokens": 710,
+          "total_tokens": 751,
+          "prompt_tokens_details": {
+            "cached_tokens": 570
+          }
+        },
+        "id": "chatcmpl-ema0ex2KZj9P6leTZaHmSoSmeLf51zTu",
+        "timings": {
+          "cache_n": 570,
+          "prompt_n": 140,
+          "prompt_ms": 98.171,
+          "prompt_per_token_ms": 0.7012214285714287,
+          "prompt_per_second": 1426.083059151888,
+          "predicted_n": 41,
+          "predicted_ms": 775.657,
+          "predicted_per_token_ms": 18.918463414634147,
+          "predicted_per_second": 52.85841551097972
+        }
+      }
+    },
+    {
+      "case": "abstention",
+      "pass": true,
+      "expectation": "expected abstention",
+      "seconds": 0.438,
+      "calls": [],
+      "text": "The word \"telescope\" reversed is \"eposelcet\".",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The word \"telescope\" reversed is \"eposelcet\"."
+            }
+          }
+        ],
+        "created": 1787438697,
+        "model": "/home/augus/models/mistral-small-24b-heretic/Mistral-Small-3.2-24B-Instruct-2506-Heretic-v1.2-2.i1-Q4_K_M.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 17,
+          "prompt_tokens": 706,
+          "total_tokens": 723,
+          "prompt_tokens_details": {
+            "cached_tokens": 570
+          }
+        },
+        "id": "chatcmpl-YM3MuDv6hFGp4mUlcY0XxdaVmrAybxRg",
+        "timings": {
+          "cache_n": 570,
+          "prompt_n": 136,
+          "prompt_ms": 98.398,
+          "prompt_per_token_ms": 0.7235147058823529,
+          "prompt_per_second": 1382.1419134535256,
+          "predicted_n": 17,
+          "predicted_ms": 308.657,
+          "predicted_per_token_ms": 18.156294117647057,
+          "predicted_per_second": 55.07731883611906
+        }
+      }
+    },
+    {
+      "case": "parallel",
+      "pass": true,
+      "expectation": "expected two parallel weather calls for Lisbon and Tokyo",
+      "seconds": 0.578,
+      "calls": [
+        {
+          "id": "5sdB3CbMTVz7QWrHc7qfeSvIR7IvVuJ2",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\": \"Lisbon\"}"
+        },
+        {
+          "id": "VPvf8wSXch3OF3Pvsd60PL3ApwKpwrfQ",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\": \"Tokyo\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\": \"Lisbon\"}"
+                  },
+                  "id": "5sdB3CbMTVz7QWrHc7qfeSvIR7IvVuJ2"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\": \"Tokyo\"}"
+                  },
+                  "id": "VPvf8wSXch3OF3Pvsd60PL3ApwKpwrfQ"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787438698,
+        "model": "/home/augus/models/mistral-small-24b-heretic/Mistral-Small-3.2-24B-Instruct-2506-Heretic-v1.2-2.i1-Q4_K_M.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 27,
+          "prompt_tokens": 654,
+          "total_tokens": 681,
+          "prompt_tokens_details": {
+            "cached_tokens": 634
+          }
+        },
+        "id": "chatcmpl-lpQ9YUIOPDURjzh8xWcrRsXas5CeWidN",
+        "timings": {
+          "cache_n": 634,
+          "prompt_n": 20,
+          "prompt_ms": 32.985,
+          "prompt_per_token_ms": 1.6492499999999999,
+          "prompt_per_second": 606.3362134303471,
+          "predicted_n": 27,
+          "predicted_ms": 512.178,
+          "predicted_per_token_ms": 18.969555555555555,
+          "predicted_per_second": 52.71604793645959
+        }
+      }
+    },
+    {
+      "case": "sequential",
+      "pass": false,
+      "expectation": "expected exactly one valid call to fetch_doc",
+      "seconds": 0.031,
+      "calls": [],
+      "text": "",
+      "error": "HTTP 400: {\"error\":{\"code\":400,\"message\":\"Unable to generate parser for this template. Automatic parser generation failed: \\n------------\\nWhile executing CallExpression at line 265, column 40 in source:\\n...↵                    {{- raise_exception(\\\"Tool call IDs should be alphanumeric s...\\n                                           ^\\nError: Jinja Exception: Tool call IDs should be alphanumeric strings with length >= 9!\",\"type\":\"invalid_request_error\"}}",
+      "raw_response": {
+        "_error": "HTTP 400: {\"error\":{\"code\":400,\"message\":\"Unable to generate parser for this template. Automatic parser generation failed: \\n------------\\nWhile executing CallExpression at line 265, column 40 in source:\\n...↵                    {{- raise_exception(\\\"Tool call IDs should be alphanumeric s...\\n                                           ^\\nError: Jinja Exception: Tool call IDs should be alphanumeric strings with length >= 9!\",\"type\":\"invalid_request_error\"}}"
+      }
+    },
+    {
+      "case": "multi_turn",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 0.469,
+      "calls": [
+        {
+          "id": "4N94SG7Kzoth9tDxzcRQtaQWRjU9JC5D",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\": \"AAPL\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\": \"AAPL\"}"
+                  },
+                  "id": "4N94SG7Kzoth9tDxzcRQtaQWRjU9JC5D"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787438698,
+        "model": "/home/augus/models/mistral-small-24b-heretic/Mistral-Small-3.2-24B-Instruct-2506-Heretic-v1.2-2.i1-Q4_K_M.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 16,
+          "prompt_tokens": 758,
+          "total_tokens": 774,
+          "prompt_tokens_details": {
+            "cached_tokens": 555
+          }
+        },
+        "id": "chatcmpl-VxgVki1p8wxGjVQpvtYazLeR98yfSjuW",
+        "timings": {
+          "cache_n": 555,
+          "prompt_n": 203,
+          "prompt_ms": 123.258,
+          "prompt_per_token_ms": 0.6071822660098521,
+          "prompt_per_second": 1646.9519219847798,
+          "predicted_n": 16,
+          "predicted_ms": 308.259,
+          "predicted_per_token_ms": 19.2661875,
+          "predicted_per_second": 51.9044050619771
+        }
+      }
+    },
+    {
+      "case": "error_recovery",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_weather",
+      "seconds": 0.453,
+      "calls": [
+        {
+          "id": "pEcYDr4Axf2xW2FAR7JizcWF84ZcdiG1",
+          "name": "get_weather",
+          "args": {
+            "city": "Springfield, Illinois, USA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\": \"Springfield, Illinois, USA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\": \"Springfield, Illinois, USA\"}"
+                  },
+                  "id": "pEcYDr4Axf2xW2FAR7JizcWF84ZcdiG1"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787438699,
+        "model": "/home/augus/models/mistral-small-24b-heretic/Mistral-Small-3.2-24B-Instruct-2506-Heretic-v1.2-2.i1-Q4_K_M.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 18,
+          "prompt_tokens": 686,
+          "total_tokens": 704,
+          "prompt_tokens_details": {
+            "cached_tokens": 558
+          }
+        },
+        "id": "chatcmpl-kLZZc5hD7rw0ACbuTEaK2Mb7iJpstjTF",
+        "timings": {
+          "cache_n": 558,
+          "prompt_n": 128,
+          "prompt_ms": 78.764,
+          "prompt_per_token_ms": 0.61534375,
+          "prompt_per_second": 1625.1079173226349,
+          "predicted_n": 18,
+          "predicted_ms": 341.599,
+          "predicted_per_token_ms": 18.977722222222223,
+          "predicted_per_second": 52.693362685487955
+        }
+      }
+    },
+    {
+      "case": "irreversible_no_blind_retry",
+      "pass": false,
+      "expectation": "expected exactly one valid call to check_transfer_status",
+      "seconds": 0.344,
+      "calls": [],
+      "text": "The transfer could not be completed at the moment.",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The transfer could not be completed at the moment."
+            }
+          }
+        ],
+        "created": 1787438699,
+        "model": "/home/augus/models/mistral-small-24b-heretic/Mistral-Small-3.2-24B-Instruct-2506-Heretic-v1.2-2.i1-Q4_K_M.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 11,
+          "prompt_tokens": 765,
+          "total_tokens": 776,
+          "prompt_tokens_details": {
+            "cached_tokens": 555
+          }
+        },
+        "id": "chatcmpl-7sSOszB5yY9sH18KRbLqi3qqDOSOsiJK",
+        "timings": {
+          "cache_n": 555,
+          "prompt_n": 210,
+          "prompt_ms": 128.922,
+          "prompt_per_token_ms": 0.6139142857142857,
+          "prompt_per_second": 1628.8918881183972,
+          "predicted_n": 11,
+          "predicted_ms": 211.985,
+          "predicted_per_token_ms": 19.27136363636364,
+          "predicted_per_second": 51.89046394792084
+        }
+      }
+    }
+  ]
+}

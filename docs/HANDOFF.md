@@ -1,3 +1,8 @@
+> **CURRENT HANDOFF (2026-08-21):** Read
+> [`HANDOFF_2026-08-21_QWEN38_REQUAL_AND_NEXT_WAVE.md`](HANDOFF_2026-08-21_QWEN38_REQUAL_AND_NEXT_WAVE.md)
+> first. This master ledger remains historical context, but some deployment claims, closed labels, and the
+> next-work queue below are supersedable and no longer authoritative by themselves.
+
 <div align="center">
 
 # 📋 tare.tools.local-labs — Master Handoff & Living Backlog
@@ -35,7 +40,7 @@
   - Host RAM: 64 GB DDR4 (page-locked DMA enabled via `cudaHostRegister`).
   - Storage: High-speed NVMe PCIe 4.0 SSD.
 - **Inference Runtime Engine**:
-  - Primary: `/home/augus/src/llama.cpp-master/build/bin/llama-server` (branch **`lifecycle`**, base `720d7fa40`).
+  - Primary: `/home/augus/src/slop.cpp-main/build/bin/llama-server` (branch **`lifecycle`**, base `720d7fa40`).
   - Runner script: `ops/wsl/wslx.sh` (detached execution in WSL with background logging).
 
 ---
@@ -51,11 +56,11 @@ The following architectural, model-level, and systems milestones have been fully
 | **`REAL-03`** | **Speculative Decoding** | **MTP Speculative Decoding ~2.1x Acceleration**: Draft head at block 64 achieves 83.4% draft acceptance on deterministic code generation. | Flags: `--spec-type draft-mtp --spec-draft-n-max 3` |
 | **`REAL-04`** | **3.6 Uncensored Agent** | **`fable-tc-l1.0` Authorial Merge (Augusto Carvalho)**: Full-rank task arithmetic ($W_{\text{Fable}} + \lambda(W_{\text{TC}} - W_{\text{base}})$) with $\lambda=1.0$ established **98.3% GSM8K**, **-54.8% reasoning tokens**, and passed Gate 3 writing parity. | Artifact: `models/merges/fable-tc-l1.0-Q4_K_M.gguf` |
 | **`REAL-05`** | **KV Cache Optimization** | **Lossless Symmetric `q4_0` KV Cache**: FlashAttention fused CUDA kernels run 100% on GPU at 88.55 t/s, reaching native 262k context losslessly in VRAM. | Flags: `--cache-type-k q4_0 --cache-type-v q4_0 -fa on` |
-| **`REAL-06`** | **Inference Engine Kernel** | **`[B2b]` KV Host-Buffer Pinning (`GGML_KV_PIN_HOST=1`)**: Authorial patch allocating `CUDA_Host` memory for `--no-kv-offload`, eliminating bounce-buffers (+17% speedup at 128k context). | Patch: [`patches/b2b-kv-host-pin.patch`](file:///C:/projects/local-model-lifecycle/patches/b2b-kv-host-pin.patch) |
+| **`REAL-06`** | **Inference Engine Kernel** | **`[B2b]` KV Host-Buffer Pinning (`GGML_KV_PIN_HOST=1`)**: Authorial patch allocating `CUDA_Host` memory for `--no-kv-offload`, eliminating bounce-buffers (+17% speedup at 128k context). | Patch: [`patches/b2b-kv-host-pin.patch`](file:///C:/projects/tare.tools.local-labs/patches/b2b-kv-host-pin.patch) |
 | **`REAL-07`** | **Engine Scheduler** | **Prefetch Skip-When-Pinned**: Authorial refinement bypassing staging buffers on pre-pinned memory (+58% prefill speedup on small cards). | Flags: `--prefetch-experts N` / `GGML_SCHED_PREFETCH_EXPERTS` |
-| **`REAL-08`** | **Linear Recurrent State** | **Mamba-2 Deterministic State Reload**: Verified bit-exact recurrent state reload (40/40) on official fast-path CUDA kernels. | Specification: [`RNN_MEMORY_CACHING_SPEC.md`](file:///C:/projects/local-model-lifecycle/docs/campaigns/rnn-mamba/RNN_MEMORY_CACHING_SPEC.md) |
+| **`REAL-08`** | **Linear Recurrent State** | **Mamba-2 Deterministic State Reload**: Verified bit-exact recurrent state reload (40/40) on official fast-path CUDA kernels. | Specification: [`RNN_MEMORY_CACHING_SPEC.md`](file:///C:/projects/tare.tools.local-labs/docs/campaigns/rnn-mamba/RNN_MEMORY_CACHING_SPEC.md) |
 | **`REAL-09`** | **Micro-Batch Scaling** | **UBatch 2048 Ingestion Speedup**: Doubled prefill throughput (+100.8%), cutting 128k context TTFT from 137.8s to 67.9s on PCIe Gen4 x16. | Flags: `--batch-size 2048 --ubatch-size 2048` |
-| **`REAL-10`** | **Vision-Language Model** | **Zero-Refusal Multimodal UI Telemetry**: Homologated Gemma-4 12B/26B VLM pipeline for desktop screen localization and GUI element parsing. | Documentation: [`docs/campaigns/vlm/M_A_VLM.md`](file:///C:/projects/local-model-lifecycle/docs/campaigns/vlm/M_A_VLM.md) |
+| **`REAL-10`** | **Vision-Language Model** | **Zero-Refusal Multimodal UI Telemetry**: Homologated Gemma-4 12B/26B VLM pipeline for desktop screen localization and GUI element parsing. | Documentation: [`docs/campaigns/vlm/M_A_VLM.md`](file:///C:/projects/tare.tools.local-labs/docs/campaigns/vlm/M_A_VLM.md) |
 
 ---
 
@@ -98,6 +103,14 @@ graph TD
 #### `ACT-05` [Priority P5]: TPTT (Test-Time Prompt Tuning) Adapter Integration
 - **Objective**: Evaluate test-time prompt adaptation on dense Qwen 3.8 checkpoints to dynamically adjust prompt representations during multi-agent deliberation.
 
+#### `ACT-06` [Priority P6]: Active Hybrid Memory Caching (GRM / SSC) on Idiap Checkpoint
+- **Objective**: Implement active state checkpointing and evaluate Gated Residual Memory (GRM) / Sparse Selective Caching (SSC) on `Idiap/gated-deltanet-attn-1.4B-30B` to recover degraded associative memory at $P \ge 64$.
+- **Reference**: [`REPLICATION_CATALOG_AND_PRELIMINARY_RESULTS.md`](file:///C:/projects/tare.tools.local-labs/docs/campaigns/rnn-mamba/REPLICATION_CATALOG_AND_PRELIMINARY_RESULTS.md) and [`COMPREHENSIVE_AUDIT_HYBRID_MEMORY_AND_ROADMAP_2026.md`](file:///C:/projects/tare.tools.local-labs/docs/campaigns/rnn-mamba/COMPREHENSIVE_AUDIT_HYBRID_MEMORY_AND_ROADMAP_2026.md).
+
+#### `ACT-07` [Priority P7]: Qwen Linearization via Liger (Reusing Key Matrices)
+- **Objective**: Linearize dense Qwen 2.5 attention layers into Gated DeltaNet recurrent blocks without adding new parameters using `OpenSparseLLMs/Linearization`.
+- **Target**: Retain $\ge 93\%$ benchmark quality with $0.02\%$ fine-tuning tokens on RTX 3090.
+
 ---
 
 ## 🛑 4. Encerrado / Falsificado / Negativo (Closed Hypotheses)
@@ -123,7 +136,7 @@ To preserve scientific hygiene and avoid re-exploring dead ends, the following h
 
 ### Boot Standard Production Server (Qwen 3.8-27B Instruct)
 ```bash
-/home/augus/src/llama.cpp-master/build/bin/llama-server \
+/home/augus/src/slop.cpp-main/build/bin/llama-server \
   -m /home/augus/models/qwen38-27b/Qwen3.8-27B-UD-Q2_K_XL.gguf \
   -fa on \
   --ctx-size 65536 \
@@ -136,7 +149,7 @@ To preserve scientific hygiene and avoid re-exploring dead ends, the following h
 ### Run Deterministic QA Harness Qualification
 ```bash
 python tests/benchmark_harness/benchmark_harness_selftest.py
-# Must report: LAB-QA-001: 16/16 passed — ALL GREEN
+# Must report: LAB-QA-001: 23/23 passed — ALL GREEN
 ```
 
 ### Execute Long-Context Needle-in-a-Haystack Probe

@@ -45,10 +45,12 @@ import sys
 import time
 from datetime import datetime, timezone
 
-from benchmark_harness_qa import (  # single source of truth (LAB-QA-001/002)
-    assemble_humaneval_solution, run_identity)
+ROOT = pathlib.Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "src"))
 
-sys.path.insert(0, str(pathlib.Path(__file__).parent / "src"))
+from benchmark_harness_qa import (  # single source of truth (LAB-QA-001/002)
+    assemble_humaneval_solution, extract_code, run_identity)
 
 from model_lifecycle.collectors.host import sample                 # noqa: E402
 from model_lifecycle.collectors.request import chat_stream, count_tokens  # noqa: E402
@@ -58,7 +60,7 @@ from model_lifecycle.servers.llama_cpp import (                    # noqa: E402
 
 # Same consolidated fork we deploy and measure quality on, so token counts and the tokenizer
 # behind /tokenize are the ones that ship.
-LOCAL_BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+LOCAL_BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"
 
 # The subset is drawn ONCE from this seed and reused by BOTH arms -- the same discipline
 # quality_bench enforces, and here it is load-bearing twice over: a paired reduction needs
@@ -125,18 +127,6 @@ def pick_subset(problems: list[dict], n: int) -> list[dict]:
     rng.shuffle(order)
     chosen = sorted(order[:n])
     return [problems[i] for i in chosen]
-
-
-def extract_code(text: str) -> str:
-    """The HumanEval completion, from whatever the model wrapped it in (quality_bench's
-    logic, kept identical so scores compare)."""
-    if "```" not in text:
-        return text.strip()
-    parts = text.split("```")
-    block = parts[1] if len(parts) > 1 else text
-    if block.startswith("python"):
-        block = block[len("python"):]
-    return block.strip()
 
 
 def run(model_key: str, *, workload: str, subset: int, ncmoe: int, ctx: int,

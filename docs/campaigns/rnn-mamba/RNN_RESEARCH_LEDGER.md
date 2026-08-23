@@ -43,6 +43,10 @@ Classification (§27): `ADOPT` / `ADAPT` / `REPRODUCE` / `INSPIRE` / `RESEARCH` 
 | 16 | TPTT | 2506.17671 | 2025-06-21 | preprint | fabienfrfr/tptt | `242e214` | Apache-2.0 | INSPIRE / ADAPT |
 | 17 | LoLCATs | 2410.10254 | 2024-10-14 | ICLR 2025 | HazyResearch/lolcats | `375df84` | Apache-2.0 | ADOPT / REPRODUCE |
 | 18 | Liger | 2503.01496 | 2025-03-03 | ICML 2025 | OpenSparseLLMs/Linearization | `0b364eb` | Apache-2.0 | ADOPT / REPRODUCE |
+| 19 | Gated DeltaNet-2 (GDN-2) | 2605.08988 | 2026-05-14 | preprint | NVlabs/GatedDeltaNet-2 | `9f2a81c` | NVIDIA NC | ADAPT |
+| 20 | RWKV-7 ("Goose") | — | 2026-01 | Open Source | BlinkDL/RWKV-LM | `c481b7e` | Apache-2.0 code; tested weights unasserted | REPRODUCE / QUALIFIED_MECHANISM |
+| 21 | Falcon-H1R-7B | 2601.02346 | 2026-01 | preprint | tiiuae/Falcon-H1R-7B-GGUF | `2dc053e` | Falcon-LLM License | HOLD_ROLE / INSPIRE |
+| 21 | YOCO (You Only Cache Once) | 2405.05254 | 2024-05-08 | preprint | microsoft/unilm | `91ea83f` | MIT | INSPIRE / ADAPT |
 
 \* RetNet SHA is the `microsoft/unilm` monorepo head, not a retnet-subfolder-specific commit.
 
@@ -74,6 +78,34 @@ mechanism now absorbed into modern long-context stacks. State = fixed-length cac
 "Retention" with three equivalent forms: parallel (train), **recurrent (O(1)-state inference, CLAIM)**,
 chunkwise (long-seq). New arch, trained from scratch; no widely adopted large checkpoints → reproduce/
 experiment rather than deploy. Reference kernels also in microsoft/torchscale.
+
+**Local mechanism qualification (RNN-09, 2026-08-21): COMPLETE.** The frozen CPU microbenchmark
+qualified parallel↔recurrent parity (max abs `4.27e-14` through T=513), bit-exact chunkwise carry,
+save/reload, batch isolation and explicit reset, gradient parity (`3.56e-15` max), and finite fp32
+recurrence through T=4096. Reusing one sequence's state in another produced a large detectable delta
+(`47.08`), confirming that state ownership/reset is load-bearing. This verifies the algebra and lifecycle,
+not an official RetNet checkpoint or model-quality claim; official-checkpoint reproduction remains open.
+
+**Official-checkpoint follow-up (2026-08-22): BLOCKED_UPSTREAM.** The official Microsoft RetNet and
+TorchScale repositories expose the implementation/configuration but no pretrained RetNet checkpoint;
+the upstream checkpoint request remains open. Community weights are not an acceptable substitute for
+an official-reproduction claim. Evidence and boundary:
+`runs/rnn/RNN-09-retnet-retention/OFFICIAL_CHECKPOINT_BLOCKED_2026-08-22.md`. The architecture lane
+therefore advances to an official RWKV7 checkpoint without downgrading the RetNet mechanism result.
+
+**RWKV7 official checkpoint follow-up (2026-08-22): QUALIFIED_MECHANISM / RESEARCH-LOCAL.** The
+official `RWKV/RWKV7-1.5B-20260805` BF16 release fits with ~19.7 GiB free, keeps exactly
+`12,779,524` bytes of recurrent state from 32 through 1,024 tokens, and produced exact full-vs-cached
+continuation parity in the bounded panel. Its first-use compile/prefill path is not serving-mature, and
+the publisher explicitly leaves the weight license unasserted; deployment stays blocked. Receipts:
+`runs/requalification/RWKV7-1.5B-20260805-2026-08-22/RESULT.md`.
+
+**Falcon-H1R-7B official Q8 follow-up (2026-08-22): HOLD_ROLE.** The hybrid
+Transformer+Mamba2 model fit with 14,275 MiB free and passed smoke 4/4, agent/tool 8/8 and the
+historical GSM replay 4/5. `Mbpp/260` returned empty content after both 2,048 and diagnostic 4,096
+token budgets, so the frozen dependency gate stopped context expansion. Preserve as a research
+candidate, not a role replacement. Receipts:
+`runs/requalification/FALCON-H1R-7B-2026-08-22/RESULT.md`.
 
 ### 3 Longhorn — RESEARCH
 SSM whose state-update is the closed-form solution to an online associative-recall objective. CLAIMS

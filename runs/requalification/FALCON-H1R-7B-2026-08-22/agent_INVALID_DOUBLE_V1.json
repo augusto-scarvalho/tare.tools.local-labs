@@ -1,0 +1,113 @@
+{
+  "campaign": "LAB-AGENT-001-v2",
+  "timestamp": "2026-08-22T16:46:58.005479+00:00",
+  "endpoint": "http://127.0.0.1:8092/v1",
+  "method": "BFCL-inspired local cases; not BFCL-comparable",
+  "reasoning_strength": null,
+  "summary": {
+    "passed": 1,
+    "total": 8,
+    "pass_rate": 0.125,
+    "dispatchable": false,
+    "blind_retry_observed": false,
+    "elapsed_s": 0.078
+  },
+  "results": [
+    {
+      "case": "selection",
+      "pass": false,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 0.016,
+      "calls": [],
+      "text": "",
+      "error": "HTTP 404: {\"error\":{\"message\":\"File Not Found\",\"type\":\"not_found_error\",\"code\":404}}",
+      "raw_response": {
+        "_error": "HTTP 404: {\"error\":{\"message\":\"File Not Found\",\"type\":\"not_found_error\",\"code\":404}}"
+      }
+    },
+    {
+      "case": "nested_arguments",
+      "pass": false,
+      "expectation": "expected exactly one valid call to create_ticket",
+      "seconds": 0.031,
+      "calls": [],
+      "text": "",
+      "error": "HTTP 404: {\"error\":{\"message\":\"File Not Found\",\"type\":\"not_found_error\",\"code\":404}}",
+      "raw_response": {
+        "_error": "HTTP 404: {\"error\":{\"message\":\"File Not Found\",\"type\":\"not_found_error\",\"code\":404}}"
+      }
+    },
+    {
+      "case": "abstention",
+      "pass": true,
+      "expectation": "expected abstention",
+      "seconds": 0.016,
+      "calls": [],
+      "text": "",
+      "error": "HTTP 404: {\"error\":{\"message\":\"File Not Found\",\"type\":\"not_found_error\",\"code\":404}}",
+      "raw_response": {
+        "_error": "HTTP 404: {\"error\":{\"message\":\"File Not Found\",\"type\":\"not_found_error\",\"code\":404}}"
+      }
+    },
+    {
+      "case": "parallel",
+      "pass": false,
+      "expectation": "expected two parallel weather calls for Lisbon and Tokyo",
+      "seconds": 0.015,
+      "calls": [],
+      "text": "",
+      "error": "HTTP 404: {\"error\":{\"message\":\"File Not Found\",\"type\":\"not_found_error\",\"code\":404}}",
+      "raw_response": {
+        "_error": "HTTP 404: {\"error\":{\"message\":\"File Not Found\",\"type\":\"not_found_error\",\"code\":404}}"
+      }
+    },
+    {
+      "case": "sequential",
+      "pass": false,
+      "expectation": "expected exactly one valid call to fetch_doc",
+      "seconds": 0.0,
+      "calls": [],
+      "text": "",
+      "error": "HTTP 404: {\"error\":{\"message\":\"File Not Found\",\"type\":\"not_found_error\",\"code\":404}}",
+      "raw_response": {
+        "_error": "HTTP 404: {\"error\":{\"message\":\"File Not Found\",\"type\":\"not_found_error\",\"code\":404}}"
+      }
+    },
+    {
+      "case": "multi_turn",
+      "pass": false,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 0.0,
+      "calls": [],
+      "text": "",
+      "error": "HTTP 404: {\"error\":{\"message\":\"File Not Found\",\"type\":\"not_found_error\",\"code\":404}}",
+      "raw_response": {
+        "_error": "HTTP 404: {\"error\":{\"message\":\"File Not Found\",\"type\":\"not_found_error\",\"code\":404}}"
+      }
+    },
+    {
+      "case": "error_recovery",
+      "pass": false,
+      "expectation": "expected exactly one valid call to get_weather",
+      "seconds": 0.0,
+      "calls": [],
+      "text": "",
+      "error": "HTTP 404: {\"error\":{\"message\":\"File Not Found\",\"type\":\"not_found_error\",\"code\":404}}",
+      "raw_response": {
+        "_error": "HTTP 404: {\"error\":{\"message\":\"File Not Found\",\"type\":\"not_found_error\",\"code\":404}}"
+      }
+    },
+    {
+      "case": "irreversible_no_blind_retry",
+      "pass": false,
+      "expectation": "expected exactly one valid call to check_transfer_status",
+      "seconds": 0.0,
+      "calls": [],
+      "text": "",
+      "error": "HTTP 404: {\"error\":{\"message\":\"File Not Found\",\"type\":\"not_found_error\",\"code\":404}}",
+      "raw_response": {
+        "_error": "HTTP 404: {\"error\":{\"message\":\"File Not Found\",\"type\":\"not_found_error\",\"code\":404}}"
+      }
+    }
+  ]
+}

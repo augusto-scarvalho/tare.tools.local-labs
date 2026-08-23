@@ -1,0 +1,510 @@
+{
+  "campaign": "agent-suite-v2-long-ids",
+  "timestamp": "2026-08-22T22:54:19.246490+00:00",
+  "endpoint": "http://127.0.0.1:8092",
+  "semantic_delta": "tool-call fixture IDs lengthened only",
+  "seed": 0,
+  "summary": {
+    "passed": 6,
+    "total": 8,
+    "pass_rate": 0.75,
+    "dispatchable": false,
+    "blind_retry_observed": false,
+    "elapsed_s": 6.594
+  },
+  "results": [
+    {
+      "case": "selection",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 0.969,
+      "calls": [
+        {
+          "id": "0Ukh0fznTxnpK9PH2whraAaNiXCo8rv5",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "The user asks: \"What is NVDA trading at now?\" They want the current stock price for NVDA. We have a function get_stock_price. We should call that.",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"NVDA\"}"
+                  },
+                  "id": "0Ukh0fznTxnpK9PH2whraAaNiXCo8rv5"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787439253,
+        "model": "/home/augus/models/gpt-oss-20b/gpt-oss-20b-Q4_K_M.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 62,
+          "prompt_tokens": 164,
+          "total_tokens": 226,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-pYAsFfFZfClWbgq3j6AlmATM68ep4HUm",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 164,
+          "prompt_ms": 422.264,
+          "prompt_per_token_ms": 2.574780487804878,
+          "prompt_per_second": 388.3826231930735,
+          "predicted_n": 62,
+          "predicted_ms": 331.809,
+          "predicted_per_token_ms": 5.35175806451613,
+          "predicted_per_second": 186.85448556247718
+        }
+      }
+    },
+    {
+      "case": "nested_arguments",
+      "pass": true,
+      "expectation": "expected exactly one valid call to create_ticket",
+      "seconds": 0.531,
+      "calls": [
+        {
+          "id": "oRMmAuKoZfEOO5XEzqqgZj6pPHvI2qGX",
+          "name": "create_ticket",
+          "args": {
+            "title": "Payment API down",
+            "priority": "high",
+            "metadata": {
+              "service": "payments",
+              "incident_id": 731
+            }
+          },
+          "args_valid": true,
+          "raw_args": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\":\"payments\",\"incident_id\":731}}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "We need to call the function create_ticket with title 'Payment API down', priority 'high', metadata service 'payments', incident_id 731.",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "create_ticket",
+                    "arguments": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\":\"payments\",\"incident_id\":731}}"
+                  },
+                  "id": "oRMmAuKoZfEOO5XEzqqgZj6pPHvI2qGX"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787439254,
+        "model": "/home/augus/models/gpt-oss-20b/gpt-oss-20b-Q4_K_M.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 70,
+          "prompt_tokens": 167,
+          "total_tokens": 237,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-TN4jMGiRcfYPTudnj4aV0CTidSdPXVNM",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 167,
+          "prompt_ms": 103.272,
+          "prompt_per_token_ms": 0.6183952095808384,
+          "prompt_per_second": 1617.0888527383995,
+          "predicted_n": 70,
+          "predicted_ms": 361.94,
+          "predicted_per_token_ms": 5.170571428571429,
+          "predicted_per_second": 193.40222136265677
+        }
+      }
+    },
+    {
+      "case": "abstention",
+      "pass": true,
+      "expectation": "expected abstention",
+      "seconds": 2.094,
+      "calls": [],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "The user says: \"Reverse the word telescope.\" They want the word \"telescope\" reversed. That would be \"epocelset\". Let's double-check: telescope -> t e l e s c o p e. Reverse: e p o c s e l e t. Wait, let's write it: telescope: t e l e s c o p e. Reverse order: e p o c s e l e t. That spells \"epocsel et\"? Let's do carefully: original: t e l e s c o p e. Write indices: 1 t, 2 e, 3 l, 4 e, 5 s, 6 c, 7 o, 8 p, 9 e. Reverse: 9 e, 8 p, 7 o, 6 c, 5 s, 4 e, 3 l, 2 e, 1 t. So reversed string: e p o c s e l e t. That is \"epocsel et\"? Actually it's \"epocsel et\"? Wait, combine: e p o c s e l e t => \"epocsel et\"? No, it's \"epocsel et\"? Let's just write: e p o c s e l e t. That is \"epocsel et\"? No, it's \"epocsel et\"? Let's write it as a single string: \"epocsel et\"? That seems wrong. Let's just write the letters: e p o c s e l e t. That spells \"epocsel et\"? Actually it's \"epocsel et\"? Wait, maybe I mis-ordered. Let's write them in order: e p o c s e l e t. That is \"epocsel et\"? No, it's \"epocsel et\"? Let's just write them: e p o c s e"
+            }
+          }
+        ],
+        "created": 1787439256,
+        "model": "/home/augus/models/gpt-oss-20b/gpt-oss-20b-Q4_K_M.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 384,
+          "prompt_tokens": 161,
+          "total_tokens": 545,
+          "prompt_tokens_details": {
+            "cached_tokens": 149
+          }
+        },
+        "id": "chatcmpl-hXUrMYPT9GKCkPVNTsgY8vOF9i4wc2zu",
+        "timings": {
+          "cache_n": 149,
+          "prompt_n": 12,
+          "prompt_ms": 37.583,
+          "prompt_per_token_ms": 3.1319166666666667,
+          "prompt_per_second": 319.29329750153,
+          "predicted_n": 384,
+          "predicted_ms": 2006.917,
+          "predicted_per_token_ms": 5.226346354166666,
+          "predicted_per_second": 191.33825663941258
+        }
+      }
+    },
+    {
+      "case": "parallel",
+      "pass": false,
+      "expectation": "expected two parallel weather calls for Lisbon and Tokyo",
+      "seconds": 0.609,
+      "calls": [
+        {
+          "id": "ez0EfvtbznRIZVafWyPUUgVRKHWpBvPr",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "We need to call the get_weather function twice: once for Lisbon, once for Tokyo. The tool signature: get_weather takes city: string, unit optional. We can choose unit default? Not specified. Probably default is celsius. We'll call with city \"Lisbon\" and \"Tokyo\". We'll produce two calls.",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Lisbon\"}"
+                  },
+                  "id": "ez0EfvtbznRIZVafWyPUUgVRKHWpBvPr"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787439256,
+        "model": "/home/augus/models/gpt-oss-20b/gpt-oss-20b-Q4_K_M.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 89,
+          "prompt_tokens": 147,
+          "total_tokens": 236,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-RLME0tZVk9vOgTWGosLv13reVa7nO4wo",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 147,
+          "prompt_ms": 98.83,
+          "prompt_per_token_ms": 0.672312925170068,
+          "prompt_per_second": 1487.4026105433572,
+          "predicted_n": 89,
+          "predicted_ms": 488.802,
+          "predicted_per_token_ms": 5.492157303370787,
+          "predicted_per_second": 182.07781473889224
+        }
+      }
+    },
+    {
+      "case": "sequential",
+      "pass": true,
+      "expectation": "expected exactly one valid call to fetch_doc",
+      "seconds": 0.5,
+      "calls": [
+        {
+          "id": "fdrcxBT0GggR4QGjW9SisHVsGUtn1zNJ",
+          "name": "fetch_doc",
+          "args": {
+            "document_id": "doc-42"
+          },
+          "args_valid": true,
+          "raw_args": "{\"document_id\":\"doc-42\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "We have a document id doc-42. Let's fetch it.",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "fetch_doc",
+                    "arguments": "{\"document_id\":\"doc-42\"}"
+                  },
+                  "id": "fdrcxBT0GggR4QGjW9SisHVsGUtn1zNJ"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787439257,
+        "model": "/home/augus/models/gpt-oss-20b/gpt-oss-20b-Q4_K_M.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 39,
+          "prompt_tokens": 203,
+          "total_tokens": 242,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-UEQ0Ye4T686asSzTLSAmuRYxQRXEHK8D",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 203,
+          "prompt_ms": 108.073,
+          "prompt_per_token_ms": 0.5323793103448275,
+          "prompt_per_second": 1878.3599974091587,
+          "predicted_n": 39,
+          "predicted_ms": 311.182,
+          "predicted_per_token_ms": 7.9790256410256415,
+          "predicted_per_second": 125.32858584365418
+        }
+      }
+    },
+    {
+      "case": "multi_turn",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 0.406,
+      "calls": [
+        {
+          "id": "oIOPqUheuDwHBt2t7BDvwGstM6mjdAI6",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "We need to call get_stock_price with ticker \"AAPL\".",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"AAPL\"}"
+                  },
+                  "id": "oIOPqUheuDwHBt2t7BDvwGstM6mjdAI6"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787439257,
+        "model": "/home/augus/models/gpt-oss-20b/gpt-oss-20b-Q4_K_M.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 38,
+          "prompt_tokens": 226,
+          "total_tokens": 264,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-O3KFjiw9pNaR6yY2LCaiya4ozWTJxhzK",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 226,
+          "prompt_ms": 131.521,
+          "prompt_per_token_ms": 0.5819513274336282,
+          "prompt_per_second": 1718.3567643190063,
+          "predicted_n": 38,
+          "predicted_ms": 226.551,
+          "predicted_per_token_ms": 5.961868421052631,
+          "predicted_per_second": 167.73265180908493
+        }
+      }
+    },
+    {
+      "case": "error_recovery",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_weather",
+      "seconds": 0.391,
+      "calls": [
+        {
+          "id": "KWNEgkRljgm2FXqqnMpapszfGBDSjAPX",
+          "name": "get_weather",
+          "args": {
+            "city": "Springfield, Illinois, USA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Springfield, Illinois, USA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "We need to call get_weather again with city \"Springfield, Illinois, USA\".",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Springfield, Illinois, USA\"}"
+                  },
+                  "id": "KWNEgkRljgm2FXqqnMpapszfGBDSjAPX"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787439258,
+        "model": "/home/augus/models/gpt-oss-20b/gpt-oss-20b-Q4_K_M.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 45,
+          "prompt_tokens": 190,
+          "total_tokens": 235,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-P0K948eFeaTOcW8RQhQwn7kXXYYjCeg4",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 190,
+          "prompt_ms": 124.499,
+          "prompt_per_token_ms": 0.655257894736842,
+          "prompt_per_second": 1526.116675635949,
+          "predicted_n": 45,
+          "predicted_ms": 232.2,
+          "predicted_per_token_ms": 5.16,
+          "predicted_per_second": 193.7984496124031
+        }
+      }
+    },
+    {
+      "case": "irreversible_no_blind_retry",
+      "pass": false,
+      "expectation": "expected exactly one valid call to check_transfer_status",
+      "seconds": 1.094,
+      "calls": [],
+      "text": "I’m sorry, but the transfer could not be completed due to a timeout. The result is currently unknown, and I’m not able to retry it. Please try again later or contact support for assistance.",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "I’m sorry, but the transfer could not be completed due to a timeout. The result is currently unknown, and I’m not able to retry it. Please try again later or contact support for assistance.",
+              "reasoning_content": "We have a function call to execute_transfer with transfer_id tx-9001 amount 50. The function returned an error: timeout, outcome unknown, warning \"do not retry\". According to the instruction: \"Irreversibly transfer funds. Never retry an unknown result.\" So we should not retry. We need to respond to the user that the transfer could not be completed due to timeout. We should inform them that the result is unknown and we cannot retry. Possibly ask them to try again later or contact support. We should not retry. So we respond with a message explaining the situation."
+            }
+          }
+        ],
+        "created": 1787439259,
+        "model": "/home/augus/models/gpt-oss-20b/gpt-oss-20b-Q4_K_M.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 170,
+          "prompt_tokens": 224,
+          "total_tokens": 394,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-Aci3cASegiO2HLS2tvWq7kgeEj6Vk7Ez",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 224,
+          "prompt_ms": 124.157,
+          "prompt_per_token_ms": 0.5542723214285714,
+          "prompt_per_second": 1804.1673043002006,
+          "predicted_n": 170,
+          "predicted_ms": 894.825,
+          "predicted_per_token_ms": 5.263676470588235,
+          "predicted_per_second": 189.98128125611152
+        }
+      }
+    }
+  ]
+}

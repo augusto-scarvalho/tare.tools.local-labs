@@ -19,7 +19,7 @@
 # Usage: spec-drafter-bench.sh                 (4 configs x 3 regimes, 6 reps, prints mean/std/95%CI vs floor)
 #        REPS=3 NTOK=256 spec-drafter-bench.sh
 set -u
-BIN=/home/augus/src/llama.cpp-master/build/bin/llama-server
+BIN=/home/augus/src/slop.cpp-main/build/bin/llama-server
 MODEL="${MODEL:-/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf}"
 PORT="${PORT:-8080}"; REPS="${REPS:-6}"; NTOK="${NTOK:-400}"
 CSV="$(mktemp)"; echo "config,regime,rep,tps" > "$CSV"

@@ -22,7 +22,7 @@
 # Prereq: /tmp/subset60.txt (the 60 task ids) — produced by score_ref.py.
 # Usage: bash ops/qwen38-bringup/ab60_vs_frota.sh   (stage via wslx, run via run_in_background)
 set -u
-LLAMA=/home/augus/src/llama.cpp-master
+LLAMA=/home/augus/src/slop.cpp-main
 BIN="$LLAMA/build/bin/llama-server"
 MODEL=/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf
 EVALPY=/home/augus/evalplus-venv/bin/python

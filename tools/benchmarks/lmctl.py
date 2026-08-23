@@ -14,6 +14,9 @@ it from PowerShell or the Bash tool the same way:
     python lmctl.py serve gemma-judge
     python lmctl.py ps                            # what's serving right now
     python lmctl.py stop --port 8090
+    python lmctl.py mode set lab --reason "isolated candidate campaign"
+    python lmctl.py mode check lab              # fail-closed SERVE/LAB ownership
+    python lmctl.py mode set serve --reason "restore canonical endpoint"
     python lmctl.py gpu                           # VRAM / clocks / power / temp / util
     python lmctl.py sensors                       # FanControl readout (CPU/GPU/fans/Kraken)
     python lmctl.py build llama-bench             # cmake --build the target, in the right distro
@@ -27,6 +30,8 @@ is exactly what you want when driving it from an agent. `--foreground` blocks in
 from __future__ import annotations
 
 import argparse
+import contextlib
+import json
 import os
 import pathlib
 import shlex
@@ -36,8 +41,11 @@ import sys
 import time
 import urllib.error
 import urllib.request
+import uuid
+from datetime import datetime, timezone
 
-sys.path.insert(0, str(pathlib.Path(__file__).parent / "src"))
+REPO_ROOT = pathlib.Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from model_lifecycle.models import MODELS                       # noqa: E402
 from model_lifecycle.serve_profiles import (                    # noqa: E402
@@ -45,8 +53,95 @@ from model_lifecycle.serve_profiles import (                    # noqa: E402
 
 DISTRO = "Ubuntu-24.04"          # NOT the default `Ubuntu` (empty home, wrong user)
 FCREAD = r"C:\CrashWatch\fcread\fcread.exe"
-SRC_DIR = "/home/augus/src/llama.cpp-master"   # the deploy fork; build targets live here
-KNOWN_PORTS = (8080, 8090, 8091)               # deploy + the two judges
+SRC_DIR = "/home/augus/src/slop.cpp"   # canonical deploy fork; build targets live here
+KNOWN_PORTS = (8080, 8081, 8090, 8091)         # text, embedding, and two judges
+AUXILIARY_PORTS = (8081,)  # embedding is deliberately independent of SERVE/LAB text mode
+MODE_STATE_PATH = pathlib.Path(os.environ.get(
+    "LMCTL_MODE_STATE",
+    pathlib.Path(os.environ.get("LOCALAPPDATA", pathlib.Path.home() / ".tare-tools"))
+    / "tare.tools.local-labs" / "lmctl-mode.json",
+))
+VALID_MODES = {"SERVE", "LAB"}
+
+
+class ModeLockError(RuntimeError):
+    """Fail-closed operating-mode state or transition error."""
+
+
+def _read_mode_state(path: pathlib.Path = MODE_STATE_PATH) -> dict:
+    if not path.exists():
+        raise ModeLockError(
+            f"mode state is UNINITIALIZED at {path}; run `lmctl mode set serve|lab --reason ...`"
+        )
+    try:
+        state = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ModeLockError(f"mode state unreadable/corrupt at {path}: {exc}") from exc
+    if state.get("schema_version") != 1 or state.get("mode") not in VALID_MODES:
+        raise ModeLockError(f"invalid mode state at {path}: {state!r}")
+    return state
+
+
+@contextlib.contextmanager
+def _mode_write_guard(path: pathlib.Path):
+    """Cross-process fail-closed guard plus atomic state replacement.
+
+    A crashed writer intentionally leaves a lock artifact requiring operator inspection;
+    silently timing it out could admit overlapping SERVE/LAB owners.
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    lock_path = path.with_suffix(path.suffix + ".lock")
+    try:
+        fd = os.open(lock_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    except FileExistsError as exc:
+        raise ModeLockError(
+            f"mode transition already locked at {lock_path}; inspect owner before removing it"
+        ) from exc
+    try:
+        os.write(fd, json.dumps({"pid": os.getpid(), "host": socket.gethostname(),
+                                 "created_at": datetime.now(timezone.utc).isoformat()}).encode())
+        os.close(fd)
+        fd = -1
+        yield
+    finally:
+        if fd >= 0:
+            os.close(fd)
+        try:
+            lock_path.unlink()
+        except FileNotFoundError:
+            pass
+
+
+def _write_mode_state(mode: str, *, owner: str, reason: str,
+                      expect: str | None = None,
+                      path: pathlib.Path = MODE_STATE_PATH) -> dict:
+    mode = mode.upper()
+    if mode not in VALID_MODES:
+        raise ModeLockError(f"mode must be one of {sorted(VALID_MODES)}, got {mode!r}")
+    if not reason.strip():
+        raise ModeLockError("--reason is required for an auditable mode transition")
+    with _mode_write_guard(path):
+        current = None
+        if path.exists():
+            current = _read_mode_state(path)["mode"]
+        if expect is not None and (current or "UNINITIALIZED") != expect.upper():
+            raise ModeLockError(
+                f"mode compare-and-set failed: expected {expect.upper()}, observed {current or 'UNINITIALIZED'}"
+            )
+        state = {"schema_version": 1, "mode": mode, "owner": owner,
+                 "reason": reason.strip(), "updated_at": datetime.now(timezone.utc).isoformat(),
+                 "host": socket.gethostname(), "pid": os.getpid(),
+                 "transition_id": uuid.uuid4().hex, "previous_mode": current or "UNINITIALIZED"}
+        temp_path = path.with_name(f".{path.name}.{os.getpid()}.{uuid.uuid4().hex}.tmp")
+        try:
+            temp_path.write_text(json.dumps(state, indent=2), encoding="utf-8")
+            os.replace(temp_path, path)
+        finally:
+            try:
+                temp_path.unlink()
+            except FileNotFoundError:
+                pass
+    return state
 
 
 # --------------------------------------------------------------------------- shell helpers
@@ -154,6 +249,11 @@ def cmd_serve(a) -> int:
         return 0
 
     spec, port, flags = _resolve(a.name, a.port, a.extra)
+    try:
+        _require_mode_for_port(port)
+    except ModeLockError as exc:
+        print(f"MODE LOCK REFUSED serve: {exc}")
+        return 4
     cmd_str = _serve_bash(spec, port, flags)
     if spec.note:
         print(f"# {spec.note}")
@@ -204,6 +304,106 @@ def _flag_value(tokens: list[str], names: tuple[str, ...]) -> str:
         if tok in names:
             return tokens[i + 1]
     return "?"
+
+
+def _server_ports() -> list[int | None]:
+    """Return every live llama-server port; None is an unsafe/unparseable process."""
+    result = _wsl("pgrep -a llama-server 2>/dev/null || true")
+    ports: list[int | None] = []
+    for line in result.stdout.splitlines():
+        _, _, command = line.partition(" ")
+        try:
+            tokens = shlex.split(command)
+        except ValueError:
+            ports.append(None)
+            continue
+        raw = _flag_value(tokens, ("--port", "-p"))
+        try:
+            ports.append(int(raw))
+        except (TypeError, ValueError):
+            ports.append(None)
+    return ports
+
+
+def _runtime_drift(mode: str, ports: list[int | None]) -> list[str]:
+    problems = []
+    if any(port is None for port in ports):
+        problems.append("unparseable llama-server process")
+    known = [port for port in ports if port is not None]
+    primary = [port for port in known if port not in AUXILIARY_PORTS]
+    if len(primary) > 1:
+        problems.append(f"multiple text/judge llama-server processes: {primary}")
+    if mode == "SERVE" and any(port != 8080 for port in primary):
+        problems.append(f"SERVE mode has non-canonical text/judge port(s): {primary}")
+    if mode == "LAB" and 8080 in primary:
+        problems.append("LAB mode overlaps canonical port 8080")
+    return problems
+
+
+def _validate_transition(target: str, ports: list[int | None]) -> None:
+    primary = [port for port in ports if port not in AUXILIARY_PORTS]
+    if target == "LAB" and primary:
+        raise ModeLockError(
+            f"cannot enter LAB while text/judge llama-server is live on {primary}; stop and verify it first"
+        )
+    if target == "SERVE":
+        problems = _runtime_drift("SERVE", ports)
+        if problems:
+            raise ModeLockError("cannot enter SERVE: " + "; ".join(problems))
+
+
+def _require_mode_for_port(port: int, path: pathlib.Path = MODE_STATE_PATH) -> dict:
+    state = _read_mode_state(path)
+    expected = "SERVE" if port == 8080 else "LAB"
+    if state["mode"] != expected:
+        raise ModeLockError(
+            f"port {port} requires {expected}, current mode is {state['mode']} "
+            f"(owner={state['owner']!r}, reason={state['reason']!r})"
+        )
+    ports = _server_ports()
+    drift = _runtime_drift(state["mode"], ports)
+    if drift:
+        raise ModeLockError("live state contradicts mode lock: " + "; ".join(drift))
+    primary = [port for port in ports if port not in AUXILIARY_PORTS]
+    if primary:
+        raise ModeLockError(
+            f"a text/judge llama-server is already live on {primary}; stop it before a new launch"
+        )
+    return state
+
+
+def cmd_mode(a) -> int:
+    try:
+        if a.action == "set":
+            if not a.mode:
+                raise ModeLockError("mode set requires serve or lab")
+            target = a.mode.upper()
+            if target not in VALID_MODES:
+                raise ModeLockError(f"unknown mode {a.mode!r}; choose serve or lab")
+            ports = _server_ports()
+            _validate_transition(target, ports)
+            state = _write_mode_state(target, owner=a.owner, reason=a.reason or "",
+                                      expect=a.expect)
+            print(json.dumps(state, indent=2))
+            return 0
+
+        state = _read_mode_state()
+        ports = _server_ports()
+        drift = _runtime_drift(state["mode"], ports)
+        if a.action == "check" and a.mode and state["mode"] != a.mode.upper():
+            drift.append(f"expected {a.mode.upper()}, observed {state['mode']}")
+        print(f"mode={state['mode']} owner={state['owner']} updated={state['updated_at']}")
+        print(f"reason={state['reason']}")
+        print(f"state={MODE_STATE_PATH}")
+        print(f"llama-server ports={ports or 'none'}")
+        if drift:
+            print("DRIFT: " + "; ".join(drift))
+            return 4
+        print("mode/runtime coherent")
+        return 0
+    except ModeLockError as exc:
+        print(f"MODE LOCK ERROR: {exc}")
+        return 4
 
 
 def cmd_ps(a) -> int:
@@ -289,6 +489,15 @@ def main(argv: list[str] | None = None) -> int:
     st.add_argument("--port", type=int, default=None)
     st.add_argument("--all", action="store_true")
     st.set_defaults(func=cmd_stop)
+
+    md = sub.add_parser("mode", help="show/check/set the fail-closed SERVE/LAB lock")
+    md.add_argument("action", choices=("show", "check", "set"), nargs="?", default="show")
+    md.add_argument("mode", choices=("serve", "lab"), nargs="?")
+    md.add_argument("--owner", default=os.environ.get("USERNAME") or os.environ.get("USER") or "unknown")
+    md.add_argument("--reason", help="required audit reason for mode set")
+    md.add_argument("--expect", choices=("serve", "lab", "uninitialized"),
+                    help="optional compare-and-set precondition")
+    md.set_defaults(func=cmd_mode)
 
     sub.add_parser("ps", help="list running llama-server + known-port health"
                    ).set_defaults(func=cmd_ps)

@@ -19,8 +19,8 @@
 # Note: cuBLAS-for-MoE can NaN/assert on some models (#19659); if a cuBLAS cell prints <no output>, that is the
 #    crash and itself confirms cuBLAS-MoE is not a valid option.
 set -u
-MMQ=/home/augus/src/llama.cpp-master/build/bin/llama-bench
-CUB=/home/augus/src/llama.cpp-master/build-cublas/bin/llama-bench
+MMQ=/home/augus/src/slop.cpp-main/build/bin/llama-bench
+CUB=/home/augus/src/slop.cpp-main/build-cublas/bin/llama-bench
 R="${R:-6}"; COOL="${COOL:-15}"; UB="${UB:-2048}"
 tps() { grep -E '±' | tail -1 | sed -E 's/.*\| +([0-9.]+ . [0-9.]+) \|.*/\1/'; }
 

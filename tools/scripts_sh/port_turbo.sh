@@ -6,7 +6,7 @@
 # These sit BELOW expert-cache in the stack, so applying on top may conflict (llama-graph.cpp,
 # ggml.c) -- report the surface rather than fail silently.
 set -u
-cd /home/augus/src/llama.cpp-master
+cd /home/augus/src/slop.cpp-main
 git rev-parse --abbrev-ref HEAD | grep -q lifecycle || { echo "REFUSING: not on lifecycle"; exit 2; }
 git fetch -q stacksrc 2>/dev/null
 

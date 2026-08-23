@@ -16,7 +16,7 @@
 #
 # Usage: MODEL=/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf bash ops/qwen38-bringup/mtp_tensor_check.sh
 set -u
-LLAMA=${LLAMA:-/home/augus/src/llama.cpp-master}
+LLAMA=${LLAMA:-/home/augus/src/slop.cpp-main}
 MODEL=${MODEL:-/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf}
 
 # --- find a python3 that can import BOTH numpy and gguf ---

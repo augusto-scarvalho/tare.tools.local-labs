@@ -4,7 +4,7 @@
 # starts. Per-rep seed shared by both arms (common arrival schedule §14); arm order alternated per rep.
 # HARD 4h deadline guard + per-cell timeout; partials are saved and never silently dropped.
 set -u
-BIN=/home/augus/src/llama.cpp-master/build/bin/llama-server
+BIN=/home/augus/src/slop.cpp-main/build/bin/llama-server
 MODEL=/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf
 REPO=/mnt/c/projects/local-model-lifecycle
 OUT=$REPO/runs/serving/LAB-SERVE-001c/campaign/raw

@@ -11,7 +11,7 @@ A4 defenses: cache_prompt=False + unique per-rep prefix. Env: PORT REPS NTOK COO
 """
 import json, os, subprocess, time, urllib.request, statistics, math, signal, tempfile, hashlib
 
-BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"
 PORT = int(os.environ.get("PORT", "8080"))
 REPS = int(os.environ.get("REPS", "3"))
 NTOK = int(os.environ.get("NTOK", "512"))

@@ -1,0 +1,218 @@
+[
+  {
+    "rep": 1,
+    "arm": "on",
+    "up": true,
+    "argv": "/home/augus/src/slop.cpp-main/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8092 -fa on --ctx-size 8192 --jinja -fa on --n-cpu-moe 8 --ctx-size 32768 --parallel 8 --cache-type-k q8_0 --cache-type-v q8_0 --batch-size 2048 --ubatch-size 2048 --jinja --spec-type draft-mtp --spec-draft-n-max 4",
+    "launch_log_tail": "# bare MODELS key qwen36-35b-mtp-q4 (Q4_K_M); no named profile\n# argv: /home/augus/src/slop.cpp-main/build/bin/llama-server -m /home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf --host 0.0.0.0 --port 8092 -fa on --ctx-size 8192 --jinja -fa on --n-cpu-moe 8 --ctx-size 32768 --parallel 8 --cache-type-k q8_0 --cache-type-v q8_0 --batch-size 2048 --ubatch-size 2048 --jinja --spec-type draft-mtp --spec-draft-n-max 4\n\nlaunched (detached), waiting for /health (log: /tmp/lmctl-serve-8092.log) ...\nUP in 10.6s\n  local    : http://127.0.0.1:8092  (OpenAI: /v1)\n  by-name  : http://aaaaa.local:8092\n  stop     : python lmctl.py stop --port 8092\n",
+    "topology": {
+      "total_slots": 8,
+      "n_ctx": null,
+      "num_slots": 8,
+      "slot_contexts": [
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096
+      ]
+    },
+    "acceptance": [
+      {
+        "draft_n": 164,
+        "accepted": 86,
+        "rate": 0.5244
+      },
+      {
+        "draft_n": 163,
+        "accepted": 86,
+        "rate": 0.5276
+      },
+      {
+        "draft_n": 163,
+        "accepted": 86,
+        "rate": 0.5276
+      }
+    ],
+    "cells": [
+      {
+        "tag": "rep1_on_n4_o128",
+        "returncode": 0,
+        "success_all": true,
+        "token_accounting_sane": true,
+        "token_ratio": 1.0,
+        "requested": 32,
+        "completed": 32,
+        "output_throughput": 80.86881424641834,
+        "request_throughput": 0.6317876113001433,
+        "median_tpot_ms": 41.35948282679795,
+        "p95_tpot_ms": 49.462964229160136,
+        "median_ttft_ms": 1024.752842495218,
+        "median_e2e_ms": 6244.767772499472,
+        "p95_e2e_ms": 7578.959481198399,
+        "gpu": {
+          "vram_peak_mb": 22037.0,
+          "vram_mean_mb": 22026.2,
+          "util_mean": 41.1,
+          "power_mean_w": 167.5,
+          "power_peak_w": 223.91,
+          "temp_peak_c": 49.0,
+          "n_samples": 127
+        }
+      },
+      {
+        "tag": "rep1_on_n6_o128",
+        "returncode": 0,
+        "success_all": true,
+        "token_accounting_sane": true,
+        "token_ratio": 1.0,
+        "requested": 48,
+        "completed": 48,
+        "output_throughput": 107.18248323249354,
+        "request_throughput": 0.8373631502538558,
+        "median_tpot_ms": 45.1294656693532,
+        "p95_tpot_ms": 75.10682526470791,
+        "median_ttft_ms": 530.5614789831452,
+        "median_e2e_ms": 6248.545081500197,
+        "p95_e2e_ms": 10378.078975949029,
+        "gpu": {
+          "vram_peak_mb": 22037.0,
+          "vram_mean_mb": 22037.0,
+          "util_mean": 41.1,
+          "power_mean_w": 175.5,
+          "power_peak_w": 229.82,
+          "temp_peak_c": 52.0,
+          "n_samples": 131
+        }
+      },
+      {
+        "tag": "rep1_on_n8_o128",
+        "returncode": 0,
+        "success_all": true,
+        "token_accounting_sane": true,
+        "token_ratio": 1.0,
+        "requested": 64,
+        "completed": 64,
+        "output_throughput": 84.47629071322758,
+        "request_throughput": 0.6599710211970905,
+        "median_tpot_ms": 84.76845325989645,
+        "p95_tpot_ms": 108.5399713980925,
+        "median_ttft_ms": 736.4131980139064,
+        "median_e2e_ms": 11685.174432001077,
+        "p95_e2e_ms": 15645.700433966702,
+        "gpu": {
+          "vram_peak_mb": 22037.0,
+          "vram_mean_mb": 22037.0,
+          "util_mean": 45.6,
+          "power_mean_w": 170.4,
+          "power_peak_w": 228.1,
+          "temp_peak_c": 54.0,
+          "n_samples": 208
+        }
+      },
+      {
+        "tag": "rep1_on_n2_o128",
+        "returncode": 0,
+        "success_all": true,
+        "token_accounting_sane": true,
+        "token_ratio": 1.0,
+        "requested": 16,
+        "completed": 16,
+        "output_throughput": 72.85486521457612,
+        "request_throughput": 0.569178634488876,
+        "median_tpot_ms": 20.661185960643778,
+        "p95_tpot_ms": 27.20624553548414,
+        "median_ttft_ms": 829.0324744884856,
+        "median_e2e_ms": 3467.392091988586,
+        "p95_e2e_ms": 4870.42266924982,
+        "gpu": {
+          "vram_peak_mb": 22037.0,
+          "vram_mean_mb": 22037.0,
+          "util_mean": 42.0,
+          "power_mean_w": 172.0,
+          "power_peak_w": 231.11,
+          "temp_peak_c": 53.0,
+          "n_samples": 78
+        }
+      },
+      {
+        "tag": "rep1_on_n1_o128",
+        "returncode": 0,
+        "success_all": true,
+        "token_accounting_sane": true,
+        "token_ratio": 1.0,
+        "requested": 8,
+        "completed": 8,
+        "output_throughput": 103.14967427677573,
+        "request_throughput": 0.8058568302873104,
+        "median_tpot_ms": 8.596013590471644,
+        "p95_tpot_ms": 9.07466713224279,
+        "median_ttft_ms": 167.602222005371,
+        "median_e2e_ms": 1263.4685310040368,
+        "p95_e2e_ms": 1313.6139223948703,
+        "gpu": {
+          "vram_peak_mb": 22037.0,
+          "vram_mean_mb": 22037.0,
+          "util_mean": 28.2,
+          "power_mean_w": 143.2,
+          "power_peak_w": 212.98,
+          "temp_peak_c": 51.0,
+          "n_samples": 42
+        }
+      },
+      {
+        "tag": "rep1_on_n4_o32",
+        "returncode": 0,
+        "success_all": true,
+        "token_accounting_sane": true,
+        "token_ratio": 1.0,
+        "requested": 32,
+        "completed": 32,
+        "output_throughput": 49.12225777130929,
+        "request_throughput": 1.5350705553534154,
+        "median_tpot_ms": 32.354383161404144,
+        "p95_tpot_ms": 81.9445210582231,
+        "median_ttft_ms": 709.5843175047776,
+        "median_e2e_ms": 2173.955821985146,
+        "p95_e2e_ms": 4700.803429397637,
+        "gpu": {
+          "vram_peak_mb": 22037.0,
+          "vram_mean_mb": 22037.0,
+          "util_mean": 38.1,
+          "power_mean_w": 158.6,
+          "power_peak_w": 231.43,
+          "temp_peak_c": 53.0,
+          "n_samples": 61
+        }
+      },
+      {
+        "tag": "rep1_on_n4_o512",
+        "returncode": 0,
+        "success_all": true,
+        "token_accounting_sane": true,
+        "token_ratio": 1.0,
+        "requested": 32,
+        "completed": 32,
+        "output_throughput": 109.36917528828066,
+        "request_throughput": 0.21361167048492316,
+        "median_tpot_ms": 35.37838271133435,
+        "p95_tpot_ms": 42.71450362641773,
+        "median_ttft_ms": 350.43634999601636,
+        "median_e2e_ms": 18404.387395989033,
+        "p95_e2e_ms": 22167.177122797875,
+        "gpu": {
+          "vram_peak_mb": 22037.0,
+          "vram_mean_mb": 22037.0,
+          "util_mean": 45.6,
+          "power_mean_w": 192.2,
+          "power_peak_w": 209.94,
+          "temp_peak_c": 53.0,
+          "n_samples": 306
+        }
+      }
+    ]
+  }
+]

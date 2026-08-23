@@ -2,8 +2,8 @@
 # Establish the consolidated fork: fresh upstream master + §B2b, as a git worktree off the
 # llama.cpp-master repo (shares the object store; keeps 720d7fa40/MASTER_BIN intact).
 set -eu
-SRC=/home/augus/src/llama.cpp-master
-WT=/home/augus/src/llama.cpp-fork
+SRC=/home/augus/src/slop.cpp-main
+WT=/home/augus/src/slop.cpp-fork
 KV=src/llama-kv-cache.cpp
 
 cd "$SRC"

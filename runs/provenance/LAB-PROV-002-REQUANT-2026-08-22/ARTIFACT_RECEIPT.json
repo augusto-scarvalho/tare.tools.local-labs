@@ -1,0 +1,46 @@
+{
+  "source": {
+    "repo": "Qwen/Qwen3.8-27B",
+    "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+    "verified_shards": 18,
+    "verified_bytes": 55563006776,
+    "all_valid": true
+  },
+  "toolchain": {
+    "commit": "87a416bd75d5a64e66e55846b779c0a54eca21bd",
+    "build": "10161",
+    "converter_sha256": "8f1bed9466221e57e434caa7ee720abe1569deb6bc2fe5a65da950ea66c8e737",
+    "quantizer_sha256": "8d0d888ad2223b639ff8cc90e615d9cf81ac3fb2a27fdefb32a2990e287c03a8"
+  },
+  "imatrix": {
+    "path": "/home/augus/models/qwen38-27b/requant-87a416bd/imatrix_unsloth.gguf",
+    "sha256": "0ee5b10bd0c2fa2127c6f4b43dbfe1efd71e383b63217af9dade1de36599f1c1",
+    "entries": 496,
+    "chunks": 1251,
+    "dataset": "unsloth_calibration_dataset"
+  },
+  "bf16_gguf": {
+    "path": "/home/augus/models/qwen38-27b/requant-87a416bd/Qwen3.8-27B-BF16.gguf",
+    "bytes": 53808282048,
+    "sha256": "647ce03af8779a4cf7ec6fe7aa9721b6e2589a2b89c54d4e97f158fe89c7b440",
+    "tensors": 851
+  },
+  "authorial_iq4_xs": {
+    "path": "/home/augus/models/qwen38-27b/requant-87a416bd/Qwen3.8-27B-IQ4_XS-imatrix.gguf",
+    "bytes": 15082506944,
+    "sha256": "daffef5404a0740316cd1bcca9a1f5f233dd76de9a3eee7a6e92c936f9b9fe22",
+    "tensors": 851,
+    "tensor_type_counts": {"F32": 353, "Q5_K": 64, "Q6_K": 1, "IQ4_XS": 433},
+    "quantization_time_ms": 346957.88
+  },
+  "unsloth_comparator": {
+    "repo": "unsloth/Qwen3.8-27B-GGUF",
+    "revision": "4ca720788d1e01f1bff70c033e0d0028fd02e502",
+    "path": "/home/augus/models/qwen38-27b/unsloth-4ca72078/Qwen3.8-27B-UD-IQ4_XS.gguf",
+    "bytes": 14252845984,
+    "sha256": "40fac4050e940397dbf13087afd50f4734a11805bf9d65ef8ddd7483470e6199",
+    "tensors": 866,
+    "extra_tensors": 15,
+    "extra_tensor_role": "embedded next-token-prediction layer 64"
+  }
+}

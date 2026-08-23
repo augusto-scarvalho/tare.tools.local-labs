@@ -14,7 +14,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import pathlib
+import re
 
 # --------------------------------------------------------------------------------------------
 # Incident-hardened glue (each carries the incident that motivated it)
@@ -32,6 +34,22 @@ def assemble_humaneval_solution(prompt: str, completion: str) -> str:
     verbose styles and is verified NEUTRAL for already-self-contained models.
     """
     return prompt + "\n" + completion
+
+
+def extract_code(text: str) -> str:
+    """Extract the first Python fence while preserving unfenced code as a format diagnostic.
+
+    Callers must separately record whether a fence was present. Extraction makes the
+    sample executable; it does not turn a format failure into a format pass.
+    """
+    if "```" not in text:
+        return text.strip()
+    parts = text.split("```")
+    block = parts[1] if len(parts) > 1 else text
+    first_line, separator, rest = block.partition("\n")
+    if first_line.strip().lower() in {"python", "py"}:
+        block = rest if separator else ""
+    return block.strip()
 
 
 def pad_subset(mine: dict[str, str], all_ids: list[str]) -> list[dict]:
@@ -139,6 +157,77 @@ def dataset_hash(problems: list[dict]) -> str:
     return h.hexdigest()
 
 
+def benchmark_content_hash(records: list[dict], fields=("task_id", "prompt", "answer")) -> str:
+    """Hash all score-bearing benchmark content, including gold answers.
+
+    ``dataset_hash`` intentionally preserves its historical prompt-only contract.  New
+    requalification runs use this stricter companion so an edited gold answer cannot retain the
+    same identity.  Records are sorted by task id and serialized canonically.
+    """
+    material = [
+        {field: record.get(field) for field in fields}
+        for record in sorted(records, key=lambda d: str(d.get("task_id")))
+    ]
+    payload = json.dumps(material, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def strict_exact_reply(text: str | None, expected: str) -> bool:
+    """True only when the complete stripped reply is exactly ``expected``.
+
+    This deliberately rejects substring matches (``100`` inside ``1000``), prose wrappers,
+    quotes, and code fences.  It is for prompts whose declared output contract is "ONLY the
+    value"; lenient diagnostics may be recorded separately but never drive the primary score.
+    """
+    return (text or "").strip() == str(expected).strip()
+
+
+_STRICT_NUMERIC_FINAL = re.compile(
+    r"^####\s+([-+]?(?:\d+(?:,\d{3})*|\d*)(?:\.\d+)?)\s*$"
+)
+_LENIENT_NUMBER = re.compile(r"[-+]?(?:\d+(?:,\d{3})*|\d+)(?:\.\d+)?")
+
+
+def strict_gsm8k_answer(text: str | None) -> str | None:
+    """Extract GSM8K only when the final non-empty line obeys ``#### <number>`` exactly."""
+    lines = [line.strip() for line in (text or "").splitlines() if line.strip()]
+    if not lines:
+        return None
+    match = _STRICT_NUMERIC_FINAL.fullmatch(lines[-1])
+    if not match or not match.group(1):
+        return None
+    return match.group(1).replace(",", "")
+
+
+def lenient_last_number(text: str | None) -> str | None:
+    """Diagnostic-only fallback: last numeric token in a reply. Never a promotion score."""
+    matches = _LENIENT_NUMBER.findall(text or "")
+    return matches[-1].replace(",", "") if matches else None
+
+
+def numeric_equal(actual: str | None, expected: str | None, *, atol: float = 1e-9) -> bool:
+    """Compare finite numeric strings without treating NaN/Inf as valid answers."""
+    if actual is None or expected is None:
+        return False
+    try:
+        a, b = float(actual), float(expected)
+        return math.isfinite(a) and math.isfinite(b) and abs(a - b) <= atol
+    except (TypeError, ValueError):
+        return str(actual).strip() == str(expected).strip()
+
+
+def wilson_interval(successes: int, total: int, *, z: float = 1.959963984540054) -> tuple[float, float]:
+    """Wilson score interval for a Bernoulli proportion (95% by default), stdlib-only."""
+    if total <= 0 or successes < 0 or successes > total:
+        raise ValueError("require 0 <= successes <= total and total > 0")
+    p = successes / total
+    z2 = z * z
+    denom = 1.0 + z2 / total
+    centre = (p + z2 / (2.0 * total)) / denom
+    radius = z * math.sqrt((p * (1.0 - p) + z2 / (4.0 * total)) / total) / denom
+    return max(0.0, centre - radius), min(1.0, centre + radius)
+
+
 def check_identity(actual: dict, expected: dict) -> list[dict]:
     """Compare a run's recorded identity block against an expected one; return mismatches. Catches
     wrong benchmark_version / dataset_hash / scorer_commit before a score is trusted."""
@@ -184,15 +273,35 @@ def _git_head(repo_root) -> str:
         return "UNKNOWN"
 
 
+PROVENANCE_CLASSES = frozenset({"VERIFIED_SOURCE", "COMMUNITY_REQUANT", "UNKNOWN"})
+
+
+def artifact_sha256(path, chunk_bytes: int = 8 * 1024 * 1024) -> str:
+    """Hash a local artifact on demand without loading multi-GB weights into memory."""
+    if chunk_bytes <= 0:
+        raise ValueError("chunk_bytes must be positive")
+    digest = hashlib.sha256()
+    with pathlib.Path(path).open("rb") as handle:
+        while chunk := handle.read(chunk_bytes):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def run_identity(*, benchmark_name: str, benchmark_version: str, dataset_version: str,
                  problems: list[dict], sampling: dict, model_id: str, model_path: str,
                  quant: str = "", engine_commit: str = "UNKNOWN", timestamp: str,
-                 repo_root=None, model_sha256=None) -> dict:
+                 repo_root=None, model_sha256=None, model_bytes=None,
+                 source_repo: str = "UNKNOWN", source_revision: str = "UNKNOWN",
+                 quantizer: str = "UNKNOWN", imatrix: str = "UNKNOWN",
+                 provenance_class: str = "UNKNOWN") -> dict:
     """Assemble the LAB-QA-002 identity block for a run so a historical score is auditable without
     the current filesystem. Cheap by design: dataset content is hashed; the harness/scorer commit
     is the repo HEAD; the model is identified by registry path + quant (full GGUF sha256 is left
     on-demand — LAB-PROV-001 — since the weights live in the WSL VHDX, not stat-able here).
     """
+    if provenance_class not in PROVENANCE_CLASSES:
+        raise ValueError(f"invalid provenance_class={provenance_class!r}; "
+                         f"expected one of {sorted(PROVENANCE_CLASSES)}")
     repo_root = repo_root or pathlib.Path(__file__).resolve().parent
     head = _git_head(repo_root)
     return {
@@ -207,7 +316,13 @@ def run_identity(*, benchmark_name: str, benchmark_version: str, dataset_version
         "model_id": model_id,
         "model_path": model_path,
         "quantization": quant,
-        "model_sha256": model_sha256,              # null = compute on demand (LAB-PROV-001)
+        "model_sha256": model_sha256,
+        "model_bytes": model_bytes,
+        "source_repo": source_repo,
+        "source_revision": source_revision,
+        "quantizer": quantizer,
+        "imatrix": imatrix,
+        "provenance_class": provenance_class,
         "engine_commit": engine_commit,
         "sampling_config": sampling,
         "timestamp": timestamp,

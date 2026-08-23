@@ -35,7 +35,7 @@ from model_lifecycle.collectors.host import sample                 # noqa: E402
 from model_lifecycle.servers.llama_cpp import (                    # noqa: E402
     LlamaCppAdapter, ServerProfile)
 
-LOCAL_BIN = "/home/augus/src/llama.cpp-local/build/bin/llama-server"
+LOCAL_BIN = "/home/augus/src/slop.cpp-local/build/bin/llama-server"
 
 # key -> (gguf, block_count, approx GiB on disk). The big two are Q3_K_M in three shards;
 # llama.cpp takes the first shard's path and finds the rest.

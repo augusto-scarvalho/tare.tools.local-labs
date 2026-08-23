@@ -1,0 +1,234 @@
+{
+  "packet": "RNN-06-P0",
+  "candidate_tag": "qwen25_05b",
+  "model_id": "Qwen/Qwen2.5-0.5B",
+  "requested_revision": null,
+  "resolved_revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+  "status": {
+    "MODEL_RUNNABLE": "YES",
+    "TASK_COMPETENT": "YES",
+    "low_dose_constrained_acc": 0.90625,
+    "P0_GRADED_BAND": "PLAUSIBLE"
+  },
+  "env": {
+    "python": "3.12.3",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "torch": "2.6.0+cu124",
+    "cuda": "12.4",
+    "transformers": "4.48.3",
+    "fla": "0.5.2",
+    "flash_linear_attention": null,
+    "triton": "3.2.0",
+    "mamba_ssm": "2.2.4",
+    "causal_conv1d": "1.5.0.post8",
+    "accelerate": "1.14.0",
+    "numpy": "2.5.2",
+    "huggingface_hub": "0.36.2",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "gpu_total_gb": 25.77
+  },
+  "config": {
+    "dose_ladder_pairs": [
+      4,
+      8,
+      16,
+      32,
+      64,
+      128
+    ],
+    "n_eval": 64,
+    "master_seed": 20260811,
+    "pool_size": 256,
+    "p_min": 4,
+    "p_max": 128,
+    "dtype": "torch.bfloat16",
+    "batch_size": 32,
+    "competence_tau_hi": 0.75,
+    "low_dose": 4,
+    "config_overrides_requested": {},
+    "impl": "transformers",
+    "autobatch_budget": 0
+  },
+  "notes": [],
+  "load_seconds": 0.95,
+  "config_overrides_applied": {},
+  "n_params": 494032768,
+  "file_hashes": {
+    "config.json": {
+      "size": 681,
+      "sha256": "479dcf0c5286339e41ad3992cd08ae88a467c4187587936248e2b7c96283484b"
+    },
+    "tokenizer_config.json": {
+      "size": 7228,
+      "sha256": "c91efca15ceff6e9ee9424db58a6f59cd41294e550a86cbd07e3c1fb500b34f9"
+    },
+    "tokenizer.json": {
+      "size": 7031645,
+      "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+    },
+    "generation_config.json": {
+      "size": 138,
+      "sha256": "8c970692323e3ea0e9b8b0a4dca79388d31226e41f83c9fd6014804280ebf6e8"
+    }
+  },
+  "tokenizer_identity": {
+    "name_or_path": "Qwen/Qwen2.5-0.5B",
+    "vocab_size": 151643,
+    "class": "Qwen2TokenizerFast"
+  },
+  "pools": {
+    "n_key_ids": 256,
+    "n_value_ids": 256,
+    "eq_id": 28,
+    "nl_id": 198,
+    "eq_str": "=",
+    "sample_keys": [
+      "\tmap",
+      "jie",
+      " Bender",
+      "Consider",
+      "ately",
+      " Mun",
+      " Machines",
+      " Amount"
+    ],
+    "sample_values": [
+      "inking",
+      " wcs",
+      "ijk",
+      " numpy",
+      " Cancer",
+      " Average",
+      " shelf",
+      " Conference"
+    ],
+    "value_ids_sha256": "6b9df2be35430ae758f81e95bd13512553e25760aa2c4fee0ae500390dd55a16",
+    "key_ids_sha256": "0c7bc667dfcda2790c60f9ade7e21d7b06f478dd36199a0be325df144d073866",
+    "value_kind": "alphanumeric_single_token_fallback (few multi-digit single-token numbers: only 0)",
+    "n_numeric_single_token": 0,
+    "n_word_single_token": 66841,
+    "n_alnum_single_token": 69940
+  },
+  "calibrationSetSha256": "779fb37af14eea0e36b25b0407f5aa32fc23dc84b8add51a2df4ee0ad88c45f3",
+  "curves": [
+    {
+      "pairs": 4,
+      "seq_len_tokens": 18,
+      "batch_used": 32,
+      "eval_seconds": 0.37,
+      "n": 64,
+      "n_oom_skipped": 0,
+      "constrained_acc": 0.90625,
+      "unconstrained_exact_acc": 0.6875,
+      "format_adherence": 0.71875,
+      "n_constrained_correct": 58,
+      "n_unconstrained_correct": 44,
+      "n_format_ok": 46,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    },
+    {
+      "pairs": 8,
+      "seq_len_tokens": 34,
+      "batch_used": 32,
+      "eval_seconds": 0.06,
+      "n": 64,
+      "n_oom_skipped": 0,
+      "constrained_acc": 0.828125,
+      "unconstrained_exact_acc": 0.671875,
+      "format_adherence": 0.71875,
+      "n_constrained_correct": 53,
+      "n_unconstrained_correct": 43,
+      "n_format_ok": 46,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    },
+    {
+      "pairs": 16,
+      "seq_len_tokens": 66,
+      "batch_used": 32,
+      "eval_seconds": 0.1,
+      "n": 64,
+      "n_oom_skipped": 0,
+      "constrained_acc": 0.796875,
+      "unconstrained_exact_acc": 0.53125,
+      "format_adherence": 0.53125,
+      "n_constrained_correct": 51,
+      "n_unconstrained_correct": 34,
+      "n_format_ok": 34,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    },
+    {
+      "pairs": 32,
+      "seq_len_tokens": 130,
+      "batch_used": 32,
+      "eval_seconds": 0.17,
+      "n": 64,
+      "n_oom_skipped": 0,
+      "constrained_acc": 0.734375,
+      "unconstrained_exact_acc": 0.453125,
+      "format_adherence": 0.453125,
+      "n_constrained_correct": 47,
+      "n_unconstrained_correct": 29,
+      "n_format_ok": 29,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    },
+    {
+      "pairs": 64,
+      "seq_len_tokens": 258,
+      "batch_used": 32,
+      "eval_seconds": 0.97,
+      "n": 64,
+      "n_oom_skipped": 0,
+      "constrained_acc": 0.546875,
+      "unconstrained_exact_acc": 0.234375,
+      "format_adherence": 0.234375,
+      "n_constrained_correct": 35,
+      "n_unconstrained_correct": 15,
+      "n_format_ok": 15,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    },
+    {
+      "pairs": 128,
+      "seq_len_tokens": 514,
+      "batch_used": 32,
+      "eval_seconds": 2.83,
+      "n": 64,
+      "n_oom_skipped": 0,
+      "constrained_acc": 0.453125,
+      "unconstrained_exact_acc": 0.171875,
+      "format_adherence": 0.171875,
+      "n_constrained_correct": 29,
+      "n_unconstrained_correct": 11,
+      "n_format_ok": 11,
+      "chance": 0.00390625,
+      "value_vocab_size": 256
+    }
+  ],
+  "per_dose_prompt_sha256": {
+    "4": "b679b0cc4616098bb3c5c8443a9f5bd15511d465937e83ab725f0b72299674fc",
+    "8": "a42c5308ee88ef54ebe478b0dd5a609db220fef7ff8e3d417d2fab0445404044",
+    "16": "9334c9efff10657c74244ee00861ca28c1fde4159e56346280f107b5af8b600a",
+    "32": "998ba8f490c87dc38439ef6aab35bc788afbda83447cb2ea143e9f0015e487f7",
+    "64": "87126c5c75c40f6eebe42268b0f96fcb82af81fa50ec5014961114730b548825",
+    "128": "5114276e696b6981cc47fcf3f894669145e117e6ff8f60f8ef892c4b6d699981"
+  },
+  "materialized_sweep_sha256": "628c3e7e239c9a898208c1630d32471cf7bcfd8d96834fc51f317cf1a6eb7b08",
+  "peak_vram_gb": 11.454,
+  "n_forward_examples": 384,
+  "total_seconds": 10.38,
+  "band_analysis": {
+    "low_dose_acc": 0.90625,
+    "min_acc": 0.453125,
+    "min_acc_at_pairs": 128,
+    "monotone_nonincreasing": true,
+    "n_mid_band_doses": 3,
+    "tau_hi": 0.75,
+    "tau_lo": 0.45,
+    "verdict": "PLAUSIBLE",
+    "reason": "3 interior dose(s) in (0.45,0.75); competent-high 0.906 -> material loss 0.453"
+  }
+}

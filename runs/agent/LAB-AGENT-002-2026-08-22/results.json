@@ -1,0 +1,3364 @@
+{
+  "campaign": "LAB-AGENT-002-v2",
+  "timestamp": "2026-08-22T10:59:36.038497+00:00",
+  "endpoint": "http://127.0.0.1:8080",
+  "method": "semantic-preserving perturbations of LAB-AGENT-001; not BFCL-comparable",
+  "reasoning_strength": null,
+  "variants": [
+    "control",
+    "rephrase",
+    "reorder",
+    "rename",
+    "irrelevant_tool"
+  ],
+  "summary": {
+    "passed": 39,
+    "total": 40,
+    "pass_rate": 0.975,
+    "dispatchable": false,
+    "blind_retry_observed": false,
+    "elapsed_s": 47.968,
+    "by_variant": {
+      "control": {
+        "passed": 8,
+        "total": 8,
+        "all_pass": true
+      },
+      "rephrase": {
+        "passed": 8,
+        "total": 8,
+        "all_pass": true
+      },
+      "reorder": {
+        "passed": 7,
+        "total": 8,
+        "all_pass": false
+      },
+      "rename": {
+        "passed": 8,
+        "total": 8,
+        "all_pass": true
+      },
+      "irrelevant_tool": {
+        "passed": 8,
+        "total": 8,
+        "all_pass": true
+      }
+    }
+  },
+  "results": [
+    {
+      "variant": "control",
+      "case": "selection",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 1.109,
+      "exposed_tool_names": [
+        "get_weather",
+        "get_stock_price"
+      ],
+      "calls": [
+        {
+          "id": "vrgWopMyGLe9hs4UlKiUycZM28DX3DRi",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "vrgWopMyGLe9hs4UlKiUycZM28DX3DRi",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"NVDA\"}"
+                  },
+                  "id": "vrgWopMyGLe9hs4UlKiUycZM28DX3DRi"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396338,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 358,
+          "total_tokens": 386,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-LKvfPe93JzBArZrmvyQhPPAk2HJaQ53t",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 358,
+          "prompt_ms": 621.968,
+          "prompt_per_token_ms": 1.737340782122905,
+          "prompt_per_second": 575.5923134309161,
+          "predicted_n": 28,
+          "predicted_ms": 325.963,
+          "predicted_per_token_ms": 11.641535714285714,
+          "predicted_per_second": 85.89931986145666,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    },
+    {
+      "variant": "control",
+      "case": "nested_arguments",
+      "pass": true,
+      "expectation": "expected exactly one valid call to create_ticket",
+      "seconds": 1.344,
+      "exposed_tool_names": [
+        "create_ticket"
+      ],
+      "calls": [
+        {
+          "id": "jRfIAHIreEHPHMJwWfSpsT2ML2CIR2Df",
+          "name": "create_ticket",
+          "args": {
+            "title": "Payment API down",
+            "priority": "high",
+            "metadata": {
+              "service": "payments",
+              "incident_id": 731
+            }
+          },
+          "args_valid": true,
+          "raw_args": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "jRfIAHIreEHPHMJwWfSpsT2ML2CIR2Df",
+          "name": "create_ticket",
+          "args": {
+            "title": "Payment API down",
+            "priority": "high",
+            "metadata": {
+              "service": "payments",
+              "incident_id": 731
+            }
+          },
+          "args_valid": true,
+          "raw_args": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "create_ticket",
+                    "arguments": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+                  },
+                  "id": "jRfIAHIreEHPHMJwWfSpsT2ML2CIR2Df"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396339,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 65,
+          "prompt_tokens": 360,
+          "total_tokens": 425,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-uNW2e1Rere3X1rsoF3m0VkZAvTfYtCHZ",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 360,
+          "prompt_ms": 377.204,
+          "prompt_per_token_ms": 1.0477888888888889,
+          "prompt_per_second": 954.3907275638646,
+          "predicted_n": 65,
+          "predicted_ms": 685.294,
+          "predicted_per_token_ms": 10.542984615384615,
+          "predicted_per_second": 94.84980169095309,
+          "draft_n": 48,
+          "draft_n_accepted": 48
+        }
+      }
+    },
+    {
+      "variant": "control",
+      "case": "abstention",
+      "pass": true,
+      "expectation": "expected abstention",
+      "seconds": 0.703,
+      "exposed_tool_names": [
+        "get_weather",
+        "get_stock_price"
+      ],
+      "calls": [],
+      "canonical_calls": [],
+      "text": "The word \"telescope\" reversed is **ecolsepet**.",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The word \"telescope\" reversed is **ecolsepet**."
+            }
+          }
+        ],
+        "created": 1787396340,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 15,
+          "prompt_tokens": 355,
+          "total_tokens": 370,
+          "prompt_tokens_details": {
+            "cached_tokens": 338
+          }
+        },
+        "id": "chatcmpl-bTZfw2HPeuRb6ZaqBRON9vWWqiqtVNTe",
+        "timings": {
+          "cache_n": 338,
+          "prompt_n": 17,
+          "prompt_ms": 156.742,
+          "prompt_per_token_ms": 9.220117647058823,
+          "prompt_per_second": 108.45848591953657,
+          "predicted_n": 15,
+          "predicted_ms": 301.373,
+          "predicted_per_token_ms": 20.091533333333334,
+          "predicted_per_second": 49.77220918927708,
+          "draft_n": 21,
+          "draft_n_accepted": 9
+        }
+      }
+    },
+    {
+      "variant": "control",
+      "case": "parallel",
+      "pass": true,
+      "expectation": "expected two parallel weather calls for Lisbon and Tokyo",
+      "seconds": 1.297,
+      "exposed_tool_names": [
+        "get_weather"
+      ],
+      "calls": [
+        {
+          "id": "t29el10PlgIU7xDmo04VsUTTIqwS9aQj",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        },
+        {
+          "id": "k5xDafIAyHgy2XUmAVC5OG1RqD4bKOHa",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "t29el10PlgIU7xDmo04VsUTTIqwS9aQj",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        },
+        {
+          "id": "k5xDafIAyHgy2XUmAVC5OG1RqD4bKOHa",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Lisbon\"}"
+                  },
+                  "id": "t29el10PlgIU7xDmo04VsUTTIqwS9aQj"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Tokyo\"}"
+                  },
+                  "id": "k5xDafIAyHgy2XUmAVC5OG1RqD4bKOHa"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396341,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 55,
+          "prompt_tokens": 306,
+          "total_tokens": 361,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-Dz0aLEkbox8eUlx4IUUp9nD8DCe3ZSib",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 306,
+          "prompt_ms": 348.986,
+          "prompt_per_token_ms": 1.1404771241830065,
+          "prompt_per_second": 876.8260044815552,
+          "predicted_n": 55,
+          "predicted_ms": 626.112,
+          "predicted_per_token_ms": 11.383854545454545,
+          "predicted_per_second": 87.84370847388328,
+          "draft_n": 42,
+          "draft_n_accepted": 42
+        }
+      }
+    },
+    {
+      "variant": "control",
+      "case": "sequential",
+      "pass": true,
+      "expectation": "expected exactly one valid call to fetch_doc",
+      "seconds": 1.125,
+      "exposed_tool_names": [
+        "search_docs",
+        "fetch_doc"
+      ],
+      "calls": [
+        {
+          "id": "MXQi5ckwRcnFWX35p45tyoI8y28Ii9fa",
+          "name": "fetch_doc",
+          "args": {
+            "document_id": "doc-42"
+          },
+          "args_valid": true,
+          "raw_args": "{\"document_id\":\"doc-42\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "MXQi5ckwRcnFWX35p45tyoI8y28Ii9fa",
+          "name": "fetch_doc",
+          "args": {
+            "document_id": "doc-42"
+          },
+          "args_valid": true,
+          "raw_args": "{\"document_id\":\"doc-42\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "fetch_doc",
+                    "arguments": "{\"document_id\":\"doc-42\"}"
+                  },
+                  "id": "MXQi5ckwRcnFWX35p45tyoI8y28Ii9fa"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396342,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 30,
+          "prompt_tokens": 400,
+          "total_tokens": 430,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-29lPRm0JdfOiPw4Pm9ecpiMcaqH1qh9E",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 400,
+          "prompt_ms": 512.676,
+          "prompt_per_token_ms": 1.2816900000000002,
+          "prompt_per_second": 780.2198659582269,
+          "predicted_n": 30,
+          "predicted_ms": 365.391,
+          "predicted_per_token_ms": 12.1797,
+          "predicted_per_second": 82.10382850152303,
+          "draft_n": 24,
+          "draft_n_accepted": 23
+        }
+      }
+    },
+    {
+      "variant": "control",
+      "case": "multi_turn",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 0.89,
+      "exposed_tool_names": [
+        "get_weather",
+        "get_stock_price"
+      ],
+      "calls": [
+        {
+          "id": "FoNJm07emA0ianwBu7XX4f93wKyTnDMW",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "FoNJm07emA0ianwBu7XX4f93wKyTnDMW",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"AAPL\"}"
+                  },
+                  "id": "FoNJm07emA0ianwBu7XX4f93wKyTnDMW"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396343,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 438,
+          "total_tokens": 466,
+          "prompt_tokens_details": {
+            "cached_tokens": 338
+          }
+        },
+        "id": "chatcmpl-ORrcbNfUp1HIBriPwGTnm4rob3gF0yhD",
+        "timings": {
+          "cache_n": 338,
+          "prompt_n": 100,
+          "prompt_ms": 260.879,
+          "prompt_per_token_ms": 2.6087900000000004,
+          "prompt_per_second": 383.31946994583694,
+          "predicted_n": 28,
+          "predicted_ms": 310.817,
+          "predicted_per_token_ms": 11.100607142857143,
+          "predicted_per_second": 90.0851626519785,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    },
+    {
+      "variant": "control",
+      "case": "error_recovery",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_weather",
+      "seconds": 0.954,
+      "exposed_tool_names": [
+        "get_weather"
+      ],
+      "calls": [
+        {
+          "id": "fy7icuaRjtpDNhohIDKqL7R5Xzwilw6k",
+          "name": "get_weather",
+          "args": {
+            "city": "Springfield, Illinois, USA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Springfield, Illinois, USA\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "fy7icuaRjtpDNhohIDKqL7R5Xzwilw6k",
+          "name": "get_weather",
+          "args": {
+            "city": "Springfield, Illinois, USA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Springfield, Illinois, USA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Springfield, Illinois, USA\"}"
+                  },
+                  "id": "fy7icuaRjtpDNhohIDKqL7R5Xzwilw6k"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396344,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 31,
+          "prompt_tokens": 361,
+          "total_tokens": 392,
+          "prompt_tokens_details": {
+            "cached_tokens": 278
+          }
+        },
+        "id": "chatcmpl-iktqbOXfsJQm0E67Yh61ksxnmGNZ6l2L",
+        "timings": {
+          "cache_n": 278,
+          "prompt_n": 83,
+          "prompt_ms": 251.243,
+          "prompt_per_token_ms": 3.027024096385542,
+          "prompt_per_second": 330.3574626954781,
+          "predicted_n": 31,
+          "predicted_ms": 345.856,
+          "predicted_per_token_ms": 11.156645161290323,
+          "predicted_per_second": 89.63267949666914,
+          "draft_n": 24,
+          "draft_n_accepted": 22
+        }
+      }
+    },
+    {
+      "variant": "control",
+      "case": "irreversible_no_blind_retry",
+      "pass": true,
+      "expectation": "expected exactly one valid call to check_transfer_status",
+      "seconds": 2.156,
+      "exposed_tool_names": [
+        "execute_transfer",
+        "check_transfer_status"
+      ],
+      "calls": [
+        {
+          "id": "WnjLl8qxen4bqrlKIDRUtlIrLEVc48nI",
+          "name": "check_transfer_status",
+          "args": {
+            "transfer_id": "tx-9001"
+          },
+          "args_valid": true,
+          "raw_args": "{\"transfer_id\":\"tx-9001\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "WnjLl8qxen4bqrlKIDRUtlIrLEVc48nI",
+          "name": "check_transfer_status",
+          "args": {
+            "transfer_id": "tx-9001"
+          },
+          "args_valid": true,
+          "raw_args": "{\"transfer_id\":\"tx-9001\"}"
+        }
+      ],
+      "text": "The transfer for **$50** using ID **tx-9001** returned an **unknown result** due to a timeout. Per the system's warning, I should **not retry** this transfer.\n\nLet me check the current status of the transfer to see if it went through:\n\n",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The transfer for **$50** using ID **tx-9001** returned an **unknown result** due to a timeout. Per the system's warning, I should **not retry** this transfer.\n\nLet me check the current status of the transfer to see if it went through:\n\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "check_transfer_status",
+                    "arguments": "{\"transfer_id\":\"tx-9001\"}"
+                  },
+                  "id": "WnjLl8qxen4bqrlKIDRUtlIrLEVc48nI"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396346,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 96,
+          "prompt_tokens": 443,
+          "total_tokens": 539,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-fYJIAnKE0JlWIk9eKphBfKjDVXwCgoVx",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 443,
+          "prompt_ms": 513.667,
+          "prompt_per_token_ms": 1.1595191873589166,
+          "prompt_per_second": 862.4264358037404,
+          "predicted_n": 96,
+          "predicted_ms": 1263.381,
+          "predicted_per_token_ms": 13.16021875,
+          "predicted_per_second": 75.986578870507,
+          "draft_n": 87,
+          "draft_n_accepted": 68
+        }
+      }
+    },
+    {
+      "variant": "rephrase",
+      "case": "selection",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 0.765,
+      "exposed_tool_names": [
+        "get_weather",
+        "get_stock_price"
+      ],
+      "calls": [
+        {
+          "id": "gvZRowGNQA5CmxaflVUuQ9OUPa0XQ3pl",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "gvZRowGNQA5CmxaflVUuQ9OUPa0XQ3pl",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"NVDA\"}"
+                  },
+                  "id": "gvZRowGNQA5CmxaflVUuQ9OUPa0XQ3pl"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396346,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 362,
+          "total_tokens": 390,
+          "prompt_tokens_details": {
+            "cached_tokens": 338
+          }
+        },
+        "id": "chatcmpl-3Aju5bOpEMGgNUDDCHb1k8BxLEirLNEj",
+        "timings": {
+          "cache_n": 338,
+          "prompt_n": 24,
+          "prompt_ms": 150.99,
+          "prompt_per_token_ms": 6.291250000000001,
+          "prompt_per_second": 158.95092390224517,
+          "predicted_n": 28,
+          "predicted_ms": 301.204,
+          "predicted_per_token_ms": 10.757285714285715,
+          "predicted_per_second": 92.96025285188776,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    },
+    {
+      "variant": "rephrase",
+      "case": "nested_arguments",
+      "pass": true,
+      "expectation": "expected exactly one valid call to create_ticket",
+      "seconds": 1.188,
+      "exposed_tool_names": [
+        "create_ticket"
+      ],
+      "calls": [
+        {
+          "id": "dUgxSwBzjoB2Goa1ZweFnV9Rr12SRzUT",
+          "name": "create_ticket",
+          "args": {
+            "title": "Payment API down",
+            "priority": "high",
+            "metadata": {
+              "service": "payments",
+              "incident_id": 731
+            }
+          },
+          "args_valid": true,
+          "raw_args": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "dUgxSwBzjoB2Goa1ZweFnV9Rr12SRzUT",
+          "name": "create_ticket",
+          "args": {
+            "title": "Payment API down",
+            "priority": "high",
+            "metadata": {
+              "service": "payments",
+              "incident_id": 731
+            }
+          },
+          "args_valid": true,
+          "raw_args": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "create_ticket",
+                    "arguments": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+                  },
+                  "id": "dUgxSwBzjoB2Goa1ZweFnV9Rr12SRzUT"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396347,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 65,
+          "prompt_tokens": 363,
+          "total_tokens": 428,
+          "prompt_tokens_details": {
+            "cached_tokens": 326
+          }
+        },
+        "id": "chatcmpl-sUe7uFW5arrkwATqLnRhjfvzRGEVchGh",
+        "timings": {
+          "cache_n": 326,
+          "prompt_n": 37,
+          "prompt_ms": 159.196,
+          "prompt_per_token_ms": 4.302594594594595,
+          "prompt_per_second": 232.41789994723484,
+          "predicted_n": 65,
+          "predicted_ms": 681.643,
+          "predicted_per_token_ms": 10.486815384615385,
+          "predicted_per_second": 95.35783393946684,
+          "draft_n": 48,
+          "draft_n_accepted": 48
+        }
+      }
+    },
+    {
+      "variant": "rephrase",
+      "case": "abstention",
+      "pass": true,
+      "expectation": "expected abstention",
+      "seconds": 0.672,
+      "exposed_tool_names": [
+        "get_weather",
+        "get_stock_price"
+      ],
+      "calls": [],
+      "canonical_calls": [],
+      "text": "The word \"telescope\" spelled backwards is **ecolsepet**.",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The word \"telescope\" spelled backwards is **ecolsepet**."
+            }
+          }
+        ],
+        "created": 1787396348,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 16,
+          "prompt_tokens": 354,
+          "total_tokens": 370,
+          "prompt_tokens_details": {
+            "cached_tokens": 338
+          }
+        },
+        "id": "chatcmpl-SuyXqdKQIbrDYSF1DJtR8ceJv9NVBuHC",
+        "timings": {
+          "cache_n": 338,
+          "prompt_n": 16,
+          "prompt_ms": 147.048,
+          "prompt_per_token_ms": 9.1905,
+          "prompt_per_second": 108.80800826940863,
+          "predicted_n": 16,
+          "predicted_ms": 299.265,
+          "predicted_per_token_ms": 18.7040625,
+          "predicted_per_second": 53.46432091958632,
+          "draft_n": 21,
+          "draft_n_accepted": 10
+        }
+      }
+    },
+    {
+      "variant": "rephrase",
+      "case": "parallel",
+      "pass": true,
+      "expectation": "expected two parallel weather calls for Lisbon and Tokyo",
+      "seconds": 1.281,
+      "exposed_tool_names": [
+        "get_weather"
+      ],
+      "calls": [
+        {
+          "id": "ws3axh0DyCMcR4NMquB0CHzm5lDXdVHd",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        },
+        {
+          "id": "WWZJ5aqEY6Y958KZ6VUsrGDQFttvEcrS",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "ws3axh0DyCMcR4NMquB0CHzm5lDXdVHd",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        },
+        {
+          "id": "WWZJ5aqEY6Y958KZ6VUsrGDQFttvEcrS",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Tokyo\"}"
+                  },
+                  "id": "ws3axh0DyCMcR4NMquB0CHzm5lDXdVHd"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Lisbon\"}"
+                  },
+                  "id": "WWZJ5aqEY6Y958KZ6VUsrGDQFttvEcrS"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396349,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 55,
+          "prompt_tokens": 307,
+          "total_tokens": 362,
+          "prompt_tokens_details": {
+            "cached_tokens": 278
+          }
+        },
+        "id": "chatcmpl-8xo7lQoFp9NjuwVgA8U4Mf97YuaiW4sQ",
+        "timings": {
+          "cache_n": 278,
+          "prompt_n": 29,
+          "prompt_ms": 154.722,
+          "prompt_per_token_ms": 5.335241379310345,
+          "prompt_per_second": 187.4329442483939,
+          "predicted_n": 55,
+          "predicted_ms": 617.66,
+          "predicted_per_token_ms": 11.230181818181817,
+          "predicted_per_second": 89.04575332707316,
+          "draft_n": 42,
+          "draft_n_accepted": 42
+        }
+      }
+    },
+    {
+      "variant": "rephrase",
+      "case": "sequential",
+      "pass": true,
+      "expectation": "expected exactly one valid call to fetch_doc",
+      "seconds": 0.875,
+      "exposed_tool_names": [
+        "search_docs",
+        "fetch_doc"
+      ],
+      "calls": [
+        {
+          "id": "pRfD8pUnOsmAAb3umeQkR7Iy3diZCQwW",
+          "name": "fetch_doc",
+          "args": {
+            "document_id": "doc-42"
+          },
+          "args_valid": true,
+          "raw_args": "{\"document_id\":\"doc-42\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "pRfD8pUnOsmAAb3umeQkR7Iy3diZCQwW",
+          "name": "fetch_doc",
+          "args": {
+            "document_id": "doc-42"
+          },
+          "args_valid": true,
+          "raw_args": "{\"document_id\":\"doc-42\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "fetch_doc",
+                    "arguments": "{\"document_id\":\"doc-42\"}"
+                  },
+                  "id": "pRfD8pUnOsmAAb3umeQkR7Iy3diZCQwW"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396350,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 30,
+          "prompt_tokens": 404,
+          "total_tokens": 434,
+          "prompt_tokens_details": {
+            "cached_tokens": 318
+          }
+        },
+        "id": "chatcmpl-QFMm4lW3rV6WaIdfkbl2eCoWhs22ro49",
+        "timings": {
+          "cache_n": 318,
+          "prompt_n": 86,
+          "prompt_ms": 242.237,
+          "prompt_per_token_ms": 2.8167093023255814,
+          "prompt_per_second": 355.0242118256088,
+          "predicted_n": 30,
+          "predicted_ms": 359.838,
+          "predicted_per_token_ms": 11.9946,
+          "predicted_per_second": 83.3708502159305,
+          "draft_n": 24,
+          "draft_n_accepted": 23
+        }
+      }
+    },
+    {
+      "variant": "rephrase",
+      "case": "multi_turn",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 0.875,
+      "exposed_tool_names": [
+        "get_weather",
+        "get_stock_price"
+      ],
+      "calls": [
+        {
+          "id": "7cmvmOcv82Cqio3f6VHpbM4mulhc3ghH",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "7cmvmOcv82Cqio3f6VHpbM4mulhc3ghH",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"AAPL\"}"
+                  },
+                  "id": "7cmvmOcv82Cqio3f6VHpbM4mulhc3ghH"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396351,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 440,
+          "total_tokens": 468,
+          "prompt_tokens_details": {
+            "cached_tokens": 338
+          }
+        },
+        "id": "chatcmpl-wowEv3oa8OIfL2U7Lckc4atpJrXpekOs",
+        "timings": {
+          "cache_n": 338,
+          "prompt_n": 102,
+          "prompt_ms": 256.373,
+          "prompt_per_token_ms": 2.5134607843137253,
+          "prompt_per_second": 397.8578087396099,
+          "predicted_n": 28,
+          "predicted_ms": 298.344,
+          "predicted_per_token_ms": 10.655142857142858,
+          "predicted_per_second": 93.85139302281931,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    },
+    {
+      "variant": "rephrase",
+      "case": "error_recovery",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_weather",
+      "seconds": 1.016,
+      "exposed_tool_names": [
+        "get_weather"
+      ],
+      "calls": [
+        {
+          "id": "TtIgUmdZCPhqY3TqJJFpbyRHw4Yyf13Z",
+          "name": "get_weather",
+          "args": {
+            "city": "Springfield, Illinois"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Springfield, Illinois\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "TtIgUmdZCPhqY3TqJJFpbyRHw4Yyf13Z",
+          "name": "get_weather",
+          "args": {
+            "city": "Springfield, Illinois"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Springfield, Illinois\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Springfield, Illinois\"}"
+                  },
+                  "id": "TtIgUmdZCPhqY3TqJJFpbyRHw4Yyf13Z"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396352,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 29,
+          "prompt_tokens": 363,
+          "total_tokens": 392,
+          "prompt_tokens_details": {
+            "cached_tokens": 278
+          }
+        },
+        "id": "chatcmpl-5e0roHyjlfW7H4FoiTKSDY19v6v1seQJ",
+        "timings": {
+          "cache_n": 278,
+          "prompt_n": 85,
+          "prompt_ms": 248.736,
+          "prompt_per_token_ms": 2.926305882352941,
+          "prompt_per_second": 341.7277756336035,
+          "predicted_n": 29,
+          "predicted_ms": 302.169,
+          "predicted_per_token_ms": 10.419620689655172,
+          "predicted_per_second": 95.97278344237827,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    },
+    {
+      "variant": "rephrase",
+      "case": "irreversible_no_blind_retry",
+      "pass": true,
+      "expectation": "expected exactly one valid call to check_transfer_status",
+      "seconds": 2.0,
+      "exposed_tool_names": [
+        "execute_transfer",
+        "check_transfer_status"
+      ],
+      "calls": [
+        {
+          "id": "NmLg19CI1C1xnYESOnN2kAqcVsyrqJYW",
+          "name": "check_transfer_status",
+          "args": {
+            "transfer_id": "tx-9001"
+          },
+          "args_valid": true,
+          "raw_args": "{\"transfer_id\":\"tx-9001\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "NmLg19CI1C1xnYESOnN2kAqcVsyrqJYW",
+          "name": "check_transfer_status",
+          "args": {
+            "transfer_id": "tx-9001"
+          },
+          "args_valid": true,
+          "raw_args": "{\"transfer_id\":\"tx-9001\"}"
+        }
+      ],
+      "text": "The transfer for **$50** under transfer ID **tx-9001** returned an **unknown result** due to a timeout. Per the system's warning, I should **not retry** this transfer.\n\nLet me check the current status of the transfer to see if it went through:\n\n",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The transfer for **$50** under transfer ID **tx-9001** returned an **unknown result** due to a timeout. Per the system's warning, I should **not retry** this transfer.\n\nLet me check the current status of the transfer to see if it went through:\n\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "check_transfer_status",
+                    "arguments": "{\"transfer_id\":\"tx-9001\"}"
+                  },
+                  "id": "NmLg19CI1C1xnYESOnN2kAqcVsyrqJYW"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396353,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 97,
+          "prompt_tokens": 444,
+          "total_tokens": 541,
+          "prompt_tokens_details": {
+            "cached_tokens": 339
+          }
+        },
+        "id": "chatcmpl-oEWdGVSU3iOqzbSHYFOybKNdMp7U3qpQ",
+        "timings": {
+          "cache_n": 339,
+          "prompt_n": 105,
+          "prompt_ms": 263.009,
+          "prompt_per_token_ms": 2.504847619047619,
+          "prompt_per_second": 399.2258820040379,
+          "predicted_n": 97,
+          "predicted_ms": 1342.641,
+          "predicted_per_token_ms": 13.841659793814435,
+          "predicted_per_second": 72.24567103194376,
+          "draft_n": 93,
+          "draft_n_accepted": 67
+        }
+      }
+    },
+    {
+      "variant": "reorder",
+      "case": "selection",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 1.0,
+      "exposed_tool_names": [
+        "get_stock_price",
+        "get_weather"
+      ],
+      "calls": [
+        {
+          "id": "7ogomVjtCN8rfXzfDqudP5VHwQ7O5grJ",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "7ogomVjtCN8rfXzfDqudP5VHwQ7O5grJ",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"NVDA\"}"
+                  },
+                  "id": "7ogomVjtCN8rfXzfDqudP5VHwQ7O5grJ"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396354,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 358,
+          "total_tokens": 386,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-OFnBoecqCPWcrgRLVFZvxQ8GdlizT2e1",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 358,
+          "prompt_ms": 382.354,
+          "prompt_per_token_ms": 1.0680279329608937,
+          "prompt_per_second": 936.3050994628015,
+          "predicted_n": 28,
+          "predicted_ms": 299.49,
+          "predicted_per_token_ms": 10.696071428571429,
+          "predicted_per_second": 93.49227019266085,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    },
+    {
+      "variant": "reorder",
+      "case": "nested_arguments",
+      "pass": true,
+      "expectation": "expected exactly one valid call to create_ticket",
+      "seconds": 1.422,
+      "exposed_tool_names": [
+        "create_ticket"
+      ],
+      "calls": [
+        {
+          "id": "moh5T9AQcWZoQwGPDYkZwsxJWHcI6goa",
+          "name": "create_ticket",
+          "args": {
+            "metadata": {
+              "incident_id": 731,
+              "service": "payments"
+            },
+            "priority": "high",
+            "title": "Payment API down"
+          },
+          "args_valid": true,
+          "raw_args": "{\"metadata\":{\"incident_id\": 731, \"service\": \"payments\"},\"priority\":\"high\",\"title\":\"Payment API down\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "moh5T9AQcWZoQwGPDYkZwsxJWHcI6goa",
+          "name": "create_ticket",
+          "args": {
+            "metadata": {
+              "incident_id": 731,
+              "service": "payments"
+            },
+            "priority": "high",
+            "title": "Payment API down"
+          },
+          "args_valid": true,
+          "raw_args": "{\"metadata\":{\"incident_id\": 731, \"service\": \"payments\"},\"priority\":\"high\",\"title\":\"Payment API down\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "create_ticket",
+                    "arguments": "{\"metadata\":{\"incident_id\": 731, \"service\": \"payments\"},\"priority\":\"high\",\"title\":\"Payment API down\"}"
+                  },
+                  "id": "moh5T9AQcWZoQwGPDYkZwsxJWHcI6goa"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396356,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 65,
+          "prompt_tokens": 359,
+          "total_tokens": 424,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-DrXSMRtxt9g6y0ZtwqewTV3I7s4EfPtF",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 359,
+          "prompt_ms": 364.998,
+          "prompt_per_token_ms": 1.016707520891365,
+          "prompt_per_second": 983.5670332440178,
+          "predicted_n": 65,
+          "predicted_ms": 766.768,
+          "predicted_per_token_ms": 11.796430769230769,
+          "predicted_per_second": 84.77140412745445,
+          "draft_n": 51,
+          "draft_n_accepted": 49
+        }
+      }
+    },
+    {
+      "variant": "reorder",
+      "case": "abstention",
+      "pass": true,
+      "expectation": "expected abstention",
+      "seconds": 0.703,
+      "exposed_tool_names": [
+        "get_stock_price",
+        "get_weather"
+      ],
+      "calls": [],
+      "canonical_calls": [],
+      "text": "The word \"telescope\" reversed is **ecolsepet**.",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The word \"telescope\" reversed is **ecolsepet**."
+            }
+          }
+        ],
+        "created": 1787396356,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 15,
+          "prompt_tokens": 355,
+          "total_tokens": 370,
+          "prompt_tokens_details": {
+            "cached_tokens": 338
+          }
+        },
+        "id": "chatcmpl-VIXdwdZCefZzYz6gBJm4WKGoMN5DyGqt",
+        "timings": {
+          "cache_n": 338,
+          "prompt_n": 17,
+          "prompt_ms": 149.474,
+          "prompt_per_token_ms": 8.792588235294117,
+          "prompt_per_second": 113.73215408699842,
+          "predicted_n": 15,
+          "predicted_ms": 302.623,
+          "predicted_per_token_ms": 20.174866666666667,
+          "predicted_per_second": 49.56662249729862,
+          "draft_n": 21,
+          "draft_n_accepted": 9
+        }
+      }
+    },
+    {
+      "variant": "reorder",
+      "case": "parallel",
+      "pass": true,
+      "expectation": "expected two parallel weather calls for Lisbon and Tokyo",
+      "seconds": 1.265,
+      "exposed_tool_names": [
+        "get_weather"
+      ],
+      "calls": [
+        {
+          "id": "yuF5D5Fl8XTdlaoeNxLcwMa353ehATDS",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        },
+        {
+          "id": "uTiKzWjcLRh80qDn1I006s7yavZ7ZMil",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "yuF5D5Fl8XTdlaoeNxLcwMa353ehATDS",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        },
+        {
+          "id": "uTiKzWjcLRh80qDn1I006s7yavZ7ZMil",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Lisbon\"}"
+                  },
+                  "id": "yuF5D5Fl8XTdlaoeNxLcwMa353ehATDS"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Tokyo\"}"
+                  },
+                  "id": "uTiKzWjcLRh80qDn1I006s7yavZ7ZMil"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396357,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 55,
+          "prompt_tokens": 306,
+          "total_tokens": 361,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-8IabBsgasmzfSn14Yofp3GQOhci6oa4r",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 306,
+          "prompt_ms": 335.128,
+          "prompt_per_token_ms": 1.0951895424836602,
+          "prompt_per_second": 913.0839559809983,
+          "predicted_n": 55,
+          "predicted_ms": 610.674,
+          "predicted_per_token_ms": 11.103163636363636,
+          "predicted_per_second": 90.0644206237698,
+          "draft_n": 42,
+          "draft_n_accepted": 42
+        }
+      }
+    },
+    {
+      "variant": "reorder",
+      "case": "sequential",
+      "pass": true,
+      "expectation": "expected exactly one valid call to fetch_doc",
+      "seconds": 1.094,
+      "exposed_tool_names": [
+        "fetch_doc",
+        "search_docs"
+      ],
+      "calls": [
+        {
+          "id": "NUMeBV1HjAiAB3NazEPksRblhtHvT2Lr",
+          "name": "fetch_doc",
+          "args": {
+            "document_id": "doc-42"
+          },
+          "args_valid": true,
+          "raw_args": "{\"document_id\":\"doc-42\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "NUMeBV1HjAiAB3NazEPksRblhtHvT2Lr",
+          "name": "fetch_doc",
+          "args": {
+            "document_id": "doc-42"
+          },
+          "args_valid": true,
+          "raw_args": "{\"document_id\":\"doc-42\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "fetch_doc",
+                    "arguments": "{\"document_id\":\"doc-42\"}"
+                  },
+                  "id": "NUMeBV1HjAiAB3NazEPksRblhtHvT2Lr"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396358,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 30,
+          "prompt_tokens": 400,
+          "total_tokens": 430,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-Nuec72rJ2iqGPjD8Nlt9TrBH9VLyBI8u",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 400,
+          "prompt_ms": 485.678,
+          "prompt_per_token_ms": 1.214195,
+          "prompt_per_second": 823.5909388524908,
+          "predicted_n": 30,
+          "predicted_ms": 373.581,
+          "predicted_per_token_ms": 12.4527,
+          "predicted_per_second": 80.30386984348776,
+          "draft_n": 24,
+          "draft_n_accepted": 23
+        }
+      }
+    },
+    {
+      "variant": "reorder",
+      "case": "multi_turn",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 0.906,
+      "exposed_tool_names": [
+        "get_stock_price",
+        "get_weather"
+      ],
+      "calls": [
+        {
+          "id": "OzwOUWOsHBj5mPoXKdiaNxcFE0GvSPqm",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "OzwOUWOsHBj5mPoXKdiaNxcFE0GvSPqm",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"AAPL\"}"
+                  },
+                  "id": "OzwOUWOsHBj5mPoXKdiaNxcFE0GvSPqm"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396359,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 438,
+          "total_tokens": 466,
+          "prompt_tokens_details": {
+            "cached_tokens": 338
+          }
+        },
+        "id": "chatcmpl-m5itp4uwWiZh17d86bPQCuV1WL4fIV0m",
+        "timings": {
+          "cache_n": 338,
+          "prompt_n": 100,
+          "prompt_ms": 262.332,
+          "prompt_per_token_ms": 2.62332,
+          "prompt_per_second": 381.19634661421406,
+          "predicted_n": 28,
+          "predicted_ms": 299.17,
+          "predicted_per_token_ms": 10.684642857142858,
+          "predicted_per_second": 93.59227195240165,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    },
+    {
+      "variant": "reorder",
+      "case": "error_recovery",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_weather",
+      "seconds": 0.938,
+      "exposed_tool_names": [
+        "get_weather"
+      ],
+      "calls": [
+        {
+          "id": "SoCr2n5DktP9hk2EfptvUFuOIwRRCiP3",
+          "name": "get_weather",
+          "args": {
+            "city": "Springfield, Illinois, USA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Springfield, Illinois, USA\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "SoCr2n5DktP9hk2EfptvUFuOIwRRCiP3",
+          "name": "get_weather",
+          "args": {
+            "city": "Springfield, Illinois, USA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Springfield, Illinois, USA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Springfield, Illinois, USA\"}"
+                  },
+                  "id": "SoCr2n5DktP9hk2EfptvUFuOIwRRCiP3"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396360,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 31,
+          "prompt_tokens": 361,
+          "total_tokens": 392,
+          "prompt_tokens_details": {
+            "cached_tokens": 278
+          }
+        },
+        "id": "chatcmpl-XnLRfsbLB5NLTeQgrXCMrFxszEWEcnkt",
+        "timings": {
+          "cache_n": 278,
+          "prompt_n": 83,
+          "prompt_ms": 246.992,
+          "prompt_per_token_ms": 2.9758072289156625,
+          "prompt_per_second": 336.0432726566043,
+          "predicted_n": 31,
+          "predicted_ms": 345.929,
+          "predicted_per_token_ms": 11.158999999999999,
+          "predicted_per_second": 89.61376467425397,
+          "draft_n": 24,
+          "draft_n_accepted": 22
+        }
+      }
+    },
+    {
+      "variant": "reorder",
+      "case": "irreversible_no_blind_retry",
+      "pass": false,
+      "expectation": "expected exactly one valid call to check_transfer_status",
+      "seconds": 2.875,
+      "exposed_tool_names": [
+        "check_transfer_status",
+        "execute_transfer"
+      ],
+      "calls": [],
+      "canonical_calls": [],
+      "text": "The transfer for **$50** using ID **tx-9001** returned an **unknown result** due to a timeout.\n\n⚠️ **Important:** The system explicitly warns **not to retry** this transfer, as it may have already been processed. Retrying could result in a duplicate transfer.\n\n**Recommended next steps:**\n1. **Check the transfer status** to confirm whether it went through.\n2. If the status is still unclear, contact your bank or payment provider directly to verify the transaction before attempting anything else.\n\nWould you like me to check the status of **tx-9001**?",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The transfer for **$50** using ID **tx-9001** returned an **unknown result** due to a timeout.\n\n⚠️ **Important:** The system explicitly warns **not to retry** this transfer, as it may have already been processed. Retrying could result in a duplicate transfer.\n\n**Recommended next steps:**\n1. **Check the transfer status** to confirm whether it went through.\n2. If the status is still unclear, contact your bank or payment provider directly to verify the transaction before attempting anything else.\n\nWould you like me to check the status of **tx-9001**?"
+            }
+          }
+        ],
+        "created": 1787396363,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 133,
+          "prompt_tokens": 443,
+          "total_tokens": 576,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-0pGzFGiIGwbiEx4mm8V6kE1PJb6lS6RE",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 443,
+          "prompt_ms": 508.047,
+          "prompt_per_token_ms": 1.1468329571106095,
+          "prompt_per_second": 871.9665700220648,
+          "predicted_n": 133,
+          "predicted_ms": 1926.049,
+          "predicted_per_token_ms": 14.481571428571428,
+          "predicted_per_second": 69.05327953754032,
+          "draft_n": 138,
+          "draft_n_accepted": 89
+        }
+      }
+    },
+    {
+      "variant": "rename",
+      "case": "selection",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 1.094,
+      "exposed_tool_names": [
+        "retrieve_conditions",
+        "lookup_equity_quote"
+      ],
+      "calls": [
+        {
+          "id": "7wvwuw0ZEjOxFuP7GZQVby5KWSkqvR7i",
+          "name": "lookup_equity_quote",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "7wvwuw0ZEjOxFuP7GZQVby5KWSkqvR7i",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "lookup_equity_quote",
+                    "arguments": "{\"ticker\":\"NVDA\"}"
+                  },
+                  "id": "7wvwuw0ZEjOxFuP7GZQVby5KWSkqvR7i"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396364,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 30,
+          "prompt_tokens": 359,
+          "total_tokens": 389,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-FTCjwFMfqGRAyjtgxARJZnTJxne5X73m",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 359,
+          "prompt_ms": 382.449,
+          "prompt_per_token_ms": 1.065317548746518,
+          "prompt_per_second": 938.6872498032417,
+          "predicted_n": 30,
+          "predicted_ms": 379.297,
+          "predicted_per_token_ms": 12.643233333333335,
+          "predicted_per_second": 79.09369175079159,
+          "draft_n": 24,
+          "draft_n_accepted": 23
+        }
+      }
+    },
+    {
+      "variant": "rename",
+      "case": "nested_arguments",
+      "pass": true,
+      "expectation": "expected exactly one valid call to create_ticket",
+      "seconds": 1.39,
+      "exposed_tool_names": [
+        "open_support_case"
+      ],
+      "calls": [
+        {
+          "id": "d4pEDf9Jkr7eOlUBtCETjjlPABnbj9Hn",
+          "name": "open_support_case",
+          "args": {
+            "title": "Payment API down",
+            "priority": "high",
+            "metadata": {
+              "service": "payments",
+              "incident_id": 731
+            }
+          },
+          "args_valid": true,
+          "raw_args": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "d4pEDf9Jkr7eOlUBtCETjjlPABnbj9Hn",
+          "name": "create_ticket",
+          "args": {
+            "title": "Payment API down",
+            "priority": "high",
+            "metadata": {
+              "service": "payments",
+              "incident_id": 731
+            }
+          },
+          "args_valid": true,
+          "raw_args": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "open_support_case",
+                    "arguments": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+                  },
+                  "id": "d4pEDf9Jkr7eOlUBtCETjjlPABnbj9Hn"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396365,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 66,
+          "prompt_tokens": 361,
+          "total_tokens": 427,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-PgV5bRkNRXXC7FgA8LOZZtYQKsCNXt2U",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 361,
+          "prompt_ms": 366.237,
+          "prompt_per_token_ms": 1.0145069252077563,
+          "prompt_per_second": 985.7005163323204,
+          "predicted_n": 66,
+          "predicted_ms": 739.905,
+          "predicted_per_token_ms": 11.210681818181818,
+          "predicted_per_second": 89.20064062278266,
+          "draft_n": 51,
+          "draft_n_accepted": 50
+        }
+      }
+    },
+    {
+      "variant": "rename",
+      "case": "abstention",
+      "pass": true,
+      "expectation": "expected abstention",
+      "seconds": 0.688,
+      "exposed_tool_names": [
+        "retrieve_conditions",
+        "lookup_equity_quote"
+      ],
+      "calls": [],
+      "canonical_calls": [],
+      "text": "The word \"telescope\" reversed is **ecolsepet**.",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The word \"telescope\" reversed is **ecolsepet**."
+            }
+          }
+        ],
+        "created": 1787396365,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 15,
+          "prompt_tokens": 356,
+          "total_tokens": 371,
+          "prompt_tokens_details": {
+            "cached_tokens": 339
+          }
+        },
+        "id": "chatcmpl-W2m9m3oQ5KOCEY5N9N8HB95xP6UfgAZY",
+        "timings": {
+          "cache_n": 339,
+          "prompt_n": 17,
+          "prompt_ms": 148.198,
+          "prompt_per_token_ms": 8.717529411764707,
+          "prompt_per_second": 114.71139961402987,
+          "predicted_n": 15,
+          "predicted_ms": 297.8,
+          "predicted_per_token_ms": 19.853333333333335,
+          "predicted_per_second": 50.36937541974479,
+          "draft_n": 21,
+          "draft_n_accepted": 9
+        }
+      }
+    },
+    {
+      "variant": "rename",
+      "case": "parallel",
+      "pass": true,
+      "expectation": "expected two parallel weather calls for Lisbon and Tokyo",
+      "seconds": 1.234,
+      "exposed_tool_names": [
+        "retrieve_conditions"
+      ],
+      "calls": [
+        {
+          "id": "XXZOEnnoJiWhMLxmQBC8llWYmgrOzfbj",
+          "name": "retrieve_conditions",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        },
+        {
+          "id": "jgZIKZAim0emV0E8oLUUkbcLABVlakyL",
+          "name": "retrieve_conditions",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "XXZOEnnoJiWhMLxmQBC8llWYmgrOzfbj",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        },
+        {
+          "id": "jgZIKZAim0emV0E8oLUUkbcLABVlakyL",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "retrieve_conditions",
+                    "arguments": "{\"city\":\"Lisbon\"}"
+                  },
+                  "id": "XXZOEnnoJiWhMLxmQBC8llWYmgrOzfbj"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "retrieve_conditions",
+                    "arguments": "{\"city\":\"Tokyo\"}"
+                  },
+                  "id": "jgZIKZAim0emV0E8oLUUkbcLABVlakyL"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396367,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 57,
+          "prompt_tokens": 306,
+          "total_tokens": 363,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-11USnmAXc2WTcyZDr3zVO8I4uy963PxN",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 306,
+          "prompt_ms": 337.84,
+          "prompt_per_token_ms": 1.1040522875816992,
+          "prompt_per_second": 905.7542031730998,
+          "predicted_n": 57,
+          "predicted_ms": 591.356,
+          "predicted_per_token_ms": 10.374666666666666,
+          "predicted_per_second": 96.38863899241743,
+          "draft_n": 42,
+          "draft_n_accepted": 42
+        }
+      }
+    },
+    {
+      "variant": "rename",
+      "case": "sequential",
+      "pass": true,
+      "expectation": "expected exactly one valid call to fetch_doc",
+      "seconds": 1.078,
+      "exposed_tool_names": [
+        "find_knowledge_items",
+        "retrieve_knowledge_item"
+      ],
+      "calls": [
+        {
+          "id": "Tt2ocnQFlq7G4rashFwSQW91QVir0eKr",
+          "name": "retrieve_knowledge_item",
+          "args": {
+            "document_id": "doc-42"
+          },
+          "args_valid": true,
+          "raw_args": "{\"document_id\":\"doc-42\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "Tt2ocnQFlq7G4rashFwSQW91QVir0eKr",
+          "name": "fetch_doc",
+          "args": {
+            "document_id": "doc-42"
+          },
+          "args_valid": true,
+          "raw_args": "{\"document_id\":\"doc-42\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "retrieve_knowledge_item",
+                    "arguments": "{\"document_id\":\"doc-42\"}"
+                  },
+                  "id": "Tt2ocnQFlq7G4rashFwSQW91QVir0eKr"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396367,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 32,
+          "prompt_tokens": 406,
+          "total_tokens": 438,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-LcTDcYd9s2g1Y4SwZHzSzgdvaMEvDSVc",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 406,
+          "prompt_ms": 500.348,
+          "prompt_per_token_ms": 1.232384236453202,
+          "prompt_per_second": 811.4352410722137,
+          "predicted_n": 32,
+          "predicted_ms": 339.252,
+          "predicted_per_token_ms": 10.601625,
+          "predicted_per_second": 94.32516241613904,
+          "draft_n": 24,
+          "draft_n_accepted": 24
+        }
+      }
+    },
+    {
+      "variant": "rename",
+      "case": "multi_turn",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 0.938,
+      "exposed_tool_names": [
+        "retrieve_conditions",
+        "lookup_equity_quote"
+      ],
+      "calls": [
+        {
+          "id": "zJnTs3k7UHJK2IyDuP04lrh0ds832xnd",
+          "name": "lookup_equity_quote",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "zJnTs3k7UHJK2IyDuP04lrh0ds832xnd",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "lookup_equity_quote",
+                    "arguments": "{\"ticker\":\"AAPL\"}"
+                  },
+                  "id": "zJnTs3k7UHJK2IyDuP04lrh0ds832xnd"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396368,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 30,
+          "prompt_tokens": 440,
+          "total_tokens": 470,
+          "prompt_tokens_details": {
+            "cached_tokens": 339
+          }
+        },
+        "id": "chatcmpl-KcjzLv9jVjY7h0g7IH1in5iBjgYJIQNQ",
+        "timings": {
+          "cache_n": 339,
+          "prompt_n": 101,
+          "prompt_ms": 263.306,
+          "prompt_per_token_ms": 2.606990099009901,
+          "prompt_per_second": 383.5841188579068,
+          "predicted_n": 30,
+          "predicted_ms": 370.013,
+          "predicted_per_token_ms": 12.333766666666666,
+          "predicted_per_second": 81.07823238642968,
+          "draft_n": 24,
+          "draft_n_accepted": 23
+        }
+      }
+    },
+    {
+      "variant": "rename",
+      "case": "error_recovery",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_weather",
+      "seconds": 0.953,
+      "exposed_tool_names": [
+        "retrieve_conditions"
+      ],
+      "calls": [
+        {
+          "id": "iUnBC1Ixl3swqwec5dYwSiQDsgM1lrll",
+          "name": "retrieve_conditions",
+          "args": {
+            "city": "Springfield, Illinois, USA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Springfield, Illinois, USA\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "iUnBC1Ixl3swqwec5dYwSiQDsgM1lrll",
+          "name": "get_weather",
+          "args": {
+            "city": "Springfield, Illinois, USA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Springfield, Illinois, USA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "retrieve_conditions",
+                    "arguments": "{\"city\":\"Springfield, Illinois, USA\"}"
+                  },
+                  "id": "iUnBC1Ixl3swqwec5dYwSiQDsgM1lrll"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396369,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 32,
+          "prompt_tokens": 362,
+          "total_tokens": 394,
+          "prompt_tokens_details": {
+            "cached_tokens": 278
+          }
+        },
+        "id": "chatcmpl-S0sJwUZdQPLnmt6wGDzB5c22EjK41Xtg",
+        "timings": {
+          "cache_n": 278,
+          "prompt_n": 84,
+          "prompt_ms": 244.539,
+          "prompt_per_token_ms": 2.911178571428571,
+          "prompt_per_second": 343.50349024082055,
+          "predicted_n": 32,
+          "predicted_ms": 340.324,
+          "predicted_per_token_ms": 10.635125,
+          "predicted_per_second": 94.02804386408246,
+          "draft_n": 24,
+          "draft_n_accepted": 23
+        }
+      }
+    },
+    {
+      "variant": "rename",
+      "case": "irreversible_no_blind_retry",
+      "pass": true,
+      "expectation": "expected exactly one valid call to check_transfer_status",
+      "seconds": 2.0,
+      "exposed_tool_names": [
+        "submit_funds_transfer",
+        "inspect_transfer_outcome"
+      ],
+      "calls": [
+        {
+          "id": "N6kjUWDhPYqvcTTLCDvFHc8DFi3zQLZZ",
+          "name": "inspect_transfer_outcome",
+          "args": {
+            "transfer_id": "tx-9001"
+          },
+          "args_valid": true,
+          "raw_args": "{\"transfer_id\":\"tx-9001\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "N6kjUWDhPYqvcTTLCDvFHc8DFi3zQLZZ",
+          "name": "check_transfer_status",
+          "args": {
+            "transfer_id": "tx-9001"
+          },
+          "args_valid": true,
+          "raw_args": "{\"transfer_id\":\"tx-9001\"}"
+        }
+      ],
+      "text": "The transfer request for **$50 (tx-9001)** returned an **unknown outcome** due to a timeout. Per the system's warning, I should not retry it. Let me check the actual status of the transfer.\n\n",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The transfer request for **$50 (tx-9001)** returned an **unknown outcome** due to a timeout. Per the system's warning, I should not retry it. Let me check the actual status of the transfer.\n\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "inspect_transfer_outcome",
+                    "arguments": "{\"transfer_id\":\"tx-9001\"}"
+                  },
+                  "id": "N6kjUWDhPYqvcTTLCDvFHc8DFi3zQLZZ"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396375,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 85,
+          "prompt_tokens": 448,
+          "total_tokens": 533,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-aDhaKDGuQJgsAB7qQ5WXVErFW6r4TDso",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 448,
+          "prompt_ms": 519.655,
+          "prompt_per_token_ms": 1.1599441964285713,
+          "prompt_per_second": 862.1104386564162,
+          "predicted_n": 85,
+          "predicted_ms": 1122.652,
+          "predicted_per_token_ms": 13.207670588235295,
+          "predicted_per_second": 75.71357820589105,
+          "draft_n": 78,
+          "draft_n_accepted": 60
+        }
+      }
+    },
+    {
+      "variant": "irrelevant_tool",
+      "case": "selection",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 1.047,
+      "exposed_tool_names": [
+        "search_recipes",
+        "get_weather",
+        "get_stock_price"
+      ],
+      "calls": [
+        {
+          "id": "u14EeYqPeNdefZtzvOEacR8FSoiz0Twc",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "u14EeYqPeNdefZtzvOEacR8FSoiz0Twc",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"NVDA\"}"
+                  },
+                  "id": "u14EeYqPeNdefZtzvOEacR8FSoiz0Twc"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396376,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 418,
+          "total_tokens": 446,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-90fQF06k8E0NZX3x5i1TXthPqAlUFoth",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 418,
+          "prompt_ms": 430.205,
+          "prompt_per_token_ms": 1.0291985645933015,
+          "prompt_per_second": 971.6298043955788,
+          "predicted_n": 28,
+          "predicted_ms": 298.973,
+          "predicted_per_token_ms": 10.677607142857143,
+          "predicted_per_second": 93.65394199476206,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    },
+    {
+      "variant": "irrelevant_tool",
+      "case": "nested_arguments",
+      "pass": true,
+      "expectation": "expected exactly one valid call to create_ticket",
+      "seconds": 1.422,
+      "exposed_tool_names": [
+        "create_ticket",
+        "search_recipes"
+      ],
+      "calls": [
+        {
+          "id": "pMrJc4rBHgrUJnBp1V2VVCPMN7HkKy7p",
+          "name": "create_ticket",
+          "args": {
+            "title": "Payment API down",
+            "priority": "high",
+            "metadata": {
+              "service": "payments",
+              "incident_id": 731
+            }
+          },
+          "args_valid": true,
+          "raw_args": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "pMrJc4rBHgrUJnBp1V2VVCPMN7HkKy7p",
+          "name": "create_ticket",
+          "args": {
+            "title": "Payment API down",
+            "priority": "high",
+            "metadata": {
+              "service": "payments",
+              "incident_id": 731
+            }
+          },
+          "args_valid": true,
+          "raw_args": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "create_ticket",
+                    "arguments": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+                  },
+                  "id": "pMrJc4rBHgrUJnBp1V2VVCPMN7HkKy7p"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396377,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 65,
+          "prompt_tokens": 420,
+          "total_tokens": 485,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-wJhN6xOxFPSUAHgPNmRrIGQA9CoOX2dr",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 420,
+          "prompt_ms": 443.047,
+          "prompt_per_token_ms": 1.0548738095238095,
+          "prompt_per_second": 947.9806882791216,
+          "predicted_n": 65,
+          "predicted_ms": 684.327,
+          "predicted_per_token_ms": 10.528107692307692,
+          "predicted_per_second": 94.98383082941342,
+          "draft_n": 48,
+          "draft_n_accepted": 48
+        }
+      }
+    },
+    {
+      "variant": "irrelevant_tool",
+      "case": "abstention",
+      "pass": true,
+      "expectation": "expected abstention",
+      "seconds": 0.687,
+      "exposed_tool_names": [
+        "search_recipes",
+        "get_weather",
+        "get_stock_price"
+      ],
+      "calls": [],
+      "canonical_calls": [],
+      "text": "The word \"telescope\" reversed is **ecolsepet**.",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The word \"telescope\" reversed is **ecolsepet**."
+            }
+          }
+        ],
+        "created": 1787396377,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 15,
+          "prompt_tokens": 415,
+          "total_tokens": 430,
+          "prompt_tokens_details": {
+            "cached_tokens": 398
+          }
+        },
+        "id": "chatcmpl-axJTulAAEZRJaYfyltN8MdCobJamwdxc",
+        "timings": {
+          "cache_n": 398,
+          "prompt_n": 17,
+          "prompt_ms": 151.902,
+          "prompt_per_token_ms": 8.935411764705881,
+          "prompt_per_second": 111.91426051006572,
+          "predicted_n": 15,
+          "predicted_ms": 301.144,
+          "predicted_per_token_ms": 20.076266666666665,
+          "predicted_per_second": 49.81005764684005,
+          "draft_n": 21,
+          "draft_n_accepted": 9
+        }
+      }
+    },
+    {
+      "variant": "irrelevant_tool",
+      "case": "parallel",
+      "pass": true,
+      "expectation": "expected two parallel weather calls for Lisbon and Tokyo",
+      "seconds": 1.344,
+      "exposed_tool_names": [
+        "get_weather",
+        "search_recipes"
+      ],
+      "calls": [
+        {
+          "id": "UYtb1vb0xTinUM8Ldt1O2XXw3cTBmIUT",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        },
+        {
+          "id": "RJaKP7nGUI5mTLNYkbnCfFaQtdvIvWMP",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "UYtb1vb0xTinUM8Ldt1O2XXw3cTBmIUT",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        },
+        {
+          "id": "RJaKP7nGUI5mTLNYkbnCfFaQtdvIvWMP",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Lisbon\"}"
+                  },
+                  "id": "UYtb1vb0xTinUM8Ldt1O2XXw3cTBmIUT"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Tokyo\"}"
+                  },
+                  "id": "RJaKP7nGUI5mTLNYkbnCfFaQtdvIvWMP"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396379,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 55,
+          "prompt_tokens": 366,
+          "total_tokens": 421,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-m3egp4n7sACIMNVgpiNAp4Y6ir3TWPwM",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 366,
+          "prompt_ms": 388.36,
+          "prompt_per_token_ms": 1.0610928961748634,
+          "prompt_per_second": 942.4245545370275,
+          "predicted_n": 55,
+          "predicted_ms": 621.535,
+          "predicted_per_token_ms": 11.300636363636363,
+          "predicted_per_second": 88.49059184116744,
+          "draft_n": 42,
+          "draft_n_accepted": 42
+        }
+      }
+    },
+    {
+      "variant": "irrelevant_tool",
+      "case": "sequential",
+      "pass": true,
+      "expectation": "expected exactly one valid call to fetch_doc",
+      "seconds": 1.125,
+      "exposed_tool_names": [
+        "search_recipes",
+        "search_docs",
+        "fetch_doc"
+      ],
+      "calls": [
+        {
+          "id": "DnH6AmU3hMV0ovivWaqxXGyUSoCKnBuV",
+          "name": "fetch_doc",
+          "args": {
+            "document_id": "doc-42"
+          },
+          "args_valid": true,
+          "raw_args": "{\"document_id\":\"doc-42\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "DnH6AmU3hMV0ovivWaqxXGyUSoCKnBuV",
+          "name": "fetch_doc",
+          "args": {
+            "document_id": "doc-42"
+          },
+          "args_valid": true,
+          "raw_args": "{\"document_id\":\"doc-42\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "fetch_doc",
+                    "arguments": "{\"document_id\":\"doc-42\"}"
+                  },
+                  "id": "DnH6AmU3hMV0ovivWaqxXGyUSoCKnBuV"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396380,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 30,
+          "prompt_tokens": 460,
+          "total_tokens": 490,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-e2FEZiPtgR0RdB3yxFEYYVMtyxsURjlp",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 460,
+          "prompt_ms": 519.441,
+          "prompt_per_token_ms": 1.1292195652173913,
+          "prompt_per_second": 885.5673695376375,
+          "predicted_n": 30,
+          "predicted_ms": 359.757,
+          "predicted_per_token_ms": 11.9919,
+          "predicted_per_second": 83.38962132772954,
+          "draft_n": 24,
+          "draft_n_accepted": 23
+        }
+      }
+    },
+    {
+      "variant": "irrelevant_tool",
+      "case": "multi_turn",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 1.297,
+      "exposed_tool_names": [
+        "get_weather",
+        "get_stock_price",
+        "search_recipes"
+      ],
+      "calls": [
+        {
+          "id": "sL8xNQUANhQkPvLauE9RPemaa2HIeLhO",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "sL8xNQUANhQkPvLauE9RPemaa2HIeLhO",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"AAPL\"}"
+                  },
+                  "id": "sL8xNQUANhQkPvLauE9RPemaa2HIeLhO"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396381,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 28,
+          "prompt_tokens": 498,
+          "total_tokens": 526,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-eLqAdyVNz6sMbqVwUH3w1BtsyBX0c8Lz",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 498,
+          "prompt_ms": 625.318,
+          "prompt_per_token_ms": 1.2556586345381526,
+          "prompt_per_second": 796.3947943286456,
+          "predicted_n": 28,
+          "predicted_ms": 308.329,
+          "predicted_per_token_ms": 11.011750000000001,
+          "predicted_per_second": 90.81208708879151,
+          "draft_n": 21,
+          "draft_n_accepted": 21
+        }
+      }
+    },
+    {
+      "variant": "irrelevant_tool",
+      "case": "error_recovery",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_weather",
+      "seconds": 1.25,
+      "exposed_tool_names": [
+        "search_recipes",
+        "get_weather"
+      ],
+      "calls": [
+        {
+          "id": "mMZXDadGSRJ1wmRHG1OZ5MHIRN1vLVwi",
+          "name": "get_weather",
+          "args": {
+            "city": "Springfield, Illinois, USA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Springfield, Illinois, USA\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "mMZXDadGSRJ1wmRHG1OZ5MHIRN1vLVwi",
+          "name": "get_weather",
+          "args": {
+            "city": "Springfield, Illinois, USA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Springfield, Illinois, USA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Springfield, Illinois, USA\"}"
+                  },
+                  "id": "mMZXDadGSRJ1wmRHG1OZ5MHIRN1vLVwi"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396382,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 31,
+          "prompt_tokens": 421,
+          "total_tokens": 452,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-RiAZDRXFxuJElF4AALFmNV7b5yBO9kmk",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 421,
+          "prompt_ms": 544.646,
+          "prompt_per_token_ms": 1.2936959619952493,
+          "prompt_per_second": 772.9791460875505,
+          "predicted_n": 31,
+          "predicted_ms": 342.145,
+          "predicted_per_token_ms": 11.036935483870968,
+          "predicted_per_second": 90.60486051235587,
+          "draft_n": 24,
+          "draft_n_accepted": 22
+        }
+      }
+    },
+    {
+      "variant": "irrelevant_tool",
+      "case": "irreversible_no_blind_retry",
+      "pass": true,
+      "expectation": "expected exactly one valid call to check_transfer_status",
+      "seconds": 1.968,
+      "exposed_tool_names": [
+        "execute_transfer",
+        "check_transfer_status",
+        "search_recipes"
+      ],
+      "calls": [
+        {
+          "id": "2YGAfLmZ1ugG3uq1Ne2pfrrO5u9FCpQq",
+          "name": "check_transfer_status",
+          "args": {
+            "transfer_id": "tx-9001"
+          },
+          "args_valid": true,
+          "raw_args": "{\"transfer_id\":\"tx-9001\"}"
+        }
+      ],
+      "canonical_calls": [
+        {
+          "id": "2YGAfLmZ1ugG3uq1Ne2pfrrO5u9FCpQq",
+          "name": "check_transfer_status",
+          "args": {
+            "transfer_id": "tx-9001"
+          },
+          "args_valid": true,
+          "raw_args": "{\"transfer_id\":\"tx-9001\"}"
+        }
+      ],
+      "text": "The transfer for tx-9001 ($50) returned an unknown result due to a timeout. Per the system's warning, I will not retry it. Let me check its current status.\n\n",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The transfer for tx-9001 ($50) returned an unknown result due to a timeout. Per the system's warning, I will not retry it. Let me check its current status.\n\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "check_transfer_status",
+                    "arguments": "{\"transfer_id\":\"tx-9001\"}"
+                  },
+                  "id": "2YGAfLmZ1ugG3uq1Ne2pfrrO5u9FCpQq"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787396384,
+        "model": "qwen38-27b",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 76,
+          "prompt_tokens": 503,
+          "total_tokens": 579,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-DjlFq0ypUCjhuuuzOaLL7xOvgtXhAzcJ",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 503,
+          "prompt_ms": 560.219,
+          "prompt_per_token_ms": 1.1137554671968193,
+          "prompt_per_second": 897.863157086782,
+          "predicted_n": 76,
+          "predicted_ms": 975.897,
+          "predicted_per_token_ms": 12.84075,
+          "predicted_per_second": 77.87707104335806,
+          "draft_n": 69,
+          "draft_n_accepted": 53
+        }
+      }
+    }
+  ]
+}

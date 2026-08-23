@@ -3,8 +3,8 @@
 # Fresh master f5919bf45 breaks draft-mtp exactness (regression not #25832; unbisected),
 # so we drop that worktree and formalize the patch on llama.cpp-master's 720d7fa40.
 set -u
-SRC=/home/augus/src/llama.cpp-master
-WT=/home/augus/src/llama.cpp-fork
+SRC=/home/augus/src/slop.cpp-main
+WT=/home/augus/src/slop.cpp-fork
 
 cd "$SRC"
 echo "=== drop the broken fresh-master worktree + its lifecycle branch ==="

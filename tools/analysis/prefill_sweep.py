@@ -61,9 +61,9 @@ from model_lifecycle.collectors.request import chat_stream      # noqa: E402
 from model_lifecycle.servers.llama_cpp import (                 # noqa: E402
     LlamaCppAdapter, ServerProfile)
 
-MASTER_BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
-REBASE_BIN = "/home/augus/src/llama.cpp-rebase/build/bin/llama-server"
-LOCAL_BIN  = "/home/augus/src/llama.cpp-local/build/bin/llama-server"   # our skip-when-pinned
+MASTER_BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"
+REBASE_BIN = "/home/augus/src/slop.cpp-rebase/build/bin/llama-server"
+LOCAL_BIN  = "/home/augus/src/slop.cpp-local/build/bin/llama-server"   # our skip-when-pinned
 
 # key -> (gguf, block_count, n_expert, n_expert_used). The last two set this model's
 # batch gate: the prefetch engages at `ids >= 2*n_expert`, and ids holds

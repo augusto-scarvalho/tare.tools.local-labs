@@ -19,7 +19,7 @@
 #
 # Usage: MODEL=/home/augus/models/qwen38-27b/Qwen3.8-27B-UD-Q4_K_XL.gguf bash ops/qwen38-bringup/checkpoint_reuse_gate.sh
 set -u
-LLAMA=${LLAMA:-/home/augus/src/llama.cpp-master}
+LLAMA=${LLAMA:-/home/augus/src/slop.cpp-main}
 BIN="$LLAMA/build/bin/llama-server"
 MODEL=${MODEL:-/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf}
 PORT=${PORT:-8080}

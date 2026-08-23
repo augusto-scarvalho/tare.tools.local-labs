@@ -51,6 +51,9 @@ class ModelSpec:
 _GEOM = {
     "qwen36-35b":    (40, 256, 8),
     "gpt-oss-20b":   (24, 32, 4),
+    # Ornith 1.5 is a Qwen3.5-MoE derivative with an embedded next-token head;
+    # geometry read from the exact revision-pinned IQ4_XS GGUF on admission.
+    "ornith-1.5-35b-a3b": (41, 256, 8),
     # --- §E4 MTP spec-decode (2026-08-02): same geometry as their non-MTP twins, but the
     # GGUF carries the multi-token-prediction head so `--spec-type draft-mtp` can self-draft.
     # Kept as separate arch keys (not new quants) because the FILE differs (MTP tensors at
@@ -95,6 +98,10 @@ _FILES = {
     # files deleted. Their historical prefill data stays in runs/ab-*-qwen3-30b/.
     "gpt-oss-20b": [
         ("q4", "/home/augus/models/gpt-oss-20b/gpt-oss-20b-Q4_K_M.gguf", "Q4_K_M"),
+    ],
+    "ornith-1.5-35b-a3b": [
+        ("iq4xs", "/home/augus/models/ornith-1.5-35b-a3b-bartowski/"
+         "Ornith-1.5-35B-A3B-IQ4_XS.gguf", "IQ4_XS"),
     ],
     # granite-4.0-h, ernie-4.5-21b, mistral-24b GGUFs DELETED 2026-08-10 (disk reclaim; the
     # genpin/pinning triangulation is closed -- STATUS §B1). ab data kept in runs/ab-genpin-*.

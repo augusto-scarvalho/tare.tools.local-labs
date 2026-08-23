@@ -16,7 +16,7 @@ as the standing A4 gate: run it after any pin bump to confirm the fields still f
 """
 import json, os, re, subprocess, sys, time, urllib.request
 
-BIN   = os.environ.get("MTP_BIN", "/home/augus/src/llama.cpp-master/build/bin/llama-server")
+BIN   = os.environ.get("MTP_BIN", "/home/augus/src/slop.cpp-main/build/bin/llama-server")
 MODEL = os.environ.get("MODEL",
     "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf")
 PORT  = 8096

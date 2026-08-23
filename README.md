@@ -5,6 +5,7 @@
 **Empirical Research Lab, Lifecycle Benchmarking Engine, and Local Inference Optimization Test Bench for High-Performance Open-Source LLMs.**
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![CI](https://github.com/augusto-scarvalho/tare.tools.local-labs/actions/workflows/ci.yml/badge.svg)](https://github.com/augusto-scarvalho/tare.tools.local-labs/actions/workflows/ci.yml)
 [![Python Version](https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg)](https://python.org)
 [![Hardware Target](https://img.shields.io/badge/Hardware-RTX_3090_24GB_%7C_64GB_RAM-purple.svg)](#-hardware-envelope--environment)
 [![Inference Engine](https://img.shields.io/badge/Engine-llama.cpp_@_lifecycle-orange.svg)](#-llamacpp-fork-engineering)
@@ -43,7 +44,7 @@ Ad-hoc intuition fails when optimizing for latency, context length, and accuracy
 The consolidated, battle-tested deployment configuration for agentic software engineering and reasoning workloads on **24GB GPUs (RTX 3090 / RTX 4090 / ADA)**:
 
 ```bash
-/home/augus/src/llama.cpp-master/build/bin/llama-server \
+/home/augus/src/slop.cpp-main/build/bin/llama-server \
   -m /home/augus/models/qwen38-27b/Qwen3.8-27B-UD-Q2_K_XL.gguf \
   -fa on \
   --ctx-size 65536 \
@@ -198,7 +199,15 @@ tare.tools.local-labs/
 ### 1. Deterministic Harness Qualification (< 2 seconds, no GPU required)
 ```bash
 python tests/benchmark_harness/benchmark_harness_selftest.py
-# Expected output: LAB-QA-001: 16/16 passed — ALL GREEN
+# Expected output: LAB-QA-001: 23/23 passed — ALL GREEN
+```
+
+The repository CI runs the same deterministic checks without a GPU:
+
+```bash
+python -m compileall -q src tools tests benchmark_harness_qa.py
+python -m pytest -q
+python tests/benchmark_harness/benchmark_harness_selftest.py
 ```
 
 ### 2. Launch Production Inference Server

@@ -33,7 +33,11 @@ import random
 import sys
 import time
 
-sys.path.insert(0, str(pathlib.Path(__file__).parent / "src"))
+ROOT = pathlib.Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "src"))
+
+from benchmark_harness_qa import extract_code                    # noqa: E402
 
 from model_lifecycle.collectors.host import sample                 # noqa: E402
 from model_lifecycle.collectors.request import chat_stream         # noqa: E402
@@ -43,7 +47,7 @@ from model_lifecycle.servers.llama_cpp import (                    # noqa: E402
 
 # The consolidated fork (branch `lifecycle` = 720d7fa40 + §B2b + prefetch + expert-cache), so
 # quality is measured on the SAME binary we deploy and the lever knobs below actually engage.
-LOCAL_BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+LOCAL_BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"
 
 # MODELS is the shared registry (model_lifecycle.models), quant-keyed. Quantisations of the
 # same weights stay separate entries on purpose: quant is a FACTOR in the screen, not a
@@ -99,24 +103,6 @@ def pick_subset(problems: list[dict], n: int) -> list[dict]:
     rng = random.Random(SUBSET_SEED)
     chosen = rng.sample(range(len(problems)), n)
     return [problems[i] for i in sorted(chosen)]
-
-
-def extract_code(text: str) -> str:
-    """The completion, from whatever the model wrapped it in.
-
-    Models that cannot follow "reply with only a code block" fail this benchmark for a
-    formatting reason, which is a REAL agentic failure and must not be papered over -- but
-    it must also be distinguishable from a wrong answer. `fenced` is recorded so the two
-    can be told apart afterwards.
-    """
-    if "```" not in text:
-        return text.strip()
-    parts = text.split("```")
-    # parts[1] is the first fenced block; strip a leading language tag.
-    block = parts[1] if len(parts) > 1 else text
-    if block.startswith("python"):
-        block = block[len("python"):]
-    return block.strip()
 
 
 def run(model_key: str, *, subset: int, ncmoe: int, ctx: int, ubatch: int | None,

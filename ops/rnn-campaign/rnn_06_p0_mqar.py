@@ -258,7 +258,7 @@ def load_model(model_id, revision, dtype, device, config_overrides=None, impl="a
     # impl="auto"/"fla": import fla so it registers gated_deltanet/delta_net/gla/
     #   rwkv7 with AutoConfig/AutoModel. NOTE fla also *overrides* mamba2 with its
     #   own modeling whose torch_forward is O(batch*L^2) and OOMs on long/batched
-    #   prompts, so for mamba2 use impl="transformers" to keep the memory-safe
+    #   prompts, so for mamba2 use impl="mamba2" to keep the memory-safe
     #   transformers-native Mamba2ForCausalLM.
     if impl in ("auto", "fla"):
         try:
@@ -276,11 +276,7 @@ def load_model(model_id, revision, dtype, device, config_overrides=None, impl="a
     for k, v in (config_overrides or {}).items():
         applied[k] = {"was": getattr(cfg, k, None), "now": v}
         setattr(cfg, k, v)
-    if impl == "transformers":
-        # fla auto-registers mamba2 via entry-points even without an explicit
-        # import, so AutoModel can silently pick fla's OOM-prone modeling. Use
-        # the concrete transformers-native class to guarantee the memory-safe
-        # implementation.
+    if impl == "mamba2":
         from transformers import Mamba2ForCausalLM
         model = Mamba2ForCausalLM.from_pretrained(
             model_id, revision=revision, config=cfg, torch_dtype=dtype,
@@ -587,9 +583,9 @@ def main():
     ap.add_argument("--dtype", default="bf16", choices=["bf16", "fp16", "fp32"])
     ap.add_argument("--config-overrides", default="",
                     help="JSON dict of AutoConfig attribute overrides (recorded in identity)")
-    ap.add_argument("--impl", default="auto", choices=["auto", "fla", "transformers"],
+    ap.add_argument("--impl", default="auto", choices=["auto", "fla", "transformers", "mamba2", "hf"],
                     help="auto/fla import fla (needed for delta_net/gdn); "
-                         "transformers avoids fla (use for mamba2 to dodge fla's OOM torch_forward)")
+                         "mamba2 uses concrete transformers Mamba2; transformers/hf uses AutoModel without fla")
     ap.add_argument("--autobatch-budget", type=int, default=0,
                     help="if >0, per-dose batch = clamp(batch_size, budget//seq_len). "
                          "Caps batch*seq_len for O(batch*L)-memory backends (mamba2 native).")

@@ -3,7 +3,7 @@
 # expert-cache, so re-apply in that order. Reset to after prefetch, cherry-pick turbo, then
 # expert-cache on top -- matching the stack's authored order (minimal conflicts).
 set -u
-cd /home/augus/src/llama.cpp-master
+cd /home/augus/src/slop.cpp-main
 git cherry-pick --abort 2>/dev/null
 git rev-parse --abbrev-ref HEAD | grep -q lifecycle || { echo "REFUSING: not on lifecycle"; exit 2; }
 git fetch -q stacksrc 2>/dev/null

@@ -1,0 +1,116 @@
+{
+  "label": "unsloth-ud",
+  "reps": 3,
+  "nonce_base": 202608220,
+  "controls": {
+    "temperature": 0.0,
+    "seed": 4242,
+    "thinking": false
+  },
+  "summary": {
+    "prefill": {
+      "median_ttft_s": 1.6869999999762513,
+      "median_prefill_tps": 1109.662122125876,
+      "median_decode_tps": 41.7827298053933,
+      "median_total_s": 2.0459999999729916
+    },
+    "decode": {
+      "median_ttft_s": 0.5160000000032596,
+      "median_prefill_tps": 397.28682170291665,
+      "median_decode_tps": 43.15476190469213,
+      "median_total_s": 2.5320000000065193
+    }
+  },
+  "rows": [
+    {
+      "nonce": 202608220,
+      "prompt_tokens": 1872,
+      "completion_tokens": 16,
+      "ttft_s": 1.7339999999967404,
+      "total_s": 2.1089999999967404,
+      "prefill_tps": 1079.5847750885346,
+      "decode_tps": 40.0,
+      "finish_reason": "length",
+      "text_sha256": "e9b80f2b0036395308c1d496c350b1e19a9cf9246a24d06e9bd894014311d62d",
+      "text": "The two inference phases are **prompt processing** and **token-by-token generation**",
+      "label": "unsloth-ud",
+      "rep": 0,
+      "kind": "prefill"
+    },
+    {
+      "nonce": 202608221,
+      "prompt_tokens": 205,
+      "completion_tokens": 88,
+      "ttft_s": 0.29699999996228144,
+      "total_s": 2.312999999965541,
+      "prefill_tps": 690.2356903233491,
+      "decode_tps": 43.15476190469213,
+      "finish_reason": "stop",
+      "text_sha256": "7d2e9f5c15ae8b4849a45ad1d862d58466e4da6f0e8b2bd22dcb7565a071f50a",
+      "text": "Prompt processing (prefill) is compute-bound because it processes a large batch of tokens in parallel, allowing the GPU to fully utilize its tensor cores for matrix multiplications. In contrast, autoregressive decoding is memory-bound because it generates tokens sequentially, requiring the model's weights and the growing key-value cache to be loaded from high-bandwidth memory for every single token, which saturates memory bandwidth before the compute units can be fully utilized.",
+      "label": "unsloth-ud",
+      "rep": 0,
+      "kind": "decode"
+    },
+    {
+      "nonce": 202608230,
+      "prompt_tokens": 1872,
+      "completion_tokens": 16,
+      "ttft_s": 1.5310000000172295,
+      "total_s": 1.8900000000139698,
+      "prefill_tps": 1222.7302416583495,
+      "decode_tps": 41.7827298053933,
+      "finish_reason": "length",
+      "text_sha256": "59feee65e1e376133a56cdc8d3b99ed7e9d674da032424bf552b9554ddef18bf",
+      "text": "The two inference phases are **prompt processing** and **decoding** (token",
+      "label": "unsloth-ud",
+      "rep": 1,
+      "kind": "prefill"
+    },
+    {
+      "nonce": 202608231,
+      "prompt_tokens": 205,
+      "completion_tokens": 88,
+      "ttft_s": 0.5160000000032596,
+      "total_s": 2.5320000000065193,
+      "prefill_tps": 397.28682170291665,
+      "decode_tps": 43.15476190469213,
+      "finish_reason": "stop",
+      "text_sha256": "7d2e9f5c15ae8b4849a45ad1d862d58466e4da6f0e8b2bd22dcb7565a071f50a",
+      "text": "Prompt processing (prefill) is compute-bound because it processes a large batch of tokens in parallel, allowing the GPU to fully utilize its tensor cores for matrix multiplications. In contrast, autoregressive decoding is memory-bound because it generates tokens sequentially, requiring the model's weights and the growing key-value cache to be loaded from high-bandwidth memory for every single token, which saturates memory bandwidth before the compute units can be fully utilized.",
+      "label": "unsloth-ud",
+      "rep": 1,
+      "kind": "decode"
+    },
+    {
+      "nonce": 202608240,
+      "prompt_tokens": 1872,
+      "completion_tokens": 16,
+      "ttft_s": 1.6869999999762513,
+      "total_s": 2.0459999999729916,
+      "prefill_tps": 1109.662122125876,
+      "decode_tps": 41.7827298053933,
+      "finish_reason": "length",
+      "text_sha256": "59feee65e1e376133a56cdc8d3b99ed7e9d674da032424bf552b9554ddef18bf",
+      "text": "The two inference phases are **prompt processing** and **decoding** (token",
+      "label": "unsloth-ud",
+      "rep": 2,
+      "kind": "prefill"
+    },
+    {
+      "nonce": 202608241,
+      "prompt_tokens": 205,
+      "completion_tokens": 88,
+      "ttft_s": 0.5940000000409782,
+      "total_s": 2.610000000044238,
+      "prefill_tps": 345.1178450940365,
+      "decode_tps": 43.15476190469213,
+      "finish_reason": "stop",
+      "text_sha256": "7d2e9f5c15ae8b4849a45ad1d862d58466e4da6f0e8b2bd22dcb7565a071f50a",
+      "text": "Prompt processing (prefill) is compute-bound because it processes a large batch of tokens in parallel, allowing the GPU to fully utilize its tensor cores for matrix multiplications. In contrast, autoregressive decoding is memory-bound because it generates tokens sequentially, requiring the model's weights and the growing key-value cache to be loaded from high-bandwidth memory for every single token, which saturates memory bandwidth before the compute units can be fully utilized.",
+      "label": "unsloth-ud",
+      "rep": 2,
+      "kind": "decode"
+    }
+  ]
+}

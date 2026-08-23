@@ -5,11 +5,11 @@
 #   GGML_CUDA_REGISTER_HOST=1      -> pin mmap CPU weights (off by default)
 # Numerics-neutral (memory transfer, not compute) -> cannot change decode tokens.
 set -eu
-cd /home/augus/src/llama.cpp-master
+cd /home/augus/src/slop.cpp-main
 git rev-parse --abbrev-ref HEAD | grep -q lifecycle || { echo "REFUSING: not on lifecycle branch"; exit 2; }
 
 echo "== wire up source repos as remotes (idempotent) =="
-git remote get-url rebasesrc >/dev/null 2>&1 || git remote add rebasesrc /home/augus/src/llama.cpp-rebase
+git remote get-url rebasesrc >/dev/null 2>&1 || git remote add rebasesrc /home/augus/src/slop.cpp-rebase
 git fetch -q rebasesrc
 
 echo "== cherry-pick the 3 prefetch/pin commits (in order) =="

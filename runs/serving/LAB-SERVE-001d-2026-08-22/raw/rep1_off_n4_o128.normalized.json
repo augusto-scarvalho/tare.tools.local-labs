@@ -1,0 +1,36 @@
+{
+  "tag": "rep1_off_n4_o128",
+  "wall_s": 85.9,
+  "params": {
+    "base_url": "http://127.0.0.1:8092",
+    "model": "qwen36-35b",
+    "concurrency": 4,
+    "input_len": 1024,
+    "output_len": 128,
+    "num_prompts": 32,
+    "request_rate": "inf",
+    "warmup": 2,
+    "disable_ignore_eos": false
+  },
+  "gpu": {
+    "vram_peak_mb": 19637.0,
+    "vram_mean_mb": 19384.5,
+    "util_mean": 30.4,
+    "power_mean_w": 131.8,
+    "power_peak_w": 237.15,
+    "temp_peak_c": 55.0,
+    "n_samples": 157
+  },
+  "validity": {
+    "returncode": 1,
+    "completed": 0,
+    "requested": 32,
+    "success_all": false,
+    "total_output_tokens": 0,
+    "total_output_tokens_retokenized": 0,
+    "token_accounting_ratio": 0.0,
+    "token_accounting_sane": false,
+    "ttft_ms_median_positive": false
+  },
+  "upstream_summary": {}
+}

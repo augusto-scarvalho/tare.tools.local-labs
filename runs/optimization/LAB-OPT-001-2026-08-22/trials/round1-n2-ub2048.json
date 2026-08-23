@@ -1,0 +1,132 @@
+{
+  "config": "n2-ub2048",
+  "draft_n": 2,
+  "ubatch": 2048,
+  "round": "round1",
+  "started_at": "2026-08-22T19:15:23.796629+00:00",
+  "feasible": true,
+  "errors": [],
+  "load_s": 4.577999999979511,
+  "free_vram_after_load_mib": 4824.0,
+  "probes": [
+    {
+      "content": "\n\n42.",
+      "content_sha256": "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+      "tokens_predicted": 5,
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 17,
+        "prompt_ms": 168.713,
+        "prompt_per_token_ms": 9.924294117647058,
+        "prompt_per_second": 100.76283392506802,
+        "predicted_n": 5,
+        "predicted_ms": 131.192,
+        "predicted_per_token_ms": 26.238400000000002,
+        "predicted_per_second": 38.112080004878344,
+        "draft_n": 6,
+        "draft_n_accepted": 1
+      },
+      "stop": true,
+      "stop_type": "eos"
+    },
+    {
+      "content": "\n\ndelta",
+      "content_sha256": "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+      "tokens_predicted": 3,
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 15,
+        "prompt_ms": 134.247,
+        "prompt_per_token_ms": 8.949800000000002,
+        "prompt_per_second": 111.73434043218842,
+        "predicted_n": 3,
+        "predicted_ms": 74.035,
+        "predicted_per_token_ms": 24.67833333333333,
+        "predicted_per_second": 40.52137502532586,
+        "draft_n": 4,
+        "draft_n_accepted": 0
+      },
+      "stop": true,
+      "stop_type": "eos"
+    },
+    {
+      "content": "    pass\n\nHere's the completed function:\n\n```python\ndef add(a, b):\n    \"\"\"Return their sum.\"\"\"\n    return a + b\n```\n\nThis function takes two parameters `a` and `b`, and returns their sum using the `+` operator. The `pass` statement is",
+      "content_sha256": "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a",
+      "tokens_predicted": 64,
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 21,
+        "prompt_ms": 133.853,
+        "prompt_per_token_ms": 6.373952380952382,
+        "prompt_per_second": 156.8885269661494,
+        "predicted_n": 64,
+        "predicted_ms": 853.828,
+        "predicted_per_token_ms": 13.3410625,
+        "predicted_per_second": 74.95654862571853,
+        "draft_n": 48,
+        "draft_n_accepted": 38
+      },
+      "stop": true,
+      "stop_type": "limit"
+    }
+  ],
+  "probe_hashes": [
+    "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+    "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+    "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a"
+  ],
+  "accepted_probes": 3,
+  "runs": [
+    {
+      "cell": "short",
+      "prompt_repeats": 240,
+      "prompt_tokens": 2684,
+      "predicted_tokens": 96,
+      "decode_tokens_after_first": 95,
+      "prefill_ttft_s": 2.202999999979511,
+      "decode_s": 1.297000000020489,
+      "baseline_power_w": 242.17076923076922,
+      "prefill_energy_gross_j": 559.5107799981133,
+      "decode_energy_gross_j": 475.0573850081427,
+      "prefill_gross_j_per_prompt_token": 0.20846154247321658,
+      "decode_gross_j_per_token": 5.000604052717292,
+      "prefill_incremental_j": 26.0085753876906,
+      "decode_incremental_j": 160.96189731087316,
+      "power_mean_active_w": 296.03076923076924,
+      "power_peak_active_w": 381.51,
+      "temp_peak_c": 56.0,
+      "vram_peak_mb": 19577.0,
+      "telemetry_samples": 59,
+      "telemetry_errors": [],
+      "server_timings": {
+        "cache_n": 0,
+        "prompt_n": 2684,
+        "prompt_ms": 1840.38,
+        "prompt_per_token_ms": 0.6856855439642325,
+        "prompt_per_second": 1458.3944620132797,
+        "predicted_n": 96,
+        "predicted_ms": 1172.615,
+        "predicted_per_token_ms": 12.214739583333333,
+        "predicted_per_second": 81.86830289566483,
+        "draft_n": 66,
+        "draft_n_accepted": 62
+      },
+      "boundaries_monotonic": true,
+      "rep": 0
+    }
+  ],
+  "wall_s": 13.89100000000326,
+  "finished_at": "2026-08-22T19:15:37.959922+00:00",
+  "metrics": {
+    "ttft_s_median": 2.202999999979511,
+    "prompt_tps_median": 1218.3386291534102,
+    "short_prompt_tps_median": 1218.3386291534102,
+    "long_prompt_tps_median": null,
+    "decode_s_per_token_median": 0.013652631579163042,
+    "decode_tps_median": 73.24595219622148,
+    "vram_peak_mb": 19577.0,
+    "cost_s_per_accepted_probe": 4.63033333333442,
+    "power_peak_w": 381.51,
+    "temp_peak_c": 56.0
+  }
+}

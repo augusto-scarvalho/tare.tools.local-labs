@@ -147,7 +147,7 @@ lower `MIN_TOKENS` when n_seqs>1).
 **Server launch lines (HEADLESS via background tool; literal paths — WSL `$VAR` expands empty):**
 ```
 # Arm B OFF (sequential), ncmoe=8:
-env -u GGML_CUDA_GDN_CHUNKED /home/augus/src/llama.cpp-master/build/bin/llama-server \
+env -u GGML_CUDA_GDN_CHUNKED /home/augus/src/slop.cpp-main/build/bin/llama-server \
   -m /home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf \
   --n-cpu-moe 8 -c 131072 --parallel 8 -b 8192 -ub 2048 -ctxcp 0 --host 127.0.0.1 --port 8080
 # Arm B ON: prefix  GGML_CUDA_GDN_CHUNKED=1 GGML_CUDA_GDN_CHUNKED_MIN_TOKENS=128  (drop `env -u`)

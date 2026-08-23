@@ -2,7 +2,7 @@
 # plain Fable, and (2) refusal rate (did the TC delta re-censor the uncensored base?).
 # Anchors: fable-plain = uncensored floor; thinkingcap = aligned ceiling for refusal.
 # Run from Windows (drives the WSL server). GPU-serial, ~1.5h.
-cd C:\projects\local-model-lifecycle
+cd C:\projects\tare.tools.local-labs
 $ErrorActionPreference = 'Continue'
 
 # concision + accuracy: plain Fable (baseline) + the 3 merged arms

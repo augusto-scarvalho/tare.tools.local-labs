@@ -7,7 +7,7 @@
 #
 # Usage: BUDGETS="512 1024 2048" SUBSET_N=60 bash ops/qwen38-bringup/budget_emul.sh   (via wslx; run_in_background)
 set -u
-LLAMA=/home/augus/src/llama.cpp-master
+LLAMA=/home/augus/src/slop.cpp-main
 BIN="$LLAMA/build/bin/llama-server"
 MODEL=/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf
 PY=/home/augus/sglang-venv/bin/python3

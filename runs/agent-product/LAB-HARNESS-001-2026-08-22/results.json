@@ -1,0 +1,423 @@
+{
+  "schema_version": 1,
+  "tasks": [
+    {
+      "id": "mode",
+      "query": "lmctl require mode for port write mode state fail closed SERVE LAB transition",
+      "required": "tools/benchmarks/lmctl.py",
+      "file_and_chunk_budget": 10,
+      "selected_files": [
+        "ops/serving-campaign/lab_serve_analyze.py",
+        "ops/serving-campaign/lab_serve_bench.py",
+        "ops/serving-campaign/lab_serve_bench_openloop.py",
+        "ops/serving-campaign/lab_serve_normalize.py",
+        "ops/serving-campaign/lab_serve_openloop_analyze.py",
+        "ops/serving-campaign/lab_serve_replicate.py",
+        "ops/serving-campaign/lab_serve_workload_gen.py",
+        "tests/test_lmctl_mode.py",
+        "tools/benchmarks/lab_serve_001d.py",
+        "tools/benchmarks/lmctl.py"
+      ],
+      "required_recalled": true,
+      "pack_tokens": 748,
+      "control_tokens": 7528,
+      "reduction": 0.9006376195536663,
+      "source_digest": "967cae0820886a46ae6fd47a62214100047c9726d25e2a60fda0e86cad1c930e",
+      "chunks": [
+        {
+          "path": "tests/test_lmctl_mode.py",
+          "start_line": 71,
+          "end_line": 73,
+          "score": 165.0,
+          "text": "        with mock.patch.object(lmctl, \"_server_ports\", return_value=[]):\n            self.assertEqual(lmctl._require_mode_for_port(8080, self.path)[\"mode\"], \"SERVE\")\n            with self.assertRaisesRegex(lmctl.ModeLockError, \"requires LAB\"):\n"
+        },
+        {
+          "path": "tools/benchmarks/lab_serve_001d.py",
+          "start_line": 1,
+          "end_line": 3,
+          "score": 141.0,
+          "text": "#!/usr/bin/env python3\n\"\"\"Run the frozen LAB-SERVE-001d paired closed-loop matrix from Windows Python.\"\"\"\nfrom __future__ import annotations\n"
+        },
+        {
+          "path": "ops/serving-campaign/lab_serve_replicate.py",
+          "start_line": 32,
+          "end_line": 35,
+          "score": 137.0,
+          "text": "\ndef serve(target, port, extra):\n    r = sh([sys.executable, \"lmctl.py\", \"serve\", target, \"--port\", str(port), \"--\", *extra], timeout=300)\n    argv = \"\"\n"
+        },
+        {
+          "path": "ops/serving-campaign/lab_serve_bench_openloop.py",
+          "start_line": 1,
+          "end_line": 5,
+          "score": 133.0,
+          "text": "#!/usr/bin/env python3\n\"\"\"LAB-SERVE-001c \u2014 open-loop serving cell (realistic traffic) around `sglang.benchmark.serving`.\n\nDiffers from lab_serve_bench.py (001/001b, closed-loop forced-length) in exactly the ways 001c needs:\n  * --dataset-name custom --dataset-path <pinned workload>  (real prompts, per-request output cap)\n"
+        },
+        {
+          "path": "ops/serving-campaign/lab_serve_bench.py",
+          "start_line": 1,
+          "end_line": 3,
+          "score": 132.0,
+          "text": "#!/usr/bin/env python3\n\"\"\"LAB-SERVE-001 \u2014 thin adapter around `sglang.benchmark.serving` (backend vllm-chat).\n\n"
+        },
+        {
+          "path": "ops/serving-campaign/lab_serve_normalize.py",
+          "start_line": 1,
+          "end_line": 3,
+          "score": 132.0,
+          "text": "#!/usr/bin/env python3\n\"\"\"Normalize LAB-SERVE-001 cell outputs into matrix.csv/json + identity.json. Reads the per-cell\n*.normalized.json (which embed the raw upstream summary). Raw JSONL is never rewritten.\"\"\"\n"
+        },
+        {
+          "path": "ops/serving-campaign/lab_serve_analyze.py",
+          "start_line": 1,
+          "end_line": 8,
+          "score": 129.0,
+          "text": "#!/usr/bin/env python3\n\"\"\"LAB-SERVE-001b block-level paired analysis. The statistical unit is the independent server-level\nBLOCK (one server start), NOT the individual request. For each (N, metric) it pairs the on-block and\noff-block BY REP, forms 5 paired deltas (on-off), and reports median(on)/median(off), the paired\ndelta with a seeded bootstrap CI, and a sign test \u2014 reusing the lab's robust methodology.\n\nRun:  PYTHONPATH=src python ops/lab_serve_analyze.py <raw_dir_with_blocks.json> <label>\nEmits matrix.csv (per block), paired_effects.{json,csv}, token_exactness + acceptance summary.\n"
+        },
+        {
+          "path": "ops/serving-campaign/lab_serve_workload_gen.py",
+          "start_line": 26,
+          "end_line": 28,
+          "score": 129.0,
+          "text": "SEED = 1729\nLICENSE = \"CC0-1.0 (synthetic, authored for this lab; no third-party text)\"\nSOURCE = \"lab_serve_workload_gen.py (deterministic synthetic generator)\"\n"
+        },
+        {
+          "path": "ops/serving-campaign/lab_serve_openloop_analyze.py",
+          "start_line": 1,
+          "end_line": 3,
+          "score": 128.0,
+          "text": "#!/usr/bin/env python3\n\"\"\"LAB-SERVE-001c \u2014 open-loop campaign analyzer.\n\n"
+        },
+        {
+          "path": "tools/benchmarks/lmctl.py",
+          "start_line": 17,
+          "end_line": 19,
+          "score": 114.0,
+          "text": "    python lmctl.py mode set lab --reason \"isolated candidate campaign\"\n    python lmctl.py mode check lab              # fail-closed SERVE/LAB ownership\n    python lmctl.py mode set serve --reason \"restore canonical endpoint\"\n"
+        }
+      ]
+    },
+    {
+      "id": "provenance",
+      "query": "verify hf source manifest all valid expected total bytes actual sha256 pinned",
+      "required": "tools/analysis/verify_hf_source_manifest.py",
+      "file_and_chunk_budget": 8,
+      "selected_files": [
+        "docs/research/IDEAS_BACKLOG.md",
+        "docs/research/MUSE_GLIMMER_3090_EXPERIMENT_PACKET_2026-08-21.md",
+        "tools/analysis/hf_model_manifest.py",
+        "tools/analysis/verify_hf_source_manifest.py",
+        "tools/benchmarks/harness_product_pilot.py",
+        "tools/gates/verify_mtp.py",
+        "tools/gates/verify_mtp_long.py",
+        "tools/gates/verify_prefetch.py"
+      ],
+      "required_recalled": true,
+      "pack_tokens": 701,
+      "control_tokens": 2200,
+      "reduction": 0.6813636363636364,
+      "source_digest": "5cc79b9b646792d41c0a2a1845059ccf5fcd56673f1677eacbad1ad15a017355",
+      "chunks": [
+        {
+          "path": "tools/analysis/verify_hf_source_manifest.py",
+          "start_line": 57,
+          "end_line": 62,
+          "score": 207.0,
+          "text": "        \"root\": str(args.root.resolve()),\n        \"expected_total_bytes\": manifest[\"total_bytes\"],\n        \"actual_total_bytes\": actual_total,\n        \"file_count\": len(rows),\n        \"all_valid\": all_valid and actual_total == manifest[\"total_bytes\"],\n        \"files\": rows,\n"
+        },
+        {
+          "path": "tools/analysis/hf_model_manifest.py",
+          "start_line": 1,
+          "end_line": 3,
+          "score": 81.0,
+          "text": "#!/usr/bin/env python3\n\"\"\"Create an exact Hugging Face LFS manifest for a pinned model revision.\"\"\"\n\n"
+        },
+        {
+          "path": "tools/benchmarks/harness_product_pilot.py",
+          "start_line": 20,
+          "end_line": 24,
+          "score": 65.0,
+          "text": "     \"tools/benchmarks/lmctl.py\", [\"tools/benchmarks/lmctl.py\", \"tests/test_lmctl_mode.py\"]),\n    (\"provenance\", \"verify hf source manifest all valid expected total bytes actual sha256 pinned\",\n     \"tools/analysis/verify_hf_source_manifest.py\", [\n         \"tools/analysis/verify_hf_source_manifest.py\", \"tools/analysis/hf_model_manifest.py\",\n         \"runs/provenance/LAB-PROV-002-REQUANT-2026-08-22/DECISION_PACKET.md\"]),\n"
+        },
+        {
+          "path": "tools/gates/verify_prefetch.py",
+          "start_line": 57,
+          "end_line": 61,
+          "score": 58.0,
+          "text": "    subprocess.run([\"wsl\", \"-d\", \"Ubuntu-24.04\", \"--\", \"pkill\", \"-9\", \"-f\", \"llama-server\"])\n    pinned = [l for l in out.splitlines() if \"pinned\" in l.lower()]\n    print(f\"PINNING ACTIVE      : {bool(pinned)}\")\n    for l in pinned[:2]:\n        print(\"   \", l.strip())\n"
+        },
+        {
+          "path": "tools/gates/verify_mtp.py",
+          "start_line": 20,
+          "end_line": 22,
+          "score": 56.0,
+          "text": "# argv[1]: model GGUF path (default the MoE MTP). argv[2]: placement flag+value as one\n# string, e.g. \"--n-cpu-moe 8\" (MoE) or \"-ngl 65\" (dense). Lets one tool verify both.\nMODEL = sys.argv[1] if len(sys.argv) > 1 else \\\n"
+        },
+        {
+          "path": "tools/gates/verify_mtp_long.py",
+          "start_line": 6,
+          "end_line": 8,
+          "score": 56.0,
+          "text": "40/40). This pins the onset: base and mtp share an identical PREFIX, then diverge at some token\nposition D (batched-verify numerics flip a greedy near-tie; likely #23658 KV-slot boundary).\nReports D (char + approx token) for a few coding prompts on the deploy config.\n"
+        },
+        {
+          "path": "docs/research/MUSE_GLIMMER_3090_EXPERIMENT_PACKET_2026-08-21.md",
+          "start_line": 112,
+          "end_line": 114,
+          "score": 50.0,
+          "text": "3. download only the revision-pinned 17 GB text model;\n4. verify expected bytes, compute full SHA-256, inspect GGUF metadata/template, and confirm\n   `general.architecture = muse-glimmer`;\n"
+        },
+        {
+          "path": "docs/research/IDEAS_BACKLOG.md",
+          "start_line": 2,
+          "end_line": 4,
+          "score": 47.0,
+          "text": "\nSource: `harness_modelos_locais_..._panorama_campos_emergentes.html` (75 sections, 6 parts).\nMethod: 4 Sonnet-5 (high) readers extracted **120 idea-cards**; this doc is the filtered,\n"
+        }
+      ]
+    },
+    {
+      "id": "visual",
+      "query": "vlm coding suite deterministic visual clause image OCR",
+      "required": "tools/benchmarks/vlm_coding_suite.py",
+      "file_and_chunk_budget": 8,
+      "selected_files": [
+        "docs/campaigns/vlm/M_A_VLM.md",
+        "docs/campaigns/vlm/M_A_VLM_PERF.md",
+        "docs/campaigns/vlm/README.md",
+        "tools/benchmarks/vlm_bench.py",
+        "tools/benchmarks/vlm_coding_suite.py",
+        "tools/benchmarks/vlm_vqa_bench.py",
+        "tools/probes/vlm_mature_probe.py",
+        "tools/probes/vlm_refusal_probe.py"
+      ],
+      "required_recalled": true,
+      "pack_tokens": 747,
+      "control_tokens": 2931,
+      "reduction": 0.745138178096213,
+      "source_digest": "a670d0c79169b250a86124f04a5fe355ea7b2b13251c81347736d751f1bde109",
+      "chunks": [
+        {
+          "path": "tools/benchmarks/vlm_coding_suite.py",
+          "start_line": 1,
+          "end_line": 3,
+          "score": 193.0,
+          "text": "#!/usr/bin/env python3\n\"\"\"Deterministic visual-coding accept suite for a local OpenAI-compatible VLM.\"\"\"\n\n"
+        },
+        {
+          "path": "docs/campaigns/vlm/M_A_VLM.md",
+          "start_line": 1,
+          "end_line": 5,
+          "score": 83.0,
+          "text": "# Track M-A \u00b7 VLM (vision) \u2014 M0 baseline DONE (2026-08-06)\n\nA coding-agent-that-sees: read screenshots, error dialogs, UI mockups. M0 = get a current-gen\nVLM serving in our fork and prove image\u2192text on a controlled accept test. **PASS on all three\nmodels tried.** Evidence: `runs/m0-vlm/` (fixtures + RESULTS.md); reusable probe `vlm_probe.py`.\n"
+        },
+        {
+          "path": "tools/probes/vlm_refusal_probe.py",
+          "start_line": 1,
+          "end_line": 5,
+          "score": 79.0,
+          "text": "\"\"\"VLM alignment / over-refusal probe: does a vision model REFUSE benign coding-agent work?\n\nM0 proved the VLMs can SEE (OCR + describe). This asks the orthogonal question the M0 baseline\nnever touched: on legitimate tasks a coding-agent-that-sees actually hits -- read a CAPTCHA,\ntranscribe the dev's own .env, list a form's fields, describe a login-looking page, read a\n"
+        },
+        {
+          "path": "docs/campaigns/vlm/M_A_VLM_PERF.md",
+          "start_line": 58,
+          "end_line": 63,
+          "score": 78.0,
+          "text": "\n### #3 \u2014 image-token budget hygiene on Gemma [minor, already safe]\n`--image-min/max-tokens` control the vision-token budget; Gemma-4 needs all image tokens in one ubatch\nor it SIGABRTs at high budgets \u2014 we're already safe (`--ubatch 2048`). For MCQ, 280\u2013560 image-tokens\nsuffice; 1120 only for OCR/docs. Minor vs #1/#2 (image-encode tax already ~130 ms). Evidence: issues\n#21550/#21461.\n"
+        },
+        {
+          "path": "docs/campaigns/vlm/README.md",
+          "start_line": 7,
+          "end_line": 13,
+          "score": 76.0,
+          "text": "- [`M_A_VLM.md`](M_A_VLM.md): Multimodal architecture, vision encoders, and refusal baseline.\n- [`M_A_VLM_PERF.md`](M_A_VLM_PERF.md): Performance profiling and image resolution scaling.\n- `tools/probes/vlm_probe.py`: VLM image processing latency probe.\n- `tools/benchmarks/vlm_vqa_bench.py`: Visual question answering benchmark.\n\n## Core Conclusion\n**CONFIRMED**: Zero-refusal multimodal pipeline established for local visual telemetry and desktop GUI element localization with sub-second image prefill latency.\n"
+        },
+        {
+          "path": "tools/benchmarks/vlm_bench.py",
+          "start_line": 4,
+          "end_line": 7,
+          "score": 74.0,
+          "text": "Two metrics that actually decide daily-driver + inform the M-A \u00a771 levers:\n  * visual TTFT   -- time to first token WITH an image (= image-encode + prefill + 1 decode).\n  * text TTFT     -- same prompt, NO image. The DELTA (visual - text) ~= the image-encode cost,\n                     the vision-specific tax the \u00a771 notes want measured separately from decode.\n"
+        },
+        {
+          "path": "tools/probes/vlm_mature_probe.py",
+          "start_line": 2,
+          "end_line": 4,
+          "score": 74.0,
+          "text": "\nThe coding-agent refusal probe (vlm_refusal_probe.py) found 0/7 over-refusal but never touched the\nsexual/nudity axis. This measures that axis with the legitimate, non-pornographic proxy used in the\n"
+        },
+        {
+          "path": "tools/benchmarks/vlm_vqa_bench.py",
+          "start_line": 1,
+          "end_line": 2,
+          "score": 70.0,
+          "text": "\"\"\"VLM visual-recognition QUALITY benchmark on MMStar (Lin-Chen/MMStar).\n\n"
+        }
+      ]
+    },
+    {
+      "id": "agent",
+      "query": "agent irreversible tool recovery policy no blind retry",
+      "required": "tools/benchmarks/agent_irreversible_policy.py",
+      "file_and_chunk_budget": 8,
+      "selected_files": [
+        "ops/rnn-campaign/rnn_06d1_recovery.py",
+        "ops/rnn-campaign/rnn_07a_recovery.py",
+        "tools/benchmarks/agent_candidate_policy.py",
+        "tools/benchmarks/agent_irreversible_policy.py",
+        "tools/benchmarks/agent_robustness_v2.py",
+        "tools/benchmarks/agent_stress_scale_v2.py",
+        "tools/benchmarks/agent_suite_v2.py",
+        "tools/benchmarks/agent_suite_v2_long_ids.py"
+      ],
+      "required_recalled": true,
+      "pack_tokens": 574,
+      "control_tokens": 7071,
+      "reduction": 0.918823363032103,
+      "source_digest": "9ddb1c552977daae1730f0ecdb1b0d7ac7d76568c7a2caf3e038364fee36fb03",
+      "chunks": [
+        {
+          "path": "tools/benchmarks/agent_irreversible_policy.py",
+          "start_line": 1,
+          "end_line": 3,
+          "score": 192.0,
+          "text": "#!/usr/bin/env python3\n\"\"\"LAB-AGENT-004: test a system policy against positional recovery-tool sensitivity.\"\"\"\nfrom __future__ import annotations\n"
+        },
+        {
+          "path": "tools/benchmarks/agent_candidate_policy.py",
+          "start_line": 1,
+          "end_line": 3,
+          "score": 142.0,
+          "text": "#!/usr/bin/env python3\n\"\"\"Apply the qualified irreversible-recovery policy to a candidate agent endpoint.\"\"\"\nfrom __future__ import annotations\n"
+        },
+        {
+          "path": "tools/benchmarks/agent_robustness_v2.py",
+          "start_line": 38,
+          "end_line": 40,
+          "score": 88.0,
+          "text": "    \"error_recovery\": (3, \"Use Springfield in the US state of Illinois.\"),\n    \"irreversible_no_blind_retry\": (0, \"Send 50 dollars under transfer id tx-9001.\"),\n}\n"
+        },
+        {
+          "path": "tools/benchmarks/agent_suite_v2.py",
+          "start_line": 6,
+          "end_line": 8,
+          "score": 88.0,
+          "text": "selection, constrained/nested arguments, abstention, parallel calls, sequential\ndispatch, multi-turn dispatch, error recovery, and no blind retry after an\nirreversible operation with unknown outcome.\n"
+        },
+        {
+          "path": "tools/benchmarks/agent_stress_scale_v2.py",
+          "start_line": 1,
+          "end_line": 3,
+          "score": 70.0,
+          "text": "#!/usr/bin/env python3\n\"\"\"LAB-AGENT-003: bounded tool-calling stress and scale curves.\"\"\"\nfrom __future__ import annotations\n"
+        },
+        {
+          "path": "tools/benchmarks/agent_suite_v2_long_ids.py",
+          "start_line": 1,
+          "end_line": 3,
+          "score": 70.0,
+          "text": "#!/usr/bin/env python3\n\"\"\"Agent Suite V2 compatibility runner with semantically inert long tool-call IDs.\"\"\"\nfrom __future__ import annotations\n"
+        },
+        {
+          "path": "ops/rnn-campaign/rnn_06d1_recovery.py",
+          "start_line": 2,
+          "end_line": 11,
+          "score": 65.0,
+          "text": "# -*- coding: utf-8 -*-\n\"\"\"RNN-06D1 \u2014 Target-Agnostic Parameter-Free Recovery Utility runner.\n\nExecutes ONLY if RECOVERY_CEILING = QUALIFIED. INDEPENDENTLY re-captures the target-agnostic\nhistorical snapshot pool + FINAL (its own mechanism-activation counters + boundary checks;\ncross-checks determinism vs D0_READOUTS.npz), then applies a FROZEN family of target-agnostic,\nparameter-free recovery methods (no gold, no target-write position, no oracle-best identity):\nRECENCY, MAX_CONFIDENCE, MIN_ENTROPY, MAX_TOP1_TOP2_MARGIN, CONFIDENCE_X_RECENCY, LOGIT_ENSEMBLE,\nFINAL_PLUS_HISTORICAL, plus a MATCHED_NO_HISTORY compute control. Reports paired recovery/harm,\nstratified intervals, oracle gap, selection regret, economics; mints RECOVERY_UTILITY. No trained\n"
+        },
+        {
+          "path": "ops/rnn-campaign/rnn_07a_recovery.py",
+          "start_line": 2,
+          "end_line": 4,
+          "score": 65.0,
+          "text": "# -*- coding: utf-8 -*-\n\"\"\"RNN-07A RECOVERY \u2014 runs ONLY if the scout minted REALISTIC_FORGETTING_OPERATING_POINT = FOUND.\n\n"
+        }
+      ]
+    },
+    {
+      "id": "context",
+      "query": "context vram envelope reserve ladder",
+      "required": "tools/benchmarks/context_vram_envelope.py",
+      "file_and_chunk_budget": 8,
+      "selected_files": [
+        "docs/research/BACKLOG_V2_STATUS.md",
+        "docs/research/CONTEXT_PLAN.md",
+        "tools/analysis/ab_isolate.py",
+        "tools/analysis/optimize_config.py",
+        "tools/benchmarks/context_suite_v2.py",
+        "tools/benchmarks/context_vram_envelope.py",
+        "tools/probes/context_probe.py",
+        "tools/probes/raw_context_mtp_sweep.py"
+      ],
+      "required_recalled": true,
+      "pack_tokens": 983,
+      "control_tokens": 3508,
+      "reduction": 0.7197833523375142,
+      "source_digest": "8ad4be8e539ba9f4bfb9088c39810ee30f8d9a1962b21af77154189456042812",
+      "chunks": [
+        {
+          "path": "tools/benchmarks/context_vram_envelope.py",
+          "start_line": 1,
+          "end_line": 3,
+          "score": 177.0,
+          "text": "#!/usr/bin/env python3\n\"\"\"LAB-OPS-003: startup-only context allocation envelope for the canonical model.\"\"\"\nfrom __future__ import annotations\n"
+        },
+        {
+          "path": "docs/research/CONTEXT_PLAN.md",
+          "start_line": 15,
+          "end_line": 17,
+          "score": 78.0,
+          "text": "> consequences that rewrite this plan:\n> 1. **Context is cheap** \u2014 likely reach 128k\u2013256k in VRAM without heroics; \u00a7B2b (KV-in-RAM) may be\n>    *unnecessary* for these models (its value is for large-KV *pure transformers*; revisit accordingly).\n"
+        },
+        {
+          "path": "tools/benchmarks/context_suite_v2.py",
+          "start_line": 1,
+          "end_line": 3,
+          "score": 60.0,
+          "text": "#!/usr/bin/env python3\n\"\"\"LAB-CTX-001: RULER-inspired effective-context curve for a live llama-server.\n\n"
+        },
+        {
+          "path": "tools/probes/context_probe.py",
+          "start_line": 1,
+          "end_line": 7,
+          "score": 60.0,
+          "text": "#!/usr/bin/env python3\n\"\"\"CONTEXT_PLAN Phases B+C in one harness (share the expensive deep prefill).\n\nFor each context depth L and needle depth d: build a needle-in-haystack prompt of ~L tokens\n(filler + a unique passcode at fraction d), ask the model to retrieve it, and record BOTH:\n  * Phase C: retrieved? (usable context / effective-vs-advertised)\n  * Phase B: prefill_tps and decode_tps AT depth L (speed at depth)\n"
+        },
+        {
+          "path": "tools/probes/raw_context_mtp_sweep.py",
+          "start_line": 1,
+          "end_line": 5,
+          "score": 60.0,
+          "text": "#!/usr/bin/env python3\n\"\"\"Localize raw ``/completion`` correctness by prompt shape and context depth.\n\nThis is deliberately separate from the chat context suite: it sends an untemplated\nprompt, calibrates that exact string with the live server tokenizer, and retains the\n"
+        },
+        {
+          "path": "docs/research/BACKLOG_V2_STATUS.md",
+          "start_line": 85,
+          "end_line": 88,
+          "score": 35.0,
+          "text": "| LAB-OPS-002 Interference matrix | \u2705 **COMPLETE / GPU MATERIAL** | Qualified 15-cell baseline/CPU/RAM/disk/GPU matrix. CPU/RAM/disk short-workload prefill degradation was 4.3\u20135.1%, below the 10% threshold. GPU matmul reduced decode 7.14% but, critically, raised gross prefill energy/token 54.0% and decode energy 8.30%, making same-GPU colocation material. See `runs/ops/LAB-OPS-002-INTERFERENCE-2026-08-22/RESULT.md`. |\n| LAB-OPS-003 Canonical context/VRAM envelope | \u2705 **COMPLETE / 81,920 MAX PASSING LADDER POINT** | Live-equivalent startup curve with the embedding resident left 4,599/4,151/3,927/3,703/2,807 MiB free at 65,536/81,920/90,112/98,304/131,072 context. The frozen 4 GiB reserve therefore passes through 81,920 and fails from 90,112 upward. Allocation evidence only; live 131k profile was restored unchanged. See `runs/ops/LAB-OPS-003-CONTEXT-VRAM-2026-08-22/RESULT.md`. |\n| Canonical context policy | \u2705 **RETAIN 131,072 / 81,920 RESERVE PROFILE** | RULER's bounded 128k evidence and the SERVE/LAB no-colocation boundary outweigh the extra idle reserve for the exclusive canonical endpoint. Keep 131,072 as default; use 81,920 only when a task explicitly requires the historical 4 GiB reserve. No service mutation was needed. See `runs/ops/CANONICAL-CONTEXT-POLICY-2026-08-22/DECISION.md`. |\n\n"
+        },
+        {
+          "path": "tools/analysis/optimize_config.py",
+          "start_line": 123,
+          "end_line": 125,
+          "score": 32.0,
+          "text": "\ndef fill_vram_first(model_key: str, ladder: list[int], ctx: int, *, reps: int,\n                    settle_s: float, no_mmap: bool, vram_floor_mb: int,\n"
+        },
+        {
+          "path": "tools/analysis/ab_isolate.py",
+          "start_line": 41,
+          "end_line": 43,
+          "score": 31.0,
+          "text": "    bootstrap_ci, sign_test_p, min_rounds_for, hodges_lehmann, mad, cliffs_delta)\nfrom model_lifecycle.control_plane.guard import Envelope            # noqa: E402\nfrom model_lifecycle.models import ab_models                        # noqa: E402\n"
+        }
+      ]
+    }
+  ],
+  "recall": 5,
+  "task_count": 5,
+  "tokenizer": "/home/augus/models/qwen38-27b/official-1d4bf0f2",
+  "pack_tokens": 3753,
+  "control_tokens": 23238,
+  "aggregate_reduction": 0.8384972889233153,
+  "decision": "PASS"
+}

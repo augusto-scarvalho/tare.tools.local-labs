@@ -1,0 +1,29 @@
+wsl.exe -d Ubuntu-24.04 -- /home/augus/sglang-venv/bin/python /mnt/c/projects/tare.tools.local-labs/ops/serving-campaign/lab_serve_bench.py --tag rep1_off_n4_o128 --outdir /mnt/c/projects/tare.tools.local-labs/runs/serving/LAB-SERVE-001d-2026-08-22/raw --base-url http://127.0.0.1:8092 --model qwen36-35b --tokenizer /home/augus/models/fp16/base --concurrency 4 --input-len 1024 --output-len 128 --num-prompts 32 --warmup 2
+{
+  "tag": "rep1_off_n4_o128",
+  "wall_s": 85.9,
+  "validity": {
+    "returncode": 1,
+    "completed": 0,
+    "requested": 32,
+    "success_all": false,
+    "total_output_tokens": 0,
+    "total_output_tokens_retokenized": 0,
+    "token_accounting_ratio": 0.0,
+    "token_accounting_sane": false,
+    "ttft_ms_median_positive": false
+  },
+  "gpu": {
+    "vram_peak_mb": 19637.0,
+    "vram_mean_mb": 19384.5,
+    "util_mean": 30.4,
+    "power_mean_w": 131.8,
+    "power_peak_w": 237.15,
+    "temp_peak_c": 55.0,
+    "n_samples": 157
+  },
+  "throughput": null,
+  "median_ttft_ms": null,
+  "median_tpot_ms": null
+}
+

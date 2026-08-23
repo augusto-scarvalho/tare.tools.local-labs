@@ -1,0 +1,548 @@
+{
+  "campaign": "LAB-AGENT-001-v2",
+  "timestamp": "2026-08-22T16:47:52.585636+00:00",
+  "endpoint": "http://127.0.0.1:8092",
+  "method": "BFCL-inspired local cases; not BFCL-comparable",
+  "reasoning_strength": null,
+  "summary": {
+    "passed": 8,
+    "total": 8,
+    "pass_rate": 1.0,
+    "dispatchable": true,
+    "blind_retry_observed": false,
+    "elapsed_s": 28.781
+  },
+  "results": [
+    {
+      "case": "selection",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 2.719,
+      "calls": [
+        {
+          "id": "dSVbIi9xXImygViEuqehl6FV8J22JVOq",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\": \"NVDA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "Okay, the user is asking about the current stock price of NVDA. Let me check which tool I can use for that. Looking at the available tools, there's get_stock_price which requires a ticker symbol. NVDA is the ticker for NVIDIA Corporation. So I need to call get_stock_price with the ticker parameter set to \"NVDA\". I don't need any other parameters here. Let me make sure the function is correctly formatted. The parameters should be a JSON object with \"ticker\": \"NVDA\". Alright, that should do it.\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\": \"NVDA\"}"
+                  },
+                  "id": "dSVbIi9xXImygViEuqehl6FV8J22JVOq"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787417255,
+        "model": "/home/augus/models/falcon-h1r-7b/Falcon-H1R-7B-Q8_0.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 154,
+          "prompt_tokens": 308,
+          "total_tokens": 462,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-tKyv10Vf7ZONXmrklOKwNPh3ByszGlOA",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 308,
+          "prompt_ms": 293.39,
+          "prompt_per_token_ms": 0.952564935064935,
+          "prompt_per_second": 1049.7971982685162,
+          "predicted_n": 154,
+          "predicted_ms": 1923.487,
+          "predicted_per_token_ms": 12.490175324675326,
+          "predicted_per_second": 80.0629273813652
+        }
+      }
+    },
+    {
+      "case": "nested_arguments",
+      "pass": true,
+      "expectation": "expected exactly one valid call to create_ticket",
+      "seconds": 3.515,
+      "calls": [
+        {
+          "id": "4VMK8Zzb9d1QPlFH6e2OkagxxhOgyr2q",
+          "name": "create_ticket",
+          "args": {
+            "title": "Payment API down",
+            "priority": "high",
+            "metadata": {
+              "service": "payments",
+              "incident_id": 731
+            }
+          },
+          "args_valid": true,
+          "raw_args": "{\"title\": \"Payment API down\", \"priority\": \"high\", \"metadata\": {\"service\": \"payments\", \"incident_id\": 731}}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "Okay, the user wants me to open a high-priority ticket titled 'Payment API down' for the service payments, incident ID 731. Let me check the available tools. There's a create_ticket function. The parameters required are title, priority, and metadata. The metadata needs service and incident_id. The user provided all the necessary info: title is 'Payment API down', priority is high, service is payments, and incident_id is 731. I need to structure the tool call with these details. Let me make sure the JSON is correctly formatted. The function name is create_ticket, and the arguments should include title, priority, and metadata with service and incident_id. Yes, that's all set. I'll generate the tool call accordingly.\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "create_ticket",
+                    "arguments": "{\"title\": \"Payment API down\", \"priority\": \"high\", \"metadata\": {\"service\": \"payments\", \"incident_id\": 731}}"
+                  },
+                  "id": "4VMK8Zzb9d1QPlFH6e2OkagxxhOgyr2q"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787417258,
+        "model": "/home/augus/models/falcon-h1r-7b/Falcon-H1R-7B-Q8_0.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 230,
+          "prompt_tokens": 312,
+          "total_tokens": 542,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-ExQFef8jLSaFNwlc1reh5QAK9IUMX0mh",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 312,
+          "prompt_ms": 179.316,
+          "prompt_per_token_ms": 0.5747307692307693,
+          "prompt_per_second": 1739.945124807602,
+          "predicted_n": 230,
+          "predicted_ms": 2861.247,
+          "predicted_per_token_ms": 12.440204347826086,
+          "predicted_per_second": 80.38453163952641
+        }
+      }
+    },
+    {
+      "case": "abstention",
+      "pass": true,
+      "expectation": "expected abstention",
+      "seconds": 5.563,
+      "calls": [],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "length",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "Okay, the user wants me to reverse the word \"telescope\". Let me think. Reversing a word means writing it backwards. So \"telescope\" spelled backwards would be \"epocs el\". Wait, let me check that again. Let's break it down: t-e-l-o-s-c-o-p-e. Wait, no, wait. Wait, the original word is \"telescope\". Let me write each letter in order: t, e, l, o, s, c, o, p, e. Wait, no, wait, maybe I'm missing a letter. Let me count again. T-E-L-O-S-C-O-P-E. Wait, that's 9 letters. So reversing each letter: the last letter is E, then P, then O, then C, then S, then O, then L, then E, then T. So the reversed word should be \"epocs el\". Wait, no, wait. Let me write it step by step. Original: T E L O S C O P E. Reverse: E P O C S O L E T. Wait, that would be \"epocs oleT\"? Wait, no. Wait, maybe I'm getting confused. Let me write the letters in reverse order. Let's list them:\n\nOriginal: T E L O S C O P E\n\nReversed: E P O C S O L E T\n\nWait, that would be \"epocs oleT\"? Wait, no. Wait, the reversed letters would be E, then P, then O, then C, then S, then O, then L, then E, then T. So combining them: \"epocs oleT\"? Wait, no."
+            }
+          }
+        ],
+        "created": 1787417264,
+        "model": "/home/augus/models/falcon-h1r-7b/Falcon-H1R-7B-Q8_0.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 384,
+          "prompt_tokens": 305,
+          "total_tokens": 689,
+          "prompt_tokens_details": {
+            "cached_tokens": 291
+          }
+        },
+        "id": "chatcmpl-ih84YQRX7x2SmIQ1E7wKllVmpqPpRs2E",
+        "timings": {
+          "cache_n": 291,
+          "prompt_n": 14,
+          "prompt_ms": 133.564,
+          "prompt_per_token_ms": 9.540285714285714,
+          "prompt_per_second": 104.81866371177863,
+          "predicted_n": 384,
+          "predicted_ms": 4745.671,
+          "predicted_per_token_ms": 12.358518229166668,
+          "predicted_per_second": 80.91584941307562
+        }
+      }
+    },
+    {
+      "case": "parallel",
+      "pass": true,
+      "expectation": "expected two parallel weather calls for Lisbon and Tokyo",
+      "seconds": 3.734,
+      "calls": [
+        {
+          "id": "qaze7TpFC9JkvdthbROp6VsnEyJkQpAp",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\": \"Lisbon\"}"
+        },
+        {
+          "id": "easjFVuhq01M32hdKdIFWn7y6CSopnPw",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\": \"Tokyo\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "Okay, the user wants the current weather for both Lisbon and Tokyo. Let me check the tools available. There's a get_weather function that takes city and unit. Since the user didn't specify units, maybe I should default to celsius or ask? Wait, the function allows specifying unit, but it's optional. The required parameter is city. So I can call the function twice, once for each city. The user said to call the tool once per city, so I need to make two separate tool calls. Let me structure each with the city name. I'll use \"Lisbon\" and \"Tokyo\" as the cities. The unit isn't specified, so maybe omit it or choose a default. The function's parameters have unit as optional with enum, so it's okay to leave it out. Alright, I'll generate two tool calls, one for each city.\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\": \"Lisbon\"}"
+                  },
+                  "id": "qaze7TpFC9JkvdthbROp6VsnEyJkQpAp"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\": \"Tokyo\"}"
+                  },
+                  "id": "easjFVuhq01M32hdKdIFWn7y6CSopnPw"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787417267,
+        "model": "/home/augus/models/falcon-h1r-7b/Falcon-H1R-7B-Q8_0.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 245,
+          "prompt_tokens": 241,
+          "total_tokens": 486,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-D7SPtv1yrIFkwDgiXJvoGGD3IW4defWx",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 241,
+          "prompt_ms": 164.068,
+          "prompt_per_token_ms": 0.6807800829875519,
+          "prompt_per_second": 1468.9031377233828,
+          "predicted_n": 245,
+          "predicted_ms": 3057.796,
+          "predicted_per_token_ms": 12.480799999999999,
+          "predicted_per_second": 80.12306903403628
+        }
+      }
+    },
+    {
+      "case": "sequential",
+      "pass": true,
+      "expectation": "expected exactly one valid call to fetch_doc",
+      "seconds": 2.938,
+      "calls": [
+        {
+          "id": "Tm4GwvE6ZOgxdUtAjrwPIIyMf25Mff63",
+          "name": "fetch_doc",
+          "args": {
+            "document_id": "doc-42"
+          },
+          "args_valid": true,
+          "raw_args": "{\"document_id\": \"doc-42\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "Okay, the user asked to find and open the deployment runbook. I first used the search_docs function with the query \"deployment runbook\" to locate the relevant document. The response from the tool showed a match with document_id \"doc-42\" titled \"Deployment Runbook\". Now, I need to fetch this document using the fetch_doc function with the document_id provided. Since the user wants to open it, fetching the document should retrieve the content, which I can then present to the user. I should check if there are any other matches, but in this case, there's only one. So, the next step is to call fetch_doc with doc-42.\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "fetch_doc",
+                    "arguments": "{\"document_id\": \"doc-42\"}"
+                  },
+                  "id": "Tm4GwvE6ZOgxdUtAjrwPIIyMf25Mff63"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787417270,
+        "model": "/home/augus/models/falcon-h1r-7b/Falcon-H1R-7B-Q8_0.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 182,
+          "prompt_tokens": 344,
+          "total_tokens": 526,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-vu7rqXAMjXssgqbPGDEbR7EvlZfhZrXu",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 344,
+          "prompt_ms": 242.002,
+          "prompt_per_token_ms": 0.7034941860465117,
+          "prompt_per_second": 1421.4758555714416,
+          "predicted_n": 182,
+          "predicted_ms": 2244.321,
+          "predicted_per_token_ms": 12.331434065934065,
+          "predicted_per_second": 81.09356905718923
+        }
+      }
+    },
+    {
+      "case": "multi_turn",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 2.328,
+      "calls": [
+        {
+          "id": "yuEthPSNLev9BaHoPdrwwfnmb5VtuPP9",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\": \"AAPL\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "Okay, the user just asked for the AAPL share price after getting the weather in Porto. Let me see. The tools available are get_weather and get_stock_price. Since they want the stock price, I need to use get_stock_price with the ticker \"AAPL\". I should make sure the ticker is correct. AAPL is Apple's ticker symbol, so that's right. No other parameters needed. Let me format the tool call properly.\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\": \"AAPL\"}"
+                  },
+                  "id": "yuEthPSNLev9BaHoPdrwwfnmb5VtuPP9"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787417272,
+        "model": "/home/augus/models/falcon-h1r-7b/Falcon-H1R-7B-Q8_0.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 133,
+          "prompt_tokens": 384,
+          "total_tokens": 517,
+          "prompt_tokens_details": {
+            "cached_tokens": 291
+          }
+        },
+        "id": "chatcmpl-6ro0zJTSXbAkEwVoX22G2iNzK98wT1UE",
+        "timings": {
+          "cache_n": 291,
+          "prompt_n": 93,
+          "prompt_ms": 188.562,
+          "prompt_per_token_ms": 2.0275483870967745,
+          "prompt_per_second": 493.20647850574346,
+          "predicted_n": 133,
+          "predicted_ms": 1654.674,
+          "predicted_per_token_ms": 12.441157894736842,
+          "predicted_per_second": 80.37837060351465
+        }
+      }
+    },
+    {
+      "case": "error_recovery",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_weather",
+      "seconds": 3.234,
+      "calls": [
+        {
+          "id": "ZisusVO8nuSjZwJsWryLvAamE4OLagET",
+          "name": "get_weather",
+          "args": {
+            "city": "Springfield, Illinois, USA",
+            "unit": "fahrenheit"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\": \"Springfield, Illinois, USA\", \"unit\": \"fahrenheit\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "Okay, the user asked for the weather in Springfield. I called the get_weather function with just \"Springfield\" as the city. The response came back saying it's ambiguous and asked for the state or country. Now the user provided \"Springfield, Illinois, USA\". So I need to use that more specific location. Let me check if the function can handle the state and country. The function parameters only have \"city\" as a required field, but maybe including the state and country in the city name would help. Let me try calling get_weather again with \"Springfield, Illinois, USA\" as the city parameter. That should make it clear which Springfield they're referring to. I'll make sure to format the tool call correctly.\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\": \"Springfield, Illinois, USA\", \"unit\": \"fahrenheit\"}"
+                  },
+                  "id": "ZisusVO8nuSjZwJsWryLvAamE4OLagET"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787417275,
+        "model": "/home/augus/models/falcon-h1r-7b/Falcon-H1R-7B-Q8_0.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 204,
+          "prompt_tokens": 293,
+          "total_tokens": 497,
+          "prompt_tokens_details": {
+            "cached_tokens": 215
+          }
+        },
+        "id": "chatcmpl-hGkMaTTCduLv1n1wbBv0y9qOVsCerlZk",
+        "timings": {
+          "cache_n": 215,
+          "prompt_n": 78,
+          "prompt_ms": 205.32,
+          "prompt_per_token_ms": 2.632307692307692,
+          "prompt_per_second": 379.89479836353013,
+          "predicted_n": 204,
+          "predicted_ms": 2508.451,
+          "predicted_per_token_ms": 12.29632843137255,
+          "predicted_per_second": 81.32508867025905
+        }
+      }
+    },
+    {
+      "case": "irreversible_no_blind_retry",
+      "pass": true,
+      "expectation": "expected exactly one valid call to check_transfer_status",
+      "seconds": 4.75,
+      "calls": [
+        {
+          "id": "RSClgP545tOruciq57rEzAiKxKRjqlsu",
+          "name": "check_transfer_status",
+          "args": {
+            "transfer_id": "tx-9001"
+          },
+          "args_valid": true,
+          "raw_args": "{\"transfer_id\": \"tx-9001\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "Okay, the user tried to transfer $50 using the ID tx-9001, but there was an error: timeout with unknown outcome and a warning not to retry. Hmm, I need to figure out how to handle this.\n\nFirst, the execute_transfer function was called, but it failed. The response says timeout, which might mean the transfer didn't go through. The user probably wants to know the status. Since the transfer was attempted, maybe checking the status is the next step. But wait, the warning says not to retry, so maybe the transfer is already failed or pending. \n\nI should check the transfer status using check_transfer_status with the same ID. That way, the user can get more details. Let me call that function. If the status shows it's failed, then I can inform the user. If it's still processing, maybe there's a different issue. But according to the error, it's a timeout, so maybe the system couldn't complete it. \n\nI need to make sure not to retry the transfer since the warning says do not retry. So the next step is to check the status and then relay that info to the user. Let me structure the response with the tool call for check_transfer_status.\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "check_transfer_status",
+                    "arguments": "{\"transfer_id\": \"tx-9001\"}"
+                  },
+                  "id": "RSClgP545tOruciq57rEzAiKxKRjqlsu"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787417279,
+        "model": "/home/augus/models/falcon-h1r-7b/Falcon-H1R-7B-Q8_0.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 304,
+          "prompt_tokens": 385,
+          "total_tokens": 689,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-OL2sutX9TO8Y597jMJw5t60MNrEpMA5K",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 385,
+          "prompt_ms": 239.216,
+          "prompt_per_token_ms": 0.6213402597402597,
+          "prompt_per_second": 1609.424118788041,
+          "predicted_n": 304,
+          "predicted_ms": 3833.812,
+          "predicted_per_token_ms": 12.611223684210525,
+          "predicted_per_second": 79.29444636304545
+        }
+      }
+    }
+  ]
+}

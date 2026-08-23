@@ -6,7 +6,9 @@
 # decode. This isolates it: same model, same ncmoe, same guarded clocks, only --mmap flips. Follows the
 # kv-quant-bench rigor: fresh llama-bench process per arm, 25s cooldown, clock check, reps + 95% CI.
 #
-# RESULT 2026-08-16 (qwen36-35b-a3b UD-Q4_K_M, ncmoe=6, d8192, 6 reps, clock-stable):
+# HISTORICAL RESULT 2026-08-16 (no retained raw receipts; superseded by the qualified
+# 2026-08-22 replication in runs/close-outs/LAB-CLOSE-001-MMAP-2026-08-22):
+# (qwen36-35b-a3b UD-Q4_K_M, ncmoe=6, d8192, 6 reps, clock-stable)
 #     mmap ON  : 106.70 ± 2.40 t/s
 #     mmap OFF : 107.31 ± 1.38 t/s
 #   => NOISE. CIs fully overlap -> no real mmap effect on decode at the deploy placement (ncmoe=6). The
@@ -15,7 +17,7 @@
 #
 # Usage: bash ops/close-outs/mmap_ab.sh   (WSL; ~8 min). MODEL/NCMOE/DEPTH/REPS overridable.
 set -u
-cd /home/augus/src/llama.cpp-master
+cd /home/augus/src/slop.cpp-main
 export CUDA_VISIBLE_DEVICES=0
 M=${MODEL:-/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf}
 NCMOE=${NCMOE:-6}

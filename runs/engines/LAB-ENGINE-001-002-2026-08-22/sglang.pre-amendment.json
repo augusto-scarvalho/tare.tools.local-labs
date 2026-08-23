@@ -1,0 +1,441 @@
+{
+  "engine": "sglang",
+  "valid": true,
+  "argv": [
+    "wsl",
+    "-d",
+    "Ubuntu-24.04",
+    "--",
+    "/home/augus/sglang-venv/bin/python",
+    "-m",
+    "sglang.launch_server",
+    "--model-path",
+    "/home/augus/models/engine-parity-qwen3-4b",
+    "--host",
+    "0.0.0.0",
+    "--port",
+    "8092",
+    "--context-length",
+    "8192",
+    "--mem-fraction-static",
+    "0.70",
+    "--dtype",
+    "bfloat16"
+  ],
+  "load_s": 56.65700000000652,
+  "resident_mib": 18544,
+  "peak_mib": 18576,
+  "warmup": {
+    "prefill": {
+      "ok": true,
+      "t_first_s": 1.047000000020489,
+      "total_s": 4.702999999979511,
+      "decode_window_s": 3.655999999959022,
+      "prompt_tokens": 1708,
+      "completion_tokens": 8,
+      "prefill_tps": 1631.3276026423835,
+      "decode_tps": 2.1881838074643514,
+      "finish_reason": "stop",
+      "content": "The primary resource is memory bandwidth.",
+      "reasoning_content": ""
+    },
+    "decode": {
+      "ok": true,
+      "t_first_s": 3.969000000040978,
+      "total_s": 5.657000000006519,
+      "decode_window_s": 1.687999999965541,
+      "prompt_tokens": 42,
+      "completion_tokens": 134,
+      "prefill_tps": 10.582010581901327,
+      "decode_tps": 79.38388625754472,
+      "finish_reason": "stop",
+      "content": "Memory bandwidth can limit autoregressive token generation on a single consumer GPU because the process of generating each subsequent token requires frequent access to memory to retrieve the previous tokens' information and to store the new token. As the sequence grows, the amount of data that needs to be moved between memory and the processing unit increases, leading to higher memory bandwidth demands. If the available memory bandwidth is insufficient to keep up with the data transfer rate, the GPU becomes a bottleneck, causing delays and reducing the overall throughput of the generation process. This limitation is particularly pronounced in long sequences, where the memory bandwidth becomes a critical factor in determining the efficiency and speed of autoregressive generation.",
+      "reasoning_content": ""
+    }
+  },
+  "records": [
+    {
+      "round": 0,
+      "prefill": {
+        "ok": true,
+        "t_first_s": 0.09299999999348074,
+        "total_s": 0.1720000000204891,
+        "decode_window_s": 0.07900000002700835,
+        "prompt_tokens": 1708,
+        "completion_tokens": 8,
+        "prefill_tps": 18365.591399136883,
+        "decode_tps": 101.26582275018959,
+        "finish_reason": "stop",
+        "content": "The primary resource is memory bandwidth.",
+        "reasoning_content": ""
+      },
+      "decode": {
+        "ok": true,
+        "t_first_s": 0.045999999972991645,
+        "total_s": 1.5929999999934807,
+        "decode_window_s": 1.547000000020489,
+        "prompt_tokens": 42,
+        "completion_tokens": 134,
+        "prefill_tps": 913.0434787969522,
+        "decode_tps": 86.6192630887041,
+        "finish_reason": "stop",
+        "content": "Memory bandwidth can limit autoregressive token generation on a single consumer GPU because the process of generating each subsequent token requires frequent access to memory to retrieve the previous tokens' information and to store the new token. As the sequence grows, the amount of data that needs to be moved between memory and the processing unit increases, leading to higher memory bandwidth demands. If the available memory bandwidth is insufficient to keep up with the data transfer rate, the GPU becomes a bottleneck, causing delays and reducing the overall throughput of the generation process. This limitation is particularly pronounced in long sequences, where the memory bandwidth becomes a critical factor in determining the efficiency and speed of autoregressive generation.",
+        "reasoning_content": ""
+      }
+    },
+    {
+      "round": 1,
+      "prefill": {
+        "ok": true,
+        "t_first_s": 0.03200000000651926,
+        "total_s": 0.125,
+        "decode_window_s": 0.09299999999348074,
+        "prompt_tokens": 1708,
+        "completion_tokens": 8,
+        "prefill_tps": 53374.99998912608,
+        "decode_tps": 86.02150538237416,
+        "finish_reason": "stop",
+        "content": "The primary resource is memory bandwidth.",
+        "reasoning_content": ""
+      },
+      "decode": {
+        "ok": true,
+        "t_first_s": 0.03200000000651926,
+        "total_s": 1.577999999979511,
+        "decode_window_s": 1.5459999999729916,
+        "prompt_tokens": 42,
+        "completion_tokens": 134,
+        "prefill_tps": 1312.4999997326086,
+        "decode_tps": 86.67529107525289,
+        "finish_reason": "stop",
+        "content": "Memory bandwidth can limit autoregressive token generation on a single consumer GPU because the process of generating each subsequent token requires frequent access to memory to retrieve the previous tokens' information and to store the new token. As the sequence grows, the amount of data that needs to be moved between memory and the processing unit increases, leading to higher memory bandwidth demands. If the available memory bandwidth is insufficient to keep up with the data transfer rate, the GPU becomes a bottleneck, causing delays and reducing the overall throughput of the generation process. This limitation is particularly pronounced in long sequences, where the memory bandwidth becomes a critical factor in determining the efficiency and speed of autoregressive generation.",
+        "reasoning_content": ""
+      }
+    },
+    {
+      "round": 2,
+      "prefill": {
+        "ok": true,
+        "t_first_s": 0.0470000000204891,
+        "total_s": 0.125,
+        "decode_window_s": 0.0779999999795109,
+        "prompt_tokens": 1708,
+        "completion_tokens": 8,
+        "prefill_tps": 36340.42551607271,
+        "decode_tps": 102.56410259104418,
+        "finish_reason": "stop",
+        "content": "The primary resource is memory bandwidth.",
+        "reasoning_content": ""
+      },
+      "decode": {
+        "ok": true,
+        "t_first_s": 0.03200000000651926,
+        "total_s": 1.5790000000270084,
+        "decode_window_s": 1.547000000020489,
+        "prompt_tokens": 42,
+        "completion_tokens": 134,
+        "prefill_tps": 1312.4999997326086,
+        "decode_tps": 86.6192630887041,
+        "finish_reason": "stop",
+        "content": "Memory bandwidth can limit autoregressive token generation on a single consumer GPU because the process of generating each subsequent token requires frequent access to memory to retrieve the previous tokens' information and to store the new token. As the sequence grows, the amount of data that needs to be moved between memory and the processing unit increases, leading to higher memory bandwidth demands. If the available memory bandwidth is insufficient to keep up with the data transfer rate, the GPU becomes a bottleneck, causing delays and reducing the overall throughput of the generation process. This limitation is particularly pronounced in long sequences, where the memory bandwidth becomes a critical factor in determining the efficiency and speed of autoregressive generation.",
+        "reasoning_content": ""
+      }
+    },
+    {
+      "round": 3,
+      "prefill": {
+        "ok": true,
+        "t_first_s": 0.031000000017229468,
+        "total_s": 0.125,
+        "decode_window_s": 0.09399999998277053,
+        "prompt_tokens": 1708,
+        "completion_tokens": 8,
+        "prefill_tps": 55096.77416292619,
+        "decode_tps": 85.10638299432274,
+        "finish_reason": "stop",
+        "content": "The primary resource is memory bandwidth.",
+        "reasoning_content": ""
+      },
+      "decode": {
+        "ok": true,
+        "t_first_s": 0.031000000017229468,
+        "total_s": 1.5929999999934807,
+        "decode_window_s": 1.5619999999762513,
+        "prompt_tokens": 42,
+        "completion_tokens": 134,
+        "prefill_tps": 1354.8387089244145,
+        "decode_tps": 85.7874519859394,
+        "finish_reason": "stop",
+        "content": "Memory bandwidth can limit autoregressive token generation on a single consumer GPU because the process of generating each subsequent token requires frequent access to memory to retrieve the previous tokens' information and to store the new token. As the sequence grows, the amount of data that needs to be moved between memory and the processing unit increases, leading to higher memory bandwidth demands. If the available memory bandwidth is insufficient to keep up with the data transfer rate, the GPU becomes a bottleneck, causing delays and reducing the overall throughput of the generation process. This limitation is particularly pronounced in long sequences, where the memory bandwidth becomes a critical factor in determining the efficiency and speed of autoregressive generation.",
+        "reasoning_content": ""
+      }
+    },
+    {
+      "round": 4,
+      "prefill": {
+        "ok": true,
+        "t_first_s": 0.01600000000325963,
+        "total_s": 0.10999999998603016,
+        "decode_window_s": 0.09399999998277053,
+        "prompt_tokens": 1708,
+        "completion_tokens": 8,
+        "prefill_tps": 106749.99997825216,
+        "decode_tps": 85.10638299432274,
+        "finish_reason": "stop",
+        "content": "The primary resource is memory bandwidth.",
+        "reasoning_content": ""
+      },
+      "decode": {
+        "ok": true,
+        "t_first_s": 0.031000000017229468,
+        "total_s": 1.5780000000377186,
+        "decode_window_s": 1.547000000020489,
+        "prompt_tokens": 42,
+        "completion_tokens": 134,
+        "prefill_tps": 1354.8387089244145,
+        "decode_tps": 86.6192630887041,
+        "finish_reason": "stop",
+        "content": "Memory bandwidth can limit autoregressive token generation on a single consumer GPU because the process of generating each subsequent token requires frequent access to memory to retrieve the previous tokens' information and to store the new token. As the sequence grows, the amount of data that needs to be moved between memory and the processing unit increases, leading to higher memory bandwidth demands. If the available memory bandwidth is insufficient to keep up with the data transfer rate, the GPU becomes a bottleneck, causing delays and reducing the overall throughput of the generation process. This limitation is particularly pronounced in long sequences, where the memory bandwidth becomes a critical factor in determining the efficiency and speed of autoregressive generation.",
+        "reasoning_content": ""
+      }
+    }
+  ],
+  "medians": {
+    "prefill_tps": 53374.99998912608,
+    "prefill_ttft_s": 0.03200000000651926,
+    "decode_tps": 86.6192630887041,
+    "decode_ttft_s": 0.03200000000651926,
+    "decode_total_s": 1.5790000000270084
+  },
+  "vram_samples": [
+    {
+      "elapsed_s": 409655.781,
+      "used_mib": 18546
+    },
+    {
+      "elapsed_s": 409656.125,
+      "used_mib": 18548
+    },
+    {
+      "elapsed_s": 409656.453,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409656.796,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409657.125,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409657.453,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409657.781,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409658.125,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409658.453,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409658.765,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409659.093,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409659.437,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409659.765,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409660.109,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409660.437,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409660.765,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409661.109,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409661.421,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409661.75,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409662.093,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409662.406,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409662.75,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409663.078,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409663.406,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409663.734,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409664.062,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409664.39,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409664.734,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409665.078,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409665.421,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409665.765,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409666.093,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409666.421,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409666.781,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409667.093,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409667.421,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409667.75,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409668.093,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409668.421,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409668.781,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409669.109,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409669.437,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409669.781,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409670.109,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409670.453,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409670.796,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409671.125,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409671.453,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409671.796,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409672.14,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409672.468,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409672.796,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409673.125,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409673.453,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409673.781,
+      "used_mib": 18576
+    },
+    {
+      "elapsed_s": 409674.125,
+      "used_mib": 18573
+    },
+    {
+      "elapsed_s": 409674.437,
+      "used_mib": 18573
+    }
+  ],
+  "server_log": "C:\\projects\\tare.tools.local-labs\\runs\\engines\\LAB-ENGINE-001-002-2026-08-22\\sglang-server.log"
+}

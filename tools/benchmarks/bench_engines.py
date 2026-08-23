@@ -49,7 +49,7 @@ SGLANG_PY = "/home/augus/sglang-venv/bin/python"
 # The MXFP4 HF dir is SGLang-specific (not a GGUF, no block_count in the registry sense),
 # so it stays a local constant. The GGUF side comes from the shared registry.
 SGLANG_MODEL = "/home/augus/models/gpt-oss-20b-mxfp4"
-LOCAL_BIN = "/home/augus/src/llama.cpp-local/build/bin/llama-server"
+LOCAL_BIN = "/home/augus/src/slop.cpp-local/build/bin/llama-server"
 GGUF = MODELS["gpt-oss-20b-q4"].path
 OUT = pathlib.Path(__file__).parent / "runs" / "bench-gptoss"
 PORT = 8080

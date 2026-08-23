@@ -23,7 +23,7 @@ import time
 import urllib.request
 from collections import Counter, defaultdict
 
-OUT = pathlib.Path("/mnt/c/projects/local-model-lifecycle/runs/m-a-vqa")
+DEFAULT_OUT = pathlib.Path(__file__).resolve().parents[2] / "runs" / "m-a-vqa"
 
 INSTR = ("\nAnswer with ONLY the single option letter (A, B, C, or D). "
          "Do not explain. Output just the letter.")
@@ -90,6 +90,7 @@ def main() -> int:
     ap.add_argument("--n-per-cat", type=int, default=25)
     ap.add_argument("--max-tokens", type=int, default=512)
     ap.add_argument("--seed", type=int, default=20260806)
+    ap.add_argument("--output-dir", type=pathlib.Path, default=DEFAULT_OUT)
     a = ap.parse_args()
 
     items = load_subset(a.n_per_cat, a.seed)
@@ -122,8 +123,8 @@ def main() -> int:
     for cat in sorted(total):
         print(f"    {cat:26} {correct[cat]:3}/{total[cat]:<3} = {correct[cat]/total[cat]:.3f}")
 
-    OUT.mkdir(parents=True, exist_ok=True)
-    outf = OUT / f"MMSTAR_{a.tag}.json"
+    a.output_dir.mkdir(parents=True, exist_ok=True)
+    outf = a.output_dir / f"MMSTAR_{a.tag}.json"
     outf.write_text(json.dumps({"tag": a.tag, "n": n, "overall_acc": round(c/n, 4),
                                 "per_cat": {k: [correct[k], total[k]] for k in total},
                                 "unparsed": unparsed, "records": recs}, indent=2))

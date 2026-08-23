@@ -1,0 +1,321 @@
+{
+  "schema": "tare.ruler.summary.v1",
+  "receipts": {
+    "path": "/mnt/c/projects/tare.tools.local-labs/runs/context/LAB-CTX-002-RULER-V1-2026-08-22/receipts.jsonl",
+    "rows": 38,
+    "sha256": "d073679031679bf67026e2094a920fb7a993e5864eb00fe9c3ff263e64319dc8"
+  },
+  "by_length": {
+    "65536": {
+      "pilot_n_tasks": 13,
+      "pilot_macro_accuracy": 0.8282051282051283,
+      "bounded_panel_macro_accuracy": 0.9196581196581197,
+      "task_accuracy": {
+        "cwe": 0.39999999999999997,
+        "fwe": 0.8888888888888888,
+        "niah_multikey_1": 1.0,
+        "niah_multikey_2": 1.0,
+        "niah_multikey_3": 1.0,
+        "niah_multiquery": 1.0,
+        "niah_multivalue": 1.0,
+        "niah_single_1": 1.0,
+        "niah_single_2": 1.0,
+        "niah_single_3": 1.0,
+        "qa_1": 1.0,
+        "qa_2": 1.0,
+        "vt": 0.6666666666666666
+      },
+      "task_n": {
+        "cwe": 3,
+        "fwe": 3,
+        "niah_multikey_1": 1,
+        "niah_multikey_2": 1,
+        "niah_multikey_3": 1,
+        "niah_multiquery": 1,
+        "niah_multivalue": 1,
+        "niah_single_1": 1,
+        "niah_single_2": 1,
+        "niah_single_3": 1,
+        "qa_1": 1,
+        "qa_2": 1,
+        "vt": 3
+      },
+      "receipt_n": 19,
+      "prompt_tokens_min": 57736,
+      "prompt_tokens_max": 65445,
+      "wall_seconds": 1158.2263668320084,
+      "finish_reason_counts": {
+        "length": 4,
+        "stop": 15
+      }
+    },
+    "131072": {
+      "pilot_n_tasks": 13,
+      "pilot_macro_accuracy": 1.0,
+      "bounded_panel_macro_accuracy": 1.0,
+      "task_accuracy": {
+        "cwe": 1.0,
+        "fwe": 1.0,
+        "niah_multikey_1": 1.0,
+        "niah_multikey_2": 1.0,
+        "niah_multikey_3": 1.0,
+        "niah_multiquery": 1.0,
+        "niah_multivalue": 1.0,
+        "niah_single_1": 1.0,
+        "niah_single_2": 1.0,
+        "niah_single_3": 1.0,
+        "qa_1": 1.0,
+        "qa_2": 1.0,
+        "vt": 1.0
+      },
+      "task_n": {
+        "cwe": 3,
+        "fwe": 3,
+        "niah_multikey_1": 1,
+        "niah_multikey_2": 1,
+        "niah_multikey_3": 1,
+        "niah_multiquery": 1,
+        "niah_multivalue": 1,
+        "niah_single_1": 1,
+        "niah_single_2": 1,
+        "niah_single_3": 1,
+        "qa_1": 1,
+        "qa_2": 1,
+        "vt": 3
+      },
+      "receipt_n": 19,
+      "prompt_tokens_min": 123364,
+      "prompt_tokens_max": 130994,
+      "wall_seconds": 2984.50196703698,
+      "finish_reason_counts": {
+        "stop": 19
+      }
+    }
+  },
+  "dataset_manifests": [
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "131072/cwe/test.jsonl",
+      "bytes": 244130,
+      "lines": 1,
+      "sha256": "020258b07f2385da5a47e0575a8263a5f589678712818f524dada94a57fe3a4e"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "131072/fwe/test.jsonl",
+      "bytes": 344433,
+      "lines": 1,
+      "sha256": "398c81cd05ef8d8add9767f0e4e8232131f5037890dff3acd6dbeaac5ebeee9b"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "131072/niah_multikey_1/test.jsonl",
+      "bytes": 610818,
+      "lines": 1,
+      "sha256": "bd3acb7b2870a9924cf438ff25ce79e6531291a4a34ec54a08eee28aa95b1de2"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "131072/niah_multikey_2/test.jsonl",
+      "bytes": 385798,
+      "lines": 1,
+      "sha256": "25829df20daa277e5e46938dda77543dbab6eacca16420056d4adfe39149199e"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "131072/niah_multikey_3/test.jsonl",
+      "bytes": 195784,
+      "lines": 1,
+      "sha256": "6fa05a20710f6d94a758496c63336214432d19f122bb85ff6effee736870a8d3"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "131072/niah_multiquery/test.jsonl",
+      "bytes": 610795,
+      "lines": 1,
+      "sha256": "d665aee7b2e7515263336901e86e0e2f51ad8c307aa5ede2a3695caf307786c4"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "131072/niah_multivalue/test.jsonl",
+      "bytes": 610874,
+      "lines": 1,
+      "sha256": "4a183e60e1d9aedfc1d5eae0def5441c07bd9abe4d2a80a4b1cc44da5e32c785"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "131072/niah_single_1/test.jsonl",
+      "bytes": 476640,
+      "lines": 1,
+      "sha256": "56c577368a8b85c40a576161fa279be9364edb240f67a46c99a9f9f47d581628"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "131072/niah_single_2/test.jsonl",
+      "bytes": 613697,
+      "lines": 1,
+      "sha256": "4cf578097d0ee139838858f62dfadaa4bbf19f4edf658b49128086ce139be631"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "131072/niah_single_3/test.jsonl",
+      "bytes": 613621,
+      "lines": 1,
+      "sha256": "2677d94fc2d7e9941930cbb45f3d6f7386834c1c28eb251fc0246667a9bd8b0d"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "131072/qa_1/test.jsonl",
+      "bytes": 603531,
+      "lines": 1,
+      "sha256": "6b3104550c07c44588de3300cf035c60969ab32c191ecdff982b220b4546a47f"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "131072/qa_2/test.jsonl",
+      "bytes": 532590,
+      "lines": 1,
+      "sha256": "e396386174e95934995e3de7c939dd21a8fa7550c2dd6d2b4faf743381062bc0"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "131072/vt/test.jsonl",
+      "bytes": 476825,
+      "lines": 1,
+      "sha256": "801d2ce3a8637f46308a6cbcc8ee79e96fd03e8a22a477ae47184a6116b847c8"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "65536/cwe/test.jsonl",
+      "bytes": 125680,
+      "lines": 1,
+      "sha256": "d65c8d0ce6213236dd95a8bc866f93eadb504b8582730963f389c88b65be5179"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "65536/fwe/test.jsonl",
+      "bytes": 171881,
+      "lines": 1,
+      "sha256": "bc8a5047f7a4a96c1bf1a4dcf8af8e535e48ea862f0bd1860041349cd450399c"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "65536/niah_multikey_1/test.jsonl",
+      "bytes": 304637,
+      "lines": 1,
+      "sha256": "ac018524f88a95fb6681f1b267232d6edc63b6c45fd6be8426d182408e083110"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "65536/niah_multikey_2/test.jsonl",
+      "bytes": 191141,
+      "lines": 1,
+      "sha256": "ed492904e8b29cf897d94020f04fdc62928f6e84d06a699f24d092cc7fc015be"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "65536/niah_multikey_3/test.jsonl",
+      "bytes": 98032,
+      "lines": 1,
+      "sha256": "ee77157edad3ad986f0eebbd149dc473bef6ee33822e41d777a002648720c0ce"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "65536/niah_multiquery/test.jsonl",
+      "bytes": 304735,
+      "lines": 1,
+      "sha256": "7d0e06e1e085bc964599f54f276fe5ce144874fa6478b13fbd7ada614d53ceb3"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "65536/niah_multivalue/test.jsonl",
+      "bytes": 307502,
+      "lines": 1,
+      "sha256": "214be6054e89a5f644f9ad0aa158cd39bbbb5b3be9c537d56c43de0e54c4e4ee"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "65536/niah_single_1/test.jsonl",
+      "bytes": 238024,
+      "lines": 1,
+      "sha256": "54c1a791d6d520f88885e35ee86b882aa83c42c0ae8b696707c769f5b6a2688d"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "65536/niah_single_2/test.jsonl",
+      "bytes": 307508,
+      "lines": 1,
+      "sha256": "7a1b2ca9b312559d526bfb288596402b26d1fb14f2503c6b478968f7f56698f9"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "65536/niah_single_3/test.jsonl",
+      "bytes": 304653,
+      "lines": 1,
+      "sha256": "8e41c231042cac17c29930623abfad6ed7106c4ea06b3da83679d8ebbc466611"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "65536/qa_1/test.jsonl",
+      "bytes": 297486,
+      "lines": 1,
+      "sha256": "1923286841f17a338b408096ab9c0342c4cc795b0b22db7dd3600bf3d1620ce1"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "65536/qa_2/test.jsonl",
+      "bytes": 258499,
+      "lines": 1,
+      "sha256": "94489fe14cb61b276ec73b0e2a2dd01bf28bf07adef5cedc48833a3befcad7cb"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-pilot",
+      "path": "65536/vt/test.jsonl",
+      "bytes": 238221,
+      "lines": 1,
+      "sha256": "7f4fbe55e7aacd716916ca15ccff95931f2cb3c380831212b5bdf4335e0ffdd3"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-replication",
+      "path": "131072/cwe/test.jsonl",
+      "bytes": 731972,
+      "lines": 3,
+      "sha256": "1a3844159d59ec103c9aa453f0961cbfb816401971840fe049c21ec9415f5b06"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-replication",
+      "path": "131072/fwe/test.jsonl",
+      "bytes": 991059,
+      "lines": 3,
+      "sha256": "3122d25b6bc8db03b04beeb11d27e55e75e9940901732e9763505b9b8949a5a1"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-replication",
+      "path": "131072/vt/test.jsonl",
+      "bytes": 1430475,
+      "lines": 3,
+      "sha256": "3e4ff69366aff0f5e7175cd55d67d834676ad7fedcb39109a5c1572986d33924"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-replication",
+      "path": "65536/cwe/test.jsonl",
+      "bytes": 376237,
+      "lines": 3,
+      "sha256": "439fda0d62f1ed5e9200d6aa1bb858c40857d91b661ce77ba0dd3193f8974136"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-replication",
+      "path": "65536/fwe/test.jsonl",
+      "bytes": 515643,
+      "lines": 3,
+      "sha256": "8555aab9ecdbf958dbf8de03324a33789774fe096f57a330161b0db6390d350f"
+    },
+    {
+      "root": "/home/augus/datasets/ruler-qwen38-replication",
+      "path": "65536/vt/test.jsonl",
+      "bytes": 714663,
+      "lines": 3,
+      "sha256": "145cb3f27e9375be730c4d6d168eb40bbb2e122a9c21a59e004554794c509c69"
+    }
+  ]
+}

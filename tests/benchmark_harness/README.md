@@ -30,6 +30,10 @@ EvalPlus uses, on a fixture instead of the dataset. Emits `benchmark_selftest_re
 | **stale result cache → invalidation forced** | **2026-08-10 `81eed6d`**: EvalPlus reuses `<padded>_eval_results.json` if present → re-scoring a corrected file returned **stale** verdicts. The test emulates EvalPlus's skip-if-exists and proves `bust_stale_results` fixes it. |
 | wrong benchmark version | a score under a different version must not be compared as-is |
 | wrong dataset hash | an edited/swapped dataset changes its content hash |
+| exact-value substring/wrapper rejection | MQAR must not accept `100` inside `1000` or prose |
+| strict GSM8K final line | primary scoring requires the declared `#### <number>` contract |
+| score-bearing content hash | changing a gold answer invalidates benchmark identity |
+| Wilson interval guards | finite-sample accuracy exposes uncertainty; empty denominators fail closed |
 
 ## Metamorphic tests (same-meaning input → same result)
 reorder samples · rerun scorer · irrelevant metadata · fresh-vs-cached evaluation.
@@ -40,7 +44,7 @@ here.** When adding a benchmark (e.g. BigCodeBench, SWE-bench, RULER — Backlog
 its harness-qualification cases to this suite first.
 
 ## Integration sentinel (WA-CLOSE-002) — the REAL EvalPlus, not the emulation
-The 16 cases above are fast/unit and use an in-process `_mini_score` + an emulated cache. Separately,
+The 23 cases above are fast/unit and use an in-process `_mini_score` + an emulated cache. Separately,
 `evalplus_sentinel.py` drives the **actually-installed EvalPlus end-to-end** on a tiny deterministic
 fixture (HumanEval/0: prompt+canonical → PASS; prompt+wrong → FAIL; and the real stale-result
 boundary). No GPU, ~1-2 min. Run in the EvalPlus venv:
@@ -51,7 +55,7 @@ Records the real evalplus version (0.3.1 as of 2026-08-10) + raw stdout in
 `evalplus_sentinel_report.json`. Keep this marked integration/e2e; do not fold it into the unit run.
 
 ## Files
-- `benchmark_harness_selftest.py` — the unit runner (16 cases, emulated, fast, no venv).
+- `benchmark_harness_selftest.py` — the unit runner (23 cases, emulated, fast, no venv).
 - `evalplus_sentinel.py` — the integration/e2e sentinel (real EvalPlus, WSL venv). *(WA-CLOSE-002)*
 - `benchmark_fixture_manifest.json` — fixture + coverage description.
 - `benchmark_selftest_report.json` / `evalplus_sentinel_report.json` — last-run machine-readable results.

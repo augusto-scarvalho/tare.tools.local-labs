@@ -19,13 +19,17 @@ and always accepted, so they are the safe choice across builds.
 """
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass, field
 
 from .models import MODELS
 
-# The consolidated fork / deploy binary (branch `lifecycle`). This is THE binary now, newer
-# than the older llama.cpp-local that serve.py still points at. Judges + deploy both use it.
-DEFAULT_BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+# The canonical worktree can be overridden without editing the repository. The default
+# follows docs/PATH_CONTRACT.md; the legacy llama.cpp-master alias remains compatible.
+DEFAULT_BIN = os.environ.get(
+    "SLOP_CPP_MAIN_SERVER_BIN",
+    "/home/augus/src/slop.cpp-main/build/bin/llama-server",
+)
 
 
 @dataclass(frozen=True)
@@ -74,6 +78,16 @@ SERVE_PROFILES: dict[str, ServeSpec] = {
         note="Project deploy (DEPLOY.md TL;DR, validated 2026-08-04: 127-130 t/s, 83% "
              "accept). Qwen3.6-35B MoE, ncmoe=8 + MTP self-draft. For 128k: -c 131072 "
              "--cache-type-k/v q4_0."),
+    "lab-qwen36-moe-nograph": ServeSpec(
+        name="lab-qwen36-moe-nograph",
+        model_path=MODELS["qwen36-35b-mtp-q4"].path,
+        port=8092,
+        flags=("-fa", "on", "--n-cpu-moe", "8", "--ctx-size", "32768",
+               "--parallel", "8", "--cache-type-k", "q8_0", "--cache-type-v", "q8_0",
+               "--batch-size", "2048", "--ubatch-size", "2048", "--jinja"),
+        env={"GGML_CUDA_DISABLE_GRAPHS": "1"},
+        note="LAB-SERVE-001d recovery profile. Same MoE serving controls with CUDA graphs "
+             "disabled symmetrically after a preserved illegal-memory-access invalid attempt."),
     "deploy-fable": ServeSpec(
         name="deploy-fable",
         model_path=MODELS["fable-tc-l1.0-q4"].path,
@@ -127,6 +141,16 @@ SERVE_PROFILES: dict[str, ServeSpec] = {
              "0.480 = 8B-tier where Qwen-8b dominates.) KV is default f16 here so the "
              "old q8_0-KV+MTP 0%-accept bug doesn't apply; don't add ngram spec (#24266 "
              "collapse). Tune budget up for harder-than-MCQ visual reasoning."),
+
+    # --- Open-weight breadth / hybrid recurrent architecture ----------------------------
+    "falcon-h1r-7b-q8": ServeSpec(
+        name="falcon-h1r-7b-q8",
+        model_path="/home/augus/models/falcon-h1r-7b/Falcon-H1R-7B-Q8_0.gguf",
+        port=8092,
+        flags=("-ngl", "99", "-fa", "on", "--ctx-size", "32768", "--jinja"),
+        note="Official TII Falcon-H1R-7B Q8 GGUF, hybrid Transformer+Mamba2. Compact RTX "
+             "3090 qualification arm. Falcon-LLM License; technical qualification does not "
+             "imply unrestricted deployment rights."),
 }
 
 

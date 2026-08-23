@@ -27,6 +27,6 @@ Write-Output "--- reverted $removed of $($apps.Count) apps to 'Let Windows decid
 Write-Output "Restart each app (or reboot) for it to take effect."
 
 # FULL RESTORE alternative (put the key back exactly as it was at backup time):
-#   reg import "C:\projects\local-model-lifecycle\ops\gpu_prefs_backup.reg"
+#   reg import "C:\projects\tare.tools.local-labs\ops\gpu_prefs_backup.reg"
 # (Note: gpu_prefs_backup.reg is the POST-change snapshot; this revert script is the
 #  cleaner undo. To capture a pre-anything baseline in future, export BEFORE editing.)

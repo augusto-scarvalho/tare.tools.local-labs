@@ -185,6 +185,91 @@ def _():
     assert any(m["field"] == "dataset_hash" for m in mism), mism
 
 
+@case("exact-value scorer rejects substring and wrappers",
+      "INCIDENT 2026-08-20: MQAR accepted `gold in answer`, so gold 100 could pass as 1000")
+def _():
+    assert q.strict_exact_reply("100", "100")
+    assert not q.strict_exact_reply("1000", "100")
+    assert not q.strict_exact_reply("the answer is 100", "100")
+    assert not q.strict_exact_reply("`100`", "100")
+
+
+@case("GSM8K strict final-line contract",
+      "requalification requires the declared #### answer line; last-number fallback is diagnostic")
+def _():
+    assert q.strict_gsm8k_answer("work\n#### 1,234") == "1234"
+    assert q.strict_gsm8k_answer("#### -2.5\n") == "-2.5"
+    assert q.strict_gsm8k_answer("work gives 18") is None
+    assert q.strict_gsm8k_answer("#### 18\nextra") is None
+    assert q.lenient_last_number("work gives 18") == "18"
+    assert q.numeric_equal("18.0", "18")
+
+
+@case("score-bearing benchmark hash includes gold answers",
+      "an edited gold answer must invalidate benchmark identity even when prompts are unchanged")
+def _():
+    a = [{"task_id": "fx/0", "prompt": "P0", "answer": "1"}]
+    b = [{"task_id": "fx/0", "prompt": "P0", "answer": "2"}]
+    assert q.dataset_hash(a) == q.dataset_hash(b), "historical prompt hash contract changed"
+    assert q.benchmark_content_hash(a) != q.benchmark_content_hash(b)
+
+
+@case("Wilson interval sanity and denominator guards",
+      "accuracy claims expose finite-sample uncertainty and cannot use an empty denominator")
+def _():
+    lo, hi = q.wilson_interval(40, 40)
+    assert 0.91 < lo < 0.92 and hi == 1.0, (lo, hi)
+    try:
+        q.wilson_interval(0, 0)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("empty denominator must fail closed")
+
+
+@case("artifact identity hashes on demand and classifies lineage",
+      "LAB-PROV-001 requires a full content hash and explicit source/requant class")
+def _():
+    with tempfile.TemporaryDirectory() as d:
+        artifact = pathlib.Path(d) / "fixture.gguf"
+        artifact.write_bytes(b"GGUF-fixture")
+        assert q.artifact_sha256(artifact) == __import__("hashlib").sha256(b"GGUF-fixture").hexdigest()
+    identity = q.run_identity(
+        benchmark_name="fixture", benchmark_version="v1", dataset_version="fixture-v1",
+        problems=[{"task_id": "f/0", "prompt": "p"}], sampling={"temperature": 0},
+        model_id="fixture", model_path="fixture.gguf", quant="IQ4_XS",
+        engine_commit="abc", timestamp="2026-08-20T00:00:00Z", repo_root=ROOT,
+        model_sha256="a" * 64, model_bytes=12, source_repo="org/repo",
+        source_revision="rev", quantizer="llama-quantize", imatrix="none",
+        provenance_class="COMMUNITY_REQUANT")
+    assert identity["source_repo"] == "org/repo"
+    assert identity["provenance_class"] == "COMMUNITY_REQUANT"
+    assert identity["model_sha256"] == "a" * 64
+
+
+@case("shared code-fence extraction keeps executable code and format remains observable",
+      "HumanEval+ and MBPP+ must use the same extraction glue before isolated execution")
+def _():
+    assert q.extract_code("```python\ndef f():\n    return 1\n```") == "def f():\n    return 1"
+    assert q.extract_code("```py\ndef f(): pass\n```") == "def f(): pass"
+    assert q.extract_code("def f(): return 2") == "def f(): return 2"
+    assert "```" not in q.extract_code("```python\nx = 1\n```")
+
+
+@case("unknown artifact lineage fails closed instead of inventing provenance",
+      "unrecognized provenance classes must not silently enter historical run identity")
+def _():
+    try:
+        q.run_identity(
+            benchmark_name="fixture", benchmark_version="v1", dataset_version="v1",
+            problems=[], sampling={}, model_id="m", model_path="m.gguf",
+            timestamp="2026-08-20T00:00:00Z", provenance_class="OFFICIALISH")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("invalid provenance class accepted")
+
+
 # ==================================================================================================
 # Metamorphic tests (same-meaning input -> same result)
 # ==================================================================================================

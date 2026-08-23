@@ -25,7 +25,7 @@ Env: MODELSET=moe|dense (csv), TASK=class|reason, SPECS=nospec,mtp (csv, default
 """
 import json, os, subprocess, sys, time, urllib.request, statistics, math, signal, tempfile
 
-BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"
 PORT = int(os.environ.get("PORT", "8080"))
 REPS = int(os.environ.get("REPS", "5"))
 NTOK = int(os.environ.get("NTOK", "450"))

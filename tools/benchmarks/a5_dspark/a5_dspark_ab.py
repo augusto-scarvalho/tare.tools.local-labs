@@ -16,7 +16,7 @@ Env: PORT=8092 REPS=3 NTOK=512 COOLDOWN=12 ARMS=nospec,mtp,dspark NMAX_DSPARK=7 
 """
 import json, os, subprocess, time, urllib.request, statistics, math, signal, tempfile, hashlib
 
-BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"
 PORT = int(os.environ.get("PORT", "8092"))
 REPS = int(os.environ.get("REPS", "3"))
 NTOK = int(os.environ.get("NTOK", "512"))

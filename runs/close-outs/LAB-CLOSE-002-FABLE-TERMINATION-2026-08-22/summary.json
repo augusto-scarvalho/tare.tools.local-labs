@@ -1,0 +1,133 @@
+{
+  "campaign": "LAB-CLOSE-002",
+  "timestamp": "2026-08-22T15:51:04.025331+00:00",
+  "artifact_sha256": "c796c2c011eaa0edf06395ff49cda5bfd4843ad52b86b58a83296dfc33849e4e",
+  "engine_commit": "5e7f6271c06b9104862ab799278a1b7f1323a449",
+  "qualified": true,
+  "summary": {
+    "arms": [
+      {
+        "arm": "instruct-greedy-512",
+        "n": 4,
+        "natural_stops": 4,
+        "finish_stop": 4,
+        "finish_length": 0,
+        "completed_content": 4,
+        "predicted_tokens": [
+          2,
+          7,
+          4,
+          21
+        ]
+      },
+      {
+        "arm": "thinking-greedy-512",
+        "n": 4,
+        "natural_stops": 1,
+        "finish_stop": 1,
+        "finish_length": 3,
+        "completed_content": 1,
+        "predicted_tokens": [
+          512,
+          512,
+          512,
+          143
+        ]
+      },
+      {
+        "arm": "thinking-sampled-512",
+        "n": 4,
+        "natural_stops": 1,
+        "finish_stop": 1,
+        "finish_length": 3,
+        "completed_content": 1,
+        "predicted_tokens": [
+          512,
+          512,
+          118,
+          512
+        ]
+      },
+      {
+        "arm": "instruct-greedy-2048",
+        "n": 4,
+        "natural_stops": 4,
+        "finish_stop": 4,
+        "finish_length": 0,
+        "completed_content": 4,
+        "predicted_tokens": [
+          21,
+          2,
+          7,
+          4
+        ]
+      },
+      {
+        "arm": "thinking-greedy-2048",
+        "n": 4,
+        "natural_stops": 2,
+        "finish_stop": 2,
+        "finish_length": 2,
+        "completed_content": 2,
+        "predicted_tokens": [
+          143,
+          2048,
+          1674,
+          2048
+        ]
+      },
+      {
+        "arm": "thinking-sampled-2048",
+        "n": 4,
+        "natural_stops": 2,
+        "finish_stop": 2,
+        "finish_length": 2,
+        "completed_content": 2,
+        "predicted_tokens": [
+          2048,
+          1584,
+          2048,
+          118
+        ]
+      },
+      {
+        "arm": "thinking-explicit-stop-2048",
+        "n": 4,
+        "natural_stops": 0,
+        "finish_stop": 2,
+        "finish_length": 2,
+        "completed_content": 0,
+        "predicted_tokens": [
+          1669,
+          2048,
+          140,
+          2048
+        ]
+      },
+      {
+        "arm": "instruct-ignore-eos-512",
+        "n": 4,
+        "natural_stops": 0,
+        "finish_stop": 0,
+        "finish_length": 4,
+        "completed_content": 4,
+        "predicted_tokens": [
+          512,
+          512,
+          512,
+          512
+        ]
+      }
+    ],
+    "instruct_natural_termination_rate": 1.0,
+    "instruct_bounded_safe": true,
+    "thinking_natural_termination_rate": 0.375,
+    "thinking_repeated_length_prompt_indices": [
+      1,
+      3
+    ],
+    "thinking_agentic_eligible": false,
+    "verdict": "DISQUALIFIED_FOR_THINKING_ENABLED_AGENTIC_ROLE"
+  },
+  "receipts_sha256": "4e1c7fdd4d5a40d0760cc5ad6adaf30b75132142ce50df27fdba6234382cb359"
+}

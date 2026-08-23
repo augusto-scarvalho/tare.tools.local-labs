@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Undervolt/clock-lock validation bench. Runs llama-bench under a temp/power/clock sampler.
 set -o pipefail
-BIN=/home/augus/src/llama.cpp-master/build/bin/llama-bench
+BIN=/home/augus/src/slop.cpp-main/build/bin/llama-bench
 M=/home/augus/models/gpt-oss-20b/gpt-oss-20b-Q4_K_M.gguf
 S=/tmp/uvsample.csv
 LABEL="${1:-baseline}"

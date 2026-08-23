@@ -1,7 +1,7 @@
 # A2 refusal RERUN com o probe consertado (max_tokens 4096 + regex largo + starved=inconclusivo).
 # Skip por braço: se refusal__s1p__<arm>.json ja tem 20 recs COM campo 'starved' (schema novo), pula.
 # => relançamento apos kill do reaper e barato (so roda o que falta).
-cd C:\projects\local-model-lifecycle
+cd C:\projects\tare.tools.local-labs
 $ErrorActionPreference = 'Continue'
 $stamp = { (Get-Date).ToString('HH:mm:ss') }
 Write-Output "[$(& $stamp)] ===== REFUSAL RERUN (@4096) START ====="

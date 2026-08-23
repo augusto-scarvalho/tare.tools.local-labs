@@ -4,7 +4,7 @@ Our own llama.cpp fork: **one binary** that is the pristine upstream baseline by
 every validated-in-some-regime lever the campaign found, each **toggled at runtime** (env var or CLI
 flag) — no recompile, and with nothing set the behaviour is byte-identical to upstream `720d7fa40`.
 
-- **Where:** `/home/augus/src/llama.cpp-master`, branch **`lifecycle`**.
+- **Where:** `/home/augus/src/slop.cpp-main`, branch **`lifecycle`**.
 - **Base:** upstream **`720d7fa40`** (NOT fresh master — `f5919bf45` regressed `draft-mtp` token-exactness;
   see LANDSCAPE §1c). `GGML_CUDA_GRAPHS=ON`, `FA_ALL_QUANTS=OFF`, `sm_86`.
 - **Binary:** `build/bin/llama-server` (+ `build/bin/llama-moe-trace` for the expert-cache profiler).

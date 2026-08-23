@@ -19,7 +19,7 @@ MODELS = {"moe": "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_
           # instruct/thinking models — Qwen3.8 scored NIAH 0% @16k+ here but 100% @131k via the CHAT
           # endpoint. For Qwen3.8 use ops/qwen38-bringup/ctx_curve.sh (chat, enable_thinking:false).
           "qwen38": "/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf"}
-BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"
 MK, NC, KV, CTX = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4])
 LS = [int(x) for x in sys.argv[5:]] or [8000, 32000, 65000, 131000]
 DS = [0.25, 0.75]

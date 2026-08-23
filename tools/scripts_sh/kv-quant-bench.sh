@@ -35,7 +35,7 @@
 #
 # Usage: bash ops/kv-quant-bench.sh   (runs in WSL Ubuntu-24.04; ~10 min for 4 arms).
 set -u
-cd /home/augus/src/llama.cpp-master
+cd /home/augus/src/slop.cpp-main
 export CUDA_VISIBLE_DEVICES=0
 M=${MODEL:-/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf}
 NCMOE=${NCMOE:-8}

@@ -38,9 +38,9 @@ from model_lifecycle.servers.llama_cpp import (                 # noqa: E402
     LlamaCppAdapter, ServerProfile)
 
 MODEL = "/home/augus/models/qwen36-35b-a3b/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf"
-BASE_BIN = "/home/augus/src/llama.cpp-base/build/bin/llama-server"
-FORK_BIN = "/home/augus/src/llama.cpp/build/bin/llama-server"
-MASTER_BIN = "/home/augus/src/llama.cpp-master/build/bin/llama-server"
+BASE_BIN = "/home/augus/src/slop.cpp-base/build/bin/llama-server"
+FORK_BIN = "/home/augus/src/slop.cpp/build/bin/llama-server"
+MASTER_BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"
 
 ARMS = {
     "base": (BASE_BIN, {}),

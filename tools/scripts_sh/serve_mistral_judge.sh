@@ -14,7 +14,7 @@
 #   * no MTP/spec: Mistral is dense with no draft head and decode is short
 set -euo pipefail
 
-BIN=/home/augus/src/llama.cpp-master/build/bin/llama-server
+BIN=/home/augus/src/slop.cpp-main/build/bin/llama-server
 # ABLITERATED judge (Heretic-v1.2-2, imatrix Q4_K_M) -- Heretic preserves coherence better than naive
 # abliteration (same tool the project's own heretic_run.py drives). Stock instruct kept for reference:
 #   /home/augus/models/mistral-small-24b/mistralai_Mistral-Small-3.2-24B-Instruct-2506-Q4_K_M.gguf

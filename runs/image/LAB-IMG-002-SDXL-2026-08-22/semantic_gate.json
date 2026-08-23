@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "typography",
+      "prompt": "Transcribe every visible word and number exactly. Then briefly state whether there is any other visible text.",
+      "completion": "The image contains the following visible words and numbers:\n\n*   **COFFEE**\n*   **LATTE**\n*   **CAPPUCCINO**\n*   **ESPRESSO**\n*   **MOCHA**\n*   **MACCHIATO**\n*   **AMERICANO**\n*   **FRAPPUCCINO**\n*   **CARAMEL**\n*   **VANILLA**\n*   **HAZELNUT**\n*   **WHITE CHOCOLATE**\n*   **DARK CHOCOLATE**\n*   **CARAMEL MACCHIATO**\n*   **MOCHA LATTE**\n*   **LATTE**\n*   **CAPPUCCINO**\n*   **ESPRESSO**\n*   **AMERICANO**\n*   **FRAPPUCCINO**\n*   **CARAMEL**\n*   **VANILLA**\n*   **HAZELNUT**\n*   **WHITE CHOCOLATE**\n*   **DARK CHOCOLATE**\n*   **CARAMEL MACCHIATO**\n*   **MOCHA LATTE**\n*   **LATTE**\n*   **CAPPUCCINO",
+      "elapsed_seconds": 3.3135481720091775,
+      "finish_reason": "length",
+      "clause_passes": [
+        false,
+        false,
+        false
+      ],
+      "clauses_passed": 0,
+      "clauses_total": 3,
+      "case_pass": false,
+      "usage": {
+        "completion_tokens": 512,
+        "prompt_tokens": 294,
+        "total_tokens": 806,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "dashboard",
+      "prompt": "Transcribe the label and value of each status card exactly. Be concise.",
+      "completion": "- **Name:** [REDACTED]\n- **ID:** 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "elapsed_seconds": 3.347405767010059,
+      "finish_reason": "length",
+      "clause_passes": [
+        false,
+        false,
+        false
+      ],
+      "clauses_passed": 0,
+      "clauses_total": 3,
+      "case_pass": false,
+      "usage": {
+        "completion_tokens": 512,
+        "prompt_tokens": 289,
+        "total_tokens": 801,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "composition",
+      "prompt": "Describe each geometric object, its color, and its relative position. Also state the background color. Be concise.",
+      "completion": "The background is white.\n\n*   **Horizontal Bar (Top):** A series of rectangles and a triangle. From left to right: a red rectangle, a teal rectangle, a green rectangle, a large triangle (split into red on the left and blue on the right), a teal rectangle, and a red rectangle.\n*   **Large Sphere (Center-Right):** A large, three-dimensional green sphere.\n*   **Diagonal Rectangle (Left):** A long, thin, peach-colored rectangle angled downwards from left to right.\n*   **Diagonal Line (Left):** A thin red line parallel to the peach rectangle.\n*   **Small Sphere (Bottom-Left):** A small green sphere.\n*   **Small Triangle (Bottom-Right):** A small blue triangle pointing downwards.\n*   **Outlines:** Various thin black lines form a geometric grid and structural framework throughout the image.",
+      "elapsed_seconds": 3.198485814995365,
+      "finish_reason": "stop",
+      "clause_passes": [
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        false
+      ],
+      "clauses_passed": 3,
+      "clauses_total": 7,
+      "case_pass": false,
+      "usage": {
+        "completion_tokens": 450,
+        "prompt_tokens": 296,
+        "total_tokens": 746,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      }
+    }
+  ],
+  "clauses_passed": 3,
+  "clauses_total": 13,
+  "clause_rate": 0.23076923076923078,
+  "cases_passed": 0,
+  "decision": "FAIL_QUALITY"
+}

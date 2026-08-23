@@ -3,7 +3,7 @@ import os, re, sys
 sys.stdout.reconfigure(encoding='utf-8')
 
 search_dirs = [
-    r'C:\projects\local-model-lifecycle',
+    r'C:\projects\tare.tools.local-labs',
     r'C:\projects\_lab_handoff_build',
     r'C:\projects\tare-tools-relay'
 ]

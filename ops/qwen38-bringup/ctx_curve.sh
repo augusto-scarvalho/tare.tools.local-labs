@@ -23,7 +23,7 @@
 #
 # Usage: MODEL=<gguf> bash ops/qwen38-bringup/ctx_curve.sh   (via ops/wsl/wslx.sh; long -> run_in_background)
 set -u
-LLAMA=/home/augus/src/llama.cpp-master
+LLAMA=/home/augus/src/slop.cpp-main
 BIN="$LLAMA/build/bin/llama-server"
 MODEL=${MODEL:-/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf}
 PORT=8100; export CUDA_VISIBLE_DEVICES=0

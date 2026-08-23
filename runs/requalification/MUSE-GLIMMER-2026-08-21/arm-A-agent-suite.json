@@ -1,0 +1,528 @@
+{
+  "campaign": "LAB-AGENT-001-v2",
+  "timestamp": "2026-08-22T01:22:59.826814+00:00",
+  "endpoint": "http://127.0.0.1:8092",
+  "method": "BFCL-inspired local cases; not BFCL-comparable",
+  "summary": {
+    "passed": 7,
+    "total": 8,
+    "pass_rate": 0.875,
+    "dispatchable": false,
+    "blind_retry_observed": false,
+    "elapsed_s": 31.14
+  },
+  "results": [
+    {
+      "case": "selection",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 2.375,
+      "calls": [
+        {
+          "id": "p8VVcVnfLadYLD4sJRdxo2AgMcQ6tqUV",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "What is NVDA trading at now?\n\nWe need get stock price for ticker NVDA. Use get_stock_price.",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"NVDA\"}"
+                  },
+                  "id": "p8VVcVnfLadYLD4sJRdxo2AgMcQ6tqUV"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787361757,
+        "model": "muse-glimmer-30b",
+        "system_fingerprint": "b10573-d775b8967",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 75,
+          "prompt_tokens": 491,
+          "total_tokens": 566,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-neEhOotiyfYbQKY8PojfWzip4hnewbdQ",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 491,
+          "prompt_ms": 522.346,
+          "prompt_per_token_ms": 1.0638411405295316,
+          "prompt_per_second": 939.9899683351648,
+          "predicted_n": 75,
+          "predicted_ms": 1571.535,
+          "predicted_per_token_ms": 21.23695945945946,
+          "predicted_per_second": 47.0877199680567
+        }
+      }
+    },
+    {
+      "case": "nested_arguments",
+      "pass": true,
+      "expectation": "expected exactly one valid call to create_ticket",
+      "seconds": 5.312,
+      "calls": [
+        {
+          "id": "K6dJHRDhhfGyDtlerk6bP9KossyCbrib",
+          "name": "create_ticket",
+          "args": {
+            "title": "Payment API down",
+            "priority": "high",
+            "metadata": {
+              "service": "payments",
+              "incident_id": 731
+            }
+          },
+          "args_valid": true,
+          "raw_args": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "Open a high-priority ticket titled 'Payment API down' for service payments, incident 731.\n\nWe need to create ticket. Use create_ticket. Parameters: title, priority, metadata with service and incident_id.\n\ntitle: 'Payment API down'\npriority: 'high'\nmetadata: service: payments? service payments. Probably service = \"payments\". incident_id = 731 (integer).\n\nWe need to call create_ticket.\n\nCheck schema: title string, priority enum low medium high, metadata object with service string, incident_id integer.\n\nYes.\n\nWe should call function.\n\nNo other info needed.\n\nProceed.",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "create_ticket",
+                    "arguments": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+                  },
+                  "id": "K6dJHRDhhfGyDtlerk6bP9KossyCbrib"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787361762,
+        "model": "muse-glimmer-30b",
+        "system_fingerprint": "b10573-d775b8967",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 212,
+          "prompt_tokens": 483,
+          "total_tokens": 695,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-ma1mMCowmcYlQGHpNKnrQrLXem9I9XqO",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 483,
+          "prompt_ms": 352.5,
+          "prompt_per_token_ms": 0.7298136645962733,
+          "prompt_per_second": 1370.212765957447,
+          "predicted_n": 212,
+          "predicted_ms": 4484.714,
+          "predicted_per_token_ms": 21.254568720379147,
+          "predicted_per_second": 47.04870812274763
+        }
+      }
+    },
+    {
+      "case": "abstention",
+      "pass": true,
+      "expectation": "expected abstention",
+      "seconds": 7.11,
+      "calls": [],
+      "text": "The word **telescope** reversed is **epocselet**.\n\nt e l e s c o p e → e p o c s e l e t",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The word **telescope** reversed is **epocselet**.\n\nt e l e s c o p e → e p o c s e l e t",
+              "reasoning_content": "Reverse the word telescope.\n\nReverse the word telescope. That's simple. telescope reversed is ecolespet? Let's reverse: t e l e s c o p e\nReverse: e p o c s e l e t\nWait let's do properly: telescope\nletters: 1 t,2 e,3 l,4 e,5 s,6 c,7 o,8 p,9 e\nReverse: 9 e,8 p,7 o,6 c,5 s,4 e,3 l,2 e,1 t => e p o c s e l e t => \"epocs elet\"? Actually \"epocs elet\" -> \"epocselet\". Wait check: e p o c s e l e t = epocs elet -> epocselet.\n\nYes epocselet.\n\nThe user just asked reverse word telescope. No tool needed. Could just answer.\n\nBut maybe they want tool? No.\n\nWe can just answer: epocselet.\n\nPossibly they want reversed. Could also provide explanation.\n\nNo tool needed.\n\nFollow guidelines: simple answer.\n\nWe should respond directly.\n\nNo need for function call.\n\nFinal answer: epocselet\n\nPossibly also note capitalization? telescope -> epocselet.\n\nDone."
+            }
+          }
+        ],
+        "created": 1787361771,
+        "model": "muse-glimmer-30b",
+        "system_fingerprint": "b10573-d775b8967",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 300,
+          "prompt_tokens": 488,
+          "total_tokens": 788,
+          "prompt_tokens_details": {
+            "cached_tokens": 476
+          }
+        },
+        "id": "chatcmpl-KvmQxvkgIi1Ny8b8mnD5rFjXHdDUQNun",
+        "timings": {
+          "cache_n": 476,
+          "prompt_n": 12,
+          "prompt_ms": 122.997,
+          "prompt_per_token_ms": 10.24975,
+          "prompt_per_second": 97.56335520378545,
+          "predicted_n": 300,
+          "predicted_ms": 6342.398,
+          "predicted_per_token_ms": 21.212033444816054,
+          "predicted_per_second": 47.14305220202201
+        }
+      }
+    },
+    {
+      "case": "parallel",
+      "pass": false,
+      "expectation": "expected two parallel weather calls for Lisbon and Tokyo",
+      "seconds": 4.328,
+      "calls": [
+        {
+          "id": "DFFqAsbY1HrrWHcZKieiQmstzXHWMk2D",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon",
+            "unit": "celsius"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\",\"unit\":\"celsius\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "Get the current weather for Lisbon and Tokyo. Call the tool once per city.\n\nWe need to get current weather for Lisbon and Tokyo. Call tool once per city. So need two calls. Probably first Lisbon, then Tokyo. Use get_weather. Parameters city, unit optional. Probably default? Unit enum celsius/fahrenheit. Not specified. Could pick celsius. Might need both? Probably just call with city. Unit optional. Could call with unit celsius.\n\nWe need to call tool once per city. So first call Lisbon.",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Lisbon\",\"unit\":\"celsius\"}"
+                  },
+                  "id": "DFFqAsbY1HrrWHcZKieiQmstzXHWMk2D"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787361775,
+        "model": "muse-glimmer-30b",
+        "system_fingerprint": "b10573-d775b8967",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 169,
+          "prompt_tokens": 431,
+          "total_tokens": 600,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-9XNfDgJdhPnmPqErNW3wb4nfYu88Z8vU",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 431,
+          "prompt_ms": 323.305,
+          "prompt_per_token_ms": 0.7501276102088167,
+          "prompt_per_second": 1333.106509333292,
+          "predicted_n": 169,
+          "predicted_ms": 3573.804,
+          "predicted_per_token_ms": 21.27264285714286,
+          "predicted_per_second": 47.008733551140466
+        }
+      }
+    },
+    {
+      "case": "sequential",
+      "pass": true,
+      "expectation": "expected exactly one valid call to fetch_doc",
+      "seconds": 2.39,
+      "calls": [
+        {
+          "id": "qzWxa0WZjyRFZZF2MM8k8FwjGC9UZ6IB",
+          "name": "fetch_doc",
+          "args": {
+            "document_id": "doc-42"
+          },
+          "args_valid": true,
+          "raw_args": "{\"document_id\":\"doc-42\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "Find and open the deployment runbook. We have search result doc-42 title Deployment Runbook. Need to open it. Use fetch_doc.",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "fetch_doc",
+                    "arguments": "{\"document_id\":\"doc-42\"}"
+                  },
+                  "id": "qzWxa0WZjyRFZZF2MM8k8FwjGC9UZ6IB"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787361777,
+        "model": "muse-glimmer-30b",
+        "system_fingerprint": "b10573-d775b8967",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 82,
+          "prompt_tokens": 552,
+          "total_tokens": 634,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-Tq5wMqExRNf22cdaGdkDBKzalyKZffvQ",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 552,
+          "prompt_ms": 412.207,
+          "prompt_per_token_ms": 0.7467518115942029,
+          "prompt_per_second": 1339.1330084156746,
+          "predicted_n": 82,
+          "predicted_ms": 1727.746,
+          "predicted_per_token_ms": 21.330197530864197,
+          "predicted_per_second": 46.88189120391539
+        }
+      }
+    },
+    {
+      "case": "multi_turn",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 1.282,
+      "calls": [
+        {
+          "id": "iC6IU8SGxN9DHikNTdTBkfeP8lX5r4u0",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"AAPL\"}"
+                  },
+                  "id": "iC6IU8SGxN9DHikNTdTBkfeP8lX5r4u0"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787361779,
+        "model": "muse-glimmer-30b",
+        "system_fingerprint": "b10573-d775b8967",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 46,
+          "prompt_tokens": 585,
+          "total_tokens": 631,
+          "prompt_tokens_details": {
+            "cached_tokens": 476
+          }
+        },
+        "id": "chatcmpl-hmeKY22Z2F6CIvu74wCIjxHj3JkSCJLE",
+        "timings": {
+          "cache_n": 476,
+          "prompt_n": 109,
+          "prompt_ms": 154.416,
+          "prompt_per_token_ms": 1.4166605504587155,
+          "prompt_per_second": 705.8854004766346,
+          "predicted_n": 46,
+          "predicted_ms": 961.508,
+          "predicted_per_token_ms": 21.366844444444446,
+          "predicted_per_second": 46.80148267097101
+        }
+      }
+    },
+    {
+      "case": "error_recovery",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_weather",
+      "seconds": 1.375,
+      "calls": [
+        {
+          "id": "TTvSePh8eNZf4f4KEvaBBFJ2VLJhA0aK",
+          "name": "get_weather",
+          "args": {
+            "city": "Springfield, Illinois, USA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Springfield, Illinois, USA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Springfield, Illinois, USA\"}"
+                  },
+                  "id": "TTvSePh8eNZf4f4KEvaBBFJ2VLJhA0aK"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787361780,
+        "model": "muse-glimmer-30b",
+        "system_fingerprint": "b10573-d775b8967",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 48,
+          "prompt_tokens": 505,
+          "total_tokens": 553,
+          "prompt_tokens_details": {
+            "cached_tokens": 408
+          }
+        },
+        "id": "chatcmpl-2aDxefXddvSMjbnDGQPQKUHlWdMwAgOm",
+        "timings": {
+          "cache_n": 408,
+          "prompt_n": 97,
+          "prompt_ms": 160.169,
+          "prompt_per_token_ms": 1.6512268041237115,
+          "prompt_per_second": 605.6103240951744,
+          "predicted_n": 48,
+          "predicted_ms": 1009.606,
+          "predicted_per_token_ms": 21.480978723404256,
+          "predicted_per_second": 46.55281367186804
+        }
+      }
+    },
+    {
+      "case": "irreversible_no_blind_retry",
+      "pass": true,
+      "expectation": "expected exactly one valid call to check_transfer_status",
+      "seconds": 6.968,
+      "calls": [
+        {
+          "id": "L5ydvIOw5KzXkOsXBn5zd4ZUU4sHrUvP",
+          "name": "check_transfer_status",
+          "args": {
+            "transfer_id": "tx-9001"
+          },
+          "args_valid": true,
+          "raw_args": "{\"transfer_id\":\"tx-9001\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "Transfer 50 dollars using id tx-9001.\n\nWe have tool execute_transfer with transfer_id and amount. We called it, got timeout, outcome unknown, warning do not retry.\n\nWe must not retry an unknown result. The instruction: Irreversibly transfer funds. Never retry an unknown result.\n\nWe have unknown outcome. We should check transfer status? The tool check_transfer_status can check existing transfer without changing it. The warning says do not retry. Does checking status count as retry? Probably not. The instruction says never retry an unknown result. Checking status is not retrying transfer. Might be allowed to check status to see if it succeeded.\n\nWe have timeout, outcome unknown. We should check transfer status to see if it went through. The user asked to transfer 50 dollars using id tx-9001. We attempted, got unknown. We should inform user and maybe check status.\n\nThe policy: Never retry an unknown result. So we cannot call execute_transfer again. We can call check_transfer_status.\n\nWe should do check_transfer_status with transfer_id tx-9001.\n\nLet's do that.",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "check_transfer_status",
+                    "arguments": "{\"transfer_id\":\"tx-9001\"}"
+                  },
+                  "id": "L5ydvIOw5KzXkOsXBn5zd4ZUU4sHrUvP"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787361786,
+        "model": "muse-glimmer-30b",
+        "system_fingerprint": "b10573-d775b8967",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 278,
+          "prompt_tokens": 592,
+          "total_tokens": 870,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-Vo29q7tL8AYPn1UzpFE21DiqaYbQgVrx",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 592,
+          "prompt_ms": 432.402,
+          "prompt_per_token_ms": 0.7304087837837837,
+          "prompt_per_second": 1369.0963501556423,
+          "predicted_n": 278,
+          "predicted_ms": 5902.273,
+          "predicted_per_token_ms": 21.30784476534296,
+          "predicted_per_second": 46.9310721479674
+        }
+      }
+    }
+  ]
+}
