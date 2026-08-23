@@ -44,7 +44,7 @@ here.** When adding a benchmark (e.g. BigCodeBench, SWE-bench, RULER — Backlog
 its harness-qualification cases to this suite first.
 
 ## Integration sentinel (WA-CLOSE-002) — the REAL EvalPlus, not the emulation
-The 16 cases above are fast/unit and use an in-process `_mini_score` + an emulated cache. Separately,
+The 23 cases above are fast/unit and use an in-process `_mini_score` + an emulated cache. Separately,
 `evalplus_sentinel.py` drives the **actually-installed EvalPlus end-to-end** on a tiny deterministic
 fixture (HumanEval/0: prompt+canonical → PASS; prompt+wrong → FAIL; and the real stale-result
 boundary). No GPU, ~1-2 min. Run in the EvalPlus venv:
@@ -55,7 +55,7 @@ Records the real evalplus version (0.3.1 as of 2026-08-10) + raw stdout in
 `evalplus_sentinel_report.json`. Keep this marked integration/e2e; do not fold it into the unit run.
 
 ## Files
-- `benchmark_harness_selftest.py` — the unit runner (16 cases, emulated, fast, no venv).
+- `benchmark_harness_selftest.py` — the unit runner (23 cases, emulated, fast, no venv).
 - `evalplus_sentinel.py` — the integration/e2e sentinel (real EvalPlus, WSL venv). *(WA-CLOSE-002)*
 - `benchmark_fixture_manifest.json` — fixture + coverage description.
 - `benchmark_selftest_report.json` / `evalplus_sentinel_report.json` — last-run machine-readable results.

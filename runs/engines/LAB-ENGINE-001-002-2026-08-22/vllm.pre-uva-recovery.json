@@ -1,0 +1,31 @@
+{
+  "engine": "vllm",
+  "valid": false,
+  "error": "server_not_ready",
+  "argv": [
+    "wsl",
+    "-d",
+    "Ubuntu-24.04",
+    "--",
+    "/home/augus/vllm-venv/bin/python",
+    "-m",
+    "vllm.entrypoints.openai.api_server",
+    "--model",
+    "/home/augus/models/engine-parity-qwen3-4b",
+    "--host",
+    "0.0.0.0",
+    "--port",
+    "8092",
+    "--max-model-len",
+    "8192",
+    "--gpu-memory-utilization",
+    "0.70",
+    "--dtype",
+    "bfloat16",
+    "--served-model-name",
+    "local",
+    "--seed",
+    "4242"
+  ],
+  "server_log": "C:\\projects\\tare.tools.local-labs\\runs\\engines\\LAB-ENGINE-001-002-2026-08-22\\vllm-server.log"
+}

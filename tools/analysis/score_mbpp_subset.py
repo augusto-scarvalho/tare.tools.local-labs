@@ -19,9 +19,41 @@ from benchmark_harness_qa import bust_stale_results, pad_subset, wilson_interval
 from evalplus.data import get_mbpp_plus  # noqa: E402
 
 
+def statuses(value: object) -> tuple[str | None, str | None]:
+    """Normalize EvalPlus 0.2.x and 0.3.x per-task result schemas."""
+    entry = value[0] if isinstance(value, list) and value else (value or {})
+    if not isinstance(entry, dict):
+        return None, None
+    if "base_status" in entry or "plus_status" in entry:
+        return entry.get("base_status"), entry.get("plus_status")
+
+    def legacy_status(key: str) -> str | None:
+        runs = entry.get(key)
+        if not isinstance(runs, list) or not runs:
+            return None
+        run = runs[0]
+        if not isinstance(run, list) or not run:
+            return None
+        return "pass" if run[0] == "success" else str(run[0])
+
+    return legacy_status("base"), legacy_status("plus")
+
+
+def selfcheck() -> None:
+    assert statuses({"base": [["success", [1]]],
+                     "plus": [["failed", [0]]]}) == ("pass", "failed")
+    assert statuses([{"base_status": "pass", "plus_status": "fail"}]) == ("pass", "fail")
+    assert statuses({}) == (None, None)
+    print("MBPP scorer schema self-check OK")
+
+
 def main() -> int:
+    if len(sys.argv) == 2 and sys.argv[1] == "--selfcheck":
+        selfcheck()
+        return 0
     if len(sys.argv) != 2:
-        print(f"usage: {sys.executable} {sys.argv[0]} <subset_samples.jsonl>", file=sys.stderr)
+        print(f"usage: {sys.executable} {sys.argv[0]} <subset_samples.jsonl>|--selfcheck",
+              file=sys.stderr)
         return 2
     samples = pathlib.Path(sys.argv[1]).resolve()
     mine = {}
@@ -53,14 +85,14 @@ def main() -> int:
     failures = []
     for task_id in mine:
         value = evaluated.get(task_id)
-        entry = value[0] if isinstance(value, list) and value else (value or {})
-        base_pass = entry.get("base_status") == "pass"
-        plus_pass = entry.get("plus_status") == "pass"
+        base_status, plus_status = statuses(value)
+        base_pass = base_status == "pass"
+        plus_pass = plus_status == "pass"
         base_ok += int(base_pass)
         plus_ok += int(plus_pass)
         if not plus_pass:
-            failures.append({"task_id": task_id, "base_status": entry.get("base_status"),
-                             "plus_status": entry.get("plus_status")})
+            failures.append({"task_id": task_id, "base_status": base_status,
+                             "plus_status": plus_status})
     n = len(mine)
     base_ci = wilson_interval(base_ok, n)
     plus_ci = wilson_interval(plus_ok, n)

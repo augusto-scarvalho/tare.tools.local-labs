@@ -1,0 +1,148 @@
+benchmark_args=Namespace(backend='vllm-chat', base_url='http://127.0.0.1:8092', host='0.0.0.0', port=None, ready_check_timeout_sec=60, dataset_name='random', dataset_path='', dataset_offset=0, agentic_max_turns=None, speed_bench_category=None, speed_bench_output_len=512, model='qwen36-35b', served_model_name=None, tokenizer='/home/augus/models/fp16/base', num_prompts=32, sharegpt_output_len=None, sharegpt_context_len=None, random_input_len=1024, random_output_len=128, random_range_ratio=1.0, image_count=1, image_resolution='1080p', random_image_count=False, image_format='jpeg', image_content='random', request_rate=inf, use_trace_timestamps=False, max_concurrency=4, output_file='/mnt/c/projects/tare.tools.local-labs/runs/serving/LAB-SERVE-001d-2026-08-22/raw/rep1_off_n4_o128.jsonl', output_details=True, print_requests=False, disable_tqdm=True, disable_stream=False, return_logprob=False, top_logprobs_num=0, token_ids_logprob=None, logprob_start_len=-1, return_routed_experts=False, cache_report=False, seed=42, disable_ignore_eos=False, temperature=0.0, top_p=1.0, extra_request_body=None, apply_chat_template=True, profile=False, plot_throughput=False, profile_activities=['CPU', 'GPU'], profile_start_step=None, profile_steps=None, profile_num_steps=None, profile_by_stage=False, profile_stages=None, profile_output_dir=None, profile_prefix=None, lora_name=None, lora_request_distribution='uniform', lora_zipf_alpha=1.5, prompt_suffix='', pd_separated=False, profile_prefill_url=None, profile_decode_url=None, flush_cache=False, warmup_requests=2, tokenize_prompt=False, gsp_num_groups=64, gsp_prompts_per_group=16, gsp_system_prompt_len=2048, gsp_question_len=128, gsp_output_len=256, gsp_range_ratio=1.0, gsp_fast_prepare=False, gsp_send_routing_key=False, gsp_num_turns=1, gsp_ordered=False, gsp_group_distribution='uniform', gsp_zipf_alpha=None, mooncake_slowdown_factor=1.0, mooncake_num_rounds=1, mooncake_workload='conversation', fake_prefill=False, tag=None, header=None)
+Waiting up to 60s for http://127.0.0.1:8092/v1/models to become ready...
+Server ready in 0.0s.
+Fail to load tokenizer config with error=qwen36-35b is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'
+If this is a private repository, make sure to pass a token having permission to this repo either by logging in with `hf auth login` or by passing `token=<your_token>`
+
+WARNING It is recommended to use the `Chat` or `Instruct` model for benchmarking.
+Because when the tokenizer counts the output tokens, if there is gibberish, it might count incorrectly.
+
+Namespace(backend='vllm-chat', base_url='http://127.0.0.1:8092', host='0.0.0.0', port=30000, ready_check_timeout_sec=60, dataset_name='random', dataset_path='', dataset_offset=0, agentic_max_turns=None, speed_bench_category=None, speed_bench_output_len=512, model='qwen36-35b', served_model_name=None, tokenizer='/home/augus/models/fp16/base', num_prompts=32, sharegpt_output_len=None, sharegpt_context_len=None, random_input_len=1024, random_output_len=128, random_range_ratio=1.0, image_count=1, image_resolution='1080p', random_image_count=False, image_format='jpeg', image_content='random', request_rate=inf, use_trace_timestamps=False, max_concurrency=4, output_file='/mnt/c/projects/tare.tools.local-labs/runs/serving/LAB-SERVE-001d-2026-08-22/raw/rep1_off_n4_o128.jsonl', output_details=True, print_requests=False, disable_tqdm=True, disable_stream=False, return_logprob=False, top_logprobs_num=0, token_ids_logprob=None, logprob_start_len=-1, return_routed_experts=False, cache_report=False, seed=42, disable_ignore_eos=False, temperature=0.0, top_p=1.0, extra_request_body=None, apply_chat_template=True, profile=False, plot_throughput=False, profile_activities=['CPU', 'GPU'], profile_start_step=None, profile_steps=None, profile_num_steps=None, profile_by_stage=False, profile_stages=None, profile_output_dir=None, profile_prefix=None, lora_name=None, lora_request_distribution='uniform', lora_zipf_alpha=1.5, prompt_suffix='', pd_separated=False, profile_prefill_url=None, profile_decode_url=None, flush_cache=False, warmup_requests=2, tokenize_prompt=False, gsp_num_groups=64, gsp_prompts_per_group=16, gsp_system_prompt_len=2048, gsp_question_len=128, gsp_output_len=256, gsp_range_ratio=1.0, gsp_fast_prepare=False, gsp_send_routing_key=False, gsp_num_turns=1, gsp_ordered=False, gsp_group_distribution='uniform', gsp_zipf_alpha=None, mooncake_slowdown_factor=1.0, mooncake_num_rounds=1, mooncake_workload='conversation', fake_prefill=False, tag=None, header=None)
+
+#Input tokens: 32768
+#Output tokens: 4096
+Starting warmup with 2 sequences...
+Warmup completed with 2 sequences. Starting main benchmark run...
+
+============ Serving Benchmark Result ============
+Backend:                                 vllm-chat 
+Traffic request rate:                    inf       
+Max request concurrency:                 4         
+Successful requests:                     23        
+Benchmark duration (s):                  72.16     
+Total input tokens:                      23552     
+Total input text tokens:                 23552     
+Total generated tokens:                  2944      
+Total generated tokens (retokenized):    2944      
+Request throughput (req/s):              0.32      
+Input token throughput (tok/s):          326.37    
+Output token throughput (tok/s):         40.80     
+Peak output token throughput (tok/s):    164.00    
+Peak concurrent requests:                8         
+Total token throughput (tok/s):          367.17    
+Concurrency:                             2.11      
+----------------End-to-End Latency----------------
+Mean E2E Latency (ms):                   6627.84   
+Median E2E Latency (ms):                 6608.24   
+P90 E2E Latency (ms):                    7838.55   
+P95 E2E Latency (ms):                    7855.09   
+P99 E2E Latency (ms):                    7862.91   
+---------------Time to First Token----------------
+Mean TTFT (ms):                          2193.57   
+Median TTFT (ms):                        2313.33   
+P90 TTFT (ms):                           2629.12   
+P95 TTFT (ms):                           2658.07   
+P99 TTFT (ms):                           2678.81   
+-----Time per Output Token (excl. 1st token)------
+Mean TPOT (ms):                          34.92     
+Median TPOT (ms):                        33.40     
+P90 TPOT (ms):                           45.80     
+P95 TPOT (ms):                           46.93     
+P99 TPOT (ms):                           48.27     
+---------------Inter-Token Latency----------------
+Mean ITL (ms):                           34.91     
+Median ITL (ms):                         28.98     
+P90 ITL (ms):                            41.69     
+P95 ITL (ms):                            42.29     
+P99 ITL (ms):                            45.69     
+Max ITL (ms):                            1076.79   
+==================================================
+
+===STDERR===
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Traceback (most recent call last):
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/urllib3/connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/urllib3/connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/urllib3/connection.py", line 500, in request
+    self.endheaders()
+  File "/usr/lib/python3.12/http/client.py", line 1360, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/lib/python3.12/http/client.py", line 1120, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.12/http/client.py", line 1064, in send
+    self.connect()
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/urllib3/connection.py", line 331, in connect
+    self.sock = self._new_conn()
+                ^^^^^^^^^^^^^^^^
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/urllib3/connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPConnection(host='127.0.0.1', port=8092): Failed to establish a new connection: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/requests/adapters.py", line 696, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/urllib3/connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/urllib3/util/retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=8092): Max retries exceeded with url: /server_info (Caused by NewConnectionError("HTTPConnection(host='127.0.0.1', port=8092): Failed to establish a new connection: [Errno 111] Connection refused"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/sglang/benchmark/serving.py", line 2703, in <module>
+    cli_main()
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/sglang/benchmark/serving.py", line 2699, in cli_main
+    run_benchmark(args)
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/sglang/benchmark/serving.py", line 2082, in run_benchmark
+    return asyncio.run(
+           ^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/sglang/benchmark/serving.py", line 1739, in benchmark
+    resp = requests.get(base_url + "/server_info", headers=get_auth_headers())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/requests/api.py", line 87, in get
+    return request("get", url, params=params, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/requests/api.py", line 71, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/requests/sessions.py", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/requests/sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/augus/sglang-venv/lib/python3.12/site-packages/requests/adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=8092): Max retries exceeded with url: /server_info (Caused by NewConnectionError("HTTPConnection(host='127.0.0.1', port=8092): Failed to establish a new connection: [Errno 111] Connection refused"))

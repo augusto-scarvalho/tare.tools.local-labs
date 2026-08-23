@@ -1,0 +1,573 @@
+{
+  "campaign": "LAB-CTX-001-v2",
+  "scope": "RULER-inspired local tasks; not NVIDIA RULER-comparable",
+  "timestamp": "2026-08-23T02:07:03.470512+00:00",
+  "endpoint": "http://127.0.0.1:8092",
+  "targets": [
+    8192,
+    32768,
+    64000
+  ],
+  "reps": 1,
+  "reasoning_strength": "medium",
+  "max_tokens": 256,
+  "summary": {
+    "8192": {
+      "passed": 4,
+      "n": 4,
+      "rate": 1.0,
+      "wilson_95": [
+        0.5101091635454027,
+        1.0
+      ],
+      "by_task": {
+        "retrieval": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "wilson_95": [
+            0.20654931437723745,
+            1.0
+          ]
+        },
+        "multikey": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "wilson_95": [
+            0.20654931437723745,
+            1.0
+          ]
+        },
+        "multihop": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "wilson_95": [
+            0.20654931437723745,
+            1.0
+          ]
+        },
+        "aggregation": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "wilson_95": [
+            0.20654931437723745,
+            1.0
+          ]
+        }
+      },
+      "actual_tokens": [
+        8160,
+        8185,
+        8188,
+        8189
+      ]
+    },
+    "32768": {
+      "passed": 4,
+      "n": 4,
+      "rate": 1.0,
+      "wilson_95": [
+        0.5101091635454027,
+        1.0
+      ],
+      "by_task": {
+        "retrieval": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "wilson_95": [
+            0.20654931437723745,
+            1.0
+          ]
+        },
+        "multikey": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "wilson_95": [
+            0.20654931437723745,
+            1.0
+          ]
+        },
+        "multihop": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "wilson_95": [
+            0.20654931437723745,
+            1.0
+          ]
+        },
+        "aggregation": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "wilson_95": [
+            0.20654931437723745,
+            1.0
+          ]
+        }
+      },
+      "actual_tokens": [
+        32737,
+        32744,
+        32745,
+        32753
+      ]
+    },
+    "64000": {
+      "passed": 4,
+      "n": 4,
+      "rate": 1.0,
+      "wilson_95": [
+        0.5101091635454027,
+        1.0
+      ],
+      "by_task": {
+        "retrieval": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "wilson_95": [
+            0.20654931437723745,
+            1.0
+          ]
+        },
+        "multikey": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "wilson_95": [
+            0.20654931437723745,
+            1.0
+          ]
+        },
+        "multihop": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "wilson_95": [
+            0.20654931437723745,
+            1.0
+          ]
+        },
+        "aggregation": {
+          "passed": 1,
+          "n": 1,
+          "rate": 1.0,
+          "wilson_95": [
+            0.20654931437723745,
+            1.0
+          ]
+        }
+      },
+      "actual_tokens": [
+        63981,
+        63982,
+        63994,
+        63997
+      ]
+    }
+  },
+  "rows": [
+    {
+      "target_tokens": 8192,
+      "actual_tokens": 8188,
+      "task": "retrieval",
+      "rep": 0,
+      "seed": 20260822,
+      "expected": "R-447A5B5A",
+      "response": "R-447A5B5A",
+      "reasoning_content": "The user is asking for project Aster's release code. The authoritative fact stated in the records is: \"AUTHORITATIVE FACT: project Aster's release code is R-447A5B5A.\"\n\nThe instruction says to reply with ONLY the exact code.\n",
+      "exact": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 70,
+        "prompt_tokens": 8188,
+        "total_tokens": 8258,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 8188,
+        "prompt_ms": 5698.444,
+        "prompt_per_token_ms": 0.6959506595017099,
+        "prompt_per_second": 1436.883472049563,
+        "predicted_n": 70,
+        "predicted_ms": 1623.852,
+        "predicted_per_token_ms": 23.197885714285714,
+        "predicted_per_second": 43.10737678064257
+      },
+      "wall_s": 7.938000000023749,
+      "prompt_sha256": "f7fe19660ca50142d453776fc84762ff4de122b45ab4e902c40fb607679d1a11"
+    },
+    {
+      "target_tokens": 8192,
+      "actual_tokens": 8189,
+      "task": "multikey",
+      "rep": 0,
+      "seed": 20260823,
+      "expected": "KA2BEB|KFCE90|K6F64B",
+      "response": "KA2BEB|KFCE90|K6F64B",
+      "reasoning_content": "The user wants me to find the keys for vaults alpha, beta, and gamma from the records provided.\n\nFrom the records:\n- \"AUTHORITATIVE FACT: vault alpha has key KA2BEB.\"\n- \"AUTHORITATIVE FACT: vault beta has key KFCE90.\"\n- \"AUTHORITATIVE FACT: vault gamma has key K6F64B.\"\n\nThe answer should be these three keys joined by | in the order alpha, beta, gamma.\n",
+      "exact": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 123,
+        "prompt_tokens": 8189,
+        "total_tokens": 8312,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 8189,
+        "prompt_ms": 5611.522,
+        "prompt_per_token_ms": 0.6852511906215655,
+        "prompt_per_second": 1459.3188799758782,
+        "predicted_n": 123,
+        "predicted_ms": 2961.5,
+        "predicted_per_token_ms": 24.077235772357724,
+        "predicted_per_second": 41.53300692216782
+      },
+      "wall_s": 8.938000000023749,
+      "prompt_sha256": "80eec7819a5fe598876b384a9b716f3055e857f4e85697a887ee2922b6cdec23"
+    },
+    {
+      "target_tokens": 8192,
+      "actual_tokens": 8160,
+      "task": "multihop",
+      "rep": 0,
+      "seed": 20260824,
+      "expected": "H-E5FCE78C",
+      "response": "H-E5FCE78C",
+      "reasoning_content": "The user asks me to follow a route starting at \"Aster\" and find the final code stored.\n\nFrom the authoritative facts:\n1. \"route Aster points to NODE-CF3873.\"\n2. \"NODE-CF3873 points to NODE-1D611B.\"\n3. \"NODE-1D611B stores code H-E5FCE78C.\"\n\nSo the chain is: Aster \u2192 NODE-CF3873 \u2192 NODE-1D611B \u2192 stores code H-E5FCE78C.\n\nThe final code is H-E5FCE78C.\n",
+      "exact": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 150,
+        "prompt_tokens": 8160,
+        "total_tokens": 8310,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 8160,
+        "prompt_ms": 5571.476,
+        "prompt_per_token_ms": 0.6827789215686274,
+        "prompt_per_second": 1464.602916713632,
+        "predicted_n": 150,
+        "predicted_ms": 3601.478,
+        "predicted_per_token_ms": 24.009853333333332,
+        "predicted_per_second": 41.649567205463974
+      },
+      "wall_s": 9.563000000023749,
+      "prompt_sha256": "401d357bf4be5e9a80e2755af7dcae8e87d41a069314a0793ebd5de57d5472db"
+    },
+    {
+      "target_tokens": 8192,
+      "actual_tokens": 8185,
+      "task": "aggregation",
+      "rep": 0,
+      "seed": 20260825,
+      "expected": "217",
+      "response": "217",
+      "reasoning_content": "The user asks for the total cobalt units shipped by depots A through E.\n\nFrom the authoritative facts:\n- Depot A shipped 19 cobalt units.\n- Depot D shipped 54 cobalt units.\n- Depot B shipped 45 cobalt units.\n- Depot E shipped 65 cobalt units.\n- Depot C shipped 34 cobalt units.\n\nTotal = 19 + 54 + 45 + 65 + 34 = 217\n",
+      "exact": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 117,
+        "prompt_tokens": 8185,
+        "total_tokens": 8302,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 8185,
+        "prompt_ms": 5624.146,
+        "prompt_per_token_ms": 0.6871284056200366,
+        "prompt_per_second": 1455.3320628589659,
+        "predicted_n": 117,
+        "predicted_ms": 2802.718,
+        "predicted_per_token_ms": 23.9548547008547,
+        "predicted_per_second": 41.745191631837386
+      },
+      "wall_s": 8.78100000001723,
+      "prompt_sha256": "3f45df193d720e54fe225000f54b2443cabd301cb45683a00219ad21a74b1ddb"
+    },
+    {
+      "target_tokens": 32768,
+      "actual_tokens": 32744,
+      "task": "aggregation",
+      "rep": 0,
+      "seed": 20260825,
+      "expected": "217",
+      "response": "217",
+      "reasoning_content": "The user is asking for the total number of cobalt units shipped by depots A through E. The authoritative facts are embedded in the records:\n\n- depot A shipped 19 cobalt units\n- depot D shipped 54 cobalt units\n- depot B shipped 45 cobalt units\n- depot E shipped 65 cobalt units\n- depot C shipped 34 cobalt units\n\nTotal = 19 + 54 + 45 + 65 + 34 = 217\n",
+      "exact": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 118,
+        "prompt_tokens": 32744,
+        "total_tokens": 32862,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 32744,
+        "prompt_ms": 25393.908,
+        "prompt_per_token_ms": 0.7755285853896897,
+        "prompt_per_second": 1289.4431215549807,
+        "predicted_n": 118,
+        "predicted_ms": 3272.583,
+        "predicted_per_token_ms": 27.733754237288135,
+        "predicted_per_second": 36.05714507470093
+      },
+      "wall_s": 29.42200000002049,
+      "prompt_sha256": "8647382d007a805b17c1b7f4bb2701ef8391180d42e708acd9a89fcad2ed181c"
+    },
+    {
+      "target_tokens": 32768,
+      "actual_tokens": 32745,
+      "task": "multihop",
+      "rep": 0,
+      "seed": 20260824,
+      "expected": "H-E5FCE78C",
+      "response": "H-E5FCE78C",
+      "reasoning_content": "The user wants me to follow a route starting at \"Aster\" and find the final code stored.\n\nLet me trace the route:\n\n1. AUTHORITATIVE FACT: route Aster points to NODE-CF3873.\n2. AUTHORITATIVE FACT: NODE-CF3873 points to NODE-1D611B.\n3. AUTHORITATIVE FACT: NODE-1D611B stores code H-E5FCE78C.\n\nSo the route is: Aster \u2192 NODE-CF3873 \u2192 NODE-1D611B \u2192 stores code H-E5FCE78C.\n\nThe final code is H-E5FCE78C.\n",
+      "exact": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 163,
+        "prompt_tokens": 32745,
+        "total_tokens": 32908,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 32745,
+        "prompt_ms": 25626.969,
+        "prompt_per_token_ms": 0.7826223545579478,
+        "prompt_per_second": 1277.7554770523193,
+        "predicted_n": 163,
+        "predicted_ms": 4501.164,
+        "predicted_per_token_ms": 27.614503067484662,
+        "predicted_per_second": 36.212855163686555
+      },
+      "wall_s": 31.110000000044238,
+      "prompt_sha256": "535358a0b88d0e6690d86642b74954e2f7a0ac7c1840ac74b060b0d21ccff2c4"
+    },
+    {
+      "target_tokens": 32768,
+      "actual_tokens": 32753,
+      "task": "multikey",
+      "rep": 0,
+      "seed": 20260823,
+      "expected": "KA2BEB|KFCE90|K6F64B",
+      "response": "KA2BEB|KFCE90|K6F64B",
+      "reasoning_content": "The user wants the keys for vaults alpha, beta, and gamma in that order, joined by |.\n\nFrom the records:\n- vault alpha has key KA2BEB\n- vault beta has key KFCE90\n- vault gamma has key K6F64B\n\nSo the answer is: KA2BEB|KFCE90|K6F64B\n",
+      "exact": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 101,
+        "prompt_tokens": 32753,
+        "total_tokens": 32854,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 32753,
+        "prompt_ms": 25766.416,
+        "prompt_per_token_ms": 0.7866887308032853,
+        "prompt_per_second": 1271.1507879093467,
+        "predicted_n": 101,
+        "predicted_ms": 2755.486,
+        "predicted_per_token_ms": 27.282039603960396,
+        "predicted_per_second": 36.654151028167085
+      },
+      "wall_s": 29.48499999998603,
+      "prompt_sha256": "4d481ae7a9fc07bb0c56d5adf62d3a91c28d548d070b21a6f993dce636091427"
+    },
+    {
+      "target_tokens": 32768,
+      "actual_tokens": 32737,
+      "task": "retrieval",
+      "rep": 0,
+      "seed": 20260822,
+      "expected": "R-447A5B5A",
+      "response": "R-447A5B5A",
+      "reasoning_content": "The user is asking for project Aster's release code. In the records, there is an explicit line: \"AUTHORITATIVE FACT: project Aster's release code is R-447A5B5A.\"\n\nThe instruction says to reply with ONLY the exact code.\n",
+      "exact": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 71,
+        "prompt_tokens": 32737,
+        "total_tokens": 32808,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 32737,
+        "prompt_ms": 25849.753,
+        "prompt_per_token_ms": 0.7896188716131595,
+        "prompt_per_second": 1266.4337643767815,
+        "predicted_n": 71,
+        "predicted_ms": 1924.343,
+        "predicted_per_token_ms": 27.10342253521127,
+        "predicted_per_second": 36.89570934079839
+      },
+      "wall_s": 28.79700000002049,
+      "prompt_sha256": "edba5c9da0594df316d26105f776cc3bfa4e33a4d9bcdcc579f3228c4bf7e79a"
+    },
+    {
+      "target_tokens": 64000,
+      "actual_tokens": 63994,
+      "task": "retrieval",
+      "rep": 0,
+      "seed": 20260822,
+      "expected": "R-447A5B5A",
+      "response": "R-447A5B5A",
+      "reasoning_content": "The user is asking for project Aster's release code. In the data, there's a line that states: \"AUTHORITATIVE FACT: project Aster's release code is R-447A5B5A.\"\n\nThe instruction says to reply with ONLY the exact code.\n",
+      "exact": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 72,
+        "prompt_tokens": 63994,
+        "total_tokens": 64066,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 63994,
+        "prompt_ms": 58286.204,
+        "prompt_per_token_ms": 0.9108073256867831,
+        "prompt_per_second": 1097.9270497697878,
+        "predicted_n": 72,
+        "predicted_ms": 2321.238,
+        "predicted_per_token_ms": 32.23941666666666,
+        "predicted_per_second": 31.017930948916053
+      },
+      "wall_s": 62.40599999995902,
+      "prompt_sha256": "491884605804eb4e6f70f2d08fbf732a73178142e5cd694a54c97737d85e09fc"
+    },
+    {
+      "target_tokens": 64000,
+      "actual_tokens": 63982,
+      "task": "multikey",
+      "rep": 0,
+      "seed": 20260823,
+      "expected": "KA2BEB|KFCE90|K6F64B",
+      "response": "KA2BEB|KFCE90|K6F64B",
+      "reasoning_content": "The user wants me to return the keys for vaults alpha, beta, and gamma in that order, joined by |.\n\nFrom the records:\n- vault alpha has key KA2BEB\n- vault beta has key KFCE90\n- vault gamma has key K6F64B\n\nSo the answer is: KA2BEB|KFCE90|K6F64B\n",
+      "exact": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 104,
+        "prompt_tokens": 63982,
+        "total_tokens": 64086,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 63982,
+        "prompt_ms": 58606.385,
+        "prompt_per_token_ms": 0.91598238567097,
+        "prompt_per_second": 1091.7240502037448,
+        "predicted_n": 104,
+        "predicted_ms": 3394.534,
+        "predicted_per_token_ms": 32.63975,
+        "predicted_per_second": 30.637489564105117
+      },
+      "wall_s": 64.03099999995902,
+      "prompt_sha256": "5c4d09f6baf249c9c25fa8984f48cef478fb4d383c9cad700231721de496bfa5"
+    },
+    {
+      "target_tokens": 64000,
+      "actual_tokens": 63981,
+      "task": "multihop",
+      "rep": 0,
+      "seed": 20260824,
+      "expected": "H-E5FCE78C",
+      "response": "H-E5FCE78C",
+      "reasoning_content": "The user wants me to follow a route starting at \"Aster\" and find the final code stored.\n\nLet me trace the route:\n\n1. \"AUTHORITATIVE FACT: route Aster points to NODE-CF3873.\"\n2. \"AUTHORITATIVE FACT: NODE-CF3873 points to NODE-1D611B.\"\n3. \"AUTHORITATIVE FACT: NODE-1D611B stores code H-E5FCE78C.\"\n\nSo the route is: Aster \u2192 NODE-CF3873 \u2192 NODE-1D611B \u2192 stores code H-E5FCE78C.\n\nThe final code is H-E5FCE78C.\n",
+      "exact": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 169,
+        "prompt_tokens": 63981,
+        "total_tokens": 64150,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 63981,
+        "prompt_ms": 58847.646,
+        "prompt_per_token_ms": 0.9197675247339054,
+        "prompt_per_second": 1087.2312547557128,
+        "predicted_n": 169,
+        "predicted_ms": 5528.995,
+        "predicted_per_token_ms": 32.71594674556213,
+        "predicted_per_second": 30.566133628263366
+      },
+      "wall_s": 66.40600000001723,
+      "prompt_sha256": "5dd550f229f4ff8de1506df5cea4c26826494ba3c4b128fda60f3d81d7bc6cfc"
+    },
+    {
+      "target_tokens": 64000,
+      "actual_tokens": 63997,
+      "task": "aggregation",
+      "rep": 0,
+      "seed": 20260825,
+      "expected": "217",
+      "response": "217",
+      "reasoning_content": "The user is asking for the total number of cobalt units shipped by depots A through E.\n\nFrom the authoritative facts in the records:\n- Depot A shipped 19 cobalt units.\n- Depot D shipped 54 cobalt units.\n- Depot B shipped 45 cobalt units.\n- Depot E shipped 65 cobalt units.\n- Depot C shipped 34 cobalt units.\n\nTotal = 19 + 54 + 45 + 65 + 34 = 217\n",
+      "exact": true,
+      "finish_reason": "stop",
+      "usage": {
+        "completion_tokens": 123,
+        "prompt_tokens": 63997,
+        "total_tokens": 64120,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 63997,
+        "prompt_ms": 58980.573,
+        "prompt_per_token_ms": 0.9216146538118973,
+        "prompt_per_second": 1085.0521916767407,
+        "predicted_n": 123,
+        "predicted_ms": 3991.807,
+        "predicted_per_token_ms": 32.45371544715447,
+        "predicted_per_second": 30.813112958617488
+      },
+      "wall_s": 65.0,
+      "prompt_sha256": "b3a8d2cfb67f6d210acc80f49b7844c02beebbcdafc8dd48d35583422f31bac5"
+    }
+  ]
+}

@@ -98,10 +98,14 @@ def text(response: dict) -> str:
         return ""
 
 
-def base_payload(tools: list[dict], messages: list[dict]) -> dict:
+def base_payload(tools: list[dict], messages: list[dict],
+                 reasoning_strength: str | None = None) -> dict:
+    template_kwargs = ({"reasoning_strength": reasoning_strength,
+                        "reasoning_effort": reasoning_strength}
+                       if reasoning_strength else {"enable_thinking": False})
     return {"model": "local", "tools": tools, "messages": messages,
             "temperature": 0.0, "max_tokens": 384,
-            "chat_template_kwargs": {"enable_thinking": False}}
+            "chat_template_kwargs": template_kwargs}
 
 
 Validator = Callable[[list[dict], str], tuple[bool, str]]
@@ -185,9 +189,11 @@ CASES = [
 ]
 
 
-def run_case(base_url: str, case: dict, timeout_s: float) -> dict:
+def run_case(base_url: str, case: dict, timeout_s: float,
+             reasoning_strength: str | None = None) -> dict:
     started = time.monotonic()
-    response = post(base_url, base_payload(case["tools"], case["messages"]), timeout_s)
+    response = post(base_url, base_payload(case["tools"], case["messages"],
+                                           reasoning_strength), timeout_s)
     found, answer = calls(response), text(response)
     passed, expectation = case["validate"](found, answer)
     return {"case": case["name"], "pass": passed, "expectation": expectation,
@@ -229,6 +235,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--base-url", default="http://127.0.0.1:8080")
     parser.add_argument("--timeout", type=float, default=300.0)
+    parser.add_argument("--reasoning-strength", choices=("low", "medium", "high", "xhigh"))
     parser.add_argument("--output", type=pathlib.Path,
                         default=pathlib.Path("runs/agent/LAB-AGENT-001-v2/results.json"))
     parser.add_argument("--selfcheck", action="store_true")
@@ -239,12 +246,13 @@ def main() -> int:
 
     rows = []
     for case in CASES:
-        row = run_case(args.base_url, case, args.timeout)
+        row = run_case(args.base_url, case, args.timeout, args.reasoning_strength)
         rows.append(row)
         print(f"{row['case']:<30} {'PASS' if row['pass'] else 'FAIL'} {row['seconds']:>7.2f}s",
               flush=True)
     report = {"campaign": "LAB-AGENT-001-v2", "timestamp": datetime.now(timezone.utc).isoformat(),
               "endpoint": args.base_url, "method": "BFCL-inspired local cases; not BFCL-comparable",
+              "reasoning_strength": args.reasoning_strength,
               "summary": summarize(rows), "results": rows}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """WA-CLOSE-002 — actual-EvalPlus INTEGRATION sentinel (NOT a unit test).
 
-The 16-case unit suite (`benchmark_harness_selftest.py`) stays fast and emulated. This sentinel
+The 23-case unit suite (`benchmark_harness_selftest.py`) stays fast and emulated. This sentinel
 additionally drives the REAL, currently-installed EvalPlus end-to-end on a tiny deterministic
 fixture, so a broken/upgraded EvalPlus or a broken glue path is caught for real:
 

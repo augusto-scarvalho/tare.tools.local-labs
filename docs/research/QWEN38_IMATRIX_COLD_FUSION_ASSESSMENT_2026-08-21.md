@@ -1,6 +1,6 @@
 # Qwen3.8 imatrix and Cold Fusion candidate assessment — 2026-08-21
 
-**Status:** assessed / experiment proposed / not yet executed
+**Status:** Unsloth E1 and Cold Fusion E0-E4 executed with gated early stops; no supersession
 
 **Scope:** `tare.tools.local-labs`, Qwen3.8-27B GGUF artifacts, `slop.cpp` runtime qualification
 
@@ -317,3 +317,36 @@ current Unsloth quants, the supplied imatrix, NEO imatrix, Cold Fusion weights, 
 have passed local qualification. At the time of writing, the historical IQ4_XS identified above is the only
 locally qualified Qwen3.8 artifact in this assessment. That status is explicitly temporary: it carries no
 presumption against a newer requant, model, method, or result that earns supersession through evidence.
+
+## 11. Execution amendment — current Unsloth revision
+
+E1 ran on 2026-08-21/22 against revision
+`4ca720788d1e01f1bff70c033e0d0028fd02e502`. Neither current artifact superseded its historical peer.
+
+- Current Q2_K_XL failed the compact gate: despite saving 7.94% of artifact bytes and 832 MiB of measured
+  residency, it introduced an 8k aggregation miss and truncated `Mbpp/260` at 2,048 tokens where the
+  historical Q2 terminated correctly.
+- Current IQ4_XS passed agent 8/8, cache 4/4, GSM8K 94/100, and a replicated 36/36 context matrix through
+  64k. Its full MBPP+ score was 323/378 Base and 280/378 Plus, below both frozen non-inferiority thresholds
+  and below the historical 326/378 and 284/378.
+- The separate current MTP head remained ineligible because its base artifact failed a required correctness
+  gate. Deployment was not changed.
+
+Decision-bearing receipts are in
+`runs/requalification/QWEN38-UNSLOTH-REVISION-2026-08-21/RESULT.md`.
+
+## 12. Execution amendment — Cold Fusion
+
+The repository advanced to revision `27a5cb2cce434341c2a8a4a50130268e0eccae34` before execution, while the
+selected `NEO-MTP-IQ4_XS` blob retained its frozen 17,033,680,384-byte size and SHA-256 `523bf4...7852f9`.
+It was downloaded by that immutable revision and admitted successfully.
+
+The no-spec candidate fit with 5,197 MiB free and passed agent 8/8 plus cache 4/4. It failed the compact
+role gate on context aggregation (9/12 overall), `Mbpp/260` (terminating but Base/Plus incorrect), and the
+five-case GSM failure replay (1/5 versus the frozen 3/5 floor). A valid single-task reasoning control was
+correct in every mode, but instruct/off used 182 tokens while low/medium/xhigh used 473-477; no efficiency
+gain appeared on that control.
+
+Per the frozen dependency gate, full MBPP+/GSM/context and same-file MTP off/n2/n3 were not run. The result
+is `REJECT_BASE_ROLE / MTP_NOT_RUN`; deployment remains unchanged. Full receipts are in
+`runs/requalification/COLD-FUSION-2026-08-22/RESULT.md`.

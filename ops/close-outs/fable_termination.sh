@@ -7,7 +7,9 @@
 # enable_thinking {false,true} x cap {512,2048}, temp 0. If it hits "length" on trivial prompts even at
 # 2048 -> DISQUALIFIED for the agentic role. --jinja mandatory (thinking-model template).
 #
-# RESULT 2026-08-16 (Q4_K_M, q4_0 KV, temp 0):
+# HISTORICAL RESULT 2026-08-16 (no retained raw receipts; superseded by the qualified
+# 32-cell 2026-08-22 run under runs/close-outs/LAB-CLOSE-002-FABLE-TERMINATION-2026-08-22):
+# (Q4_K_M, q4_0 KV, temp 0)
 #     think=OFF (instruct): 4/4 terminate (stop), tiny outputs (2/7/4/21 tok) at both caps 512 & 2048.
 #     think=ON  (thinking): 2/4 terminate; the rest hit "length" — ran to the 512 AND 2048 ceiling on
 #         TRIVIAL prompts (e.g. rambled 1674 tokens to "say hello in three words"). The <think> runs away.

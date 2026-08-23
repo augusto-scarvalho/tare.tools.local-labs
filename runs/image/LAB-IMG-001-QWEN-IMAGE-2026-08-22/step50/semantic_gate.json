@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "dashboard",
+      "prompt": "Transcribe the label and value of each status card exactly. Be concise.",
+      "completion": "QUENE: 7\nGPU: 68%\nCARGSE: OK",
+      "elapsed_seconds": 1.2704990390047897,
+      "finish_reason": "stop",
+      "clause_passes": [
+        false,
+        true,
+        false
+      ],
+      "clauses_passed": 1,
+      "clauses_total": 3,
+      "case_pass": false,
+      "usage": {
+        "completion_tokens": 127,
+        "prompt_tokens": 289,
+        "total_tokens": 416,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "composition",
+      "prompt": "Describe each geometric object, its color, and its relative position. Also state the background color. Be concise.",
+      "completion": "Draft 1 (Mental):* There is a green triangle at the top center. Below it on the left is a red square. To the right of the square is a blue circle. The background is off-white.\n\n    *   *Draft 2 (More concise):*\n        *   Green triangle: Top center.\n        *   Red square: Bottom left.\n        *   Blue circle: Bottom right.\n        *   Background: Off-white.\n\n    *   *Draft 3 (Final Polish - checking against constraints):*\n        *   Green triangle: Top center.\n        *   Red square: Bottom left.\n        *   Blue circle: Bottom right.\n        *   Background: Off-white.\n\n4.  **Final Output Generation:** (Matches Draft 3).",
+      "elapsed_seconds": 2.6815272440144327,
+      "finish_reason": "stop",
+      "clause_passes": [
+        false,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      "clauses_passed": 5,
+      "clauses_total": 7,
+      "case_pass": false,
+      "usage": {
+        "completion_tokens": 466,
+        "prompt_tokens": 296,
+        "total_tokens": 762,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      }
+    }
+  ],
+  "clauses_passed": 6,
+  "clauses_total": 10,
+  "clause_rate": 0.6,
+  "cases_passed": 0,
+  "decision": "FAIL_QUALITY"
+}

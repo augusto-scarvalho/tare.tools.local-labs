@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "model": "/home/augus/models/rwkv7-1.5b/official-d2d414f",
+  "backend_requested": "auto",
+  "backend_status": "{'requested': 'auto'}",
+  "environment": {
+    "torch": "2.11.0+cu130",
+    "cuda": "13.0",
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "total_vram_bytes": 25769279488
+  },
+  "identity": {
+    "model.safetensors": {
+      "actual": "84ccbb857c84e00cefc48b233937ada79c411e491df25fb21aed23237f39a14f",
+      "expected": "84ccbb857c84e00cefc48b233937ada79c411e491df25fb21aed23237f39a14f",
+      "match": true
+    },
+    "config.json": {
+      "actual": "e4e63cfac48f183f9057974df3d4e4b349008d6cb302ca0b7d5763aa57e2d082",
+      "expected": "e4e63cfac48f183f9057974df3d4e4b349008d6cb302ca0b7d5763aa57e2d082",
+      "match": true
+    },
+    "tokenizer.json": {
+      "actual": "1c0bc8e5f355de60a4587a1e9abb9aa4ef65508ff59641344e7f9f10f76feacf",
+      "expected": "1c0bc8e5f355de60a4587a1e9abb9aa4ef65508ff59641344e7f9f10f76feacf",
+      "match": true
+    }
+  },
+  "load": {
+    "seconds": 2.878084920987021,
+    "free_before_bytes": 24431820800,
+    "free_after_bytes": 21174943744,
+    "allocated_bytes": 3055337472,
+    "peak_allocated_bytes": 3055337472,
+    "fit_pass": true
+  },
+  "state_bytes_by_length": {
+    "32": 12779524,
+    "256": 12779524,
+    "1024": 12779524
+  },
+  "constant_state_pass": true,
+  "split_max_abs_diff": 0.0,
+  "split_pass": true,
+  "fresh_reset_max_abs_diff": 0.0,
+  "contaminated_state_max_abs_diff": 40.0,
+  "isolation_pass": true,
+  "behavior": [
+    {
+      "prompt": "Reply with only the integer result of 17 + 25.",
+      "completion": ">17 + 25 = 42",
+      "new_tokens": 7,
+      "natural_eos": true,
+      "elapsed_seconds": 0.7217854729969986,
+      "tokens_per_second": 9.698172465198823
+    },
+    {
+      "prompt": "Write a Python function named add that returns the sum of two numbers.",
+      "completion": ">\nHere is a simple Python function that adds two numbers:\n```python\ndef add(a, b):\n    return a + b\n```\n**Explanation:**  \n- The function `add` takes two arguments `a` and `b`.  \n- It returns the sum of `a` and `b` using the `+` operator.  \n- You can call it with any two numbers, e.g., `add(3, 5)` returns `8`.",
+      "new_tokens": 102,
+      "natural_eos": true,
+      "elapsed_seconds": 3.744660358002875,
+      "tokens_per_second": 27.23878543003544
+    },
+    {
+      "prompt": "In one sentence, explain why a recurrent model can use constant-size state.",
+      "completion": ">A recurrent model can use constant-size state because the hidden state is typically a fixed-size vector (e.g., a vector of size \\(d\\)) that is updated at each time step, allowing the model to maintain a consistent representation of the input sequence regardless of its length.",
+      "new_tokens": 60,
+      "natural_eos": true,
+      "elapsed_seconds": 2.496070402004989,
+      "tokens_per_second": 24.037783530386207
+    },
+    {
+      "prompt": "Reply with exactly OK.",
+      "completion": ">\nOK",
+      "new_tokens": 4,
+      "natural_eos": true,
+      "elapsed_seconds": 0.45247148102498613,
+      "tokens_per_second": 8.84033617088701
+    }
+  ],
+  "nonempty_rate": 1.0,
+  "natural_eos_rate": 1.0,
+  "mechanism_pass": true,
+  "decision": "QUALIFIED_MECHANISM",
+  "deployment_license": "BLOCKED_FOR_DEPLOYMENT_UNASSERTED_WEIGHT_LICENSE"
+}

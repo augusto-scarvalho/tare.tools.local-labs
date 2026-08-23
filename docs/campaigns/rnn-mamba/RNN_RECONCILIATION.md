@@ -12,7 +12,7 @@ campaign under `runs/serving/` + `.harness/handoff/`.
 | Need | Existing asset | Reuse |
 |---|---|---|
 | Robust stats for small-n paired evals | `src/model_lifecycle/analysis/robust.py` (`bootstrap_ci`, `hodges_lehmann`, `sign_test_p`, `cliffs_delta`, `non_inferiority`, `trend_slope_ci`, `min_rounds_for`) | Any RNN quality/latency eval reuses this — no new stats code |
-| Benchmark-instrument QA discipline (LAB-QA-001) | `tests/benchmark_harness/` (16 cases, green), `benchmark_harness_qa.py` (`run_identity`, `{stem}__identity.json`), `DATASET_IDENTITY.json` | **RNN-00B RULER smoke reused this philosophy** (tokenizer identity, known-good/bad, no silent truncation, reproducibility) |
+| Benchmark-instrument QA discipline (LAB-QA-001) | `tests/benchmark_harness/` (23 cases, green), `benchmark_harness_qa.py` (`run_identity`, `{stem}__identity.json`), `DATASET_IDENTITY.json` | **RNN-00B RULER smoke reused this philosophy** (tokenizer identity, known-good/bad, no silent truncation, reproducibility) |
 | GDN recurrence math (kernel level) | `GDN_KERNEL.md`: chunk-parallel gated-delta kernel, **validated to ~1e-16** vs sequential | Cross-checked against HF `torch_recurrent_gated_delta_rule` — same rule; we did NOT re-derive the math |
 | Model registry / serve profiles | `src/model_lifecycle/models.py`, `serve_profiles.py` | Registry pattern for any new RNN model artifact |
 | Run/evidence storage | `runs/**` convention | New evidence under `runs/rnn/**` (no parallel store) |

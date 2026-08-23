@@ -76,14 +76,15 @@ def assemble(units: list[str], facts: list[str], question: str) -> str:
     return "\n".join(material) + "\n\nQuestion: " + question
 
 
-def calibrate(base_url: str, target: int, kind: str, seed: int) -> tuple[str, int, str]:
+def calibrate(base_url: str, target: int, kind: str, seed: int,
+              template_kwargs: dict | None = None) -> tuple[str, int, str]:
     facts, expected, question = task_spec(kind, seed)
     superset = niah_units(seed, max(768, target // 5))
     low, high, best_prompt, best_tokens = 0, len(superset), "", 0
     while low <= high:
         middle = (low + high) // 2
         candidate = assemble(superset[:middle], facts, question)
-        tokens = apply_template_token_count(base_url, candidate)
+        tokens = apply_template_token_count(base_url, candidate, template_kwargs)
         if tokens <= target:
             best_prompt, best_tokens = candidate, tokens
             low = middle + 1
@@ -133,6 +134,8 @@ def main() -> int:
     parser.add_argument("--tasks", nargs="+", choices=TASKS, default=list(TASKS))
     parser.add_argument("--seed", type=int, default=20260820)
     parser.add_argument("--timeout", type=float, default=900.0)
+    parser.add_argument("--max-tokens", type=int, default=64)
+    parser.add_argument("--reasoning-strength", choices=("low", "medium", "high", "xhigh"))
     parser.add_argument("--output", type=pathlib.Path,
                         default=pathlib.Path("runs/context/LAB-CTX-001-v2/results.json"))
     parser.add_argument("--selfcheck", action="store_true")
@@ -141,6 +144,9 @@ def main() -> int:
         selfcheck()
         return 0
     rows = []
+    template_kwargs = ({"reasoning_strength": args.reasoning_strength,
+                        "reasoning_effort": args.reasoning_strength}
+                       if args.reasoning_strength else None)
     for target_index, target in enumerate(args.targets):
         tasks = list(args.tasks) if target_index % 2 == 0 else list(reversed(args.tasks))
         for rep in range(args.reps):
@@ -149,15 +155,18 @@ def main() -> int:
                 # Only the amount of filler changes, so a within-cell delta is attributable
                 # to context rather than to a different random arithmetic instance.
                 seed = args.seed + rep * 10 + TASKS.index(kind)
-                prompt, actual, expected = calibrate(args.base_url, target, kind, seed)
+                prompt, actual, expected = calibrate(args.base_url, target, kind, seed,
+                                                     template_kwargs)
                 # Same calibrated unit granularity accepted by qwen38_requal NIAH.
                 if target - actual > 64:
                     raise RuntimeError(f"token calibration miss for {kind}/{target}: {actual}")
-                result = chat(args.base_url, prompt, max_tokens=64, timeout=args.timeout)
+                result = chat(args.base_url, prompt, max_tokens=args.max_tokens,
+                              timeout=args.timeout, chat_template_kwargs=template_kwargs)
                 answer = result["response"].strip()
                 row = {"target_tokens": target, "actual_tokens": actual, "task": kind,
                        "rep": rep, "seed": seed, "expected": expected,
                        "response": result["response"],
+                       "reasoning_content": result["reasoning_content"],
                        "exact": strict_exact_reply(result["response"], expected),
                        "finish_reason": result["finish_reason"], "usage": result["usage"],
                        "timings": result["timings"], "wall_s": result["wall_s"],
@@ -171,7 +180,9 @@ def main() -> int:
     report = {"campaign": "LAB-CTX-001-v2",
               "scope": "RULER-inspired local tasks; not NVIDIA RULER-comparable",
               "timestamp": datetime.now(timezone.utc).isoformat(), "endpoint": args.base_url,
-              "targets": args.targets, "reps": args.reps, "summary": summarize(rows),
+              "targets": args.targets, "reps": args.reps,
+              "reasoning_strength": args.reasoning_strength,
+              "max_tokens": args.max_tokens, "summary": summarize(rows),
               "rows": rows}
     args.output.write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps(report["summary"], indent=2))

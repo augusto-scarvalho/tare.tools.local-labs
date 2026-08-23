@@ -38,11 +38,15 @@ def pick_subset(problems: list[dict], n: int) -> list[dict]:
     return [problems[index] for index in sorted(order[:n])]
 
 
-def generate(base_url: str, problem: dict, max_tokens: int, timeout_s: float) -> dict:
+def generate(base_url: str, problem: dict, max_tokens: int, timeout_s: float,
+             reasoning_strength: str | None = None) -> dict:
+    template_kwargs = ({"reasoning_strength": reasoning_strength,
+                        "reasoning_effort": reasoning_strength}
+                       if reasoning_strength else {"enable_thinking": False})
     payload = {"model": "local", "messages": [{"role": "user",
                "content": INSTRUCTION.format(prompt=problem["prompt"])}],
                "temperature": 0.0, "top_k": 1, "max_tokens": max_tokens,
-               "chat_template_kwargs": {"enable_thinking": False}, "cache_prompt": False}
+               "chat_template_kwargs": template_kwargs, "cache_prompt": False}
     request = urllib.request.Request(f"{base_url.rstrip('/')}/v1/chat/completions",
                                      data=json.dumps(payload).encode("utf-8"),
                                      headers={"Content-Type": "application/json"})
@@ -100,6 +104,15 @@ def main() -> int:
                         default=ROOT / "runs" / "code" / "LAB-CODE-001-MBPP-plus")
     parser.add_argument("--model-sha256", default=None)
     parser.add_argument("--engine-commit", default="UNKNOWN")
+    parser.add_argument("--reasoning-strength", choices=("low", "medium", "high", "xhigh"))
+    parser.add_argument("--model-id", default="qwen38-27b")
+    parser.add_argument("--model-path",
+                        default="/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-IQ4_XS.gguf")
+    parser.add_argument("--model-bytes", type=int, default=15705861088)
+    parser.add_argument("--quant", default="IQ4_XS")
+    parser.add_argument("--source-repo", default="unsloth/Qwen3.8-27B-GGUF")
+    parser.add_argument("--source-revision", default="UNKNOWN")
+    parser.add_argument("--provenance-class", default="COMMUNITY_REQUANT")
     parser.add_argument("--selfcheck", action="store_true")
     args = parser.parse_args()
     if args.selfcheck:
@@ -121,7 +134,8 @@ def main() -> int:
     with records_path.open("w", encoding="utf-8") as records_handle, \
             samples_path.open("w", encoding="utf-8") as samples_handle:
         for index, problem in enumerate(problems, 1):
-            record = generate(args.base_url, problem, args.max_tokens, args.timeout)
+            record = generate(args.base_url, problem, args.max_tokens, args.timeout,
+                              args.reasoning_strength)
             records.append(record)
             records_handle.write(json.dumps(record, ensure_ascii=False) + "\n")
             records_handle.flush()
@@ -137,14 +151,16 @@ def main() -> int:
         benchmark_name="mbpp-plus", benchmark_version="evalplus-mbpp-v0.2.0",
         dataset_version=str(args.problems), problems=all_problems,
         sampling={"temperature": 0.0, "top_k": 1, "max_tokens": args.max_tokens,
-                  "enable_thinking": False, "subset_seed": SUBSET_SEED},
-        model_id="qwen38-27b", model_path="/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-IQ4_XS.gguf",
-        quant="IQ4_XS", engine_commit=args.engine_commit,
+                  "enable_thinking": False if args.reasoning_strength is None else None,
+                  "reasoning_strength": args.reasoning_strength,
+                  "subset_seed": SUBSET_SEED},
+        model_id=args.model_id, model_path=args.model_path,
+        quant=args.quant, engine_commit=args.engine_commit,
         timestamp=datetime.now(timezone.utc).isoformat(), repo_root=ROOT,
-        model_sha256=args.model_sha256, model_bytes=15705861088,
-        source_repo="unsloth/Qwen3.8-27B-GGUF", source_revision="UNKNOWN",
+        model_sha256=args.model_sha256, model_bytes=args.model_bytes,
+        source_repo=args.source_repo, source_revision=args.source_revision,
         quantizer="upstream artifact; exact quantizer revision UNKNOWN", imatrix="static/no imatrix",
-        provenance_class="COMMUNITY_REQUANT")
+        provenance_class=args.provenance_class)
     identity.update({"benchmark_content_hash": benchmark_content_hash(all_problems),
                      "subset_task_ids": [p["task_id"] for p in problems],
                      "sample_validation": {"ok": not validation_errors,

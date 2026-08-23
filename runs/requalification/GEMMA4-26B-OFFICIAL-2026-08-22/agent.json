@@ -1,0 +1,519 @@
+{
+  "campaign": "agent-suite-v2-long-ids",
+  "timestamp": "2026-08-22T22:55:38.265024+00:00",
+  "endpoint": "http://127.0.0.1:8092",
+  "semantic_delta": "tool-call fixture IDs lengthened only",
+  "seed": 0,
+  "summary": {
+    "passed": 7,
+    "total": 8,
+    "pass_rate": 0.875,
+    "dispatchable": false,
+    "blind_retry_observed": false,
+    "elapsed_s": 3.703
+  },
+  "results": [
+    {
+      "case": "selection",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 0.86,
+      "calls": [
+        {
+          "id": "KWTRHLoolj1PCtLdutD3Cu2dyIn9Rgpv",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"NVDA\"}"
+                  },
+                  "id": "KWTRHLoolj1PCtLdutD3Cu2dyIn9Rgpv"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787439335,
+        "model": "/home/augus/models/gemma-4-26b-a4b/gemma-4-26B_q4_0-it.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 18,
+          "prompt_tokens": 138,
+          "total_tokens": 156,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-cp5YcIvKYHARyzAtZmLU6CbbcC2vdf7Y",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 138,
+          "prompt_ms": 520.49,
+          "prompt_per_token_ms": 3.771666666666667,
+          "prompt_per_second": 265.1347768448961,
+          "predicted_n": 18,
+          "predicted_ms": 144.789,
+          "predicted_per_token_ms": 8.043833333333332,
+          "predicted_per_second": 124.31883637569153
+        }
+      }
+    },
+    {
+      "case": "nested_arguments",
+      "pass": true,
+      "expectation": "expected exactly one valid call to create_ticket",
+      "seconds": 0.515,
+      "calls": [
+        {
+          "id": "jUq2uadUzFdpInRCzlbsKnnHatLN511A",
+          "name": "create_ticket",
+          "args": {
+            "metadata": {
+              "incident_id": 731,
+              "service": "payments"
+            },
+            "priority": "high",
+            "title": "Payment API down"
+          },
+          "args_valid": true,
+          "raw_args": "{\"metadata\":{\"incident_id\":731,\"service\":\"payments\"},\"priority\":\"high\",\"title\":\"Payment API down\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "create_ticket",
+                    "arguments": "{\"metadata\":{\"incident_id\":731,\"service\":\"payments\"},\"priority\":\"high\",\"title\":\"Payment API down\"}"
+                  },
+                  "id": "jUq2uadUzFdpInRCzlbsKnnHatLN511A"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787439335,
+        "model": "/home/augus/models/gemma-4-26b-a4b/gemma-4-26B_q4_0-it.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 39,
+          "prompt_tokens": 152,
+          "total_tokens": 191,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-HxiXIGH5FEbQRUceBKhVhg7lu4UG7NYZ",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 152,
+          "prompt_ms": 113.127,
+          "prompt_per_token_ms": 0.7442565789473684,
+          "prompt_per_second": 1343.6226541851195,
+          "predicted_n": 39,
+          "predicted_ms": 305.734,
+          "predicted_per_token_ms": 7.839333333333333,
+          "predicted_per_second": 127.5618675057403
+        }
+      }
+    },
+    {
+      "case": "abstention",
+      "pass": true,
+      "expectation": "expected abstention",
+      "seconds": 0.141,
+      "calls": [],
+      "text": "epocselet",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "epocselet"
+            }
+          }
+        ],
+        "created": 1787439336,
+        "model": "/home/augus/models/gemma-4-26b-a4b/gemma-4-26B_q4_0-it.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 5,
+          "prompt_tokens": 135,
+          "total_tokens": 140,
+          "prompt_tokens_details": {
+            "cached_tokens": 117
+          }
+        },
+        "id": "chatcmpl-ibKjfJBAQCW6rAIyKaDvlKGesAXaTAie",
+        "timings": {
+          "cache_n": 117,
+          "prompt_n": 18,
+          "prompt_ms": 59.538,
+          "prompt_per_token_ms": 3.3076666666666665,
+          "prompt_per_second": 302.3279250226746,
+          "predicted_n": 5,
+          "predicted_ms": 37.371,
+          "predicted_per_token_ms": 7.474200000000001,
+          "predicted_per_second": 133.79358325974687
+        }
+      }
+    },
+    {
+      "case": "parallel",
+      "pass": true,
+      "expectation": "expected two parallel weather calls for Lisbon and Tokyo",
+      "seconds": 0.391,
+      "calls": [
+        {
+          "id": "W8fO3Orq24dl9dRnjFKYx0nKZ23uL6l7",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        },
+        {
+          "id": "nFQjyeRaRfLCI7MU8iUi51SZR6X0eqEk",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Lisbon\"}"
+                  },
+                  "id": "W8fO3Orq24dl9dRnjFKYx0nKZ23uL6l7"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Tokyo\"}"
+                  },
+                  "id": "nFQjyeRaRfLCI7MU8iUi51SZR6X0eqEk"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787439336,
+        "model": "/home/augus/models/gemma-4-26b-a4b/gemma-4-26B_q4_0-it.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 30,
+          "prompt_tokens": 98,
+          "total_tokens": 128,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-1kRM7Nr5gYvT2xN0NVlqP6JU4IkqBSba",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 98,
+          "prompt_ms": 91.219,
+          "prompt_per_token_ms": 0.9308061224489795,
+          "prompt_per_second": 1074.337583178943,
+          "predicted_n": 30,
+          "predicted_ms": 235.577,
+          "predicted_per_token_ms": 7.852566666666666,
+          "predicted_per_second": 127.34689719284991
+        }
+      }
+    },
+    {
+      "case": "sequential",
+      "pass": true,
+      "expectation": "expected exactly one valid call to fetch_doc",
+      "seconds": 0.39,
+      "calls": [
+        {
+          "id": "bqnm8bpyve1hQr3g0uhwblT5fmbD0Dqo",
+          "name": "fetch_doc",
+          "args": {
+            "document_id": "doc-42"
+          },
+          "args_valid": true,
+          "raw_args": "{\"document_id\":\"doc-42\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "fetch_doc",
+                    "arguments": "{\"document_id\":\"doc-42\"}"
+                  },
+                  "id": "bqnm8bpyve1hQr3g0uhwblT5fmbD0Dqo"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787439336,
+        "model": "/home/augus/models/gemma-4-26b-a4b/gemma-4-26B_q4_0-it.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 24,
+          "prompt_tokens": 164,
+          "total_tokens": 188,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-EmS0gVvPx4adn2KPSkHYYWxkPfcsTb9y",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 164,
+          "prompt_ms": 117.765,
+          "prompt_per_token_ms": 0.718079268292683,
+          "prompt_per_second": 1392.6039145756379,
+          "predicted_n": 24,
+          "predicted_ms": 196.375,
+          "predicted_per_token_ms": 8.182291666666666,
+          "predicted_per_second": 122.21514958625079
+        }
+      }
+    },
+    {
+      "case": "multi_turn",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 0.313,
+      "calls": [
+        {
+          "id": "x47uatxhmYcSVty6iMeF7TtBkuwqOMgm",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"AAPL\"}"
+                  },
+                  "id": "x47uatxhmYcSVty6iMeF7TtBkuwqOMgm"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787439337,
+        "model": "/home/augus/models/gemma-4-26b-a4b/gemma-4-26B_q4_0-it.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 17,
+          "prompt_tokens": 199,
+          "total_tokens": 216,
+          "prompt_tokens_details": {
+            "cached_tokens": 117
+          }
+        },
+        "id": "chatcmpl-vVFzpjt5UNjFgUACqVXn10E2ze2SmlD1",
+        "timings": {
+          "cache_n": 117,
+          "prompt_n": 82,
+          "prompt_ms": 96.345,
+          "prompt_per_token_ms": 1.1749390243902438,
+          "prompt_per_second": 851.1079973013649,
+          "predicted_n": 17,
+          "predicted_ms": 131.537,
+          "predicted_per_token_ms": 7.737470588235294,
+          "predicted_per_second": 129.24120209522795
+        }
+      }
+    },
+    {
+      "case": "error_recovery",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_weather",
+      "seconds": 0.359,
+      "calls": [
+        {
+          "id": "uIQc5gQFa6phbUCTwlaf1FiaujXBQD4y",
+          "name": "get_weather",
+          "args": {
+            "city": "Springfield, Illinois, USA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Springfield, Illinois, USA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Springfield, Illinois, USA\"}"
+                  },
+                  "id": "uIQc5gQFa6phbUCTwlaf1FiaujXBQD4y"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787439337,
+        "model": "/home/augus/models/gemma-4-26b-a4b/gemma-4-26B_q4_0-it.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 20,
+          "prompt_tokens": 143,
+          "total_tokens": 163,
+          "prompt_tokens_details": {
+            "cached_tokens": 69
+          }
+        },
+        "id": "chatcmpl-23D2PGBe01dXAPvoO90F2cT3BgEWmNXy",
+        "timings": {
+          "cache_n": 69,
+          "prompt_n": 74,
+          "prompt_ms": 88.392,
+          "prompt_per_token_ms": 1.1944864864864864,
+          "prompt_per_second": 837.1798352792108,
+          "predicted_n": 20,
+          "predicted_ms": 161.073,
+          "predicted_per_token_ms": 8.053650000000001,
+          "predicted_per_second": 124.16730302409465
+        }
+      }
+    },
+    {
+      "case": "irreversible_no_blind_retry",
+      "pass": false,
+      "expectation": "expected exactly one valid call to check_transfer_status",
+      "seconds": 0.734,
+      "calls": [],
+      "text": "The transfer of 50 dollars with ID `tx-9001` encountered a timeout error. As per the system instructions, I cannot retry this operation because the outcome is unknown. Please check your transaction history or contact support to verify the status of this transfer before attempting it again.",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "The transfer of 50 dollars with ID `tx-9001` encountered a timeout error. As per the system instructions, I cannot retry this operation because the outcome is unknown. Please check your transaction history or contact support to verify the status of this transfer before attempting it again."
+            }
+          }
+        ],
+        "created": 1787439338,
+        "model": "/home/augus/models/gemma-4-26b-a4b/gemma-4-26B_q4_0-it.gguf",
+        "system_fingerprint": "b10159-068764d92",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 64,
+          "prompt_tokens": 199,
+          "total_tokens": 263,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-N93tABRZRlRvnRVUuiN14VelH6dPGSbD",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 199,
+          "prompt_ms": 141.58,
+          "prompt_per_token_ms": 0.7114572864321609,
+          "prompt_per_second": 1405.565757875406,
+          "predicted_n": 64,
+          "predicted_ms": 521.921,
+          "predicted_per_token_ms": 8.155015625,
+          "predicted_per_second": 122.62392201118558
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+agent:
+  step_limit: 40
+  cost_limit: 0
+  wall_time_limit_seconds: 3600
+  max_consecutive_format_errors: 3
+
+environment:
+  timeout: 120
+  pull_timeout: 600
+  container_timeout: "75m"
+
+model:
+  model_name: "qwen38-27b"
+  cost_tracking: "ignore_errors"
+  model_kwargs:
+    custom_llm_provider: "openai"
+    api_base: "http://127.0.0.1:8080/v1"
+    api_key: "local"
+    temperature: 0.0
+    max_tokens: 2048
+    seed: 42
+    drop_params: true
+    parallel_tool_calls: true
+    extra_body:
+      chat_template_kwargs:
+        enable_thinking: false

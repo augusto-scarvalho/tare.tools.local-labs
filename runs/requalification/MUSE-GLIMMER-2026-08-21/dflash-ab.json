@@ -1,0 +1,414 @@
+{
+  "campaign": "LAB-MUSE-001-dflash-ab",
+  "timestamp": "2026-08-22T01:29:54.980686+00:00",
+  "engine_commit": "d775b8967a46d8beb110d444aa3b8938179e0dd8",
+  "model_sha256": "4cc57c0f51040a226e5a72cc47b7613f7772950e460a665f7083de89f183f60e",
+  "draft_sha256": "b2e808bf656086fe86bd0d0bd990f01d33e377537a07c02d45371517c8b264ef",
+  "sampling": {
+    "temperature": 0.0,
+    "top_k": 1,
+    "seed": 42,
+    "cache_prompt": false,
+    "n_predict": 384
+  },
+  "arms": [
+    {
+      "name": "nospec",
+      "nmax": null,
+      "argv": [
+        "/home/augus/src/slop.cpp-muse-glimmer/build/bin/llama-server",
+        "-m",
+        "/home/augus/models/muse-glimmer-30b/meta-70bf1b61/Muse-Glimmer-30B-KQuant-17GB-Q4_K_M.gguf",
+        "--alias",
+        "muse-nospec",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8092",
+        "--ctx-size",
+        "32768",
+        "-np",
+        "1",
+        "--gpu-layers",
+        "all",
+        "--flash-attn",
+        "on",
+        "--jinja",
+        "--no-mmproj"
+      ],
+      "residency": {
+        "memory_total_mib": "24576",
+        "memory_used_mib": "17790",
+        "memory_free_mib": "6533",
+        "temperature_c": "44",
+        "power_w": "141.86"
+      },
+      "rows": [
+        {
+          "wall_s": 8.19903513402096,
+          "sha256": "0bcbeddb55ec11d0cec7d442c660b9cc8c1e653fa04c69c177e9fdf68c5e0ed9",
+          "content": " A red-black tree is a binary search tree in which every node is colored red or black and the following invariants hold: the root is black, every leaf (NIL) is black, a red node has only black children, and every path from a node to its descendant leaves contains the same number of black nodes (the black-height). Insertion starts by placing the new node as a red leaf, which can only violate the red-red rule (a red parent with a red child) and never the black-height rule because the new node adds zero black nodes to any root-to-leaf path. The repair proceeds by walking up the tree from the inserted node to the root, recoloring and rotating as needed, and it is guaranteed to terminate because each step either reduces the number of red-red violations or moves the violation upward toward the root.\n\nThe first case to consider is when the parent of the inserted node is black. In that situation the red-red rule is already satisfied, and the insertion is complete with no further changes. The only problematic situation is when the parent is red, which means the grandparent must be black (otherwise the parent would already have a red parent, contradicting the assumption that the tree was valid before insertion). The uncle of the inserted node is the sibling of its parent; the uncle may be red or black, and this distinction determines the repair strategy.\n\nIf the uncle is red, the tree can be fixed by recoloring. The parent and uncle are recolored black, and the grandparent is recolored red. This operation eliminates the red-red violation between the parent and the inserted node because both become black, and it preserves the black-height of every root-to-leaf path: each path that previously went through the parent or uncle loses one black node (the parent or uncle becomes black? actually they become black from red, so they gain a black node) Wait, need to",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 56,
+            "prompt_ms": 91.279,
+            "prompt_per_token_ms": 1.6299821428571428,
+            "prompt_per_second": 613.5036536333658,
+            "predicted_n": 384,
+            "predicted_ms": 8102.062,
+            "predicted_per_token_ms": 21.154208877284596,
+            "predicted_per_second": 47.27191670466111
+          }
+        },
+        {
+          "wall_s": 8.190147743007401,
+          "sha256": "0bcbeddb55ec11d0cec7d442c660b9cc8c1e653fa04c69c177e9fdf68c5e0ed9",
+          "content": " A red-black tree is a binary search tree in which every node is colored red or black and the following invariants hold: the root is black, every leaf (NIL) is black, a red node has only black children, and every path from a node to its descendant leaves contains the same number of black nodes (the black-height). Insertion starts by placing the new node as a red leaf, which can only violate the red-red rule (a red parent with a red child) and never the black-height rule because the new node adds zero black nodes to any root-to-leaf path. The repair proceeds by walking up the tree from the inserted node to the root, recoloring and rotating as needed, and it is guaranteed to terminate because each step either reduces the number of red-red violations or moves the violation upward toward the root.\n\nThe first case to consider is when the parent of the inserted node is black. In that situation the red-red rule is already satisfied, and the insertion is complete with no further changes. The only problematic situation is when the parent is red, which means the grandparent must be black (otherwise the parent would already have a red parent, contradicting the assumption that the tree was valid before insertion). The uncle of the inserted node is the sibling of its parent; the uncle may be red or black, and this distinction determines the repair strategy.\n\nIf the uncle is red, the tree can be fixed by recoloring. The parent and uncle are recolored black, and the grandparent is recolored red. This operation eliminates the red-red violation between the parent and the inserted node because both become black, and it preserves the black-height of every root-to-leaf path: each path that previously went through the parent or uncle loses one black node (the parent or uncle becomes black? actually they become black from red, so they gain a black node) Wait, need to",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 56,
+            "prompt_ms": 86.721,
+            "prompt_per_token_ms": 1.5485892857142858,
+            "prompt_per_second": 645.7490111968266,
+            "predicted_n": 384,
+            "predicted_ms": 8090.808,
+            "predicted_per_token_ms": 21.124825065274152,
+            "predicted_per_second": 47.337670106619754
+          }
+        },
+        {
+          "wall_s": 8.172165486001177,
+          "sha256": "0bcbeddb55ec11d0cec7d442c660b9cc8c1e653fa04c69c177e9fdf68c5e0ed9",
+          "content": " A red-black tree is a binary search tree in which every node is colored red or black and the following invariants hold: the root is black, every leaf (NIL) is black, a red node has only black children, and every path from a node to its descendant leaves contains the same number of black nodes (the black-height). Insertion starts by placing the new node as a red leaf, which can only violate the red-red rule (a red parent with a red child) and never the black-height rule because the new node adds zero black nodes to any root-to-leaf path. The repair proceeds by walking up the tree from the inserted node to the root, recoloring and rotating as needed, and it is guaranteed to terminate because each step either reduces the number of red-red violations or moves the violation upward toward the root.\n\nThe first case to consider is when the parent of the inserted node is black. In that situation the red-red rule is already satisfied, and the insertion is complete with no further changes. The only problematic situation is when the parent is red, which means the grandparent must be black (otherwise the parent would already have a red parent, contradicting the assumption that the tree was valid before insertion). The uncle of the inserted node is the sibling of its parent; the uncle may be red or black, and this distinction determines the repair strategy.\n\nIf the uncle is red, the tree can be fixed by recoloring. The parent and uncle are recolored black, and the grandparent is recolored red. This operation eliminates the red-red violation between the parent and the inserted node because both become black, and it preserves the black-height of every root-to-leaf path: each path that previously went through the parent or uncle loses one black node (the parent or uncle becomes black? actually they become black from red, so they gain a black node) Wait, need to",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 56,
+            "prompt_ms": 87.66,
+            "prompt_per_token_ms": 1.565357142857143,
+            "prompt_per_second": 638.8318503308236,
+            "predicted_n": 384,
+            "predicted_ms": 8082.669,
+            "predicted_per_token_ms": 21.103574412532637,
+            "predicted_per_second": 47.38533768981509
+          }
+        }
+      ],
+      "decode_tps_mean": 47.331641500365315,
+      "decode_tps_stdev": 0.05695031201278074,
+      "acceptance_mean": null,
+      "hash_stable": true,
+      "log_path": "/tmp/muse-nospec-ujpwsi16.log",
+      "speedup_vs_nospec": 1.0,
+      "byte_equal_to_nospec": true
+    },
+    {
+      "name": "dflash-n4",
+      "nmax": 4,
+      "argv": [
+        "/home/augus/src/slop.cpp-muse-glimmer/build/bin/llama-server",
+        "-m",
+        "/home/augus/models/muse-glimmer-30b/meta-70bf1b61/Muse-Glimmer-30B-KQuant-17GB-Q4_K_M.gguf",
+        "--alias",
+        "muse-dflash-n4",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8092",
+        "--ctx-size",
+        "32768",
+        "-np",
+        "1",
+        "--gpu-layers",
+        "all",
+        "--flash-attn",
+        "on",
+        "--jinja",
+        "--no-mmproj",
+        "-md",
+        "/home/augus/models/muse-glimmer-30b/meta-70bf1b61/dflash-Muse-Glimmer-30B-Q4_K_M.gguf",
+        "-ngld",
+        "all",
+        "--spec-type",
+        "draft-dflash",
+        "--spec-draft-n-max",
+        "4"
+      ],
+      "residency": {
+        "memory_total_mib": "24576",
+        "memory_used_mib": "20202",
+        "memory_free_mib": "4121",
+        "temperature_c": "53",
+        "power_w": "152.30"
+      },
+      "rows": [
+        {
+          "wall_s": 7.273538787994767,
+          "sha256": "e28531eb191f823c5c118f8396a056f312d22eed30aa99bab1f72c7b4df7abd0",
+          "content": " A red-black tree is a binary search tree in which every node is colored red or black and the following invariants hold: (1) the root is black, (2) every red node has only black children, (3) every path from a node to a descendant leaf contains the same number of black nodes, and (4) nil leaves are black. Insertion starts by inserting the new key as a red leaf, which can only violate invariant (2) because a red parent may now have a red child. The repair is a local transformation that restores the invariants without changing the in-order ordering.\n\nThe first step is to examine the parent of the newly inserted node z. If the parent is black, the tree remains valid and no further work is needed. If the parent is red, the parent must have a black parent as well, otherwise the root would be red. The uncle of z is the sibling of the parent. When the uncle is red, the violation is resolved by recoloring the parent and the uncle to black and recoloring the grandparent to red. This operation preserves the black-height because the two red nodes on the path to the leaves are replaced by two black nodes on the path through the parent and uncle, while the grandparent’s color change is compensated by the fact that the grandparent is now red on all paths that go through it, keeping the count of black nodes on every root-to-leaf path unchanged. After recoloring, the red grandparent may become a red child of its own parent, so the algorithm continues the fix-up with z set to the grandparent.\n\nWhen the uncle is black, the violation cannot be fixed by recoloring alone because the black-height would be altered. The algorithm distinguishes the geometric arrangement of z relative to its parent and grandparent. If z is an inner grandchild, i.e., the parent is a left child and z",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 56,
+            "prompt_ms": 159.964,
+            "prompt_per_token_ms": 2.8565,
+            "prompt_per_second": 350.0787677227376,
+            "predicted_n": 384,
+            "predicted_ms": 7107.321,
+            "predicted_per_token_ms": 18.556973890339425,
+            "predicted_per_second": 53.88809651344015,
+            "draft_n": 627,
+            "draft_n_accepted": 226
+          }
+        },
+        {
+          "wall_s": 7.3366361030202825,
+          "sha256": "e28531eb191f823c5c118f8396a056f312d22eed30aa99bab1f72c7b4df7abd0",
+          "content": " A red-black tree is a binary search tree in which every node is colored red or black and the following invariants hold: (1) the root is black, (2) every red node has only black children, (3) every path from a node to a descendant leaf contains the same number of black nodes, and (4) nil leaves are black. Insertion starts by inserting the new key as a red leaf, which can only violate invariant (2) because a red parent may now have a red child. The repair is a local transformation that restores the invariants without changing the in-order ordering.\n\nThe first step is to examine the parent of the newly inserted node z. If the parent is black, the tree remains valid and no further work is needed. If the parent is red, the parent must have a black parent as well, otherwise the root would be red. The uncle of z is the sibling of the parent. When the uncle is red, the violation is resolved by recoloring the parent and the uncle to black and recoloring the grandparent to red. This operation preserves the black-height because the two red nodes on the path to the leaves are replaced by two black nodes on the path through the parent and uncle, while the grandparent’s color change is compensated by the fact that the grandparent is now red on all paths that go through it, keeping the count of black nodes on every root-to-leaf path unchanged. After recoloring, the red grandparent may become a red child of its own parent, so the algorithm continues the fix-up with z set to the grandparent.\n\nWhen the uncle is black, the violation cannot be fixed by recoloring alone because the black-height would be altered. The algorithm distinguishes the geometric arrangement of z relative to its parent and grandparent. If z is an inner grandchild, i.e., the parent is a left child and z",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 56,
+            "prompt_ms": 95.902,
+            "prompt_per_token_ms": 1.7125357142857143,
+            "prompt_per_second": 583.9294279577068,
+            "predicted_n": 384,
+            "predicted_ms": 7223.677,
+            "predicted_per_token_ms": 18.860775456919058,
+            "predicted_per_second": 53.0200893533861,
+            "draft_n": 627,
+            "draft_n_accepted": 226
+          }
+        },
+        {
+          "wall_s": 7.4159162509895395,
+          "sha256": "e28531eb191f823c5c118f8396a056f312d22eed30aa99bab1f72c7b4df7abd0",
+          "content": " A red-black tree is a binary search tree in which every node is colored red or black and the following invariants hold: (1) the root is black, (2) every red node has only black children, (3) every path from a node to a descendant leaf contains the same number of black nodes, and (4) nil leaves are black. Insertion starts by inserting the new key as a red leaf, which can only violate invariant (2) because a red parent may now have a red child. The repair is a local transformation that restores the invariants without changing the in-order ordering.\n\nThe first step is to examine the parent of the newly inserted node z. If the parent is black, the tree remains valid and no further work is needed. If the parent is red, the parent must have a black parent as well, otherwise the root would be red. The uncle of z is the sibling of the parent. When the uncle is red, the violation is resolved by recoloring the parent and the uncle to black and recoloring the grandparent to red. This operation preserves the black-height because the two red nodes on the path to the leaves are replaced by two black nodes on the path through the parent and uncle, while the grandparent’s color change is compensated by the fact that the grandparent is now red on all paths that go through it, keeping the count of black nodes on every root-to-leaf path unchanged. After recoloring, the red grandparent may become a red child of its own parent, so the algorithm continues the fix-up with z set to the grandparent.\n\nWhen the uncle is black, the violation cannot be fixed by recoloring alone because the black-height would be altered. The algorithm distinguishes the geometric arrangement of z relative to its parent and grandparent. If z is an inner grandchild, i.e., the parent is a left child and z",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 56,
+            "prompt_ms": 94.008,
+            "prompt_per_token_ms": 1.6787142857142856,
+            "prompt_per_second": 595.6939834907668,
+            "predicted_n": 384,
+            "predicted_ms": 7320.059,
+            "predicted_per_token_ms": 19.112425587467364,
+            "predicted_per_second": 52.32198265068629,
+            "draft_n": 627,
+            "draft_n_accepted": 226
+          }
+        }
+      ],
+      "decode_tps_mean": 53.07672283917085,
+      "decode_tps_stdev": 0.7845914042108525,
+      "acceptance_mean": 0.36044657097288674,
+      "hash_stable": true,
+      "log_path": "/tmp/muse-dflash-n4-p34z72ro.log",
+      "speedup_vs_nospec": 1.1213792963162115,
+      "byte_equal_to_nospec": false
+    },
+    {
+      "name": "dflash-n8",
+      "nmax": 8,
+      "argv": [
+        "/home/augus/src/slop.cpp-muse-glimmer/build/bin/llama-server",
+        "-m",
+        "/home/augus/models/muse-glimmer-30b/meta-70bf1b61/Muse-Glimmer-30B-KQuant-17GB-Q4_K_M.gguf",
+        "--alias",
+        "muse-dflash-n8",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8092",
+        "--ctx-size",
+        "32768",
+        "-np",
+        "1",
+        "--gpu-layers",
+        "all",
+        "--flash-attn",
+        "on",
+        "--jinja",
+        "--no-mmproj",
+        "-md",
+        "/home/augus/models/muse-glimmer-30b/meta-70bf1b61/dflash-Muse-Glimmer-30B-Q4_K_M.gguf",
+        "-ngld",
+        "all",
+        "--spec-type",
+        "draft-dflash",
+        "--spec-draft-n-max",
+        "8"
+      ],
+      "residency": {
+        "memory_total_mib": "24576",
+        "memory_used_mib": "20202",
+        "memory_free_mib": "4121",
+        "temperature_c": "57",
+        "power_w": "156.64"
+      },
+      "rows": [
+        {
+          "wall_s": 5.507613882014994,
+          "sha256": "93a6480c54e3142df3a42b25bcc5b1fc1be175288c09e536571f0b84f33f5873",
+          "content": " A red-black tree is a binary search tree in which every node is colored red or black and the following invariants hold: the root is black, every leaf (NIL) is black, a red node has only black children, and every path from a node to its descendant leaves contains the same number of black nodes (the black-height). Insertion starts by placing the new node as a red leaf, which can only violate the red-red rule (a red parent with a red child) and never the black-height rule because the new node adds zero black nodes to any root-to-leaf path. The repair therefore consists of recoloring and rotations that eliminate red-red adjacencies while keeping the black-height of every root-to-leaf path unchanged.\n\nIf the parent of the newly inserted node z is black, the insertion is finished because the only possible violation—a red parent with a red child—does not occur and the black-height of all paths is preserved. The interesting case is when the parent p is red, which forces z to be red and creates a red-red violation. Let g be the grandparent of z and u the uncle of z, i.e., the sibling of p. The algorithm distinguishes whether u is red or black. When u is red, the violation can be fixed by recoloring alone: p and u are changed from red to black and g is changed from black to red. This operation removes the red-red adjacency between p and z and between u and its parent g, and it preserves the black-height because each root-to-leaf path that previously passed through p or u gains one extra black node (p or u becomes black) while the path that passes through g loses one black node (g becomes red). The net black count on every root-to-leaf path stays the same, and the only possible new red-red violation is that g may now be red with its own parent; if that happens",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 56,
+            "prompt_ms": 154.428,
+            "prompt_per_token_ms": 2.7576428571428573,
+            "prompt_per_second": 362.6285388660088,
+            "predicted_n": 384,
+            "predicted_ms": 5345.706,
+            "predicted_per_token_ms": 13.957456919060052,
+            "predicted_per_second": 71.64628956399771,
+            "draft_n": 1086,
+            "draft_n_accepted": 245
+          }
+        },
+        {
+          "wall_s": 5.467356428009225,
+          "sha256": "93a6480c54e3142df3a42b25bcc5b1fc1be175288c09e536571f0b84f33f5873",
+          "content": " A red-black tree is a binary search tree in which every node is colored red or black and the following invariants hold: the root is black, every leaf (NIL) is black, a red node has only black children, and every path from a node to its descendant leaves contains the same number of black nodes (the black-height). Insertion starts by placing the new node as a red leaf, which can only violate the red-red rule (a red parent with a red child) and never the black-height rule because the new node adds zero black nodes to any root-to-leaf path. The repair therefore consists of recoloring and rotations that eliminate red-red adjacencies while keeping the black-height of every root-to-leaf path unchanged.\n\nIf the parent of the newly inserted node z is black, the insertion is finished because the only possible violation—a red parent with a red child—does not occur and the black-height of all paths is preserved. The interesting case is when the parent p is red, which forces z to be red and creates a red-red violation. Let g be the grandparent of z and u the uncle of z, i.e., the sibling of p. The algorithm distinguishes whether u is red or black. When u is red, the violation can be fixed by recoloring alone: p and u are changed from red to black and g is changed from black to red. This operation removes the red-red adjacency between p and z and between u and its parent g, and it preserves the black-height because each root-to-leaf path that previously passed through p or u gains one extra black node (p or u becomes black) while the path that passes through g loses one black node (g becomes red). The net black count on every root-to-leaf path stays the same, and the only possible new red-red violation is that g may now be red with its own parent; if that happens",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 56,
+            "prompt_ms": 102.034,
+            "prompt_per_token_ms": 1.8220357142857144,
+            "prompt_per_second": 548.8366622890409,
+            "predicted_n": 384,
+            "predicted_ms": 5349.086,
+            "predicted_per_token_ms": 13.966281984334204,
+            "predicted_per_second": 71.60101744484946,
+            "draft_n": 1086,
+            "draft_n_accepted": 245
+          }
+        },
+        {
+          "wall_s": 5.43436050901073,
+          "sha256": "93a6480c54e3142df3a42b25bcc5b1fc1be175288c09e536571f0b84f33f5873",
+          "content": " A red-black tree is a binary search tree in which every node is colored red or black and the following invariants hold: the root is black, every leaf (NIL) is black, a red node has only black children, and every path from a node to its descendant leaves contains the same number of black nodes (the black-height). Insertion starts by placing the new node as a red leaf, which can only violate the red-red rule (a red parent with a red child) and never the black-height rule because the new node adds zero black nodes to any root-to-leaf path. The repair therefore consists of recoloring and rotations that eliminate red-red adjacencies while keeping the black-height of every root-to-leaf path unchanged.\n\nIf the parent of the newly inserted node z is black, the insertion is finished because the only possible violation—a red parent with a red child—does not occur and the black-height of all paths is preserved. The interesting case is when the parent p is red, which forces z to be red and creates a red-red violation. Let g be the grandparent of z and u the uncle of z, i.e., the sibling of p. The algorithm distinguishes whether u is red or black. When u is red, the violation can be fixed by recoloring alone: p and u are changed from red to black and g is changed from black to red. This operation removes the red-red adjacency between p and z and between u and its parent g, and it preserves the black-height because each root-to-leaf path that previously passed through p or u gains one extra black node (p or u becomes black) while the path that passes through g loses one black node (g becomes red). The net black count on every root-to-leaf path stays the same, and the only possible new red-red violation is that g may now be red with its own parent; if that happens",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 56,
+            "prompt_ms": 93.127,
+            "prompt_per_token_ms": 1.6629821428571427,
+            "prompt_per_second": 601.3293674229816,
+            "predicted_n": 384,
+            "predicted_ms": 5338.87,
+            "predicted_per_token_ms": 13.939608355091384,
+            "predicted_per_second": 71.73802696076136,
+            "draft_n": 1086,
+            "draft_n_accepted": 245
+          }
+        }
+      ],
+      "decode_tps_mean": 71.6617779898695,
+      "decode_tps_stdev": 0.06980558978042431,
+      "acceptance_mean": 0.22559852670349909,
+      "hash_stable": true,
+      "log_path": "/tmp/muse-dflash-n8-30d_uwyq.log",
+      "speedup_vs_nospec": 1.514035341227631,
+      "byte_equal_to_nospec": false
+    },
+    {
+      "name": "dflash-n15",
+      "nmax": 15,
+      "argv": [
+        "/home/augus/src/slop.cpp-muse-glimmer/build/bin/llama-server",
+        "-m",
+        "/home/augus/models/muse-glimmer-30b/meta-70bf1b61/Muse-Glimmer-30B-KQuant-17GB-Q4_K_M.gguf",
+        "--alias",
+        "muse-dflash-n15",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8092",
+        "--ctx-size",
+        "32768",
+        "-np",
+        "1",
+        "--gpu-layers",
+        "all",
+        "--flash-attn",
+        "on",
+        "--jinja",
+        "--no-mmproj",
+        "-md",
+        "/home/augus/models/muse-glimmer-30b/meta-70bf1b61/dflash-Muse-Glimmer-30B-Q4_K_M.gguf",
+        "-ngld",
+        "all",
+        "--spec-type",
+        "draft-dflash",
+        "--spec-draft-n-max",
+        "15"
+      ],
+      "residency": {
+        "memory_total_mib": "24576",
+        "memory_used_mib": "20202",
+        "memory_free_mib": "4121",
+        "temperature_c": "57",
+        "power_w": "151.96"
+      },
+      "rows": [
+        {
+          "wall_s": 5.62506717198994,
+          "sha256": "93a6480c54e3142df3a42b25bcc5b1fc1be175288c09e536571f0b84f33f5873",
+          "content": " A red-black tree is a binary search tree in which every node is colored red or black and the following invariants hold: the root is black, every leaf (NIL) is black, a red node has only black children, and every path from a node to its descendant leaves contains the same number of black nodes (the black-height). Insertion starts by placing the new node as a red leaf, which can only violate the red-red rule (a red parent with a red child) and never the black-height rule because the new node adds zero black nodes to any root-to-leaf path. The repair therefore consists of recoloring and rotations that eliminate red-red adjacencies while keeping the black-height of every root-to-leaf path unchanged.\n\nIf the parent of the newly inserted node z is black, the insertion is finished because the only possible violation—a red parent with a red child—does not occur and the black-height of all paths is preserved. The interesting case is when the parent p is red, which forces z to be red and creates a red-red violation. Let g be the grandparent of z and u the uncle of z, i.e., the sibling of p. The algorithm distinguishes whether u is red or black. When u is red, the violation can be fixed by recoloring alone: p and u are changed from red to black and g is changed from black to red. This operation removes the red-red adjacency between p and z and between u and its parent g, and it preserves the black-height because each root-to-leaf path that previously passed through p or u gains one extra black node (p or u becomes black) while the path that passes through g loses one black node (g becomes red). The net black count on every root-to-leaf path stays the same, and the only possible new red-red violation is that g may now be red with its own parent; if that happens",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 56,
+            "prompt_ms": 148.163,
+            "prompt_per_token_ms": 2.6457678571428573,
+            "prompt_per_second": 377.9621092985428,
+            "predicted_n": 384,
+            "predicted_ms": 5471.007,
+            "predicted_per_token_ms": 14.284613577023498,
+            "predicted_per_second": 70.00539388818183,
+            "draft_n": 1983,
+            "draft_n_accepted": 247
+          }
+        },
+        {
+          "wall_s": 5.5750304520188365,
+          "sha256": "93a6480c54e3142df3a42b25bcc5b1fc1be175288c09e536571f0b84f33f5873",
+          "content": " A red-black tree is a binary search tree in which every node is colored red or black and the following invariants hold: the root is black, every leaf (NIL) is black, a red node has only black children, and every path from a node to its descendant leaves contains the same number of black nodes (the black-height). Insertion starts by placing the new node as a red leaf, which can only violate the red-red rule (a red parent with a red child) and never the black-height rule because the new node adds zero black nodes to any root-to-leaf path. The repair therefore consists of recoloring and rotations that eliminate red-red adjacencies while keeping the black-height of every root-to-leaf path unchanged.\n\nIf the parent of the newly inserted node z is black, the insertion is finished because the only possible violation—a red parent with a red child—does not occur and the black-height of all paths is preserved. The interesting case is when the parent p is red, which forces z to be red and creates a red-red violation. Let g be the grandparent of z and u the uncle of z, i.e., the sibling of p. The algorithm distinguishes whether u is red or black. When u is red, the violation can be fixed by recoloring alone: p and u are changed from red to black and g is changed from black to red. This operation removes the red-red adjacency between p and z and between u and its parent g, and it preserves the black-height because each root-to-leaf path that previously passed through p or u gains one extra black node (p or u becomes black) while the path that passes through g loses one black node (g becomes red). The net black count on every root-to-leaf path stays the same, and the only possible new red-red violation is that g may now be red with its own parent; if that happens",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 56,
+            "prompt_ms": 93.753,
+            "prompt_per_token_ms": 1.6741607142857142,
+            "prompt_per_second": 597.3142192783164,
+            "predicted_n": 384,
+            "predicted_ms": 5465.418,
+            "predicted_per_token_ms": 14.270020887728458,
+            "predicted_per_second": 70.07698221801151,
+            "draft_n": 1983,
+            "draft_n_accepted": 247
+          }
+        },
+        {
+          "wall_s": 5.589958555006888,
+          "sha256": "93a6480c54e3142df3a42b25bcc5b1fc1be175288c09e536571f0b84f33f5873",
+          "content": " A red-black tree is a binary search tree in which every node is colored red or black and the following invariants hold: the root is black, every leaf (NIL) is black, a red node has only black children, and every path from a node to its descendant leaves contains the same number of black nodes (the black-height). Insertion starts by placing the new node as a red leaf, which can only violate the red-red rule (a red parent with a red child) and never the black-height rule because the new node adds zero black nodes to any root-to-leaf path. The repair therefore consists of recoloring and rotations that eliminate red-red adjacencies while keeping the black-height of every root-to-leaf path unchanged.\n\nIf the parent of the newly inserted node z is black, the insertion is finished because the only possible violation—a red parent with a red child—does not occur and the black-height of all paths is preserved. The interesting case is when the parent p is red, which forces z to be red and creates a red-red violation. Let g be the grandparent of z and u the uncle of z, i.e., the sibling of p. The algorithm distinguishes whether u is red or black. When u is red, the violation can be fixed by recoloring alone: p and u are changed from red to black and g is changed from black to red. This operation removes the red-red adjacency between p and z and between u and its parent g, and it preserves the black-height because each root-to-leaf path that previously passed through p or u gains one extra black node (p or u becomes black) while the path that passes through g loses one black node (g becomes red). The net black count on every root-to-leaf path stays the same, and the only possible new red-red violation is that g may now be red with its own parent; if that happens",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 56,
+            "prompt_ms": 92.288,
+            "prompt_per_token_ms": 1.648,
+            "prompt_per_second": 606.7961165048544,
+            "predicted_n": 384,
+            "predicted_ms": 5495.586,
+            "predicted_per_token_ms": 14.348788511749348,
+            "predicted_per_second": 69.69229487082906,
+            "draft_n": 1983,
+            "draft_n_accepted": 247
+          }
+        }
+      ],
+      "decode_tps_mean": 69.92489032567413,
+      "decode_tps_stdev": 0.20458911616430267,
+      "acceptance_mean": 0.12455874936964195,
+      "hash_stable": true,
+      "log_path": "/tmp/muse-dflash-n15-zokgixwa.log",
+      "speedup_vs_nospec": 1.477339219793052,
+      "byte_equal_to_nospec": false
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "label": "authorial",
+  "reps": 3,
+  "nonce_base": 202608220,
+  "controls": {
+    "temperature": 0.0,
+    "seed": 4242,
+    "thinking": false
+  },
+  "summary": {
+    "prefill": {
+      "median_ttft_s": 1.625,
+      "median_prefill_tps": 1152.0,
+      "median_decode_tps": 43.60465116497466,
+      "median_total_s": 1.9679999999934807
+    },
+    "decode": {
+      "median_ttft_s": 0.5779999999795109,
+      "median_prefill_tps": 354.6712802893891,
+      "median_decode_tps": 43.93505253140257,
+      "median_total_s": 2.85999999998603
+    }
+  },
+  "rows": [
+    {
+      "nonce": 202608220,
+      "prompt_tokens": 1872,
+      "completion_tokens": 16,
+      "ttft_s": 1.8600000000442378,
+      "total_s": 2.2040000000270084,
+      "prefill_tps": 1006.4516128792886,
+      "decode_tps": 43.60465116497466,
+      "finish_reason": "length",
+      "text_sha256": "59feee65e1e376133a56cdc8d3b99ed7e9d674da032424bf552b9554ddef18bf",
+      "text": "The two inference phases are **prompt processing** and **decoding** (token",
+      "label": "authorial",
+      "rep": 0,
+      "kind": "prefill"
+    },
+    {
+      "nonce": 202608221,
+      "prompt_tokens": 205,
+      "completion_tokens": 93,
+      "ttft_s": 0.34299999999348074,
+      "total_s": 2.452999999979511,
+      "prefill_tps": 597.6676384953246,
+      "decode_tps": 43.60189573488584,
+      "finish_reason": "stop",
+      "text_sha256": "cb22c7e4972470d94d72627cc5aeb292c358020969803bb0754fd76df414411e",
+      "text": "Prompt processing (the prefill phase) is compute-bound because it processes a large batch of tokens in parallel, allowing the GPU to fully utilize its tensor cores for matrix multiplications. In contrast, autoregressive decoding (the generation phase) is memory-bandwidth-bound because it generates tokens sequentially, requiring the model's weights to be loaded from high-bandwidth memory for every single token produced, which saturates the memory bus before the compute units can be fully engaged.",
+      "label": "authorial",
+      "rep": 0,
+      "kind": "decode"
+    },
+    {
+      "nonce": 202608230,
+      "prompt_tokens": 1872,
+      "completion_tokens": 16,
+      "ttft_s": 1.5780000000377186,
+      "total_s": 1.922000000020489,
+      "prefill_tps": 1186.3117870438873,
+      "decode_tps": 43.60465116497466,
+      "finish_reason": "length",
+      "text_sha256": "59feee65e1e376133a56cdc8d3b99ed7e9d674da032424bf552b9554ddef18bf",
+      "text": "The two inference phases are **prompt processing** and **decoding** (token",
+      "label": "authorial",
+      "rep": 1,
+      "kind": "prefill"
+    },
+    {
+      "nonce": 202608231,
+      "prompt_tokens": 205,
+      "completion_tokens": 256,
+      "ttft_s": 0.5779999999795109,
+      "total_s": 6.375,
+      "prefill_tps": 354.6712802893891,
+      "decode_tps": 43.98826979456594,
+      "finish_reason": "length",
+      "text_sha256": "0e09cd8e2e0381d8bc628c57a33dfd38d6b6bc0bacb5806743b6f831e98ae970",
+      "text": "The fundamental difference in performance bottlenecks between prompt processing and autoregressive decoding on a single consumer GPU stems from the distinct computational characteristics of each phase: prompt processing is compute-bound, while autoregressive decoding is memory-bandwidth-bound.\n\nDuring prompt processing (also known as the prefill phase), the model processes the entire input sequence in parallel. This involves performing large matrix multiplications where the batch size (sequence length) is high. Because the operations are dense and parallelizable, the GPU's Tensor Cores are fully utilized, making the throughput limited by the raw floating-point operations per second (FLOPS) of the hardware. In this phase, the GPU is working at peak computational capacity.\n\nIn contrast, autoregressive decoding generates tokens one at a time. For each new token, the model must load the entire set of model weights from GPU memory (VRAM) into the processing units to perform a single matrix-vector multiplication. Since the amount of computation per token is small relative to the size of the model, the GPU cores spend most of their time idle, waiting for data to be transferred from VRAM. Consequently, the speed of this phase is limited by the memory bandwidth of the GPU (measured in GB/s) rather than its computational power. Consumer GPUs",
+      "label": "authorial",
+      "rep": 1,
+      "kind": "decode"
+    },
+    {
+      "nonce": 202608240,
+      "prompt_tokens": 1872,
+      "completion_tokens": 16,
+      "ttft_s": 1.625,
+      "total_s": 1.9679999999934807,
+      "prefill_tps": 1152.0,
+      "decode_tps": 43.73177842648717,
+      "finish_reason": "length",
+      "text_sha256": "59feee65e1e376133a56cdc8d3b99ed7e9d674da032424bf552b9554ddef18bf",
+      "text": "The two inference phases are **prompt processing** and **decoding** (token",
+      "label": "authorial",
+      "rep": 2,
+      "kind": "prefill"
+    },
+    {
+      "nonce": 202608241,
+      "prompt_tokens": 205,
+      "completion_tokens": 93,
+      "ttft_s": 0.7660000000032596,
+      "total_s": 2.85999999998603,
+      "prefill_tps": 267.6240208865896,
+      "decode_tps": 43.93505253140257,
+      "finish_reason": "stop",
+      "text_sha256": "22d67daf78bca7925778acd6bb6c722b237fe151280a0a60ad10ab524f7a20b1",
+      "text": "Prompt processing (the prefill phase) is compute-bound because it processes a large batch of tokens in parallel, allowing the GPU to fully utilize its tensor cores for matrix multiplications. In contrast, autoregressive decoding (the generation phase) is memory-bandwidth-bound because it generates tokens sequentially, requiring the model's weights to be loaded from high-bandwidth memory for every single token produced, which saturates the memory bus before the compute units can reach peak utilization.",
+      "label": "authorial",
+      "rep": 2,
+      "kind": "decode"
+    }
+  ]
+}

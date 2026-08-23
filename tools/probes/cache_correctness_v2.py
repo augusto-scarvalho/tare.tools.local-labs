@@ -115,34 +115,35 @@ def server_capabilities(base_url: str) -> dict:
             "speculative_rollback": "not_exercised_server_reports_speculative_false"}
 
 
-def run(base_url: str) -> dict:
-    nonce = uuid.uuid4().hex
+def run(base_url: str, n_predict: int = 64, nonce: str | None = None) -> dict:
+    nonce = nonce or uuid.uuid4().hex
     rows = []
 
     shared = ((f"CACHE-{nonce}: routine telemetry is nominal. " * 320) +
               "The code word for this record is ORCHID.")
     q = "What is the code word for this record?"
-    cold = completion(base_url, prompt(shared, q), False)
-    completion(base_url, prompt(shared, "Is routine telemetry nominal? Answer YES."), True)
-    warm = completion(base_url, prompt(shared, q), True)
+    cold = completion(base_url, prompt(shared, q), False, n_predict=n_predict)
+    completion(base_url, prompt(shared, "Is routine telemetry nominal? Answer YES."), True,
+               n_predict=n_predict)
+    warm = completion(base_url, prompt(shared, q), True, n_predict=n_predict)
     rows.append(compare_case("shared_prefix_divergent_suffix", cold, warm, "ORCHID"))
 
     shared2 = ((f"PARTIAL-{nonce}: archived line. " * 360) +
                "The recovery key is COBALT.")
     short = prompt(shared2, "What is the recovery key?")
-    cold2 = completion(base_url, short, False)
+    cold2 = completion(base_url, short, False, n_predict=n_predict)
     completion(base_url, shared2 + ("\nDisposable appendix." * 140) +
-               "\nConfirm receipt with the single word RECEIVED.", True)
-    warm2 = completion(base_url, short, True)
+               "\nConfirm receipt with the single word RECEIVED.", True, n_predict=n_predict)
+    warm2 = completion(base_url, short, True, n_predict=n_predict)
     rows.append(compare_case("partial_removal", cold2, warm2, "COBALT"))
 
     shared3 = ((f"CANCEL-{nonce}: stable ledger entry. " * 400) +
                "The post-cancel validation token is AMBER.")
     check3 = prompt(shared3, "What is the post-cancel validation token?")
-    cold3 = completion(base_url, check3, False)
+    cold3 = completion(base_url, check3, False, n_predict=n_predict)
     cancelled = cancel_stream(base_url, shared3 +
                               "\nWrite an extremely long numbered account of every ledger entry.")
-    warm3 = completion(base_url, check3, True)
+    warm3 = completion(base_url, check3, True, n_predict=n_predict)
     row3 = compare_case("cancel_then_reuse", cold3, warm3, "AMBER")
     row3["cancellation"] = cancelled
     row3["pass"] = row3["pass"] and cancelled["lines_received"] > 0 and cancelled["idle_after_close"]
@@ -154,14 +155,15 @@ def run(base_url: str) -> dict:
     shared4 = (f"LONG-{nonce}: archive begins. " + filler * 2250 +
                "The long-context code word is MAGNOLIA. " + filler * 250)
     check4 = prompt(shared4, "What is the long-context code word?")
-    cold4 = completion(base_url, check4, False, n_predict=24)
+    cold4 = completion(base_url, check4, False, n_predict=n_predict)
     completion(base_url, prompt(shared4, "Does this archive contain ordinary material? Answer YES."),
                True, n_predict=8)
-    warm4 = completion(base_url, check4, True, n_predict=24)
+    warm4 = completion(base_url, check4, True, n_predict=n_predict)
     rows.append(compare_case("long_context_reuse", cold4, warm4, "MAGNOLIA"))
 
     return {"campaign": "LAB-CACHE-001-v2", "timestamp": datetime.now(timezone.utc).isoformat(),
             "endpoint": base_url, "invariant": "cached output == cold output and both match oracle",
+            "n_predict": n_predict, "nonce": nonce,
             "summary": {"passed": sum(bool(row["pass"]) for row in rows), "total": len(rows),
                         "all_pass": all(bool(row["pass"]) for row in rows)},
             "capabilities": server_capabilities(base_url), "results": rows}
@@ -184,12 +186,14 @@ def main() -> int:
     parser.add_argument("--base-url", default="http://127.0.0.1:8080")
     parser.add_argument("--output", type=pathlib.Path,
                         default=pathlib.Path("runs/cache/LAB-CACHE-001-v2/results.json"))
+    parser.add_argument("--n-predict", type=int, default=64)
+    parser.add_argument("--nonce", help="fixed prompt nonce for paired cross-arm comparisons")
     parser.add_argument("--selfcheck", action="store_true")
     args = parser.parse_args()
     if args.selfcheck:
         selfcheck()
         return 0
-    report = run(args.base_url)
+    report = run(args.base_url, args.n_predict, args.nonce)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
     for row in report["results"]:

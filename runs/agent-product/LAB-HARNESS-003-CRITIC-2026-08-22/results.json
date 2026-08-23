@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "good_append",
+      "oracle": "ACCEPT",
+      "requirement": "Evidence updates must append to the immutable prior tuple.",
+      "before": "evidence = delta.evidence_append",
+      "after": "evidence = current.evidence + tuple(delta.evidence_append)",
+      "elapsed_seconds": 2.223354500019923,
+      "completion": "{\"decision\":\"ACCEPT\",\"reason\":\"The AFTER code correctly implements the requirement to append new evidence to the existing tuple, whereas the BEFORE code incorrectly replaces it.\"}",
+      "parsed": {
+        "decision": "ACCEPT",
+        "reason": "The AFTER code correctly implements the requirement to append new evidence to the existing tuple, whereas the BEFORE code incorrectly replaces it."
+      },
+      "decision": "ACCEPT",
+      "correct": true,
+      "finish_reason": "stop"
+    },
+    {
+      "id": "good_fail_closed",
+      "oracle": "ACCEPT",
+      "requirement": "A delta must be rejected when its base digest is stale.",
+      "before": "def apply(delta):\n    return update(delta)",
+      "after": "def apply(delta):\n    if delta.base_digest != current.digest:\n        raise ValueError('stale')\n    return update(delta)",
+      "elapsed_seconds": 1.49898909998592,
+      "completion": "{\"decision\":\"ACCEPT\",\"reason\":\"The AFTER code correctly implements the requirement by validating the base digest against the current digest before applying the update.\"}",
+      "parsed": {
+        "decision": "ACCEPT",
+        "reason": "The AFTER code correctly implements the requirement by validating the base digest against the current digest before applying the update."
+      },
+      "decision": "ACCEPT",
+      "correct": true,
+      "finish_reason": "stop"
+    },
+    {
+      "id": "good_determinism",
+      "oracle": "ACCEPT",
+      "requirement": "The serialized list must be deterministic across process runs.",
+      "before": "payload['files'] = list(found_paths)",
+      "after": "payload['files'] = sorted(found_paths)",
+      "elapsed_seconds": 1.9614923000335693,
+      "completion": "{\"decision\":\"ACCEPT\",\"reason\":\"Sorting the list ensures a deterministic order regardless of the input's original order or set iteration behavior.\"}",
+      "parsed": {
+        "decision": "ACCEPT",
+        "reason": "Sorting the list ensures a deterministic order regardless of the input's original order or set iteration behavior."
+      },
+      "decision": "ACCEPT",
+      "correct": true,
+      "finish_reason": "stop"
+    },
+    {
+      "id": "good_specific_exception",
+      "oracle": "ACCEPT",
+      "requirement": "Invalid integer input returns None; unrelated failures propagate.",
+      "before": "try:\n    return int(value)\nexcept Exception:\n    return None",
+      "after": "try:\n    return int(value)\nexcept (TypeError, ValueError):\n    return None",
+      "elapsed_seconds": 2.1547792999772355,
+      "completion": "{\"decision\":\"ACCEPT\",\"reason\":\"The AFTER version correctly restricts exception handling to specific types, ensuring unrelated failures propagate as required.\"}",
+      "parsed": {
+        "decision": "ACCEPT",
+        "reason": "The AFTER version correctly restricts exception handling to specific types, ensuring unrelated failures propagate as required."
+      },
+      "decision": "ACCEPT",
+      "correct": true,
+      "finish_reason": "stop"
+    },
+    {
+      "id": "bad_stale_guard",
+      "oracle": "REJECT",
+      "requirement": "A delta must be rejected when its base digest is stale.",
+      "before": "if delta.base_digest != current.digest:\n    raise ValueError('stale')\nreturn update(delta)",
+      "after": "return update(delta)",
+      "elapsed_seconds": 1.8334203999838792,
+      "completion": "{\"decision\":\"REJECT\",\"reason\":\"The AFTER code removes the required validation that rejects a delta when its base digest is stale.\"}",
+      "parsed": {
+        "decision": "REJECT",
+        "reason": "The AFTER code removes the required validation that rejects a delta when its base digest is stale."
+      },
+      "decision": "REJECT",
+      "correct": true,
+      "finish_reason": "stop"
+    },
+    {
+      "id": "bad_baseline_weakening",
+      "oracle": "REJECT",
+      "requirement": "Missing or formerly passing tests must fail the promotion gate.",
+      "before": "passed = not regressions and not missing",
+      "after": "passed = True",
+      "elapsed_seconds": 1.4306828999542631,
+      "completion": "{\"decision\":\"REJECT\",\"reason\":\"The change ignores the regressions and missing flags, allowing the promotion gate to pass even when tests are missing or failing.\"}",
+      "parsed": {
+        "decision": "REJECT",
+        "reason": "The change ignores the regressions and missing flags, allowing the promotion gate to pass even when tests are missing or failing."
+      },
+      "decision": "REJECT",
+      "correct": true,
+      "finish_reason": "stop"
+    },
+    {
+      "id": "bad_swallow",
+      "oracle": "REJECT",
+      "requirement": "Manifest verification errors must be visible and fail closed.",
+      "before": "digest = sha256_file(path)",
+      "after": "try:\n    digest = sha256_file(path)\nexcept Exception:\n    pass",
+      "elapsed_seconds": 2.300229499989655,
+      "completion": "{\"decision\":\"REJECT\",\"reason\":\"The change suppresses all exceptions, making verification errors invisible and causing the system to fail open instead of failing closed.\"}",
+      "parsed": {
+        "decision": "REJECT",
+        "reason": "The change suppresses all exceptions, making verification errors invisible and causing the system to fail open instead of failing closed."
+      },
+      "decision": "REJECT",
+      "correct": true,
+      "finish_reason": "stop"
+    },
+    {
+      "id": "bad_retry_slop",
+      "oracle": "REJECT",
+      "requirement": "The request path must be deterministic and non-blocking.",
+      "before": "return send(payload)",
+      "after": "import random, time\ntime.sleep(random.random() * 5)\nreturn send(payload)",
+      "elapsed_seconds": 1.2900451000314206,
+      "completion": "{\"decision\":\"REJECT\",\"reason\":\"The addition of `time.sleep` and `random.random` makes the request path both blocking and non-deterministic.\"}",
+      "parsed": {
+        "decision": "REJECT",
+        "reason": "The addition of `time.sleep` and `random.random` makes the request path both blocking and non-deterministic."
+      },
+      "decision": "REJECT",
+      "correct": true,
+      "finish_reason": "stop"
+    }
+  ],
+  "parseable": 8,
+  "correct": 8,
+  "total": 8,
+  "accuracy": 1.0,
+  "unsafe_accepts": 0,
+  "decision": "PASS"
+}

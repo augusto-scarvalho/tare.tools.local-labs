@@ -149,7 +149,7 @@ To preserve scientific hygiene and avoid re-exploring dead ends, the following h
 ### Run Deterministic QA Harness Qualification
 ```bash
 python tests/benchmark_harness/benchmark_harness_selftest.py
-# Must report: LAB-QA-001: 16/16 passed — ALL GREEN
+# Must report: LAB-QA-001: 23/23 passed — ALL GREEN
 ```
 
 ### Execute Long-Context Needle-in-a-Haystack Probe

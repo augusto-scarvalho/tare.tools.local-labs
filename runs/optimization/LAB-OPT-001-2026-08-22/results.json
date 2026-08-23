@@ -1,0 +1,1984 @@
+{
+  "campaign": "LAB-OPT-001",
+  "timestamp": "2026-08-22T19:19:29.351401+00:00",
+  "optuna_version": "4.9.0",
+  "qualified": true,
+  "method": {
+    "space": {
+      "draft_n": [
+        2,
+        3,
+        4
+      ],
+      "ubatch": [
+        1024,
+        2048
+      ]
+    },
+    "scheduler": "single-GPU deterministic successive halving",
+    "round1_cells": 6,
+    "round2_survivors": 3,
+    "round2_reps_per_short_long_cell": 3,
+    "hard_vram_free_floor_mib": 4096,
+    "objectives": [
+      "ttft_s",
+      "decode_s_per_token",
+      "vram_peak_mb",
+      "cost_s_per_accepted_probe"
+    ]
+  },
+  "reference_probe_hashes": [
+    "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+    "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+    "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a"
+  ],
+  "round1": [
+    {
+      "config": "n2-ub1024",
+      "draft_n": 2,
+      "ubatch": 1024,
+      "round": "round1",
+      "started_at": "2026-08-22T19:15:37.961921+00:00",
+      "feasible": true,
+      "errors": [],
+      "load_s": 3.5630000000237487,
+      "free_vram_after_load_mib": 5348.0,
+      "probes": [
+        {
+          "content": "\n\n42.",
+          "content_sha256": "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+          "tokens_predicted": 5,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 17,
+            "prompt_ms": 162.464,
+            "prompt_per_token_ms": 9.556705882352942,
+            "prompt_per_second": 104.63856608233209,
+            "predicted_n": 5,
+            "predicted_ms": 128.724,
+            "predicted_per_token_ms": 25.744799999999998,
+            "predicted_per_second": 38.84279543830211,
+            "draft_n": 6,
+            "draft_n_accepted": 1
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "\n\ndelta",
+          "content_sha256": "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+          "tokens_predicted": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 15,
+            "prompt_ms": 132.425,
+            "prompt_per_token_ms": 8.828333333333335,
+            "prompt_per_second": 113.27166320558806,
+            "predicted_n": 3,
+            "predicted_ms": 74.102,
+            "predicted_per_token_ms": 24.700666666666667,
+            "predicted_per_second": 40.48473725405522,
+            "draft_n": 4,
+            "draft_n_accepted": 0
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "    pass\n\nHere's the completed function:\n\n```python\ndef add(a, b):\n    \"\"\"Return their sum.\"\"\"\n    return a + b\n```\n\nThis function takes two parameters `a` and `b`, and returns their sum using the `+` operator. The `pass` statement is",
+          "content_sha256": "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a",
+          "tokens_predicted": 64,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 21,
+            "prompt_ms": 132.393,
+            "prompt_per_token_ms": 6.304428571428572,
+            "prompt_per_second": 158.61865808615258,
+            "predicted_n": 64,
+            "predicted_ms": 897.051,
+            "predicted_per_token_ms": 14.016421875,
+            "predicted_per_second": 71.344884516042,
+            "draft_n": 48,
+            "draft_n_accepted": 38
+          },
+          "stop": true,
+          "stop_type": "limit"
+        }
+      ],
+      "probe_hashes": [
+        "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+        "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+        "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a"
+      ],
+      "accepted_probes": 3,
+      "runs": [
+        {
+          "cell": "short",
+          "prompt_repeats": 240,
+          "prompt_tokens": 2682,
+          "predicted_tokens": 96,
+          "decode_tokens_after_first": 95,
+          "prefill_ttft_s": 2.312999999965541,
+          "decode_s": 1.2810000000172295,
+          "baseline_power_w": 243.7023076923077,
+          "prefill_energy_gross_j": 562.7651499921037,
+          "decode_energy_gross_j": 461.953415006327,
+          "prefill_gross_j_per_prompt_token": 0.20983040641018036,
+          "decode_gross_j_per_token": 4.862667526382389,
+          "prefill_incremental_j": 0.0,
+          "decode_incremental_j": 149.77075884828201,
+          "power_mean_active_w": 283.46500000000003,
+          "power_peak_active_w": 373.36,
+          "temp_peak_c": 57.0,
+          "vram_peak_mb": 19013.0,
+          "telemetry_samples": 64,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2682,
+            "prompt_ms": 1913.321,
+            "prompt_per_token_ms": 0.7133933631618196,
+            "prompt_per_second": 1401.7511959571864,
+            "predicted_n": 96,
+            "predicted_ms": 1165.447,
+            "predicted_per_token_ms": 12.140072916666666,
+            "predicted_per_second": 82.37182814834136,
+            "draft_n": 66,
+            "draft_n_accepted": 62
+          },
+          "boundaries_monotonic": true,
+          "rep": 0
+        }
+      ],
+      "wall_s": 13.077999999979511,
+      "finished_at": "2026-08-22T19:15:51.272036+00:00",
+      "metrics": {
+        "ttft_s_median": 2.312999999965541,
+        "prompt_tps_median": 1159.5330739472358,
+        "short_prompt_tps_median": 1159.5330739472358,
+        "long_prompt_tps_median": null,
+        "decode_s_per_token_median": 0.013484210526497153,
+        "decode_tps_median": 74.16081186473244,
+        "vram_peak_mb": 19013.0,
+        "cost_s_per_accepted_probe": 4.359333333326504,
+        "power_peak_w": 373.36,
+        "temp_peak_c": 57.0
+      }
+    },
+    {
+      "config": "n2-ub2048",
+      "draft_n": 2,
+      "ubatch": 2048,
+      "round": "round1",
+      "started_at": "2026-08-22T19:15:23.796629+00:00",
+      "feasible": true,
+      "errors": [],
+      "load_s": 4.577999999979511,
+      "free_vram_after_load_mib": 4824.0,
+      "probes": [
+        {
+          "content": "\n\n42.",
+          "content_sha256": "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+          "tokens_predicted": 5,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 17,
+            "prompt_ms": 168.713,
+            "prompt_per_token_ms": 9.924294117647058,
+            "prompt_per_second": 100.76283392506802,
+            "predicted_n": 5,
+            "predicted_ms": 131.192,
+            "predicted_per_token_ms": 26.238400000000002,
+            "predicted_per_second": 38.112080004878344,
+            "draft_n": 6,
+            "draft_n_accepted": 1
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "\n\ndelta",
+          "content_sha256": "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+          "tokens_predicted": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 15,
+            "prompt_ms": 134.247,
+            "prompt_per_token_ms": 8.949800000000002,
+            "prompt_per_second": 111.73434043218842,
+            "predicted_n": 3,
+            "predicted_ms": 74.035,
+            "predicted_per_token_ms": 24.67833333333333,
+            "predicted_per_second": 40.52137502532586,
+            "draft_n": 4,
+            "draft_n_accepted": 0
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "    pass\n\nHere's the completed function:\n\n```python\ndef add(a, b):\n    \"\"\"Return their sum.\"\"\"\n    return a + b\n```\n\nThis function takes two parameters `a` and `b`, and returns their sum using the `+` operator. The `pass` statement is",
+          "content_sha256": "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a",
+          "tokens_predicted": 64,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 21,
+            "prompt_ms": 133.853,
+            "prompt_per_token_ms": 6.373952380952382,
+            "prompt_per_second": 156.8885269661494,
+            "predicted_n": 64,
+            "predicted_ms": 853.828,
+            "predicted_per_token_ms": 13.3410625,
+            "predicted_per_second": 74.95654862571853,
+            "draft_n": 48,
+            "draft_n_accepted": 38
+          },
+          "stop": true,
+          "stop_type": "limit"
+        }
+      ],
+      "probe_hashes": [
+        "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+        "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+        "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a"
+      ],
+      "accepted_probes": 3,
+      "runs": [
+        {
+          "cell": "short",
+          "prompt_repeats": 240,
+          "prompt_tokens": 2684,
+          "predicted_tokens": 96,
+          "decode_tokens_after_first": 95,
+          "prefill_ttft_s": 2.202999999979511,
+          "decode_s": 1.297000000020489,
+          "baseline_power_w": 242.17076923076922,
+          "prefill_energy_gross_j": 559.5107799981133,
+          "decode_energy_gross_j": 475.0573850081427,
+          "prefill_gross_j_per_prompt_token": 0.20846154247321658,
+          "decode_gross_j_per_token": 5.000604052717292,
+          "prefill_incremental_j": 26.0085753876906,
+          "decode_incremental_j": 160.96189731087316,
+          "power_mean_active_w": 296.03076923076924,
+          "power_peak_active_w": 381.51,
+          "temp_peak_c": 56.0,
+          "vram_peak_mb": 19577.0,
+          "telemetry_samples": 59,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2684,
+            "prompt_ms": 1840.38,
+            "prompt_per_token_ms": 0.6856855439642325,
+            "prompt_per_second": 1458.3944620132797,
+            "predicted_n": 96,
+            "predicted_ms": 1172.615,
+            "predicted_per_token_ms": 12.214739583333333,
+            "predicted_per_second": 81.86830289566483,
+            "draft_n": 66,
+            "draft_n_accepted": 62
+          },
+          "boundaries_monotonic": true,
+          "rep": 0
+        }
+      ],
+      "wall_s": 13.89100000000326,
+      "finished_at": "2026-08-22T19:15:37.959922+00:00",
+      "metrics": {
+        "ttft_s_median": 2.202999999979511,
+        "prompt_tps_median": 1218.3386291534102,
+        "short_prompt_tps_median": 1218.3386291534102,
+        "long_prompt_tps_median": null,
+        "decode_s_per_token_median": 0.013652631579163042,
+        "decode_tps_median": 73.24595219622148,
+        "vram_peak_mb": 19577.0,
+        "cost_s_per_accepted_probe": 4.63033333333442,
+        "power_peak_w": 381.51,
+        "temp_peak_c": 56.0
+      }
+    },
+    {
+      "config": "n3-ub1024",
+      "draft_n": 3,
+      "ubatch": 1024,
+      "round": "round1",
+      "started_at": "2026-08-22T19:15:10.661995+00:00",
+      "feasible": true,
+      "errors": [],
+      "load_s": 3.5619999999762513,
+      "free_vram_after_load_mib": 5198.0,
+      "probes": [
+        {
+          "content": "\n\n42.",
+          "content_sha256": "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+          "tokens_predicted": 5,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 17,
+            "prompt_ms": 159.791,
+            "prompt_per_token_ms": 9.399470588235294,
+            "prompt_per_second": 106.3889705928369,
+            "predicted_n": 5,
+            "predicted_ms": 150.323,
+            "predicted_per_token_ms": 30.064600000000002,
+            "predicted_per_second": 33.261709784929785,
+            "draft_n": 9,
+            "draft_n_accepted": 1
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "\n\ndelta",
+          "content_sha256": "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+          "tokens_predicted": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 15,
+            "prompt_ms": 137.08,
+            "prompt_per_token_ms": 9.138666666666667,
+            "prompt_per_second": 109.42515319521446,
+            "predicted_n": 3,
+            "predicted_ms": 89.681,
+            "predicted_per_token_ms": 29.893666666666665,
+            "predicted_per_second": 33.451901740613955,
+            "draft_n": 6,
+            "draft_n_accepted": 0
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "    pass\n\nHere's the completed function:\n\n```python\ndef add(a, b):\n    \"\"\"Return their sum.\"\"\"\n    return a + b\n```\n\nThis function takes two parameters `a` and `b`, and returns their sum using the `+` operator. The `pass` statement is",
+          "content_sha256": "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a",
+          "tokens_predicted": 64,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 21,
+            "prompt_ms": 143.98,
+            "prompt_per_token_ms": 6.856190476190475,
+            "prompt_per_second": 145.85359077649676,
+            "predicted_n": 64,
+            "predicted_ms": 834.206,
+            "predicted_per_token_ms": 13.03446875,
+            "predicted_per_second": 76.71965917291412,
+            "draft_n": 56,
+            "draft_n_accepted": 43
+          },
+          "stop": true,
+          "stop_type": "limit"
+        }
+      ],
+      "probe_hashes": [
+        "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+        "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+        "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a"
+      ],
+      "accepted_probes": 3,
+      "runs": [
+        {
+          "cell": "short",
+          "prompt_repeats": 240,
+          "prompt_tokens": 2683,
+          "predicted_tokens": 96,
+          "decode_tokens_after_first": 95,
+          "prefill_ttft_s": 2.2339999999967404,
+          "decode_s": 1.1880000000237487,
+          "baseline_power_w": 227.91615384615386,
+          "prefill_energy_gross_j": 550.2004579741049,
+          "decode_energy_gross_j": 411.7676450080113,
+          "prefill_gross_j_per_prompt_token": 0.20506912335971111,
+          "decode_gross_j_per_token": 4.334396263242224,
+          "prefill_incremental_j": 41.03577028254011,
+          "decode_incremental_j": 141.00325423336778,
+          "power_mean_active_w": 280.1462162162162,
+          "power_peak_active_w": 364.77,
+          "temp_peak_c": 54.0,
+          "vram_peak_mb": 19163.0,
+          "telemetry_samples": 57,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2683,
+            "prompt_ms": 1872.338,
+            "prompt_per_token_ms": 0.6978524040253448,
+            "prompt_per_second": 1432.9677654355141,
+            "predicted_n": 96,
+            "predicted_ms": 1066.963,
+            "predicted_per_token_ms": 11.114197916666667,
+            "predicted_per_second": 89.97500381925147,
+            "draft_n": 72,
+            "draft_n_accepted": 70
+          },
+          "boundaries_monotonic": true,
+          "rep": 0
+        }
+      ],
+      "wall_s": 12.89100000000326,
+      "finished_at": "2026-08-22T19:15:23.795629+00:00",
+      "metrics": {
+        "ttft_s_median": 2.2339999999967404,
+        "prompt_tps_median": 1200.9847806642413,
+        "short_prompt_tps_median": 1200.9847806642413,
+        "long_prompt_tps_median": null,
+        "decode_s_per_token_median": 0.012505263158144724,
+        "decode_tps_median": 79.9663299647314,
+        "vram_peak_mb": 19163.0,
+        "cost_s_per_accepted_probe": 4.297000000001087,
+        "power_peak_w": 364.77,
+        "temp_peak_c": 54.0
+      }
+    },
+    {
+      "config": "n3-ub2048",
+      "draft_n": 3,
+      "ubatch": 2048,
+      "round": "round1",
+      "started_at": "2026-08-22T19:14:38.023102+00:00",
+      "feasible": true,
+      "errors": [],
+      "load_s": 8.625,
+      "free_vram_after_load_mib": 4674.0,
+      "probes": [
+        {
+          "content": "\n\n42.",
+          "content_sha256": "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+          "tokens_predicted": 5,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 17,
+            "prompt_ms": 195.684,
+            "prompt_per_token_ms": 11.510823529411764,
+            "prompt_per_second": 86.87475726170766,
+            "predicted_n": 5,
+            "predicted_ms": 153.794,
+            "predicted_per_token_ms": 30.7588,
+            "predicted_per_second": 32.51102123619907,
+            "draft_n": 9,
+            "draft_n_accepted": 1
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "\n\ndelta",
+          "content_sha256": "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+          "tokens_predicted": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 15,
+            "prompt_ms": 135.401,
+            "prompt_per_token_ms": 9.026733333333334,
+            "prompt_per_second": 110.78204739994534,
+            "predicted_n": 3,
+            "predicted_ms": 90.985,
+            "predicted_per_token_ms": 30.328333333333333,
+            "predicted_per_second": 32.972467989228996,
+            "draft_n": 6,
+            "draft_n_accepted": 0
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "    pass\n\nHere's the completed function:\n\n```python\ndef add(a, b):\n    \"\"\"Return their sum.\"\"\"\n    return a + b\n```\n\nThis function takes two parameters `a` and `b`, and returns their sum using the `+` operator. The `pass` statement is",
+          "content_sha256": "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a",
+          "tokens_predicted": 64,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 21,
+            "prompt_ms": 139.497,
+            "prompt_per_token_ms": 6.642714285714287,
+            "prompt_per_second": 150.54087184670635,
+            "predicted_n": 64,
+            "predicted_ms": 844.548,
+            "predicted_per_token_ms": 13.1960625,
+            "predicted_per_second": 75.7801806410056,
+            "draft_n": 56,
+            "draft_n_accepted": 43
+          },
+          "stop": true,
+          "stop_type": "limit"
+        }
+      ],
+      "probe_hashes": [
+        "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+        "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+        "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a"
+      ],
+      "accepted_probes": 3,
+      "runs": [
+        {
+          "cell": "short",
+          "prompt_repeats": 240,
+          "prompt_tokens": 2680,
+          "predicted_tokens": 96,
+          "decode_tokens_after_first": 95,
+          "prefill_ttft_s": 2.2660000000032596,
+          "decode_s": 1.25,
+          "baseline_power_w": 235.24846153846153,
+          "prefill_energy_gross_j": 513.3894250011325,
+          "decode_energy_gross_j": 439.0187300000867,
+          "prefill_gross_j_per_prompt_token": 0.19156321828400466,
+          "decode_gross_j_per_token": 4.6212497894745965,
+          "prefill_incremental_j": 0.0,
+          "decode_incremental_j": 144.9581530770098,
+          "power_mean_active_w": 279.1748780487805,
+          "power_peak_active_w": 367.01,
+          "temp_peak_c": 49.0,
+          "vram_peak_mb": 19727.0,
+          "telemetry_samples": 60,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2680,
+            "prompt_ms": 1872.687,
+            "prompt_per_token_ms": 0.6987638059701492,
+            "prompt_per_second": 1431.0987367349696,
+            "predicted_n": 96,
+            "predicted_ms": 1121.968,
+            "predicted_per_token_ms": 11.687166666666668,
+            "predicted_per_second": 85.56393765241076,
+            "draft_n": 76,
+            "draft_n_accepted": 69
+          },
+          "boundaries_monotonic": true,
+          "rep": 0
+        }
+      ],
+      "wall_s": 18.125,
+      "finished_at": "2026-08-22T19:14:56.410847+00:00",
+      "metrics": {
+        "ttft_s_median": 2.2660000000032596,
+        "prompt_tps_median": 1182.7007943495785,
+        "short_prompt_tps_median": 1182.7007943495785,
+        "long_prompt_tps_median": null,
+        "decode_s_per_token_median": 0.013157894736842105,
+        "decode_tps_median": 76.0,
+        "vram_peak_mb": 19727.0,
+        "cost_s_per_accepted_probe": 6.041666666666667,
+        "power_peak_w": 367.01,
+        "temp_peak_c": 49.0
+      }
+    },
+    {
+      "config": "n4-ub1024",
+      "draft_n": 4,
+      "ubatch": 1024,
+      "round": "round1",
+      "started_at": "2026-08-22T19:15:51.274195+00:00",
+      "feasible": true,
+      "errors": [],
+      "load_s": 4.562000000034459,
+      "free_vram_after_load_mib": 5048.0,
+      "probes": [
+        {
+          "content": "\n\n42.",
+          "content_sha256": "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+          "tokens_predicted": 5,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 17,
+            "prompt_ms": 167.021,
+            "prompt_per_token_ms": 9.824764705882352,
+            "prompt_per_second": 101.78360804928722,
+            "predicted_n": 5,
+            "predicted_ms": 178.576,
+            "predicted_per_token_ms": 35.715199999999996,
+            "predicted_per_second": 27.999283218349614,
+            "draft_n": 12,
+            "draft_n_accepted": 1
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "\n\ndelta",
+          "content_sha256": "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+          "tokens_predicted": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 15,
+            "prompt_ms": 133.209,
+            "prompt_per_token_ms": 8.8806,
+            "prompt_per_second": 112.60500416638516,
+            "predicted_n": 3,
+            "predicted_ms": 101.869,
+            "predicted_per_token_ms": 33.95633333333333,
+            "predicted_per_second": 29.449587214952537,
+            "draft_n": 8,
+            "draft_n_accepted": 0
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "    pass\n\nHere's the completed function:\n\n```python\ndef add(a, b):\n    \"\"\"Return their sum.\"\"\"\n    return a + b\n```\n\nThis function takes two parameters `a` and `b`, and returns their sum using the `+` operator. The `pass` statement is",
+          "content_sha256": "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a",
+          "tokens_predicted": 64,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 21,
+            "prompt_ms": 142.876,
+            "prompt_per_token_ms": 6.803619047619048,
+            "prompt_per_second": 146.98059856098996,
+            "predicted_n": 64,
+            "predicted_ms": 767.297,
+            "predicted_per_token_ms": 11.989015625,
+            "predicted_per_second": 83.40968360361111,
+            "draft_n": 63,
+            "draft_n_accepted": 47
+          },
+          "stop": true,
+          "stop_type": "limit"
+        }
+      ],
+      "probe_hashes": [
+        "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+        "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+        "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a"
+      ],
+      "accepted_probes": 3,
+      "runs": [
+        {
+          "cell": "short",
+          "prompt_repeats": 240,
+          "prompt_tokens": 2679,
+          "predicted_tokens": 96,
+          "decode_tokens_after_first": 95,
+          "prefill_ttft_s": 2.2820000000065193,
+          "decode_s": 1.1400000000139698,
+          "baseline_power_w": 243.22923076923075,
+          "prefill_energy_gross_j": 561.073100001319,
+          "decode_energy_gross_j": 402.2576900057,
+          "prefill_gross_j_per_prompt_token": 0.20943378126215714,
+          "decode_gross_j_per_token": 4.234291473744211,
+          "prefill_incremental_j": 6.023995384348723,
+          "decode_incremental_j": 124.97636692537907,
+          "power_mean_active_w": 279.2106818181818,
+          "power_peak_active_w": 372.44,
+          "temp_peak_c": 58.0,
+          "vram_peak_mb": 19313.0,
+          "telemetry_samples": 65,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2679,
+            "prompt_ms": 1905.621,
+            "prompt_per_token_ms": 0.7113180291153416,
+            "prompt_per_second": 1405.8409305942785,
+            "predicted_n": 96,
+            "predicted_ms": 1028.997,
+            "predicted_per_token_ms": 10.71871875,
+            "predicted_per_second": 93.29473263770447,
+            "draft_n": 83,
+            "draft_n_accepted": 74
+          },
+          "boundaries_monotonic": true,
+          "rep": 0
+        }
+      ],
+      "wall_s": 13.827999999979511,
+      "finished_at": "2026-08-22T19:16:05.334286+00:00",
+      "metrics": {
+        "ttft_s_median": 2.2820000000065193,
+        "prompt_tps_median": 1173.9702015742098,
+        "short_prompt_tps_median": 1173.9702015742098,
+        "long_prompt_tps_median": null,
+        "decode_s_per_token_median": 0.012000000000147051,
+        "decode_tps_median": 83.33333333231215,
+        "vram_peak_mb": 19313.0,
+        "cost_s_per_accepted_probe": 4.609333333326504,
+        "power_peak_w": 372.44,
+        "temp_peak_c": 58.0
+      }
+    },
+    {
+      "config": "n4-ub2048",
+      "draft_n": 4,
+      "ubatch": 2048,
+      "round": "round1",
+      "started_at": "2026-08-22T19:14:56.671007+00:00",
+      "feasible": true,
+      "errors": [],
+      "load_s": 4.547000000020489,
+      "free_vram_after_load_mib": 4524.0,
+      "probes": [
+        {
+          "content": "\n\n42.",
+          "content_sha256": "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+          "tokens_predicted": 5,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 17,
+            "prompt_ms": 170.022,
+            "prompt_per_token_ms": 10.001294117647058,
+            "prompt_per_second": 99.9870604980532,
+            "predicted_n": 5,
+            "predicted_ms": 169.497,
+            "predicted_per_token_ms": 33.8994,
+            "predicted_per_second": 29.49904718077606,
+            "draft_n": 12,
+            "draft_n_accepted": 1
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "\n\ndelta",
+          "content_sha256": "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+          "tokens_predicted": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 15,
+            "prompt_ms": 133.414,
+            "prompt_per_token_ms": 8.894266666666665,
+            "prompt_per_second": 112.431978652915,
+            "predicted_n": 3,
+            "predicted_ms": 101.83,
+            "predicted_per_token_ms": 33.943333333333335,
+            "predicted_per_second": 29.4608661494648,
+            "draft_n": 8,
+            "draft_n_accepted": 0
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "    pass\n\nHere's the completed function:\n\n```python\ndef add(a, b):\n    \"\"\"Return their sum.\"\"\"\n    return a + b\n```\n\nThis function takes two parameters `a` and `b`, and returns their sum using the `+` operator. The `pass` statement is",
+          "content_sha256": "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a",
+          "tokens_predicted": 64,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 21,
+            "prompt_ms": 138.583,
+            "prompt_per_token_ms": 6.5991904761904765,
+            "prompt_per_second": 151.53373790436058,
+            "predicted_n": 64,
+            "predicted_ms": 780.131,
+            "predicted_per_token_ms": 12.189546875,
+            "predicted_per_second": 82.03750395766865,
+            "draft_n": 63,
+            "draft_n_accepted": 47
+          },
+          "stop": true,
+          "stop_type": "limit"
+        }
+      ],
+      "probe_hashes": [
+        "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+        "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+        "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a"
+      ],
+      "accepted_probes": 3,
+      "runs": [
+        {
+          "cell": "short",
+          "prompt_repeats": 240,
+          "prompt_tokens": 2685,
+          "predicted_tokens": 96,
+          "decode_tokens_after_first": 95,
+          "prefill_ttft_s": 2.2189999999827705,
+          "decode_s": 1.1560000000172295,
+          "baseline_power_w": 249.022,
+          "prefill_energy_gross_j": 527.9067399942703,
+          "decode_energy_gross_j": 414.3748100061549,
+          "prefill_gross_j_per_prompt_token": 0.19661331098483065,
+          "decode_gross_j_per_token": 4.361840105327946,
+          "prefill_incremental_j": 0.0,
+          "decode_incremental_j": 126.50537800186441,
+          "power_mean_active_w": 276.9535135135135,
+          "power_peak_active_w": 362.18,
+          "temp_peak_c": 52.0,
+          "vram_peak_mb": 19877.0,
+          "telemetry_samples": 59,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2685,
+            "prompt_ms": 1838.084,
+            "prompt_per_token_ms": 0.6845750465549348,
+            "prompt_per_second": 1460.7602264096745,
+            "predicted_n": 96,
+            "predicted_ms": 1038.551,
+            "predicted_per_token_ms": 10.818239583333332,
+            "predicted_per_second": 92.43648121276664,
+            "draft_n": 83,
+            "draft_n_accepted": 74
+          },
+          "boundaries_monotonic": true,
+          "rep": 0
+        }
+      ],
+      "wall_s": 13.73399999999674,
+      "finished_at": "2026-08-22T19:15:10.659995+00:00",
+      "metrics": {
+        "ttft_s_median": 2.2189999999827705,
+        "prompt_tps_median": 1210.00450654387,
+        "short_prompt_tps_median": 1210.00450654387,
+        "long_prompt_tps_median": null,
+        "decode_s_per_token_median": 0.012168421052812942,
+        "decode_tps_median": 82.1799307946229,
+        "vram_peak_mb": 19877.0,
+        "cost_s_per_accepted_probe": 4.577999999998913,
+        "power_peak_w": 362.18,
+        "temp_peak_c": 52.0
+      }
+    }
+  ],
+  "survivors": [
+    "n3-ub2048",
+    "n3-ub1024",
+    "n4-ub1024"
+  ],
+  "round2": [
+    {
+      "config": "n3-ub2048",
+      "draft_n": 3,
+      "ubatch": 2048,
+      "round": "round2",
+      "started_at": "2026-08-22T19:18:20.878331+00:00",
+      "feasible": true,
+      "errors": [],
+      "load_s": 4.579000000027008,
+      "free_vram_after_load_mib": 4674.0,
+      "probes": [
+        {
+          "content": "\n\n42.",
+          "content_sha256": "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+          "tokens_predicted": 5,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 17,
+            "prompt_ms": 182.806,
+            "prompt_per_token_ms": 10.753294117647059,
+            "prompt_per_second": 92.99475947178976,
+            "predicted_n": 5,
+            "predicted_ms": 156.865,
+            "predicted_per_token_ms": 31.373,
+            "predicted_per_second": 31.874541803461575,
+            "draft_n": 9,
+            "draft_n_accepted": 1
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "\n\ndelta",
+          "content_sha256": "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+          "tokens_predicted": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 15,
+            "prompt_ms": 135.544,
+            "prompt_per_token_ms": 9.036266666666668,
+            "prompt_per_second": 110.66517145723896,
+            "predicted_n": 3,
+            "predicted_ms": 92.892,
+            "predicted_per_token_ms": 30.964,
+            "predicted_per_second": 32.29556904792663,
+            "draft_n": 6,
+            "draft_n_accepted": 0
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "    pass\n\nHere's the completed function:\n\n```python\ndef add(a, b):\n    \"\"\"Return their sum.\"\"\"\n    return a + b\n```\n\nThis function takes two parameters `a` and `b`, and returns their sum using the `+` operator. The `pass` statement is",
+          "content_sha256": "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a",
+          "tokens_predicted": 64,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 21,
+            "prompt_ms": 140.091,
+            "prompt_per_token_ms": 6.671,
+            "prompt_per_second": 149.902563333833,
+            "predicted_n": 64,
+            "predicted_ms": 854.599,
+            "predicted_per_token_ms": 13.353109375,
+            "predicted_per_second": 74.88892451313423,
+            "draft_n": 56,
+            "draft_n_accepted": 43
+          },
+          "stop": true,
+          "stop_type": "limit"
+        }
+      ],
+      "probe_hashes": [
+        "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+        "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+        "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a"
+      ],
+      "accepted_probes": 3,
+      "runs": [
+        {
+          "cell": "short",
+          "prompt_repeats": 240,
+          "prompt_tokens": 2680,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 2.202999999979511,
+          "decode_s": 1.625,
+          "baseline_power_w": 265.875,
+          "prefill_energy_gross_j": 585.2359349972472,
+          "decode_energy_gross_j": 614.6932861701763,
+          "prefill_gross_j_per_prompt_token": 0.21837161753628628,
+          "decode_gross_j_per_token": 4.840104615513199,
+          "prefill_incremental_j": 0.0,
+          "decode_incremental_j": 182.6464111701763,
+          "power_mean_active_w": 306.12227272727273,
+          "power_peak_active_w": 385.84,
+          "temp_peak_c": 67.0,
+          "vram_peak_mb": 19727.0,
+          "telemetry_samples": 65,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2680,
+            "prompt_ms": 1883.391,
+            "prompt_per_token_ms": 0.7027578358208956,
+            "prompt_per_second": 1422.9652791162323,
+            "predicted_n": 128,
+            "predicted_ms": 1494.441,
+            "predicted_per_token_ms": 11.6753203125,
+            "predicted_per_second": 85.65075503148,
+            "draft_n": 99,
+            "draft_n_accepted": 93
+          },
+          "boundaries_monotonic": true,
+          "rep": 0
+        },
+        {
+          "cell": "long",
+          "prompt_repeats": 1200,
+          "prompt_tokens": 13243,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 10.46899999998277,
+          "decode_s": 1.6709999999729916,
+          "baseline_power_w": 213.13714285714286,
+          "prefill_energy_gross_j": 3661.8852649955647,
+          "decode_energy_gross_j": 646.8380000699551,
+          "prefill_gross_j_per_prompt_token": 0.2765147825262829,
+          "decode_gross_j_per_token": 5.093212598976025,
+          "prefill_incremental_j": 1430.5525164278083,
+          "decode_incremental_j": 290.68583436142586,
+          "power_mean_active_w": 354.2557971014493,
+          "power_peak_active_w": 401.08,
+          "temp_peak_c": 70.0,
+          "vram_peak_mb": 19727.0,
+          "telemetry_samples": 159,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 13243,
+            "prompt_ms": 9400.701,
+            "prompt_per_token_ms": 0.7098618893000075,
+            "prompt_per_second": 1408.7247323364504,
+            "predicted_n": 128,
+            "predicted_ms": 1552.782,
+            "predicted_per_token_ms": 12.131109375,
+            "predicted_per_second": 82.43269177514938,
+            "draft_n": 96,
+            "draft_n_accepted": 94
+          },
+          "boundaries_monotonic": true,
+          "rep": 0
+        },
+        {
+          "cell": "long",
+          "prompt_repeats": 1200,
+          "prompt_tokens": 13245,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 10.60899999999674,
+          "decode_s": 1.672000000020489,
+          "baseline_power_w": 225.47384615384615,
+          "prefill_energy_gross_j": 3686.71171499977,
+          "decode_energy_gross_j": 643.0247950080058,
+          "prefill_gross_j_per_prompt_token": 0.2783474303510585,
+          "decode_gross_j_per_token": 5.063187362267762,
+          "prefill_incremental_j": 1294.659681154351,
+          "decode_incremental_j": 266.03252423415523,
+          "power_mean_active_w": 353.99943262411347,
+          "power_peak_active_w": 404.45,
+          "temp_peak_c": 71.0,
+          "vram_peak_mb": 19727.0,
+          "telemetry_samples": 160,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 13245,
+            "prompt_ms": 10280.75,
+            "prompt_per_token_ms": 0.7761985654964138,
+            "prompt_per_second": 1288.33013155655,
+            "predicted_n": 128,
+            "predicted_ms": 1672.896,
+            "predicted_per_token_ms": 13.0695,
+            "predicted_per_second": 76.51402119438387,
+            "draft_n": 96,
+            "draft_n_accepted": 94
+          },
+          "boundaries_monotonic": true,
+          "rep": 1
+        },
+        {
+          "cell": "short",
+          "prompt_repeats": 240,
+          "prompt_tokens": 2683,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 2.5630000000237487,
+          "decode_s": 1.6400000000139698,
+          "baseline_power_w": 229.91307692307694,
+          "prefill_energy_gross_j": 620.98194000621,
+          "decode_energy_gross_j": 632.5973300058225,
+          "prefill_gross_j_per_prompt_token": 0.23145059262251585,
+          "decode_gross_j_per_token": 4.981081338628524,
+          "prefill_incremental_j": 31.714723846903667,
+          "decode_incremental_j": 255.53988384876448,
+          "power_mean_active_w": 297.59708333333333,
+          "power_peak_active_w": 408.58,
+          "temp_peak_c": 70.0,
+          "vram_peak_mb": 19727.0,
+          "telemetry_samples": 67,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2683,
+            "prompt_ms": 2266.973,
+            "prompt_per_token_ms": 0.8449396198285501,
+            "prompt_per_second": 1183.5165218112436,
+            "predicted_n": 128,
+            "predicted_ms": 1627.619,
+            "predicted_per_token_ms": 12.7157734375,
+            "predicted_per_second": 78.64248328386435,
+            "draft_n": 99,
+            "draft_n_accepted": 93
+          },
+          "boundaries_monotonic": true,
+          "rep": 1
+        },
+        {
+          "cell": "short",
+          "prompt_repeats": 240,
+          "prompt_tokens": 2679,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 2.422000000020489,
+          "decode_s": 1.6410000000032596,
+          "baseline_power_w": 229.51461538461538,
+          "prefill_energy_gross_j": 608.9012050048744,
+          "decode_energy_gross_j": 633.810415001857,
+          "prefill_gross_j_per_prompt_token": 0.22728675065504833,
+          "decode_gross_j_per_token": 4.990633188991,
+          "prefill_incremental_j": 53.01680653863343,
+          "decode_incremental_j": 257.176931154955,
+          "power_mean_active_w": 304.16333333333336,
+          "power_peak_active_w": 402.08,
+          "temp_peak_c": 70.0,
+          "vram_peak_mb": 19727.0,
+          "telemetry_samples": 65,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2679,
+            "prompt_ms": 2244.281,
+            "prompt_per_token_ms": 0.8377308697275102,
+            "prompt_per_second": 1193.700788804967,
+            "predicted_n": 128,
+            "predicted_ms": 1637.823,
+            "predicted_per_token_ms": 12.7954921875,
+            "predicted_per_second": 78.15252319695107,
+            "draft_n": 99,
+            "draft_n_accepted": 93
+          },
+          "boundaries_monotonic": true,
+          "rep": 2
+        },
+        {
+          "cell": "long",
+          "prompt_repeats": 1200,
+          "prompt_tokens": 13243,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 10.5,
+          "decode_s": 1.7190000000409782,
+          "baseline_power_w": 217.75846153846155,
+          "prefill_energy_gross_j": 3675.6583499940934,
+          "decode_energy_gross_j": 668.8881975161933,
+          "prefill_gross_j_per_prompt_token": 0.27755481008790256,
+          "decode_gross_j_per_token": 5.2668362009149075,
+          "prefill_incremental_j": 1389.1945038402473,
+          "decode_incremental_j": 294.5614021226545,
+          "power_mean_active_w": 354.48978417266187,
+          "power_peak_active_w": 405.04,
+          "temp_peak_c": 72.0,
+          "vram_peak_mb": 19727.0,
+          "telemetry_samples": 159,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 13243,
+            "prompt_ms": 9788.763,
+            "prompt_per_token_ms": 0.7391650683379899,
+            "prompt_per_second": 1352.8777844555027,
+            "predicted_n": 128,
+            "predicted_ms": 1585.896,
+            "predicted_per_token_ms": 12.3898125,
+            "predicted_per_second": 80.71147162235103,
+            "draft_n": 100,
+            "draft_n_accepted": 93
+          },
+          "boundaries_monotonic": true,
+          "rep": 2
+        }
+      ],
+      "wall_s": 68.20299999997951,
+      "finished_at": "2026-08-22T19:19:29.350401+00:00",
+      "metrics": {
+        "ttft_s_median": 10.5,
+        "prompt_tps_median": 1261.2380952380952,
+        "short_prompt_tps_median": 1106.1106523440696,
+        "long_prompt_tps_median": 1261.2380952380952,
+        "decode_s_per_token_median": 0.01303937007864666,
+        "decode_tps_median": 76.69711401233337,
+        "vram_peak_mb": 19727.0,
+        "cost_s_per_accepted_probe": 22.734333333326504,
+        "power_peak_w": 408.58,
+        "temp_peak_c": 72.0
+      }
+    },
+    {
+      "config": "n3-ub1024",
+      "draft_n": 3,
+      "ubatch": 1024,
+      "round": "round2",
+      "started_at": "2026-08-22T19:17:12.961039+00:00",
+      "feasible": true,
+      "errors": [],
+      "load_s": 3.577999999979511,
+      "free_vram_after_load_mib": 5198.0,
+      "probes": [
+        {
+          "content": "\n\n42.",
+          "content_sha256": "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+          "tokens_predicted": 5,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 17,
+            "prompt_ms": 163.771,
+            "prompt_per_token_ms": 9.633588235294116,
+            "prompt_per_second": 103.80348169089766,
+            "predicted_n": 5,
+            "predicted_ms": 153.26,
+            "predicted_per_token_ms": 30.651999999999997,
+            "predicted_per_second": 32.62429857758058,
+            "draft_n": 9,
+            "draft_n_accepted": 1
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "\n\ndelta",
+          "content_sha256": "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+          "tokens_predicted": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 15,
+            "prompt_ms": 137.928,
+            "prompt_per_token_ms": 9.1952,
+            "prompt_per_second": 108.75239255263615,
+            "predicted_n": 3,
+            "predicted_ms": 91.747,
+            "predicted_per_token_ms": 30.582333333333334,
+            "predicted_per_second": 32.69861684850731,
+            "draft_n": 6,
+            "draft_n_accepted": 0
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "    pass\n\nHere's the completed function:\n\n```python\ndef add(a, b):\n    \"\"\"Return their sum.\"\"\"\n    return a + b\n```\n\nThis function takes two parameters `a` and `b`, and returns their sum using the `+` operator. The `pass` statement is",
+          "content_sha256": "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a",
+          "tokens_predicted": 64,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 21,
+            "prompt_ms": 140.575,
+            "prompt_per_token_ms": 6.694047619047619,
+            "prompt_per_second": 149.38644851502758,
+            "predicted_n": 64,
+            "predicted_ms": 847.001,
+            "predicted_per_token_ms": 13.234390625,
+            "predicted_per_second": 75.56071362371473,
+            "draft_n": 56,
+            "draft_n_accepted": 43
+          },
+          "stop": true,
+          "stop_type": "limit"
+        }
+      ],
+      "probe_hashes": [
+        "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+        "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+        "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a"
+      ],
+      "accepted_probes": 3,
+      "runs": [
+        {
+          "cell": "short",
+          "prompt_repeats": 240,
+          "prompt_tokens": 2684,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 2.26500000001397,
+          "decode_s": 1.625,
+          "baseline_power_w": 253.68285714285713,
+          "prefill_energy_gross_j": 583.3126400054258,
+          "decode_energy_gross_j": 621.7791800008024,
+          "prefill_gross_j_per_prompt_token": 0.2173295976175208,
+          "decode_gross_j_per_token": 4.895899055124429,
+          "prefill_incremental_j": 8.720968573310529,
+          "decode_incremental_j": 209.54453714365957,
+          "power_mean_active_w": 310.6981818181818,
+          "power_peak_active_w": 399.74,
+          "temp_peak_c": 65.0,
+          "vram_peak_mb": 19163.0,
+          "telemetry_samples": 65,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2684,
+            "prompt_ms": 1898.049,
+            "prompt_per_token_ms": 0.7071717585692996,
+            "prompt_per_second": 1414.0836195482834,
+            "predicted_n": 128,
+            "predicted_ms": 1459.3,
+            "predicted_per_token_ms": 11.40078125,
+            "predicted_per_second": 87.71328719248955,
+            "draft_n": 99,
+            "draft_n_accepted": 93
+          },
+          "boundaries_monotonic": true,
+          "rep": 0
+        },
+        {
+          "cell": "long",
+          "prompt_repeats": 1200,
+          "prompt_tokens": 13238,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 10.48399999999674,
+          "decode_s": 1.75,
+          "baseline_power_w": 214.2853846153846,
+          "prefill_energy_gross_j": 3647.551192736224,
+          "decode_energy_gross_j": 669.9015299988605,
+          "prefill_gross_j_per_prompt_token": 0.2755364248932032,
+          "decode_gross_j_per_token": 5.274815196841422,
+          "prefill_incremental_j": 1400.9832204292302,
+          "decode_incremental_j": 294.90210692193745,
+          "power_mean_active_w": 353.87164285714283,
+          "power_peak_active_w": 395.65,
+          "temp_peak_c": 69.0,
+          "vram_peak_mb": 19163.0,
+          "telemetry_samples": 160,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 13238,
+            "prompt_ms": 9255.478,
+            "prompt_per_token_ms": 0.6991598428765674,
+            "prompt_per_second": 1430.288095331219,
+            "predicted_n": 128,
+            "predicted_ms": 1561.573,
+            "predicted_per_token_ms": 12.1997890625,
+            "predicted_per_second": 81.96863034901345,
+            "draft_n": 99,
+            "draft_n_accepted": 93
+          },
+          "boundaries_monotonic": true,
+          "rep": 0
+        },
+        {
+          "cell": "long",
+          "prompt_repeats": 1200,
+          "prompt_tokens": 13241,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 10.73399999999674,
+          "decode_s": 1.7339999999967404,
+          "baseline_power_w": 206.874375,
+          "prefill_energy_gross_j": 3689.3403899990562,
+          "decode_energy_gross_j": 664.4046496773976,
+          "prefill_gross_j_per_prompt_token": 0.2786300422928069,
+          "decode_gross_j_per_token": 5.2315326746251785,
+          "prefill_incremental_j": 1468.7508487497307,
+          "decode_incremental_j": 305.684483428072,
+          "power_mean_active_w": 350.03957746478875,
+          "power_peak_active_w": 400.21,
+          "temp_peak_c": 70.0,
+          "vram_peak_mb": 19163.0,
+          "telemetry_samples": 165,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 13241,
+            "prompt_ms": 9344.582,
+            "prompt_per_token_ms": 0.7057308360395741,
+            "prompt_per_second": 1416.9708179563302,
+            "predicted_n": 128,
+            "predicted_ms": 1553.155,
+            "predicted_per_token_ms": 12.1340234375,
+            "predicted_per_second": 82.41289504267121,
+            "draft_n": 99,
+            "draft_n_accepted": 93
+          },
+          "boundaries_monotonic": true,
+          "rep": 1
+        },
+        {
+          "cell": "short",
+          "prompt_repeats": 240,
+          "prompt_tokens": 2681,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 2.547000000020489,
+          "decode_s": 1.6410000000032596,
+          "baseline_power_w": 215.50230769230768,
+          "prefill_energy_gross_j": 610.0288050024293,
+          "decode_energy_gross_j": 631.6531650008145,
+          "prefill_gross_j_per_prompt_token": 0.22753778627468454,
+          "decode_gross_j_per_token": 4.973646968510351,
+          "prefill_incremental_j": 61.14442730570613,
+          "decode_incremental_j": 278.01387807703514,
+          "power_mean_active_w": 290.5878723404255,
+          "power_peak_active_w": 402.15,
+          "temp_peak_c": 69.0,
+          "vram_peak_mb": 19163.0,
+          "telemetry_samples": 67,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2681,
+            "prompt_ms": 1988.765,
+            "prompt_per_token_ms": 0.7417997016038792,
+            "prompt_per_second": 1348.0727989480908,
+            "predicted_n": 128,
+            "predicted_ms": 1484.07,
+            "predicted_per_token_ms": 11.594296875,
+            "predicted_per_second": 86.24930090898678,
+            "draft_n": 99,
+            "draft_n_accepted": 93
+          },
+          "boundaries_monotonic": true,
+          "rep": 1
+        },
+        {
+          "cell": "short",
+          "prompt_repeats": 240,
+          "prompt_tokens": 2681,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 2.344000000040978,
+          "decode_s": 1.6559999999590218,
+          "baseline_power_w": 218.338125,
+          "prefill_energy_gross_j": 597.3976100085367,
+          "decode_energy_gross_j": 636.167819984465,
+          "prefill_gross_j_per_prompt_token": 0.22282641178983092,
+          "decode_gross_j_per_token": 5.009195432948544,
+          "prefill_incremental_j": 85.61304499958965,
+          "decode_incremental_j": 274.59988499341216,
+          "power_mean_active_w": 307.75489361702125,
+          "power_peak_active_w": 398.89,
+          "temp_peak_c": 68.0,
+          "vram_peak_mb": 19163.0,
+          "telemetry_samples": 71,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2681,
+            "prompt_ms": 1941.92,
+            "prompt_per_token_ms": 0.7243267437523312,
+            "prompt_per_second": 1380.5924033945787,
+            "predicted_n": 128,
+            "predicted_ms": 1507.659,
+            "predicted_per_token_ms": 11.7785859375,
+            "predicted_per_second": 84.89983477696215,
+            "draft_n": 100,
+            "draft_n_accepted": 93
+          },
+          "boundaries_monotonic": true,
+          "rep": 2
+        },
+        {
+          "cell": "long",
+          "prompt_repeats": 1200,
+          "prompt_tokens": 13243,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 10.577999999979511,
+          "decode_s": 1.7189999999827705,
+          "baseline_power_w": 200.23642857142858,
+          "prefill_energy_gross_j": 3682.4224349987117,
+          "decode_energy_gross_j": 663.1551879934739,
+          "prefill_gross_j_per_prompt_token": 0.2780655769084582,
+          "decode_gross_j_per_token": 5.2216943936494005,
+          "prefill_incremental_j": 1564.321493574243,
+          "decode_incremental_j": 318.94876728263813,
+          "power_mean_active_w": 354.03295774647887,
+          "power_peak_active_w": 401.99,
+          "temp_peak_c": 71.0,
+          "vram_peak_mb": 19163.0,
+          "telemetry_samples": 163,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 13243,
+            "prompt_ms": 9507.05,
+            "prompt_per_token_ms": 0.7178924714943743,
+            "prompt_per_second": 1392.9662723978522,
+            "predicted_n": 128,
+            "predicted_ms": 1573.588,
+            "predicted_per_token_ms": 12.29365625,
+            "predicted_per_second": 81.3427657048732,
+            "draft_n": 99,
+            "draft_n_accepted": 93
+          },
+          "boundaries_monotonic": true,
+          "rep": 2
+        }
+      ],
+      "wall_s": 67.64100000000326,
+      "finished_at": "2026-08-22T19:18:20.875824+00:00",
+      "metrics": {
+        "ttft_s_median": 10.577999999979511,
+        "prompt_tps_median": 1251.937984498549,
+        "short_prompt_tps_median": 1143.771331038025,
+        "long_prompt_tps_median": 1251.937984498549,
+        "decode_s_per_token_median": 0.013287401574573986,
+        "decode_tps_median": 75.28549207203768,
+        "vram_peak_mb": 19163.0,
+        "cost_s_per_accepted_probe": 22.547000000001088,
+        "power_peak_w": 402.15,
+        "temp_peak_c": 71.0
+      },
+      "comparison_to_incumbent": {
+        "long_prompt_tps_delta_pct": -0.7373794666256539,
+        "decode_tps_delta_pct": -1.8405150682314964
+      }
+    },
+    {
+      "config": "n4-ub1024",
+      "draft_n": 4,
+      "ubatch": 1024,
+      "round": "round2",
+      "started_at": "2026-08-22T19:16:05.335287+00:00",
+      "feasible": true,
+      "errors": [],
+      "load_s": 4.577999999979511,
+      "free_vram_after_load_mib": 5048.0,
+      "probes": [
+        {
+          "content": "\n\n42.",
+          "content_sha256": "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+          "tokens_predicted": 5,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 17,
+            "prompt_ms": 170.946,
+            "prompt_per_token_ms": 10.05564705882353,
+            "prompt_per_second": 99.44660887063752,
+            "predicted_n": 5,
+            "predicted_ms": 171.253,
+            "predicted_per_token_ms": 34.2506,
+            "predicted_per_second": 29.196568819232365,
+            "draft_n": 12,
+            "draft_n_accepted": 1
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "\n\ndelta",
+          "content_sha256": "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+          "tokens_predicted": 3,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 15,
+            "prompt_ms": 137.756,
+            "prompt_per_token_ms": 9.183733333333333,
+            "prompt_per_second": 108.88817909927698,
+            "predicted_n": 3,
+            "predicted_ms": 101.359,
+            "predicted_per_token_ms": 33.78633333333333,
+            "predicted_per_second": 29.59776635523239,
+            "draft_n": 8,
+            "draft_n_accepted": 0
+          },
+          "stop": true,
+          "stop_type": "eos"
+        },
+        {
+          "content": "    pass\n\nHere's the completed function:\n\n```python\ndef add(a, b):\n    \"\"\"Return their sum.\"\"\"\n    return a + b\n```\n\nThis function takes two parameters `a` and `b`, and returns their sum using the `+` operator. The `pass` statement is",
+          "content_sha256": "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a",
+          "tokens_predicted": 64,
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 21,
+            "prompt_ms": 142.869,
+            "prompt_per_token_ms": 6.803285714285714,
+            "prompt_per_second": 146.98780001259897,
+            "predicted_n": 64,
+            "predicted_ms": 769.917,
+            "predicted_per_token_ms": 12.029953125,
+            "predicted_per_second": 83.12584343507157,
+            "draft_n": 63,
+            "draft_n_accepted": 47
+          },
+          "stop": true,
+          "stop_type": "limit"
+        }
+      ],
+      "probe_hashes": [
+        "f3c870d45ce7f02c7f12160caf72ec95f9958aaf0eba20754fc8921526c8eb49",
+        "60787c7b9416b4d164feaaa7e29200a0afa3455220ef966465fa07ae341229cc",
+        "9bb1a13763d8c274fc557bc15851c87a9c2ea2ad7de55f590a8e0efd7b02b30a"
+      ],
+      "accepted_probes": 3,
+      "runs": [
+        {
+          "cell": "short",
+          "prompt_repeats": 240,
+          "prompt_tokens": 2682,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 2.25,
+          "decode_s": 1.5,
+          "baseline_power_w": 239.45600000000002,
+          "prefill_energy_gross_j": 576.9344899977762,
+          "decode_energy_gross_j": 545.6821349988412,
+          "prefill_gross_j_per_prompt_token": 0.21511353094622526,
+          "decode_gross_j_per_token": 4.2967097244003245,
+          "prefill_incremental_j": 38.15848999777609,
+          "decode_incremental_j": 186.49813499884118,
+          "power_mean_active_w": 295.03238095238095,
+          "power_peak_active_w": 388.67,
+          "temp_peak_c": 59.0,
+          "vram_peak_mb": 19313.0,
+          "telemetry_samples": 63,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2682,
+            "prompt_ms": 1870.155,
+            "prompt_per_token_ms": 0.6972986577181208,
+            "prompt_per_second": 1434.1057292042638,
+            "predicted_n": 128,
+            "predicted_ms": 1350.881,
+            "predicted_per_token_ms": 10.5537578125,
+            "predicted_per_second": 94.75297972212208,
+            "draft_n": 108,
+            "draft_n_accepted": 99
+          },
+          "boundaries_monotonic": true,
+          "rep": 0
+        },
+        {
+          "cell": "long",
+          "prompt_repeats": 1200,
+          "prompt_tokens": 13242,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 10.375,
+          "decode_s": 1.577999999979511,
+          "baseline_power_w": 192.95857142857142,
+          "prefill_energy_gross_j": 3509.5636150019186,
+          "decode_energy_gross_j": 596.9025149930391,
+          "prefill_gross_j_per_prompt_token": 0.26503274543134864,
+          "decode_gross_j_per_token": 4.700019803094796,
+          "prefill_incremental_j": 1507.6184364304902,
+          "decode_incremental_j": 292.4138892827069,
+          "power_mean_active_w": 341.92306569343066,
+          "power_peak_active_w": 397.4,
+          "temp_peak_c": 64.0,
+          "vram_peak_mb": 19313.0,
+          "telemetry_samples": 158,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 13242,
+            "prompt_ms": 9187.825,
+            "prompt_per_token_ms": 0.693839676785984,
+            "prompt_per_second": 1441.2551392739847,
+            "predicted_n": 128,
+            "predicted_ms": 1421.11,
+            "predicted_per_token_ms": 11.102421875,
+            "predicted_per_second": 90.07043789713676,
+            "draft_n": 108,
+            "draft_n_accepted": 99
+          },
+          "boundaries_monotonic": true,
+          "rep": 0
+        },
+        {
+          "cell": "long",
+          "prompt_repeats": 1200,
+          "prompt_tokens": 13246,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 10.562999999965541,
+          "decode_s": 1.562000000034459,
+          "baseline_power_w": 214.43133333333333,
+          "prefill_energy_gross_j": 3623.3612099929314,
+          "decode_energy_gross_j": 594.3404800128546,
+          "prefill_gross_j_per_prompt_token": 0.2735438026568724,
+          "decode_gross_j_per_token": 4.679846299313816,
+          "prefill_incremental_j": 1358.3230360003204,
+          "decode_incremental_j": 259.3987373387989,
+          "power_mean_active_w": 346.68352517985613,
+          "power_peak_active_w": 399.36,
+          "temp_peak_c": 67.0,
+          "vram_peak_mb": 19313.0,
+          "telemetry_samples": 161,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 13246,
+            "prompt_ms": 9193.579,
+            "prompt_per_token_ms": 0.6940645477880114,
+            "prompt_per_second": 1440.7881848842546,
+            "predicted_n": 128,
+            "predicted_ms": 1402.369,
+            "predicted_per_token_ms": 10.9560078125,
+            "predicted_per_second": 91.27412257401583,
+            "draft_n": 105,
+            "draft_n_accepted": 100
+          },
+          "boundaries_monotonic": true,
+          "rep": 1
+        },
+        {
+          "cell": "short",
+          "prompt_repeats": 240,
+          "prompt_tokens": 2683,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 2.5939999999827705,
+          "decode_s": 1.5310000000172295,
+          "baseline_power_w": 203.67642857142857,
+          "prefill_energy_gross_j": 616.3700096116067,
+          "decode_energy_gross_j": 588.9898850067027,
+          "prefill_gross_j_per_prompt_token": 0.2297316472648553,
+          "decode_gross_j_per_token": 4.637715629974037,
+          "prefill_incremental_j": 88.03335390083032,
+          "decode_incremental_j": 277.16127286033634,
+          "power_mean_active_w": 286.0431914893617,
+          "power_peak_active_w": 401.91,
+          "temp_peak_c": 66.0,
+          "vram_peak_mb": 19313.0,
+          "telemetry_samples": 68,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2683,
+            "prompt_ms": 2039.806,
+            "prompt_per_token_ms": 0.7602705926202012,
+            "prompt_per_second": 1315.3211628949027,
+            "predicted_n": 128,
+            "predicted_ms": 1369.487,
+            "predicted_per_token_ms": 10.6991171875,
+            "predicted_per_second": 93.46565538774738,
+            "draft_n": 108,
+            "draft_n_accepted": 99
+          },
+          "boundaries_monotonic": true,
+          "rep": 1
+        },
+        {
+          "cell": "short",
+          "prompt_repeats": 240,
+          "prompt_tokens": 2680,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 2.3910000000032596,
+          "decode_s": 1.5150000000139698,
+          "baseline_power_w": 204.80333333333334,
+          "prefill_energy_gross_j": 601.8692049993205,
+          "decode_energy_gross_j": 583.0410450051801,
+          "prefill_gross_j_per_prompt_token": 0.22457806156691063,
+          "decode_gross_j_per_token": 4.590874370119528,
+          "prefill_incremental_j": 112.18443499865288,
+          "decode_incremental_j": 272.763995002319,
+          "power_mean_active_w": 296.74,
+          "power_peak_active_w": 403.71,
+          "temp_peak_c": 65.0,
+          "vram_peak_mb": 19313.0,
+          "telemetry_samples": 68,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 2680,
+            "prompt_ms": 2013.566,
+            "prompt_per_token_ms": 0.7513305970149254,
+            "prompt_per_second": 1330.972016809978,
+            "predicted_n": 128,
+            "predicted_ms": 1373.36,
+            "predicted_per_token_ms": 10.729375,
+            "predicted_per_second": 93.20207374614085,
+            "draft_n": 109,
+            "draft_n_accepted": 99
+          },
+          "boundaries_monotonic": true,
+          "rep": 2
+        },
+        {
+          "cell": "long",
+          "prompt_repeats": 1200,
+          "prompt_tokens": 13241,
+          "predicted_tokens": 128,
+          "decode_tokens_after_first": 127,
+          "prefill_ttft_s": 10.34399999998277,
+          "decode_s": 1.625,
+          "baseline_power_w": 208.48846153846154,
+          "prefill_energy_gross_j": 3648.8467449982595,
+          "decode_energy_gross_j": 623.8267200005794,
+          "prefill_gross_j_per_prompt_token": 0.2755718408729144,
+          "decode_gross_j_per_token": 4.912021417327397,
+          "prefill_incremental_j": 1492.2420988480058,
+          "decode_incremental_j": 285.0329700005794,
+          "power_mean_active_w": 358.8421985815603,
+          "power_peak_active_w": 400.72,
+          "temp_peak_c": 69.0,
+          "vram_peak_mb": 19313.0,
+          "telemetry_samples": 160,
+          "telemetry_errors": [],
+          "server_timings": {
+            "cache_n": 0,
+            "prompt_n": 13241,
+            "prompt_ms": 9142.012,
+            "prompt_per_token_ms": 0.6904321425874179,
+            "prompt_per_second": 1448.3682585408988,
+            "predicted_n": 128,
+            "predicted_ms": 1463.698,
+            "predicted_per_token_ms": 11.435140625,
+            "predicted_per_second": 87.44973348327318,
+            "draft_n": 109,
+            "draft_n_accepted": 99
+          },
+          "boundaries_monotonic": true,
+          "rep": 2
+        }
+      ],
+      "wall_s": 67.32799999997951,
+      "finished_at": "2026-08-22T19:17:12.960037+00:00",
+      "metrics": {
+        "ttft_s_median": 10.375,
+        "prompt_tps_median": 1276.3373493975903,
+        "short_prompt_tps_median": 1120.8699288985138,
+        "long_prompt_tps_median": 1276.3373493975903,
+        "decode_s_per_token_median": 0.012177165354534206,
+        "decode_tps_median": 82.12916833446337,
+        "vram_peak_mb": 19313.0,
+        "cost_s_per_accepted_probe": 22.442666666659836,
+        "power_peak_w": 403.71,
+        "temp_peak_c": 69.0
+      },
+      "comparison_to_incumbent": {
+        "long_prompt_tps_delta_pct": 1.1971771401849907,
+        "decode_tps_delta_pct": 7.082475516949027
+      }
+    }
+  ],
+  "pareto_round2": [
+    "n3-ub1024",
+    "n4-ub1024"
+  ],
+  "decision": {
+    "recommended": "n4-ub1024",
+    "reason": "frozen bounded-screen rule met",
+    "comparison": {
+      "long_prompt_tps_delta_pct": 1.1971771401849907,
+      "decode_tps_delta_pct": 7.082475516949027
+    }
+  },
+  "optuna_trials": {
+    "round1": [
+      {
+        "number": 0,
+        "state": "COMPLETE",
+        "params": {
+          "draft_n": 4,
+          "ubatch": 2048
+        },
+        "values": [
+          2.2189999999827705,
+          0.012168421052812942,
+          19877.0,
+          4.577999999998913
+        ],
+        "user_attrs": {
+          "config": "n4-ub2048",
+          "feasible": true,
+          "errors": []
+        }
+      },
+      {
+        "number": 1,
+        "state": "COMPLETE",
+        "params": {
+          "draft_n": 3,
+          "ubatch": 1024
+        },
+        "values": [
+          2.2339999999967404,
+          0.012505263158144724,
+          19163.0,
+          4.297000000001087
+        ],
+        "user_attrs": {
+          "config": "n3-ub1024",
+          "feasible": true,
+          "errors": []
+        }
+      },
+      {
+        "number": 2,
+        "state": "COMPLETE",
+        "params": {
+          "draft_n": 2,
+          "ubatch": 2048
+        },
+        "values": [
+          2.202999999979511,
+          0.013652631579163042,
+          19577.0,
+          4.63033333333442
+        ],
+        "user_attrs": {
+          "config": "n2-ub2048",
+          "feasible": true,
+          "errors": []
+        }
+      },
+      {
+        "number": 3,
+        "state": "COMPLETE",
+        "params": {
+          "draft_n": 3,
+          "ubatch": 2048
+        },
+        "values": [
+          2.2660000000032596,
+          0.013157894736842105,
+          19727.0,
+          6.041666666666667
+        ],
+        "user_attrs": {
+          "config": "n3-ub2048",
+          "feasible": true,
+          "errors": []
+        }
+      },
+      {
+        "number": 4,
+        "state": "COMPLETE",
+        "params": {
+          "draft_n": 2,
+          "ubatch": 1024
+        },
+        "values": [
+          2.312999999965541,
+          0.013484210526497153,
+          19013.0,
+          4.359333333326504
+        ],
+        "user_attrs": {
+          "config": "n2-ub1024",
+          "feasible": true,
+          "errors": []
+        }
+      },
+      {
+        "number": 5,
+        "state": "COMPLETE",
+        "params": {
+          "draft_n": 4,
+          "ubatch": 1024
+        },
+        "values": [
+          2.2820000000065193,
+          0.012000000000147051,
+          19313.0,
+          4.609333333326504
+        ],
+        "user_attrs": {
+          "config": "n4-ub1024",
+          "feasible": true,
+          "errors": []
+        }
+      }
+    ],
+    "round2": [
+      {
+        "number": 0,
+        "state": "COMPLETE",
+        "params": {
+          "config": "n4-ub1024"
+        },
+        "values": [
+          10.375,
+          0.012177165354534206,
+          19313.0,
+          22.442666666659836
+        ],
+        "user_attrs": {
+          "draft_n": 4,
+          "ubatch": 1024,
+          "feasible": true,
+          "errors": []
+        }
+      },
+      {
+        "number": 1,
+        "state": "COMPLETE",
+        "params": {
+          "config": "n3-ub1024"
+        },
+        "values": [
+          10.577999999979511,
+          0.013287401574573986,
+          19163.0,
+          22.547000000001088
+        ],
+        "user_attrs": {
+          "draft_n": 3,
+          "ubatch": 1024,
+          "feasible": true,
+          "errors": []
+        }
+      },
+      {
+        "number": 2,
+        "state": "COMPLETE",
+        "params": {
+          "config": "n3-ub2048"
+        },
+        "values": [
+          10.5,
+          0.01303937007864666,
+          19727.0,
+          22.734333333326504
+        ],
+        "user_attrs": {
+          "draft_n": 3,
+          "ubatch": 2048,
+          "feasible": true,
+          "errors": []
+        }
+      }
+    ]
+  }
+}

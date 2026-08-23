@@ -222,12 +222,14 @@ class CampaignRun:
             raise RuntimeError("server identity drifted during run; evidence marked invalid")
 
 
-def apply_template_token_count(base_url: str, prompt: str) -> int:
+def apply_template_token_count(base_url: str, prompt: str,
+                               chat_template_kwargs: dict | None = None) -> int:
+    template_kwargs = chat_template_kwargs or {"enable_thinking": False}
     rendered = http_json(
         base_url,
         "/apply-template",
         {"messages": [{"role": "user", "content": prompt}],
-         "chat_template_kwargs": {"enable_thinking": False},
+         "chat_template_kwargs": template_kwargs,
          "add_generation_prompt": True},
         timeout=30,
     )
@@ -238,7 +240,9 @@ def apply_template_token_count(base_url: str, prompt: str) -> int:
     return len(tokenized.get("tokens") or [])
 
 
-def chat(base_url: str, prompt: str, *, max_tokens: int, timeout: float) -> dict:
+def chat(base_url: str, prompt: str, *, max_tokens: int, timeout: float,
+         chat_template_kwargs: dict | None = None) -> dict:
+    template_kwargs = chat_template_kwargs or {"enable_thinking": False}
     body = {
         "messages": [{"role": "user", "content": prompt}],
         "max_tokens": max_tokens,
@@ -247,7 +251,7 @@ def chat(base_url: str, prompt: str, *, max_tokens: int, timeout: float) -> dict
         "seed": 0,
         "stream": False,
         "cache_prompt": False,
-        "chat_template_kwargs": {"enable_thinking": False},
+        "chat_template_kwargs": template_kwargs,
     }
     started = time.monotonic()
     response = http_json(base_url, "/v1/chat/completions", body, timeout=timeout)
@@ -484,17 +488,26 @@ def gsm8k_prompt(problem: str) -> str:
 
 
 def run_gsm8k(args) -> None:
-    all_problems = load_gsm8k(args.dataset)
-    order = list(range(len(all_problems)))
-    random.Random(args.seed).shuffle(order)
-    chosen = [all_problems[index] for index in order[:args.subset]]
+    dataset = args.dataset.resolve()
+    all_problems = load_gsm8k(dataset)
+    if args.task_id:
+        requested = set(args.task_id)
+        chosen = [problem for problem in all_problems if problem["task_id"] in requested]
+        missing = requested - {problem["task_id"] for problem in chosen}
+        if missing:
+            raise ValueError(f"unknown --task-id values: {sorted(missing)}")
+    else:
+        order = list(range(len(all_problems)))
+        random.Random(args.seed).shuffle(order)
+        chosen = [all_problems[index] for index in order[:args.subset]]
     identity = selected_server_identity(args.base_url, args.model_sha256)
     config = {
-        "dataset_path": str(args.dataset.relative_to(ROOT)),
-        "dataset_file_sha256": sha256_file(args.dataset),
+        "dataset_path": str(dataset.relative_to(ROOT)),
+        "dataset_file_sha256": sha256_file(dataset),
         "dataset_content_sha256": benchmark_content_hash(all_problems),
         "dataset_n": len(all_problems), "subset": args.subset, "subset_seed": args.seed,
         "subset_task_ids": [p["task_id"] for p in chosen], "max_tokens": args.max_tokens,
+        "reasoning_strength": args.reasoning_strength,
         "primary_scorer": "strict final non-empty line: #### <number>",
         "lenient_scorer": "diagnostic only: last numeric token",
     }
@@ -504,7 +517,15 @@ def run_gsm8k(args) -> None:
         if row_id in run.done:
             continue
         prompt = gsm8k_prompt(problem["prompt"])
-        result = chat(args.base_url, prompt, max_tokens=args.max_tokens, timeout=args.timeout)
+        if args.reasoning_strength == "off":
+            template_kwargs = {"enable_thinking": False}
+        elif args.reasoning_strength:
+            template_kwargs = {"reasoning_strength": args.reasoning_strength,
+                               "reasoning_effort": args.reasoning_strength}
+        else:
+            template_kwargs = None
+        result = chat(args.base_url, prompt, max_tokens=args.max_tokens, timeout=args.timeout,
+                      chat_template_kwargs=template_kwargs)
         strict_pred = strict_gsm8k_answer(result["response"])
         lenient_pred = lenient_last_number(result["response"])
         row = {
@@ -581,7 +602,10 @@ def parse_args():
     common(gsm, "gsm8k")
     gsm.add_argument("--dataset", type=pathlib.Path, default=ROOT / "workloads" / "gsm8k.jsonl")
     gsm.add_argument("--subset", type=int, default=100)
+    gsm.add_argument("--task-id", action="append", default=[],
+                     help="run explicit task id(s), bypassing the seeded subset")
     gsm.add_argument("--max-tokens", type=int, default=512)
+    gsm.add_argument("--reasoning-strength", choices=("off", "low", "medium", "high", "xhigh"))
     return parser.parse_args()
 
 

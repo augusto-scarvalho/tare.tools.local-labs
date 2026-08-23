@@ -15,9 +15,107 @@ valuable historical evidence, but several of its deployment statements and close
 superseded or reopened by the 2026-08-20/21 work.
 
 > **Operational amendment, 2026-08-21:** the repository and fork worktrees were migrated to their canonical
-> ecosystem names after this state capture. The text service was intentionally stopped for the maintenance
-> window and remains inactive; the embedding endpoint on port 8081 remained healthy. Read
+> ecosystem names after this state capture. The text service was intentionally stopped for that maintenance
+> window and was later restored by the 2026-08-22 continuation below; the embedding endpoint on port 8081
+> remained healthy throughout. Read
 > [`PATH_CONTRACT.md`](PATH_CONTRACT.md) for the canonical paths, compatibility aliases, and rollback evidence.
+
+> **Execution continuation, 2026-08-22:** the prioritized Muse, current-Unsloth, and Cold Fusion packets are
+> now closed. Muse is `HOLD` with DFlash rejected; neither current Unsloth quant superseded its historical
+> peer; Cold Fusion failed its compact base-role gate and did not receive broad promotion stages. A later
+> explicitly authorized descriptive nine-cell MTP arm also closed as `MTP_REJECTED`.
+> The exact service baseline is restored and healthy: historical Q4_K_XL on 8080, build `b9863-5e7f6271c`,
+> 131,072 context, one slot, q4_0/q4_0 KV, MTP n3, 32 checkpoints; embedding 8081 is healthy. Read the three
+> result files under `runs/requalification/{MUSE-GLIMMER-2026-08-21,QWEN38-UNSLOTH-REVISION-2026-08-21,COLD-FUSION-2026-08-22}/` before opening another model-candidate wave.
+
+> **Repository-agent and context-policy continuation, 2026-08-22:** `LAB-CODE-003` is no longer
+> infrastructure-blocked. Its official gold gate passed and the frozen Qwen3.8/mini-SWE-agent pilot resolved
+> 5/10: all five submitted patches passed, while five cases exhausted the fixed 40-call budget with empty
+> patches. Docker's temporary loopback API was closed and Desktop stopped afterward. The context-policy
+> backlog is also closed: retain 131,072 for exclusive SERVE, with 81,920 as the named 4 GiB-reserve profile.
+> See `runs/code/LAB-CODE-003-SWEBENCH-VERIFIED-2026-08-22/RESULT.md` and
+> `runs/ops/CANONICAL-CONTEXT-POLICY-2026-08-22/DECISION.md`.
+
+> **Provenance continuation, 2026-08-22:** LAB-PROV-001 now inventories all 32 GGUFs as 11 fully
+> pinned, 20 exact upstream receipts pending local hash, and one authorial derivation. The local merge's
+> original cache supplied exact receipts for all 31 parent shards; its preserved quantizer embeds commit
+> `068764d92` and is binary-hashed. Third-party quantizer builds remain `UNKNOWN` because their cards do
+> not disclose exact revisions. See `runs/provenance/LAB-PROV-001-FLEET-2026-08-22/RESULT.md`.
+
+> **Cache continuation, 2026-08-22:** `LAB-CACHE-001` is now closed for explicit no-spec slot persistence
+> and blocked for MTP persistent state. The original MTP cache run failed its long-context oracle and its
+> first save/restore run persisted the same `!`-only output; four fresh cache replicas and one slot replica
+> passed, but correctness gates do not average away a known failure. Paired chat remained 16/16 per arm and
+> byte-identical through 32k. See `runs/cache/LAB-CACHE-001-MTP-2026-08-22/RESULT.md`. The canonical service
+> baseline was restored afterward; AGENT-002 perturbation robustness is the next unblocked P0 slice.
+
+> **Agent robustness continuation, 2026-08-22:** AGENT-002 is complete and failed 39/40. Rephrasing,
+> function renaming, and irrelevant-tool arms passed, but reversing the tool list made irreversible recovery
+> emit safe prose instead of calling `check_transfer_status`. Seed-fixed paired evidence was canonical 5/5
+> versus reordered 0/5; tool-list-only 0/3 versus schema-order-only 3/3. Preserve canonical ordering and
+> enforce unknown-outcome recovery in application control logic. AGENT-003 stress/scale is next.
+
+> **Agent scale continuation, 2026-08-22:** AGENT-003 passed its corrected 16/16 bounded matrix through
+> 32 tools, 12 parallel calls, sequential depth 8, and 16 history turns. The first 15/16 artifact is retained
+> but explicitly invalid/superseded because its depth-0 fixture required a starting token absent from the
+> prompt; the full corrected rerun passed. BigCodeBench Tier-1 is now the next dependency-gated code slice.
+
+> **Practical-code continuation, 2026-08-22:** official BigCodeBench-Hard Instruct is complete at 48/148
+> pass@1 = 32.43% (48/147 = 32.65% excluding the sole failed ground truth `/590`, reproducible Wikibooks
+> HTTP 403). All 148 generations were nonempty, compilable, syntax-valid, and non-truncated. `/1042`'s
+> memory failure reproduced in isolation and is a real model error. See
+> `runs/code/LAB-CODE-002-BCB-HARD-2026-08-22/RESULT.md`. Docker Desktop was stopped; 8080/8081 are healthy.
+
+> **Long-context continuation, 2026-08-22:** official RULERv1 task generation/scoring is complete as a
+> bounded local endpoint run. The 13-task n=1 pilot scored 82.82% at 64k (preregistered FAIL) and 100% at
+> 128k (bounded PASS). Triggered VT/CWE/FWE replication produced 66.7/40.0/88.9% at 64k versus
+> 100/100/100% at 128k; four 64k responses exhausted their official output budgets, while all 19 128k
+> receipts ended with `stop`. Do not infer that 128k is inherently easier because official generation is
+> length-conditioned. See `runs/context/LAB-CTX-002-RULER-V1-2026-08-22/RESULT.md`. Repo-context is next.
+
+> **Repo-context continuation, 2026-08-22:** full LongBench RepoBench-P is complete. Stock raw completion
+> was stopped at n=20 after scoring 1.90 with two empty EOS results; a frozen model-native chat amendment
+> improved the same sample to 24.55 and triggered the full run. The 500-example result is 39.56 official code
+> similarity, below the 55.0 gate, with 109/500 exact first lines. Scores degrade 45.21 (<4k) → 36.78 (4–8k)
+> → 14.10 (8k+); Python 49.83 versus Java 30.38. All prompts fit and all 500 chat outputs were nonempty.
+> See `runs/context/LAB-CTX-003-REPOBENCH-P-2026-08-22/RESULT.md`.
+
+> **Energy continuation, 2026-08-22:** LAB-ENERGY-002 completed all 24 counterbalanced cells at
+> 420/378/336/294 W with the stock voltage curve (no undervolt). At long context, 378 W retained 99.31%
+> prefill and 95.66% decode throughput but slightly increased both gross energy metrics; 336/294 W saved
+> 3–7% energy while losing 7–18% throughput. No reduced limit met the frozen 95% rule, so 420 W remains
+> recommended and deployment defaults were not mutated. The harness restored and verified 420 W; 8080/8081
+> remain healthy. See `runs/energy/LAB-ENERGY-002-POWER-CURVE-2026-08-22/RESULT.md`.
+
+> **mmap close-out, 2026-08-22:** the historical −10.4% no-mmap decode penalty is now formally
+> `CONFOUNDED`. Six alternating Qwen3.6 MoE/ncmoe=6 pairs gave a warm-cache no-mmap median delta of
+> +0.18% with a bootstrap interval including zero. In fresh processes, no-mmap nevertheless reduced total
+> elapsed time by median 10.87% (95% CI 3.98–28.29) and avoided the severe initial mmap page-in, so it is
+> recommended for that exact MoE profile. This does not transfer automatically to the dense Qwen3.8
+> incumbent; no current service default was changed. The canonical service was restored and 8080/8081 are
+> healthy. See `runs/close-outs/LAB-CLOSE-001-MMAP-2026-08-22/RESULT.md`.
+
+> **Fable termination close-out, 2026-08-22:** the 32-cell budget/EOS/stop/sampling matrix confirms
+> instruct-only bounded safety (8/8 natural stops) but disqualifies thinking-enabled agent use (6/16 natural
+> stops, two prompts exhausted both 512 and 2,048). Explicit `</think>` stops produced no final content in
+> 4/4, so `finish_reason=stop` alone would have masked the failure. Ignore-EOS instruct exhausted 512 in
+> 4/4, confirming the safe instruct results are genuine EOS termination. The experimental service was
+> removed and canonical 8080/8081 health restored. See
+> `runs/close-outs/LAB-CLOSE-002-FABLE-TERMINATION-2026-08-22/RESULT.md`.
+
+> **Operating-mode continuation, 2026-08-22:** LAB-OPS-001 adds a qualified fail-closed SERVE/LAB lock
+> to `tools/benchmarks/lmctl.py`. Ten deterministic tests and live negative/transition checks passed:
+> experimental launch in SERVE, LAB transition over active 8080, and 8080 launch in LAB were all refused
+> before mutation. Embedding 8081 is explicitly auxiliary in both modes. The persistent machine state is
+> now coherent `SERVE`; canonical 8080 and embedding 8081 are healthy. See
+> `runs/ops/LAB-OPS-001-MODE-LOCK-2026-08-22/RESULT.md`.
+
+> **Interference continuation, 2026-08-22:** LAB-OPS-002 completed 15 counterbalanced cells against the
+> canonical endpoint. Bounded CPU/RAM/disk contenders shifted short-workload prefill by only 4.3–5.1%.
+> Same-GPU FP16 matmul reduced decode 7.14% and increased gross prefill energy/token 54.0%, so GPU
+> colocation is material even when a throughput-only 10% alarm would not fire. All contenders were cleaned
+> up; SERVE mode is coherent and 8080/8081 remain healthy. See
+> `runs/ops/LAB-OPS-002-INTERFERENCE-2026-08-22/RESULT.md`.
 
 ## 1. User intent and operating posture
 
@@ -194,6 +292,30 @@ Reports:
 | Provenance/QA | 23/23 self-tests | source revision of community requant remains unknown |
 | RetNet mechanism | 7/7 gates | mechanism-only synthetic reproduction, not a real checkpoint |
 
+The 2026-08-22 official-checkpoint follow-up is `BLOCKED_UPSTREAM`: neither Microsoft RetNet nor
+TorchScale publishes a pretrained RetNet checkpoint, and the upstream checkpoint request remains open.
+No community checkpoint was relabeled as official. The recurrent-architecture lane continues with the
+official `RWKV/RWKV7-1.5B-20260805` checkpoint, which is sized for the RTX 3090.
+
+That RWKV7 follow-up is now complete: `QUALIFIED_MECHANISM / RESEARCH-LOCAL`. The BF16 model used
+3.06 GB allocated VRAM, left ~19.7 GiB free, held recurrent state at exactly 12,779,524 bytes from
+32 to 1,024 tokens, and matched full vs cached continuation logits exactly. It is not serving-promoted:
+first-use compilation/prefill was slow, and the publisher does not assert a license for the weights.
+See `runs/requalification/RWKV7-1.5B-20260805-2026-08-22/RESULT.md`.
+
+LAB-VLM-001 is also closed. Four deterministic coding screenshots (stack trace, UI overflow, visual
+diff and pytest failure) were added; the resident Gemma-4-12B Vision profile passed 4/4 cases and
+20/20 frozen clauses in 1.9–2.3 seconds per request. The old Qwen3-VL-8B profile is still registered,
+but its local weight/projector files are absent. See
+`runs/vlm/LAB-VLM-001-2026-08-22/RESULT.md`.
+
+The next open-weight breadth arm, official Falcon-H1R-7B Q8 (hybrid Transformer+Mamba2), is
+`HOLD_ROLE`: it fit with 14,275 MiB free and passed smoke 4/4, agent/tool 8/8 and the five-case GSM
+replay 4/5, but `Mbpp/260` returned empty content at both 2,048 and diagnostic 4,096 token budgets.
+Per the frozen dependency gate, context expansion was not opened. The artifact and new
+`falcon-h1r-7b-q8` `lmctl` profile remain available for research. See
+`runs/requalification/FALCON-H1R-7B-2026-08-22/RESULT.md`.
+
 Portfolio report: [`../runs/requalification/PORTFOLIO-2026-08-21/EXPERIMENT_PORTFOLIO_REPORT.md`](../runs/requalification/PORTFOLIO-2026-08-21/EXPERIMENT_PORTFOLIO_REPORT.md).
 
 ### 4.4 Fragile attempts that were corrected, not hidden
@@ -314,7 +436,25 @@ tests.
 6. After each maintenance tranche, stop the experimental server, restart the baseline unit, verify `/health`,
    and compare its argv with the captured baseline.
 
-### Phase 1 — current Unsloth revision screen
+### Priority insertion — Muse Glimmer open-weight breadth scout
+
+**Amendment, 2026-08-21 — executed:** `LAB-MUSE-000` through the compact `LAB-MUSE-002/004` gates ran before the
+expensive full-packet and fork-lever phases below. The objective is to add an independent, multimodal,
+open-weight option for the RTX 3090 rather than concentrating the fleet entirely in Qwen lineages.
+
+Use the official revision-pinned Muse Glimmer 17 GB quant first. Build llama.cpp `b10353+` in an isolated
+experimental worktree because neither the deployed `b9863` lane nor the current fork-main binary registers
+the architecture. Test text, vision, and the official target-matched DFlash drafter as additive arms. Do not
+mutate the deployed fork or service unit, do not start with the 19.7 GB 32-GB-targeted quant, and preserve the
+embedding endpoint on port 8081.
+
+Decision: `HOLD` base candidate, `DRAFT_REJECTED`, no deployed-role promotion. Text/vision fit separately and
+the compact context curve passed through 120k, but agent 7/8, `Mbpp/260` non-termination, cache transcript drift,
+DFlash output drift, and the combined stack's VRAM-reserve failure invoked the early stop. Packet:
+[`research/MUSE_GLIMMER_3090_EXPERIMENT_PACKET_2026-08-21.md`](research/MUSE_GLIMMER_3090_EXPERIMENT_PACKET_2026-08-21.md).
+Evidence: [`../runs/requalification/MUSE-GLIMMER-2026-08-21/RESULT.md`](../runs/requalification/MUSE-GLIMMER-2026-08-21/RESULT.md).
+
+### Phase 1 — current Unsloth revision screen — EXECUTED / NO SUPERSESSION
 
 Admit into new revision-qualified paths:
 
@@ -333,7 +473,7 @@ Compare against their historical local counterparts using the compact discrimina
 If the current Q2_K_XL is non-inferior or better, promote it to the full packet and allow it to supersede the
 historical Pareto candidate.
 
-### Phase 2 — Cold Fusion practical A/B
+### Phase 2 — Cold Fusion practical A/B — BASE REJECTED / DESCRIPTIVE MTP REJECTED
 
 Download only the revision-pinned Cold Fusion `NEO-MTP-IQ4_XS` first. Use the same file with speculation off
 and on so head presence does not confound the MTP factor.
@@ -466,3 +606,21 @@ A good next handoff should leave:
 - old conclusions marked `SUPERSEDED` where evidence warrants it;
 - no unreported background process;
 - no remote push unless explicitly authorized.
+
+## 14. 2026-08-22 autonomous backlog continuation
+
+- LAB-CODE-003 remains 5/10. Prompt-only and corrected duplicate-command middleware follow-ups were
+  gated off: even after 29 executions were blocked, the model repeated the same request through 40 calls.
+- LAB-AGENT-004 promoted a bounded application policy: unknown irreversible outcome routes immediately
+  to an available idempotent status checker, never to a retry or permission question. Evidence was 5/5
+  targeted and 16/16 full canonical/reversed.
+- Five open-weight candidates were full-hashed and role-screened. Mistral Small 24B Heretic, Gemma 4
+  26B Heretic, GPT-OSS 20B, official Gemma 4 26B and newly downloaded Ornith 1.5 35B-A3B all remain
+  HOLD on fit, agent or cache gates. Ornith passed fit and agents 8/8 but cache 3/4; no GSM/MBPP
+  expansion was spent after a failed gate.
+- Fleet provenance is now 31 fully pinned, one content-pinned local derivation, and one explicitly
+  isolated ThinkingCap MTP local/upstream digest mismatch.
+- Canonical Qwen3.8 SERVE was restored at the end of the 2026-08-22 wave. On 2026-08-23 the user then
+  explicitly authorized stopping the idle text service and excluded all soaks. Final verified state:
+  `lmctl` is coherent `LAB`, `llm-inference.service` is inactive/dead, port 8080 is unavailable, the
+  embedding server alone remains healthy on 8081, and no soak or experimental text endpoint is active.

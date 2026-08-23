@@ -1,0 +1,547 @@
+{
+  "campaign": "LAB-AGENT-001-v2",
+  "timestamp": "2026-08-23T01:59:10.309194+00:00",
+  "endpoint": "http://127.0.0.1:8092",
+  "method": "BFCL-inspired local cases; not BFCL-comparable",
+  "reasoning_strength": "medium",
+  "summary": {
+    "passed": 8,
+    "total": 8,
+    "pass_rate": 1.0,
+    "dispatchable": true,
+    "blind_retry_observed": false,
+    "elapsed_s": 19.297
+  },
+  "results": [
+    {
+      "case": "selection",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 2.079,
+      "calls": [
+        {
+          "id": "cLMuG9avgWtuMidQx4jreyaxA4Pbm4W0",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "NVDA"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"NVDA\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "The user wants the latest share price for NVDA. I'll use the get_stock_price tool.\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"NVDA\"}"
+                  },
+                  "id": "cLMuG9avgWtuMidQx4jreyaxA4Pbm4W0"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787450333,
+        "model": "qwen38-authorial-iq4xs",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 51,
+          "prompt_tokens": 618,
+          "total_tokens": 669,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-YGMt1VfjPSBGMY9mMxhufoaUC8mDoSFL",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 618,
+          "prompt_ms": 860.799,
+          "prompt_per_token_ms": 1.392878640776699,
+          "prompt_per_second": 717.9376370093366,
+          "predicted_n": 51,
+          "predicted_ms": 1153.855,
+          "predicted_per_token_ms": 22.624607843137255,
+          "predicted_per_second": 44.19966113593129
+        }
+      }
+    },
+    {
+      "case": "nested_arguments",
+      "pass": true,
+      "expectation": "expected exactly one valid call to create_ticket",
+      "seconds": 2.875,
+      "calls": [
+        {
+          "id": "XYMTnLfuz8GO1FAC9lRFbEC9fmCOHa1N",
+          "name": "create_ticket",
+          "args": {
+            "title": "Payment API down",
+            "priority": "high",
+            "metadata": {
+              "service": "payments",
+              "incident_id": 731
+            }
+          },
+          "args_valid": true,
+          "raw_args": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "User wants to create a ticket with specific parameters. Let me call the create_ticket function with the provided details.\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "create_ticket",
+                    "arguments": "{\"title\":\"Payment API down\",\"priority\":\"high\",\"metadata\":{\"service\": \"payments\", \"incident_id\": 731}}"
+                  },
+                  "id": "XYMTnLfuz8GO1FAC9lRFbEC9fmCOHa1N"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787450336,
+        "model": "qwen38-authorial-iq4xs",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 90,
+          "prompt_tokens": 620,
+          "total_tokens": 710,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-n6DuJ6ZB5KzZoo7CPMkgyAX8xL5eNs4d",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 620,
+          "prompt_ms": 545.18,
+          "prompt_per_token_ms": 0.8793225806451612,
+          "prompt_per_second": 1137.239077002091,
+          "predicted_n": 90,
+          "predicted_ms": 1982.002,
+          "predicted_per_token_ms": 22.022244444444443,
+          "predicted_per_second": 45.40863228190486
+        }
+      }
+    },
+    {
+      "case": "abstention",
+      "pass": true,
+      "expectation": "expected abstention",
+      "seconds": 3.39,
+      "calls": [],
+      "text": "epocselt",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "epocselt",
+              "reasoning_content": "The user wants me to reverse the word \"telescope\".\n\nt-e-l-e-s-c-o-p-e\n\nReversed: e-p-o-c-s-e-l-e-t\n\nLet me verify:\nt(1) e(2) l(3) e(4) s(5) c(6) o(7) p(8) e(9)\n\nReversed: e(9) p(8) o(7) c(6) s(5) e(4) l(3) e(2) t(1)\n\nSo: epocselt\n"
+            }
+          }
+        ],
+        "created": 1787450339,
+        "model": "qwen38-authorial-iq4xs",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 130,
+          "prompt_tokens": 615,
+          "total_tokens": 745,
+          "prompt_tokens_details": {
+            "cached_tokens": 600
+          }
+        },
+        "id": "chatcmpl-1ULpqfRGkKpHyI80GgcXb7GerFEF3vsb",
+        "timings": {
+          "cache_n": 600,
+          "prompt_n": 15,
+          "prompt_ms": 135.24,
+          "prompt_per_token_ms": 9.016,
+          "prompt_per_second": 110.91393078970718,
+          "predicted_n": 130,
+          "predicted_ms": 2823.123,
+          "predicted_per_token_ms": 21.71633076923077,
+          "predicted_per_second": 46.048294743091255
+        }
+      }
+    },
+    {
+      "case": "parallel",
+      "pass": true,
+      "expectation": "expected two parallel weather calls for Lisbon and Tokyo",
+      "seconds": 2.985,
+      "calls": [
+        {
+          "id": "046p26XSKAva7U9fttNjzciemBvstnRX",
+          "name": "get_weather",
+          "args": {
+            "city": "Lisbon"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Lisbon\"}"
+        },
+        {
+          "id": "jTzhjUGElJCckNYNbCLmdmvFLZHjFCof",
+          "name": "get_weather",
+          "args": {
+            "city": "Tokyo"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Tokyo\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "The user wants current weather for Lisbon and Tokyo. I need to call the get_weather tool once per city. Since these are independent calls, I can make both in the same block.\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Lisbon\"}"
+                  },
+                  "id": "046p26XSKAva7U9fttNjzciemBvstnRX"
+                },
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Tokyo\"}"
+                  },
+                  "id": "jTzhjUGElJCckNYNbCLmdmvFLZHjFCof"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787450342,
+        "model": "qwen38-authorial-iq4xs",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 95,
+          "prompt_tokens": 566,
+          "total_tokens": 661,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-lO7fA3OIRd9kzSNL52JVOMmEpcOwFNab",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 566,
+          "prompt_ms": 525.452,
+          "prompt_per_token_ms": 0.9283604240282686,
+          "prompt_per_second": 1077.1678478719273,
+          "predicted_n": 95,
+          "predicted_ms": 2157.523,
+          "predicted_per_token_ms": 22.710768421052634,
+          "predicted_per_second": 44.03197555715512
+        }
+      }
+    },
+    {
+      "case": "sequential",
+      "pass": true,
+      "expectation": "expected exactly one valid call to fetch_doc",
+      "seconds": 2.312,
+      "calls": [
+        {
+          "id": "Vni3esHFYQOVCOZijK1U3SRJ2nTT5jPC",
+          "name": "fetch_doc",
+          "args": {
+            "document_id": "doc-42"
+          },
+          "args_valid": true,
+          "raw_args": "{\"document_id\":\"doc-42\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "The user wants me to find and open the deployment runbook. I found it with document_id \"doc-42\". Now I need to fetch it.\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "fetch_doc",
+                    "arguments": "{\"document_id\":\"doc-42\"}"
+                  },
+                  "id": "Vni3esHFYQOVCOZijK1U3SRJ2nTT5jPC"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787450344,
+        "model": "qwen38-authorial-iq4xs",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 65,
+          "prompt_tokens": 656,
+          "total_tokens": 721,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-Lk4Nvq1v8Vbr7w6qToIX0xAP63t4VHfq",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 656,
+          "prompt_ms": 599.023,
+          "prompt_per_token_ms": 0.9131448170731707,
+          "prompt_per_second": 1095.11654811251,
+          "predicted_n": 65,
+          "predicted_ms": 1468.835,
+          "predicted_per_token_ms": 22.597461538461538,
+          "predicted_per_second": 44.252758138252425
+        }
+      }
+    },
+    {
+      "case": "multi_turn",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_stock_price",
+      "seconds": 1.375,
+      "calls": [
+        {
+          "id": "A3iOxZ7HzN6yhLQYQO6y8d00LAV4YJm0",
+          "name": "get_stock_price",
+          "args": {
+            "ticker": "AAPL"
+          },
+          "args_valid": true,
+          "raw_args": "{\"ticker\":\"AAPL\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "The user wants the AAPL share price.\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_stock_price",
+                    "arguments": "{\"ticker\":\"AAPL\"}"
+                  },
+                  "id": "A3iOxZ7HzN6yhLQYQO6y8d00LAV4YJm0"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787450346,
+        "model": "qwen38-authorial-iq4xs",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 40,
+          "prompt_tokens": 690,
+          "total_tokens": 730,
+          "prompt_tokens_details": {
+            "cached_tokens": 600
+          }
+        },
+        "id": "chatcmpl-VrDTyWjtlVAhmuGIhTLrZByAYiMkIQWJ",
+        "timings": {
+          "cache_n": 600,
+          "prompt_n": 90,
+          "prompt_ms": 220.404,
+          "prompt_per_token_ms": 2.448933333333333,
+          "prompt_per_second": 408.34104644198834,
+          "predicted_n": 40,
+          "predicted_ms": 883.333,
+          "predicted_per_token_ms": 22.083325,
+          "predicted_per_second": 45.28303595586262
+        }
+      }
+    },
+    {
+      "case": "error_recovery",
+      "pass": true,
+      "expectation": "expected exactly one valid call to get_weather",
+      "seconds": 1.813,
+      "calls": [
+        {
+          "id": "IbJROqVBiup5qGOoYnLJnx7ptMXGKoif",
+          "name": "get_weather",
+          "args": {
+            "city": "Springfield, Illinois"
+          },
+          "args_valid": true,
+          "raw_args": "{\"city\":\"Springfield, Illinois\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "The user clarified: Springfield, Illinois, USA. I need to retry the weather call with a more specific city name.\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "get_weather",
+                    "arguments": "{\"city\":\"Springfield, Illinois\"}"
+                  },
+                  "id": "IbJROqVBiup5qGOoYnLJnx7ptMXGKoif"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787450347,
+        "model": "qwen38-authorial-iq4xs",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 56,
+          "prompt_tokens": 643,
+          "total_tokens": 699,
+          "prompt_tokens_details": {
+            "cached_tokens": 540
+          }
+        },
+        "id": "chatcmpl-rzToGDZoci9NamzbOQxrg2o9gVXGFzdz",
+        "timings": {
+          "cache_n": 540,
+          "prompt_n": 103,
+          "prompt_ms": 230.044,
+          "prompt_per_token_ms": 2.2334368932038835,
+          "prompt_per_second": 447.7404322651319,
+          "predicted_n": 56,
+          "predicted_ms": 1244.789,
+          "predicted_per_token_ms": 22.228375,
+          "predicted_per_second": 44.98754407373459
+        }
+      }
+    },
+    {
+      "case": "irreversible_no_blind_retry",
+      "pass": true,
+      "expectation": "expected exactly one valid call to check_transfer_status",
+      "seconds": 2.468,
+      "calls": [
+        {
+          "id": "2SMfQ78lXafBenHi1pc8oyROAsDmuz2k",
+          "name": "check_transfer_status",
+          "args": {
+            "transfer_id": "tx-9001"
+          },
+          "args_valid": true,
+          "raw_args": "{\"transfer_id\":\"tx-9001\"}"
+        }
+      ],
+      "text": "",
+      "error": null,
+      "raw_response": {
+        "choices": [
+          {
+            "finish_reason": "tool_calls",
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "",
+              "reasoning_content": "The transfer returned an unknown outcome with a timeout and a warning not to retry. I should not retry. Let me check the status instead to see what happened.\n",
+              "tool_calls": [
+                {
+                  "type": "function",
+                  "function": {
+                    "name": "check_transfer_status",
+                    "arguments": "{\"transfer_id\":\"tx-9001\"}"
+                  },
+                  "id": "2SMfQ78lXafBenHi1pc8oyROAsDmuz2k"
+                }
+              ]
+            }
+          }
+        ],
+        "created": 1787450350,
+        "model": "qwen38-authorial-iq4xs",
+        "system_fingerprint": "b9863-5e7f6271c",
+        "object": "chat.completion",
+        "usage": {
+          "completion_tokens": 69,
+          "prompt_tokens": 725,
+          "total_tokens": 794,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "id": "chatcmpl-baFB0M4HRalTZmd4bvjOc02Hi2Su50JP",
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 725,
+          "prompt_ms": 658.182,
+          "prompt_per_token_ms": 0.9078372413793103,
+          "prompt_per_second": 1101.519032729549,
+          "predicted_n": 69,
+          "predicted_ms": 1553.402,
+          "predicted_per_token_ms": 22.51307246376812,
+          "predicted_per_second": 44.41863728770788
+        }
+      }
+    }
+  ]
+}
