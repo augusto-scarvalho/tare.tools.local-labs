@@ -246,9 +246,13 @@ While traditional 1D scalar benchmarks (HumanEval+, GSM8K, MATH-500) show flat p
 
 ---
 
-## ⚙️ 4. llama.cpp Fork Engineering & Authorial Kernel Levers
+## ⚙️ 4. slop.cpp Integration and RTX 3090 Evidence
 
-Our local inference runtime is powered by a consolidated, custom-engineered `llama.cpp` fork (`llama.cpp-master @ branch lifecycle`), designed to eliminate offload bottlenecks, memory copies, and scheduling overhead on a single consumer GPU rig (RTX 3090 24GB + 64GB DDR4 Host RAM).
+The canonical engine implementation, runtime flags, builds, and qualification
+harness live in [`slop.cpp`](https://github.com/augusto-scarvalho/slop.cpp).
+This catalog owns the experiment records and hardware-specific conclusions for
+the RTX 3090 24GB + 64GB DDR4 host. Historical `lifecycle` references identify
+the tested tuple; they are not a second implementation source.
 
 ```mermaid
 graph LR
@@ -281,10 +285,10 @@ All levers are designed for zero-regression: they remain **runtime-toggleable** 
 
 | Lever | Toggle Switch | Mechanism & Modification | Measured Empirical Delta | Production Status |
 |---|---|---|---|---|
-| **`[B2b]` KV Host-Buffer Pinning** | `GGML_KV_PIN_HOST=1` | Intercepts `src/llama-kv-cache.cpp` to allocate `CUDA_Host` (`cudaHostRegister` page-locked) memory for `--no-kv-offload`. Eliminates CPU bounce-buffers for per-token KV copies. | **+17% throughput boost** on deep context ($128k$) under VRAM-starved regimes. | **OPERATIONALIZED** (Novel authorial lever, [`patches/b2b-kv-host-pin.patch`](file:///C:/projects/tare.tools.local-labs/patches/b2b-kv-host-pin.patch)) |
-| **Prefetch Skip-When-Pinned** | `--prefetch-experts N`<br>`GGML_SCHED_PREFETCH_EXPERTS=N` | Refined the Fable 2-stream CUDA scheduler to detect pre-pinned mmap buffers (`--no-mmap`), bypassing the intermediate staging hop directly to the compute stream. | **+58% prefill speedup** on smaller GPUs; eliminated the prior -22.9% staging penalty. | **OPERATIONALIZED** (Authorial refinement of Fable fork) |
-| **MoE Hot-Expert VRAM Cache** | `--moe-cache-slots N`<br>`--moe-cache-profile <csv>` | Custom profiler (`llama-moe-trace`) generates routing histograms; scheduler pins top-$N$ hot experts in GPU VRAM (`mul_mat_id`) to skip PCIe transfers entirely. | **High gain on skewed routers**; neutral on uniform/balanced routers (e.g. Qwen 3.5). | **VALIDATED** (Harness & profiler in repo) |
-| **GDN Chunk-Parallel Prefill** | `GGML_CUDA_GDN_CHUNKED=1` | Chunk-parallel TensorFloat-32 (TF32) CUDA rewrite of the sequential Gated Delta Net recurrence scan for prompts $\ge 1024$ tokens. | **Bit-exact 46/46 unit tests** ($\le 2 \times 10^{-7}$ tolerance); shape-bound at $H=32$. | **GATED / OPT-IN** (Verified zero-regression, [`GDN_M4_RESUME.md`](file:///C:/projects/tare.tools.local-labs/docs/campaigns/gdn-kernel/GDN_M4_RESUME.md)) |
+| **`[B2b]` KV Host-Buffer Pinning** | `GGML_KV_PIN_HOST=1` | Canonical source: [`src/llama-kv-cache.cpp`](https://github.com/augusto-scarvalho/slop.cpp/blob/main/src/llama-kv-cache.cpp). Local patch exports are archival receipts only. | **+17% throughput** on deep context ($128k$) under VRAM-starved regimes. | **PROMOTED FOR THAT REGIME** |
+| **Prefetch Skip-When-Pinned** | `--prefetch-experts N`<br>`GGML_SCHED_PREFETCH_EXPERTS=N` | Engine-owned two-stream scheduler with staging bypass for pinned buffers. | **+58% prefill** on smaller GPUs, but **-22% decode** at the RTX 3090 `ncmoe=6` optimum. | **OPT-IN / REGIME-SPECIFIC** |
+| **MoE Hot-Expert VRAM Cache** | `--moe-cache-slots N`<br>`--moe-cache-profile <csv>` | Engine-owned profiler and runtime cache for demonstrably skewed routers. | Null/redundant on measured balanced Qwen3 routing. | **NOT PROMOTED FOR QWEN3** |
+| **GDN Chunk-Parallel Prefill** | `GGML_CUDA_GDN_CHUNKED=1` | Engine-owned chunk-parallel TensorFloat-32 scan for prompts $\ge 1024$ tokens. | **46/46 numerical-parity tests** ($\le 2 \times 10^{-7}$ tolerance); parity or -2% to -4% on measured shapes. | **CLOSED / OPT-IN** ([`GDN_M4_RESUME.md`](campaigns/gdn-kernel/GDN_M4_RESUME.md)) |
 
 ---
 
@@ -301,11 +305,14 @@ All levers are designed for zero-regression: they remain **runtime-toggleable** 
 
 ### The `bless_fork.sh` 3-Tier Qualification Suite
 
-Every kernel modification, cherry-pick, or upstream merge must pass the automated qualification gate before being deployed:
+The current harness is engine-owned at
+[`slop.cpp/tools/scripts_sh/bless_fork.sh`](https://github.com/augusto-scarvalho/slop.cpp/blob/main/tools/scripts_sh/bless_fork.sh).
+Every kernel modification, cherry-pick, or upstream merge must pass it on the
+exact binary/model/placement tuple before deployment:
 - **Gate 1 (`G1_PIN`)**: Verifies `B2b` host-buffer pin engagement on `--no-kv-offload`.
-- **Gate 2 (`G2_MTP`)**: Verifies strict token-identity of Multi-Token Prediction against upstream reference (`#23335`).
-- **Gate 3 (`G3_NKVO`)**: Verifies numerical and memory coherence under heavy offloading (`#20140`).
-- **Status**: **3/3 PASS (ALL GREEN)** on `lifecycle` @ `068764d92`.
+- **Gate 2 (`G2_MTP`)**: Verifies deterministic greedy output identity between non-speculative and MTP modes on the same tuple (`#23335`).
+- **Gate 3 (`G3_NKVO`)**: Runs non-degenerate output smoke checks with GPU and host KV placement (`#20140`).
+- **Rechecked status (2026-08-23)**: **3/3 PASS** on binary build `10159` (`068764d92`) with the Qwen3.6 35B-A3B MTP Q4_K_M model at `--n-cpu-moe 8`; see the [`receipt`](../runs/fork/SLOP-BOUNDARY-QUALIFICATION-2026-08-23/RESULT.md). This does not qualify later commits or different tuples.
 
 ---
 

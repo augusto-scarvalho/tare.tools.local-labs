@@ -1,5 +1,12 @@
 # FORK — the consolidated `lifecycle` build and its runtime levers (updated 2026-08-04)
 
+> **Ownership boundary:** [`slop.cpp`](https://github.com/augusto-scarvalho/slop.cpp)
+> owns engine implementation, flags, build instructions, and the current
+> qualification harness. This document is the historical RTX 3090 experiment
+> report: it owns methods, receipts, measured regimes, and promotion decisions.
+> Paths, branches, and SHAs below describe the recorded 2026-08-04 tuple unless
+> explicitly marked current.
+
 Our own llama.cpp fork: **one binary** that is the pristine upstream baseline by default and gains
 every validated-in-some-regime lever the campaign found, each **toggled at runtime** (env var or CLI
 flag) — no recompile, and with nothing set the behaviour is byte-identical to upstream `720d7fa40`.
@@ -42,11 +49,12 @@ KV format — which we never use and whose decode path measured **null** on our 
 available in the `stack` build (`--cache-type-k turbo4_0`) if that KV format is ever wanted.
 
 ## Blessing (run after any change to the fork)
-`bash bless_fork.sh` — G1 §B2b engages · G2 `draft-mtp` token-identity (#23335) · G3 coherence + `-nkvo`
+`SLOP_MODEL=/path/to/mtp-model.gguf bash /home/augus/src/slop.cpp/tools/scripts_sh/bless_fork.sh -- --n-cpu-moe 8`
+— G1 §B2b engages · G2 base-vs-`draft-mtp` greedy output identity (#23335) · G3 coherence + `-nkvo`
 (#20140). Each ported lever was cherry-picked then re-checked against G2 so the **default path stays
 byte-identical to `720d7fa40`** (MTP exact). Rebuild: `cmake --build build --target llama-server -j 20`.
 
-**Last re-bless 2026-08-04: 3/3 PASS** after folding two lines onto `lifecycle`: the GDN chunk-parallel
+**Historical re-bless 2026-08-04: 3/3 PASS** after folding two lines onto `lifecycle`: the GDN chunk-parallel
 kernel (c8761b40c) and the prefetch-skip-pinned improvements (skip-when-pinned + `--prefetch-experts`/
 `--prefetch-pin` CLI flags + WARN logging, cherry-picked from the `prefetch-skip-pinned` branch). G2 stayed
 `IDENTICAL=True` and `test-backend-ops` was 13349/13349 + GDN 46/46 — both folds are inert on the default
@@ -54,3 +62,9 @@ path (prefetch gated behind `prefetch_experts`, GDN behind its env gate). **Cons
 repo now holds every campaign line as a local branch (`lifecycle` deploy + `turbo-stack`,
 `prefetch-skip-pinned`, `fable5-prefetch-experts`); the Turbo/expert-cache lineage that was a fragile
 detached HEAD in the `stack` tree is now the `turbo-stack` branch. Nothing deleted.
+
+**Harness relocation recheck 2026-08-23: 3/3 PASS** against binary build
+`10159` (`068764d92`) and the Qwen3.6 35B-A3B MTP Q4_K_M model at
+`--n-cpu-moe 8`. This rechecked the historical tuple; it did not qualify a
+newer binary. See the exact command, hashes, and observations in
+[`runs/fork/SLOP-BOUNDARY-QUALIFICATION-2026-08-23/RESULT.md`](../../runs/fork/SLOP-BOUNDARY-QUALIFICATION-2026-08-23/RESULT.md).

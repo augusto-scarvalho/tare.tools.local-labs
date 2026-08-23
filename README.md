@@ -117,9 +117,13 @@ Scored via `evalplus` under identical greedy decoding conditions ($T=0$):
 
 ---
 
-## ⚙️ llama.cpp Fork Engineering
+## ⚙️ slop.cpp Integration and RTX 3090 Qualification
 
-Inferencing is accelerated by a custom-engineered `llama.cpp` fork (`llama.cpp-master @ lifecycle`, base `720d7fa40`):
+[`slop.cpp`](https://github.com/augusto-scarvalho/slop.cpp) is the canonical
+home for engine code, runtime flags, builds, and qualification tooling. This
+repository owns experiment design, raw receipts, statistics, and RTX 3090
+promotion decisions. The diagram below describes a tested integration tuple,
+not a claim that every lever is enabled or beneficial in production.
 
 ```
 ┌───────────────────────────────────────────────────────────────────────────┐
@@ -137,9 +141,17 @@ Inferencing is accelerated by a custom-engineered `llama.cpp` fork (`llama.cpp-m
 └───────────────────────────────────────────────────────────────────────────┘
 ```
 
-* **`[B2b]` KV Host-Buffer Pinning (`GGML_KV_PIN_HOST=1`)**: Novel authorial patch in [`patches/b2b-kv-host-pin.patch`](patches/b2b-kv-host-pin.patch) yielding **+17% throughput** during deep context offloading.
-* **Prefetch Skip-When-Pinned (`--prefetch-experts N`)**: Scheduler refinement eliminating staging copy penalties (**+58% prefill boost**).
-* **3-Tier Qualification Suite (`tools/scripts_sh/bless_fork.sh`)**: Verifies G1 host-pinning, G2 MTP draft identity, and G3 offload coherence (**3/3 PASS**).
+| Runtime capability | RTX 3090 finding | Local decision |
+|---|---|---|
+| `[B2b]` KV host pin | Up to **+17% throughput** at 128k with `--no-kv-offload` | Promote only for the long-context, VRAM-starved regime |
+| Expert prefetch | **+58% prefill** in small-card/heavy-offload tests, but **-22% decode** at local `ncmoe=6` | Keep opt-in; no blanket production default |
+| MoE hot-expert cache | Qwen3 routing was balanced; cache was null/redundant versus static placement | Do not promote for Qwen3 |
+| GDN chunk-parallel scan | 46/46 numerical-parity tests; parity or **-2% to -4%** on measured shapes | Closed as opt-in; no performance promotion |
+| MTP speculative decoding | About **2.1x** on the recorded short-run tuple | Requalify identity and speed for every model/build tuple |
+
+See the local [`fork experiment report`](docs/research/FORK.md), the
+[`research catalog`](docs/RESEARCH_CATALOG.md), and the engine-owned
+[`lever reference`](https://github.com/augusto-scarvalho/slop.cpp/blob/main/docs/LEVERS.md).
 
 ---
 
@@ -176,7 +188,7 @@ tare.tools.local-labs/
 │   └── architecture/           # System design & relay protocol specifications
 │
 ├── workloads/                  # 📦 Test Fixtures, Gate 3 Datasets & VLM Mockups
-├── patches/                    # Custom engine kernel patches (B2b KV host-pin)
+├── patches/                    # Archival patch receipts; slop.cpp is canonical source
 ├── runs/                       # Durable empirical run logs (JSON/JSONL evidence)
 └── tests/                      # Deterministic harness verification (LAB-QA-001)
 ```
