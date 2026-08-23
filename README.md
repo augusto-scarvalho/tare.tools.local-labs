@@ -19,7 +19,8 @@
   <a href="#-master-empirical-findings--shootout">Model Shootout</a> •
   <a href="#-repository-architecture">Architecture</a> •
   <a href="#-tooling--campaign-index">Tooling & Ops</a> •
-  <a href="#-quickstart--harness-verification">Quickstart</a>
+  <a href="#-quickstart--harness-verification">Quickstart</a> •
+  <a href="CHANGELOG.md">Changelog</a>
 </p>
 
 </div>
