@@ -4,7 +4,21 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
-No entries yet.
+### Added
+
+- Recorded the NVIDIA 591.86 post-reboot qualification and retained rollback/recovery receipts without tracking local driver payloads.
+- Added matched Fable, HauhauCS, and vanilla agent/GSM8K evidence, plus safe vanilla canary activation and restoration cleanup.
+- Added the official RWKV7 license revalidation and frozen 48-item quality harness and receipt.
+
+### Changed
+
+- Kept Fable-TC as the broad serving default after HauhauCS passed the agent core but showed bounded math termination loss.
+- Closed FastMTP before installation because the prerequisite broad-default and termination gate failed.
+- Revalidated the residual backlog: RWKV7 moved to `HOLD_QUALITY`, six dependency-gated items remain blocked, and the non-soak ready queue is empty.
+
+### Fixed
+
+- Corrected GPU-control ownership documentation and made Fable restoration remove both HauhauCS and vanilla experiment drop-ins.
 
 ## 2026-08-24
 

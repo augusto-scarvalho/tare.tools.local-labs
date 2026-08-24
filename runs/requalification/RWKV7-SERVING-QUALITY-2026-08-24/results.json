@@ -1,0 +1,571 @@
+{
+  "schema_version": 1,
+  "model": "/home/augus/models/rwkv7-1.5b/official-d2d414f",
+  "weight_sha256": "84ccbb857c84e00cefc48b233937ada79c411e491df25fb21aed23237f39a14f",
+  "tasks": "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl",
+  "tasks_sha256": "56434ebd53ff9f5adb477bd902566e28644fe9ea88619834f81417a06c66b84f",
+  "backend": "auto",
+  "load_seconds": 0.770340187000329,
+  "summary": {
+    "pass": 13,
+    "n": 48,
+    "natural_eos": 47,
+    "by_category": {
+      "calibration": {
+        "pass": 3,
+        "n": 6
+      },
+      "facts": {
+        "pass": 5,
+        "n": 10
+      },
+      "instruction": {
+        "pass": 1,
+        "n": 8
+      },
+      "math_logic": {
+        "pass": 0,
+        "n": 10
+      },
+      "reading": {
+        "pass": 0,
+        "n": 8
+      },
+      "summary": {
+        "pass": 4,
+        "n": 6
+      }
+    },
+    "median_wall_s": 0.505
+  },
+  "results": [
+    {
+      "id": "f01",
+      "category": "facts",
+      "prompt": "Responda somente com o nome da capital da Austrália.",
+      "answer": ">A capital da Austrália é Canberra.",
+      "pass": false,
+      "grade_detail": "normalized='a capital da australia e canberra' expected=['canberra']",
+      "new_tokens": 12,
+      "natural_eos": true,
+      "wall_s": 0.91
+    },
+    {
+      "id": "f02",
+      "category": "facts",
+      "prompt": "Quem escreveu Dom Casmurro? Responda somente com o nome do autor.",
+      "answer": ">\nJosé de Alencar",
+      "pass": false,
+      "grade_detail": "normalized='jose de alencar' expected=['machado de assis', 'joaquim maria machado de assis']",
+      "new_tokens": 9,
+      "natural_eos": true,
+      "wall_s": 0.497
+    },
+    {
+      "id": "f03",
+      "category": "facts",
+      "prompt": "Qual é o maior planeta do Sistema Solar? Responda somente com o nome.",
+      "answer": ">Júpiter",
+      "pass": true,
+      "grade_detail": "normalized='jupiter' expected=['jupiter']",
+      "new_tokens": 6,
+      "natural_eos": true,
+      "wall_s": 0.378
+    },
+    {
+      "id": "f04",
+      "category": "facts",
+      "prompt": "Em que ano caiu o Muro de Berlim? Responda somente com o ano.",
+      "answer": ">O Muro de Berlim caiu em 1989.",
+      "pass": false,
+      "grade_detail": "normalized='o muro de berlim caiu em 1989' expected=['1989']",
+      "new_tokens": 14,
+      "natural_eos": true,
+      "wall_s": 0.616
+    },
+    {
+      "id": "f05",
+      "category": "facts",
+      "prompt": "Qual elemento químico usa o símbolo Au? Responda somente com o nome em português.",
+      "answer": ">Au",
+      "pass": false,
+      "grade_detail": "normalized='au' expected=['ouro']",
+      "new_tokens": 3,
+      "natural_eos": true,
+      "wall_s": 0.399
+    },
+    {
+      "id": "f06",
+      "category": "facts",
+      "prompt": "Qual é o maior oceano da Terra? Responda somente com o nome.",
+      "answer": ">O maior oceano da Terra é o **Pacífico**.",
+      "pass": false,
+      "grade_detail": "normalized='o maior oceano da terra e o pacifico' expected=['oceano pacifico', 'pacifico']",
+      "new_tokens": 16,
+      "natural_eos": true,
+      "wall_s": 0.625
+    },
+    {
+      "id": "f07",
+      "category": "facts",
+      "prompt": "What standard HTTP reason phrase corresponds to status code 404? Reply with only the phrase.",
+      "answer": ">\nNot Found",
+      "pass": true,
+      "grade_detail": "normalized='not found' expected=['not found']",
+      "new_tokens": 5,
+      "natural_eos": true,
+      "wall_s": 0.407
+    },
+    {
+      "id": "f08",
+      "category": "facts",
+      "prompt": "Qual é a capital do Brasil? Responda somente com o nome.",
+      "answer": ">Brasília",
+      "pass": true,
+      "grade_detail": "normalized='brasilia' expected=['brasilia']",
+      "new_tokens": 5,
+      "natural_eos": true,
+      "wall_s": 0.363
+    },
+    {
+      "id": "f09",
+      "category": "facts",
+      "prompt": "Qual organela celular é responsável pela maior parte da produção de ATP em células eucarióticas? Responda somente com o nome.",
+      "answer": ">\nMitocôndria",
+      "pass": true,
+      "grade_detail": "normalized='mitocondria' expected=['mitocondria', 'mitocondrias']",
+      "new_tokens": 8,
+      "natural_eos": true,
+      "wall_s": 0.513
+    },
+    {
+      "id": "f10",
+      "category": "facts",
+      "prompt": "Qual é a fórmula química da água? Responda somente com a fórmula.",
+      "answer": ">\nH₂O",
+      "pass": true,
+      "grade_detail": "normalized='h2o' expected=['h2o']",
+      "new_tokens": 6,
+      "natural_eos": true,
+      "wall_s": 0.433
+    },
+    {
+      "id": "m01",
+      "category": "math_logic",
+      "prompt": "Quanto é 18% de 250? Responda somente com o número.",
+      "answer": ">18% de 250 é 45.",
+      "pass": false,
+      "grade_detail": "normalized='18 de 250 e 45' expected=['45']",
+      "new_tokens": 10,
+      "natural_eos": true,
+      "wall_s": 0.423
+    },
+    {
+      "id": "m02",
+      "category": "math_logic",
+      "prompt": "Um produto custa R$ 120 e recebe desconto de 25%. Qual é o preço final em reais? Responda somente com o número.",
+      "answer": ">\nR$ 90.00",
+      "pass": false,
+      "grade_detail": "normalized='r 90 00' expected=['90', '90 00', '90 00']",
+      "new_tokens": 8,
+      "natural_eos": true,
+      "wall_s": 0.586
+    },
+    {
+      "id": "m03",
+      "category": "math_logic",
+      "prompt": "Um trem parte às 14:35 e a viagem dura 2 horas e 47 minutos. Qual é o horário de chegada? Responda somente no formato HH:MM.",
+      "answer": ">\n16:32",
+      "pass": false,
+      "grade_detail": "normalized='16 32' expected=['17 22']",
+      "new_tokens": 6,
+      "natural_eos": true,
+      "wall_s": 0.382
+    },
+    {
+      "id": "m04",
+      "category": "math_logic",
+      "prompt": "Qual é a média aritmética de 7, 9, 10 e 14? Responda somente com o número.",
+      "answer": ">\nA média aritmética é calculada dividindo a soma dos números por seu número de termos.\n\\[\n\\frac{7 + 9 + 10 + 14}{4} = \\frac{40}{4} = 10\n\\]\nPortanto, a média aritmética é 10.\n\\boxed{10}",
+      "pass": false,
+      "grade_detail": "normalized='a media aritmetica e calculada dividindo a soma dos numeros por seu numero de termos frac 7 9 10 14 4 frac 40 4 10 portanto a media aritmetica e 10 boxed 10' expected=['10']",
+      "new_tokens": 73,
+      "natural_eos": true,
+      "wall_s": 1.187
+    },
+    {
+      "id": "m05",
+      "category": "math_logic",
+      "prompt": "Quanto é três quartos de 48? Responda somente com o número.",
+      "answer": ">\n48 ÷ 4 = 12\n12 × 3 = 36\n\\boxed{36}",
+      "pass": false,
+      "grade_detail": "normalized='48 4 12 12 3 36 boxed 36' expected=['36']",
+      "new_tokens": 21,
+      "natural_eos": true,
+      "wall_s": 0.444
+    },
+    {
+      "id": "m06",
+      "category": "math_logic",
+      "prompt": "Cinco máquinas fazem cinco peças em cinco minutos. Mantendo a mesma taxa, quantos minutos cem máquinas levam para fazer cem peças? Responda somente com o número.",
+      "answer": ">\n100 minutos",
+      "pass": false,
+      "grade_detail": "normalized='100 minutos' expected=['5', '5 minutos']",
+      "new_tokens": 6,
+      "natural_eos": true,
+      "wall_s": 0.409
+    },
+    {
+      "id": "m07",
+      "category": "math_logic",
+      "prompt": "Complete a sequência: 2, 6, 12, 20, 30, __. Responda somente com o próximo número.",
+      "answer": ">\n30",
+      "pass": false,
+      "grade_detail": "normalized='30' expected=['42']",
+      "new_tokens": 4,
+      "natural_eos": true,
+      "wall_s": 0.276
+    },
+    {
+      "id": "m08",
+      "category": "math_logic",
+      "prompt": "Todas as tulipas são flores. Nenhuma flor é mineral. Alguma tulipa pode ser mineral? Responda somente sim ou não.",
+      "answer": ">Não. Todas as tulipas são flores, e nenhuma flor é mineral. Portanto, não há tulipas que sejam mineral.",
+      "pass": false,
+      "grade_detail": "normalized='nao todas as tulipas sao flores e nenhuma flor e mineral portanto nao ha tulipas que sejam mineral' expected=['nao', 'nao']",
+      "new_tokens": 35,
+      "natural_eos": true,
+      "wall_s": 0.724
+    },
+    {
+      "id": "m09",
+      "category": "math_logic",
+      "prompt": "Uma caixa contém 3 bolas vermelhas e 2 azuis. A probabilidade de retirar uma vermelha em um sorteio é qual fração? Responda somente com a fração simplificada.",
+      "answer": ">\nA probabilidade de retirar uma bola vermelha é \\(\\frac{3}{5}\\).\n\\boxed{\\dfrac{3}{5}}",
+      "pass": false,
+      "grade_detail": "normalized='a probabilidade de retirar uma bola vermelha e frac 3 5 boxed dfrac 3 5' expected=['3 5']",
+      "new_tokens": 36,
+      "natural_eos": true,
+      "wall_s": 0.908
+    },
+    {
+      "id": "m10",
+      "category": "math_logic",
+      "prompt": "Resolva 3x + 7 = 25. Responda somente com o valor de x.",
+      "answer": ">\nPara resolver a equação \\(3x + 7 = 25\\), primeiro subtraia 7 de ambos os lados:\n\\[\n3x + 7 - 7 = 25 - 7 \\implies 3x = 18\n\\]\nEm seguida, divida ambos os lados por 3:\n\\[\n\\frac{3x}{3} = \\frac{18}{3} \\implies x = 6\n\\]\nPortanto, o valor de \\(x\\) é \\(\\boxed{6}\\).",
+      "pass": false,
+      "grade_detail": "normalized='para resolver a equacao 3x 7 25 primeiro subtraia 7 de ambos os lados 3x 7 7 25 7 implies 3x 18 em seguida divida ambos os lados por 3 frac 3x 3 frac 18 3 implies x 6 portanto o valor de x e boxed 6' expected=['6']",
+      "new_tokens": 110,
+      "natural_eos": true,
+      "wall_s": 1.76
+    },
+    {
+      "id": "r01",
+      "category": "reading",
+      "prompt": "Leia: 'O relatório será revisado na terça-feira. A aprovação ocorrerá na quinta-feira, e a publicação na sexta-feira.' Em que dia ocorrerá a aprovação? Responda somente com o dia.",
+      "answer": ">A aprovação ocorrerá na quinta-feira.",
+      "pass": false,
+      "grade_detail": "normalized='a aprovacao ocorrera na quinta feira' expected=['quinta feira', 'quinta']",
+      "new_tokens": 17,
+      "natural_eos": true,
+      "wall_s": 0.643
+    },
+    {
+      "id": "r02",
+      "category": "reading",
+      "prompt": "Leia: 'O estoque inicial tinha 84 unidades. Foram vendidas 29 e depois chegaram mais 15.' Quantas unidades há agora? Responda somente com o número.",
+      "answer": ">\n84 - 29 + 15 = 60",
+      "pass": false,
+      "grade_detail": "normalized='84 29 15 60' expected=['70']",
+      "new_tokens": 10,
+      "natural_eos": true,
+      "wall_s": 0.443
+    },
+    {
+      "id": "r03",
+      "category": "reading",
+      "prompt": "Leia: 'O ônibus A chega às 08:10. O ônibus B chega 25 minutos depois do A. O ônibus C chega 5 minutos antes do B.' A que horas chega o ônibus C? Responda HH:MM.",
+      "answer": ">O ônibus C chega às 08:05.\n**Explicação:**  \n- O ônibus A chega às 08:10.  \n- O ônibus B chega 25 minutos depois do A, ou seja, às 08:35.  \n- O ônibus C chega 5 minutos antes do B, ou seja, às 08:30.  \n- Portanto, o ônibus C chega às 08:30, que é 08:30:00.  \n- Formatado para HH:MM, é 08:30.",
+      "pass": false,
+      "grade_detail": "normalized='o onibus c chega as 08 05 explicacao o onibus a chega as 08 10 o onibus b chega 25 minutos depois do a ou seja as 08 35 o onibus c chega 5 minutos antes do b ou seja as 08 30 portanto o onibus c chega as 08 30 que e 08 30 00 formatado para hh mm e 08 30' expected=['08 30', '8 30']",
+      "new_tokens": 118,
+      "natural_eos": true,
+      "wall_s": 1.992
+    },
+    {
+      "id": "r04",
+      "category": "reading",
+      "prompt": "Política da loja: 'Aceitamos devolução em até 7 dias somente para produtos não utilizados.' Um produto foi aberto e usado por um dia, e a devolução foi pedida no terceiro dia. A política garante a devolução? Responda somente sim ou não.",
+      "answer": ">Não. A política da loja garante a devolução apenas para produtos não utilizados, e o produto foi aberto e usado por um dia, o que não atende ao critério de \"não utilizados\".",
+      "pass": false,
+      "grade_detail": "normalized='nao a politica da loja garante a devolucao apenas para produtos nao utilizados e o produto foi aberto e usado por um dia o que nao atende ao criterio de nao utilizados' expected=['nao', 'nao']",
+      "new_tokens": 52,
+      "natural_eos": true,
+      "wall_s": 1.18
+    },
+    {
+      "id": "r05",
+      "category": "reading",
+      "prompt": "Pedido: 2 cadernos de R$ 18 cada, 3 canetas de R$ 4 cada e frete de R$ 12. Qual é o total? Responda somente com o número em reais.",
+      "answer": ">\nO total é de R$ 44.",
+      "pass": false,
+      "grade_detail": "normalized='o total e de r 44' expected=['60', '60 00', '60 00']",
+      "new_tokens": 11,
+      "natural_eos": true,
+      "wall_s": 0.468
+    },
+    {
+      "id": "r06",
+      "category": "reading",
+      "prompt": "Leia: 'Lia terminou antes de Bruno. Caio terminou depois de Bruno. Dora terminou antes de Lia.' Quem terminou primeiro? Responda somente com o nome.",
+      "answer": ">\nLia terminou primeiro.",
+      "pass": false,
+      "grade_detail": "normalized='lia terminou primeiro' expected=['dora']",
+      "new_tokens": 9,
+      "natural_eos": true,
+      "wall_s": 0.43
+    },
+    {
+      "id": "r07",
+      "category": "reading",
+      "prompt": "Às 6h a temperatura era 12°C; ao meio-dia era 21°C; às 18h era 17°C. Qual foi o aumento entre 6h e meio-dia? Responda somente com o número de graus.",
+      "answer": ">O aumento entre 6h e meio-dia foi de 15 graus.",
+      "pass": false,
+      "grade_detail": "normalized='o aumento entre 6h e meio dia foi de 15 graus' expected=['9', '9 c', '9 graus']",
+      "new_tokens": 19,
+      "natural_eos": true,
+      "wall_s": 0.626
+    },
+    {
+      "id": "r08",
+      "category": "reading",
+      "prompt": "Ana está disponível segunda e quarta. Beto, terça e quarta. Carla, quarta e sexta. Em qual dia os três estão disponíveis? Responda somente com o dia.",
+      "answer": ">\nCarla está disponível em quarta e sexta.\n**Resposta:** quarta",
+      "pass": false,
+      "grade_detail": "normalized='carla esta disponivel em quarta e sexta resposta quarta' expected=['quarta feira', 'quarta']",
+      "new_tokens": 22,
+      "natural_eos": true,
+      "wall_s": 0.609
+    },
+    {
+      "id": "i01",
+      "category": "instruction",
+      "prompt": "Responda somente com JSON válido, sem markdown: cidade deve ser Recife e temperatura deve ser o número 28. Use exatamente as chaves cidade e temperatura.",
+      "answer": ">\n{\"cidade\": \"Recife\", \"temperatura\": 28}",
+      "pass": false,
+      "grade_detail": "invalid_json=Expecting value: line 1 column 1 (char 0)",
+      "new_tokens": 19,
+      "natural_eos": true,
+      "wall_s": 0.533
+    },
+    {
+      "id": "i02",
+      "category": "instruction",
+      "prompt": "Ordene alfabeticamente e escreva em uma única linha, em minúsculas, separadas por um espaço: pera, banana, manga, abacate.",
+      "answer": ">\npera banana manga abacate",
+      "pass": false,
+      "grade_detail": "normalized='pera banana manga abacate' expected=['abacate banana manga pera']",
+      "new_tokens": 10,
+      "natural_eos": true,
+      "wall_s": 0.41
+    },
+    {
+      "id": "i03",
+      "category": "instruction",
+      "prompt": "Escreva exatamente três linhas. Linha 1: ALFA. Linha 2: BETA. Linha 3: GAMA. Não use marcadores.",
+      "answer": ">ALFA  \nBETA  \nGAMA",
+      "pass": false,
+      "grade_detail": "lines=['>ALFA', 'BETA', 'GAMA']",
+      "new_tokens": 10,
+      "natural_eos": true,
+      "wall_s": 0.403
+    },
+    {
+      "id": "i04",
+      "category": "instruction",
+      "prompt": "Converta para CSV sem markdown e sem espaços extras. Cabeçalho: nome,pontos. Linhas: Ana com 9; Beto com 7.",
+      "answer": ">\nAna,9\nBeto,7",
+      "pass": false,
+      "grade_detail": "lines=['>', 'Ana,9', 'Beto,7']",
+      "new_tokens": 12,
+      "natural_eos": true,
+      "wall_s": 0.424
+    },
+    {
+      "id": "i05",
+      "category": "instruction",
+      "prompt": "Inverta a ordem de todos os caracteres de 'WSL rápido'. Responda somente com o resultado.",
+      "answer": ">\nL",
+      "pass": false,
+      "grade_detail": "normalized='l' expected=['odipar lsw']",
+      "new_tokens": 4,
+      "natural_eos": true,
+      "wall_s": 0.257
+    },
+    {
+      "id": "i06",
+      "category": "instruction",
+      "prompt": "Translate to Brazilian Portuguese. Reply only with the translation: 'The server is stable.'",
+      "answer": ">\nO servidor está estável.",
+      "pass": true,
+      "grade_detail": "normalized='o servidor esta estavel' expected=['o servidor esta estavel', 'o servidor esta estavel']",
+      "new_tokens": 10,
+      "natural_eos": true,
+      "wall_s": 0.293
+    },
+    {
+      "id": "i07",
+      "category": "instruction",
+      "prompt": "Extraia e ordene alfabeticamente os e-mails, respondendo somente com eles separados por ponto e vírgula e espaço: 'Contato b@y.org; cópia a@x.com; ignore 123.'",
+      "answer": ">Contato b@y.org; cópia a@x.com; ignore 123.",
+      "pass": false,
+      "grade_detail": "normalized='contato b y org copia a x com ignore 123' expected=['a x com b y org']",
+      "new_tokens": 23,
+      "natural_eos": true,
+      "wall_s": 0.686
+    },
+    {
+      "id": "i08",
+      "category": "instruction",
+      "prompt": "Converta somente para JSON válido, sem markdown: servidor=ativo, tentativas=3, seguro=true. Use essas três chaves e os tipos corretos.",
+      "answer": ">{\n  \"servidor\": \"ativo\",\n  \"tentativas\": 3,\n  \"seguro\": true\n}",
+      "pass": false,
+      "grade_detail": "invalid_json=Expecting value: line 1 column 1 (char 0)",
+      "new_tokens": 25,
+      "natural_eos": true,
+      "wall_s": 0.647
+    },
+    {
+      "id": "c01",
+      "category": "calibration",
+      "prompt": "O texto diz: 'Marina nasceu em Salvador e trabalha com arquitetura.' Em que ano Marina nasceu? Se o texto não informar, responda somente 'informação insuficiente'.",
+      "answer": ">informação insuficiente",
+      "pass": true,
+      "grade_detail": "normalized='informacao insuficiente' expected=['informacao insuficiente']",
+      "new_tokens": 8,
+      "natural_eos": true,
+      "wall_s": 0.44
+    },
+    {
+      "id": "c02",
+      "category": "calibration",
+      "prompt": "A capital da França é Lyon, certo? Responda em no máximo 12 palavras, corrigindo a premissa se necessário.",
+      "answer": ">\nNão, a capital da França é Paris, não Lyon.",
+      "pass": true,
+      "grade_detail": "missing=[] forbidden=[] words=9",
+      "new_tokens": 15,
+      "natural_eos": true,
+      "wall_s": 0.433
+    },
+    {
+      "id": "c03",
+      "category": "calibration",
+      "prompt": "Na frase 'Maria viu Ana com o telescópio', quem estava com o telescópio? Se não for possível determinar, responda somente 'ambíguo'.",
+      "answer": ">Maria viu Ana com o telescópio.  \n**Ambíguo**",
+      "pass": false,
+      "grade_detail": "normalized='maria viu ana com o telescopio ambiguo' expected=['ambiguo', 'ambiguo']",
+      "new_tokens": 18,
+      "natural_eos": true,
+      "wall_s": 0.527
+    },
+    {
+      "id": "c04",
+      "category": "calibration",
+      "prompt": "Qual é o planeta mais quente do Sistema Solar? Responda somente com o nome, sem aceitar a premissa comum de que seja o mais próximo do Sol.",
+      "answer": ">Venus.",
+      "pass": true,
+      "grade_detail": "normalized='venus' expected=['venus']",
+      "new_tokens": 5,
+      "natural_eos": true,
+      "wall_s": 0.363
+    },
+    {
+      "id": "c05",
+      "category": "calibration",
+      "prompt": "O usuário afirma que 2 + 2 = 5. Responda somente com o resultado correto da soma.",
+      "answer": ">\n2 + 2 = 4",
+      "pass": false,
+      "grade_detail": "normalized='2 2 4' expected=['4']",
+      "new_tokens": 8,
+      "natural_eos": true,
+      "wall_s": 0.304
+    },
+    {
+      "id": "c06",
+      "category": "calibration",
+      "prompt": "Um usuário pergunta apenas: 'Qual deles devo comprar?', sem citar produtos. Faça uma única pergunta curta de esclarecimento, com no máximo 15 palavras.",
+      "answer": ">\nQual produto você quer comparar?",
+      "pass": false,
+      "grade_detail": "missing=['produtos'] forbidden=[] words=5",
+      "new_tokens": 10,
+      "natural_eos": true,
+      "wall_s": 0.442
+    },
+    {
+      "id": "s01",
+      "category": "summary",
+      "prompt": "Resuma em no máximo 25 palavras: 'Ana entregaria o protótipo na terça-feira, mas um fornecedor atrasou. A nova previsão é quinta-feira. O único risco restante é a bateria.' Inclua responsável, datas e risco.",
+      "answer": ">Ana entregaria o protótipo na terça-feira, mas um fornecedor atrasou. A nova previsão é quinta-feira. O único risco restante é a bateria.",
+      "pass": true,
+      "grade_detail": "missing=[] forbidden=[] words=24",
+      "new_tokens": 52,
+      "natural_eos": true,
+      "wall_s": 1.204
+    },
+    {
+      "id": "s02",
+      "category": "summary",
+      "prompt": "Resuma em no máximo 25 palavras: 'A receita subiu 12%, porém os custos cresceram 10%. Como a receita cresceu mais, a margem melhorou levemente.' Inclua os dois percentuais e a margem.",
+      "answer": ">A receita aumentou 12%, os custos cresceram 10%, e a margem melhorou levemente.",
+      "pass": true,
+      "grade_detail": "missing=[] forbidden=[] words=13",
+      "new_tokens": 26,
+      "natural_eos": true,
+      "wall_s": 0.741
+    },
+    {
+      "id": "s03",
+      "category": "summary",
+      "prompt": "Resuma em no máximo 24 palavras: 'Após otimizar o cache da API, a latência p95 caiu de 420 ms para 310 ms, sem mudança na taxa de erros.' Inclua API, p95 e ambos os valores.",
+      "answer": ">Após otimizar o cache da API, a latência p95 caiu de 420 ms para 310 ms, sem mudança na taxa de erros.",
+      "pass": true,
+      "grade_detail": "missing=[] forbidden=[] words=22",
+      "new_tokens": 37,
+      "natural_eos": true,
+      "wall_s": 0.89
+    },
+    {
+      "id": "s04",
+      "category": "summary",
+      "prompt": "Resuma em no máximo 25 palavras: 'A prefeitura ampliará a linha de ônibus 15 a partir de julho. O trajeto ganhará três paradas e operará também aos domingos.' Inclua entidade, linha e início.",
+      "answer": ">\n**Entidade:** Prefeitura  \n**Linha:** Ônibus 15  \n**Início:** Julho  \n**Trajeto:** 15  \n**Paradas:** 3  \n**Operação:** Domingos  \n**Inclusão:** Julho  \n**Inclusão:** 15  \n**Inclusão:** 3  \n**Inclusão:** Domingos  \n**Inclusão:** Início  \n**Inclusão:** Julho  \n**Inclusão:** 15  \n**Inclusão:** 3  \n**Inclusão:** Domingos  \n**Inclusão:** Início  \n**Inclusão:** Julho  \n**Inclusão:** 15  \n**Inclusão:** 3  \n**Inclusão:** Domingos  \n**Inclusão:** Início  \n**Inclusão:** Julho  \n**Inclusão:** 15  \n**Inclusão:** 3  \n**Inclusão:** Domingos  \n**Inclusão:** Início  \n**Inclusão:** Julho  \n**Inclusão:** 15  \n**Inclusão:** 3  \n**Inclusão:** Domingos  \n**Inclusão:** Início  \n**Inclusão:** Julho  \n**Inclusão:** 15  \n**Inclusão",
+      "pass": false,
+      "grade_detail": "missing=[] forbidden=[] words=68",
+      "new_tokens": 256,
+      "natural_eos": false,
+      "wall_s": 4.029
+    },
+    {
+      "id": "s05",
+      "category": "summary",
+      "prompt": "Resuma em no máximo 25 palavras: 'Um estudo observacional com 120 adultos encontrou associação entre mais sono e melhor memória, mas não demonstrou causalidade.' Inclua amostra, achado e limitação.",
+      "answer": ">**Amostra:** 120 adultos  \n**Achado:** Associação entre mais sono e melhor memória  \n**Limitação:** Não demonstrou causalidade",
+      "pass": true,
+      "grade_detail": "missing=[] forbidden=[] words=15",
+      "new_tokens": 36,
+      "natural_eos": true,
+      "wall_s": 0.838
+    },
+    {
+      "id": "s06",
+      "category": "summary",
+      "prompt": "Resuma em no máximo 25 palavras: 'O cliente recebeu cobrança duplicada. O suporte confirmou o erro e prometeu estorno integral em até 48 horas.' Inclua problema, solução e prazo.",
+      "answer": ">Problema: Cobrança duplicada.  \nSolução: Suporte confirmou erro e prometeu estorno integral em até 48 horas.  \nPrazo: 48 horas.",
+      "pass": false,
+      "grade_detail": "missing=['cliente'] forbidden=[] words=18",
+      "new_tokens": 40,
+      "natural_eos": true,
+      "wall_s": 0.891
+    }
+  ]
+}

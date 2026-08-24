@@ -12,24 +12,23 @@ This handoff is the entry point for the next agent. Do not reconstruct the
 campaign from chat history. Read this file, then consult the linked immutable
 receipts only for the work being resumed.
 
-Last live verification: **2026-08-24 06:55:03 -03:00**.
+Last live verification: **2026-08-24 20:44:00 -03:00**.
 
-- repository: clean `master` at `603a24218fa2043f8e562f8fe22ccf6e5e4b1893`;
-- remote: `origin/master` at the same SHA;
-- CI: [`local-labs-ci` run 32713908417](https://github.com/augusto-scarvalho/tare.tools.local-labs/actions/runs/32713908417)
-  completed successfully for that exact SHA;
-- `llm-inference.service`: active/running, PID 205079, `NRestarts=0`;
-- `llm-embedding.service`: active/running, PID 203666; its `NRestarts=9` is
-  historical and the serving PID was preserved during the final closure;
-- `llm-locale-proxy.service`: active/running, PID 209766, `NRestarts=0`;
+- repository branch: `master`; this handoff and its linked receipts form the
+  2026-08-24 continuation publication;
+- remote publication and CI status must be read from the current Git state
+  rather than this timestamped operational snapshot;
+- `llm-inference.service`: active/running, PID 3404, `NRestarts=0`;
+- `llm-embedding.service`: active/running, PID 1585, `NRestarts=0`;
+- `llm-locale-proxy.service`: active/running, PID 3415, `NRestarts=0`;
 - 8080 identity: exact Fable-TC path, context 8192, build `b10159-068764d92`;
 - 8081 identity: exact Nomic Embed Q8 path, context 2048, build `b9863-5e7f6271c`;
 - 8082 health: `{"status":"ok"}`.
 
 There is no half-finished authorized experiment to resume. HauhauCS is a
-qualified retained candidate, not the current default. The only remaining work
-is the optional, dependency-gated list in section 8; start one of those gates
-only after the user selects or authorizes it.
+qualified retained coding/low-friction candidate, not the broad default. The
+dependency-free non-soak queue is empty; section 8 records the completed
+continuation and the exact external/human/mechanism triggers that remain.
 
 Before touching the serving baseline, capture repository status, unit state,
 `/props` identity, health, restart counts, and GPU state. Preserve these
@@ -195,19 +194,31 @@ Receipt: [`QWEN38-HAUHAUCS-LOCALE-CONTROL-2026-08-23`](../runs/requalification/Q
 - preserved invalid/superseded attempts instead of pooling them with valid runs.
 
 No model weights, runtime logs, credentials, or private keys are repository
-artifacts. The largest new tracked file is below 100 KiB.
+artifacts. The largest new tracked file is below 1 MiB.
 
 ## 8. Remaining bounded work
 
-HauhauCS already satisfies the requested coding, low-friction, context, speed, and
-locale-control decision. Before replacing Fable as the broad default, remaining
-optional gates are:
+The 2026-08-24 continuation closed the previously optional non-soak gates:
 
-1. agent/tool-calling regression against vanilla and Fable;
-2. a broader math/general-reasoning panel;
-3. a reliability soak only after renewed explicit authorization;
-4. an isolated native-MTP versus FastMTP comparison only if the third-party patch
-   becomes worth its extra trust and maintenance surface.
+1. agent/tool core: HauhauCS 8/8, vanilla 8/8, Fable 7/8; the larger matrix was
+   stopped by its frozen all-arms gate;
+2. GSM8K-200: Fable 195/200, HauhauCS 191/200, vanilla 188/200; HauhauCS had
+   8/200 truncations and is `MATERIAL_MATH_LOSS` under the bounded contract;
+3. FastMTP: `NO-GO BEFORE INSTALL` because the prerequisite broad-default and
+   termination gate did not pass;
+4. RWKV7: publisher license unblocked, followed by a frozen 13/48 quality result
+   and `HOLD_QUALITY`; no server stack was added;
+5. the seven residual blockers were revalidated; six remain blocked and the
+   newly unblocked RWKV item is now closed negative.
+
+There is no dependency-free non-soak experiment ready. Current triggers and
+primary-source links are in
+[`BLOCKER_REVALIDATION_2026-08-24.md`](research/BLOCKER_REVALIDATION_2026-08-24.md)
+and the canonical queue is
+[`REMAINING_EXPERIMENTS_2026-08-24.md`](research/REMAINING_EXPERIMENTS_2026-08-24.md).
+
+The 24/48/72-hour reliability soaks remain excluded. Do not run or relabel them
+without a new explicit instruction that specifically reopens soaks.
 
 Do not start a weight edit for locale control unless new held-out evidence defeats
 the frozen contract. Do not expose 8082 beyond loopback without a separate network

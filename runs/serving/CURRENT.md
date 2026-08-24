@@ -1,6 +1,6 @@
 # Current serving state
 
-As of 2026-08-23 17:59 -03:00:
+As reverified on 2026-08-24 20:44 -03:00:
 
 - Primary text endpoint `http://127.0.0.1:8080`: `fable-tc-l1.0`, context 8192,
   native MTP n4, engine `b10159-068764d92`, managed by
@@ -37,3 +37,11 @@ scored 48/48 for both HauhauCS and Fable-TC on a frozen blind test. It also remo
 all HauhauCS-only language-drift failures on the original panel. No ablation or
 LoRA was justified; see
 `runs/requalification/QWEN38-HAUHAUCS-LOCALE-CONTROL-2026-08-23/RESULT.md`.
+
+The 2026-08-24 continuation added two bounded decision results without changing
+the serving baseline: HauhauCS passed the agent/tool core 8/8 but scored 191/200
+on GSM8K with eight truncations versus Fable's 195/200 and zero truncations.
+FastMTP therefore stopped before installation. The newly licensed RWKV7 1.5B
+artifact scored 13/48 on the frozen normal-question gate and remains
+`HOLD_QUALITY`. See the current queue at
+`docs/research/REMAINING_EXPERIMENTS_2026-08-24.md`.

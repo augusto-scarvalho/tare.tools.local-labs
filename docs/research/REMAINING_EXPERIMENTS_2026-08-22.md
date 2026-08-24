@@ -1,5 +1,9 @@
 # Remaining experiment register — 2026-08-22
 
+> Superseded for current execution state by
+> [`REMAINING_EXPERIMENTS_2026-08-24.md`](REMAINING_EXPERIMENTS_2026-08-24.md).
+> This file remains the historical pre-continuation queue.
+
 This is the reconciled queue after the autonomous 2026-08-21/22 wave. It distinguishes work that is
 ready for a design packet from work that must not be launched without a dependency or trigger.
 
