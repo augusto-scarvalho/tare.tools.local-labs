@@ -1,0 +1,46 @@
+{
+  "pass": 48,
+  "n": 48,
+  "by_category": {
+    "binary_pt": {
+      "pass": 12,
+      "n": 12
+    },
+    "clarification_pt": {
+      "pass": 8,
+      "n": 8
+    },
+    "format_pt": {
+      "pass": 8,
+      "n": 8
+    },
+    "lexical_pt": {
+      "pass": 8,
+      "n": 8
+    },
+    "reading_pt": {
+      "pass": 8,
+      "n": 8
+    },
+    "summary_pt": {
+      "pass": 4,
+      "n": 4
+    }
+  },
+  "answered": 48,
+  "median_wall_s": 0.328,
+  "median_answer_tokens": 3.0,
+  "failure_ids": [],
+  "model": "qwen38-hauhaucs-aggressive-q4kp",
+  "model_path": "/home/augus/models/qwen38-27b/hauhaucs-aggressive-993a5971/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-Q4_K_P.gguf",
+  "tasks_path": "runs\\requalification\\QWEN38-HAUHAUCS-LOCALE-CONTROL-2026-08-23\\locale_test_48.jsonl",
+  "tasks_sha256": "75a0f623f5d859fc3952f6776e3db8a75c7b42bf36ce7a73049de67c7b09632f",
+  "engine": "b10165-71676e46c",
+  "sampling": {
+    "temperature": 0.0,
+    "thinking": "instruct",
+    "mtp": "off",
+    "ctx": 8192
+  },
+  "system_prompt": "Use exclusivamente o idioma da última mensagem do usuário. Em português, responda integralmente em português do Brasil: escreva Sim ou Não em vez de Yes ou No e faça perguntas de esclarecimento em português. Preserve código, fórmulas, nomes próprios e chaves JSON solicitadas. Revise silenciosamente o idioma e cumpra exatamente o formato pedido, sem explicações extras."
+}

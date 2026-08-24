@@ -219,7 +219,9 @@ def _timing_fields(t: dict) -> dict:
 def chat_stream(base_url: str, prompt: str, *, max_tokens: int = 256,
                 temperature: float = 0.0, timeout_s: float = 300.0,
                 model: str = "local",
-                cache_prompt: bool | None = None) -> RequestResult:
+                cache_prompt: bool | None = None,
+                chat_template_kwargs: dict | None = None,
+                system_prompt: str | None = None) -> RequestResult:
     """One streaming chat completion, timed.
 
     `max_tokens` matters more than it looks on a thinking model: measured on this
@@ -227,9 +229,13 @@ def chat_stream(base_url: str, prompt: str, *, max_tokens: int = 256,
     return an EMPTY content with finish_reason=length -- which looks like a broken
     model and is a starved one. Keep it generous, or record the floor.
     """
+    messages = []
+    if system_prompt:
+        messages.append({"role": "system", "content": system_prompt})
+    messages.append({"role": "user", "content": prompt})
     payload = {
         "model": model,
-        "messages": [{"role": "user", "content": prompt}],
+        "messages": messages,
         "max_tokens": max_tokens,
         "temperature": temperature,
         "stream": True,
@@ -243,6 +249,8 @@ def chat_stream(base_url: str, prompt: str, *, max_tokens: int = 256,
     # that several completed runs were taken with.
     if cache_prompt is not None:
         payload["cache_prompt"] = cache_prompt
+    if chat_template_kwargs is not None:
+        payload["chat_template_kwargs"] = chat_template_kwargs
     body = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(f"{base_url}/v1/chat/completions", data=body,
                                  headers={"Content-Type": "application/json"})

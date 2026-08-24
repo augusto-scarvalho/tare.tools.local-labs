@@ -80,6 +80,10 @@ _GEOM = {
     # lambda sweep settled on l1.0 (the deploy artifact); fable-plain / l0.4 / l0.7 GGUFs DELETED
     # 2026-08-10 (disk reclaim, sweep closed) -- see A2_STAGE1_CONCISE_FABLE.md.
     "fable-tc-l1.0":   (65, 0, 0),
+    # Qwen3.8 dense 27B finetune with its embedded NextN/MTP head preserved. Revision and
+    # release-manifest digest are frozen in runs/requalification/QWEN38-HAUHAUCS-AGGRESSIVE-2026-08-23.
+    "qwen38-hauhaucs-aggressive": (65, 0, 0),
+    "qwen38-27b-vanilla": (65, 0, 0),
     # Laguna-S-2.1 was tried and DISCARDED 2026-08-01. It loads, but testing PINNING needs
     # mmap, and mmap holds the whole GGUF resident in RAM; even the Q2_K_XL (39.7 GB) leaves
     # Windows at 5.5 GB available from a clean 44 GB baseline -- below the 16 GB reserve. The
@@ -121,6 +125,14 @@ _FILES = {
     ],
     # fable-plain / l0.4 / l0.7 merge GGUFs DELETED 2026-08-10 (lambda sweep closed; l1.0 won).
     "fable-tc-l1.0": [("q4", "/home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf", "Q4_K_M")],
+    "qwen38-hauhaucs-aggressive": [
+        ("q4kp", "/home/augus/models/qwen38-27b/hauhaucs-aggressive-993a5971/"
+         "Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-Q4_K_P.gguf", "Q4_K_P"),
+    ],
+    "qwen38-27b-vanilla": [
+        ("q4xl", "/home/augus/models/qwen38-27b/unsloth/"
+         "Qwen3.8-27B-UD-Q4_K_XL.gguf", "Q4_K_XL"),
+    ],
     # §E4 MTP twins. Same weights as the non-MTP entries above plus an MTP head; loaded in
     # BOTH arms of the e4mtp A/B (the base arm just does not pass --spec-type, so the head
     # sits unused). Downloaded from unsloth/Qwen3.6-*-MTP-GGUF into their own dirs so the

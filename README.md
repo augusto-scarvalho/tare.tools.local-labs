@@ -200,7 +200,8 @@ tare.tools.local-labs/
 
 | Resource | Scope | Description |
 |---|---|---|
-| 📋 **[`docs/HANDOFF.md`](docs/HANDOFF.md)** | **Living State** | Master ledger tracking **Realizado** (10 milestones), **Em Andamento** (P1–P5 backlog), and **Encerrado** (closed hypotheses). |
+| 📋 **[`2026-08-24 handoff`](docs/HANDOFF_2026-08-24_FABLE_HAUHAUCS_SERVING.md)** | **Current State** | Authoritative Fable-TC/HauhauCS serving, qualification, locale-control, and recovery state. |
+| 📚 **[`docs/HANDOFF.md`](docs/HANDOFF.md)** | **Historical Ledger** | Earlier Realizado / Em Andamento / Encerrado research ledger; dated handoffs supersede its live-state claims. |
 | 📖 **[`docs/RESEARCH_CATALOG.md`](docs/RESEARCH_CATALOG.md)** | **Scientific Catalog** | Canonical research index covering all 7 pillars, methodologies, Pareto curves, and statistical deltas. |
 | 🛠️ **[`tools/README.md`](tools/README.md)** | **Tooling Index** | Comprehensive catalog of 60+ benchmarks, latency probes, promotion gates, and analysis scripts. |
 | 🚀 **[`ops/README.md`](ops/README.md)** | **Playbooks** | Operational guide for active bring-ups, recurrence suites, and serving campaigns. |

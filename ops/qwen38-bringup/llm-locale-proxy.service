@@ -1,0 +1,14 @@
+[Unit]
+Description=Local OpenAI locale-contract proxy for llama-server
+After=network.target llm-inference.service
+Requires=llm-inference.service
+
+[Service]
+Type=simple
+User=augus
+ExecStart=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/ops/qwen38-bringup/locale_contract_proxy.py --listen 127.0.0.1 --port 8082 --upstream http://127.0.0.1:8080
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

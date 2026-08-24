@@ -146,10 +146,15 @@ class LlamaCppAdapter:
         self.force_stop(h)
 
     def force_stop(self, h: ServerHandle) -> None:
-        """Belt and braces: kill anything still holding the model inside the distro."""
+        """Belt and braces: kill only a process holding this profile's model.
+
+        A host-wide ``pkill -f llama-server`` also kills independent embedding and
+        production servers. The immutable model path is the narrow process-identity
+        discriminator available to every profile.
+        """
         try:
-            subprocess.run(["wsl", "-d", self.distro, "--", "pkill", "-9", "-f",
-                            "llama-server"], capture_output=True, timeout=30)
+            subprocess.run(["wsl", "-d", self.distro, "--", "pkill", "-9", "-f", "--",
+                            h.profile.model_path], capture_output=True, timeout=30)
         except (OSError, subprocess.SubprocessError):
             pass
 

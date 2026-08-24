@@ -1,0 +1,52 @@
+{
+  "pass": 43,
+  "n": 48,
+  "by_category": {
+    "binary_pt": {
+      "pass": 12,
+      "n": 12
+    },
+    "clarification_pt": {
+      "pass": 3,
+      "n": 8
+    },
+    "format_pt": {
+      "pass": 8,
+      "n": 8
+    },
+    "lexical_pt": {
+      "pass": 8,
+      "n": 8
+    },
+    "reading_pt": {
+      "pass": 8,
+      "n": 8
+    },
+    "summary_pt": {
+      "pass": 4,
+      "n": 4
+    }
+  },
+  "answered": 48,
+  "median_wall_s": 0.3515,
+  "median_answer_tokens": 3.0,
+  "failure_ids": [
+    "dev-c01",
+    "dev-c03",
+    "dev-c04",
+    "dev-c07",
+    "dev-c08"
+  ],
+  "model": "qwen38-hauhaucs-aggressive-q4kp",
+  "model_path": "/home/augus/models/qwen38-27b/hauhaucs-aggressive-993a5971/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-Q4_K_P.gguf",
+  "tasks_path": "runs\\requalification\\QWEN38-HAUHAUCS-LOCALE-CONTROL-2026-08-23\\locale_dev_48.jsonl",
+  "tasks_sha256": "4c99c14c466b1ae6e8405beb33dbed7d11926d11d96d5695da5a455a8d975b0a",
+  "engine": "b10165-71676e46c",
+  "sampling": {
+    "temperature": 0.0,
+    "thinking": "instruct",
+    "mtp": "off",
+    "ctx": 8192
+  },
+  "system_prompt": "Responda exclusivamente no mesmo idioma da última mensagem do usuário. Quando ela estiver em português, todo texto natural da resposta deve estar em português do Brasil, inclusive Sim/Não, termos comuns, perguntas de esclarecimento e rótulos. Preserve apenas código, fórmulas, nomes próprios e chaves JSON exatamente como solicitados. Antes de responder, revise silenciosamente e traduza qualquer trecho restante em inglês. Obedeça exatamente às restrições de formato e não acrescente explicações não solicitadas."
+}

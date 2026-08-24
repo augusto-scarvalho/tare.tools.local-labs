@@ -39,6 +39,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import pathlib
 import random
 import sys
@@ -60,7 +61,10 @@ from model_lifecycle.servers.llama_cpp import (                    # noqa: E402
 
 # Same consolidated fork we deploy and measure quality on, so token counts and the tokenizer
 # behind /tokenize are the ones that ship.
-LOCAL_BIN = "/home/augus/src/slop.cpp-main/build/bin/llama-server"
+LOCAL_BIN = os.environ.get(
+    "SLOP_CPP_SERVER_BIN",
+    "/home/augus/src/slop.cpp-main/build/bin/llama-server",
+)
 
 # The subset is drawn ONCE from this seed and reused by BOTH arms -- the same discipline
 # quality_bench enforces, and here it is load-bearing twice over: a paired reduction needs
@@ -131,10 +135,12 @@ def pick_subset(problems: list[dict], n: int) -> list[dict]:
 
 def run(model_key: str, *, workload: str, subset: int, ncmoe: int, ctx: int,
         max_tokens: int, spec: str, reasoning_format: str,
-        lora_key: str, lora_lambda: float, tag: str,
+        lora_key: str, lora_lambda: float, thinking: str, tag: str,
         out_path: pathlib.Path) -> list[dict]:
     gguf = MODELS[model_key].path
     env = {"GGML_CUDA_REGISTER_HOST": "1"}
+    if os.environ.get("SLOP_CPP_LD_LIBRARY_PATH"):
+        env["LD_LIBRARY_PATH"] = os.environ["SLOP_CPP_LD_LIBRARY_PATH"]
 
     # --jinja is mandatory for the thinking chat template; --reasoning-format deepseek splits
     # the think block into reasoning_content so we can count it. spec is OFF unless explicitly
@@ -157,6 +163,11 @@ def run(model_key: str, *, workload: str, subset: int, ncmoe: int, ctx: int,
 
     problems = pick_subset(load_problems(workload), subset)
     wl = WORKLOADS[workload]
+    template_kwargs = None
+    if thinking == "instruct":
+        template_kwargs = {"enable_thinking": False}
+    elif thinking != "default":
+        template_kwargs = {"enable_thinking": True, "reasoning_effort": thinking}
 
     # RESUME (fail-fast escalation): if this exact stem was run before at a smaller n, its
     # records are a prefix of ours (nested subset) -- load them and generate ONLY the missing
@@ -190,7 +201,8 @@ def run(model_key: str, *, workload: str, subset: int, ncmoe: int, ctx: int,
         for i, p in enumerate(todo):
             t0 = time.monotonic()
             r = chat_stream(h.base_url, wl["instruction"].format(prompt=p["prompt"]),
-                            max_tokens=max_tokens, temperature=0.0, cache_prompt=False)
+                            max_tokens=max_tokens, temperature=0.0, cache_prompt=False,
+                            chat_template_kwargs=template_kwargs)
             wall = time.monotonic() - t0
             s = sample()
             text = r.text or ""
@@ -206,6 +218,7 @@ def run(model_key: str, *, workload: str, subset: int, ncmoe: int, ctx: int,
                 "lora": lora_key or None, "lora_lambda": lora_lambda if lora_key else None,
                 "ncmoe": ncmoe, "ctx": ctx, "spec": spec or "off",
                 "reasoning_format": reasoning_format,
+                "thinking": thinking,
                 # THE A2 metric, raw: separate reasoning vs answer token counts...
                 "reasoning_tokens": reasoning_tokens, "answer_tokens": answer_tokens,
                 # ...plus the server's own total as the independent cross-check.
@@ -254,6 +267,8 @@ def main() -> int:
     ap.add_argument("--spec", default="", help="OFF by default; draft-mtp ONLY for a throughput arm, never the token metric")
     ap.add_argument("--reasoning-format", default="deepseek",
                     help="deepseek splits <think> into reasoning_content so it can be counted")
+    ap.add_argument("--thinking", choices=("default", "instruct", "low", "medium", "xhigh"),
+                    default="default", help="Qwen3.8 chat-template reasoning mode")
     ap.add_argument("--lora", default="", choices=[""] + sorted(ADAPTERS),
                     help="runtime adapter (reconstruction gate / DavidAU transfer)")
     ap.add_argument("--lora-lambda", type=float, default=1.0)
@@ -264,7 +279,7 @@ def main() -> int:
     # only so the same script could later measure a MoE arm.)
     ncmoe = args.ncmoe if args.ncmoe is not None else 0
 
-    out = pathlib.Path(__file__).parent / "runs" / "a2"
+    out = ROOT / "runs" / "a2"
     out.mkdir(parents=True, exist_ok=True)
     stem = f"{args.tag}__{args.model}__{args.workload}"
     if args.lora:
@@ -275,6 +290,7 @@ def main() -> int:
     recs = run(args.model, workload=args.workload, subset=args.subset, ncmoe=ncmoe,
                ctx=args.ctx, max_tokens=args.max_tokens, spec=args.spec,
                reasoning_format=args.reasoning_format, lora_key=args.lora,
+               thinking=args.thinking,
                lora_lambda=args.lora_lambda, tag=args.tag, out_path=out_path)
 
     # HumanEval+ needs the evalplus samples file (scored in WSL, executes code). GSM8K is

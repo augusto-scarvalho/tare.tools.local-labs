@@ -1,9 +1,10 @@
 # Local inference lab handoff — 2026-08-23
 
-This is the authoritative operational handoff after the autonomous non-soak campaign, the `slop.cpp`
-ownership reconciliation, CI repair, and the model-disk cleanup. It supersedes the live-state and next-work
-sections of the 2026-08-21 handoff. Historical measurements and receipts remain authoritative only for the
-exact artifact/build/runtime tuple they record.
+This handoff is superseded for current live state and next work by
+[`HANDOFF_2026-08-24_FABLE_HAUHAUCS_SERVING.md`](HANDOFF_2026-08-24_FABLE_HAUHAUCS_SERVING.md).
+It remains the authoritative campaign/cleanup receipt for the state captured
+below. Historical measurements remain authoritative only for the exact
+artifact/build/runtime tuple they record.
 
 ## 1. Executive state
 
@@ -324,4 +325,3 @@ At the end of the next continuation, leave:
 - exactly one current backlog disposition for every touched item;
 - repo worktrees reported accurately, including any local commits not pushed;
 - engine implementation changes in `slop.cpp` and RTX 3090 conclusions in local-labs.
-
