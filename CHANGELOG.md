@@ -6,6 +6,19 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 No entries yet.
 
+## 2026-08-24
+
+### Added
+
+- Published the complete host/WSL tuning receipts, Fable-TC serving baseline, and recovery procedures ([2ccff76](https://github.com/augusto-scarvalho/tare.tools.local-labs/commit/2ccff76170b14057fbd4b347c1821b68e6026f4e)).
+- Qualified HauhauCS Aggressive against Fable-TC and vanilla Qwen3.8 for code, ordinary questions, refusal behavior, context, and throughput, with pinned model provenance and raw results ([2ccff76](https://github.com/augusto-scarvalho/tare.tools.local-labs/commit/2ccff76170b14057fbd4b347c1821b68e6026f4e)).
+- Added the PT-BR locale-contract proxy, systemd unit, deterministic tests, canary activation, model download, and Fable restoration tooling ([2ccff76](https://github.com/augusto-scarvalho/tare.tools.local-labs/commit/2ccff76170b14057fbd4b347c1821b68e6026f4e)).
+
+### Changed
+
+- Froze the completed experiment campaign and remaining dependency-gated backlog in the operational handoff ([f2ed928](https://github.com/augusto-scarvalho/tare.tools.local-labs/commit/f2ed928)).
+- Recorded the exact model-disk cleanup and retained serving artifacts ([7a60aff](https://github.com/augusto-scarvalho/tare.tools.local-labs/commit/7a60aff)).
+
 ## 2026-08-23
 
 ### Added
