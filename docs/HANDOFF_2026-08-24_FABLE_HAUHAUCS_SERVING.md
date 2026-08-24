@@ -6,6 +6,50 @@ PT-BR locale-control closure. It supersedes the live-state and next-work section
 of the 2026-08-23 campaign handoff. Historical results remain authoritative only
 for the exact artifact/build/runtime tuple they record.
 
+## 0. Next agent: start here
+
+This handoff is the entry point for the next agent. Do not reconstruct the
+campaign from chat history. Read this file, then consult the linked immutable
+receipts only for the work being resumed.
+
+Last live verification: **2026-08-24 06:55:03 -03:00**.
+
+- repository: clean `master` at `603a24218fa2043f8e562f8fe22ccf6e5e4b1893`;
+- remote: `origin/master` at the same SHA;
+- CI: [`local-labs-ci` run 32713908417](https://github.com/augusto-scarvalho/tare.tools.local-labs/actions/runs/32713908417)
+  completed successfully for that exact SHA;
+- `llm-inference.service`: active/running, PID 205079, `NRestarts=0`;
+- `llm-embedding.service`: active/running, PID 203666; its `NRestarts=9` is
+  historical and the serving PID was preserved during the final closure;
+- `llm-locale-proxy.service`: active/running, PID 209766, `NRestarts=0`;
+- 8080 identity: exact Fable-TC path, context 8192, build `b10159-068764d92`;
+- 8081 identity: exact Nomic Embed Q8 path, context 2048, build `b9863-5e7f6271c`;
+- 8082 health: `{"status":"ok"}`.
+
+There is no half-finished authorized experiment to resume. HauhauCS is a
+qualified retained candidate, not the current default. The only remaining work
+is the optional, dependency-gated list in section 8; start one of those gates
+only after the user selects or authorizes it.
+
+Before touching the serving baseline, capture repository status, unit state,
+`/props` identity, health, restart counts, and GPU state. Preserve these
+invariants:
+
+1. stop or restart `llm-inference.service` through `systemctl`, never by killing
+   its `Restart=always` child;
+2. never use a host-wide `pkill -f llama-server`;
+3. leave the independent embedding service and port 8081 untouched;
+4. use an explicit experimental port when possible and verify exact
+   `/props.model_path` before collecting evidence;
+5. restore Fable with `ops/qwen38-bringup/restore_fable_service.sh`, then verify
+   all three endpoints before declaring the baseline recovered;
+6. preserve invalid and superseded receipts with labels; do not pool or silently
+   overwrite them.
+
+Read [`runs/serving/CURRENT.md`](../runs/serving/CURRENT.md) for the concise
+serving contract and [`CHANGELOG.md`](../CHANGELOG.md) for the published change
+boundary.
+
 ## 1. Current live state
 
 | Endpoint | State | Identity |
