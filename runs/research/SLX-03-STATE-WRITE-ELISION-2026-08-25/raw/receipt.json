@@ -1,0 +1,58 @@
+{
+  "timestamp": "2026-08-25 06:11:02 UTC",
+  "agent": "Antigravity",
+  "benchmark": {
+    "num_layers": 18,
+    "state_shape": [
+      1,
+      16,
+      64,
+      64
+    ],
+    "steps": 128,
+    "state_size_per_step_kb": 2304.0,
+    "policies": {
+      "PERSIST_EVERY_TOKEN": {
+        "interval_n": 1,
+        "dram_writes_count": 2304,
+        "total_state_mb_written": 288.0,
+        "total_elapsed_ms": 23.263,
+        "latency_per_step_us": 181.74,
+        "speedup": 1.0,
+        "io_reduction_pct": 0.0
+      },
+      "ELISION_N4": {
+        "interval_n": 4,
+        "dram_writes_count": 576,
+        "total_state_mb_written": 72.0,
+        "total_elapsed_ms": 15.272,
+        "latency_per_step_us": 119.31,
+        "speedup": 1.523,
+        "io_reduction_pct": 75.0
+      },
+      "ELISION_N16": {
+        "interval_n": 16,
+        "dram_writes_count": 144,
+        "total_state_mb_written": 18.0,
+        "total_elapsed_ms": 7.281,
+        "latency_per_step_us": 56.88,
+        "speedup": 3.195,
+        "io_reduction_pct": 93.75
+      },
+      "EPHEMERAL_EOS_ONLY": {
+        "interval_n": 128,
+        "dram_writes_count": 18,
+        "total_state_mb_written": 2.25,
+        "total_elapsed_ms": 6.689,
+        "latency_per_step_us": 52.25,
+        "speedup": 3.478,
+        "io_reduction_pct": 99.22
+      }
+    }
+  },
+  "gates": {
+    "io_reduction_ge_70pct": true,
+    "speedup_ge_1_20x": true
+  },
+  "verdict": "PROMOTED"
+}

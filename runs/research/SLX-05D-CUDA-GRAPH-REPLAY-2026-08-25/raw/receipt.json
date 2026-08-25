@@ -1,0 +1,205 @@
+{
+  "timestamp": "2026-08-25 10:21:13 UTC",
+  "agent": "Codex",
+  "gpu": "NVIDIA GeForce RTX 3090",
+  "model": "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe",
+  "model_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+  "layers_count": 24,
+  "iterations_per_cell": 100,
+  "matrix_results": [
+    {
+      "batch_size": 1,
+      "seq_len": 128,
+      "cache_type": "StaticCache",
+      "cache_state_policy": "restore_post_prefill_snapshot_before_every_observation",
+      "decode_position": 128,
+      "iterations": 100,
+      "eager_host_submit_p50_ms": 13.792876998195425,
+      "eager_cuda_event_p50_ms": 15.846400260925293,
+      "eager_wall_p50_ms": 14.401677006389946,
+      "eager_wall_p95_ms": 16.21625400002813,
+      "eager_host_gap_p50_ms": 0.0,
+      "eager_tokens_per_sec": 69.43635797111027,
+      "cuda_graph_supported": true,
+      "cuda_graph_error": null,
+      "cuda_graph_event_p50_ms": 5.848063945770264,
+      "cuda_graph_wall_p50_ms": 5.383713003539015,
+      "cuda_graph_wall_p95_ms": 6.226571997103747,
+      "cuda_graph_tokens_per_sec": 185.74541387006408,
+      "wall_speedup_ratio": 2.6750454559748857,
+      "semantic_max_abs_logit_diff": 0.0
+    },
+    {
+      "batch_size": 1,
+      "seq_len": 512,
+      "cache_type": "StaticCache",
+      "cache_state_policy": "restore_post_prefill_snapshot_before_every_observation",
+      "decode_position": 512,
+      "iterations": 100,
+      "eager_host_submit_p50_ms": 13.75998200091999,
+      "eager_cuda_event_p50_ms": 15.789055824279785,
+      "eager_wall_p50_ms": 14.350652003486175,
+      "eager_wall_p95_ms": 15.468460995180067,
+      "eager_host_gap_p50_ms": 0.0,
+      "eager_tokens_per_sec": 69.68324503702493,
+      "cuda_graph_supported": true,
+      "cuda_graph_error": null,
+      "cuda_graph_event_p50_ms": 6.074368000030518,
+      "cuda_graph_wall_p50_ms": 5.607579994830303,
+      "cuda_graph_wall_p95_ms": 6.241479000891559,
+      "cuda_graph_tokens_per_sec": 178.3300462805546,
+      "wall_speedup_ratio": 2.5591524359378233,
+      "semantic_max_abs_logit_diff": 0.0
+    },
+    {
+      "batch_size": 1,
+      "seq_len": 2048,
+      "cache_type": "StaticCache",
+      "cache_state_policy": "restore_post_prefill_snapshot_before_every_observation",
+      "decode_position": 2048,
+      "iterations": 100,
+      "eager_host_submit_p50_ms": 13.912939000874758,
+      "eager_cuda_event_p50_ms": 15.935487747192383,
+      "eager_wall_p50_ms": 14.565519995812792,
+      "eager_wall_p95_ms": 15.676699003961403,
+      "eager_host_gap_p50_ms": 0.0,
+      "eager_tokens_per_sec": 68.6552900471438,
+      "cuda_graph_supported": true,
+      "cuda_graph_error": null,
+      "cuda_graph_event_p50_ms": 6.931456089019775,
+      "cuda_graph_wall_p50_ms": 6.379944999935105,
+      "cuda_graph_wall_p95_ms": 7.20932699914556,
+      "cuda_graph_tokens_per_sec": 156.74116313074356,
+      "wall_speedup_ratio": 2.2830165457477998,
+      "semantic_max_abs_logit_diff": 0.0
+    },
+    {
+      "batch_size": 2,
+      "seq_len": 512,
+      "cache_type": "StaticCache",
+      "cache_state_policy": "restore_post_prefill_snapshot_before_every_observation",
+      "decode_position": 512,
+      "iterations": 100,
+      "eager_host_submit_p50_ms": 14.446945999225136,
+      "eager_cuda_event_p50_ms": 16.476032257080078,
+      "eager_wall_p50_ms": 15.016681994893588,
+      "eager_wall_p95_ms": 16.521475998160895,
+      "eager_host_gap_p50_ms": 0.0,
+      "eager_tokens_per_sec": 133.18521366305143,
+      "cuda_graph_supported": true,
+      "cuda_graph_error": null,
+      "cuda_graph_event_p50_ms": 6.775807857513428,
+      "cuda_graph_wall_p50_ms": 6.215872999746352,
+      "cuda_graph_wall_p95_ms": 7.005487001151778,
+      "cuda_graph_tokens_per_sec": 321.75689562537923,
+      "wall_speedup_ratio": 2.415860490635244,
+      "semantic_max_abs_logit_diff": 0.0
+    },
+    {
+      "batch_size": 4,
+      "seq_len": 512,
+      "cache_type": "StaticCache",
+      "cache_state_policy": "restore_post_prefill_snapshot_before_every_observation",
+      "decode_position": 512,
+      "iterations": 100,
+      "eager_host_submit_p50_ms": 14.43136899615638,
+      "eager_cuda_event_p50_ms": 16.38912010192871,
+      "eager_wall_p50_ms": 15.014463999250438,
+      "eager_wall_p95_ms": 16.121894994284958,
+      "eager_host_gap_p50_ms": 0.0,
+      "eager_tokens_per_sec": 266.4097766127176,
+      "cuda_graph_supported": true,
+      "cuda_graph_error": null,
+      "cuda_graph_event_p50_ms": 7.585792064666748,
+      "cuda_graph_wall_p50_ms": 7.1250270048039965,
+      "cuda_graph_wall_p95_ms": 8.236976995249279,
+      "cuda_graph_tokens_per_sec": 561.4013809776482,
+      "wall_speedup_ratio": 2.107285205954595,
+      "semantic_max_abs_logit_diff": 0.0
+    }
+  ],
+  "summary": {
+    "median_b1_wall_speedup_ratio": 2.5591524359378233,
+    "gates": {
+      "all_cells_graph_supported": true,
+      "all_cells_semantic_parity": true,
+      "median_batch1_wall_speedup_ge_1_15x": true,
+      "fixed_static_cache_position": true
+    },
+    "verdict": "QUALIFIED_CUDA_GRAPH_REPLAY",
+    "interpretation": "This receipt measures fixed-cache CUDA Graph replay versus eager wall time. It does not attribute the difference exclusively to CUDA driver launch overhead and does not establish a persistent-megakernel ceiling."
+  },
+  "provenance": {
+    "schema": "local-labs-experiment-provenance-v1",
+    "started_at_utc": "2026-08-25T10:20:55Z",
+    "finished_at_utc": "2026-08-25T10:21:13Z",
+    "elapsed_seconds": 17.910997,
+    "command": [
+      "/home/augus/.venvs/adapt00-20260824/bin/python",
+      "/mnt/c/projects/tare.tools.local-labs/tools/probes/slx05_launch_oracle.py",
+      "--model-path",
+      "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe",
+      "--model-revision",
+      "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+      "--iterations",
+      "100",
+      "--output",
+      "runs/research/SLX-05D-CUDA-GRAPH-REPLAY-2026-08-25/raw/receipt.json"
+    ],
+    "cwd": "/mnt/c/projects/tare.tools.local-labs",
+    "repository": {
+      "head": "8bb0197d4a280aafb20e118db8ff5a7fc21d0631",
+      "dirty": true,
+      "status_entry_count": 263,
+      "status_sha256": "94e9a0397a32e11c83f4088a306421983b609192e8c0390a866666f0e6148700",
+      "errors": []
+    },
+    "script": {
+      "path": "/mnt/c/projects/tare.tools.local-labs/tools/probes/slx05_launch_oracle.py",
+      "sha256": "3a3792b758eb5f31d1950cd28721270cb9bc9851ff36765328c6b5c07a0b189d"
+    },
+    "inputs": [
+      {
+        "path": "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe/config.json",
+        "status": "HASHED",
+        "bytes": 2907,
+        "sha256": "b90b86f35c8e6925ef74ee04d0e758f0a845c83a42089ad82bbaa948de9b4204"
+      },
+      {
+        "path": "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe/model.safetensors-00001-of-00001.safetensors",
+        "status": "HASHED",
+        "bytes": 1746942600,
+        "sha256": "c2b1e5a17d9c1e27685d92ed9b382911ebb99955ecd89052d1721241adfbab6c"
+      },
+      {
+        "path": "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe/tokenizer.json",
+        "status": "HASHED",
+        "bytes": 12807196,
+        "sha256": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927"
+      }
+    ],
+    "environment": {
+      "python": "3.11.15 (main, Jul 23 2026, 14:43:45) [Clang 22.1.3 ]",
+      "executable": "/home/augus/.venvs/adapt00-20260824/bin/python",
+      "platform": "Linux-6.6.114.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+      "packages": {
+        "torch": "2.5.1+cu124",
+        "transformers": "5.15.1"
+      },
+      "gpu": {
+        "available": true,
+        "query": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576",
+        "error": null
+      }
+    },
+    "runtime": {
+      "torch_version": "2.5.1+cu124",
+      "transformers_version": "5.15.1",
+      "cuda_runtime": "12.4",
+      "model_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68"
+    }
+  },
+  "provenance_complete": true,
+  "provenance_errors": [],
+  "receipt_fingerprint": "11ed8746b7d0cc05273456538305d25f6cebcfe7980a11a55b0852eaefaa1538"
+}

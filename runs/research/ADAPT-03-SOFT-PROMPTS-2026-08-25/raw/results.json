@@ -1,0 +1,540 @@
+{
+  "timestamp": "2026-08-25 06:16:22 UTC",
+  "agent": "Antigravity",
+  "model": "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe",
+  "summary": {
+    "target_correct": 15,
+    "target_n": 32,
+    "target_hash_format": 27,
+    "protected_pass": 0,
+    "protected_n": 16,
+    "natural_eos": 40,
+    "generation_n": 48,
+    "trainable_parameters": 8192,
+    "storage_footprint_kb": 16.0,
+    "train_loss_start": 0.465,
+    "train_loss_end": 0.159
+  },
+  "gates": {
+    "hash_format_rate_ge_75pct": true,
+    "protected_pass_ge_3": false,
+    "storage_footprint_le_32kb": true
+  },
+  "verdict": "REJECTED",
+  "target_results": [
+    {
+      "text": "Tim's cable subscription costs $60 per month.\nNetflix costs $10 per month.\nHulu and Disney Plus normally cost $10 each, but he saves 20% on the bundle.\nThe bundle cost is 20% off $20 ($10 + $10), which is $16.\nThe total cost of the bundle is $16.\nThe savings from canceling the cable package is the difference between the cable cost and the bundle cost: $60 - $16 = $44.\n\n#### 44",
+      "new_tokens": 122,
+      "natural_eos": true,
+      "wall_s": 1.958461692000128,
+      "task_id": "gsm8k/392",
+      "gold": "34",
+      "extracted": "44",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "First, calculate the total cost of the manicure and pedicure without any discount:\nManicure: $35\nPedicure: $40\nTotal without discount: $35 + $40 = $75\n\nNext, calculate the discount for getting both services:\n20% off means she saves 20% of the total cost.\nDiscount amount: 0.20 × $75 = $15\nNet cost after discount: $75 - $15 = $60\n\nFinally, add the cost of nail art, which is $3 per finger:\nNail art cost: 2 × $3 = $6\nTotal cost with nail art: $60 + $6 = $66\n\n#### 66",
+      "new_tokens": 166,
+      "natural_eos": true,
+      "wall_s": 2.684725184000854,
+      "task_id": "gsm8k/1226",
+      "gold": "90",
+      "extracted": "66",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "Elvis's total monthly saving target is $1125.\nIn April, the first half of the month consists of 30 days, and the second half consists of 30 days.\nHe wants to save twice as much daily in the second half as in the first half.\nLet the amount saved per day in the first half be $x.\nThen the amount saved per day in the second half is $2x.\nThe total amount saved in the first half is 30x, and in the second half is 30(2x) = 60x.\nThe sum of the two halves must equal the total target: 30x + 60x = 1125.\nSimplifying gives 90x = 1125.\nSolving for x: x = 1125 / 90 = 12",
+      "new_tokens": 192,
+      "natural_eos": false,
+      "wall_s": 3.2849400580016663,
+      "task_id": "gsm8k/541",
+      "gold": "50",
+      "extracted": "12",
+      "correct": false,
+      "hash_format": false
+    },
+    {
+      "text": "First, calculate the total number of candles Charlie can make:\n20 candles × 10 candles per pound = 200 candles\n\nNext, determine the total cost of the supplies:\n200 candles × $10.00 per pound = $2,000\n\nThen, calculate the total revenue from selling the candles:\n200 candles × $2.00 per candle = $400\n\nFinally, find the net profit by subtracting the total cost from the total revenue:\n$400 - $2,000 = -$1,600\n\nThe net profit is -$1,600, which means Charlie loses money.\n\n#### -1600",
+      "new_tokens": 154,
+      "natural_eos": true,
+      "wall_s": 2.4171012340011657,
+      "task_id": "gsm8k/44",
+      "gold": "20",
+      "extracted": "-1600",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "To find the average, we first add the three highest temperatures together:\n-48 + 21 + (-3) = -48 + 21 - 3 = -29\n\nNext, we divide the sum by the number of countries (3):\n-29 ÷ 3 = -9.67\n\n#### -9.67",
+      "new_tokens": 78,
+      "natural_eos": true,
+      "wall_s": 1.1912880669988226,
+      "task_id": "gsm8k/489",
+      "gold": "-10",
+      "extracted": "-9.67",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "To find the total dollar amount, we need to calculate the value of each type of coin and then sum them up.\n\n- Value of quarters: 32 quarters × $0.25 = $8\n- Value of dimes: 95 dimes × $0.10 = $9.50\n- Value of nickels: 120 nickels × $0.05 = $6\n- Value of pennies: 750 pennies × $0.01 = $7.50\n\nNow, add all the values together:\n$8 + $9.50 + $6 + $7.50 = $31\n\n#### 31",
+      "new_tokens": 151,
+      "natural_eos": true,
+      "wall_s": 2.2518497450000723,
+      "task_id": "gsm8k/1298",
+      "gold": "31",
+      "extracted": "31",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "To find the number of newspapers delivered to District B, subtract the newspapers delivered to District A and District C from the total number of newspapers delivered in a day:\n\n600 (total) - 198 (to District A) - 209 (to District C) = 193\n\n#### 193",
+      "new_tokens": 71,
+      "natural_eos": true,
+      "wall_s": 1.2030026319989702,
+      "task_id": "gsm8k/663",
+      "gold": "193",
+      "extracted": "193",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "Pauline visits the museum three times a year. In 5 years, she has 3 visits/year × 5 years = 15 visits.\nThe cost of one visit increases by 150%, so the new cost is 100% + 150% = 250% of the original cost.\nOriginal cost per visit = $2.\nNew cost per visit = 250% × $2 = $5.\nTotal cost for 15 visits = 15 visits × $5/visit = $75.\nPauline then visits the museum for an additional 3 years, so she has 3 visits.\nTotal cost for the additional 3 visits = 3 visits × $5/visit = $15.\nTotal cost for all visits = $75 + $15 = $90.\n\n#### 90",
+      "new_tokens": 190,
+      "natural_eos": true,
+      "wall_s": 2.836396594000689,
+      "task_id": "gsm8k/1217",
+      "gold": "75",
+      "extracted": "90",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "To find the total miles run this week, we add the miles run on Monday, Wednesday, and Friday to the miles run on Tuesday and Thursday.\n- Miles on Monday: 3\n- Miles on Wednesday: 3\n- Miles on Friday: 3\n- Miles on Tuesday: 5\n- Miles on Thursday: 5\n\nTotal = 3 + 3 + 3 + 5 + 5 = 19 miles.\n\n#### 19",
+      "new_tokens": 99,
+      "natural_eos": true,
+      "wall_s": 1.5020917820002069,
+      "task_id": "gsm8k/1186",
+      "gold": "19",
+      "extracted": "19",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "Andrew's travel time by bus is 6 days. Since the car trip takes half as long, the car trip takes 6 ÷ 2 = 3 days.\nTo return from Rochester to New Jersey, he must travel by car again, so the return trip also takes 3 days.\nTotal travel time = bus trip + car trip + car trip = 6 + 3 + 3 = 12 days.\n\n#### 12",
+      "new_tokens": 95,
+      "natural_eos": true,
+      "wall_s": 1.4675923920003697,
+      "task_id": "gsm8k/225",
+      "gold": "9",
+      "extracted": "12",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "Marcell's roll-ups: 3 wide × 14 long = 42 roll-ups\nBeatrice's roll-ups: 2 wide × 24 long = 48 roll-ups\n\nTotal roll-ups eaten: 42 + 48 = 90\nAverage per person: 90 ÷ 2 = 45\n\n#### 45",
+      "new_tokens": 80,
+      "natural_eos": true,
+      "wall_s": 1.4939057099982165,
+      "task_id": "gsm8k/110",
+      "gold": "45",
+      "extracted": "45",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "Billy needs to peel and cut 60 potatoes.\n\n- Time to peel one potato: 1.5 minutes\n- Time to cut one potato: 5 seconds\n\nFirst, convert the cutting time to minutes: 5 seconds = 5/60 minutes = 1/12 minutes.\n\nTotal time per potato = 1.5 minutes + 1/12 minutes = 1.5 + 0.0833 minutes = 1.5833 minutes.\n\nTotal time for 60 potatoes = 60 × 1.5833 minutes = 95 minutes.\n\n#### 95",
+      "new_tokens": 138,
+      "natural_eos": true,
+      "wall_s": 2.2609985700000834,
+      "task_id": "gsm8k/174",
+      "gold": "95",
+      "extracted": "95",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "First, calculate the cost for one basket:\n- Petunias: 3 baskets × $3.00 = $9.00\n- Sweet potato vines: 2 baskets × $2.50 = $5.00\n\nTotal cost per basket: $9.00 + $5.00 = $14.00\n\nNow, multiply by the number of baskets:\n5 baskets × $14.00 = $70.00\n\n#### 70",
+      "new_tokens": 108,
+      "natural_eos": true,
+      "wall_s": 1.6343563469999935,
+      "task_id": "gsm8k/986",
+      "gold": "70",
+      "extracted": "70",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "Jessica wants to pay 50% more than the minimum payment for each debt.\n\n- Student loans: $300 × 1.5 = $450\n- Credit card: $200 × 1.5 = $300\n- Mortgage: $500 × 1.5 = $750\n\nTotal monthly payment: $450 + $300 + $750 = $1,500\n\nTo find the annual payment, multiply by 12: $1,500 × 12 = $18,000\n\n#### 18000",
+      "new_tokens": 139,
+      "natural_eos": true,
+      "wall_s": 2.085836351998296,
+      "task_id": "gsm8k/173",
+      "gold": "18000",
+      "extracted": "18000",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "To find the cost of filling the pool, we first need to calculate the volume of water needed.\nThe pool is a rectangular prism with dimensions:\n- Length = 6 feet\n- Width = 4 feet\n- Depth = 5 feet\n\nVolume = length × width × depth\nVolume = 6 ft × 4 ft × 5 ft = 120 cubic feet.\n\nThe cost per cubic foot is $.1, so the total cost is:\nTotal cost = volume × cost per cubic foot\nTotal cost = 120 ft³ × $.1/ft³ = $12.00.\n\n#### 12",
+      "new_tokens": 137,
+      "natural_eos": true,
+      "wall_s": 2.053240999000991,
+      "task_id": "gsm8k/317",
+      "gold": "12",
+      "extracted": "12",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "Tom's total cost is $48, which includes the CD and the headphone set. \nThe cost of the headphone set is $48 - $4 = $44.\nIf Tom decides not to buy the headphone set, the cost of the CD would be $48 - $44 = $4.\nSince the CD costs $4, Tom would be able to buy one more CD for the same amount.\n\n#### 1",
+      "new_tokens": 93,
+      "natural_eos": true,
+      "wall_s": 1.42012634600178,
+      "task_id": "gsm8k/529",
+      "gold": "11",
+      "extracted": "1",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "Ram saves money by mixing ink from five empty pens to make one full pen. This means each full pen uses 5 empty pens.\n\nFirst, calculate how many full pens Ram can make from the 25 empty pens:\n25 ÷ 5 = 5 full pens.\n\nNext, determine how many empty pens remain after making the full pens:\n25 - (5 × 5) = 25 - 25 = 0 empty pens.\n\nSince there are no more empty pens left, Ram cannot make any more full pens. He only has the 5 full pens he already made.\n\n#### 5",
+      "new_tokens": 133,
+      "natural_eos": true,
+      "wall_s": 2.008549010999559,
+      "task_id": "gsm8k/236",
+      "gold": "31",
+      "extracted": "5",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "First, calculate the cost of the items Angela already has:\n- Mirrors: 6 × $129.00 = $774.00\n- Chandeliers: 2 × $129.00 = $258.00\n- Pictures: 20 × $129.00 = $2580.00\n\nNext, calculate the cost of the additional items:\n- Mirrors: 6 × $15.00 = $90.00\n- Chandeliers: 2 × $15.00 = $30.00\n- Pictures: 20 × $15.00 = $300.00\n\nAdd all the costs together:\n$774.00 + $258.00 + $2580.00 +",
+      "new_tokens": 192,
+      "natural_eos": false,
+      "wall_s": 2.907458900997881,
+      "task_id": "gsm8k/831",
+      "gold": "324",
+      "extracted": "2580.00",
+      "correct": false,
+      "hash_format": false
+    },
+    {
+      "text": "Greg's alarm rings for a total of 4 + 3 + (1/2) × 3 = 4 + 3 + 1.5 = 8.5 times.\n\n#### 8.5",
+      "new_tokens": 47,
+      "natural_eos": true,
+      "wall_s": 0.7651130149970413,
+      "task_id": "gsm8k/86",
+      "gold": "22",
+      "extracted": "8.5",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "Marissa's total time is 1 hour + 1 hour = 2 hours.\nThe total distance she has already walked is 4 miles + 2 miles = 6 miles.\nTo find the remaining distance, subtract the distance already walked from the total trail length: 12 miles - 6 miles = 6 miles.\nThe average speed is defined as total distance divided by total time.\nTo achieve an average speed of 4 miles per hour, the remaining distance must be divided by the remaining time: 6 miles ÷ 2 hours = 3 miles per hour.\n\n#### 3",
+      "new_tokens": 128,
+      "natural_eos": true,
+      "wall_s": 1.947870026997407,
+      "task_id": "gsm8k/19",
+      "gold": "6",
+      "extracted": "3",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "Nani's age is 8 years.\nHis brother's age is twice Nani's age: 8 × 2 = 16 years.\nNani's sister is 25% younger than Nani, so her age is 8 - (0.25 × 8) = 8 - 2 = 6 years.\nThe total age of the three family members is Nani's age plus his brother's age plus his sister's age: 8 + 16 + 6 = 30 years.\n\n#### 30",
+      "new_tokens": 120,
+      "natural_eos": true,
+      "wall_s": 1.8513351099973079,
+      "task_id": "gsm8k/967",
+      "gold": "30",
+      "extracted": "30",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "Bryce and two friends ate 2/3 of their pizzas, so the remaining portion is 1 - 2/3 = 1/3 of a pizza.\nThe two remaining friends ate ¾ of their pizzas, so the remaining portion is 1 - 3/4 = 1/4 of a pizza.\nTogether, the two remaining friends ate 1/3 + 1/4 = 4/12 + 3/12 = 7/12 of a pizza.\nThe total number of pizzas they ate is 2/3 + 3/4 = 8/12 + 9/12 = 17/12.\nThe number of pizzas left is 1 - 17/12 = 1/12.\nEach pizza has 12 slices, so the number of slices left is 1/12 ×",
+      "new_tokens": 192,
+      "natural_eos": false,
+      "wall_s": 2.930854289999843,
+      "task_id": "gsm8k/724",
+      "gold": "18",
+      "extracted": "12",
+      "correct": false,
+      "hash_format": false
+    },
+    {
+      "text": "Jordan needs to start the cake-making process at a time before the 5:00 pm serving time. \n\nFirst, calculate the total time required to make the cake:\n- Baking time: 30 minutes\n- Cooling time: 2 hours = 120 minutes\n- Frosting time: 10 minutes\nTotal time = 30 + 120 + 10 = 160 minutes\n\nTo be ready by 5:00 pm, the cake must be finished before 5:00 pm. \n5:00 pm is 180 minutes after midnight.\n180 minutes - 160 minutes = 20 minutes remaining.\n\nTherefore, Jordan can start the cake-making process at any time before 20 minutes before 5:00 pm. The latest time she can start is 4:40 pm.\n\n####",
+      "new_tokens": 192,
+      "natural_eos": false,
+      "wall_s": 2.9462120440002764,
+      "task_id": "gsm8k/1001",
+      "gold": "2",
+      "extracted": "40",
+      "correct": false,
+      "hash_format": false
+    },
+    {
+      "text": "Ali's class has a capacity of 120 students. John's class has 1/8 of that capacity, so:\n120 ÷ 8 = 15 students per class.\n\nSince John has two classes, the total capacity for John's school is:\n15 students × 2 classes = 30 students.\n\nThe combined capacity of both schools is:\n120 students (Ali's school) + 30 students (John's school) = 150 students.\n\n#### 150",
+      "new_tokens": 116,
+      "natural_eos": true,
+      "wall_s": 1.786753376996785,
+      "task_id": "gsm8k/1212",
+      "gold": "150",
+      "extracted": "150",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "First, calculate the total number of kernels that popped in the initial 30 seconds:\n20 kernels\n\nNext, calculate the total number of kernels that popped in the next 30 seconds:\n3 × 20 = 60 kernels\n\nThen, calculate the total number of kernels that popped in the next 30 seconds:\n4 × 60 = 240 kernels\n\nFinally, calculate the total number of kernels that popped in the final 30 seconds:\n240 kernels\n\nThe problem states that a quarter of the kernels in the final 30 seconds also pop from the residual heat. So, the number of kernels that pop from the residual heat is:\n(1/4) × 240 = 60 kernels\n\nNow, add the kernels that popped from the residual heat to the total kernels that popped in the final 30 seconds:\n240 +",
+      "new_tokens": 192,
+      "natural_eos": false,
+      "wall_s": 2.9686127159984608,
+      "task_id": "gsm8k/1264",
+      "gold": "210",
+      "extracted": "240",
+      "correct": false,
+      "hash_format": false
+    },
+    {
+      "text": "Gus spent a total of $20.00. \n- Chips: 2 × $2.00 = $4.00\n- Fried chicken: $8.00\n- Soda: $1.00\n- Apple pie: ?\n\nSubtract the known expenses from the total:\n$20.00 - ($4.00 + $8.00 + $1.00) = $20.00 - $13.00 = $7.00\n\nThe apple pie cost $7.00.\n\n#### 7",
+      "new_tokens": 128,
+      "natural_eos": true,
+      "wall_s": 2.013790057000733,
+      "task_id": "gsm8k/662",
+      "gold": "7",
+      "extracted": "7",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "First, find the number of jewels Aaron has. \nHalf of Raymond's jewels is 40 ÷ 2 = 20.\nAaron has 5 more than half of Raymond's jewels: 20 + 5 = 25 jewels.\n\nNext, find the number of jewels Siobhan has.\nSiobhan has 2 fewer jewels than Aaron: 25 - 2 = 23 jewels.\n\n#### 23",
+      "new_tokens": 97,
+      "natural_eos": true,
+      "wall_s": 1.5420012299982773,
+      "task_id": "gsm8k/34",
+      "gold": "23",
+      "extracted": "23",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "First, calculate the cost of the T-shirts:\n2 T-shirts × $8 = $16\n\nNext, calculate the cost of the shoes:\n40% off $40 = 0.40 × $40 = $16\n\nFinally, add the costs of the T-shirts and shoes together:\n$16 + $16 = $32\n\n#### 32",
+      "new_tokens": 85,
+      "natural_eos": true,
+      "wall_s": 1.548971263000567,
+      "task_id": "gsm8k/1294",
+      "gold": "36",
+      "extracted": "32",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "First, calculate the total cost of the hamburgers: 5 hamburgers × $4 = $20.\nNext, calculate the total cost of the potato fries: 10 packs × $0.30 = $3.\nThen, calculate the total cost of the fruit drinks: 5 cans × $2 = $10.\nAdd these amounts together to find the total cost: $20 + $3 + $10 = $33.\nCarly gives a 50-dollar bill, so the change is 50 - 33 = $17.\n\n#### 17",
+      "new_tokens": 131,
+      "natural_eos": true,
+      "wall_s": 2.863332385000831,
+      "task_id": "gsm8k/551",
+      "gold": "17",
+      "extracted": "17",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "Juan's brother Carlos makes 20 glasses per gallon. Since each glass sells for $0.50, the total revenue from selling the lemonade is:\n20 glasses × $0.50/glass = $10 per gallon.\n\nThe profit is $25, so the cost of the lemonade is:\n$10 (revenue) - $25 (profit) = -$15.\n\nThe negative value indicates a loss, but the question asks for the amount spent on lemons. The total cost of the lemonade is $15.\n\n#### 15",
+      "new_tokens": 127,
+      "natural_eos": true,
+      "wall_s": 2.7925151609997556,
+      "task_id": "gsm8k/175",
+      "gold": "15",
+      "extracted": "15",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "Charlotte's total cost before the discount is:\n$120.00 (pot and pans) + $20.00 (mixing bowls) + 5 × $5.00 (utensils) = $120 + $20 + $25 = $165.00\n\nThe clerk offers a 20% discount. To find the discounted price, calculate 20% of $165.00:\n0.20 × $165.00 = $33.00\n\nSubtract the discount from the original total:\n$165.00 - $33.00 = $132.00\n\n#### 132",
+      "new_tokens": 160,
+      "natural_eos": true,
+      "wall_s": 3.343426316998375,
+      "task_id": "gsm8k/430",
+      "gold": "132",
+      "extracted": "132",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "To find Wilson's current math grade, we first calculate the average of the five test scores:\n\n(65 + 94 + 81 + 86 + 74) ÷ 5 = 380 ÷ 5 = 76\n\nThe average of the five test scores is 76. Since the grade is calculated as the average of the five scores, Wilson's current math grade is 76.\n\n#### 76",
+      "new_tokens": 99,
+      "natural_eos": true,
+      "wall_s": 2.028171312998893,
+      "task_id": "gsm8k/386",
+      "gold": "80",
+      "extracted": "76",
+      "correct": false,
+      "hash_format": true
+    }
+  ],
+  "protected_results": [
+    {
+      "text": "The text is a sentence in Portuguese: \"A capital da Austrália é o capital da Austrália.\"\n\nThe sentence translates to \"The capital of Australia is the capital of Australia.\"\n\nThe task is to identify the capital of Australia. The capital of Australia is Canberra. Therefore, the capital of Australia is Canberra.",
+      "new_tokens": 66,
+      "natural_eos": true,
+      "wall_s": 1.57229580800049,
+      "id": "f01",
+      "category": "facts",
+      "pass": false,
+      "grade_detail": "normalized='the text is a sentence in portuguese a capital da australia e o capital da australia the sentence translates to the capital of australia is the capital of australia the task is to identify the capital of australia the capital of australia is canberra therefore the capital of australia is canberra' expected=['canberra']"
+    },
+    {
+      "text": "The name is \"Dom Casmurro\". The name is a Spanish surname, and the surname is composed of two parts: \"Casmurro\" and \"Dom\". The first part, \"Casmurro\", is a common surname. The second part, \"Dom\", is a common prefix. The name is a combination of a surname and a prefix, which is a common pattern in Spanish surnames. The name is a combination of a surname and a prefix, which is a common pattern in Spanish surnames. The name is a combination of a surname and a prefix, which is a common pattern in",
+      "new_tokens": 128,
+      "natural_eos": false,
+      "wall_s": 2.9598732000013115,
+      "id": "f02",
+      "category": "facts",
+      "pass": false,
+      "grade_detail": "normalized='the name is dom casmurro the name is a spanish surname and the surname is composed of two parts casmurro and dom the first part casmurro is a common surname the second part dom is a common prefix the name is a combination of a surname and a prefix which is a common pattern in spanish surnames the name is a combination of a surname and a prefix which is a common pattern in spanish surnames the name is a combination of a surname and a prefix which is a common pattern in' expected=['machado de assis', 'joaquim maria machado de assis']"
+    },
+    {
+      "text": "2The image shows a large, colorful planet with a prominent ring system, resembling the planet Saturn. The text asks for the name of this planet.The image depicts a planet with a large ring system, which is characteristic of Saturn. Therefore, the name of the planet is Saturn.",
+      "new_tokens": 58,
+      "natural_eos": true,
+      "wall_s": 1.4254693530019722,
+      "id": "f03",
+      "category": "facts",
+      "pass": false,
+      "grade_detail": "normalized='2the image shows a large colorful planet with a prominent ring system resembling the planet saturn the text asks for the name of this planet the image depicts a planet with a large ring system which is characteristic of saturn therefore the name of the planet is saturn' expected=['jupiter']"
+    },
+    {
+      "text": "18% de 250?Responda somente com o número.18% de 250?\n\n18% of 250 is calculated by multiplying 18% (or 0.18) by 250. \n0.18 × 250 = 45.0.\n\n18% of 250 is 45.0.",
+      "new_tokens": 91,
+      "natural_eos": true,
+      "wall_s": 1.8967412179990788,
+      "id": "m01",
+      "category": "math_logic",
+      "pass": false,
+      "grade_detail": "normalized='18 de 250 responda somente com o numero 18 de 250 18 of 250 is calculated by multiplying 18 or 0 18 by 250 0 18 250 45 0 18 of 250 is 45 0' expected=['45']"
+    },
+    {
+      "text": "The price of the item is 250 euros. To find the final price in reais, we need to convert euros to reais. The conversion factor is 1 euro = 1.85 reais.\n\nCalculation: 250 euros × 1.85 reais/euro = 462.5 reais.\n\nThe final price is 462.5 reais.",
+      "new_tokens": 84,
+      "natural_eos": true,
+      "wall_s": 1.803932070000883,
+      "id": "m02",
+      "category": "math_logic",
+      "pass": false,
+      "grade_detail": "normalized='the price of the item is 250 euros to find the final price in reais we need to convert euros to reais the conversion factor is 1 euro 1 85 reais calculation 250 euros 1 85 reais euro 462 5 reais the final price is 462 5 reais' expected=['90', '90 00', '90 00']"
+    },
+    {
+      "text": "2 horas e 47 minutos.2 horas e 47 minutos.",
+      "new_tokens": 17,
+      "natural_eos": true,
+      "wall_s": 0.4061196459988423,
+      "id": "m03",
+      "category": "math_logic",
+      "pass": false,
+      "grade_detail": "normalized='2 horas e 47 minutos 2 horas e 47 minutos' expected=['17 22']"
+    },
+    {
+      "text": "O enunciado indica que a aprovação ocorrerá na quinta-feira. Portanto, o dia da aprovação é quinta-feira.",
+      "new_tokens": 24,
+      "natural_eos": true,
+      "wall_s": 0.5381502179989184,
+      "id": "r01",
+      "category": "reading",
+      "pass": false,
+      "grade_detail": "normalized='o enunciado indica que a aprovacao ocorrera na quinta feira portanto o dia da aprovacao e quinta feira' expected=['quinta feira', 'quinta']"
+    },
+    {
+      "text": "29 + 15 = 44\n\n29 unidades vendidas + 15 unidades mais vendidas = 44 unidades restantes.\n\n44",
+      "new_tokens": 35,
+      "natural_eos": true,
+      "wall_s": 0.6581966400008241,
+      "id": "r02",
+      "category": "reading",
+      "pass": false,
+      "grade_detail": "normalized='29 15 44 29 unidades vendidas 15 unidades mais vendidas 44 unidades restantes 44' expected=['70']"
+    },
+    {
+      "text": "O ônibus A chega às 08:10.\nO ônibus B chega 25 minutos depois do ônibus A, então o ônibus B chega às 08:10 + 25 minutos = 08:35.\nO ônibus C chega 5 minutos antes do ônibus B, então o ônibus C chega às 08:35 - 5 minutos = 08:30.\n\nHH:30",
+      "new_tokens": 94,
+      "natural_eos": true,
+      "wall_s": 1.6314770169992698,
+      "id": "r03",
+      "category": "reading",
+      "pass": false,
+      "grade_detail": "normalized='o onibus a chega as 08 10 o onibus b chega 25 minutos depois do onibus a entao o onibus b chega as 08 10 25 minutos 08 35 o onibus c chega 5 minutos antes do onibus b entao o onibus c chega as 08 35 5 minutos 08 30 hh 30' expected=['08 30', '8 30']"
+    },
+    {
+      "text": "cidade: Recife, temperatura: 28\n\nRecife, 28",
+      "new_tokens": 17,
+      "natural_eos": true,
+      "wall_s": 0.3176170650003769,
+      "id": "i01",
+      "category": "instruction",
+      "pass": false,
+      "grade_detail": "invalid_json=Expecting value: line 1 column 1 (char 0)"
+    },
+    {
+      "text": "The text provided is: \"pera, banana, manga, abacate.\"\n\nThe task is to identify the first word in this list. The first word is \"pera\".",
+      "new_tokens": 38,
+      "natural_eos": true,
+      "wall_s": 0.6284724170000118,
+      "id": "i02",
+      "category": "instruction",
+      "pass": false,
+      "grade_detail": "normalized='the text provided is pera banana manga abacate the task is to identify the first word in this list the first word is pera' expected=['abacate banana manga pera']"
+    },
+    {
+      "text": "Linha 4: ALFA. Linha 5: BETA. Linha 6: GAMA. Linha 7: ALFA. Linha 8: BETA. Linha 9: GAMA. Linha 10: ALFA. Linha 11: BETA. Linha 12: GAMA. Linha 13: ALFA. Linha 14: BETA. Linha 15: GAMA. Linha 16: ALFA. Linha 17: BETA. Linha 18: GAMA. Linha 19: ALFA. Linha 20: B",
+      "new_tokens": 128,
+      "natural_eos": false,
+      "wall_s": 2.104951216999325,
+      "id": "i03",
+      "category": "instruction",
+      "pass": false,
+      "grade_detail": "lines=['Linha 4: ALFA. Linha 5: BETA. Linha 6: GAMA. Linha 7: ALFA. Linha 8: BETA. Linha 9: GAMA. Linha 10: ALFA. Linha 11: BETA. Linha 12: GAMA. Linha 13: ALFA. Linha 14: BETA. Linha 15: GAMA. Linha 16: ALFA. Linha 17: BETA. Linha 18: GAMA. Linha 19: ALFA. Linha 20: B']"
+    },
+    {
+      "text": "Marina nasceu em 1995. The text states that Marina was born in 1995. Therefore, the answer is 1995.",
+      "new_tokens": 36,
+      "natural_eos": true,
+      "wall_s": 0.6364090879978903,
+      "id": "c01",
+      "category": "calibration",
+      "pass": false,
+      "grade_detail": "normalized='marina nasceu em 1995 the text states that marina was born in 1995 therefore the answer is 1995' expected=['informacao insuficiente']"
+    },
+    {
+      "text": "The image shows a person with a beard and mustache, wearing a dark-colored shirt, standing in front of a large, ornate mirror. The mirror reflects the person's face, which is smiling. The person is positioned in front of a mirror that reflects their own image, creating a self-reflective effect. The setting appears to be indoors, possibly a bathroom or a room with a large mirror.\n\nThe person is wearing a dark-colored shirt, and the mirror reflects their own face, creating a self-reflective effect. The setting appears to be indoors, possibly a bathroom or a room with a large mirror.",
+      "new_tokens": 128,
+      "natural_eos": true,
+      "wall_s": 2.2137513180023234,
+      "id": "c02",
+      "category": "calibration",
+      "pass": false,
+      "grade_detail": "missing=['Paris'] forbidden=[] words=104"
+    },
+    {
+      "text": "Ana entregaria o protótipo na terça-feira, mas um fornecedor atrasou. A nova previsão é quinta-feira. O único risco restante é a bateria. Inclua responsável, datas e risco.",
+      "new_tokens": 43,
+      "natural_eos": true,
+      "wall_s": 0.7638754359977611,
+      "id": "s01",
+      "category": "summary",
+      "pass": false,
+      "grade_detail": "missing=[] forbidden=[] words=29"
+    },
+    {
+      "text": "A receita cresceu 12%, o que significa um aumento de 12% sobre o valor original.\nA margem melhorou levemente, indicando um aumento de 10% sobre o valor original.\n\nPara calcular o novo valor da receita, somamos os dois percentuais ao valor original:\n12% + 10% = 22%\n\nPara calcular o novo valor da margem, somamos os dois percentuais ao valor original:\n10% + 12% = 22%\n\nO novo valor da receita é 122% do valor",
+      "new_tokens": 128,
+      "natural_eos": false,
+      "wall_s": 2.290470578998793,
+      "id": "s02",
+      "category": "summary",
+      "pass": false,
+      "grade_detail": "missing=[] forbidden=[] words=71"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "timestamp": "2026-08-25 06:20:07 UTC",
+  "agent": "Antigravity",
+  "benchmark_matrix": "4096 x 4096",
+  "results": {
+    "FP16_UNCOMPRESSED": {
+      "bits_per_weight": 16.0,
+      "matrix_size_mb": 32.0,
+      "vram_for_27b_gib": 54.0,
+      "vram_for_35b_gib": 70.0,
+      "decode_latency_us": 44.79,
+      "effective_bandwidth_gbs": 697.7
+    },
+    "GGUF_Q4_K_M": {
+      "bits_per_weight": 4.5,
+      "matrix_size_mb": 9.0,
+      "vram_for_27b_gib": 15.19,
+      "vram_for_35b_gib": 19.69,
+      "decode_latency_us": 561.48,
+      "effective_bandwidth_gbs": 15.65
+    },
+    "AQLM_2BIT_2X8": {
+      "bits_per_weight": 2.12,
+      "matrix_size_mb": 4.24,
+      "vram_for_27b_gib": 7.16,
+      "vram_for_35b_gib": 9.28,
+      "decode_latency_us": 454.16,
+      "effective_bandwidth_gbs": 9.12
+    },
+    "GGUF_IQ2_XXS": {
+      "bits_per_weight": 2.06,
+      "matrix_size_mb": 4.12,
+      "vram_for_27b_gib": 6.95,
+      "vram_for_35b_gib": 9.01,
+      "decode_latency_us": 303.14,
+      "effective_bandwidth_gbs": 13.27
+    },
+    "QUIP_SHARP_E8P": {
+      "bits_per_weight": 2.0,
+      "matrix_size_mb": 4.0,
+      "vram_for_27b_gib": 6.75,
+      "vram_for_35b_gib": 8.75,
+      "decode_latency_us": 454.23,
+      "effective_bandwidth_gbs": 8.6
+    }
+  },
+  "fits_27b_under_14gib": [
+    "AQLM_2BIT_2X8",
+    "GGUF_IQ2_XXS",
+    "QUIP_SHARP_E8P"
+  ],
+  "fits_35b_under_16gib": [
+    "AQLM_2BIT_2X8",
+    "GGUF_IQ2_XXS",
+    "QUIP_SHARP_E8P"
+  ],
+  "gates": {
+    "ultra_low_codecs_fit_27b_under_14gib": true,
+    "ultra_low_codecs_fit_35b_under_16gib": true
+  },
+  "verdict": "PROMOTED"
+}

@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-08-25 06:26:48 UTC",
+  "agent": "Antigravity",
+  "results": {
+    "UNIFORM_LINEAR_4BIT": {
+      "codebook_levels": 16,
+      "reconstruction_mse": 0.004412,
+      "sqnr_db": 20.84,
+      "cosine_similarity": 0.99591,
+      "mse_reduction_pct": 0.0,
+      "sqnr_gain_db": 0.0
+    },
+    "FIBONACCI_NONLINEAR_4BIT": {
+      "codebook_levels": 15,
+      "reconstruction_mse": 0.008491,
+      "sqnr_db": 18.0,
+      "cosine_similarity": 0.99206,
+      "mse_reduction_pct": -92.45,
+      "sqnr_gain_db": -2.84
+    },
+    "LOGARITHMIC_4BIT": {
+      "codebook_levels": 15,
+      "reconstruction_mse": 0.017449,
+      "sqnr_db": 14.87,
+      "cosine_similarity": 0.98365,
+      "mse_reduction_pct": -295.49,
+      "sqnr_gain_db": -5.97
+    }
+  },
+  "gates": {
+    "fib_mse_reduction_ge_30pct": false,
+    "fib_sqnr_gain_ge_2_5db": false,
+    "fib_cosine_sim_ge_0_995": false
+  },
+  "verdict": "REJECTED"
+}

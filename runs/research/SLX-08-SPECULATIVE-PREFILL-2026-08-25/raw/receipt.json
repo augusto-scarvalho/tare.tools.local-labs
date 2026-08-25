@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-08-25 06:11:53 UTC",
+  "agent": "Antigravity",
+  "scaling_benchmark": {
+    "1024": {
+      "seq_len": 1024,
+      "dense_ttft_ms": 0.266,
+      "speculative_ttft_ms": 14.746,
+      "speedup": 0.02,
+      "last_token_cosine_sim": 0.7109
+    },
+    "2048": {
+      "seq_len": 2048,
+      "dense_ttft_ms": 0.649,
+      "speculative_ttft_ms": 0.376,
+      "speedup": 1.72,
+      "last_token_cosine_sim": 0.6719
+    },
+    "4096": {
+      "seq_len": 4096,
+      "dense_ttft_ms": 2.227,
+      "speculative_ttft_ms": 1.176,
+      "speedup": 1.89,
+      "last_token_cosine_sim": 0.707
+    },
+    "8192": {
+      "seq_len": 8192,
+      "dense_ttft_ms": 8.203,
+      "speculative_ttft_ms": 4.242,
+      "speedup": 1.93,
+      "last_token_cosine_sim": 0.7305
+    }
+  },
+  "gates": {
+    "speedup_8k_ge_1_40x": true,
+    "cosine_similarity_ge_0_95": false
+  },
+  "verdict": "REJECTED"
+}

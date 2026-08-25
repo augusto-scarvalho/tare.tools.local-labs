@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-08-25 06:16:32 UTC",
+  "agent": "Antigravity",
+  "evaluation": {
+    "base_control": {
+      "math_correct": 4,
+      "qa_correct": 3,
+      "total_score": 7,
+      "accuracy_pct": 14.58
+    },
+    "monolith_generalist": {
+      "math_correct": 14,
+      "qa_correct": 4,
+      "total_score": 18,
+      "accuracy_pct": 37.5,
+      "trainable_parameters": 224256
+    },
+    "routed_specialist_fleet": {
+      "math_specialist_module": "target_mlp_only",
+      "math_correct": 17,
+      "qa_specialist_module": "target_attn_only",
+      "qa_correct": 5,
+      "total_score": 22,
+      "accuracy_pct": 45.83,
+      "total_fleet_parameters": 224256,
+      "gain_over_monolith_pct": 22.22,
+      "gain_over_base_pct": 214.29
+    }
+  },
+  "gates": {
+    "fleet_gain_over_monolith_ge_20pct": true,
+    "math_specialist_ge_15": true,
+    "qa_specialist_ge_5": true
+  },
+  "verdict": "PROMOTED"
+}

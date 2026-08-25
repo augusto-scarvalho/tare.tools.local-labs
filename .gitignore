@@ -33,6 +33,11 @@ runs/a2/_log_*.txt
 .harness/artifacts_ext/
 runs/**/adapter_*/
 runs/research/ADAPT-00*/raw/**/adapter/
+# PEFT exports duplicate the same ~19 MiB tokenizer payload in every arm.
+# Keep adapter configs, templates, metrics, and weights; load the frozen base
+# tokenizer separately. The excluded derivative hash is recorded in the
+# canonical 2026-08-25 remediation handoff.
+runs/research/ADAPT-*/raw/**/adapter/tokenizer.json
 runs/**/canary_*/
 runs/**/gates/*/
 

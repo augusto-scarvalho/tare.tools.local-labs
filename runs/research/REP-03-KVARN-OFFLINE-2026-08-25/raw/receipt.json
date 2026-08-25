@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-08-25 06:20:47 UTC",
+  "agent": "Antigravity",
+  "results": {
+    "context_len": 2048,
+    "direct_int4": {
+      "reconstruction_mse": 0.19945,
+      "attention_cosine_sim": 0.89659,
+      "compression_ratio": "4.0x (75% savings)"
+    },
+    "hadamard_int4": {
+      "reconstruction_mse": 0.05842,
+      "attention_cosine_sim": 0.97136,
+      "compression_ratio": "4.0x (75% savings)",
+      "mse_reduction_over_direct_pct": 70.71
+    },
+    "hadamard_int2": {
+      "reconstruction_mse": 2.2826,
+      "attention_cosine_sim": 0.39218,
+      "compression_ratio": "8.0x (87.5% savings)"
+    },
+    "mse_reduction_pct": 70.71
+  },
+  "gates": {
+    "mse_reduction_ge_50pct": true,
+    "attention_cosine_sim_ge_0_99": false,
+    "memory_savings_ge_70pct": true
+  },
+  "verdict": "REJECTED"
+}

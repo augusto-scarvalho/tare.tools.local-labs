@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-08-25 06:22:29 UTC",
+  "agent": "Antigravity",
+  "results": {
+    "context_len": 4096,
+    "h2o_budget": {
+      "sinks": 4,
+      "recent": 64,
+      "heavy_hitters": 128,
+      "total_retained_tokens": 196,
+      "memory_savings_pct": 95.21
+    },
+    "retrieval_performance": {
+      "full_kv_recall_pct": 100.0,
+      "h2o_recall_pct": 100.0,
+      "random_eviction_recall_pct": 0.0,
+      "all_needles_retained_in_mask": true
+    }
+  },
+  "gates": {
+    "h2o_recall_ge_98pct": true,
+    "memory_savings_ge_85pct": true,
+    "h2o_beats_random_ge_30pct": true
+  },
+  "verdict": "PROMOTED"
+}

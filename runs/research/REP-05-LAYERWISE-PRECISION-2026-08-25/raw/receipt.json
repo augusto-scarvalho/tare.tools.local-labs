@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-08-25 06:28:01 UTC",
+  "agent": "Antigravity",
+  "context_length": 4096,
+  "total_layers": 24,
+  "results": {
+    "HOMOGENEOUS_FP16": {
+      "kv_cache_mb": 768.0,
+      "memory_savings_pct": 0.0,
+      "end_to_end_cosine_sim": 1.0,
+      "reconstruction_mse": 0.0
+    },
+    "HOMOGENEOUS_INT4": {
+      "kv_cache_mb": 203.52,
+      "memory_savings_pct": 73.5,
+      "end_to_end_cosine_sim": 0.93892,
+      "reconstruction_mse": 0.514194
+    },
+    "LAYERWISE_MIXED": {
+      "kv_cache_mb": 391.68,
+      "memory_savings_pct": 49.0,
+      "end_to_end_cosine_sim": 0.99976,
+      "reconstruction_mse": 0.000886
+    }
+  },
+  "gates": {
+    "mixed_savings_ge_45pct": true,
+    "mixed_cosine_sim_ge_0_990": true,
+    "mixed_beats_homogeneous_int4": true
+  },
+  "verdict": "PROMOTED"
+}

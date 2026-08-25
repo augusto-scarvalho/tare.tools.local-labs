@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-08-25 06:31:18 UTC",
+  "agent": "Antigravity",
+  "results": {
+    "DENSE_ATTENTION_ORIGINAL": {
+      "mha_layers": 24,
+      "ssm_layers": 0,
+      "state_memory_mb": 768.0,
+      "decode_latency_ms": 2.336,
+      "output_cosine_sim": 1.0,
+      "memory_savings_pct": 0.0,
+      "speedup_factor": 1.0
+    },
+    "RETROFIT_50PCT": {
+      "mha_layers": 12,
+      "ssm_layers": 12,
+      "state_memory_mb": 385.5,
+      "decode_latency_ms": 1.059,
+      "output_cosine_sim": 0.9912,
+      "memory_savings_pct": 49.8,
+      "speedup_factor": 2.21
+    },
+    "RETROFIT_75PCT_HYBRID_3TO1": {
+      "mha_layers": 6,
+      "ssm_layers": 18,
+      "state_memory_mb": 194.25,
+      "decode_latency_ms": 0.677,
+      "output_cosine_sim": 0.9865,
+      "memory_savings_pct": 74.71,
+      "speedup_factor": 3.45
+    }
+  },
+  "gates": {
+    "memory_savings_ge_70pct": true,
+    "speedup_ge_2_50x": true,
+    "output_cosine_ge_0_980": true
+  },
+  "verdict": "PROMOTED"
+}

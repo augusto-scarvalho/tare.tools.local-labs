@@ -1,0 +1,221 @@
+{
+  "timestamp": "2026-08-25 10:08:22 UTC",
+  "agent": "Codex",
+  "target_endpoint": "http://127.0.0.1:8080",
+  "verdict": "VERIFIED",
+  "divergences": [],
+  "levels": {
+    "requested": {
+      "status": "CAPTURED",
+      "details": {
+        "endpoint": "http://127.0.0.1:8080",
+        "expected_model": "fable-tc-l1.0-Q4_K_M.gguf",
+        "expected_model_sha256": "052c08ca13d75d8d88c9cc3f201d7bfa9167e2a1e69ad3e1e1f26ff73c1b390b",
+        "runtime": {
+          "unit": "llm-inference.service",
+          "wsl_distro": "Ubuntu-24.04",
+          "show": {
+            "MainPID": "11434",
+            "NRestarts": "0",
+            "ExecStart": "{ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Tue 2026-08-25 03:26:19 -03] ; stop_time=[n/a] ; pid=11434 ; code=(null) ; status=0/0 }",
+            "Environment": "LD_LIBRARY_PATH=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin",
+            "ActiveState": "active",
+            "SubState": "running",
+            "FragmentPath": "/etc/systemd/system/llm-inference.service"
+          },
+          "effective_exec_start": "{ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Tue 2026-08-25 03:26:19 -03] ; stop_time=[n/a] ; pid=11434 ; code=(null) ; status=0/0 }",
+          "effective_model_path": "/home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf",
+          "main_pid": 11434,
+          "process_cmdline": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics",
+          "model_sha256": "052c08ca13d75d8d88c9cc3f201d7bfa9167e2a1e69ad3e1e1f26ff73c1b390b",
+          "model_hash_error": null,
+          "unit_text_sha256": "64051ab5df1874858c900c042d80294af67d3ee14c3f1acc6132b34b14dfdb88",
+          "collection_errors": []
+        }
+      },
+      "hash": "a7f08f46656806fb"
+    },
+    "resolved": {
+      "status": "RESOLVED",
+      "details": {
+        "model_path": "/home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf",
+        "system_fingerprint": null
+      },
+      "hash": "423103debdce09ae"
+    },
+    "realized": {
+      "status": "OBSERVED",
+      "details": {
+        "slots_count": 4,
+        "slots": [
+          {
+            "id": 0,
+            "n_ctx": 8192,
+            "speculative": true,
+            "is_processing": false
+          },
+          {
+            "id": 1,
+            "n_ctx": 8192,
+            "speculative": true,
+            "is_processing": false
+          },
+          {
+            "id": 2,
+            "n_ctx": 8192,
+            "speculative": true,
+            "is_processing": false
+          },
+          {
+            "id": 3,
+            "n_ctx": 8192,
+            "speculative": true,
+            "is_processing": false
+          }
+        ],
+        "props_total_slots": 4,
+        "default_generation_settings": {
+          "params": {
+            "seed": 4294967295,
+            "temperature": 1.0,
+            "dynatemp_range": 0.0,
+            "dynatemp_exponent": 1.0,
+            "top_k": 20,
+            "top_p": 0.949999988079071,
+            "min_p": 0.05000000074505806,
+            "top_n_sigma": -1.0,
+            "xtc_probability": 0.0,
+            "xtc_threshold": 0.10000000149011612,
+            "typical_p": 1.0,
+            "repeat_last_n": 64,
+            "repeat_penalty": 1.0,
+            "presence_penalty": 0.0,
+            "frequency_penalty": 0.0,
+            "dry_multiplier": 0.0,
+            "dry_base": 1.75,
+            "dry_allowed_length": 2,
+            "dry_penalty_last_n": -1,
+            "mirostat": 0,
+            "mirostat_tau": 5.0,
+            "mirostat_eta": 0.10000000149011612,
+            "max_tokens": -1,
+            "n_predict": -1,
+            "n_keep": 0,
+            "n_discard": 0,
+            "ignore_eos": false,
+            "stream": false,
+            "n_probs": 0,
+            "min_keep": 0,
+            "chat_format": "Content-only",
+            "reasoning_format": "none",
+            "reasoning_in_content": false,
+            "generation_prompt": "",
+            "samplers": [
+              "penalties",
+              "dry",
+              "top_n_sigma",
+              "top_k",
+              "typ_p",
+              "top_p",
+              "min_p",
+              "xtc",
+              "temperature"
+            ],
+            "speculative.types": "none",
+            "timings_per_token": false,
+            "post_sampling_probs": false,
+            "backend_sampling": false,
+            "lora": []
+          },
+          "n_ctx": 8192
+        }
+      },
+      "hash": "377fcae57bc660c5"
+    },
+    "exercised": {
+      "status": "EXERCISED",
+      "details": {
+        "probe_latency_ms": 603.02,
+        "response_received": true,
+        "response_content": "route-receipt-ok",
+        "usage": {
+          "completion_tokens": 5,
+          "prompt_tokens": 24,
+          "total_tokens": 29,
+          "prompt_tokens_details": {
+            "cached_tokens": 18
+          }
+        },
+        "timings": {
+          "cache_n": 18,
+          "prompt_n": 6,
+          "prompt_ms": 469.238,
+          "prompt_per_token_ms": 78.20633333333333,
+          "prompt_per_second": 12.786688205132577,
+          "predicted_n": 5,
+          "predicted_ms": 50.108,
+          "predicted_per_token_ms": 10.0216,
+          "predicted_per_second": 99.7844655544025,
+          "draft_n": 4,
+          "draft_n_accepted": 4
+        }
+      },
+      "hash": "09bcc3de9267546b"
+    }
+  },
+  "receipt_fingerprint": "225092ff452c6feed70489190784d4f6be4d391767c4f81213f09c4f3380dfda",
+  "provenance": {
+    "schema": "local-labs-experiment-provenance-v1",
+    "started_at_utc": "2026-08-25T10:08:13Z",
+    "finished_at_utc": "2026-08-25T10:08:22Z",
+    "elapsed_seconds": 9.188,
+    "command": [
+      "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "tools/analysis/effective_route_verifier.py",
+      "--endpoint",
+      "http://127.0.0.1:8080",
+      "--expected-model",
+      "fable-tc-l1.0-Q4_K_M.gguf",
+      "--systemd-unit",
+      "llm-inference.service",
+      "--wsl-distro",
+      "Ubuntu-24.04",
+      "--hash-model",
+      "--expected-model-sha256",
+      "052c08ca13d75d8d88c9cc3f201d7bfa9167e2a1e69ad3e1e1f26ff73c1b390b",
+      "--output",
+      "runs/research/BEE-L1C-ROUTE-RECEIPTS-2026-08-25/raw/receipt.json"
+    ],
+    "cwd": "C:\\projects\\tare.tools.local-labs",
+    "repository": {
+      "head": "8bb0197d4a280aafb20e118db8ff5a7fc21d0631",
+      "dirty": true,
+      "status_entry_count": 256,
+      "status_sha256": "d02c598fd1c139016b3129f8c52c82aa67f30c292ac52ba26ba4204cc14c413c",
+      "errors": []
+    },
+    "script": {
+      "path": "C:\\projects\\tare.tools.local-labs\\tools\\analysis\\effective_route_verifier.py",
+      "sha256": "7bc17992f190d5493bbf1cf34f4660067f40f08367c9ddac5a03e5c827b1ffb9"
+    },
+    "inputs": [],
+    "environment": {
+      "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+      "executable": "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {},
+      "gpu": {
+        "available": true,
+        "query": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576",
+        "error": null
+      }
+    },
+    "runtime": {
+      "endpoint": "http://127.0.0.1:8080",
+      "systemd_unit": "llm-inference.service",
+      "wsl_distro": "Ubuntu-24.04"
+    }
+  },
+  "provenance_complete": true,
+  "provenance_errors": []
+}

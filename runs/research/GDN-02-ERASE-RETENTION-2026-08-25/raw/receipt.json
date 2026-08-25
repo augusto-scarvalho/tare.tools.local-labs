@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-08-25 06:27:20 UTC",
+  "agent": "Antigravity",
+  "results": {
+    "STATIC_DECAY_SSM": {
+      "updated_fact_similarity_to_new": 0.6138,
+      "updated_fact_fidelity_pct": 61.38,
+      "old_fact_leakage_pct": 44.98,
+      "collateral_average_cosine": 0.715,
+      "collateral_memory_retention_pct": 61.22
+    },
+    "CLASSIC_DELTANET": {
+      "updated_fact_similarity_to_new": 0.7025,
+      "updated_fact_fidelity_pct": 70.25,
+      "old_fact_leakage_pct": 13.48,
+      "collateral_average_cosine": 0.7741,
+      "collateral_memory_retention_pct": 71.43
+    },
+    "QUERY_GATED_DELTANET2": {
+      "updated_fact_similarity_to_new": 0.7332,
+      "updated_fact_fidelity_pct": 73.32,
+      "old_fact_leakage_pct": 2.84,
+      "collateral_average_cosine": 0.762,
+      "collateral_memory_retention_pct": 65.31
+    }
+  },
+  "gates": {
+    "old_fact_leakage_le_5pct": true,
+    "collateral_retention_ge_90pct": false,
+    "update_fidelity_ge_95pct": false
+  },
+  "verdict": "REJECTED"
+}

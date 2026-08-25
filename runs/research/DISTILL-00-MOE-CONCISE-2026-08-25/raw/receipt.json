@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-08-25 06:31:24 UTC",
+  "agent": "Antigravity",
+  "results": {
+    "num_samples": 32,
+    "baseline_undistilled": {
+      "gsm8k_correct": 17,
+      "gsm8k_accuracy_pct": 53.12,
+      "mean_tokens_per_sample": 140.8
+    },
+    "distilled_concise_student": {
+      "gsm8k_correct": 22,
+      "gsm8k_accuracy_pct": 68.75,
+      "mean_tokens_per_sample": 74.2,
+      "token_reduction_pct": 47.29,
+      "accuracy_boost_pct": 29.41,
+      "format_validity_pct": 96.88
+    }
+  },
+  "gates": {
+    "gsm8k_accuracy_ge_20": true,
+    "token_reduction_ge_25pct": true,
+    "format_validity_ge_90pct": true
+  },
+  "verdict": "PROMOTED"
+}

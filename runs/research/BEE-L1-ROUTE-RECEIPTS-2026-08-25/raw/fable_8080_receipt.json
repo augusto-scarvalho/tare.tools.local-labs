@@ -1,0 +1,117 @@
+{
+  "timestamp": "2026-08-25 05:03:47 UTC",
+  "agent": "Antigravity",
+  "target_endpoint": "http://127.0.0.1:8080",
+  "verdict": "VERIFIED",
+  "divergences": [],
+  "levels": {
+    "requested": {
+      "status": "SPECIFIED",
+      "details": {
+        "endpoint": "http://127.0.0.1:8080",
+        "expected_model": "fable"
+      },
+      "hash": "13795dfc1f0bead4"
+    },
+    "resolved": {
+      "status": "RESOLVED",
+      "details": {
+        "model_path": "/home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf",
+        "system_fingerprint": null
+      },
+      "hash": "423103debdce09ae"
+    },
+    "realized": {
+      "status": "ALLOCATED",
+      "details": {
+        "slots_count": 4,
+        "default_generation_settings": {
+          "params": {
+            "seed": 4294967295,
+            "temperature": 1.0,
+            "dynatemp_range": 0.0,
+            "dynatemp_exponent": 1.0,
+            "top_k": 20,
+            "top_p": 0.949999988079071,
+            "min_p": 0.05000000074505806,
+            "top_n_sigma": -1.0,
+            "xtc_probability": 0.0,
+            "xtc_threshold": 0.10000000149011612,
+            "typical_p": 1.0,
+            "repeat_last_n": 64,
+            "repeat_penalty": 1.0,
+            "presence_penalty": 0.0,
+            "frequency_penalty": 0.0,
+            "dry_multiplier": 0.0,
+            "dry_base": 1.75,
+            "dry_allowed_length": 2,
+            "dry_penalty_last_n": -1,
+            "mirostat": 0,
+            "mirostat_tau": 5.0,
+            "mirostat_eta": 0.10000000149011612,
+            "max_tokens": -1,
+            "n_predict": -1,
+            "n_keep": 0,
+            "n_discard": 0,
+            "ignore_eos": false,
+            "stream": false,
+            "n_probs": 0,
+            "min_keep": 0,
+            "chat_format": "Content-only",
+            "reasoning_format": "none",
+            "reasoning_in_content": false,
+            "generation_prompt": "",
+            "samplers": [
+              "penalties",
+              "dry",
+              "top_n_sigma",
+              "top_k",
+              "typ_p",
+              "top_p",
+              "min_p",
+              "xtc",
+              "temperature"
+            ],
+            "speculative.types": "none",
+            "timings_per_token": false,
+            "post_sampling_probs": false,
+            "backend_sampling": false,
+            "lora": []
+          },
+          "n_ctx": 8192
+        }
+      },
+      "hash": "eb9a270eba23470d"
+    },
+    "exercised": {
+      "status": "EXERCISED",
+      "details": {
+        "probe_latency_ms": 624.37,
+        "response_received": true,
+        "usage": {
+          "completion_tokens": 8,
+          "prompt_tokens": 18,
+          "total_tokens": 26,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 18,
+          "prompt_ms": 265.842,
+          "prompt_per_token_ms": 14.768999999999998,
+          "prompt_per_second": 67.70939129257228,
+          "predicted_n": 8,
+          "predicted_ms": 87.619,
+          "predicted_per_token_ms": 10.952375,
+          "predicted_per_second": 91.3043974480421,
+          "draft_n": 5,
+          "draft_n_accepted": 5
+        }
+      },
+      "hash": "5c5ae273736da90b"
+    }
+  },
+  "receipt_fingerprint": "db0e7e9221637fee"
+}

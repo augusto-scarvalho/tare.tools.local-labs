@@ -6,6 +6,21 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added the complete Gemini backlog evidence wave: 36 immutable run packets,
+  their probes and analysis helpers, the 46-item hypothesis/literature map,
+  comprehensive synthesis, and historical closeout handoffs.
+- Added `local-labs-experiment-provenance-v1`, binding receipts to the exact
+  command, Git state, script, hashed inputs, Python/package environment, GPU,
+  runtime parameters, and a canonical receipt fingerprint.
+- Added provenance-complete successor packets for `BEE-L1C`, `SLX-01C`,
+  `SLX-05D`, `REP-02B`, `SLX-09B`, and `TRAIN-00B`, including preserved failed
+  predecessors rather than overwritten receipts.
+- Added deterministic tests for effective-route comparison, provenance
+  completeness, strict serving recovery, hybrid-cache snapshot restoration,
+  and the new analysis helpers. The repository suite now contains 59 passing
+  tests plus the 23-case LAB-QA-001 metamorphic harness.
+- Added the canonical Codex remediation handoff and a SHA-256 ledger covering
+  the original Gemini receipts and documents.
 - Added a consolidated 2026-08-24/25 execution closeout covering every material host, service, driver, model, transcript, APEX4, and PEFT action; persistent local artifacts; recovered failures; explicit non-actions; current live state; CI receipts; and the trigger-gated residual backlog.
 - Recorded the NVIDIA 591.86 post-reboot qualification and retained rollback/recovery receipts without tracking local driver payloads.
 - Added matched Fable, HauhauCS, and vanilla agent/GSM8K evidence, plus safe vanilla canary activation and restoration cleanup.
@@ -16,6 +31,22 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Changed
 
+- Superseded the Gemini claim that all 46 backlog items were executed and
+  audited. Of the 36 new run packets, 25 are now `SIMULATION_ONLY`, nine were
+  unverified model preliminaries, and two endpoint runs had insufficient gates.
+- Reclassified `ADAPT-01A` through `ADAPT-05` as
+  `UNVERIFIED_PRELIMINARY`; they require a new artifact/data/evaluation packet
+  before expensive reproduction.
+- Qualified CUDA Graph replay only for the frozen Qwen3.5-0.8B tuple after
+  exact semantic parity and fixed hybrid-cache restoration; removed the former
+  exclusive launch-overhead and persistent-megakernel interpretation.
+- Kept 12 byte-identical adapter-export `tokenizer.json` derivatives out of Git
+  while retaining their configs, templates, metrics, and adapter weights. The
+  excluded payload SHA-256 is
+  `06b9509352d2af50381ab2247e083b80d32d5c0aba91c272ca9ff729b6a0e523`.
+- Marked raw research JSON as binary evidence in `.gitattributes`, preserving
+  historical bytes and line endings so the published SHA-256 ledger remains
+  valid after checkout.
 - Kept Fable-TC as the broad serving default after HauhauCS passed the agent core but showed bounded math termination loss.
 - Closed FastMTP before installation because the prerequisite broad-default and termination gate failed.
 - Revalidated the residual backlog: RWKV7 moved to `HOLD_QUALITY`, six dependency-gated items remain blocked, and the non-soak ready queue is empty.
@@ -25,7 +56,32 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Fixed
 
+- Made effective-route receipts compare systemd argv, live process cmdline,
+  model path/full SHA, build identity, slot realization, and a strict exercised
+  canary instead of trusting requested configuration.
+- Made the serving-torture gate require explicit idle state, exact abort/normal
+  counts, stable PID/restart count, strict canaries, and bounded VRAM drift.
+- Fixed the CUDA Graph oracle for Qwen3.5 hybrid caches by restoring the full
+  post-prefill KV/convolution/recurrent state outside each timed observation.
+- Fixed REP-02's invalid cross-position logit comparator and relabeled its
+  dequantized INT4 memory number as an analytical packed-storage estimate.
+- Added complete provenance and scope limits to the 2:4 mask and short custom
+  GaLore reruns; neither can claim packed-kernel acceleration or general
+  algorithm performance.
 - Corrected GPU-control ownership documentation and made Fable restoration remove both HauhauCS and vanilla experiment drop-ins.
+
+### Pending
+
+- Requalify the existing `ADAPT-01A` through `ADAPT-05` artifacts under frozen
+  data splits, artifact hashes, seeds, and independent behavioral gates before
+  deciding whether to reproduce their training.
+- Replace proxy-only candidates with real model/runtime/kernel implementations
+  one at a time, starting from cheap mechanics gates; `DISTILL-00` must be
+  rebuilt without hard-coded or random decisive fields.
+- Benchmark any CUDA Graph integration inside the actual serving runtime before
+  making production throughput claims.
+- Require packed artifacts plus hardware VRAM/throughput receipts for every
+  compression, sparsity, or codec promotion.
 
 ## 2026-08-24
 

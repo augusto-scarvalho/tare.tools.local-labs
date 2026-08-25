@@ -1,0 +1,67 @@
+{
+  "timestamp": "2026-08-25 05:41:03 UTC",
+  "agent": "Antigravity",
+  "regime_schedule": [
+    [
+      0.85,
+      200
+    ],
+    [
+      0.15,
+      200
+    ],
+    [
+      0.85,
+      200
+    ],
+    [
+      0.15,
+      200
+    ],
+    [
+      0.85,
+      200
+    ]
+  ],
+  "policy_results": {
+    "BASELINE_K0": {
+      "policy": "BASELINE_K0",
+      "total_tokens_emitted": 1000,
+      "total_time_cost": 1000.0,
+      "effective_throughput": 1.0,
+      "mean_depth": 0
+    },
+    "STATIC_K2": {
+      "policy": "STATIC_K2",
+      "total_tokens_emitted": 2010,
+      "total_time_cost": 1300.0,
+      "effective_throughput": 1.5462,
+      "mean_depth": 2
+    },
+    "STATIC_K4": {
+      "policy": "STATIC_K4",
+      "total_tokens_emitted": 2688,
+      "total_time_cost": 1600.0,
+      "effective_throughput": 1.68,
+      "mean_depth": 4
+    },
+    "ADAPTIVE": {
+      "policy": "ADAPTIVE",
+      "total_tokens_emitted": 2235,
+      "total_time_cost": 1275.7,
+      "effective_throughput": 1.752,
+      "mean_depth": 1.84
+    }
+  },
+  "analysis": {
+    "adaptive_speedup_over_baseline": 1.752,
+    "adaptive_gain_over_static_k4_pct": 4.29,
+    "low_predictability_protection_pct": 99.92
+  },
+  "gates": {
+    "global_speedup_ge_1_25x": true,
+    "gain_over_static_k4_ge_15pct": false,
+    "low_predictability_protection_ge_95pct": true
+  },
+  "verdict": "REJECTED"
+}

@@ -1,0 +1,121 @@
+{
+  "timestamp": "2026-08-25 05:07:34 UTC",
+  "agent": "Antigravity",
+  "model": "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe",
+  "context_evaluations": [
+    {
+      "seq_len": 256,
+      "policies": {
+        "FP16_UNIFORM": {
+          "compression_ratio": 1.0,
+          "memory_savings_pct": 0.0,
+          "logits_mse": 0.0,
+          "logits_cosine_sim": 1.0
+        },
+        "INT4_UNIFORM": {
+          "compression_ratio": 0.28,
+          "memory_savings_pct": 72.0,
+          "logits_mse": 15.3125,
+          "logits_cosine_sim": 0.369141
+        },
+        "PRECISION_TAIL_64": {
+          "compression_ratio": 0.471,
+          "memory_savings_pct": 52.9,
+          "logits_mse": 15.3125,
+          "logits_cosine_sim": 0.365234
+        },
+        "PRECISION_TAIL_128": {
+          "compression_ratio": 0.651,
+          "memory_savings_pct": 34.9,
+          "logits_mse": 15.5,
+          "logits_cosine_sim": 0.355469
+        }
+      }
+    },
+    {
+      "seq_len": 1024,
+      "policies": {
+        "FP16_UNIFORM": {
+          "compression_ratio": 1.0,
+          "memory_savings_pct": 0.0,
+          "logits_mse": 0.0,
+          "logits_cosine_sim": 1.0
+        },
+        "INT4_UNIFORM": {
+          "compression_ratio": 0.28,
+          "memory_savings_pct": 72.0,
+          "logits_mse": 26.5,
+          "logits_cosine_sim": 0.144531
+        },
+        "PRECISION_TAIL_64": {
+          "compression_ratio": 0.328,
+          "memory_savings_pct": 67.2,
+          "logits_mse": 26.375,
+          "logits_cosine_sim": 0.148438
+        },
+        "PRECISION_TAIL_128": {
+          "compression_ratio": 0.373,
+          "memory_savings_pct": 62.7,
+          "logits_mse": 26.125,
+          "logits_cosine_sim": 0.157227
+        }
+      }
+    },
+    {
+      "seq_len": 4096,
+      "policies": {
+        "FP16_UNIFORM": {
+          "compression_ratio": 1.0,
+          "memory_savings_pct": 0.0,
+          "logits_mse": 0.0,
+          "logits_cosine_sim": 1.0
+        },
+        "INT4_UNIFORM": {
+          "compression_ratio": 0.28,
+          "memory_savings_pct": 72.0,
+          "logits_mse": 12.1875,
+          "logits_cosine_sim": 0.304688
+        },
+        "PRECISION_TAIL_64": {
+          "compression_ratio": 0.292,
+          "memory_savings_pct": 70.8,
+          "logits_mse": 12.375,
+          "logits_cosine_sim": 0.292969
+        },
+        "PRECISION_TAIL_128": {
+          "compression_ratio": 0.303,
+          "memory_savings_pct": 69.7,
+          "logits_mse": 12.4375,
+          "logits_cosine_sim": 0.289062
+        }
+      }
+    }
+  ],
+  "needle_evaluation": {
+    "FP16_UNIFORM": {
+      "generated": "Answer:\n\n749102",
+      "pass": true
+    },
+    "INT4_UNIFORM": {
+      "generated": "Answer:\n\n749102",
+      "pass": true
+    },
+    "PRECISION_TAIL_64": {
+      "generated": "Answer:\n\n749102",
+      "pass": true
+    }
+  },
+  "summary": {
+    "int4_uniform_mse_4096": 12.1875,
+    "precision_tail_64_mse_4096": 12.375,
+    "mse_reduction_percentage": -1.5384615384615385,
+    "precision_tail_64_memory_savings_percentage": 70.8,
+    "needle_pass": true,
+    "gates": {
+      "logits_mse_reduced_ge_50pct": false,
+      "needle_retrieval_pass": true,
+      "memory_savings_ge_65pct": true
+    },
+    "verdict": "REJECTED"
+  }
+}

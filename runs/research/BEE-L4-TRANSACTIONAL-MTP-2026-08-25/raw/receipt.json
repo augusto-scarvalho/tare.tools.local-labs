@@ -1,0 +1,50 @@
+{
+  "timestamp": "2026-08-25 06:03:36 UTC",
+  "agent": "Antigravity",
+  "results": {
+    "total_slots": 4,
+    "cycles_per_slot": 500,
+    "total_operations": 2000,
+    "elapsed_seconds": 0.0097,
+    "stats": {
+      "total_transactions": 2000,
+      "commits": 656,
+      "full_rollbacks": 635,
+      "partial_rollbacks": 709,
+      "cross_slot_corruptions": 0
+    },
+    "workers": [
+      {
+        "slot_id": 1,
+        "cycles": 500,
+        "final_token_count": 648,
+        "mean_overhead_us": 3.568
+      },
+      {
+        "slot_id": 2,
+        "cycles": 500,
+        "final_token_count": 624,
+        "mean_overhead_us": 3.351
+      },
+      {
+        "slot_id": 0,
+        "cycles": 500,
+        "final_token_count": 642,
+        "mean_overhead_us": 3.725
+      },
+      {
+        "slot_id": 3,
+        "cycles": 500,
+        "final_token_count": 627,
+        "mean_overhead_us": 3.533
+      }
+    ]
+  },
+  "mean_overhead_us": 3.544,
+  "gates": {
+    "zero_cross_slot_corruptions": true,
+    "all_transactions_consistent": true,
+    "overhead_le_10_us": true
+  },
+  "verdict": "PROMOTED"
+}

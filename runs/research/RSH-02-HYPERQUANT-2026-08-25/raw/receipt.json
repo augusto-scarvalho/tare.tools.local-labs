@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-08-25 06:35:39 UTC",
+  "agent": "Antigravity",
+  "results": {
+    "num_elements": 16777216,
+    "fixed_int4": {
+      "bits_per_element": 4.0,
+      "unpack_latency_ms": 0.743,
+      "throughput_gbs": 10.52
+    },
+    "variable_huffman_ans": {
+      "bits_per_element": 2.4,
+      "unpack_latency_ms": 0.61,
+      "throughput_gbs": 7.68,
+      "compression_savings_vs_int4_pct": 40.0,
+      "throughput_penalty_factor": 1.37
+    }
+  },
+  "gates": {
+    "throughput_ge_100gbs": false,
+    "compression_le_3bpw": true,
+    "latency_penalty_le_2x": true
+  },
+  "verdict": "REJECTED"
+}

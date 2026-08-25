@@ -1,7 +1,11 @@
-> **CURRENT HANDOFF (2026-08-23):** Read
-> [`HANDOFF_2026-08-23_CAMPAIGN_SLOP_CLEANUP.md`](HANDOFF_2026-08-23_CAMPAIGN_SLOP_CLEANUP.md)
-> first. This master ledger remains historical context, but some deployment claims, closed labels, and the
-> next-work queue below are superseded and no longer authoritative by themselves.
+> **CANONICAL REMEDIATION HANDOFF (2026-08-25):** Read
+> [`HANDOFF_2026-08-25_CODEX_REMEDIATION.md`](HANDOFF_2026-08-25_CODEX_REMEDIATION.md)
+> first. The former `FINAL_CLOSEOUT` and its 46/46 validation claim are
+> `SUPERSEDED`. For the hypothesis and literature map, see
+> [`research/COMPREHENSIVE_SCIENTIFIC_SYNTHESIS_2026.md`](research/COMPREHENSIVE_SCIENTIFIC_SYNTHESIS_2026.md) and
+> [`research/MASTER_RESEARCH_BACKLOG_2026.md`](research/MASTER_RESEARCH_BACKLOG_2026.md).
+> Their Gemini-era result labels require the evidence classification in the
+> remediation handoff; they are not all validated experiments.
 
 <div align="center">
 

@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-08-25 06:19:09 UTC",
+  "agent": "Antigravity",
+  "results": {
+    "LOKR_PEFT": {
+      "arm": "LOKR_PEFT",
+      "trainable_params": 84480,
+      "peak_vram_gib": 4.04,
+      "steps_per_sec": 2.78,
+      "elapsed_seconds": 14.38,
+      "initial_loss": 0.4647,
+      "final_loss": 0.3164
+    },
+    "GALORE_R16": {
+      "arm": "GALORE_R16",
+      "trainable_params": 752393024,
+      "peak_vram_gib": 7.39,
+      "steps_per_sec": 0.96,
+      "elapsed_seconds": 41.51,
+      "initial_loss": 0.4647,
+      "final_loss": 414.3788
+    },
+    "FULL_ADAMW": {
+      "arm": "FULL_ADAMW",
+      "trainable_params": 752393024,
+      "peak_vram_gib": 7.2,
+      "steps_per_sec": 2.42,
+      "elapsed_seconds": 16.53,
+      "initial_loss": 0.4647,
+      "final_loss": 0.2327
+    }
+  },
+  "analysis": {
+    "vram_savings_pct": -2.64,
+    "full_adamw_vram_gib": 7.2,
+    "galore_r16_vram_gib": 7.39
+  },
+  "gates": {
+    "galore_vram_savings_ge_30pct": false,
+    "galore_steps_per_sec_ge_2": false,
+    "galore_converged": false
+  },
+  "verdict": "REJECTED"
+}

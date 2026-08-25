@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-08-25 05:46:45 UTC",
+  "agent": "Antigravity",
+  "model": "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe",
+  "dense_baseline": {
+    "parameters": 752393024,
+    "linear_layers_pruned": 186
+  },
+  "results": {
+    "magnitude_2_4": {
+      "cosine_similarity": 0.2334,
+      "logits_mse": 16.875,
+      "conformity_pct": 100.0
+    },
+    "wanda_2_4": {
+      "cosine_similarity": 0.77734,
+      "logits_mse": 2.07812,
+      "conformity_pct": 100.0,
+      "mse_reduction_over_magnitude_pct": 87.69
+    }
+  },
+  "gates": {
+    "wanda_cosine_sim_ge_0_90": false,
+    "structural_conformity_100pct": true,
+    "wanda_beats_magnitude_ge_20pct": true
+  },
+  "verdict": "REJECTED"
+}

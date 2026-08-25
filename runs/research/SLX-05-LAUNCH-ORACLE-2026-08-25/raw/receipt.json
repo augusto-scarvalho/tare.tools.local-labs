@@ -1,0 +1,85 @@
+{
+  "timestamp": "2026-08-25 05:05:06 UTC",
+  "agent": "Antigravity",
+  "gpu": "NVIDIA GeForce RTX 3090",
+  "model": "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe",
+  "layers_count": 24,
+  "iterations_per_cell": 150,
+  "matrix_results": [
+    {
+      "batch_size": 1,
+      "seq_len": 128,
+      "eager_cpu_dispatch_ms": 20.69573300104821,
+      "eager_gpu_kernel_ms": 23.784351348876953,
+      "eager_total_latency_ms": 21.67068899871083,
+      "eager_tokens_per_sec": 46.14527946294135,
+      "cuda_graph_supported": true,
+      "cuda_graph_gpu_ms": 5.905407905578613,
+      "cuda_graph_total_ms": 5.511198000021977,
+      "cuda_graph_tokens_per_sec": 181.44875215806294,
+      "speedup_ratio": 3.932119477221543,
+      "launch_overhead_percentage": 74.56842281133824
+    },
+    {
+      "batch_size": 1,
+      "seq_len": 512,
+      "eager_cpu_dispatch_ms": 14.365505001478596,
+      "eager_gpu_kernel_ms": 16.22118377685547,
+      "eager_total_latency_ms": 14.951256001950242,
+      "eager_tokens_per_sec": 66.88401294644143,
+      "cuda_graph_supported": true,
+      "cuda_graph_gpu_ms": 6.135807991027832,
+      "cuda_graph_total_ms": 5.679642999893986,
+      "cuda_graph_tokens_per_sec": 176.06740423978508,
+      "speedup_ratio": 2.6324288343878863,
+      "launch_overhead_percentage": 62.01226840639252
+    },
+    {
+      "batch_size": 1,
+      "seq_len": 2048,
+      "eager_cpu_dispatch_ms": 14.53923900044174,
+      "eager_gpu_kernel_ms": 16.47907257080078,
+      "eager_total_latency_ms": 15.439024002262158,
+      "eager_tokens_per_sec": 64.7709336971999,
+      "cuda_graph_supported": true,
+      "cuda_graph_gpu_ms": 7.075839996337891,
+      "cuda_graph_total_ms": 6.556817999808118,
+      "cuda_graph_tokens_per_sec": 152.513002500491,
+      "speedup_ratio": 2.3546519062621494,
+      "launch_overhead_percentage": 57.53087760698216
+    },
+    {
+      "batch_size": 2,
+      "seq_len": 512,
+      "eager_cpu_dispatch_ms": 23.48239400089369,
+      "eager_gpu_kernel_ms": 26.34547233581543,
+      "eager_total_latency_ms": 24.04261100309668,
+      "eager_tokens_per_sec": 41.592820341817294,
+      "cuda_graph_supported": true,
+      "cuda_graph_gpu_ms": 6.915071964263916,
+      "cuda_graph_total_ms": 6.407446999219246,
+      "cuda_graph_tokens_per_sec": 156.06839980445426,
+      "speedup_ratio": 3.7522918263742637,
+      "launch_overhead_percentage": 73.34962081117575
+    },
+    {
+      "batch_size": 4,
+      "seq_len": 512,
+      "eager_cpu_dispatch_ms": 20.110633999138372,
+      "eager_gpu_kernel_ms": 22.69286346435547,
+      "eager_total_latency_ms": 20.764313001564005,
+      "eager_tokens_per_sec": 48.159551434457676,
+      "cuda_graph_supported": true,
+      "cuda_graph_gpu_ms": 7.795711994171143,
+      "cuda_graph_total_ms": 7.207927999843378,
+      "cuda_graph_tokens_per_sec": 138.73612500315335,
+      "speedup_ratio": 2.8807603241895863,
+      "launch_overhead_percentage": 65.28694207556752
+    }
+  ],
+  "summary": {
+    "median_b1_launch_overhead_percentage": 62.01226840639252,
+    "verdict": "CONFIRMED_LAUNCH_BOUND",
+    "interpretation": "CPU launch overhead accounts for 62.0% of decode step latency at batch=1. Persistent megakernels or CUDA graphs yield up to ~2.63x theoretical acceleration ceiling."
+  }
+}

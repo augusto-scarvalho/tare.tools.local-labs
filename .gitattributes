@@ -10,6 +10,10 @@
 *.json text eol=lf
 *.jsonl text eol=lf
 
+# Raw research receipts are immutable evidence. Preserve their original bytes
+# (including historical line endings) so external SHA-256 ledgers remain valid.
+runs/research/**/raw/*.json binary
+
 # Binary — never diff or convert.
 *.db binary
 *.gguf binary

@@ -1,0 +1,101 @@
+{
+  "timestamp": "2026-08-25 10:24:04 UTC",
+  "agent": "Codex",
+  "model": "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe",
+  "dense_baseline": {
+    "parameters": 752393024,
+    "linear_layers_pruned": 186
+  },
+  "results": {
+    "magnitude_2_4": {
+      "cosine_similarity": 0.2334,
+      "logits_mse": 16.875,
+      "conformity_pct": 100.0
+    },
+    "wanda_2_4": {
+      "cosine_similarity": 0.77734,
+      "logits_mse": 2.07812,
+      "conformity_pct": 100.0,
+      "mse_reduction_over_magnitude_pct": 87.69
+    }
+  },
+  "gates": {
+    "wanda_cosine_sim_ge_0_90": false,
+    "structural_conformity_100pct": true,
+    "wanda_beats_magnitude_ge_20pct": true
+  },
+  "verdict": "REJECTED",
+  "provenance": {
+    "schema": "local-labs-experiment-provenance-v1",
+    "started_at_utc": "2026-08-25T10:23:59Z",
+    "finished_at_utc": "2026-08-25T10:24:04Z",
+    "elapsed_seconds": 4.497049,
+    "command": [
+      "/home/augus/.venvs/adapt00-20260824/bin/python",
+      "/mnt/c/projects/tare.tools.local-labs/tools/probes/slx09_sparsity_oracle.py",
+      "--model-path",
+      "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe",
+      "--model-revision",
+      "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+      "--output",
+      "runs/research/SLX-09B-SPARSITY-24-2026-08-25/raw/receipt.json"
+    ],
+    "cwd": "/mnt/c/projects/tare.tools.local-labs",
+    "repository": {
+      "head": "8bb0197d4a280aafb20e118db8ff5a7fc21d0631",
+      "dirty": true,
+      "status_entry_count": 267,
+      "status_sha256": "738db68adf9ab452507297d89c6044470d0e44a307410a0cd905036402fec337",
+      "errors": []
+    },
+    "script": {
+      "path": "/mnt/c/projects/tare.tools.local-labs/tools/probes/slx09_sparsity_oracle.py",
+      "sha256": "b63b3ad8e2349a8bb343f63c5b5410cc3502c4dbe1305b317786a208eacf8242"
+    },
+    "inputs": [
+      {
+        "path": "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe/config.json",
+        "status": "HASHED",
+        "bytes": 2907,
+        "sha256": "b90b86f35c8e6925ef74ee04d0e758f0a845c83a42089ad82bbaa948de9b4204"
+      },
+      {
+        "path": "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe/model.safetensors-00001-of-00001.safetensors",
+        "status": "HASHED",
+        "bytes": 1746942600,
+        "sha256": "c2b1e5a17d9c1e27685d92ed9b382911ebb99955ecd89052d1721241adfbab6c"
+      },
+      {
+        "path": "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe/tokenizer.json",
+        "status": "HASHED",
+        "bytes": 12807196,
+        "sha256": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927"
+      }
+    ],
+    "environment": {
+      "python": "3.11.15 (main, Jul 23 2026, 14:43:45) [Clang 22.1.3 ]",
+      "executable": "/home/augus/.venvs/adapt00-20260824/bin/python",
+      "platform": "Linux-6.6.114.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+      "packages": {
+        "torch": "2.5.1+cu124",
+        "transformers": "5.15.1"
+      },
+      "gpu": {
+        "available": true,
+        "query": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576",
+        "error": null
+      }
+    },
+    "runtime": {
+      "torch_version": "2.5.1+cu124",
+      "cuda_runtime": "12.4",
+      "model_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+      "sparsity_representation": "dense_tensors_with_2_of_4_weights_zeroed",
+      "throughput_measured": false,
+      "calibration_corpus": "single_repeated_sentence"
+    }
+  },
+  "provenance_complete": true,
+  "provenance_errors": [],
+  "receipt_fingerprint": "e4b2c98cf10c35c6c379852f73cacb4c35874bb91c7020eec95c91e67c472d3e"
+}

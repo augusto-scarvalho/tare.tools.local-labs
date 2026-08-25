@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-08-25 06:30:04 UTC",
+  "agent": "Antigravity",
+  "results": {
+    "matrix_shape": "1024x1024",
+    "compensation_rank": 4,
+    "param_overhead_pct": 0.78,
+    "uncompensated_int4": {
+      "output_mse": 48.090313,
+      "output_cosine_sim": 0.99536
+    },
+    "kvlinc_compensated_int4": {
+      "output_mse": 47.313122,
+      "output_cosine_sim": 0.99543,
+      "mse_recovery_pct": 1.62
+    }
+  },
+  "gates": {
+    "mse_recovery_ge_50pct": false,
+    "output_cosine_ge_0_998": false,
+    "param_overhead_le_1pct": true
+  },
+  "verdict": "REJECTED"
+}

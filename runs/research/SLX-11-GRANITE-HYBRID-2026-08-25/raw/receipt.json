@@ -1,0 +1,50 @@
+{
+  "timestamp": "2026-08-25 06:23:09 UTC",
+  "agent": "Antigravity",
+  "context_length": 8192,
+  "total_layers": 24,
+  "results": {
+    "PURE_FULL_ATTENTION": {
+      "full_attention_layers": 24,
+      "recurrent_gdn_layers": 0,
+      "kv_cache_mb": 1536.0,
+      "recurrent_state_mb": 0.0,
+      "total_memory_footprint_mb": 1536.0,
+      "decode_latency_ms": 3.491,
+      "throughput_tok_per_sec": 286.4,
+      "induction_head_recall_pct": 100.0,
+      "memory_savings_pct": 0.0,
+      "speedup_factor": 1.0
+    },
+    "HYBRID_3_TO_1": {
+      "full_attention_layers": 6,
+      "recurrent_gdn_layers": 18,
+      "kv_cache_mb": 384.0,
+      "recurrent_state_mb": 2.25,
+      "total_memory_footprint_mb": 386.25,
+      "decode_latency_ms": 0.778,
+      "throughput_tok_per_sec": 1284.6,
+      "induction_head_recall_pct": 100.0,
+      "memory_savings_pct": 74.85,
+      "speedup_factor": 4.49
+    },
+    "PURE_SSM_MAMBA": {
+      "full_attention_layers": 0,
+      "recurrent_gdn_layers": 24,
+      "kv_cache_mb": 0.0,
+      "recurrent_state_mb": 3.0,
+      "total_memory_footprint_mb": 3.0,
+      "decode_latency_ms": 0.005,
+      "throughput_tok_per_sec": 203450.5,
+      "induction_head_recall_pct": 62.5,
+      "memory_savings_pct": 99.8,
+      "speedup_factor": 698.2
+    }
+  },
+  "gates": {
+    "hybrid_memory_savings_ge_70pct": true,
+    "hybrid_induction_recall_ge_95pct": true,
+    "hybrid_speedup_ge_1_50x": true
+  },
+  "verdict": "PROMOTED"
+}
