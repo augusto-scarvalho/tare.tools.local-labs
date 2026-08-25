@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "timestamp": "2026-08-25T00:56:37.696102+00:00",
+  "status": "COMPLETE",
+  "common_budget": {
+    "steps": 24,
+    "batch_size": 1,
+    "max_length": 384,
+    "learning_rate": 0.0002,
+    "seed": 20260824
+  },
+  "pareto_frontier": [
+    "lora",
+    "loha",
+    "lokr",
+    "boft",
+    "ia3",
+    "trainable_tokens"
+  ],
+  "arms": [
+    {
+      "method": "lora",
+      "verdict": "PASS",
+      "trainable_parameters": 5411328,
+      "metrics": {
+        "train_loss_first": 0.46471893787384033,
+        "train_loss_last": 0.5115087032318115,
+        "initial_target_loss": 0.6591179929673672,
+        "final_target_loss": 0.40457069780677557,
+        "target_improvement_fraction": 0.38619381943225783,
+        "initial_protected_loss": 2.9855952163537345,
+        "final_protected_loss": 3.00140780210495,
+        "protected_regression_fraction": 0.0052962925665881655,
+        "reload_target_loss": 0.40457069780677557,
+        "reload_delta_fraction": 0.0,
+        "peak_allocated_vram_gib": 4.876267910003662,
+        "elapsed_seconds": 16.386834286999147
+      },
+      "gates": {
+        "finite_losses": true,
+        "nonzero_gradient": true,
+        "target_improvement_ge_1pct": true,
+        "protected_regression_le_15pct": true,
+        "reload_delta_le_0_5pct": true,
+        "peak_vram_lt_23_gib": true
+      },
+      "receipt": "/mnt/c/projects/tare.tools.local-labs/runs/research/ADAPT-00A-MECHANICS-2026-08-24/raw/metrics.json"
+    },
+    {
+      "method": "dora",
+      "verdict": "FAIL_NONFINITE_LOSS_STEP_0",
+      "trainable_parameters": 5811264,
+      "metrics": null,
+      "gates": {
+        "finite_losses": false
+      },
+      "error_tail": "[transformers] `torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading weights:   0%|          | 0/320 [00:00<?, ?it/s]\nLoading weights:   7%|\u258b         | 23/320 [00:00<00:01, 229.07it/s]\nLoading weights:  70%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 224/320 [00:00<00:00, 1270.68it/s]\nLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 320/320 [00:00<00:00, 1290.42it/s]\nTraceback (most recent call last):\n  File \"/mnt/c/projects/tare.tools.local-labs/tools/probes/adapt00_lora_smoke.py\", line 379, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"/mnt/c/projects/tare.tools.local-labs/tools/probes/adapt00_lora_smoke.py\", line 375, in main\n    return run(args)\n           ^^^^^^^^^\n  File \"/mnt/c/projects/tare.tools.local-labs/tools/probes/adapt00_lora_smoke.py\", line 234, in run\n    raise RuntimeError(f\"non-finite loss at step {step}\")\nRuntimeError: non-finite loss at step 0\n",
+      "receipt": "/mnt/c/projects/tare.tools.local-labs/runs/research/ADAPT-00B-GEOMETRY-MATRIX-2026-08-24/raw/dora/failure.json"
+    },
+    {
+      "method": "loha",
+      "verdict": "PASS",
+      "trainable_parameters": 10822656,
+      "metrics": {
+        "train_loss_first": 0.46471893787384033,
+        "train_loss_last": 0.5995047092437744,
+        "initial_target_loss": 0.6591179929673672,
+        "final_target_loss": 0.4484385699033737,
+        "target_improvement_fraction": 0.31963840361193746,
+        "initial_protected_loss": 2.9855952163537345,
+        "final_protected_loss": 2.984465390443802,
+        "protected_regression_fraction": -0.00037842568334244686,
+        "reload_target_loss": 0.4484385699033737,
+        "reload_delta_fraction": 0.0,
+        "peak_allocated_vram_gib": 6.761277198791504,
+        "elapsed_seconds": 19.43589023000095
+      },
+      "gates": {
+        "finite_losses": true,
+        "nonzero_gradient": true,
+        "target_improvement_ge_1pct": true,
+        "protected_regression_le_15pct": true,
+        "reload_delta_le_0_5pct": true,
+        "peak_vram_lt_23_gib": true
+      },
+      "receipt": "/mnt/c/projects/tare.tools.local-labs/runs/research/ADAPT-00B-GEOMETRY-MATRIX-2026-08-24/raw/loha/metrics.json"
+    },
+    {
+      "method": "lokr",
+      "verdict": "PASS",
+      "trainable_parameters": 359040,
+      "metrics": {
+        "train_loss_first": 0.46471893787384033,
+        "train_loss_last": 0.5379511117935181,
+        "initial_target_loss": 0.6591179929673672,
+        "final_target_loss": 0.3971975934691727,
+        "target_improvement_fraction": 0.3973801387503043,
+        "initial_protected_loss": 2.9855952163537345,
+        "final_protected_loss": 2.987063616514206,
+        "protected_regression_fraction": 0.0004918282801460228,
+        "reload_target_loss": 0.3971975934691727,
+        "reload_delta_fraction": 0.0,
+        "peak_allocated_vram_gib": 6.657322883605957,
+        "elapsed_seconds": 17.846927107999363
+      },
+      "gates": {
+        "finite_losses": true,
+        "nonzero_gradient": true,
+        "target_improvement_ge_1pct": true,
+        "protected_regression_le_15pct": true,
+        "reload_delta_le_0_5pct": true,
+        "peak_vram_lt_23_gib": true
+      },
+      "receipt": "/mnt/c/projects/tare.tools.local-labs/runs/research/ADAPT-00B-GEOMETRY-MATRIX-2026-08-24/raw/lokr/metrics.json"
+    },
+    {
+      "method": "boft",
+      "verdict": "PASS",
+      "trainable_parameters": 1505856,
+      "metrics": {
+        "train_loss_first": 0.46471893787384033,
+        "train_loss_last": 0.5796986222267151,
+        "initial_target_loss": 0.6591179929673672,
+        "final_target_loss": 0.41695515904575586,
+        "target_improvement_fraction": 0.367404374490503,
+        "initial_protected_loss": 2.9855952163537345,
+        "final_protected_loss": 2.9865923821926117,
+        "protected_regression_fraction": 0.00033399230860740615,
+        "reload_target_loss": 0.41695515904575586,
+        "reload_delta_fraction": 0.0,
+        "peak_allocated_vram_gib": 7.988894939422607,
+        "elapsed_seconds": 84.21690201399906
+      },
+      "gates": {
+        "finite_losses": true,
+        "nonzero_gradient": true,
+        "target_improvement_ge_1pct": true,
+        "protected_regression_le_15pct": true,
+        "reload_delta_le_0_5pct": true,
+        "peak_vram_lt_23_gib": true
+      },
+      "receipt": "/mnt/c/projects/tare.tools.local-labs/runs/research/ADAPT-00B-GEOMETRY-MATRIX-2026-08-24/raw/boft/metrics.json"
+    },
+    {
+      "method": "ia3",
+      "verdict": "PASS",
+      "trainable_parameters": 239616,
+      "metrics": {
+        "train_loss_first": 0.46471893787384033,
+        "train_loss_last": 0.70572829246521,
+        "initial_target_loss": 0.6591179929673672,
+        "final_target_loss": 0.547427692450583,
+        "target_improvement_fraction": 0.16945418226856684,
+        "initial_protected_loss": 2.9855952163537345,
+        "final_protected_loss": 2.985376497109731,
+        "protected_regression_fraction": -7.32581707008543e-05,
+        "reload_target_loss": 0.547427692450583,
+        "reload_delta_fraction": 0.0,
+        "peak_allocated_vram_gib": 4.680053234100342,
+        "elapsed_seconds": 13.447012016998997
+      },
+      "gates": {
+        "finite_losses": true,
+        "nonzero_gradient": true,
+        "target_improvement_ge_1pct": true,
+        "protected_regression_le_15pct": true,
+        "reload_delta_le_0_5pct": true,
+        "peak_vram_lt_23_gib": true
+      },
+      "receipt": "/mnt/c/projects/tare.tools.local-labs/runs/research/ADAPT-00B-GEOMETRY-MATRIX-2026-08-24/raw/ia3/metrics.json"
+    },
+    {
+      "method": "trainable_tokens",
+      "verdict": "PASS",
+      "trainable_parameters": 2026496,
+      "metrics": {
+        "train_loss_first": 0.46471893787384033,
+        "train_loss_last": 0.6899622082710266,
+        "initial_target_loss": 0.6591179929673672,
+        "final_target_loss": 0.48805339680984616,
+        "target_improvement_fraction": 0.25953561878561915,
+        "initial_protected_loss": 2.9855952163537345,
+        "final_protected_loss": 3.043191760778427,
+        "protected_regression_fraction": 0.01929147799715277,
+        "reload_target_loss": 0.48805339680984616,
+        "reload_delta_fraction": 0.0,
+        "peak_allocated_vram_gib": 4.967348098754883,
+        "elapsed_seconds": 15.123346810998555
+      },
+      "gates": {
+        "finite_losses": true,
+        "nonzero_gradient": true,
+        "target_improvement_ge_1pct": true,
+        "protected_regression_le_15pct": true,
+        "reload_delta_le_0_5pct": true,
+        "peak_vram_lt_23_gib": true
+      },
+      "receipt": "/mnt/c/projects/tare.tools.local-labs/runs/research/ADAPT-00B-GEOMETRY-MATRIX-2026-08-24/raw/trainable_tokens/metrics.json"
+    }
+  ],
+  "execution": [
+    {
+      "method": "dora",
+      "returncode": 1,
+      "metrics_written": false,
+      "stdout_tail": "",
+      "stderr_tail": "[transformers] `torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading weights:   0%|          | 0/320 [00:00<?, ?it/s]\nLoading weights:   7%|\u258b         | 23/320 [00:00<00:01, 229.07it/s]\nLoading weights:  70%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 224/320 [00:00<00:00, 1270.68it/s]\nLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 320/320 [00:00<00:00, 1290.42it/s]\nTraceback (most recent call last):\n  File \"/mnt/c/projects/tare.tools.local-labs/tools/probes/adapt00_lora_smoke.py\", line 379, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"/mnt/c/projects/tare.tools.local-labs/tools/probes/adapt00_lora_smoke.py\", line 375, in main\n    return run(args)\n           ^^^^^^^^^\n  File \"/mnt/c/projects/tare.tools.local-labs/tools/probes/adapt00_lora_smoke.py\", line 234, in run\n    raise RuntimeError(f\"non-finite loss at step {step}\")\nRuntimeError: non-finite loss at step 0\n"
+    },
+    {
+      "method": "loha",
+      "returncode": 0,
+      "metrics_written": true,
+      "stdout_tail": "  \"gsm8k/639\",\n      \"gsm8k/920\",\n      \"gsm8k/307\",\n      \"gsm8k/6\",\n      \"gsm8k/793\",\n      \"gsm8k/766\",\n      \"gsm8k/255\",\n      \"gsm8k/129\",\n      \"gsm8k/646\",\n      \"gsm8k/960\",\n      \"gsm8k/223\",\n      \"gsm8k/959\",\n      \"gsm8k/548\",\n      \"gsm8k/208\",\n      \"gsm8k/1102\",\n      \"gsm8k/506\",\n      \"gsm8k/796\",\n      \"gsm8k/735\",\n      \"gsm8k/1088\",\n      \"gsm8k/140\",\n      \"gsm8k/760\",\n      \"gsm8k/279\",\n      \"gsm8k/574\",\n      \"gsm8k/563\",\n      \"gsm8k/122\",\n      \"gsm8k/59\",\n      \"gsm8k/1004\",\n      \"gsm8k/907\",\n      \"gsm8k/117\",\n      \"gsm8k/690\",\n      \"gsm8k/941\",\n      \"gsm8k/744\",\n      \"gsm8k/305\",\n      \"gsm8k/490\",\n      \"gsm8k/1247\",\n      \"gsm8k/566\",\n      \"gsm8k/1223\",\n      \"gsm8k/876\",\n      \"gsm8k/7\",\n      \"gsm8k/590\",\n      \"gsm8k/1272\",\n      \"gsm8k/1312\",\n      \"gsm8k/779\",\n      \"gsm8k/127\",\n      \"gsm8k/992\",\n      \"gsm8k/794\",\n      \"gsm8k/991\",\n      \"gsm8k/216\",\n      \"gsm8k/1301\",\n      \"gsm8k/273\",\n      \"gsm8k/1132\",\n      \"gsm8k/861\",\n      \"gsm8k/778\",\n      \"gsm8k/276\",\n      \"gsm8k/807\",\n      \"gsm8k/898\",\n      \"gsm8k/592\",\n      \"gsm8k/1280\",\n      \"gsm8k/17\",\n      \"gsm8k/747\",\n      \"gsm8k/860\",\n      \"gsm8k/1263\",\n      \"gsm8k/439\",\n      \"gsm8k/388\",\n      \"gsm8k/1059\",\n      \"gsm8k/197\",\n      \"gsm8k/1024\",\n      \"gsm8k/311\",\n      \"gsm8k/874\",\n      \"gsm8k/461\",\n      \"gsm8k/96\",\n      \"gsm8k/1173\",\n      \"gsm8k/914\",\n      \"gsm8k/1056\",\n      \"gsm8k/1014\",\n      \"gsm8k/1071\",\n      \"gsm8k/308\",\n      \"gsm8k/1315\",\n      \"gsm8k/1020\",\n      \"gsm8k/1228\",\n      \"gsm8k/910\",\n      \"gsm8k/1002\",\n      \"gsm8k/754\",\n      \"gsm8k/1115\",\n      \"gsm8k/689\",\n      \"gsm8k/423\",\n      \"gsm8k/13\",\n      \"gsm8k/1155\",\n      \"gsm8k/1208\",\n      \"gsm8k/901\",\n      \"gsm8k/830\",\n      \"gsm8k/296\",\n      \"gsm8k/321\",\n      \"gsm8k/1111\",\n      \"gsm8k/836\",\n      \"gsm8k/1282\",\n      \"gsm8k/1179\",\n      \"gsm8k/269\",\n      \"gsm8k/282\",\n      \"gsm8k/362\",\n      \"gsm8k/237\",\n      \"gsm8k/638\",\n      \"gsm8k/243\",\n      \"gsm8k/620\",\n      \"gsm8k/1018\",\n      \"gsm8k/179\",\n      \"gsm8k/734\",\n      \"gsm8k/776\",\n      \"gsm8k/1304\"\n    ],\n    \"target_task_ids\": [\n      \"gsm8k/392\",\n      \"gsm8k/1226\",\n      \"gsm8k/541\",\n      \"gsm8k/44\",\n      \"gsm8k/489\",\n      \"gsm8k/1298\",\n      \"gsm8k/663\",\n      \"gsm8k/1217\",\n      \"gsm8k/1186\",\n      \"gsm8k/225\",\n      \"gsm8k/110\",\n      \"gsm8k/174\",\n      \"gsm8k/986\",\n      \"gsm8k/173\",\n      \"gsm8k/317\",\n      \"gsm8k/529\",\n      \"gsm8k/236\",\n      \"gsm8k/831\",\n      \"gsm8k/86\",\n      \"gsm8k/19\",\n      \"gsm8k/967\",\n      \"gsm8k/724\",\n      \"gsm8k/1001\",\n      \"gsm8k/1212\",\n      \"gsm8k/1264\",\n      \"gsm8k/662\",\n      \"gsm8k/34\",\n      \"gsm8k/1294\",\n      \"gsm8k/551\",\n      \"gsm8k/175\",\n      \"gsm8k/430\",\n      \"gsm8k/386\"\n    ]\n  },\n  \"configuration\": {\n    \"method\": \"loha\",\n    \"rank\": 8,\n    \"alpha\": 16,\n    \"target_modules\": \"all-linear\",\n    \"steps\": 24,\n    \"learning_rate\": 0.0002,\n    \"max_length\": 384,\n    \"precision\": \"bfloat16\",\n    \"batch_size\": 1\n  },\n  \"parameters\": {\n    \"trainable\": 10822656,\n    \"total_with_adapter\": 763215680\n  },\n  \"metrics\": {\n    \"train_loss_first\": 0.46471893787384033,\n    \"train_loss_last\": 0.5995047092437744,\n    \"initial_target_loss\": 0.6591179929673672,\n    \"final_target_loss\": 0.4484385699033737,\n    \"target_improvement_fraction\": 0.31963840361193746,\n    \"initial_protected_loss\": 2.9855952163537345,\n    \"final_protected_loss\": 2.984465390443802,\n    \"protected_regression_fraction\": -0.00037842568334244686,\n    \"reload_target_loss\": 0.4484385699033737,\n    \"reload_delta_fraction\": 0.0,\n    \"peak_allocated_vram_gib\": 6.761277198791504,\n    \"elapsed_seconds\": 19.43589023000095\n  },\n  \"gates\": {\n    \"finite_losses\": true,\n    \"nonzero_gradient\": true,\n    \"target_improvement_ge_1pct\": true,\n    \"protected_regression_le_15pct\": true,\n    \"reload_delta_le_0_5pct\": true,\n    \"peak_vram_lt_23_gib\": true\n  },\n  \"adapter_dir\": \"/mnt/c/projects/tare.tools.local-labs/runs/research/ADAPT-00B-GEOMETRY-MATRIX-2026-08-24/raw/loha/adapter\"\n}\n",
+      "stderr_tail": "[transformers] `torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading weights:   0%|          | 0/320 [00:00<?, ?it/s]\nLoading weights:  15%|\u2588\u258d        | 47/320 [00:00<00:00, 465.97it/s]\nLoading weights:  75%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d  | 239/320 [00:00<00:00, 1317.63it/s]\nLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 320/320 [00:00<00:00, 1364.75it/s]\n\nLoading weights:   0%|          | 0/320 [00:00<?, ?it/s]\nLoading weights:  31%|\u2588\u2588\u2588       | 99/320 [00:00<00:00, 988.10it/s]\nLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 320/320 [00:00<00:00, 1641.31it/s]\n"
+    },
+    {
+      "method": "lokr",
+      "returncode": 0,
+      "metrics_written": true,
+      "stdout_tail": "      \"gsm8k/639\",\n      \"gsm8k/920\",\n      \"gsm8k/307\",\n      \"gsm8k/6\",\n      \"gsm8k/793\",\n      \"gsm8k/766\",\n      \"gsm8k/255\",\n      \"gsm8k/129\",\n      \"gsm8k/646\",\n      \"gsm8k/960\",\n      \"gsm8k/223\",\n      \"gsm8k/959\",\n      \"gsm8k/548\",\n      \"gsm8k/208\",\n      \"gsm8k/1102\",\n      \"gsm8k/506\",\n      \"gsm8k/796\",\n      \"gsm8k/735\",\n      \"gsm8k/1088\",\n      \"gsm8k/140\",\n      \"gsm8k/760\",\n      \"gsm8k/279\",\n      \"gsm8k/574\",\n      \"gsm8k/563\",\n      \"gsm8k/122\",\n      \"gsm8k/59\",\n      \"gsm8k/1004\",\n      \"gsm8k/907\",\n      \"gsm8k/117\",\n      \"gsm8k/690\",\n      \"gsm8k/941\",\n      \"gsm8k/744\",\n      \"gsm8k/305\",\n      \"gsm8k/490\",\n      \"gsm8k/1247\",\n      \"gsm8k/566\",\n      \"gsm8k/1223\",\n      \"gsm8k/876\",\n      \"gsm8k/7\",\n      \"gsm8k/590\",\n      \"gsm8k/1272\",\n      \"gsm8k/1312\",\n      \"gsm8k/779\",\n      \"gsm8k/127\",\n      \"gsm8k/992\",\n      \"gsm8k/794\",\n      \"gsm8k/991\",\n      \"gsm8k/216\",\n      \"gsm8k/1301\",\n      \"gsm8k/273\",\n      \"gsm8k/1132\",\n      \"gsm8k/861\",\n      \"gsm8k/778\",\n      \"gsm8k/276\",\n      \"gsm8k/807\",\n      \"gsm8k/898\",\n      \"gsm8k/592\",\n      \"gsm8k/1280\",\n      \"gsm8k/17\",\n      \"gsm8k/747\",\n      \"gsm8k/860\",\n      \"gsm8k/1263\",\n      \"gsm8k/439\",\n      \"gsm8k/388\",\n      \"gsm8k/1059\",\n      \"gsm8k/197\",\n      \"gsm8k/1024\",\n      \"gsm8k/311\",\n      \"gsm8k/874\",\n      \"gsm8k/461\",\n      \"gsm8k/96\",\n      \"gsm8k/1173\",\n      \"gsm8k/914\",\n      \"gsm8k/1056\",\n      \"gsm8k/1014\",\n      \"gsm8k/1071\",\n      \"gsm8k/308\",\n      \"gsm8k/1315\",\n      \"gsm8k/1020\",\n      \"gsm8k/1228\",\n      \"gsm8k/910\",\n      \"gsm8k/1002\",\n      \"gsm8k/754\",\n      \"gsm8k/1115\",\n      \"gsm8k/689\",\n      \"gsm8k/423\",\n      \"gsm8k/13\",\n      \"gsm8k/1155\",\n      \"gsm8k/1208\",\n      \"gsm8k/901\",\n      \"gsm8k/830\",\n      \"gsm8k/296\",\n      \"gsm8k/321\",\n      \"gsm8k/1111\",\n      \"gsm8k/836\",\n      \"gsm8k/1282\",\n      \"gsm8k/1179\",\n      \"gsm8k/269\",\n      \"gsm8k/282\",\n      \"gsm8k/362\",\n      \"gsm8k/237\",\n      \"gsm8k/638\",\n      \"gsm8k/243\",\n      \"gsm8k/620\",\n      \"gsm8k/1018\",\n      \"gsm8k/179\",\n      \"gsm8k/734\",\n      \"gsm8k/776\",\n      \"gsm8k/1304\"\n    ],\n    \"target_task_ids\": [\n      \"gsm8k/392\",\n      \"gsm8k/1226\",\n      \"gsm8k/541\",\n      \"gsm8k/44\",\n      \"gsm8k/489\",\n      \"gsm8k/1298\",\n      \"gsm8k/663\",\n      \"gsm8k/1217\",\n      \"gsm8k/1186\",\n      \"gsm8k/225\",\n      \"gsm8k/110\",\n      \"gsm8k/174\",\n      \"gsm8k/986\",\n      \"gsm8k/173\",\n      \"gsm8k/317\",\n      \"gsm8k/529\",\n      \"gsm8k/236\",\n      \"gsm8k/831\",\n      \"gsm8k/86\",\n      \"gsm8k/19\",\n      \"gsm8k/967\",\n      \"gsm8k/724\",\n      \"gsm8k/1001\",\n      \"gsm8k/1212\",\n      \"gsm8k/1264\",\n      \"gsm8k/662\",\n      \"gsm8k/34\",\n      \"gsm8k/1294\",\n      \"gsm8k/551\",\n      \"gsm8k/175\",\n      \"gsm8k/430\",\n      \"gsm8k/386\"\n    ]\n  },\n  \"configuration\": {\n    \"method\": \"lokr\",\n    \"rank\": 8,\n    \"alpha\": 16,\n    \"target_modules\": \"all-linear\",\n    \"steps\": 24,\n    \"learning_rate\": 0.0002,\n    \"max_length\": 384,\n    \"precision\": \"bfloat16\",\n    \"batch_size\": 1\n  },\n  \"parameters\": {\n    \"trainable\": 359040,\n    \"total_with_adapter\": 752752064\n  },\n  \"metrics\": {\n    \"train_loss_first\": 0.46471893787384033,\n    \"train_loss_last\": 0.5379511117935181,\n    \"initial_target_loss\": 0.6591179929673672,\n    \"final_target_loss\": 0.3971975934691727,\n    \"target_improvement_fraction\": 0.3973801387503043,\n    \"initial_protected_loss\": 2.9855952163537345,\n    \"final_protected_loss\": 2.987063616514206,\n    \"protected_regression_fraction\": 0.0004918282801460228,\n    \"reload_target_loss\": 0.3971975934691727,\n    \"reload_delta_fraction\": 0.0,\n    \"peak_allocated_vram_gib\": 6.657322883605957,\n    \"elapsed_seconds\": 17.846927107999363\n  },\n  \"gates\": {\n    \"finite_losses\": true,\n    \"nonzero_gradient\": true,\n    \"target_improvement_ge_1pct\": true,\n    \"protected_regression_le_15pct\": true,\n    \"reload_delta_le_0_5pct\": true,\n    \"peak_vram_lt_23_gib\": true\n  },\n  \"adapter_dir\": \"/mnt/c/projects/tare.tools.local-labs/runs/research/ADAPT-00B-GEOMETRY-MATRIX-2026-08-24/raw/lokr/adapter\"\n}\n",
+      "stderr_tail": "[transformers] `torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading weights:   0%|          | 0/320 [00:00<?, ?it/s]\nLoading weights:  19%|\u2588\u2589        | 60/320 [00:00<00:00, 598.62it/s]\nLoading weights:  94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 300/320 [00:00<00:00, 1647.49it/s]\nLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 320/320 [00:00<00:00, 1533.68it/s]\n\nLoading weights:   0%|          | 0/320 [00:00<?, ?it/s]\nLoading weights:  33%|\u2588\u2588\u2588\u258e      | 107/320 [00:00<00:00, 1068.98it/s]\nLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 320/320 [00:00<00:00, 1659.34it/s]\n"
+    },
+    {
+      "method": "boft",
+      "returncode": 0,
+      "metrics_written": true,
+      "stdout_tail": "sm8k/793\",\n      \"gsm8k/766\",\n      \"gsm8k/255\",\n      \"gsm8k/129\",\n      \"gsm8k/646\",\n      \"gsm8k/960\",\n      \"gsm8k/223\",\n      \"gsm8k/959\",\n      \"gsm8k/548\",\n      \"gsm8k/208\",\n      \"gsm8k/1102\",\n      \"gsm8k/506\",\n      \"gsm8k/796\",\n      \"gsm8k/735\",\n      \"gsm8k/1088\",\n      \"gsm8k/140\",\n      \"gsm8k/760\",\n      \"gsm8k/279\",\n      \"gsm8k/574\",\n      \"gsm8k/563\",\n      \"gsm8k/122\",\n      \"gsm8k/59\",\n      \"gsm8k/1004\",\n      \"gsm8k/907\",\n      \"gsm8k/117\",\n      \"gsm8k/690\",\n      \"gsm8k/941\",\n      \"gsm8k/744\",\n      \"gsm8k/305\",\n      \"gsm8k/490\",\n      \"gsm8k/1247\",\n      \"gsm8k/566\",\n      \"gsm8k/1223\",\n      \"gsm8k/876\",\n      \"gsm8k/7\",\n      \"gsm8k/590\",\n      \"gsm8k/1272\",\n      \"gsm8k/1312\",\n      \"gsm8k/779\",\n      \"gsm8k/127\",\n      \"gsm8k/992\",\n      \"gsm8k/794\",\n      \"gsm8k/991\",\n      \"gsm8k/216\",\n      \"gsm8k/1301\",\n      \"gsm8k/273\",\n      \"gsm8k/1132\",\n      \"gsm8k/861\",\n      \"gsm8k/778\",\n      \"gsm8k/276\",\n      \"gsm8k/807\",\n      \"gsm8k/898\",\n      \"gsm8k/592\",\n      \"gsm8k/1280\",\n      \"gsm8k/17\",\n      \"gsm8k/747\",\n      \"gsm8k/860\",\n      \"gsm8k/1263\",\n      \"gsm8k/439\",\n      \"gsm8k/388\",\n      \"gsm8k/1059\",\n      \"gsm8k/197\",\n      \"gsm8k/1024\",\n      \"gsm8k/311\",\n      \"gsm8k/874\",\n      \"gsm8k/461\",\n      \"gsm8k/96\",\n      \"gsm8k/1173\",\n      \"gsm8k/914\",\n      \"gsm8k/1056\",\n      \"gsm8k/1014\",\n      \"gsm8k/1071\",\n      \"gsm8k/308\",\n      \"gsm8k/1315\",\n      \"gsm8k/1020\",\n      \"gsm8k/1228\",\n      \"gsm8k/910\",\n      \"gsm8k/1002\",\n      \"gsm8k/754\",\n      \"gsm8k/1115\",\n      \"gsm8k/689\",\n      \"gsm8k/423\",\n      \"gsm8k/13\",\n      \"gsm8k/1155\",\n      \"gsm8k/1208\",\n      \"gsm8k/901\",\n      \"gsm8k/830\",\n      \"gsm8k/296\",\n      \"gsm8k/321\",\n      \"gsm8k/1111\",\n      \"gsm8k/836\",\n      \"gsm8k/1282\",\n      \"gsm8k/1179\",\n      \"gsm8k/269\",\n      \"gsm8k/282\",\n      \"gsm8k/362\",\n      \"gsm8k/237\",\n      \"gsm8k/638\",\n      \"gsm8k/243\",\n      \"gsm8k/620\",\n      \"gsm8k/1018\",\n      \"gsm8k/179\",\n      \"gsm8k/734\",\n      \"gsm8k/776\",\n      \"gsm8k/1304\"\n    ],\n    \"target_task_ids\": [\n      \"gsm8k/392\",\n      \"gsm8k/1226\",\n      \"gsm8k/541\",\n      \"gsm8k/44\",\n      \"gsm8k/489\",\n      \"gsm8k/1298\",\n      \"gsm8k/663\",\n      \"gsm8k/1217\",\n      \"gsm8k/1186\",\n      \"gsm8k/225\",\n      \"gsm8k/110\",\n      \"gsm8k/174\",\n      \"gsm8k/986\",\n      \"gsm8k/173\",\n      \"gsm8k/317\",\n      \"gsm8k/529\",\n      \"gsm8k/236\",\n      \"gsm8k/831\",\n      \"gsm8k/86\",\n      \"gsm8k/19\",\n      \"gsm8k/967\",\n      \"gsm8k/724\",\n      \"gsm8k/1001\",\n      \"gsm8k/1212\",\n      \"gsm8k/1264\",\n      \"gsm8k/662\",\n      \"gsm8k/34\",\n      \"gsm8k/1294\",\n      \"gsm8k/551\",\n      \"gsm8k/175\",\n      \"gsm8k/430\",\n      \"gsm8k/386\"\n    ]\n  },\n  \"configuration\": {\n    \"method\": \"boft\",\n    \"block_size\": 4,\n    \"butterfly_factors\": 1,\n    \"target_modules\": \"all-linear\",\n    \"fbd_cuda_extension\": \"preflight_failed; torch fallback\",\n    \"steps\": 24,\n    \"learning_rate\": 0.0002,\n    \"max_length\": 384,\n    \"precision\": \"bfloat16\",\n    \"batch_size\": 1\n  },\n  \"parameters\": {\n    \"trainable\": 1505856,\n    \"total_with_adapter\": 753898880\n  },\n  \"metrics\": {\n    \"train_loss_first\": 0.46471893787384033,\n    \"train_loss_last\": 0.5796986222267151,\n    \"initial_target_loss\": 0.6591179929673672,\n    \"final_target_loss\": 0.41695515904575586,\n    \"target_improvement_fraction\": 0.367404374490503,\n    \"initial_protected_loss\": 2.9855952163537345,\n    \"final_protected_loss\": 2.9865923821926117,\n    \"protected_regression_fraction\": 0.00033399230860740615,\n    \"reload_target_loss\": 0.41695515904575586,\n    \"reload_delta_fraction\": 0.0,\n    \"peak_allocated_vram_gib\": 7.988894939422607,\n    \"elapsed_seconds\": 84.21690201399906\n  },\n  \"gates\": {\n    \"finite_losses\": true,\n    \"nonzero_gradient\": true,\n    \"target_improvement_ge_1pct\": true,\n    \"protected_regression_le_15pct\": true,\n    \"reload_delta_le_0_5pct\": true,\n    \"peak_vram_lt_23_gib\": true\n  },\n  \"adapter_dir\": \"/mnt/c/projects/tare.tools.local-labs/runs/research/ADAPT-00B-GEOMETRY-MATRIX-2026-08-24/raw/boft/adapter\"\n}\n",
+      "stderr_tail": "[transformers] `torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading weights:   0%|          | 0/320 [00:00<?, ?it/s]\nLoading weights:  20%|\u2588\u2588        | 65/320 [00:00<00:00, 649.00it/s]\nLoading weights:  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c | 274/320 [00:00<00:00, 1494.03it/s]\nLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 320/320 [00:00<00:00, 1445.83it/s]\n\nLoading weights:   0%|          | 0/320 [00:00<?, ?it/s]\nLoading weights:  30%|\u2588\u2588\u2589       | 95/320 [00:00<00:00, 948.42it/s]\nLoading weights:  99%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2589| 318/320 [00:00<00:00, 1700.39it/s]\nLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 320/320 [00:00<00:00, 1595.40it/s]\n"
+    },
+    {
+      "method": "ia3",
+      "returncode": 0,
+      "metrics_written": true,
+      "stdout_tail": "gsm8k/255\",\n      \"gsm8k/129\",\n      \"gsm8k/646\",\n      \"gsm8k/960\",\n      \"gsm8k/223\",\n      \"gsm8k/959\",\n      \"gsm8k/548\",\n      \"gsm8k/208\",\n      \"gsm8k/1102\",\n      \"gsm8k/506\",\n      \"gsm8k/796\",\n      \"gsm8k/735\",\n      \"gsm8k/1088\",\n      \"gsm8k/140\",\n      \"gsm8k/760\",\n      \"gsm8k/279\",\n      \"gsm8k/574\",\n      \"gsm8k/563\",\n      \"gsm8k/122\",\n      \"gsm8k/59\",\n      \"gsm8k/1004\",\n      \"gsm8k/907\",\n      \"gsm8k/117\",\n      \"gsm8k/690\",\n      \"gsm8k/941\",\n      \"gsm8k/744\",\n      \"gsm8k/305\",\n      \"gsm8k/490\",\n      \"gsm8k/1247\",\n      \"gsm8k/566\",\n      \"gsm8k/1223\",\n      \"gsm8k/876\",\n      \"gsm8k/7\",\n      \"gsm8k/590\",\n      \"gsm8k/1272\",\n      \"gsm8k/1312\",\n      \"gsm8k/779\",\n      \"gsm8k/127\",\n      \"gsm8k/992\",\n      \"gsm8k/794\",\n      \"gsm8k/991\",\n      \"gsm8k/216\",\n      \"gsm8k/1301\",\n      \"gsm8k/273\",\n      \"gsm8k/1132\",\n      \"gsm8k/861\",\n      \"gsm8k/778\",\n      \"gsm8k/276\",\n      \"gsm8k/807\",\n      \"gsm8k/898\",\n      \"gsm8k/592\",\n      \"gsm8k/1280\",\n      \"gsm8k/17\",\n      \"gsm8k/747\",\n      \"gsm8k/860\",\n      \"gsm8k/1263\",\n      \"gsm8k/439\",\n      \"gsm8k/388\",\n      \"gsm8k/1059\",\n      \"gsm8k/197\",\n      \"gsm8k/1024\",\n      \"gsm8k/311\",\n      \"gsm8k/874\",\n      \"gsm8k/461\",\n      \"gsm8k/96\",\n      \"gsm8k/1173\",\n      \"gsm8k/914\",\n      \"gsm8k/1056\",\n      \"gsm8k/1014\",\n      \"gsm8k/1071\",\n      \"gsm8k/308\",\n      \"gsm8k/1315\",\n      \"gsm8k/1020\",\n      \"gsm8k/1228\",\n      \"gsm8k/910\",\n      \"gsm8k/1002\",\n      \"gsm8k/754\",\n      \"gsm8k/1115\",\n      \"gsm8k/689\",\n      \"gsm8k/423\",\n      \"gsm8k/13\",\n      \"gsm8k/1155\",\n      \"gsm8k/1208\",\n      \"gsm8k/901\",\n      \"gsm8k/830\",\n      \"gsm8k/296\",\n      \"gsm8k/321\",\n      \"gsm8k/1111\",\n      \"gsm8k/836\",\n      \"gsm8k/1282\",\n      \"gsm8k/1179\",\n      \"gsm8k/269\",\n      \"gsm8k/282\",\n      \"gsm8k/362\",\n      \"gsm8k/237\",\n      \"gsm8k/638\",\n      \"gsm8k/243\",\n      \"gsm8k/620\",\n      \"gsm8k/1018\",\n      \"gsm8k/179\",\n      \"gsm8k/734\",\n      \"gsm8k/776\",\n      \"gsm8k/1304\"\n    ],\n    \"target_task_ids\": [\n      \"gsm8k/392\",\n      \"gsm8k/1226\",\n      \"gsm8k/541\",\n      \"gsm8k/44\",\n      \"gsm8k/489\",\n      \"gsm8k/1298\",\n      \"gsm8k/663\",\n      \"gsm8k/1217\",\n      \"gsm8k/1186\",\n      \"gsm8k/225\",\n      \"gsm8k/110\",\n      \"gsm8k/174\",\n      \"gsm8k/986\",\n      \"gsm8k/173\",\n      \"gsm8k/317\",\n      \"gsm8k/529\",\n      \"gsm8k/236\",\n      \"gsm8k/831\",\n      \"gsm8k/86\",\n      \"gsm8k/19\",\n      \"gsm8k/967\",\n      \"gsm8k/724\",\n      \"gsm8k/1001\",\n      \"gsm8k/1212\",\n      \"gsm8k/1264\",\n      \"gsm8k/662\",\n      \"gsm8k/34\",\n      \"gsm8k/1294\",\n      \"gsm8k/551\",\n      \"gsm8k/175\",\n      \"gsm8k/430\",\n      \"gsm8k/386\"\n    ]\n  },\n  \"configuration\": {\n    \"method\": \"ia3\",\n    \"target_modules\": [\n      \"k_proj\",\n      \"v_proj\",\n      \"down_proj\",\n      \"in_proj_qkv\",\n      \"out_proj\"\n    ],\n    \"feedforward_modules\": [\n      \"down_proj\",\n      \"out_proj\"\n    ],\n    \"steps\": 24,\n    \"learning_rate\": 0.0002,\n    \"max_length\": 384,\n    \"precision\": \"bfloat16\",\n    \"batch_size\": 1\n  },\n  \"parameters\": {\n    \"trainable\": 239616,\n    \"total_with_adapter\": 752632640\n  },\n  \"metrics\": {\n    \"train_loss_first\": 0.46471893787384033,\n    \"train_loss_last\": 0.70572829246521,\n    \"initial_target_loss\": 0.6591179929673672,\n    \"final_target_loss\": 0.547427692450583,\n    \"target_improvement_fraction\": 0.16945418226856684,\n    \"initial_protected_loss\": 2.9855952163537345,\n    \"final_protected_loss\": 2.985376497109731,\n    \"protected_regression_fraction\": -7.32581707008543e-05,\n    \"reload_target_loss\": 0.547427692450583,\n    \"reload_delta_fraction\": 0.0,\n    \"peak_allocated_vram_gib\": 4.680053234100342,\n    \"elapsed_seconds\": 13.447012016998997\n  },\n  \"gates\": {\n    \"finite_losses\": true,\n    \"nonzero_gradient\": true,\n    \"target_improvement_ge_1pct\": true,\n    \"protected_regression_le_15pct\": true,\n    \"reload_delta_le_0_5pct\": true,\n    \"peak_vram_lt_23_gib\": true\n  },\n  \"adapter_dir\": \"/mnt/c/projects/tare.tools.local-labs/runs/research/ADAPT-00B-GEOMETRY-MATRIX-2026-08-24/raw/ia3/adapter\"\n}\n",
+      "stderr_tail": "[transformers] `torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading weights:   0%|          | 0/320 [00:00<?, ?it/s]\nLoading weights:  24%|\u2588\u2588\u258d       | 77/320 [00:00<00:00, 766.77it/s]\nLoading weights:  97%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b| 311/320 [00:00<00:00, 1688.72it/s]\nLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 320/320 [00:00<00:00, 1570.00it/s]\n\nLoading weights:   0%|          | 0/320 [00:00<?, ?it/s]\nLoading weights:  27%|\u2588\u2588\u258b       | 85/320 [00:00<00:00, 848.84it/s]\nLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 320/320 [00:00<00:00, 1617.20it/s]\n"
+    },
+    {
+      "method": "trainable_tokens",
+      "returncode": 0,
+      "metrics_written": true,
+      "stdout_tail": "\",\n      \"gsm8k/766\",\n      \"gsm8k/255\",\n      \"gsm8k/129\",\n      \"gsm8k/646\",\n      \"gsm8k/960\",\n      \"gsm8k/223\",\n      \"gsm8k/959\",\n      \"gsm8k/548\",\n      \"gsm8k/208\",\n      \"gsm8k/1102\",\n      \"gsm8k/506\",\n      \"gsm8k/796\",\n      \"gsm8k/735\",\n      \"gsm8k/1088\",\n      \"gsm8k/140\",\n      \"gsm8k/760\",\n      \"gsm8k/279\",\n      \"gsm8k/574\",\n      \"gsm8k/563\",\n      \"gsm8k/122\",\n      \"gsm8k/59\",\n      \"gsm8k/1004\",\n      \"gsm8k/907\",\n      \"gsm8k/117\",\n      \"gsm8k/690\",\n      \"gsm8k/941\",\n      \"gsm8k/744\",\n      \"gsm8k/305\",\n      \"gsm8k/490\",\n      \"gsm8k/1247\",\n      \"gsm8k/566\",\n      \"gsm8k/1223\",\n      \"gsm8k/876\",\n      \"gsm8k/7\",\n      \"gsm8k/590\",\n      \"gsm8k/1272\",\n      \"gsm8k/1312\",\n      \"gsm8k/779\",\n      \"gsm8k/127\",\n      \"gsm8k/992\",\n      \"gsm8k/794\",\n      \"gsm8k/991\",\n      \"gsm8k/216\",\n      \"gsm8k/1301\",\n      \"gsm8k/273\",\n      \"gsm8k/1132\",\n      \"gsm8k/861\",\n      \"gsm8k/778\",\n      \"gsm8k/276\",\n      \"gsm8k/807\",\n      \"gsm8k/898\",\n      \"gsm8k/592\",\n      \"gsm8k/1280\",\n      \"gsm8k/17\",\n      \"gsm8k/747\",\n      \"gsm8k/860\",\n      \"gsm8k/1263\",\n      \"gsm8k/439\",\n      \"gsm8k/388\",\n      \"gsm8k/1059\",\n      \"gsm8k/197\",\n      \"gsm8k/1024\",\n      \"gsm8k/311\",\n      \"gsm8k/874\",\n      \"gsm8k/461\",\n      \"gsm8k/96\",\n      \"gsm8k/1173\",\n      \"gsm8k/914\",\n      \"gsm8k/1056\",\n      \"gsm8k/1014\",\n      \"gsm8k/1071\",\n      \"gsm8k/308\",\n      \"gsm8k/1315\",\n      \"gsm8k/1020\",\n      \"gsm8k/1228\",\n      \"gsm8k/910\",\n      \"gsm8k/1002\",\n      \"gsm8k/754\",\n      \"gsm8k/1115\",\n      \"gsm8k/689\",\n      \"gsm8k/423\",\n      \"gsm8k/13\",\n      \"gsm8k/1155\",\n      \"gsm8k/1208\",\n      \"gsm8k/901\",\n      \"gsm8k/830\",\n      \"gsm8k/296\",\n      \"gsm8k/321\",\n      \"gsm8k/1111\",\n      \"gsm8k/836\",\n      \"gsm8k/1282\",\n      \"gsm8k/1179\",\n      \"gsm8k/269\",\n      \"gsm8k/282\",\n      \"gsm8k/362\",\n      \"gsm8k/237\",\n      \"gsm8k/638\",\n      \"gsm8k/243\",\n      \"gsm8k/620\",\n      \"gsm8k/1018\",\n      \"gsm8k/179\",\n      \"gsm8k/734\",\n      \"gsm8k/776\",\n      \"gsm8k/1304\"\n    ],\n    \"target_task_ids\": [\n      \"gsm8k/392\",\n      \"gsm8k/1226\",\n      \"gsm8k/541\",\n      \"gsm8k/44\",\n      \"gsm8k/489\",\n      \"gsm8k/1298\",\n      \"gsm8k/663\",\n      \"gsm8k/1217\",\n      \"gsm8k/1186\",\n      \"gsm8k/225\",\n      \"gsm8k/110\",\n      \"gsm8k/174\",\n      \"gsm8k/986\",\n      \"gsm8k/173\",\n      \"gsm8k/317\",\n      \"gsm8k/529\",\n      \"gsm8k/236\",\n      \"gsm8k/831\",\n      \"gsm8k/86\",\n      \"gsm8k/19\",\n      \"gsm8k/967\",\n      \"gsm8k/724\",\n      \"gsm8k/1001\",\n      \"gsm8k/1212\",\n      \"gsm8k/1264\",\n      \"gsm8k/662\",\n      \"gsm8k/34\",\n      \"gsm8k/1294\",\n      \"gsm8k/551\",\n      \"gsm8k/175\",\n      \"gsm8k/430\",\n      \"gsm8k/386\"\n    ]\n  },\n  \"configuration\": {\n    \"method\": \"trainable_tokens\",\n    \"selection\": \"most-frequent tokens in frozen train split\",\n    \"requested_token_count\": 4096,\n    \"realized_token_count\": 1979,\n    \"steps\": 24,\n    \"learning_rate\": 0.0002,\n    \"max_length\": 384,\n    \"precision\": \"bfloat16\",\n    \"batch_size\": 1\n  },\n  \"parameters\": {\n    \"trainable\": 2026496,\n    \"total_with_adapter\": 754419520\n  },\n  \"metrics\": {\n    \"train_loss_first\": 0.46471893787384033,\n    \"train_loss_last\": 0.6899622082710266,\n    \"initial_target_loss\": 0.6591179929673672,\n    \"final_target_loss\": 0.48805339680984616,\n    \"target_improvement_fraction\": 0.25953561878561915,\n    \"initial_protected_loss\": 2.9855952163537345,\n    \"final_protected_loss\": 3.043191760778427,\n    \"protected_regression_fraction\": 0.01929147799715277,\n    \"reload_target_loss\": 0.48805339680984616,\n    \"reload_delta_fraction\": 0.0,\n    \"peak_allocated_vram_gib\": 4.967348098754883,\n    \"elapsed_seconds\": 15.123346810998555\n  },\n  \"gates\": {\n    \"finite_losses\": true,\n    \"nonzero_gradient\": true,\n    \"target_improvement_ge_1pct\": true,\n    \"protected_regression_le_15pct\": true,\n    \"reload_delta_le_0_5pct\": true,\n    \"peak_vram_lt_23_gib\": true\n  },\n  \"adapter_dir\": \"/mnt/c/projects/tare.tools.local-labs/runs/research/ADAPT-00B-GEOMETRY-MATRIX-2026-08-24/raw/trainable_tokens/adapter\"\n}\n",
+      "stderr_tail": "[transformers] `torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading weights:   0%|          | 0/320 [00:00<?, ?it/s]\nLoading weights:  20%|\u2588\u2588        | 65/320 [00:00<00:00, 647.89it/s]\nLoading weights:  94%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258d| 300/320 [00:00<00:00, 1643.84it/s]\nLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 320/320 [00:00<00:00, 1540.06it/s]\n\nLoading weights:   0%|          | 0/320 [00:00<?, ?it/s]\nLoading weights:  16%|\u2588\u258b        | 52/320 [00:00<00:00, 513.90it/s]\nLoading weights:  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258b | 276/320 [00:00<00:00, 1524.21it/s]\nLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 320/320 [00:00<00:00, 1454.76it/s]\n"
+    }
+  ]
+}

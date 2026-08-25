@@ -1,0 +1,11 @@
+{
+  "method": "dora",
+  "verdict": "FAIL_NONFINITE_LOSS_STEP_0",
+  "trainable_parameters": 5811264,
+  "metrics": null,
+  "gates": {
+    "finite_losses": false
+  },
+  "error_tail": "[transformers] `torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading weights:   0%|          | 0/320 [00:00<?, ?it/s]\nLoading weights:   7%|\u258b         | 23/320 [00:00<00:01, 229.07it/s]\nLoading weights:  70%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588   | 224/320 [00:00<00:00, 1270.68it/s]\nLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 320/320 [00:00<00:00, 1290.42it/s]\nTraceback (most recent call last):\n  File \"/mnt/c/projects/tare.tools.local-labs/tools/probes/adapt00_lora_smoke.py\", line 379, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"/mnt/c/projects/tare.tools.local-labs/tools/probes/adapt00_lora_smoke.py\", line 375, in main\n    return run(args)\n           ^^^^^^^^^\n  File \"/mnt/c/projects/tare.tools.local-labs/tools/probes/adapt00_lora_smoke.py\", line 234, in run\n    raise RuntimeError(f\"non-finite loss at step {step}\")\nRuntimeError: non-finite loss at step 0\n",
+  "receipt": "/mnt/c/projects/tare.tools.local-labs/runs/research/ADAPT-00B-GEOMETRY-MATRIX-2026-08-24/raw/dora/failure.json"
+}

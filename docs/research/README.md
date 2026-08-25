@@ -11,6 +11,7 @@ trade-off. Preserve prior receipts and mark displaced conclusions `SUPERSEDED`; 
 and do not give an incumbent preference merely because it was qualified first.
 
 ## Key Files & Artifacts
+- [`BEELLAMA_SLOP_PEFT_ANALYSIS_2026-08-24.md`](BEELLAMA_SLOP_PEFT_ANALYSIS_2026-08-24.md): transcript reconciliation, pinned source archaeology, runtime challenger gates, adapter mechanics/matrix results, and the codec-independent KV qualification queue.
 - [`STATUS.md`](STATUS.md): Master empirical register of all settled questions, noise floors, and paired trials.
 - [`EXPERIMENTS.md`](EXPERIMENTS.md): Chronological ledger of historical, active, and completed experiments.
 - [`IDEAS_BACKLOG.md`](IDEAS_BACKLOG.md): Ranked research backlog with priority matrices.
