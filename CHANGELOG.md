@@ -6,6 +6,7 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added a consolidated 2026-08-24/25 execution closeout covering every material host, service, driver, model, transcript, APEX4, and PEFT action; persistent local artifacts; recovered failures; explicit non-actions; current live state; CI receipts; and the trigger-gated residual backlog.
 - Recorded the NVIDIA 591.86 post-reboot qualification and retained rollback/recovery receipts without tracking local driver payloads.
 - Added matched Fable, HauhauCS, and vanilla agent/GSM8K evidence, plus safe vanilla canary activation and restoration cleanup.
 - Added the official RWKV7 license revalidation and frozen 48-item quality harness and receipt.

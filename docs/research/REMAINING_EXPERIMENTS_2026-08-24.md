@@ -1,6 +1,9 @@
 # Remaining experiment register — 2026-08-24
 
 This register supersedes the 2026-08-22 queue for current execution state.
+The material execution history, persistent artifacts, service restoration, and
+host-side effects are consolidated in
+[`../EXECUTION_CLOSEOUT_2026-08-24_25.md`](../EXECUTION_CLOSEOUT_2026-08-24_25.md).
 
 ## Ready for execution
 

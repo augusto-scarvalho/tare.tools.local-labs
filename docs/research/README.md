@@ -11,6 +11,7 @@ trade-off. Preserve prior receipts and mark displaced conclusions `SUPERSEDED`; 
 and do not give an incumbent preference merely because it was qualified first.
 
 ## Key Files & Artifacts
+- [`../EXECUTION_CLOSEOUT_2026-08-24_25.md`](../EXECUTION_CLOSEOUT_2026-08-24_25.md): consolidated execution ledger, persistent host/WSL effects, recovered failures, explicit non-actions, Git/CI receipts, live baseline, and trigger-gated pending work for the 2026-08-24/25 continuation.
 - [`BEELLAMA_SLOP_PEFT_ANALYSIS_2026-08-24.md`](BEELLAMA_SLOP_PEFT_ANALYSIS_2026-08-24.md): transcript reconciliation, pinned source archaeology, runtime challenger gates, adapter mechanics/matrix results, and the codec-independent KV qualification queue.
 - [`STATUS.md`](STATUS.md): Master empirical register of all settled questions, noise floors, and paired trials.
 - [`EXPERIMENTS.md`](EXPERIMENTS.md): Chronological ledger of historical, active, and completed experiments.
