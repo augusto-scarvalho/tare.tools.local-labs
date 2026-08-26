@@ -85,6 +85,22 @@ class ModeLockTests(unittest.TestCase):
         self.assertFalse(lmctl._runtime_drift("LAB", [8092]))
         self.assertFalse(lmctl._runtime_drift("LAB", [8081, 8092]))
 
+    def test_router_backend_normalizes_to_canonical_8080(self):
+        completed = mock.Mock(
+            stdout="10 llama-server --port 8081\n11 llama-server --port 18080\n"
+        )
+        with mock.patch.object(lmctl, "_wsl", return_value=completed), \
+             mock.patch.object(lmctl, "_qualified_gateway_live", return_value=True):
+            self.assertEqual(lmctl._server_ports(), [8081, 8080])
+
+    def test_orphan_router_backend_remains_drift(self):
+        completed = mock.Mock(stdout="11 llama-server --port 18080\n")
+        with mock.patch.object(lmctl, "_wsl", return_value=completed), \
+             mock.patch.object(lmctl, "_qualified_gateway_live", return_value=False):
+            ports = lmctl._server_ports()
+        self.assertEqual(ports, [18080])
+        self.assertTrue(lmctl._runtime_drift("SERVE", ports))
+
     def test_existing_writer_lock_is_not_stolen(self):
         lock = self.path.with_suffix(".json.lock")
         lock.parent.mkdir(parents=True, exist_ok=True)

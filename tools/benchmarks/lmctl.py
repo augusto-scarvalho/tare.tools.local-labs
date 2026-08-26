@@ -56,6 +56,7 @@ FCREAD = r"C:\CrashWatch\fcread\fcread.exe"
 SRC_DIR = "/home/augus/src/slop.cpp"   # canonical deploy fork; build targets live here
 KNOWN_PORTS = (8080, 8081, 8090, 8091)         # text, embedding, and two judges
 AUXILIARY_PORTS = (8081,)  # embedding is deliberately independent of SERVE/LAB text mode
+QUALIFIED_GATEWAY_BACKEND_PORT = 18080
 MODE_STATE_PATH = pathlib.Path(os.environ.get(
     "LMCTL_MODE_STATE",
     pathlib.Path(os.environ.get("LOCALAPPDATA", pathlib.Path.home() / ".tare-tools"))
@@ -174,6 +175,16 @@ def _health(port: int, timeout: float = 3) -> bool:
         with urllib.request.urlopen(f"http://127.0.0.1:{port}/health", timeout=timeout) as r:
             return r.status == 200
     except (urllib.error.URLError, OSError, TimeoutError):
+        return False
+
+
+def _qualified_gateway_live(timeout: float = 2) -> bool:
+    """True only when :8080 identifies itself as our qualified fleet gateway."""
+    try:
+        with urllib.request.urlopen("http://127.0.0.1:8080/fleet/status", timeout=timeout) as r:
+            payload = json.load(r)
+        return r.status == 200 and payload.get("role") == "qualified-model-gateway"
+    except (urllib.error.URLError, OSError, TimeoutError, ValueError):
         return False
 
 
@@ -322,6 +333,19 @@ def _server_ports() -> list[int | None]:
             ports.append(int(raw))
         except (TypeError, ValueError):
             ports.append(None)
+    # The gateway is the canonical :8080 owner. Its single llama-server child is
+    # loopback-only on :18080, so normalize that child back to the public owner.
+    # Without a proven gateway identity, an orphan :18080 process remains drift.
+    if _qualified_gateway_live():
+        replaced = False
+        normalized: list[int | None] = []
+        for port in ports:
+            if port == QUALIFIED_GATEWAY_BACKEND_PORT and not replaced:
+                normalized.append(8080)
+                replaced = True
+            else:
+                normalized.append(port)
+        return normalized
     return ports
 
 

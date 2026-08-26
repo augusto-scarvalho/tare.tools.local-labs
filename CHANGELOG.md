@@ -6,6 +6,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added a fail-closed qualified-model fleet registry, an OpenAI-compatible on-demand
+  gateway for the single RTX 3090, and an agent-facing `modelctl` CLI for discovery,
+  role recommendation, evidence/limit inspection, live status and requests. Six
+  bounded routes are exposed while HOLD/rejected artifacts remain unroutable.
 - Added the complete independent rerun and consolidation of all 36 AGY claims,
   with a rank-by-rank tracker, GitHub-facing audit report, provenance-complete
   successor packets, raw scored samples, physical runtime receipts and explicit

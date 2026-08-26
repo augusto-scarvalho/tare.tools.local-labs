@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "fleet": {
+    "name": "tare-qualified-rtx3090",
+    "description": "Role-qualified local models with on-demand single-GPU swapping.",
+    "api_base": "http://127.0.0.1:8080/v1",
+    "embedding_api_base": "http://127.0.0.1:8081/v1",
+    "default_model": "qwen38",
+    "max_resident_models": 1,
+    "selection_field": "model"
+  },
+  "aliases": {
+    "default": "qwen38",
+    "general": "qwen38",
+    "throughput": "qwen36-moe",
+    "concurrency": "qwen36-moe",
+    "coding": "hauhaucs",
+    "concise": "fable-tc",
+    "math": "fable-tc",
+    "portuguese": "fable-tc",
+    "vision": "gemma-vision",
+    "vision-hard": "muse-vision"
+  },
+  "models": {
+    "qwen38": {
+      "display_name": "Qwen3.8 27B Vanilla Q4_K_XL",
+      "qualification": "qualified_role",
+      "qualified_for": ["general", "long-context", "agent-tools", "coding-baseline"],
+      "not_for": ["bounded-512-token-math-default"],
+      "modalities": ["text"],
+      "summary": "Current vanilla Qwen3.8 route; strong agent/tool baseline and long-context option.",
+      "limits": "On the frozen GSM8K-200 512-token contract it scored 188/200 with nine truncations; use Fable for terse bounded math.",
+      "evidence": [
+        "runs/requalification/QWEN38-AGENT-REGRESSION-2026-08-24/RESULT.md",
+        "runs/requalification/QWEN38-HAUHAUCS-MATH-2026-08-24/RESULT.md",
+        "runs/provenance/LAB-PROV-001-FLEET-2026-08-22/RESULT.md"
+      ],
+      "artifact": {
+        "path": "/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf",
+        "bytes": 17923394624,
+        "sha256": "bee238bbeb3dc0a34bde4d0dedbaee1f98c009e8bb4226f03070054c12fb1372",
+        "quant": "Q4_K_XL"
+      },
+      "runtime": {
+        "binary": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+        "environment": {"LD_LIBRARY_PATH": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin"},
+        "args": ["--ctx-size", "32768", "--flash-attn", "on", "--gpu-layers", "all", "--metrics", "--jinja", "--no-mmproj", "--cache-type-k", "q4_0", "--cache-type-v", "q4_0", "--parallel", "1", "--batch-size", "2048", "--ubatch-size", "512", "--ctx-checkpoints", "32", "--spec-type", "draft-mtp", "--spec-draft-n-max", "3"]
+      }
+    },
+    "qwen36-moe": {
+      "display_name": "Qwen3.6 35B-A3B MTP Q4_K_M",
+      "qualification": "qualified_role",
+      "qualified_for": ["throughput", "concurrent-serving", "open-loop-workload", "legacy-deploy"],
+      "not_for": ["current-default", "uncapped-natural-eos", "cross-model-quality-claims"],
+      "modalities": ["text"],
+      "summary": "Configuration-qualified MoE throughput route with four static slots and native MTP.",
+      "limits": "Qualification is for the frozen capped open-loop serving topology, not a broad model-quality or current-default claim.",
+      "example_overrides": {"chat_template_kwargs": {"enable_thinking": false}},
+      "evidence": [
+        "runs/serving/LAB-SERVE-001c/report/LAB-SERVE-001c.md",
+        "runs/serving/LAB-SERVE-002-2026-08-22/RESULT.md",
+        "runs/provenance/LAB-PROV-001-FLEET-2026-08-22/RESULT.md"
+      ],
+      "artifact": {
+        "path": "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+        "bytes": 22663387424,
+        "sha256": "0b21525e972670ed59e1812e170b27c26355381f0656ecc4e25617ece7dac58b",
+        "quant": "Q4_K_M"
+      },
+      "runtime": {
+        "binary": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+        "environment": {"LD_LIBRARY_PATH": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin"},
+        "args": ["--ctx-size", "73728", "--flash-attn", "on", "--gpu-layers", "all", "--n-cpu-moe", "8", "--metrics", "--jinja", "--parallel", "4", "--cache-type-k", "q8_0", "--cache-type-v", "q8_0", "--batch-size", "2048", "--ubatch-size", "2048", "--spec-type", "draft-mtp", "--spec-draft-n-max", "4"]
+      }
+    },
+    "fable-tc": {
+      "display_name": "Fable-TC l1.0 Q4_K_M",
+      "qualification": "promoted",
+      "qualified_for": ["concise", "math", "portuguese", "ordinary-qa", "writing"],
+      "not_for": ["thinking-mode", "long-context-over-8192"],
+      "modalities": ["text"],
+      "summary": "Promoted concise broad-request model and the most reliable bounded-math route.",
+      "limits": "Qualified serving profile is 8192 tokens. Fable-Fusion thinking-mode findings do not apply to this artifact.",
+      "evidence": [
+        "runs/serving/FABLE-TC-SERVE-2026-08-23/RESULT.md",
+        "docs/campaigns/a2-ablation-merging/A2_GATE3_RESULT.md",
+        "runs/requalification/QWEN38-HAUHAUCS-MATH-2026-08-24/RESULT.md"
+      ],
+      "artifact": {
+        "path": "/home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf",
+        "bytes": 16810714400,
+        "sha256": "052c08ca13d75d8d88c9cc3f201d7bfa9167e2a1e69ad3e1e1f26ff73c1b390b",
+        "quant": "Q4_K_M"
+      },
+      "runtime": {
+        "binary": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+        "environment": {"LD_LIBRARY_PATH": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin"},
+        "args": ["--ctx-size", "8192", "--flash-attn", "on", "--gpu-layers", "all", "--metrics", "--jinja", "--parallel", "1", "--spec-type", "draft-mtp", "--spec-draft-n-max", "4"]
+      }
+    },
+    "hauhaucs": {
+      "display_name": "Qwen3.8 HauhauCS Aggressive Q4_K_P",
+      "qualification": "qualified_role",
+      "qualified_for": ["coding", "low-friction", "agent-tools", "constrained-summary"],
+      "not_for": ["broad-default", "bounded-512-token-math-default"],
+      "modalities": ["text"],
+      "summary": "Role-qualified coding model: 56/60 HumanEval+, 44/44 compliance and 8/8 agent core.",
+      "limits": "Not promoted as broad default; it had eight truncations on frozen GSM8K-200 and weaker terse Portuguese QA than Fable.",
+      "evidence": [
+        "runs/requalification/QWEN38-HAUHAUCS-AGGRESSIVE-2026-08-23/RESULT.md",
+        "runs/requalification/QWEN38-AGENT-REGRESSION-2026-08-24/RESULT.md",
+        "runs/requalification/QWEN38-HAUHAUCS-MATH-2026-08-24/RESULT.md"
+      ],
+      "artifact": {
+        "path": "/home/augus/models/qwen38-27b/hauhaucs-aggressive-993a5971/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-Q4_K_P.gguf",
+        "bytes": 17923393664,
+        "sha256": "ba36dc3c2b2ff5e0aa5d71092a8894546996a6a119ae391803dda07cdc08516d",
+        "quant": "Q4_K_P"
+      },
+      "runtime": {
+        "binary": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+        "environment": {"LD_LIBRARY_PATH": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin"},
+        "args": ["--ctx-size", "32768", "--flash-attn", "on", "--gpu-layers", "all", "--metrics", "--jinja", "--no-mmproj", "--cache-type-k", "q4_0", "--cache-type-v", "q4_0", "--parallel", "1", "--batch-size", "2048", "--ubatch-size", "512", "--ctx-checkpoints", "32", "--spec-type", "draft-mtp", "--spec-draft-n-max", "3"]
+      }
+    },
+    "gemma-vision": {
+      "display_name": "Gemma 4 12B Vision Q4_0",
+      "qualification": "qualified_role",
+      "qualified_for": ["vision", "screenshot", "ocr", "ui-debugging"],
+      "not_for": ["text-default", "high-throughput-vision"],
+      "modalities": ["text", "image"],
+      "summary": "Qualified screenshot and visual-coding route with bounded thinking and an external MTP assistant.",
+      "limits": "Synthetic visual-coding gate only; this is not a universal visual-agent accuracy claim.",
+      "evidence": [
+        "runs/vlm/LAB-VLM-001-2026-08-22/RESULT.md",
+        "docs/campaigns/vlm/M_A_VLM_PERF.md"
+      ],
+      "artifact": {
+        "path": "/home/augus/models/gemma-4-12b-vision/gemma-4-12B-it-Q4_0.gguf",
+        "bytes": 7219673216,
+        "sha256": "3712b9bd32cae83a22f67ee7a4466d8d7a4f21646ac8a07d19bf9418e8767a70",
+        "quant": "Q4_0"
+      },
+      "runtime": {
+        "binary": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+        "environment": {"LD_LIBRARY_PATH": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin"},
+        "args": ["--ctx-size", "8192", "--flash-attn", "on", "--gpu-layers", "all", "--metrics", "--jinja", "--parallel", "1", "--mmproj", "/home/augus/models/gemma-4-12b-vision/mmproj-gemma-4-12B-it-Q8_0.gguf", "--reasoning-budget", "256", "--spec-type", "draft-mtp", "--spec-draft-n-max", "4", "--model-draft", "/home/augus/models/gemma-4-12b-vision/gemma-4-12B-it-qat-assistant-MTP-Q8_0.gguf"]
+      }
+    },
+    "muse-vision": {
+      "display_name": "Muse Glimmer 30B Vision Q4_K_M",
+      "qualification": "qualified_role",
+      "qualified_for": ["vision-hard", "vqa-specialist", "visual-reasoning"],
+      "not_for": ["text-default", "coding-agent", "cache-sensitive-agent", "low-latency"],
+      "modalities": ["text", "image"],
+      "summary": "Specialist hard-VQA route; 107/150 on the retained MMStar panel.",
+      "limits": "Overall model remains HOLD. Only the bounded VQA specialist and multimodal-safety roles are qualified; DFlash is rejected.",
+      "evidence": [
+        "runs/requalification/MUSE-GLIMMER-FULL-2026-08-22/RESULT.md",
+        "runs/requalification/MUSE-GLIMMER-2026-08-21/RESULT.md"
+      ],
+      "artifact": {
+        "path": "/home/augus/models/muse-glimmer-30b/meta-70bf1b61/Muse-Glimmer-30B-KQuant-17GB-Q4_K_M.gguf",
+        "bytes": 16756683904,
+        "sha256": "4cc57c0f51040a226e5a72cc47b7613f7772950e460a665f7083de89f183f60e",
+        "quant": "Q4_K_M"
+      },
+      "runtime": {
+        "binary": "/home/augus/src/slop.cpp-muse-glimmer/build/bin/llama-server",
+        "environment": {},
+        "args": ["--ctx-size", "32768", "--flash-attn", "on", "--gpu-layers", "all", "--metrics", "--jinja", "--parallel", "1", "--mmproj", "/home/augus/models/muse-glimmer-30b/meta-70bf1b61/mmproj-Muse-Glimmer-30B-Q4_K_M.gguf"]
+      }
+    }
+  }
+}
