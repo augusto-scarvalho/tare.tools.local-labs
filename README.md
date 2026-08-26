@@ -224,6 +224,12 @@ python -m pytest -q
 python tests/benchmark_harness/benchmark_harness_selftest.py
 ```
 
+Material changes must add a meaningful entry under `CHANGELOG.md`'s
+`Unreleased` section. Install the repository-owned pre-push hook with
+`python tools/install_git_hooks.py`; CI enforces the same implementation. See
+[`docs/CHANGELOG_POLICY.md`](docs/CHANGELOG_POLICY.md) for scope, append-only
+rules and manual checks.
+
 ### 2. Discover and use qualified local models
 ```powershell
 python tools/agents/modelctl.py list

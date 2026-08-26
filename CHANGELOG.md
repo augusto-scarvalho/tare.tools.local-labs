@@ -6,6 +6,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added a shared, tested changelog guard for local pre-push and GitHub CI. It
+  requires meaningful `Unreleased` entries for material changes, exempts
+  documentation-only work, validates committed rather than worktree content,
+  and prevents silent deletion or rewriting of recorded history.
 - Added a restart-safe consolidated research-backlog handoff covering the
   20-packet independent-review queue, ten genuine trigger-blocked items, 17
   archived failed predecessors, six objective integration gaps, restart checks,

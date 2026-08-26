@@ -81,6 +81,7 @@ tools/
 | Analysis Tool | Focus | Methodology & Capabilities |
 |---|---|---|
 | [`analyze_ab.py`](analysis/analyze_ab.py) | A/B Testing | Core distribution-free A/B analyzer: exact sign tests, bootstrap CIs, Cliff's $\delta$. |
+| [`changelog_guard.py`](analysis/changelog_guard.py) | Repository Policy | Enforces meaningful `Unreleased` entries for material commits and append-only changelog history in local pre-push and CI. |
 | [`ab_compare.py`](analysis/ab_compare.py) | Comparative | Direct paired round comparator across memory, latency, and throughput. |
 | [`ab_isolate.py`](analysis/ab_isolate.py) | Isolation | Environment isolation harness ensuring identical GPU thermals between arms. |
 | [`a2_stats.py`](analysis/a2_stats.py) | Concision | Statistical Wilcoxon signed-rank and non-inferiority test calculator. |
