@@ -1,0 +1,30 @@
+{
+  "id": "BACKLOG-ADAPT01-640-EVAL-01",
+  "priority": 0,
+  "title": "Evaluate the fresh ADAPT-01 640-step LoKr arm excluded by the historical probe",
+  "evidence_class": "artifact_requalification",
+  "packet_dir": "runs/research/BACKLOG-ADAPT01-640-EVAL-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/receipt.json",
+    "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt01/lokr_5ep/adapter/adapter_model.safetensors",
+    "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt01/lokr_5ep/metrics.json",
+    "workloads/gsm8k.jsonl",
+    "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl"
+  ],
+  "required_evidence": ["acceptance_gates", "actual_scores", "artifact_hashes", "dataset_hashes", "independent_evaluation", "provenance", "raw_samples", "receipt_fingerprint", "scorer_hashes", "service_maintenance", "source_execution_receipt"],
+  "acceptance_gates": [
+    {"id": "panel_coverage", "metric": "scored_generations", "operator": "eq", "threshold": 48},
+    {"id": "target_absolute", "metric": "target_correct", "operator": "ge", "threshold": 16},
+    {"id": "target_gain", "metric": "target_gain_over_base", "operator": "ge", "threshold": 3},
+    {"id": "qa_retention", "metric": "protected_pass", "operator": "ge", "threshold": 2},
+    {"id": "natural_eos", "metric": "natural_eos", "operator": "ge", "threshold": 40},
+    {"id": "length_control", "metric": "target_teacher_length_ratio", "operator": "le", "threshold": 1.25},
+    {"id": "independent_score", "metric": "independent_score_match", "operator": "eq", "threshold": 1},
+    {"id": "runtime_unchanged", "metric": "serving_process_unchanged", "operator": "eq", "threshold": 1}
+  ],
+  "allowed_claim_codes": ["ADAPT01_640_ARM_PROMOTED_R1", "ADAPT01_640_ARM_REJECTED_R1"],
+  "forbidden_claims": ["fresh training of the arm", "cross-seed repeatability", "production promotion", "generalization beyond frozen panel"],
+  "next_action": "Load the already fresh seed-20260827 640-step adapter and score the omitted 32-math plus 16-QA panel without touching serving.",
+  "supersedes": null
+}

@@ -1,0 +1,48 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-CUDAGRAPH-SERVING-01",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "semantic_parity": {
+      "metric": "response_mismatch_rate",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "paired_speedup": {
+      "metric": "paired_wall_speedup_p50",
+      "operator": "ge",
+      "threshold": 1.15,
+      "actual": null,
+      "pass": null
+    },
+    "tail_regression": {
+      "metric": "latency_p95_regression",
+      "operator": "le",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "service_recovery": {
+      "metric": "pid_restart_and_health_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "effective_route": null,
+    "hardware_metrics": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "recovery_state": null,
+    "service_identity": null
+  },
+  "receipt_fingerprint": null
+}

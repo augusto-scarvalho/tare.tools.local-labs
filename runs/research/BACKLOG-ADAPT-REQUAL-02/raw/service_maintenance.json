@@ -1,0 +1,65 @@
+{
+  "initial_service": {
+    "returncode": 0,
+    "main_pid": 11434,
+    "n_restarts": 0,
+    "active_state": "active",
+    "sub_state": "running",
+    "exec_start": "{ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Tue 2026-08-25 03:26:19 -03] ; stop_time=[n/a] ; pid=11434 ; code=(null) ; status=0/0 }",
+    "stderr": ""
+  },
+  "initial_gpu": {
+    "name": "NVIDIA GeForce RTX 3090",
+    "memory_total_mib": 24576,
+    "memory_used_mib": 21126,
+    "memory_free_mib": 3197,
+    "utilization_percent": 6
+  },
+  "initial_embedding": {
+    "status": "ok"
+  },
+  "service_stopped_for_vram": true,
+  "service_after_stop": {
+    "returncode": 0,
+    "main_pid": 0,
+    "n_restarts": 0,
+    "active_state": "inactive",
+    "sub_state": "dead",
+    "exec_start": "{ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Tue 2026-08-25 03:26:19 -03] ; stop_time=[Tue 2026-08-25 18:26:35 -03] ; pid=11434 ; code=exited ; status=0 }",
+    "stderr": ""
+  },
+  "embedding_after_stop": {
+    "status": "ok"
+  },
+  "gpu_after_stop": {
+    "name": "NVIDIA GeForce RTX 3090",
+    "memory_total_mib": 24576,
+    "memory_used_mib": 1620,
+    "memory_free_mib": 22703,
+    "utilization_percent": 5
+  },
+  "inference_health_final": {
+    "status": "ok"
+  },
+  "final_service": {
+    "returncode": 0,
+    "main_pid": 26576,
+    "n_restarts": 0,
+    "active_state": "active",
+    "sub_state": "running",
+    "exec_start": "{ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Tue 2026-08-25 19:17:50 -03] ; stop_time=[n/a] ; pid=26576 ; code=(null) ; status=0/0 }",
+    "stderr": ""
+  },
+  "final_embedding": {
+    "status": "ok"
+  },
+  "final_gpu": {
+    "name": "NVIDIA GeForce RTX 3090",
+    "memory_total_mib": 24576,
+    "memory_used_mib": 21103,
+    "memory_free_mib": 3220,
+    "utilization_percent": 0
+  },
+  "service_restored": true,
+  "exec_start_restored": false
+}

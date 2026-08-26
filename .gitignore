@@ -38,6 +38,20 @@ runs/research/ADAPT-00*/raw/**/adapter/
 # tokenizer separately. The excluded derivative hash is recorded in the
 # canonical 2026-08-25 remediation handoff.
 runs/research/ADAPT-*/raw/**/adapter/tokenizer.json
+# Successor packets keep the same frozen base tokenizer outside each adapter.
+runs/research/BACKLOG-*/raw/**/adapter/tokenizer.json
+# Physical model/codec derivatives are too large for ordinary GitHub storage.
+# Their byte counts and SHA-256 identities remain committed in packet receipts;
+# source dependencies use external_source_receipts in the canonical backlog.
+runs/research/BACKLOG-*/raw/**/*.gguf
+runs/research/BACKLOG-*/raw/**/*.npy
+runs/research/BACKLOG-*/raw/**/*.bin
+# Multi-seed PEFT checkpoints are regenerable training products. Keep only the
+# two explicitly referenced by downstream packet source_artifacts.
+runs/research/BACKLOG-ADAPT-TRACE-DISTILL-*/raw/checkpoints/**/adapter_model.safetensors
+!runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/checkpoints/seed_20260824_full_trace/adapter_model.safetensors
+runs/research/BACKLOG-ADAPT-TRAIN-01/raw/checkpoint_seed_*/adapter_model.safetensors
+!runs/research/BACKLOG-ADAPT-TRAIN-01/raw/checkpoint_seed_20260824/adapter_model.safetensors
 runs/**/canary_*/
 runs/**/gates/*/
 

@@ -1,0 +1,67 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-CTRL01-REAL-TOKEN-06",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "real_coverage": {
+      "metric": "real_model_outputs",
+      "operator": "ge",
+      "threshold": 24,
+      "actual": null,
+      "pass": null
+    },
+    "real_validity": {
+      "metric": "sanitized_complete_valid_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "valid_control_recall": {
+      "metric": "valid_token_acceptance_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "valid_control_semantics": {
+      "metric": "valid_control_exact_preservation_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "overhead": {
+      "metric": "p95_overhead_us_per_token",
+      "operator": "le",
+      "threshold": 500.0,
+      "actual": null,
+      "pass": null
+    },
+    "runtime_binding": {
+      "metric": "logit_mask_runtime_integrated",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "failure_reproduction": null,
+    "falsifiable_hypothesis": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "invariant_controls": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "semantic_parity": null,
+    "source_execution_receipt": null
+  },
+  "receipt_fingerprint": null
+}

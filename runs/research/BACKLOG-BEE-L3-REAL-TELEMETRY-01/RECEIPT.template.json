@@ -1,0 +1,88 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-BEE-L3-REAL-TELEMETRY-01",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "arm_coverage": {
+      "metric": "live_requests",
+      "operator": "eq",
+      "threshold": 144,
+      "actual": null,
+      "pass": null
+    },
+    "semantic_parity": {
+      "metric": "paired_exact_parity_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "mtp_telemetry": {
+      "metric": "k4_requests_with_drafts",
+      "operator": "ge",
+      "threshold": 40,
+      "actual": null,
+      "pass": null
+    },
+    "global_speedup": {
+      "metric": "adaptive_replay_speedup_over_k0",
+      "operator": "ge",
+      "threshold": 1.25,
+      "actual": null,
+      "pass": null
+    },
+    "static_gain": {
+      "metric": "adaptive_replay_gain_over_k4",
+      "operator": "ge",
+      "threshold": 0.15,
+      "actual": null,
+      "pass": null
+    },
+    "low_protection": {
+      "metric": "low_acceptance_protection",
+      "operator": "ge",
+      "threshold": 0.95,
+      "actual": null,
+      "pass": null
+    },
+    "service_restore": {
+      "metric": "original_service_restored",
+      "operator": "eq",
+      "threshold": 1,
+      "actual": null,
+      "pass": null
+    },
+    "embedding_integrity": {
+      "metric": "embedding_health",
+      "operator": "eq",
+      "threshold": 200,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "failure_reproduction": null,
+    "falsifiable_hypothesis": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "invariant_controls": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "real_implementation": null,
+    "receipt_fingerprint": null,
+    "semantic_parity": null,
+    "service_maintenance": null,
+    "source_execution_receipt": null,
+    "effective_route": null,
+    "recovery_state": null,
+    "service_identity": null
+  },
+  "receipt_fingerprint": null
+}

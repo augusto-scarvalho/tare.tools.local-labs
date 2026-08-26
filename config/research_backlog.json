@@ -1,0 +1,6031 @@
+{
+  "schema": "local-labs-backlog-v1",
+  "updated_at": "2026-08-26T10:35:44Z",
+  "policy": {
+    "executor": "Gemini",
+    "independent_review_required": true,
+    "simulation_promotion_forbidden": true,
+    "raw_receipts_immutable": true,
+    "direct_manifest_edits_forbidden": true
+  },
+  "items": [
+    {
+      "id": "BACKLOG-ADAPT-REQUAL-01",
+      "priority": 0,
+      "title": "Requalify saved ADAPT-01A through ADAPT-05 artifacts",
+      "state": "PROMOTED",
+      "evidence_class": "artifact_requalification",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-REQUAL-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/ADAPT-01A-LOKR-SCALE-2026-08-25",
+        "runs/research/ADAPT-02-MODULE-TARGETING-2026-08-25",
+        "runs/research/ADAPT-03-SOFT-PROMPTS-2026-08-25",
+        "runs/research/ADAPT-04-PRIOR-PRESERVATION-2026-08-25",
+        "runs/research/ADAPT-05-MODULAR-MERGING-2026-08-25"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "artifact_hashes",
+        "dataset_hashes",
+        "independent_evaluation",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "artifact_identity",
+          "metric": "hashed_artifacts",
+          "operator": "eq",
+          "threshold": 13
+        },
+        {
+          "id": "frozen_math_panel",
+          "metric": "scored_math_samples_per_arm",
+          "operator": "ge",
+          "threshold": 32
+        },
+        {
+          "id": "frozen_qa_panel",
+          "metric": "scored_qa_samples_per_arm",
+          "operator": "ge",
+          "threshold": 16
+        },
+        {
+          "id": "base_control",
+          "metric": "base_control_present",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "independent_score",
+          "metric": "independent_scorer_match",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "ARTIFACT_REQUALIFIED",
+        "ARTIFACT_REJECTED"
+      ],
+      "forbidden_claims": [
+        "training reproducibility",
+        "production promotion",
+        "general model capability"
+      ],
+      "next_action": "Scaffold the packet, hash every saved adapter/config and freeze independent math/QA evaluation inputs before running inference.",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-25T11:00:00Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "AGY / Gemini 3.7 Flash High",
+          "at": "2026-08-25T11:43:06Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "AGY / Gemini 3.7 Flash High",
+          "at": "2026-08-25T11:44:25Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "AGY / Gemini 3.7 Flash High",
+          "at": "2026-08-25T12:29:17Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "Codex",
+          "at": "2026-08-25T12:30:54Z"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "Codex",
+          "at": "2026-08-25T12:30:59Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-TRAIN-01",
+      "priority": 1,
+      "title": "Reproduce training only for adapter finalists",
+      "state": "PROMOTED",
+      "evidence_class": "model_training",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-TRAIN-01",
+      "depends_on": [
+        "BACKLOG-ADAPT-REQUAL-01"
+      ],
+      "source_artifacts": [
+        "runs/research/TRAIN-00B-GALORE-3090-2026-08-25/RESULT.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "checkpoint_hashes",
+        "dataset_hashes",
+        "independent_evaluation",
+        "model_hash",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "seed",
+        "training_trace"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "fresh_output",
+          "metric": "preexisting_output_files",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "repeatability",
+          "metric": "successful_repeated_seeds",
+          "operator": "ge",
+          "threshold": 2
+        },
+        {
+          "id": "behavioral_gain",
+          "metric": "heldout_gain_over_base",
+          "operator": "gt",
+          "threshold": 0
+        },
+        {
+          "id": "retention",
+          "metric": "protected_regression",
+          "operator": "le",
+          "threshold": 0.05
+        }
+      ],
+      "allowed_claim_codes": [
+        "TRAINING_REPRODUCED",
+        "TRAINING_REJECTED"
+      ],
+      "forbidden_claims": [
+        "GaLore generalization",
+        "single-seed promotion",
+        "artifact-only training claim"
+      ],
+      "next_action": "Remain blocked until artifact requalification promotes at least one finalist.",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "BLOCKED",
+          "actor": "Codex",
+          "at": "2026-08-25T11:00:00Z"
+        },
+        {
+          "from": "BLOCKED",
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-25T12:31:01Z",
+          "reason": "BACKLOG-ADAPT-REQUAL-01 promoted target_mlp_only and lokr_1ep finalists"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "AGY / Gemini 3.7 Flash High",
+          "at": "2026-08-25T12:33:22Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "AGY / Gemini 3.7 Flash High",
+          "at": "2026-08-25T12:34:05Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "AGY / Gemini 3.7 Flash High",
+          "at": "2026-08-25T12:50:40Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "Codex",
+          "at": "2026-08-25T12:53:00Z"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "Codex",
+          "at": "2026-08-25T12:53:45Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-DISTILL-REAL-01",
+      "priority": 1,
+      "title": "Rebuild DISTILL-00 from actual teacher and student generations",
+      "state": "REJECTED",
+      "evidence_class": "distillation",
+      "packet_dir": "runs/research/BACKLOG-DISTILL-REAL-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/DISTILL-00-MOE-CONCISE-2026-08-25",
+        "runs/research/GEMINI-BACKLOG-REMEDIATION-2026-08-25/RESULT.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "dataset_hashes",
+        "independent_evaluation",
+        "model_hash",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "student_samples",
+        "teacher_samples"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "no_fabricated_metrics",
+          "metric": "scores_derived_from_raw_samples",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "paired_panel",
+          "metric": "paired_scored_samples",
+          "operator": "ge",
+          "threshold": 32
+        },
+        {
+          "id": "accuracy_noninferiority",
+          "metric": "student_accuracy_delta",
+          "operator": "ge",
+          "threshold": -0.03
+        },
+        {
+          "id": "token_reduction",
+          "metric": "median_reasoning_token_reduction",
+          "operator": "ge",
+          "threshold": 0.2
+        }
+      ],
+      "allowed_claim_codes": [
+        "DISTILLATION_QUALIFIED",
+        "DISTILLATION_REJECTED"
+      ],
+      "forbidden_claims": [
+        "hard-coded accuracy",
+        "random sample outcome",
+        "teacher superiority without paired samples"
+      ],
+      "next_action": "Scaffold a new packet and freeze real teacher/student endpoints, prompts, scorer and raw-output paths.",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-25T11:00:00Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "AGY / Gemini 3.7 Flash High",
+          "at": "2026-08-25T12:54:59Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "AGY / Gemini 3.7 Flash High",
+          "at": "2026-08-25T12:56:25Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "AGY / Gemini 3.7 Flash High",
+          "at": "2026-08-25T12:59:27Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "Codex",
+          "at": "2026-08-25T13:01:10Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-CUDAGRAPH-SERVING-01",
+      "priority": 2,
+      "title": "Validate CUDA Graph replay inside the serving runtime",
+      "state": "PROMOTED",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-CUDAGRAPH-SERVING-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/SLX-05D-CUDA-GRAPH-REPLAY-2026-08-25/RESULT.md",
+        "runs/research/SLX-01C-SERVING-TORTURE-2026-08-25/RESULT.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "effective_route",
+        "hardware_metrics",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "semantic_parity",
+          "metric": "response_mismatch_rate",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "paired_speedup",
+          "metric": "paired_wall_speedup_p50",
+          "operator": "ge",
+          "threshold": 1.15
+        },
+        {
+          "id": "tail_regression",
+          "metric": "latency_p95_regression",
+          "operator": "le",
+          "threshold": 0
+        },
+        {
+          "id": "service_recovery",
+          "metric": "pid_restart_and_health_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "SERVING_CUDAGRAPH_QUALIFIED",
+        "SERVING_CUDAGRAPH_REJECTED"
+      ],
+      "forbidden_claims": [
+        "exclusive launch overhead",
+        "persistent megakernel ceiling",
+        "microbenchmark-only production promotion"
+      ],
+      "next_action": "Identify the exact serving integration point, then preregister a paired live-request A/B with restoration.",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-25T11:00:00Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "AGY / Gemini 3.7 Flash High",
+          "at": "2026-08-25T13:13:33Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "AGY / Gemini 3.7 Flash High",
+          "at": "2026-08-25T13:14:10Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "AGY / Gemini 3.7 Flash High",
+          "at": "2026-08-25T13:15:29Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "Codex",
+          "at": "2026-08-25T13:17:34Z"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "Codex",
+          "at": "2026-08-25T13:17:36Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-PROXY-REALIZATION-01",
+      "priority": 2,
+      "title": "Materialize one proxy-only systems candidate",
+      "state": "BLOCKED",
+      "evidence_class": "proxy_realization",
+      "packet_dir": "runs/research/BACKLOG-PROXY-REALIZATION-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/GEMINI-BACKLOG-REMEDIATION-2026-08-25/RESULT.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "hardware_metrics",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "real_artifact",
+          "metric": "real_implementation_present",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "semantic_parity",
+          "metric": "semantic_parity",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "paired_hardware",
+          "metric": "paired_hardware_samples",
+          "operator": "ge",
+          "threshold": 30
+        }
+      ],
+      "allowed_claim_codes": [
+        "REALIZATION_QUALIFIED",
+        "REALIZATION_REJECTED"
+      ],
+      "forbidden_claims": [
+        "random-tensor model claim",
+        "analytical speedup",
+        "proxy production promotion"
+      ],
+      "next_action": "Choose exactly one candidate by expected value and implementation cost before unblocking.",
+      "blocker": "No exact proxy candidate and implementation target have been selected",
+      "state_history": [
+        {
+          "from": null,
+          "to": "BLOCKED",
+          "actor": "Codex",
+          "at": "2026-08-25T11:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-PACKED-HARDWARE-01",
+      "priority": 3,
+      "title": "Validate packed compression or sparsity on hardware",
+      "state": "BLOCKED",
+      "evidence_class": "packed_artifact",
+      "packet_dir": "runs/research/BACKLOG-PACKED-HARDWARE-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/REP-02B-PRECISION-TAIL-2026-08-25/RESULT.md",
+        "runs/research/SLX-09B-SPARSITY-24-2026-08-25/RESULT.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "measured_vram",
+        "packed_artifact_hash",
+        "provenance",
+        "quality",
+        "raw_samples",
+        "realized_bytes",
+        "receipt_fingerprint",
+        "throughput"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "packed_bytes",
+          "metric": "realized_size_reduction",
+          "operator": "gt",
+          "threshold": 0
+        },
+        {
+          "id": "measured_vram",
+          "metric": "measured_vram_reduction",
+          "operator": "gt",
+          "threshold": 0
+        },
+        {
+          "id": "throughput",
+          "metric": "paired_throughput_regression",
+          "operator": "le",
+          "threshold": 0.05
+        },
+        {
+          "id": "quality",
+          "metric": "quality_regression",
+          "operator": "le",
+          "threshold": 0.03
+        }
+      ],
+      "allowed_claim_codes": [
+        "PACKED_ARTIFACT_QUALIFIED",
+        "PACKED_ARTIFACT_REJECTED"
+      ],
+      "forbidden_claims": [
+        "dequantized tensor memory saving",
+        "analytical VRAM claim",
+        "zero-mask sparse acceleration"
+      ],
+      "next_action": "Remain blocked until an actual packed codec or sparse runtime artifact exists.",
+      "blocker": "No actual packed artifact/runtime exists for measurement",
+      "state_history": [
+        {
+          "from": null,
+          "to": "BLOCKED",
+          "actor": "Codex",
+          "at": "2026-08-25T11:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-TRACE-DISTILL-01",
+      "priority": 2,
+      "title": "Reopen ThinkingCap trace distillation only after a behavioral finalist",
+      "state": "REJECTED",
+      "evidence_class": "distillation",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-01",
+      "depends_on": [
+        "BACKLOG-ADAPT-TRAIN-01"
+      ],
+      "source_artifacts": [
+        "runs/research/ADAPT-00C-BEHAVIORAL-2026-08-24/RESULT.md",
+        "docs/research/REMAINING_EXPERIMENTS_2026-08-24.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "dataset_hashes",
+        "independent_evaluation",
+        "model_hash",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "student_samples",
+        "teacher_samples"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "behavioral_finalist",
+          "metric": "promoted_behavioral_finalist_present",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "paired_traces",
+          "metric": "paired_teacher_student_traces",
+          "operator": "ge",
+          "threshold": 32
+        },
+        {
+          "id": "heldout_gain",
+          "metric": "heldout_gain_over_finalist",
+          "operator": "gt",
+          "threshold": 0
+        },
+        {
+          "id": "protected_regression",
+          "metric": "protected_regression",
+          "operator": "le",
+          "threshold": 0.05
+        }
+      ],
+      "allowed_claim_codes": [
+        "TRACE_DISTILLATION_QUALIFIED",
+        "TRACE_DISTILLATION_REJECTED"
+      ],
+      "forbidden_claims": [
+        "distillation without a behavioral finalist",
+        "training claim from copied traces",
+        "production promotion"
+      ],
+      "next_action": "Remain blocked until fresh adapter training promotes a behavioral finalist and a new budget or scale hypothesis is preregistered.",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "BLOCKED",
+          "actor": "Codex",
+          "at": "2026-08-25T11:30:00Z"
+        },
+        {
+          "from": "BLOCKED",
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-25T12:53:48Z",
+          "reason": "BACKLOG-ADAPT-TRAIN-01 promoted verified trained behavioral finalist"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "AGY / Gemini 3.7 Flash High",
+          "at": "2026-08-25T13:02:43Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "AGY / Gemini 3.7 Flash High",
+          "at": "2026-08-25T13:03:37Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "AGY / Gemini 3.7 Flash High",
+          "at": "2026-08-25T13:09:31Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "Codex",
+          "at": "2026-08-25T13:10:44Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-MTP-PERSISTENCE-01",
+      "priority": 1,
+      "title": "Root-cause intermittent MTP cache persistence failure",
+      "state": "BLOCKED",
+      "evidence_class": "mechanism_research",
+      "packet_dir": "runs/research/BACKLOG-MTP-PERSISTENCE-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/cache/LAB-CACHE-001-MTP-2026-08-22/RESULT.md",
+        "docs/research/BLOCKER_REVALIDATION_2026-08-24.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "semantic_parity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "original_failure",
+          "metric": "original_failure_reproduced",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "controls",
+          "metric": "invariant_controls_pass",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "fixed_repeats",
+          "metric": "successful_fixed_path_repeats",
+          "operator": "ge",
+          "threshold": 20
+        },
+        {
+          "id": "semantic_parity",
+          "metric": "post_fix_mismatch_rate",
+          "operator": "eq",
+          "threshold": 0
+        }
+      ],
+      "allowed_claim_codes": [
+        "MTP_PERSISTENCE_ROOT_CAUSED",
+        "MTP_PERSISTENCE_HYPOTHESIS_REJECTED"
+      ],
+      "forbidden_claims": [
+        "root cause from clean reruns only",
+        "fresh-session speed promotion",
+        "cache promotion with intermittent mismatch"
+      ],
+      "next_action": "Form a new falsifiable cache-lifecycle hypothesis with invariant controls and explicit invalidation rules.",
+      "blocker": "No sufficiently specific falsifiable cache-lifecycle mechanism hypothesis exists",
+      "state_history": [
+        {
+          "from": null,
+          "to": "BLOCKED",
+          "actor": "Codex",
+          "at": "2026-08-25T11:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-THINKINGCAP-QWEN38-01",
+      "priority": 2,
+      "title": "Qualify an official ThinkingCap Qwen3.8 release",
+      "state": "BLOCKED",
+      "evidence_class": "model_requalification",
+      "packet_dir": "runs/research/BACKLOG-THINKINGCAP-QWEN38-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "docs/research/BLOCKER_REVALIDATION_2026-08-24.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "artifact_hashes",
+        "independent_evaluation",
+        "license_identity",
+        "provenance",
+        "quality_panel",
+        "raw_samples",
+        "receipt_fingerprint",
+        "role_gates",
+        "runtime_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "official_artifact",
+          "metric": "official_qwen38_artifact",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "fit_reserve",
+          "metric": "free_vram_mib_after_load",
+          "operator": "ge",
+          "threshold": 4096
+        },
+        {
+          "id": "role_quality",
+          "metric": "frozen_role_gate_pass",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "termination",
+          "metric": "natural_termination_rate",
+          "operator": "ge",
+          "threshold": 0.95
+        }
+      ],
+      "allowed_claim_codes": [
+        "THINKINGCAP_QWEN38_QUALIFIED",
+        "THINKINGCAP_QWEN38_REJECTED"
+      ],
+      "forbidden_claims": [
+        "community weights relabeled official",
+        "Qwen3.6 result transferred to Qwen3.8",
+        "promotion without fit and role gates"
+      ],
+      "next_action": "Remain blocked until official Qwen3.8 ThinkingCap weights and a 3090-fit artifact are published.",
+      "blocker": "Official Qwen3.8 ThinkingCap weights do not exist in the current evidence",
+      "state_history": [
+        {
+          "from": null,
+          "to": "BLOCKED",
+          "actor": "Codex",
+          "at": "2026-08-25T11:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-THINKINGCAP-MTP-IDENTITY-01",
+      "priority": 3,
+      "title": "Resolve the legacy ThinkingCap MTP artifact identity",
+      "state": "BLOCKED",
+      "evidence_class": "provenance_reconciliation",
+      "packet_dir": "runs/research/BACKLOG-THINKINGCAP-MTP-IDENTITY-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/provenance/LAB-PROV-001-FLEET-2026-08-22/RESULT.md",
+        "docs/research/BLOCKER_REVALIDATION_2026-08-24.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "artifact_hashes",
+        "independent_evaluation",
+        "lineage_resolution",
+        "provenance",
+        "publisher_receipts",
+        "raw_samples",
+        "receipt_fingerprint"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "full_digest",
+          "metric": "local_artifact_full_sha256_present",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "publisher_binding",
+          "metric": "publisher_receipt_binds_exact_digest",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "identity_resolved",
+          "metric": "lineage_status_resolved",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "LEGACY_MTP_IDENTITY_RESOLVED",
+        "LEGACY_MTP_IDENTITY_UNRESOLVED"
+      ],
+      "forbidden_claims": [
+        "identity inferred from filename",
+        "metadata digest overwritten",
+        "unbound local artifact promoted"
+      ],
+      "next_action": "Wait for a publisher or download receipt that identifies the exact local digest.",
+      "blocker": "No publisher receipt identifies the exact 17221641152-byte local artifact",
+      "state_history": [
+        {
+          "from": null,
+          "to": "BLOCKED",
+          "actor": "Codex",
+          "at": "2026-08-25T11:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-QUANTIZER-PROVENANCE-01",
+      "priority": 3,
+      "title": "Resolve third-party quantizer build provenance",
+      "state": "BLOCKED",
+      "evidence_class": "provenance_reconciliation",
+      "packet_dir": "runs/research/BACKLOG-QUANTIZER-PROVENANCE-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/provenance/LAB-PROV-001-FLEET-2026-08-22/RESULT.md",
+        "docs/research/BLOCKER_REVALIDATION_2026-08-24.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "artifact_hashes",
+        "independent_evaluation",
+        "lineage_resolution",
+        "provenance",
+        "publisher_receipts",
+        "raw_samples",
+        "receipt_fingerprint"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "publisher_builds",
+          "metric": "promotion_relevant_artifacts_with_exact_build_receipts_rate",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "unresolved_relevant",
+          "metric": "unresolved_promotion_relevant_artifacts",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "no_inferred_builds",
+          "metric": "inferred_build_identities",
+          "operator": "eq",
+          "threshold": 0
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUANTIZER_PROVENANCE_RESOLVED",
+        "QUANTIZER_PROVENANCE_PARTIAL"
+      ],
+      "forbidden_claims": [
+        "quantizer build inferred from quant type",
+        "bulk redownload without promotion relevance",
+        "unknown provenance relabeled verified"
+      ],
+      "next_action": "Wait for exact publisher build receipts and scope collection to newly admitted or promotion-relevant artifacts.",
+      "blocker": "Publishers do not disclose exact quantizer and llama.cpp build receipts",
+      "state_history": [
+        {
+          "from": null,
+          "to": "BLOCKED",
+          "actor": "Codex",
+          "at": "2026-08-25T11:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-HUMAN-JUDGE-CALIBRATION-01",
+      "priority": 2,
+      "title": "Calibrate model judges against genuine blind human labels",
+      "state": "BLOCKED",
+      "evidence_class": "human_calibration",
+      "packet_dir": "runs/research/BACKLOG-HUMAN-JUDGE-CALIBRATION-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "docs/research/REMAINING_EXPERIMENTS_2026-08-24.md",
+        "docs/research/BLOCKER_REVALIDATION_2026-08-24.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "blind_label_packet",
+        "independent_evaluation",
+        "inter_rater_agreement",
+        "provenance",
+        "rater_provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "human_labels",
+          "metric": "genuine_blind_human_labels",
+          "operator": "ge",
+          "threshold": 50
+        },
+        {
+          "id": "blind_packet",
+          "metric": "labels_collected_blind",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "rater_identity",
+          "metric": "rater_provenance_complete",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "agreement",
+          "metric": "inter_rater_agreement_reported",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "JUDGE_CALIBRATED",
+        "JUDGE_CALIBRATION_INSUFFICIENT"
+      ],
+      "forbidden_claims": [
+        "model labels called human",
+        "unblinded preference calibration",
+        "synthetic rater provenance"
+      ],
+      "next_action": "Remain blocked until 50 to 100 genuine blind human labels are available.",
+      "blocker": "No frozen blind human-label packet exists",
+      "state_history": [
+        {
+          "from": null,
+          "to": "BLOCKED",
+          "actor": "Codex",
+          "at": "2026-08-25T11:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-RETNET-OFFICIAL-01",
+      "priority": 3,
+      "title": "Qualify an official Microsoft TorchScale RetNet checkpoint",
+      "state": "BLOCKED",
+      "evidence_class": "model_requalification",
+      "packet_dir": "runs/research/BACKLOG-RETNET-OFFICIAL-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/rnn/RNN-09-retnet-retention/OFFICIAL_CHECKPOINT_BLOCKED_2026-08-22.md",
+        "docs/research/BLOCKER_REVALIDATION_2026-08-24.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "artifact_hashes",
+        "independent_evaluation",
+        "license_identity",
+        "provenance",
+        "quality_panel",
+        "raw_samples",
+        "receipt_fingerprint",
+        "role_gates",
+        "runtime_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "official_checkpoint",
+          "metric": "official_microsoft_torchscale_checkpoint",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "fit_reserve",
+          "metric": "free_vram_mib_after_load",
+          "operator": "ge",
+          "threshold": 4096
+        },
+        {
+          "id": "retention",
+          "metric": "frozen_retention_gate_pass",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "role_quality",
+          "metric": "frozen_role_gate_pass",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "RETNET_OFFICIAL_QUALIFIED",
+        "RETNET_OFFICIAL_REJECTED"
+      ],
+      "forbidden_claims": [
+        "community checkpoint relabeled official",
+        "construction code treated as weights",
+        "mechanism result called deployment quality"
+      ],
+      "next_action": "Remain blocked until Microsoft or TorchScale publishes an official pretrained checkpoint.",
+      "blocker": "No official Microsoft TorchScale pretrained checkpoint exists",
+      "state_history": [
+        {
+          "from": null,
+          "to": "BLOCKED",
+          "actor": "Codex",
+          "at": "2026-08-25T11:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-BEE-L2-KV-CODEC-01",
+      "priority": 3,
+      "title": "Execute BEE-L2 qualification on a physical immutable KV codec",
+      "state": "BLOCKED",
+      "evidence_class": "kv_codec",
+      "packet_dir": "runs/research/BACKLOG-BEE-L2-KV-CODEC-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BEE-L2-KV-QUALIFICATION-DESIGN-2026-08-24/RESULT.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "full_distribution_scores",
+        "hardware_metrics",
+        "packed_artifact_hash",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "retrieval_scores",
+        "route_receipts",
+        "task_scores"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "physical_format",
+          "metric": "immutable_physical_codec_present",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "effective_route",
+          "metric": "codec_route_proven_exercised",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "distribution",
+          "metric": "full_distribution_gate_pass",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "retrieval_task",
+          "metric": "retrieval_and_task_gates_pass",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "BEE_L2_CODEC_QUALIFIED",
+        "BEE_L2_CODEC_REJECTED"
+      ],
+      "forbidden_claims": [
+        "analytical codec promotion",
+        "route inferred from requested flags",
+        "partial distribution called full qualification"
+      ],
+      "next_action": "Remain blocked until a codec candidate has an immutable physical format and effective-route receipts.",
+      "blocker": "No physical KV codec candidate with immutable format and route receipts exists",
+      "state_history": [
+        {
+          "from": null,
+          "to": "BLOCKED",
+          "actor": "Codex",
+          "at": "2026-08-25T11:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-APEX4-E2E-01",
+      "priority": 3,
+      "title": "Reproduce APEX4 end to end after corrected checkpoint publication",
+      "state": "BLOCKED",
+      "evidence_class": "external_reproduction",
+      "packet_dir": "runs/research/BACKLOG-APEX4-E2E-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/SLX-02-APEX4-2026-08-24/RESULT.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "build_receipts",
+        "correctness_receipts",
+        "dependency_hashes",
+        "end_to_end_artifact",
+        "independent_evaluation",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "source_revision"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "checkpoint_complete",
+          "metric": "published_checkpoint_shards_complete",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "package_reproducible",
+          "metric": "end_to_end_package_reproducible",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "kernel_correctness",
+          "metric": "released_kernel_correctness_pass",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "e2e_measurement",
+          "metric": "end_to_end_hardware_measurement_present",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "APEX4_E2E_REPRODUCED",
+        "APEX4_E2E_REJECTED"
+      ],
+      "forbidden_claims": [
+        "kernel build called end-to-end reproduction",
+        "truncated shards treated as checkpoint",
+        "unreleased package behavior inferred"
+      ],
+      "next_action": "Remain blocked until corrected checkpoint shards and a reproducible end-to-end package are published.",
+      "blocker": "Published checkpoint shards are truncated and the end-to-end package is unavailable",
+      "state_history": [
+        {
+          "from": null,
+          "to": "BLOCKED",
+          "actor": "Codex",
+          "at": "2026-08-25T11:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-REQUAL-02",
+      "priority": 0,
+      "title": "Requalify saved adapters with process-isolated clean base reloads",
+      "evidence_class": "artifact_requalification",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-REQUAL-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "docs/AUDIT_2026-08-25_CODEX_INDEPENDENT_AGY_EXECUTION.md",
+        "runs/research/BACKLOG-ADAPT-REQUAL-01/raw/artifact_hashes.json",
+        "runs/research/BACKLOG-ADAPT-REQUAL-01/raw/dataset_hashes.json",
+        "runs/research/ADAPT-01A-LOKR-SCALE-2026-08-25",
+        "runs/research/ADAPT-02-MODULE-TARGETING-2026-08-25",
+        "runs/research/ADAPT-03-SOFT-PROMPTS-2026-08-25",
+        "runs/research/ADAPT-04-PRIOR-PRESERVATION-2026-08-25",
+        "runs/research/ADAPT-05-MODULAR-MERGING-2026-08-25"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "artifact_hashes",
+        "clean_base_receipts",
+        "dataset_hashes",
+        "independent_evaluation",
+        "isolation_smoke",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "wsl_environment"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "artifact_identity",
+          "metric": "hashed_artifacts",
+          "operator": "eq",
+          "threshold": 13
+        },
+        {
+          "id": "clean_base_per_arm",
+          "metric": "workers_with_zero_preexisting_peft_modules",
+          "operator": "eq",
+          "threshold": 17
+        },
+        {
+          "id": "isolation_smoke",
+          "metric": "smoke_order_invariant",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "frozen_math_panel",
+          "metric": "scored_math_samples_per_arm",
+          "operator": "ge",
+          "threshold": 32
+        },
+        {
+          "id": "frozen_qa_panel",
+          "metric": "scored_qa_samples_per_arm",
+          "operator": "ge",
+          "threshold": 16
+        },
+        {
+          "id": "base_control",
+          "metric": "base_control_present",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "independent_score",
+          "metric": "independent_scorer_match",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "ARTIFACT_REQUALIFIED_R2",
+        "ARTIFACT_REQUALIFICATION_R2_REJECTED"
+      ],
+      "forbidden_claims": [
+        "training reproduction",
+        "adapter finalist promotion without a separately preregistered selection rule",
+        "production promotion",
+        "general capability",
+        "isolated-arm claim from a reused PEFT-mutated base object"
+      ],
+      "next_action": "Run the three-arm process-isolation smoke in both orders, then execute all 13 adapters only if outputs are order invariant and every worker starts from a clean base.",
+      "supersedes": "BACKLOG-ADAPT-REQUAL-01",
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-25T21:17:45Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-25T21:18:55Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-25T21:21:20Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-25T22:14:02Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-CUDAGRAPH-SERVING-02",
+      "priority": 1,
+      "title": "Causally validate CUDA Graph serving with explicit OFF and ON runtimes",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-CUDAGRAPH-SERVING-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "docs/AUDIT_2026-08-25_CODEX_INDEPENDENT_AGY_EXECUTION.md",
+        "runs/research/BACKLOG-CUDAGRAPH-SERVING-01/raw/service_identity.json",
+        "runs/research/BACKLOG-CUDAGRAPH-SERVING-01/raw/effective_route.json",
+        "runs/research/BACKLOG-CUDAGRAPH-SERVING-01/raw/samples.jsonl",
+        "docs/research/STATUS.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "binary_identity",
+        "block_logs",
+        "effective_route",
+        "environment",
+        "hardware_metrics",
+        "paired_baseline",
+        "paired_metrics",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_maintenance",
+        "service_identity",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "treatment_identity",
+          "metric": "explicit_off_on_controls_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "binary_identity",
+          "metric": "distinct_binary_hashes_across_treatments",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "balanced_crossover",
+          "metric": "valid_abba_blocks",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "semantic_parity",
+          "metric": "response_mismatch_rate",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "paired_speedup",
+          "metric": "paired_wall_speedup_p50",
+          "operator": "ge",
+          "threshold": 1.1
+        },
+        {
+          "id": "tail_non_regression",
+          "metric": "on_vs_off_p95_regression",
+          "operator": "le",
+          "threshold": 0.0
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "SERVING_CUDAGRAPH_CAUSAL_QUALIFIED_R2",
+        "SERVING_CUDAGRAPH_CAUSAL_REJECTED_R2"
+      ],
+      "forbidden_claims": [
+        "CUDA Graph effect inferred from first-request versus second-request warmup",
+        "driver launch overhead attribution without profiler evidence",
+        "performance generalization beyond the frozen binary, model, GPU and request shape",
+        "production promotion",
+        "semantic equivalence beyond the frozen paired prompts"
+      ],
+      "next_action": "Run fresh temporary serving processes in OFF-ON-ON-OFF order with symmetric discarded warmups, explicit GGML_CUDA_DISABLE_GRAPHS treatment evidence, identical binary and argv, and paired deterministic prompts.",
+      "supersedes": "BACKLOG-CUDAGRAPH-SERVING-01",
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-25T22:16:24Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-25T22:17:57Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-25T22:20:46Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-25T22:23:57Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-TRACE-DISTILL-02",
+      "priority": 0,
+      "title": "Test the trace-distillation rejection with matched answer-only and full-trace SFT arms",
+      "evidence_class": "distillation",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "docs/AUDIT_2026-08-25_CODEX_INDEPENDENT_AGY_EXECUTION.md",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-01/raw/teacher_samples.json",
+        "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/training_trace.json",
+        "runs/a2/market-r0__thinkingcap-27b-q4__gsm8k.json",
+        "workloads/gsm8k.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "checkpoint_hashes",
+        "clean_base_receipts",
+        "dataset_hashes",
+        "independent_evaluation",
+        "model_hash",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "service_maintenance",
+        "student_samples",
+        "teacher_samples",
+        "training_pairs",
+        "training_trace",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "treatment_materiality",
+          "metric": "matched_distinct_training_targets_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "clean_base",
+          "metric": "fresh_base_workers",
+          "operator": "eq",
+          "threshold": 6
+        },
+        {
+          "id": "paired_training",
+          "metric": "matched_pairs_per_arm_per_seed",
+          "operator": "eq",
+          "threshold": 128
+        },
+        {
+          "id": "seed_coverage",
+          "metric": "completed_paired_seeds",
+          "operator": "eq",
+          "threshold": 3
+        },
+        {
+          "id": "heldout_gain",
+          "metric": "mean_trace_math_gain_over_answer_only",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "directional_repeatability",
+          "metric": "seeds_with_nonnegative_trace_math_gain",
+          "operator": "ge",
+          "threshold": 2
+        },
+        {
+          "id": "protected_regression",
+          "metric": "mean_protected_qa_regression_vs_answer_only",
+          "operator": "le",
+          "threshold": 0.05
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "TRACE_DISTILLATION_FALSE_NEGATIVE_CONFIRMED_R2",
+        "TRACE_DISTILLATION_REJECTED_R2"
+      ],
+      "forbidden_claims": [
+        "trace effect without a separately trained trace arm",
+        "gain against a contaminated or reused base object",
+        "adapter finalist selection",
+        "teacher-level noninferiority",
+        "production promotion",
+        "generalization beyond the frozen model, data and training budget"
+      ],
+      "next_action": "Train six fresh workers in a seed-matched answer-only versus full-teacher-trace comparison, then evaluate both arms on frozen disjoint math and protected-QA panels.",
+      "supersedes": "BACKLOG-ADAPT-TRACE-DISTILL-01",
+      "state": "BLOCKED",
+      "blocker": "Host cp1252 log-decoder failure after four valid workers; preserved and superseded by continuation packet",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-25T23:06:25Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-25T23:07:00Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-25T23:09:15Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex executor",
+          "at": "2026-08-25T23:25:08Z",
+          "reason": "Host cp1252 log-decoder failure after four valid workers; preserved and superseded by continuation packet"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-TRACE-DISTILL-03",
+      "priority": 0,
+      "title": "Complete the frozen trace-distillation false-negative test after host log-decoder abort",
+      "evidence_class": "distillation",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/ABORTED.md",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/training_pairs.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/workers",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/checkpoints",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/checkpoints/seed_20260824_answer_only/adapter_model.safetensors",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/checkpoints/seed_20260824_full_trace/adapter_model.safetensors",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/checkpoints/seed_20260825_answer_only/adapter_model.safetensors",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/checkpoints/seed_20260825_full_trace/adapter_model.safetensors",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/service_maintenance.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "checkpoint_hashes",
+        "clean_base_receipts",
+        "continuation_ledger",
+        "dataset_hashes",
+        "independent_evaluation",
+        "model_hash",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "service_maintenance",
+        "student_samples",
+        "teacher_samples",
+        "training_pairs",
+        "training_trace",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "continuation_integrity",
+          "metric": "frozen_partial_workers_verified",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "treatment_materiality",
+          "metric": "matched_distinct_training_targets_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "clean_base",
+          "metric": "fresh_base_workers",
+          "operator": "eq",
+          "threshold": 6
+        },
+        {
+          "id": "paired_training",
+          "metric": "matched_pairs_per_arm_per_seed",
+          "operator": "eq",
+          "threshold": 128
+        },
+        {
+          "id": "seed_coverage",
+          "metric": "completed_paired_seeds",
+          "operator": "eq",
+          "threshold": 3
+        },
+        {
+          "id": "heldout_gain",
+          "metric": "mean_trace_math_gain_over_answer_only",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "directional_repeatability",
+          "metric": "seeds_with_nonnegative_trace_math_gain",
+          "operator": "ge",
+          "threshold": 2
+        },
+        {
+          "id": "protected_regression",
+          "metric": "mean_protected_qa_regression_vs_answer_only",
+          "operator": "le",
+          "threshold": 0.05
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "TRACE_DISTILLATION_FALSE_NEGATIVE_CONFIRMED_R3",
+        "TRACE_DISTILLATION_REJECTED_R3"
+      ],
+      "forbidden_claims": [
+        "changing seeds or thresholds after observing partial results",
+        "trace effect without distinct trained arms",
+        "adapter finalist selection",
+        "teacher-level noninferiority",
+        "production promotion",
+        "generalization beyond the frozen model, data and training budget"
+      ],
+      "next_action": "Verify and import the four frozen completed workers, run only the two preregistered seed-20260826 workers with UTF-8 replacement-safe log capture, and aggregate the unchanged three-seed design.",
+      "supersedes": "BACKLOG-ADAPT-TRACE-DISTILL-02",
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-25T23:25:41Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-25T23:26:17Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-25T23:27:51Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-25T23:35:08Z"
+        }
+      ],
+      "external_source_receipts": {
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/checkpoints/seed_20260824_answer_only/adapter_model.safetensors": {
+          "sha256": "ef5bec8822e856883eaec930d2b851892bb6b681bde1fda5f76005667adbf1a2",
+          "bytes": 10635280,
+          "evidence": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/continuation_ledger.json"
+        },
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/checkpoints/seed_20260824_full_trace/adapter_model.safetensors": {
+          "sha256": "174832aa1bd25cbc5ed7f0ff717ad253ec94e2c23edc82e6f828ceadeed566b7",
+          "bytes": 10635280,
+          "evidence": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/continuation_ledger.json"
+        },
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/checkpoints/seed_20260825_answer_only/adapter_model.safetensors": {
+          "sha256": "56ff9be8c5ac0876389cf12fe23a2ac301eac7c99cef977fa455b76f5817a2e6",
+          "bytes": 10635280,
+          "evidence": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/continuation_ledger.json"
+        },
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/checkpoints/seed_20260825_full_trace/adapter_model.safetensors": {
+          "sha256": "dc696b7553cf8e4d920f8554ec4e3dee484a04da374ef0d54bcb48160044050a",
+          "bytes": 10635280,
+          "evidence": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/continuation_ledger.json"
+        }
+      },
+      "portability_history": [
+        {
+          "actor": "Codex portability consolidation",
+          "at": "2026-08-26T10:35:43Z",
+          "source": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/checkpoints/seed_20260824_answer_only/adapter_model.safetensors",
+          "evidence": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/continuation_ledger.json"
+        },
+        {
+          "actor": "Codex portability consolidation",
+          "at": "2026-08-26T10:35:43Z",
+          "source": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/checkpoints/seed_20260824_full_trace/adapter_model.safetensors",
+          "evidence": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/continuation_ledger.json"
+        },
+        {
+          "actor": "Codex portability consolidation",
+          "at": "2026-08-26T10:35:43Z",
+          "source": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/checkpoints/seed_20260825_answer_only/adapter_model.safetensors",
+          "evidence": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/continuation_ledger.json"
+        },
+        {
+          "actor": "Codex portability consolidation",
+          "at": "2026-08-26T10:35:44Z",
+          "source": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/checkpoints/seed_20260825_full_trace/adapter_model.safetensors",
+          "evidence": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/continuation_ledger.json"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-NEGATIVE-KV-REAL-SCREEN-01",
+      "priority": 0,
+      "title": "Retest five AGY negative KV conclusions on real Qwen activations and weights",
+      "evidence_class": "proxy_realization",
+      "packet_dir": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/RSH-01-FIBQUANT-2026-08-25/RESULT.md",
+        "runs/research/REP-03-KVARN-OFFLINE-2026-08-25/RESULT.md",
+        "runs/research/RSH-03-KVLINC-COMPENSATION-2026-08-25/RESULT.md",
+        "runs/research/RSH-04-RABITQ-CACHE-2026-08-25/RESULT.md",
+        "runs/research/REP-06-ENTROPY-PRECISION-2026-08-25/RESULT.md",
+        "tools/probes/rsh01_fibquant_simulation.py",
+        "tools/probes/rep03_kvarn_codec.py",
+        "tools/probes/rsh03_kvlinc_compensation.py",
+        "tools/probes/rsh04_rabitq_cache.py",
+        "tools/probes/rep06_dynamic_entropy_precision.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "dataset_hashes",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "model_hash",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "tensor_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "actual_activation_coverage",
+          "metric": "actual_model_activation_cells",
+          "operator": "ge",
+          "threshold": 18
+        },
+        {
+          "id": "actual_weight_coverage",
+          "metric": "actual_model_weight_matrices",
+          "operator": "ge",
+          "threshold": 12
+        },
+        {
+          "id": "candidate_coverage",
+          "metric": "candidate_hypotheses_evaluated",
+          "operator": "eq",
+          "threshold": 5
+        },
+        {
+          "id": "no_synthetic_decisive_tensors",
+          "metric": "all_decisive_tensors_from_frozen_model",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "independent_recompute",
+          "metric": "independent_metric_recompute_match",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "rsh01_mse",
+          "metric": "rsh01_fib_mse_ratio_vs_uniform",
+          "operator": "le",
+          "threshold": 0.7
+        },
+        {
+          "id": "rsh01_sqnr",
+          "metric": "rsh01_fib_sqnr_gain_db",
+          "operator": "ge",
+          "threshold": 2.5
+        },
+        {
+          "id": "rsh01_cosine",
+          "metric": "rsh01_fib_cosine_similarity",
+          "operator": "ge",
+          "threshold": 0.995
+        },
+        {
+          "id": "rep03_mse",
+          "metric": "rep03_hadamard_mse_reduction",
+          "operator": "ge",
+          "threshold": 0.5
+        },
+        {
+          "id": "rep03_attention",
+          "metric": "rep03_hadamard_attention_cosine",
+          "operator": "ge",
+          "threshold": 0.99
+        },
+        {
+          "id": "rsh03_recovery",
+          "metric": "rsh03_rank4_mse_recovery",
+          "operator": "ge",
+          "threshold": 0.5
+        },
+        {
+          "id": "rsh03_cosine",
+          "metric": "rsh03_rank4_output_cosine",
+          "operator": "ge",
+          "threshold": 0.998
+        },
+        {
+          "id": "rsh03_overhead",
+          "metric": "rsh03_rank4_parameter_overhead",
+          "operator": "le",
+          "threshold": 0.01
+        },
+        {
+          "id": "rsh04_recall",
+          "metric": "rsh04_binary_top_block_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "rsh04_dram",
+          "metric": "rsh04_retained_fraction",
+          "operator": "le",
+          "threshold": 0.3
+        },
+        {
+          "id": "rep06_bits",
+          "metric": "rep06_average_bits_per_element",
+          "operator": "le",
+          "threshold": 7.0
+        },
+        {
+          "id": "rep06_attention",
+          "metric": "rep06_dynamic_attention_cosine",
+          "operator": "ge",
+          "threshold": 0.992
+        },
+        {
+          "id": "rep06_beats_static",
+          "metric": "rep06_dynamic_beats_static_int4",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "NEGATIVE_KV_REAL_SCREEN_VERIFIED_R1",
+        "RSH01_FALSE_NEGATIVE_CANDIDATE_R1",
+        "REP03_FALSE_NEGATIVE_CANDIDATE_R1",
+        "RSH03_FALSE_NEGATIVE_CANDIDATE_R1",
+        "RSH04_FALSE_NEGATIVE_CANDIDATE_R1",
+        "REP06_FALSE_NEGATIVE_CANDIDATE_R1"
+      ],
+      "forbidden_claims": [
+        "packed memory reduction",
+        "production codec qualification",
+        "native kernel throughput",
+        "generalization beyond the frozen Qwen model and prompt cells",
+        "treating an algorithmic screen as a serving-runtime promotion"
+      ],
+      "next_action": "Capture real Qwen weights and activations, recompute the five frozen negative decision rules, and stop at EXECUTED for independent AGY review.",
+      "supersedes": null,
+      "state": "BLOCKED",
+      "blocker": "Worker model binding failed before measurement: Transformers exposes model.model as Qwen3_5TextModel; successor must freeze logs and change only the object binding.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:07:17Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:08:31Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:11:39Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:12:19Z",
+          "reason": "Worker model binding failed before measurement: Transformers exposes model.model as Qwen3_5TextModel; successor must freeze logs and change only the object binding."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-NEGATIVE-KV-REAL-SCREEN-02",
+      "priority": 0,
+      "title": "Repeat the frozen five-candidate real Qwen KV screen after pre-measurement model-binding abort",
+      "evidence_class": "proxy_realization",
+      "packet_dir": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-01/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-01/ABORTED.md",
+        "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-01/raw/worker.stderr.log",
+        "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-01/raw/service_maintenance.json",
+        "runs/research/RSH-01-FIBQUANT-2026-08-25/RESULT.md",
+        "runs/research/REP-03-KVARN-OFFLINE-2026-08-25/RESULT.md",
+        "runs/research/RSH-03-KVLINC-COMPENSATION-2026-08-25/RESULT.md",
+        "runs/research/RSH-04-RABITQ-CACHE-2026-08-25/RESULT.md",
+        "runs/research/REP-06-ENTROPY-PRECISION-2026-08-25/RESULT.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "continuation_ledger",
+        "dataset_hashes",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "model_hash",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "tensor_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "continuation_integrity",
+          "metric": "frozen_failed_predecessor_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "actual_activation_coverage",
+          "metric": "actual_model_activation_cells",
+          "operator": "ge",
+          "threshold": 18
+        },
+        {
+          "id": "actual_weight_coverage",
+          "metric": "actual_model_weight_matrices",
+          "operator": "ge",
+          "threshold": 12
+        },
+        {
+          "id": "candidate_coverage",
+          "metric": "candidate_hypotheses_evaluated",
+          "operator": "eq",
+          "threshold": 5
+        },
+        {
+          "id": "no_synthetic_decisive_tensors",
+          "metric": "all_decisive_tensors_from_frozen_model",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "independent_recompute",
+          "metric": "independent_metric_recompute_match",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "rsh01_mse",
+          "metric": "rsh01_fib_mse_ratio_vs_uniform",
+          "operator": "le",
+          "threshold": 0.7
+        },
+        {
+          "id": "rsh01_sqnr",
+          "metric": "rsh01_fib_sqnr_gain_db",
+          "operator": "ge",
+          "threshold": 2.5
+        },
+        {
+          "id": "rsh01_cosine",
+          "metric": "rsh01_fib_cosine_similarity",
+          "operator": "ge",
+          "threshold": 0.995
+        },
+        {
+          "id": "rep03_mse",
+          "metric": "rep03_hadamard_mse_reduction",
+          "operator": "ge",
+          "threshold": 0.5
+        },
+        {
+          "id": "rep03_attention",
+          "metric": "rep03_hadamard_attention_cosine",
+          "operator": "ge",
+          "threshold": 0.99
+        },
+        {
+          "id": "rsh03_recovery",
+          "metric": "rsh03_rank4_mse_recovery",
+          "operator": "ge",
+          "threshold": 0.5
+        },
+        {
+          "id": "rsh03_cosine",
+          "metric": "rsh03_rank4_output_cosine",
+          "operator": "ge",
+          "threshold": 0.998
+        },
+        {
+          "id": "rsh03_overhead",
+          "metric": "rsh03_rank4_parameter_overhead",
+          "operator": "le",
+          "threshold": 0.01
+        },
+        {
+          "id": "rsh04_recall",
+          "metric": "rsh04_binary_top_block_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "rsh04_dram",
+          "metric": "rsh04_retained_fraction",
+          "operator": "le",
+          "threshold": 0.3
+        },
+        {
+          "id": "rep06_bits",
+          "metric": "rep06_average_bits_per_element",
+          "operator": "le",
+          "threshold": 7.0
+        },
+        {
+          "id": "rep06_attention",
+          "metric": "rep06_dynamic_attention_cosine",
+          "operator": "ge",
+          "threshold": 0.992
+        },
+        {
+          "id": "rep06_beats_static",
+          "metric": "rep06_dynamic_beats_static_int4",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "NEGATIVE_KV_REAL_SCREEN_VERIFIED_R2",
+        "RSH01_FALSE_NEGATIVE_CANDIDATE_R2",
+        "REP03_FALSE_NEGATIVE_CANDIDATE_R2",
+        "RSH03_FALSE_NEGATIVE_CANDIDATE_R2",
+        "RSH04_FALSE_NEGATIVE_CANDIDATE_R2",
+        "REP06_FALSE_NEGATIVE_CANDIDATE_R2"
+      ],
+      "forbidden_claims": [
+        "packed memory reduction",
+        "production codec qualification",
+        "native kernel throughput",
+        "generalization beyond the frozen Qwen model and prompt cells",
+        "changing any experimental factor other than the pre-measurement model-object binding"
+      ],
+      "next_action": "Verify the frozen failed predecessor, change only model.model.language_model to model.model, and rerun the identical screen.",
+      "supersedes": "BACKLOG-NEGATIVE-KV-REAL-SCREEN-01",
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:12:47Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:13:19Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:14:05Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:14:30Z"
+        }
+      ],
+      "external_source_receipts": {
+        "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-01/raw/worker.stderr.log": {
+          "sha256": "61df470821dfd43c4c9a799c2b2a24e1fa5fa24f936a8eacff279c581d0ebbc4",
+          "bytes": 938,
+          "evidence": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-02/raw/continuation_ledger.json"
+        }
+      },
+      "portability_history": [
+        {
+          "actor": "Codex portability consolidation",
+          "at": "2026-08-26T10:34:17Z",
+          "source": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-01/raw/worker.stderr.log",
+          "evidence": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-02/raw/continuation_ledger.json"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX08-REAL-FIDELITY-01",
+      "priority": 0,
+      "title": "Retest the rejected SLX-08 fidelity gate with real Qwen QKV and the computed block indices",
+      "evidence_class": "proxy_realization",
+      "packet_dir": "runs/research/BACKLOG-SLX08-REAL-FIDELITY-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/SLX-08-SPECULATIVE-PREFILL-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/SLX-08-SPECULATIVE-PREFILL-2026-08-25/RESULT.md",
+        "runs/research/SLX-08-SPECULATIVE-PREFILL-2026-08-25/raw/receipt.json",
+        "tools/probes/slx08_speculative_prefill_oracle.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "dataset_hashes",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "model_hash",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "tensor_identity",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "actual_qkv_coverage",
+          "metric": "actual_qkv_cells",
+          "operator": "ge",
+          "threshold": 12
+        },
+        {
+          "id": "no_synthetic_decisive_tensors",
+          "metric": "all_decisive_tensors_from_frozen_model",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "computed_indices_used",
+          "metric": "computed_top_block_indices_materially_used",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "independent_recompute",
+          "metric": "independent_metric_recompute_match",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "fidelity",
+          "metric": "median_selected_block_context_cosine",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX08_FIDELITY_FALSE_NEGATIVE_CANDIDATE_R1",
+        "SLX08_FIDELITY_NEGATIVE_RETAINED_R1"
+      ],
+      "forbidden_claims": [
+        "TTFT speedup",
+        "production speculative prefill",
+        "packed memory reduction",
+        "full-model semantic parity",
+        "generalization beyond the frozen cells"
+      ],
+      "next_action": "Use actual Qwen QKV, gather the blocks selected by the computed indices, and retest only the rejected fidelity gate.",
+      "supersedes": null,
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:15:44Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:16:05Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:17:42Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:18:09Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-HYPER01-REAL-ADAPTER-01",
+      "priority": 0,
+      "title": "Retest HYPER-01 rejection against four physical LoRA checkpoints",
+      "evidence_class": "proxy_realization",
+      "packet_dir": "runs/research/BACKLOG-HYPER01-REAL-ADAPTER-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/HYPER-01-CAPSULES-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/HYPER-01-CAPSULES-2026-08-25/RESULT.md",
+        "runs/research/HYPER-01-CAPSULES-2026-08-25/raw/receipt.json",
+        "tools/probes/hyper01_capsule_generator.py",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/checkpoints"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "target_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "physical_targets",
+          "metric": "physical_adapter_targets",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "target_distinctness",
+          "metric": "distinct_target_deltas",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "latency",
+          "metric": "median_synthesis_latency_ms",
+          "operator": "le",
+          "threshold": 5.0
+        },
+        {
+          "id": "fidelity",
+          "metric": "mean_weight_delta_cosine",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "overhead",
+          "metric": "generator_vram_overhead_mb",
+          "operator": "le",
+          "threshold": 20.0
+        },
+        {
+          "id": "independent_recompute",
+          "metric": "independent_metric_recompute_match",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "HYPER01_FALSE_NEGATIVE_CANDIDATE_R1",
+        "HYPER01_NEGATIVE_RETAINED_R1"
+      ],
+      "forbidden_claims": [
+        "whole-adapter generation",
+        "unseen-task generalization",
+        "production adapter synthesis"
+      ],
+      "next_action": "Replace random target LoRA matrices with one matched physical module from four frozen checkpoints and rerun the original gates.",
+      "supersedes": null,
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:19:53Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:20:16Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:21:36Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:21:48Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-DISTILL01-FLEET-REAL-01",
+      "priority": 0,
+      "title": "Recompute DISTILL-01 routed-fleet superiority from clean process-isolated real generations",
+      "evidence_class": "mechanism_research",
+      "packet_dir": "runs/research/BACKLOG-DISTILL01-FLEET-REAL-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT-REQUAL-02/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-ADAPT-REQUAL-02/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-REQUAL-02/raw/samples.jsonl",
+        "runs/research/BACKLOG-ADAPT-REQUAL-02/raw/artifact_hashes.json",
+        "runs/research/DISTILL-01-FLEET-DISTILLATION-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/DISTILL-01-FLEET-DISTILLATION-2026-08-25/RESULT.md",
+        "runs/research/DISTILL-01-FLEET-DISTILLATION-2026-08-25/raw/receipt.json",
+        "tools/probes/distill01_fleet_distillation.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_execution",
+          "metric": "source_real_execution_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "arm_coverage",
+          "metric": "complete_required_arms",
+          "operator": "eq",
+          "threshold": 3
+        },
+        {
+          "id": "sample_coverage",
+          "metric": "complete_required_samples",
+          "operator": "eq",
+          "threshold": 144
+        },
+        {
+          "id": "fleet_gain",
+          "metric": "fleet_gain_over_monolith",
+          "operator": "ge",
+          "threshold": 0.2
+        },
+        {
+          "id": "math_specialist",
+          "metric": "fleet_math_correct",
+          "operator": "ge",
+          "threshold": 15
+        },
+        {
+          "id": "qa_specialist",
+          "metric": "fleet_qa_correct",
+          "operator": "ge",
+          "threshold": 5
+        },
+        {
+          "id": "independent_scoring",
+          "metric": "independent_rescore_match",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "DISTILL01_FLEET_QUALIFIED_R1",
+        "DISTILL01_FALSE_POSITIVE_CONFIRMED_R1"
+      ],
+      "forbidden_claims": [
+        "distillation training effect",
+        "dynamic router latency",
+        "production deployment",
+        "generalization beyond frozen panels"
+      ],
+      "next_action": "Select the three frozen real arms, independently rescore their raw generations, and recompute the original routing rules and thresholds.",
+      "supersedes": null,
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:23:12Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:23:35Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:24:45Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:24:50Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-CTRL01-REAL-TOKEN-01",
+      "priority": 0,
+      "title": "Requalify CTRL-01 on real model token streams and valid-token controls",
+      "evidence_class": "mechanism_research",
+      "packet_dir": "runs/research/BACKLOG-CTRL01-REAL-TOKEN-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/RESULT.md",
+        "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/raw/receipt.json",
+        "tools/analysis/ast_grammar_sidecar.py",
+        "tools/probes/ctrl01_ast_sidecar_probe.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "real_coverage",
+          "metric": "real_model_outputs",
+          "operator": "ge",
+          "threshold": 24
+        },
+        {
+          "id": "real_validity",
+          "metric": "sanitized_complete_valid_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "valid_control_recall",
+          "metric": "valid_token_acceptance_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "valid_control_semantics",
+          "metric": "valid_control_exact_preservation_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "overhead",
+          "metric": "p95_overhead_us_per_token",
+          "operator": "le",
+          "threshold": 500.0
+        },
+        {
+          "id": "runtime_binding",
+          "metric": "logit_mask_runtime_integrated",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "CTRL01_RUNTIME_QUALIFIED_R1",
+        "CTRL01_FALSE_POSITIVE_CONFIRMED_R1"
+      ],
+      "forbidden_claims": [
+        "production guarantee",
+        "Python grammar qualification",
+        "semantic correctness",
+        "generalization beyond the frozen JSON panel"
+      ],
+      "next_action": "Replay real llama-server JSON generations with exact tokenizer pieces and test valid adversarial controls without repairing or appending output after filtering.",
+      "supersedes": null,
+      "state": "BLOCKED",
+      "blocker": "Implementation freeze captured an invalid unit expectation: the historical sidecar accepts a negative numeric sign. No model execution performed; successor required with a reproduced nested-JSON control.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:26:58Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:27:21Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:28:36Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:28:57Z",
+          "reason": "Implementation freeze captured an invalid unit expectation: the historical sidecar accepts a negative numeric sign. No model execution performed; successor required with a reproduced nested-JSON control."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-CTRL01-REAL-TOKEN-02",
+      "priority": 0,
+      "title": "Requalify CTRL-01 on real model token streams and reproduced nested controls",
+      "evidence_class": "mechanism_research",
+      "packet_dir": "runs/research/BACKLOG-CTRL01-REAL-TOKEN-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-CTRL01-REAL-TOKEN-01/ABORTED.md",
+        "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/RESULT.md",
+        "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/raw/receipt.json",
+        "tools/analysis/ast_grammar_sidecar.py",
+        "tools/probes/ctrl01_ast_sidecar_probe.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "real_coverage",
+          "metric": "real_model_outputs",
+          "operator": "ge",
+          "threshold": 24
+        },
+        {
+          "id": "real_validity",
+          "metric": "sanitized_complete_valid_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "valid_control_recall",
+          "metric": "valid_token_acceptance_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "valid_control_semantics",
+          "metric": "valid_control_exact_preservation_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "overhead",
+          "metric": "p95_overhead_us_per_token",
+          "operator": "le",
+          "threshold": 500.0
+        },
+        {
+          "id": "runtime_binding",
+          "metric": "logit_mask_runtime_integrated",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "CTRL01_RUNTIME_QUALIFIED_R2",
+        "CTRL01_FALSE_POSITIVE_CONFIRMED_R2"
+      ],
+      "forbidden_claims": [
+        "production guarantee",
+        "Python grammar qualification",
+        "semantic correctness",
+        "generalization beyond the frozen JSON panel"
+      ],
+      "next_action": "Run the corrected harness with exact server tokenizer pieces and independently reproduced nested JSON controls.",
+      "supersedes": "BACKLOG-CTRL01-REAL-TOKEN-01",
+      "state": "BLOCKED",
+      "blocker": "Live model exhausted the preregistered 128-token budget entirely in reasoning_content and returned empty content; exact tokenizer-piece replay could not start. Successor must increase only max_tokens.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:29:34Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:30:26Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:30:26Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:30:57Z",
+          "reason": "Live model exhausted the preregistered 128-token budget entirely in reasoning_content and returned empty content; exact tokenizer-piece replay could not start. Successor must increase only max_tokens."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-CTRL01-REAL-TOKEN-03",
+      "priority": 0,
+      "title": "Requalify CTRL-01 on complete real model token streams",
+      "evidence_class": "mechanism_research",
+      "packet_dir": "runs/research/BACKLOG-CTRL01-REAL-TOKEN-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-CTRL01-REAL-TOKEN-02/ABORTED.md",
+        "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/RESULT.md",
+        "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/raw/receipt.json",
+        "tools/analysis/ast_grammar_sidecar.py",
+        "tools/probes/ctrl01_ast_sidecar_probe.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "real_coverage",
+          "metric": "real_model_outputs",
+          "operator": "ge",
+          "threshold": 24
+        },
+        {
+          "id": "real_validity",
+          "metric": "sanitized_complete_valid_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "valid_control_recall",
+          "metric": "valid_token_acceptance_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "valid_control_semantics",
+          "metric": "valid_control_exact_preservation_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "overhead",
+          "metric": "p95_overhead_us_per_token",
+          "operator": "le",
+          "threshold": 500.0
+        },
+        {
+          "id": "runtime_binding",
+          "metric": "logit_mask_runtime_integrated",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "CTRL01_RUNTIME_QUALIFIED_R3",
+        "CTRL01_FALSE_POSITIVE_CONFIRMED_R3"
+      ],
+      "forbidden_claims": [
+        "production guarantee",
+        "Python grammar qualification",
+        "semantic correctness",
+        "generalization beyond the frozen JSON panel"
+      ],
+      "next_action": "Repeat the frozen design with max_tokens increased from 128 to 512 so the reasoning model can emit final content.",
+      "supersedes": "BACKLOG-CTRL01-REAL-TOKEN-02",
+      "state": "BLOCKED",
+      "blocker": "All calls completed, but the harness compared the volatile /v1/models created timestamp and raised a false identity-change abort despite unchanged MainPID 29428 and NRestarts 0. No receipt was written; successor will compare stable identity fields only.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:31:26Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:31:54Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:31:55Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:33:26Z",
+          "reason": "All calls completed, but the harness compared the volatile /v1/models created timestamp and raised a false identity-change abort despite unchanged MainPID 29428 and NRestarts 0. No receipt was written; successor will compare stable identity fields only."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-CTRL01-REAL-TOKEN-04",
+      "priority": 0,
+      "title": "Requalify CTRL-01 with stable live-model identity controls",
+      "evidence_class": "mechanism_research",
+      "packet_dir": "runs/research/BACKLOG-CTRL01-REAL-TOKEN-04",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-CTRL01-REAL-TOKEN-03/ABORTED.md",
+        "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/RESULT.md",
+        "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/raw/receipt.json",
+        "tools/analysis/ast_grammar_sidecar.py",
+        "tools/probes/ctrl01_ast_sidecar_probe.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "real_coverage",
+          "metric": "real_model_outputs",
+          "operator": "ge",
+          "threshold": 24
+        },
+        {
+          "id": "real_validity",
+          "metric": "sanitized_complete_valid_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "valid_control_recall",
+          "metric": "valid_token_acceptance_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "valid_control_semantics",
+          "metric": "valid_control_exact_preservation_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "overhead",
+          "metric": "p95_overhead_us_per_token",
+          "operator": "le",
+          "threshold": 500.0
+        },
+        {
+          "id": "runtime_binding",
+          "metric": "logit_mask_runtime_integrated",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "CTRL01_RUNTIME_QUALIFIED_R4",
+        "CTRL01_FALSE_POSITIVE_CONFIRMED_R4"
+      ],
+      "forbidden_claims": [
+        "production guarantee",
+        "Python grammar qualification",
+        "semantic correctness",
+        "generalization beyond the frozen JSON panel"
+      ],
+      "next_action": "Rerun the complete 512-token design while comparing stable model identity fields only.",
+      "supersedes": "BACKLOG-CTRL01-REAL-TOKEN-03",
+      "state": "BLOCKED",
+      "blocker": "Physical execution and raw samples completed, but receipt used a noncanonical schema and lacked the required evidence map; pipeline correctly refused EXECUTED. Successor will independently rescore the immutable samples and emit a canonical receipt.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:34:01Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:34:20Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:34:20Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:36:09Z",
+          "reason": "Physical execution and raw samples completed, but receipt used a noncanonical schema and lacked the required evidence map; pipeline correctly refused EXECUTED. Successor will independently rescore the immutable samples and emit a canonical receipt."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-CTRL01-REAL-TOKEN-05",
+      "priority": 0,
+      "title": "Recover canonical CTRL-01 receipt from immutable real-token samples",
+      "evidence_class": "mechanism_research",
+      "packet_dir": "runs/research/BACKLOG-CTRL01-REAL-TOKEN-05",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-CTRL01-REAL-TOKEN-04/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-CTRL01-REAL-TOKEN-04/raw/samples.jsonl",
+        "runs/research/BACKLOG-CTRL01-REAL-TOKEN-04/raw/receipt.json",
+        "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/raw/receipt.json",
+        "tools/analysis/ast_grammar_sidecar.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "real_coverage",
+          "metric": "real_model_outputs",
+          "operator": "ge",
+          "threshold": 24
+        },
+        {
+          "id": "real_validity",
+          "metric": "sanitized_complete_valid_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "valid_control_recall",
+          "metric": "valid_token_acceptance_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "valid_control_semantics",
+          "metric": "valid_control_exact_preservation_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "overhead",
+          "metric": "p95_overhead_us_per_token",
+          "operator": "le",
+          "threshold": 500.0
+        },
+        {
+          "id": "runtime_binding",
+          "metric": "logit_mask_runtime_integrated",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "CTRL01_RUNTIME_QUALIFIED_R5",
+        "CTRL01_FALSE_POSITIVE_CONFIRMED_R5"
+      ],
+      "forbidden_claims": [
+        "new model inference",
+        "production guarantee",
+        "Python grammar qualification",
+        "semantic correctness",
+        "generalization beyond the frozen JSON panel"
+      ],
+      "next_action": "Independently reparse and rescore all immutable source rows and emit canonical evidence/provenance without new inference.",
+      "supersedes": "BACKLOG-CTRL01-REAL-TOKEN-04",
+      "state": "BLOCKED",
+      "blocker": "Independent scores matched except runtime_binding: the static search counted its own research script because the frozen source path contained ast_grammar_sidecar. No receipt written. Successor will restrict binding search to production runtime directories.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:36:28Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:36:53Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:37:49Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:38:01Z",
+          "reason": "Independent scores matched except runtime_binding: the static search counted its own research script because the frozen source path contained ast_grammar_sidecar. No receipt written. Successor will restrict binding search to production runtime directories."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-CTRL01-REAL-TOKEN-06",
+      "priority": 0,
+      "title": "Recover canonical CTRL-01 receipt with production-only binding search",
+      "evidence_class": "mechanism_research",
+      "packet_dir": "runs/research/BACKLOG-CTRL01-REAL-TOKEN-06",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-CTRL01-REAL-TOKEN-05/ABORTED.md",
+        "runs/research/BACKLOG-CTRL01-REAL-TOKEN-04/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-CTRL01-REAL-TOKEN-04/raw/samples.jsonl",
+        "runs/research/BACKLOG-CTRL01-REAL-TOKEN-04/raw/receipt.json",
+        "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/raw/receipt.json",
+        "tools/analysis/ast_grammar_sidecar.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "real_coverage",
+          "metric": "real_model_outputs",
+          "operator": "ge",
+          "threshold": 24
+        },
+        {
+          "id": "real_validity",
+          "metric": "sanitized_complete_valid_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "valid_control_recall",
+          "metric": "valid_token_acceptance_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "valid_control_semantics",
+          "metric": "valid_control_exact_preservation_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "overhead",
+          "metric": "p95_overhead_us_per_token",
+          "operator": "le",
+          "threshold": 500.0
+        },
+        {
+          "id": "runtime_binding",
+          "metric": "logit_mask_runtime_integrated",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "CTRL01_RUNTIME_QUALIFIED_R6",
+        "CTRL01_FALSE_POSITIVE_CONFIRMED_R6"
+      ],
+      "forbidden_claims": [
+        "new model inference",
+        "production guarantee",
+        "Python grammar qualification",
+        "semantic correctness",
+        "generalization beyond the frozen JSON panel"
+      ],
+      "next_action": "Repeat the deterministic rescore with runtime integration searched only in src and ops.",
+      "supersedes": "BACKLOG-CTRL01-REAL-TOKEN-05",
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:38:34Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:38:54Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:38:54Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:38:57Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-RSH02-PACKED-GPU-01",
+      "priority": 0,
+      "title": "Requalify RSH-02 with a physical block-Huffman GPU decoder on real Qwen weights",
+      "evidence_class": "mechanism_research",
+      "packet_dir": "runs/research/BACKLOG-RSH02-PACKED-GPU-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/RSH-02-HYPERQUANT-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/RSH-02-HYPERQUANT-2026-08-25/RESULT.md",
+        "runs/research/RSH-02-HYPERQUANT-2026-08-25/raw/receipt.json",
+        "tools/probes/rsh02_hyperquant_entropy_coding.py",
+        "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-02/raw/model_hash.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "real_source",
+          "metric": "actual_model_weight_elements",
+          "operator": "ge",
+          "threshold": 14000000
+        },
+        {
+          "id": "physical_packing",
+          "metric": "physical_packed_bitstream",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "exact_decode",
+          "metric": "exact_roundtrip_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "compression",
+          "metric": "physical_bits_per_element",
+          "operator": "le",
+          "threshold": 3.0
+        },
+        {
+          "id": "throughput",
+          "metric": "decoder_input_throughput_gbs",
+          "operator": "ge",
+          "threshold": 100.0
+        },
+        {
+          "id": "penalty",
+          "metric": "latency_penalty_vs_int4",
+          "operator": "le",
+          "threshold": 2.0
+        }
+      ],
+      "allowed_claim_codes": [
+        "RSH02_PACKED_GPU_QUALIFIED_R1",
+        "RSH02_NEGATIVE_RETAINED_R1",
+        "RSH02_FALSE_NEGATIVE_CONFIRMED_R1"
+      ],
+      "forbidden_claims": [
+        "serving qualification",
+        "end-to-end model quality",
+        "VRAM reduction",
+        "ANS qualification",
+        "generalization beyond frozen tensors and RTX 3090"
+      ],
+      "next_action": "Build and benchmark an exact physical block-Huffman Triton decoder paired with a physical INT4 unpack kernel.",
+      "supersedes": null,
+      "state": "BLOCKED",
+      "blocker": "Physical buffers were encoded, but the first Triton compilation failed because tl was imported in local scope and unavailable to JIT source resolution. No GPU measurement or receipt was produced. Successor changes only compiler binding.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:40:25Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:40:47Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:43:19Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:43:48Z",
+          "reason": "Physical buffers were encoded, but the first Triton compilation failed because tl was imported in local scope and unavailable to JIT source resolution. No GPU measurement or receipt was produced. Successor changes only compiler binding."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-RSH02-PACKED-GPU-02",
+      "priority": 0,
+      "title": "Requalify RSH-02 physical block-Huffman after Triton namespace fix",
+      "evidence_class": "mechanism_research",
+      "packet_dir": "runs/research/BACKLOG-RSH02-PACKED-GPU-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-RSH02-PACKED-GPU-01/ABORTED.md",
+        "runs/research/RSH-02-HYPERQUANT-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/RSH-02-HYPERQUANT-2026-08-25/RESULT.md",
+        "runs/research/RSH-02-HYPERQUANT-2026-08-25/raw/receipt.json",
+        "tools/probes/rsh02_hyperquant_entropy_coding.py",
+        "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-02/raw/model_hash.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "real_source",
+          "metric": "actual_model_weight_elements",
+          "operator": "ge",
+          "threshold": 14000000
+        },
+        {
+          "id": "physical_packing",
+          "metric": "physical_packed_bitstream",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "exact_decode",
+          "metric": "exact_roundtrip_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "compression",
+          "metric": "physical_bits_per_element",
+          "operator": "le",
+          "threshold": 3.0
+        },
+        {
+          "id": "throughput",
+          "metric": "decoder_input_throughput_gbs",
+          "operator": "ge",
+          "threshold": 100.0
+        },
+        {
+          "id": "penalty",
+          "metric": "latency_penalty_vs_int4",
+          "operator": "le",
+          "threshold": 2.0
+        }
+      ],
+      "allowed_claim_codes": [
+        "RSH02_PACKED_GPU_QUALIFIED_R2",
+        "RSH02_NEGATIVE_RETAINED_R2",
+        "RSH02_FALSE_NEGATIVE_CONFIRMED_R2"
+      ],
+      "forbidden_claims": [
+        "serving qualification",
+        "end-to-end model quality",
+        "VRAM reduction",
+        "ANS qualification",
+        "generalization beyond frozen tensors and RTX 3090"
+      ],
+      "next_action": "Rerun the identical physical codec with only the Triton namespace binding corrected.",
+      "supersedes": "BACKLOG-RSH02-PACKED-GPU-01",
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:44:24Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:45:01Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:45:01Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:45:33Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-GDN02-LEARNED-STATE-01",
+      "priority": 0,
+      "title": "Requalify GDN-02 on learned Qwen3.5 GatedDeltaNet states",
+      "evidence_class": "mechanism_research",
+      "packet_dir": "runs/research/BACKLOG-GDN02-LEARNED-STATE-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/GDN-02-ERASE-RETENTION-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/GDN-02-ERASE-RETENTION-2026-08-25/RESULT.md",
+        "runs/research/GDN-02-ERASE-RETENTION-2026-08-25/raw/receipt.json",
+        "tools/probes/gdn02_erase_retention_lab.py",
+        "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-02/raw/model_hash.json",
+        "workloads/gsm8k.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "source_execution_receipt",
+        "target_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "learned_states",
+          "metric": "learned_gdn_layer_cells",
+          "operator": "ge",
+          "threshold": 3
+        },
+        {
+          "id": "target_leakage",
+          "metric": "median_old_fact_leakage_pct",
+          "operator": "le",
+          "threshold": 5.0
+        },
+        {
+          "id": "collateral_retention",
+          "metric": "median_collateral_retention_pct",
+          "operator": "ge",
+          "threshold": 90.0
+        },
+        {
+          "id": "update_fidelity",
+          "metric": "median_updated_fact_fidelity_pct",
+          "operator": "ge",
+          "threshold": 95.0
+        },
+        {
+          "id": "state_materiality",
+          "metric": "distinct_recurrent_state_conditions",
+          "operator": "ge",
+          "threshold": 3
+        }
+      ],
+      "allowed_claim_codes": [
+        "GDN02_LEARNED_STATE_QUALIFIED_R1",
+        "GDN02_NEGATIVE_RETAINED_R1",
+        "GDN02_FALSE_NEGATIVE_CONFIRMED_R1"
+      ],
+      "forbidden_claims": [
+        "full-model behavioral editing",
+        "serving integration",
+        "permanent knowledge erasure",
+        "generalization beyond frozen records/layers"
+      ],
+      "next_action": "Measure append-only fact correction against replace-in-place oracle using learned GatedDeltaNet layers and actual recurrent state hashes.",
+      "supersedes": null,
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:48:59Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:49:28Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:51:23Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:51:41Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-BEE-L4-LIVE-MTP-01",
+      "priority": 0,
+      "title": "Qualify BEE-L4 observable slot isolation on the live MTP runtime",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-BEE-L4-LIVE-MTP-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BEE-L4-TRANSACTIONAL-MTP-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/BEE-L4-TRANSACTIONAL-MTP-2026-08-25/RESULT.md",
+        "runs/research/BEE-L4-TRANSACTIONAL-MTP-2026-08-25/raw/receipt.json",
+        "tools/analysis/transactional_mtp_manager.py",
+        "tests/test_transactional_mtp_manager.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "effective_route",
+        "recovery_state",
+        "service_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "request_coverage",
+          "metric": "live_requests",
+          "operator": "eq",
+          "threshold": 100
+        },
+        {
+          "id": "slot_coverage",
+          "metric": "physical_slots",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "speculation_coverage",
+          "metric": "requests_with_draft_tokens",
+          "operator": "ge",
+          "threshold": 80
+        },
+        {
+          "id": "rollback_coverage",
+          "metric": "requests_with_rejected_draft_tokens",
+          "operator": "ge",
+          "threshold": 25
+        },
+        {
+          "id": "state_consistency",
+          "metric": "exact_repeat_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "nonce_integrity",
+          "metric": "own_nonce_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "cross_slot_isolation",
+          "metric": "cross_slot_leakage_count",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "service_integrity",
+          "metric": "service_restarts",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "idle_recovery",
+          "metric": "idle_slots_after",
+          "operator": "eq",
+          "threshold": 4
+        }
+      ],
+      "allowed_claim_codes": [
+        "BEE_L4_LIVE_SLOT_ISOLATION_QUALIFIED_R1",
+        "BEE_L4_FALSE_POSITIVE_CONFIRMED_R1"
+      ],
+      "forbidden_claims": [
+        "transaction overhead in microseconds",
+        "internal pointer atomicity",
+        "Python manager integration",
+        "slot-file persistence",
+        "generalization beyond active runtime"
+      ],
+      "next_action": "Run 25 four-slot concurrent cycles with deterministic code-word prompts and inspect physical MTP telemetry, output parity and service state.",
+      "supersedes": null,
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:53:01Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:53:20Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:54:26Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T00:54:59Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-BEE-L5-LIVE-GUARD-01",
+      "priority": 0,
+      "title": "Audit BEE-L5 on real teacher traces and live streaming intervention",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-BEE-L5-LIVE-GUARD-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BEE-L5-REASONING-LOOP-GUARD-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/BEE-L5-REASONING-LOOP-GUARD-2026-08-25/RESULT.md",
+        "runs/research/BEE-L5-REASONING-LOOP-GUARD-2026-08-25/raw/receipt.json",
+        "tools/analysis/reasoning_loop_guard.py",
+        "tests/test_reasoning_loop_guard.py",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/teacher_samples.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "effective_route",
+        "recovery_state",
+        "service_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "legitimate_coverage",
+          "metric": "real_legitimate_traces",
+          "operator": "eq",
+          "threshold": 128
+        },
+        {
+          "id": "pathology_coverage",
+          "metric": "live_pathological_baselines",
+          "operator": "eq",
+          "threshold": 25
+        },
+        {
+          "id": "sensitivity",
+          "metric": "sensitivity_tpr",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "specificity",
+          "metric": "false_alarm_fpr",
+          "operator": "le",
+          "threshold": 0.02
+        },
+        {
+          "id": "physical_intervention",
+          "metric": "stream_aborts_confirmed",
+          "operator": "eq",
+          "threshold": 25
+        },
+        {
+          "id": "token_savings",
+          "metric": "median_token_savings",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "guard_overhead",
+          "metric": "guard_p95_us_per_token",
+          "operator": "le",
+          "threshold": 2.0
+        },
+        {
+          "id": "service_integrity",
+          "metric": "service_restarts",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "idle_recovery",
+          "metric": "idle_slots_after",
+          "operator": "eq",
+          "threshold": 4
+        }
+      ],
+      "allowed_claim_codes": [
+        "BEE_L5_LIVE_GUARD_QUALIFIED_R1",
+        "BEE_L5_FALSE_POSITIVE_CONFIRMED_R1"
+      ],
+      "forbidden_claims": [
+        "natural loop prevalence",
+        "server-side integration",
+        "final-answer preservation",
+        "production deployment",
+        "generalization beyond frozen traces and prompts"
+      ],
+      "next_action": "Replay exact server token pieces from 128 real teacher traces and physically abort 25 live pathological streams when the historical guard fires.",
+      "supersedes": null,
+      "state": "BLOCKED",
+      "blocker": "Fail-closed parser mismatch: active /tokenize returns tokens[*].piece, not top-level pieces; successor required.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-26T00:58:11Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-26T00:58:46Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:00:15Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "codex",
+          "at": "2026-08-26T01:01:34Z",
+          "reason": "Fail-closed parser mismatch: active /tokenize returns tokens[*].piece, not top-level pieces; successor required."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-BEE-L5-LIVE-GUARD-02",
+      "priority": 0,
+      "title": "Rerun BEE-L5 live guard with corrected server token-piece parser",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-BEE-L5-LIVE-GUARD-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-BEE-L5-LIVE-GUARD-01/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-BEE-L5-LIVE-GUARD-01/ABORTED.md",
+        "tools/research/run_bee_l5_live_guard.py",
+        "runs/research/BEE-L5-REASONING-LOOP-GUARD-2026-08-25/raw/receipt.json",
+        "tools/analysis/reasoning_loop_guard.py",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/teacher_samples.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "effective_route",
+        "recovery_state",
+        "service_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "legitimate_coverage",
+          "metric": "real_legitimate_traces",
+          "operator": "eq",
+          "threshold": 128
+        },
+        {
+          "id": "pathology_coverage",
+          "metric": "live_pathological_baselines",
+          "operator": "eq",
+          "threshold": 25
+        },
+        {
+          "id": "sensitivity",
+          "metric": "sensitivity_tpr",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "specificity",
+          "metric": "false_alarm_fpr",
+          "operator": "le",
+          "threshold": 0.02
+        },
+        {
+          "id": "physical_intervention",
+          "metric": "stream_aborts_confirmed",
+          "operator": "eq",
+          "threshold": 25
+        },
+        {
+          "id": "token_savings",
+          "metric": "median_token_savings",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "guard_overhead",
+          "metric": "guard_p95_us_per_token",
+          "operator": "le",
+          "threshold": 2.0
+        },
+        {
+          "id": "service_integrity",
+          "metric": "service_restarts",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "idle_recovery",
+          "metric": "idle_slots_after",
+          "operator": "eq",
+          "threshold": 4
+        }
+      ],
+      "allowed_claim_codes": [
+        "BEE_L5_LIVE_GUARD_QUALIFIED_R2",
+        "BEE_L5_FALSE_POSITIVE_CONFIRMED_R2"
+      ],
+      "forbidden_claims": [
+        "natural loop prevalence",
+        "server-side integration",
+        "final-answer preservation",
+        "production deployment",
+        "generalization beyond frozen traces and prompts"
+      ],
+      "next_action": "Repeat the frozen R1 protocol, changing only parsing of active tokens[*].piece records.",
+      "supersedes": null,
+      "state": "BLOCKED",
+      "blocker": "Direct-file launcher import failed before data access; successor changes only sys.path bootstrap.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-26T01:01:49Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-26T01:02:08Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:02:30Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "codex",
+          "at": "2026-08-26T01:02:54Z",
+          "reason": "Direct-file launcher import failed before data access; successor changes only sys.path bootstrap."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-BEE-L5-LIVE-GUARD-03",
+      "priority": 0,
+      "title": "Rerun BEE-L5 live guard with direct-file import bootstrap",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-BEE-L5-LIVE-GUARD-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-BEE-L5-LIVE-GUARD-02/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-BEE-L5-LIVE-GUARD-02/ABORTED.md",
+        "tools/research/run_bee_l5_live_guard.py",
+        "tools/research/run_bee_l5_live_guard_r2.py",
+        "runs/research/BEE-L5-REASONING-LOOP-GUARD-2026-08-25/raw/receipt.json",
+        "tools/analysis/reasoning_loop_guard.py",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/teacher_samples.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "effective_route",
+        "recovery_state",
+        "service_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "legitimate_coverage",
+          "metric": "real_legitimate_traces",
+          "operator": "eq",
+          "threshold": 128
+        },
+        {
+          "id": "pathology_coverage",
+          "metric": "live_pathological_baselines",
+          "operator": "eq",
+          "threshold": 25
+        },
+        {
+          "id": "sensitivity",
+          "metric": "sensitivity_tpr",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "specificity",
+          "metric": "false_alarm_fpr",
+          "operator": "le",
+          "threshold": 0.02
+        },
+        {
+          "id": "physical_intervention",
+          "metric": "stream_aborts_confirmed",
+          "operator": "eq",
+          "threshold": 25
+        },
+        {
+          "id": "token_savings",
+          "metric": "median_token_savings",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "guard_overhead",
+          "metric": "guard_p95_us_per_token",
+          "operator": "le",
+          "threshold": 2.0
+        },
+        {
+          "id": "service_integrity",
+          "metric": "service_restarts",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "idle_recovery",
+          "metric": "idle_slots_after",
+          "operator": "eq",
+          "threshold": 4
+        }
+      ],
+      "allowed_claim_codes": [
+        "BEE_L5_LIVE_GUARD_QUALIFIED_R3",
+        "BEE_L5_FALSE_POSITIVE_CONFIRMED_R3"
+      ],
+      "forbidden_claims": [
+        "natural loop prevalence",
+        "server-side integration",
+        "final-answer preservation",
+        "production deployment",
+        "generalization beyond frozen traces and prompts"
+      ],
+      "next_action": "Repeat R2 after adding repository root before importing the frozen wrappers.",
+      "supersedes": null,
+      "state": "BLOCKED",
+      "blocker": "Real tokenizer emitted integer byte-array pieces; successor normalizes only those pieces.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-26T01:02:55Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-26T01:03:11Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:03:34Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "codex",
+          "at": "2026-08-26T01:03:59Z",
+          "reason": "Real tokenizer emitted integer byte-array pieces; successor normalizes only those pieces."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-BEE-L5-LIVE-GUARD-04",
+      "priority": 0,
+      "title": "Rerun BEE-L5 live guard with byte-piece normalization",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-BEE-L5-LIVE-GUARD-04",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-BEE-L5-LIVE-GUARD-03/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-BEE-L5-LIVE-GUARD-03/ABORTED.md",
+        "tools/research/run_bee_l5_live_guard.py",
+        "tools/research/run_bee_l5_live_guard_r3.py",
+        "runs/research/BEE-L5-REASONING-LOOP-GUARD-2026-08-25/raw/receipt.json",
+        "tools/analysis/reasoning_loop_guard.py",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/teacher_samples.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "effective_route",
+        "recovery_state",
+        "service_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "legitimate_coverage",
+          "metric": "real_legitimate_traces",
+          "operator": "eq",
+          "threshold": 128
+        },
+        {
+          "id": "pathology_coverage",
+          "metric": "live_pathological_baselines",
+          "operator": "eq",
+          "threshold": 25
+        },
+        {
+          "id": "sensitivity",
+          "metric": "sensitivity_tpr",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "specificity",
+          "metric": "false_alarm_fpr",
+          "operator": "le",
+          "threshold": 0.02
+        },
+        {
+          "id": "physical_intervention",
+          "metric": "stream_aborts_confirmed",
+          "operator": "eq",
+          "threshold": 25
+        },
+        {
+          "id": "token_savings",
+          "metric": "median_token_savings",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "guard_overhead",
+          "metric": "guard_p95_us_per_token",
+          "operator": "le",
+          "threshold": 2.0
+        },
+        {
+          "id": "service_integrity",
+          "metric": "service_restarts",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "idle_recovery",
+          "metric": "idle_slots_after",
+          "operator": "eq",
+          "threshold": 4
+        }
+      ],
+      "allowed_claim_codes": [
+        "BEE_L5_LIVE_GUARD_QUALIFIED_R4",
+        "BEE_L5_FALSE_POSITIVE_CONFIRMED_R4"
+      ],
+      "forbidden_claims": [
+        "natural loop prevalence",
+        "server-side integration",
+        "final-answer preservation",
+        "production deployment",
+        "generalization beyond frozen traces and prompts"
+      ],
+      "next_action": "Repeat R3, normalizing only integer byte-array token pieces.",
+      "supersedes": null,
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-26T01:03:59Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-26T01:04:20Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:04:44Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:05:52Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT06-SLOP-LIVE-01",
+      "priority": 0,
+      "title": "Materialize ADAPT-06 and SLOP multi-adapter routing in live serving",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/ADAPT-06-ADAPTER-CACHE-TAGGING-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/ADAPT-06-ADAPTER-CACHE-TAGGING-2026-08-25/RESULT.md",
+        "runs/research/ADAPT-06-ADAPTER-CACHE-TAGGING-2026-08-25/raw/receipt.json",
+        "tools/analysis/adapter_cache_tagger.py",
+        "runs/research/SLOP-L1-L7-MULTI-ADAPTER-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/SLOP-L1-L7-MULTI-ADAPTER-2026-08-25/RESULT.md",
+        "runs/research/SLOP-L1-L7-MULTI-ADAPTER-2026-08-25/raw/receipt.json",
+        "tools/analysis/multi_adapter_router.py",
+        "runs/research/ADAPT-02-MODULE-TARGETING-2026-08-25/raw/target_mlp_only/adapter/adapter_config.json",
+        "runs/research/ADAPT-02-MODULE-TARGETING-2026-08-25/raw/target_mlp_only/adapter/adapter_model.safetensors",
+        "runs/research/ADAPT-02-MODULE-TARGETING-2026-08-25/raw/target_attn_only/adapter/adapter_config.json",
+        "runs/research/ADAPT-02-MODULE-TARGETING-2026-08-25/raw/target_attn_only/adapter/adapter_model.safetensors"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "effective_route",
+        "recovery_state",
+        "service_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "adapter_conversion",
+          "metric": "converted_adapters",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "adapter_loading",
+          "metric": "loaded_adapters",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "behavioral_materiality",
+          "metric": "prompts_with_distinct_route_outputs",
+          "operator": "ge",
+          "threshold": 4
+        },
+        {
+          "id": "route_isolation",
+          "metric": "routed_exact_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "cross_route_isolation",
+          "metric": "cross_route_contamination_count",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "cache_reuse",
+          "metric": "same_route_cache_hit_rate",
+          "operator": "ge",
+          "threshold": 0.75
+        },
+        {
+          "id": "affinity_switch_reduction",
+          "metric": "requested_route_switch_reduction",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "affinity_parity",
+          "metric": "schedule_semantic_parity",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT06_LIVE_ISOLATION_QUALIFIED_SLOP_CLIENT_AFFINITY_R1",
+        "ADAPT06_SLOP_FALSE_POSITIVE_CONFIRMED_R1"
+      ],
+      "forbidden_claims": [
+        "server-native affinity scheduler",
+        "fused multi-adapter GEMM",
+        "production deployment",
+        "cache-key implementation identity",
+        "generalization beyond two frozen adapters"
+      ],
+      "next_action": "Convert two real PEFT adapters to GGUF, run a temporary four-slot server, alternate per-request routes and compare with affinity-grouped routing, then restore systemd service.",
+      "supersedes": null,
+      "state": "BLOCKED",
+      "blocker": "Frozen artifacts are LoKr and cannot be materialized by active LoRA converter; successor freezes actual LoRA checkpoints.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-26T01:08:35Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-26T01:09:01Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:10:44Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "codex",
+          "at": "2026-08-26T01:11:32Z",
+          "reason": "Frozen artifacts are LoKr and cannot be materialized by active LoRA converter; successor freezes actual LoRA checkpoints."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT06-SLOP-LIVE-02",
+      "priority": 0,
+      "title": "Materialize live multi-adapter routing with two real LoRA checkpoints",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-01/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-01/ABORTED.md",
+        "tools/research/run_adapt06_slop_live.py",
+        "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/checkpoint_seed_20260824/adapter_config.json",
+        "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/checkpoint_seed_20260824/adapter_model.safetensors",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/checkpoints/seed_20260824_full_trace/adapter_config.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/checkpoints/seed_20260824_full_trace/adapter_model.safetensors"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "effective_route",
+        "recovery_state",
+        "service_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "adapter_conversion",
+          "metric": "converted_adapters",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "adapter_loading",
+          "metric": "loaded_adapters",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "behavioral_materiality",
+          "metric": "prompts_with_distinct_route_outputs",
+          "operator": "ge",
+          "threshold": 4
+        },
+        {
+          "id": "route_isolation",
+          "metric": "routed_exact_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "cross_route_isolation",
+          "metric": "cross_route_contamination_count",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "cache_reuse",
+          "metric": "same_route_cache_hit_rate",
+          "operator": "ge",
+          "threshold": 0.75
+        },
+        {
+          "id": "affinity_switch_reduction",
+          "metric": "requested_route_switch_reduction",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "affinity_parity",
+          "metric": "schedule_semantic_parity",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT06_LIVE_ISOLATION_QUALIFIED_SLOP_CLIENT_AFFINITY_R2",
+        "ADAPT06_SLOP_FALSE_POSITIVE_CONFIRMED_R2"
+      ],
+      "forbidden_claims": [
+        "server-native affinity scheduler",
+        "fused multi-adapter GEMM",
+        "production deployment",
+        "cache-key implementation identity",
+        "generalization beyond two frozen adapters"
+      ],
+      "next_action": "Repeat R1 using two explicitly frozen LORA checkpoints.",
+      "supersedes": null,
+      "state": "BLOCKED",
+      "blocker": "Unprivileged systemd stop left original daemon active; successor uses root and asserts port-down handoff.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-26T01:11:32Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-26T01:11:47Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:12:22Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "codex",
+          "at": "2026-08-26T01:13:39Z",
+          "reason": "Unprivileged systemd stop left original daemon active; successor uses root and asserts port-down handoff."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT06-SLOP-LIVE-03",
+      "priority": 0,
+      "title": "Run live multi-adapter audit with privileged verified service handoff",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-02/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-02/ABORTED.md",
+        "tools/research/run_adapt06_slop_live_r2.py",
+        "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/checkpoint_seed_20260824/adapter_config.json",
+        "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/checkpoint_seed_20260824/adapter_model.safetensors",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/checkpoints/seed_20260824_full_trace/adapter_config.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/checkpoints/seed_20260824_full_trace/adapter_model.safetensors"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "effective_route",
+        "recovery_state",
+        "service_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "adapter_conversion",
+          "metric": "converted_adapters",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "adapter_loading",
+          "metric": "loaded_adapters",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "behavioral_materiality",
+          "metric": "prompts_with_distinct_route_outputs",
+          "operator": "ge",
+          "threshold": 4
+        },
+        {
+          "id": "route_isolation",
+          "metric": "routed_exact_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "cross_route_isolation",
+          "metric": "cross_route_contamination_count",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "cache_reuse",
+          "metric": "same_route_cache_hit_rate",
+          "operator": "ge",
+          "threshold": 0.75
+        },
+        {
+          "id": "affinity_switch_reduction",
+          "metric": "requested_route_switch_reduction",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "affinity_parity",
+          "metric": "schedule_semantic_parity",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT06_LIVE_ISOLATION_QUALIFIED_SLOP_CLIENT_AFFINITY_R3",
+        "ADAPT06_SLOP_FALSE_POSITIVE_CONFIRMED_R3"
+      ],
+      "forbidden_claims": [
+        "server-native affinity scheduler",
+        "fused multi-adapter GEMM",
+        "production deployment",
+        "cache-key implementation identity",
+        "generalization beyond two frozen adapters"
+      ],
+      "next_action": "Repeat R2 with root systemd stop/start and an asserted 8080-down handoff.",
+      "supersedes": null,
+      "state": "BLOCKED",
+      "blocker": "LoRAs are Qwen3.5-0.8B but active Fable GGUF has incompatible tensor shapes; successor converts matching frozen base.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-26T01:13:39Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-26T01:13:54Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:14:20Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "codex",
+          "at": "2026-08-26T01:19:42Z",
+          "reason": "LoRAs are Qwen3.5-0.8B but active Fable GGUF has incompatible tensor shapes; successor converts matching frozen base."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT06-SLOP-LIVE-04",
+      "priority": 0,
+      "title": "Run multi-adapter audit on matching physical Qwen3.5 base",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-04",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-03/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-03/ABORTED.md",
+        "tools/research/run_adapt06_slop_live_r3.py",
+        "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/checkpoint_seed_20260824/adapter_config.json",
+        "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/checkpoint_seed_20260824/adapter_model.safetensors",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/checkpoints/seed_20260824_full_trace/adapter_config.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/checkpoints/seed_20260824_full_trace/adapter_model.safetensors"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "effective_route",
+        "recovery_state",
+        "service_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "adapter_conversion",
+          "metric": "converted_adapters",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "adapter_loading",
+          "metric": "loaded_adapters",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "behavioral_materiality",
+          "metric": "prompts_with_distinct_route_outputs",
+          "operator": "ge",
+          "threshold": 4
+        },
+        {
+          "id": "route_isolation",
+          "metric": "routed_exact_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "cross_route_isolation",
+          "metric": "cross_route_contamination_count",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "cache_reuse",
+          "metric": "same_route_cache_hit_rate",
+          "operator": "ge",
+          "threshold": 0.75
+        },
+        {
+          "id": "affinity_switch_reduction",
+          "metric": "requested_route_switch_reduction",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "affinity_parity",
+          "metric": "schedule_semantic_parity",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT06_LIVE_ISOLATION_QUALIFIED_SLOP_CLIENT_AFFINITY_R4",
+        "ADAPT06_SLOP_FALSE_POSITIVE_CONFIRMED_R4"
+      ],
+      "forbidden_claims": [
+        "server-native affinity scheduler",
+        "fused multi-adapter GEMM",
+        "production deployment",
+        "cache-key implementation identity",
+        "generalization beyond two frozen adapters"
+      ],
+      "next_action": "Convert the frozen local Qwen3.5-0.8B base to F16 GGUF and repeat R3 with comma-separated LoRAs.",
+      "supersedes": null,
+      "state": "BLOCKED",
+      "blocker": "Restoration comparator included volatile systemd PID/start_time fields; successor compares immutable path+argv only.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-26T01:19:42Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-26T01:20:03Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:21:20Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "codex",
+          "at": "2026-08-26T01:23:06Z",
+          "reason": "Restoration comparator included volatile systemd PID/start_time fields; successor compares immutable path+argv only."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT06-SLOP-LIVE-05",
+      "priority": 0,
+      "title": "Rerun live multi-adapter audit with normalized restoration identity",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-05",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-04/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-04/ABORTED.md",
+        "tools/research/run_adapt06_slop_live_r4.py",
+        "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/checkpoint_seed_20260824/adapter_config.json",
+        "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/checkpoint_seed_20260824/adapter_model.safetensors",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/checkpoints/seed_20260824_full_trace/adapter_config.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/checkpoints/seed_20260824_full_trace/adapter_model.safetensors"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "effective_route",
+        "recovery_state",
+        "service_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "adapter_conversion",
+          "metric": "converted_adapters",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "adapter_loading",
+          "metric": "loaded_adapters",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "behavioral_materiality",
+          "metric": "prompts_with_distinct_route_outputs",
+          "operator": "ge",
+          "threshold": 4
+        },
+        {
+          "id": "route_isolation",
+          "metric": "routed_exact_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "cross_route_isolation",
+          "metric": "cross_route_contamination_count",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "cache_reuse",
+          "metric": "same_route_cache_hit_rate",
+          "operator": "ge",
+          "threshold": 0.75
+        },
+        {
+          "id": "affinity_switch_reduction",
+          "metric": "requested_route_switch_reduction",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "affinity_parity",
+          "metric": "schedule_semantic_parity",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT06_LIVE_ISOLATION_QUALIFIED_SLOP_CLIENT_AFFINITY_R5",
+        "ADAPT06_SLOP_FALSE_POSITIVE_CONFIRMED_R5"
+      ],
+      "forbidden_claims": [
+        "server-native affinity scheduler",
+        "fused multi-adapter GEMM",
+        "production deployment",
+        "cache-key implementation identity",
+        "generalization beyond two frozen adapters"
+      ],
+      "next_action": "Repeat R4 and compare only immutable ExecStart path plus argv for restoration.",
+      "supersedes": null,
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-26T01:23:06Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-26T01:23:26Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:23:53Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:25:01Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-BEE-L3-REAL-TELEMETRY-01",
+      "priority": 0,
+      "title": "Audit adaptive MTP controller with paired live K0 K2 K4 telemetry",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-BEE-L3-REAL-TELEMETRY-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BEE-L3-MTP-CONTROLLER-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/BEE-L3-MTP-CONTROLLER-2026-08-25/RESULT.md",
+        "runs/research/BEE-L3-MTP-CONTROLLER-2026-08-25/raw/receipt.json",
+        "tools/analysis/adaptive_mtp_controller.py",
+        "tests/test_adaptive_mtp_controller.py",
+        "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/samples.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "effective_route",
+        "recovery_state",
+        "service_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "arm_coverage",
+          "metric": "live_requests",
+          "operator": "eq",
+          "threshold": 144
+        },
+        {
+          "id": "semantic_parity",
+          "metric": "paired_exact_parity_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "mtp_telemetry",
+          "metric": "k4_requests_with_drafts",
+          "operator": "ge",
+          "threshold": 40
+        },
+        {
+          "id": "global_speedup",
+          "metric": "adaptive_replay_speedup_over_k0",
+          "operator": "ge",
+          "threshold": 1.25
+        },
+        {
+          "id": "static_gain",
+          "metric": "adaptive_replay_gain_over_k4",
+          "operator": "ge",
+          "threshold": 0.15
+        },
+        {
+          "id": "low_protection",
+          "metric": "low_acceptance_protection",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "BEE_L3_REAL_TELEMETRY_QUALIFIED_R1",
+        "BEE_L3_FALSE_POSITIVE_CONFIRMED_R1"
+      ],
+      "forbidden_claims": [
+        "live per-request K switching",
+        "production integration",
+        "generalization beyond frozen prompts",
+        "simulated cost as hardware latency"
+      ],
+      "next_action": "Measure 48 paired prompts under physical K0 K2 K4 routes and replay the frozen controller against measured arm latency/acceptance.",
+      "supersedes": null,
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-26T01:26:00Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-26T01:26:22Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:27:28Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:30:50Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-AGY-SYSTEM-BLOCKERS-01",
+      "priority": 0,
+      "title": "Register objective integration blockers for six AGY system claims",
+      "evidence_class": "proxy_realization",
+      "packet_dir": "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/SLX-03-STATE-WRITE-ELISION-2026-08-25/raw/receipt.json",
+        "tools/probes/slx03_state_write_oracle.py",
+        "runs/research/SLX-07-H2O-EVICTION-2026-08-25/raw/receipt.json",
+        "tools/probes/slx07_h2o_eviction_oracle.py",
+        "runs/research/REP-04-KVARN-NATIVE-KERNEL-2026-08-25/raw/receipt.json",
+        "tools/probes/rep04_kvarn_native_kernel.py",
+        "runs/research/REP-05-LAYERWISE-PRECISION-2026-08-25/raw/receipt.json",
+        "tools/probes/rep05_layerwise_kv_precision.py",
+        "runs/research/RETRO-01-RECURRENT-RETROFIT-2026-08-25/raw/receipt.json",
+        "tools/probes/retro01_recurrent_retrofit.py",
+        "runs/research/SLX-08-SPECULATIVE-PREFILL-2026-08-25/raw/receipt.json",
+        "tools/probes/slx08_speculative_prefill_oracle.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "scope_coverage",
+          "metric": "audited_items",
+          "operator": "eq",
+          "threshold": 6
+        },
+        {
+          "id": "objective_absence",
+          "metric": "missing_integration_count",
+          "operator": "eq",
+          "threshold": 6
+        },
+        {
+          "id": "probe_classification",
+          "metric": "proxy_only_predecessors",
+          "operator": "eq",
+          "threshold": 6
+        },
+        {
+          "id": "runtime_integrity",
+          "metric": "runtime_unchanged",
+          "operator": "eq",
+          "threshold": 1
+        }
+      ],
+      "allowed_claim_codes": [
+        "AGY_SYSTEM_BLOCKERS_REGISTERED_R1"
+      ],
+      "forbidden_claims": [
+        "scientific rejection",
+        "performance result",
+        "permanent infeasibility",
+        "absence outside inspected binary source and model inventory"
+      ],
+      "next_action": "Hash predecessors, inspect deployed CLI/binary and candidate source/model inventory, and emit exact unlock criteria without rerunning proxies.",
+      "supersedes": null,
+      "state": "BLOCKED",
+      "blocker": "WSL shell reinterpreted ERE metacharacters; successor uses direct wsl -e argv.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-26T01:32:39Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-26T01:33:04Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:34:01Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "codex",
+          "at": "2026-08-26T01:34:31Z",
+          "reason": "WSL shell reinterpreted ERE metacharacters; successor uses direct wsl -e argv."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-AGY-SYSTEM-BLOCKERS-02",
+      "priority": 0,
+      "title": "Repeat six-item integration blocker audit with direct WSL argv",
+      "evidence_class": "proxy_realization",
+      "packet_dir": "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-01/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-01/ABORTED.md",
+        "tools/research/run_agy_system_blockers.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "scope_coverage",
+          "metric": "audited_items",
+          "operator": "eq",
+          "threshold": 6
+        },
+        {
+          "id": "objective_absence",
+          "metric": "missing_integration_count",
+          "operator": "eq",
+          "threshold": 6
+        },
+        {
+          "id": "probe_classification",
+          "metric": "proxy_only_predecessors",
+          "operator": "eq",
+          "threshold": 6
+        },
+        {
+          "id": "runtime_integrity",
+          "metric": "runtime_unchanged",
+          "operator": "eq",
+          "threshold": 1
+        }
+      ],
+      "allowed_claim_codes": [
+        "AGY_SYSTEM_BLOCKERS_REGISTERED_R2"
+      ],
+      "forbidden_claims": [
+        "scientific rejection",
+        "performance result",
+        "permanent infeasibility",
+        "absence outside inspected binary source and model inventory"
+      ],
+      "next_action": "Repeat R1 with direct WSL argv transport.",
+      "supersedes": null,
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-26T01:34:31Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-26T01:34:43Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:35:43Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:35:58Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX10-PACKED-RUNTIME-01",
+      "priority": 0,
+      "title": "Materialize SLX-10 IQ2_XXS as immutable GGUF and live runtime",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-SLX10-PACKED-RUNTIME-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/SLX-10-PHYSICAL-CODEC-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/SLX-10-PHYSICAL-CODEC-2026-08-25/RESULT.md",
+        "runs/research/SLX-10-PHYSICAL-CODEC-2026-08-25/raw/receipt.json",
+        "tools/probes/slx10_physical_codec_bakeoff.py",
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-05/raw/qwen3.5-0.8b-base-f16.gguf"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "effective_route",
+        "recovery_state",
+        "service_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "packed_artifact",
+          "metric": "iq2_file_ratio",
+          "operator": "le",
+          "threshold": 0.18
+        },
+        {
+          "id": "physical_load",
+          "metric": "loaded_arms",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "memory_reduction",
+          "metric": "vram_reduction",
+          "operator": "ge",
+          "threshold": 0.6
+        },
+        {
+          "id": "throughput",
+          "metric": "throughput_ratio",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "quality",
+          "metric": "accuracy_regression",
+          "operator": "le",
+          "threshold": 0.02
+        },
+        {
+          "id": "semantic_stability",
+          "metric": "exact_output_rate",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX10_IQ2_PHYSICAL_QUALIFIED_R1",
+        "SLX10_FALSE_POSITIVE_CONFIRMED_R1"
+      ],
+      "forbidden_claims": [
+        "27B or 35B capacity",
+        "quality beyond frozen 0.8B panel",
+        "other 2-bit codecs",
+        "production deployment"
+      ],
+      "next_action": "Quantize the frozen F16 Qwen3.5-0.8B GGUF to IQ2_XXS and compare physical serving VRAM throughput and quality.",
+      "supersedes": null,
+      "state": "BLOCKED",
+      "blocker": "IQ2_XXS quantization requires absent immutable importance matrix; successor materializes supported Q2_K.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-26T01:37:16Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-26T01:37:40Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:38:59Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "codex",
+          "at": "2026-08-26T01:39:50Z",
+          "reason": "IQ2_XXS quantization requires absent immutable importance matrix; successor materializes supported Q2_K."
+        }
+      ],
+      "external_source_receipts": {
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-05/raw/qwen3.5-0.8b-base-f16.gguf": {
+          "sha256": "514133770c0e30367721334fb86a76a8647bf8ab4d51fedc62980ce86dda1ac1",
+          "bytes": 1557662368,
+          "evidence": "runs/research/BACKLOG-SLX10-PACKED-RUNTIME-02/raw/artifact_hashes.json"
+        }
+      },
+      "portability_history": [
+        {
+          "actor": "Codex portability consolidation",
+          "at": "2026-08-26T10:28:50Z",
+          "source": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-05/raw/qwen3.5-0.8b-base-f16.gguf",
+          "evidence": "runs/research/BACKLOG-SLX10-PACKED-RUNTIME-02/raw/artifact_hashes.json"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX10-PACKED-RUNTIME-02",
+      "priority": 0,
+      "title": "Materialize supported Q2_K packed GGUF and live runtime",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-SLX10-PACKED-RUNTIME-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-SLX10-PACKED-RUNTIME-01/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-SLX10-PACKED-RUNTIME-01/ABORTED.md",
+        "tools/research/run_slx10_packed_runtime.py",
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-05/raw/qwen3.5-0.8b-base-f16.gguf"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "effective_route",
+        "recovery_state",
+        "service_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "packed_artifact",
+          "metric": "q2k_file_ratio",
+          "operator": "le",
+          "threshold": 0.25
+        },
+        {
+          "id": "physical_load",
+          "metric": "loaded_arms",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "memory_reduction",
+          "metric": "vram_reduction",
+          "operator": "ge",
+          "threshold": 0.5
+        },
+        {
+          "id": "throughput",
+          "metric": "throughput_ratio",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "quality",
+          "metric": "accuracy_regression",
+          "operator": "le",
+          "threshold": 0.02
+        },
+        {
+          "id": "semantic_stability",
+          "metric": "exact_output_rate",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX10_Q2K_PHYSICAL_QUALIFIED_R2",
+        "SLX10_FALSE_POSITIVE_CONFIRMED_R2"
+      ],
+      "forbidden_claims": [
+        "IQ2_XXS qualification",
+        "27B or 35B capacity",
+        "quality beyond frozen 0.8B panel",
+        "production deployment"
+      ],
+      "next_action": "Repeat the physical runtime protocol with supported Q2_K and explicit 25 percent file ceiling.",
+      "supersedes": null,
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-26T01:39:50Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-26T01:40:10Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:41:21Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:42:42Z"
+        }
+      ],
+      "external_source_receipts": {
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-05/raw/qwen3.5-0.8b-base-f16.gguf": {
+          "sha256": "514133770c0e30367721334fb86a76a8647bf8ab4d51fedc62980ce86dda1ac1",
+          "bytes": 1557662368,
+          "evidence": "runs/research/BACKLOG-SLX10-PACKED-RUNTIME-02/raw/artifact_hashes.json"
+        }
+      },
+      "portability_history": [
+        {
+          "actor": "Codex portability consolidation",
+          "at": "2026-08-26T10:28:51Z",
+          "source": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-05/raw/qwen3.5-0.8b-base-f16.gguf",
+          "evidence": "runs/research/BACKLOG-SLX10-PACKED-RUNTIME-02/raw/artifact_hashes.json"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SPEC01-LIVE-HYBRID-01",
+      "priority": 0,
+      "title": "Materialize SPEC-01 combined ngram and MTP serving route",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-SPEC01-LIVE-HYBRID-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/SPEC-01-SPECULATIVE-PIPELINE-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/SPEC-01-SPECULATIVE-PIPELINE-2026-08-25/RESULT.md",
+        "runs/research/SPEC-01-SPECULATIVE-PIPELINE-2026-08-25/raw/receipt.json",
+        "tools/analysis/hybrid_speculative_engine.py",
+        "tests/test_hybrid_speculative_engine.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "effective_route",
+        "recovery_state",
+        "service_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "request_coverage",
+          "metric": "live_requests",
+          "operator": "eq",
+          "threshold": 60
+        },
+        {
+          "id": "hybrid_route",
+          "metric": "hybrid_route_confirmed",
+          "operator": "eq",
+          "threshold": 30
+        },
+        {
+          "id": "semantic_parity",
+          "metric": "exact_output_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "historical_speedup",
+          "metric": "hybrid_speedup",
+          "operator": "ge",
+          "threshold": 3.0
+        },
+        {
+          "id": "ngram_attribution",
+          "metric": "per_proposer_attribution_available",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "draft_coverage",
+          "metric": "hybrid_requests_with_drafts",
+          "operator": "ge",
+          "threshold": 25
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "SPEC01_LIVE_HYBRID_QUALIFIED_R1",
+        "SPEC01_FALSE_POSITIVE_CONFIRMED_R1"
+      ],
+      "forbidden_claims": [
+        "ngram share without per-proposer telemetry",
+        "3x model-forward reduction from wall latency alone",
+        "production deployment",
+        "generalization beyond frozen structured prompts"
+      ],
+      "next_action": "Compare active MTP with a physical draft-mtp,ngram-cache route on paired structured prompts.",
+      "supersedes": null,
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-26T01:43:24Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-26T01:43:48Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:44:52Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "codex",
+          "at": "2026-08-26T01:47:58Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX11-OFFICIAL-HYBRID-01",
+      "priority": 0,
+      "title": "Qualify the official Qwen3.5 hybrid recurrent-attention artifact for SLX-11",
+      "evidence_class": "artifact_requalification",
+      "packet_dir": "runs/research/BACKLOG-SLX11-OFFICIAL-HYBRID-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/SLX-11-GRANITE-HYBRID-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/SLX-11-GRANITE-HYBRID-2026-08-25/RESULT.md",
+        "runs/research/SLX-11-GRANITE-HYBRID-2026-08-25/raw/receipt.json",
+        "runs/research/BACKLOG-GDN02-LEARNED-STATE-01/raw/receipt.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "official_artifact",
+          "metric": "official_checkpoint_identified",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "hybrid_topology",
+          "metric": "hybrid_layer_types_verified",
+          "operator": "eq",
+          "threshold": 24
+        },
+        {
+          "id": "recurrent_layers",
+          "metric": "physical_recurrent_layers",
+          "operator": "eq",
+          "threshold": 18
+        },
+        {
+          "id": "attention_layers",
+          "metric": "physical_full_attention_layers",
+          "operator": "eq",
+          "threshold": 6
+        },
+        {
+          "id": "live_forward",
+          "metric": "successful_live_forwards",
+          "operator": "eq",
+          "threshold": 24
+        },
+        {
+          "id": "finite_outputs",
+          "metric": "finite_output_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "runtime_unchanged",
+          "metric": "serving_process_unchanged",
+          "operator": "eq",
+          "threshold": 1
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX11_OFFICIAL_HYBRID_ARTIFACT_QUALIFIED_R1",
+        "SLX11_OFFICIAL_HYBRID_ARTIFACT_REJECTED_R1"
+      ],
+      "forbidden_claims": [
+        "historical 4.49x speedup",
+        "100 percent recall",
+        "dense-transformer superiority",
+        "production promotion",
+        "generalization beyond frozen forward panel"
+      ],
+      "next_action": "Inspect and execute the official local Qwen3.5 hybrid checkpoint, verifying every declared layer type and fresh physical forwards.",
+      "supersedes": null,
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T01:50:33Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T01:51:08Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T01:52:16Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T01:52:49Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-MECHANISMS-RERUN-01",
+      "priority": 0,
+      "title": "Fresh causal rerun of ADAPT-01 through ADAPT-05 mechanisms",
+      "evidence_class": "model_training",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/ADAPT-01A-LOKR-SCALE-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/ADAPT-02-MODULE-TARGETING-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/ADAPT-03-SOFT-PROMPTS-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/ADAPT-04-PRIOR-PRESERVATION-2026-08-25/PRE_REGISTRATION.md",
+        "runs/research/ADAPT-05-MODULAR-MERGING-2026-08-25/PRE_REGISTRATION.md",
+        "workloads/gsm8k.jsonl",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "checkpoint_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "model_hash",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "seed",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "training_receipt",
+        "training_trace"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "mechanism_coverage",
+          "metric": "fresh_mechanisms_completed",
+          "operator": "eq",
+          "threshold": 5
+        },
+        {
+          "id": "training_coverage",
+          "metric": "fresh_training_arms",
+          "operator": "eq",
+          "threshold": 12
+        },
+        {
+          "id": "evaluation_coverage",
+          "metric": "fresh_scored_generations",
+          "operator": "eq",
+          "threshold": 768
+        },
+        {
+          "id": "seed_control",
+          "metric": "fresh_seed_verified",
+          "operator": "eq",
+          "threshold": 20260827
+        },
+        {
+          "id": "independent_aggregate",
+          "metric": "independent_score_match",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "artifact_identity",
+          "metric": "hashed_adapter_artifacts",
+          "operator": "ge",
+          "threshold": 13
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT01_05_MECHANISMS_REPRODUCED_R1",
+        "ADAPT01_05_MECHANISMS_MIXED_R1"
+      ],
+      "forbidden_claims": [
+        "promotion from training loss alone",
+        "general model capability",
+        "production promotion",
+        "cross-seed repeatability",
+        "causal superiority without the frozen matched arms"
+      ],
+      "next_action": "Retrain every historical ADAPT mechanism at seed 20260827, score every original 32-math plus 16-QA arm, and build the composite only from fresh disjoint adapters.",
+      "supersedes": null,
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T01:53:52Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T01:54:09Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T01:55:32Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T03:16:17Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT01-640-EVAL-01",
+      "priority": 0,
+      "title": "Evaluate the fresh ADAPT-01 640-step LoKr arm excluded by the historical probe",
+      "evidence_class": "artifact_requalification",
+      "packet_dir": "runs/research/BACKLOG-ADAPT01-640-EVAL-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt01/lokr_5ep/adapter/adapter_model.safetensors",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt01/lokr_5ep/metrics.json",
+        "workloads/gsm8k.jsonl",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "independent_evaluation",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "service_maintenance",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "panel_coverage",
+          "metric": "scored_generations",
+          "operator": "eq",
+          "threshold": 48
+        },
+        {
+          "id": "target_absolute",
+          "metric": "target_correct",
+          "operator": "ge",
+          "threshold": 16
+        },
+        {
+          "id": "target_gain",
+          "metric": "target_gain_over_base",
+          "operator": "ge",
+          "threshold": 3
+        },
+        {
+          "id": "qa_retention",
+          "metric": "protected_pass",
+          "operator": "ge",
+          "threshold": 2
+        },
+        {
+          "id": "natural_eos",
+          "metric": "natural_eos",
+          "operator": "ge",
+          "threshold": 40
+        },
+        {
+          "id": "length_control",
+          "metric": "target_teacher_length_ratio",
+          "operator": "le",
+          "threshold": 1.25
+        },
+        {
+          "id": "independent_score",
+          "metric": "independent_score_match",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "runtime_unchanged",
+          "metric": "serving_process_unchanged",
+          "operator": "eq",
+          "threshold": 1
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT01_640_ARM_PROMOTED_R1",
+        "ADAPT01_640_ARM_REJECTED_R1"
+      ],
+      "forbidden_claims": [
+        "fresh training of the arm",
+        "cross-seed repeatability",
+        "production promotion",
+        "generalization beyond frozen panel"
+      ],
+      "next_action": "Load the already fresh seed-20260827 640-step adapter and score the omitted 32-math plus 16-QA panel without touching serving.",
+      "supersedes": null,
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T03:16:37Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T03:16:52Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T03:17:43Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T03:20:37Z"
+        }
+      ]
+    }
+  ]
+}

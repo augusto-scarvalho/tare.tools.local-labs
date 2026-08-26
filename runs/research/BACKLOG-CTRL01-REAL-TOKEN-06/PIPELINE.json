@@ -1,0 +1,71 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-CTRL01-REAL-TOKEN-06",
+  "evidence_class": "mechanism_research",
+  "executor": "Codex executor",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:38:34Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:38:54Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:38:54Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:38:57Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-CTRL01-REAL-TOKEN-06/PRE_REGISTRATION.md",
+    "sha256": "7c02659e977036d3cc3c8d1c825ea757fb95803534ad6634763a06ea3c42e580"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_ctrl01_receipt_recovery.py",
+      "sha256": "12c0c8e141b0781ce1bc26c1f77b547ae4a0d7483923af0cc79ab252e86730c0"
+    },
+    {
+      "path": "tests/test_ctrl01_receipt_recovery_r2.py",
+      "sha256": "f86d4d791ad2805eaa0ad5b7b719a21faaf7522e1a6b24da816420577e495300"
+    },
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/run_ctrl01_real_token.py",
+      "sha256": "ee21a3d0c7008b4211d863ff8875b9f6e679c647c7fec98620550cecf73d3f39"
+    },
+    {
+      "path": "tools/research/run_ctrl01_receipt_recovery.py",
+      "sha256": "726ff9e66fc7eb04f0f907af2c8d7761afb224811b2901a2dbcd997767a21448"
+    },
+    {
+      "path": "tools/research/run_ctrl01_receipt_recovery_r2.py",
+      "sha256": "3944ab2fd3cc5ffc3e33f8d6d9d9e25984fe0fad6f617ec7b6f407ec5b3ad89e"
+    }
+  ],
+  "implementation_digest": "92a783ca73a5c391fb387e0eb57ed502eafe2c533bc6086aae17b088b144e6e4",
+  "execution": {
+    "path": "runs/research/BACKLOG-CTRL01-REAL-TOKEN-06/raw/receipt.json",
+    "sha256": "873f05f8aa91798f0185d643fabe7bd62444dda835baf703f1b69c2e946885a4"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

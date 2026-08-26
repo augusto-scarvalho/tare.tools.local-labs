@@ -1,0 +1,59 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-CUDAGRAPH-SERVING-02",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex executor",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-25T22:16:24Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-25T22:17:57Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-25T22:20:46Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor",
+      "at": "2026-08-25T22:23:57Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-CUDAGRAPH-SERVING-02/PRE_REGISTRATION.md",
+    "sha256": "6ce9a46106bc591d024e3c89d7d0c0bcaf43cb6a50323b050031866957fc7e33"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_serving_cudagraph_benchmark_r2.py",
+      "sha256": "87ba5ad866800310e227c6bad6a843a1bfccb5ae5deb54fde54c86817e3a93da"
+    },
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/run_serving_cudagraph_benchmark_r2.py",
+      "sha256": "be8bc45934c109e5db97c0e3d28a21394a235fcab8269dd241ff36d3b8ba7483"
+    }
+  ],
+  "implementation_digest": "4adac4f71008f3d0b7d1317ceb0f63cc7e9acd1a804048384e362626053543fc",
+  "execution": {
+    "path": "runs/research/BACKLOG-CUDAGRAPH-SERVING-02/raw/receipt.json",
+    "sha256": "eaa409f1620b45cb9bc939223f4407aed2b3be5615e5f4bd0027a00539f225f6"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

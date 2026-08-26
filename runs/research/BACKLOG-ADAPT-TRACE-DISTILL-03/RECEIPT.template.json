@@ -1,0 +1,91 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-DISTILL-03",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "continuation_integrity": {
+      "metric": "frozen_partial_workers_verified",
+      "operator": "eq",
+      "threshold": 4,
+      "actual": null,
+      "pass": null
+    },
+    "treatment_materiality": {
+      "metric": "matched_distinct_training_targets_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "clean_base": {
+      "metric": "fresh_base_workers",
+      "operator": "eq",
+      "threshold": 6,
+      "actual": null,
+      "pass": null
+    },
+    "paired_training": {
+      "metric": "matched_pairs_per_arm_per_seed",
+      "operator": "eq",
+      "threshold": 128,
+      "actual": null,
+      "pass": null
+    },
+    "seed_coverage": {
+      "metric": "completed_paired_seeds",
+      "operator": "eq",
+      "threshold": 3,
+      "actual": null,
+      "pass": null
+    },
+    "heldout_gain": {
+      "metric": "mean_trace_math_gain_over_answer_only",
+      "operator": "gt",
+      "threshold": 0.0,
+      "actual": null,
+      "pass": null
+    },
+    "directional_repeatability": {
+      "metric": "seeds_with_nonnegative_trace_math_gain",
+      "operator": "ge",
+      "threshold": 2,
+      "actual": null,
+      "pass": null
+    },
+    "protected_regression": {
+      "metric": "mean_protected_qa_regression_vs_answer_only",
+      "operator": "le",
+      "threshold": 0.05,
+      "actual": null,
+      "pass": null
+    },
+    "service_recovery": {
+      "metric": "service_and_embedding_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "checkpoint_hashes": null,
+    "clean_base_receipts": null,
+    "continuation_ledger": null,
+    "dataset_hashes": null,
+    "independent_evaluation": null,
+    "model_hash": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "service_maintenance": null,
+    "student_samples": null,
+    "teacher_samples": null,
+    "training_pairs": null,
+    "training_trace": null,
+    "treatment_materiality": null
+  },
+  "receipt_fingerprint": null
+}

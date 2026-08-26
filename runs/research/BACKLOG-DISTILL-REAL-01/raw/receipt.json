@@ -1,0 +1,160 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-DISTILL-REAL-01",
+  "provenance": {
+    "schema": "local-labs-experiment-provenance-v1",
+    "started_at_utc": "2026-08-25T12:56:35Z",
+    "finished_at_utc": "2026-08-25T12:58:53Z",
+    "elapsed_seconds": 138.406,
+    "command": [
+      "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "tools/research/run_distillation_evaluation.py",
+      "--outdir",
+      "runs/research/BACKLOG-DISTILL-REAL-01"
+    ],
+    "cwd": "C:\\projects\\tare.tools.local-labs",
+    "repository": {
+      "head": "eaf987446044443d700b02e1dd19df4dcb75fd9b",
+      "dirty": true,
+      "status_entry_count": 63,
+      "status_sha256": "f510832e9f1ebd79f70f0a9bc3f27510f80179aadc34951f8b59b8ac1650503d",
+      "errors": []
+    },
+    "script": {
+      "path": "C:\\projects\\tare.tools.local-labs\\tools\\research\\run_distillation_evaluation.py",
+      "sha256": "2842cde6dd55e6a686e2c976fe9501a67dbae21c99118475c2d6eec52df5c496"
+    },
+    "inputs": [
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-DISTILL-REAL-01\\raw\\dataset_hashes.json",
+        "status": "HASHED",
+        "bytes": 829,
+        "sha256": "9f0696f89d9ea4c323d8395e22e11fdad8c49a0192932cb8bcd8e2e7ea55baf4"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-DISTILL-REAL-01\\raw\\model_hash.json",
+        "status": "HASHED",
+        "bytes": 434,
+        "sha256": "082ce60e94625e63dd665b06a72a85988f5db88988d36ba44a40866cd0e64b8f"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-DISTILL-REAL-01\\raw\\teacher_samples.json",
+        "status": "HASHED",
+        "bytes": 28345,
+        "sha256": "9b9f86bdcfae10ccdd28a0f8a48ccf95da57b8b04cbf06c2f94cb9d6c14e8d08"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-DISTILL-REAL-01\\raw\\student_samples.json",
+        "status": "HASHED",
+        "bytes": 33417,
+        "sha256": "088ec4aaf2db6549590047e08a58224621f5ff91b776d674c66511f659966d7e"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-DISTILL-REAL-01\\raw\\samples.jsonl",
+        "status": "HASHED",
+        "bytes": 47102,
+        "sha256": "126b0e8f5d81ceabd5c50f8cc4248ce00a9d04f1b45c81c8b517431ff748ae68"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-DISTILL-REAL-01\\raw\\actual_scores.json",
+        "status": "HASHED",
+        "bytes": 367,
+        "sha256": "a40d2670cbad233a503d8bc719072123ad10e5f40533a1b6aabcd9f7e309da9a"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-DISTILL-REAL-01\\raw\\independent_evaluation.json",
+        "status": "HASHED",
+        "bytes": 490,
+        "sha256": "12834b4661cae6a250a4d98595ef1b8a2f5dbcab6e3d37d9b2bbf3ba2551371b"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\a2\\market-r0__thinkingcap-27b-q4__gsm8k.json",
+        "status": "HASHED",
+        "bytes": 634971,
+        "sha256": "dc5cabe44c92e48b0e832881ef27ebad4047b140928c9a12678e0c0c6660006e"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\workloads\\gsm8k.jsonl",
+        "status": "HASHED",
+        "bytes": 389701,
+        "sha256": "68a72276898a45dacb893154477621ff3d05ae7e043a10820644b691d8b63d77"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\DISTILL-00-MOE-CONCISE-2026-08-25\\RESULT.md",
+        "status": "HASHED",
+        "bytes": 2182,
+        "sha256": "98cdf946d8916fc566c816055607e1a7f1e75574f571b43aab4f3bb4d4a3eb0b"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\GEMINI-BACKLOG-REMEDIATION-2026-08-25\\RESULT.md",
+        "status": "HASHED",
+        "bytes": 3417,
+        "sha256": "6ab01e6de1ec5cdd93974c35e9db4f45ac87cb9bbdb300db9759082c18e15196"
+      }
+    ],
+    "environment": {
+      "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+      "executable": "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "pytest": "9.1.1",
+        "torch": "NOT_INSTALLED",
+        "transformers": "NOT_INSTALLED",
+        "peft": "NOT_INSTALLED"
+      },
+      "gpu": {
+        "available": true,
+        "query": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576",
+        "error": null
+      }
+    },
+    "runtime": {
+      "execution_mode": "offline_gpu_distillation_evaluation",
+      "paired_tasks": 32
+    }
+  },
+  "provenance_complete": true,
+  "gates": {
+    "no_fabricated_metrics": {
+      "metric": "scores_derived_from_raw_samples",
+      "operator": "eq",
+      "threshold": true,
+      "actual": true,
+      "pass": true
+    },
+    "paired_panel": {
+      "metric": "paired_scored_samples",
+      "operator": "ge",
+      "threshold": 32,
+      "actual": 32,
+      "pass": true
+    },
+    "accuracy_noninferiority": {
+      "metric": "student_accuracy_delta",
+      "operator": "ge",
+      "threshold": -0.03,
+      "actual": -0.5625,
+      "pass": false
+    },
+    "token_reduction": {
+      "metric": "median_reasoning_token_reduction",
+      "operator": "ge",
+      "threshold": 0.2,
+      "actual": -1.0211,
+      "pass": false
+    }
+  },
+  "evidence": {
+    "acceptance_gates": "raw/receipt.json",
+    "actual_scores": "raw/actual_scores.json",
+    "dataset_hashes": "raw/dataset_hashes.json",
+    "independent_evaluation": "raw/independent_evaluation.json",
+    "model_hash": "raw/model_hash.json",
+    "provenance": "raw/receipt.json",
+    "raw_samples": "raw/samples.jsonl",
+    "receipt_fingerprint": "raw/receipt.json",
+    "student_samples": "raw/student_samples.json",
+    "teacher_samples": "raw/teacher_samples.json"
+  },
+  "receipt_fingerprint": "ab47aaf743f50a2f3d898683bd766f9b1aa58a5e21e50af51908ec69b7b64288"
+}

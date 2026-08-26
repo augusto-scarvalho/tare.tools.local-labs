@@ -1,0 +1,59 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX11-OFFICIAL-HYBRID-01",
+  "evidence_class": "artifact_requalification",
+  "executor": "Codex executor",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T01:50:33Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T01:51:08Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T01:52:16Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T01:52:49Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX11-OFFICIAL-HYBRID-01/PRE_REGISTRATION.md",
+    "sha256": "805078b6bdc5d55db30048c47a97907bd2289c7cc2bf79ab8ef03906d64cbada"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_slx11_official_hybrid.py",
+      "sha256": "b7cc1c25167ac51453ad8c86d1a5b3f2212c0b02d02c7a1485e85a215305b506"
+    },
+    {
+      "path": "tools/research/run_slx11_official_hybrid.py",
+      "sha256": "43e5259b7fbbf6fdb733d40d696fe65ba44fb756e1ad5e4b2816fab48b25e049"
+    },
+    {
+      "path": "tools/research/slx11_official_hybrid_worker.py",
+      "sha256": "94e6b0fbae2aed4c97bbea0072a182b9dbf4df691caf80c08776c2de6ceb36ae"
+    }
+  ],
+  "implementation_digest": "1707de733474da9d3023abed179fc852cb0568c05aac916f794db74b41365d47",
+  "execution": {
+    "path": "runs/research/BACKLOG-SLX11-OFFICIAL-HYBRID-01/raw/receipt.json",
+    "sha256": "d539dda7fb419ae390be32eb82e1d2c34ac44a44845c5992d505da35cdc28caf"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

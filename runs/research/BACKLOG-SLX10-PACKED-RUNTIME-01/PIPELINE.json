@@ -1,0 +1,53 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX10-PACKED-RUNTIME-01",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-26T01:37:16Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-26T01:37:40Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-26T01:38:59Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "codex",
+      "at": "2026-08-26T01:39:50Z",
+      "reason": "IQ2_XXS quantization requires absent immutable importance matrix; successor materializes supported Q2_K."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX10-PACKED-RUNTIME-01/PRE_REGISTRATION.md",
+    "sha256": "f1fdf716671ea11108c7628d5f12984c00c2231c4f2a64d6e81fcd039b12afcf"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_slx10_packed_runtime.py",
+      "sha256": "6589bd895766c5e977dbbbb5cc88aac8961c7831b36aed166a488bda05b9efe0"
+    },
+    {
+      "path": "tools/research/run_slx10_packed_runtime.py",
+      "sha256": "f8561917bd2172ad5d003638f3cf7996b1411b694c022e6a28b67ba02956fe87"
+    }
+  ],
+  "implementation_digest": "358bfdf76ea53bf05388fd75413383e442e96d96fc5b22dec0892f650abd407f",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

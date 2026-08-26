@@ -1,0 +1,79 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-SLX11-OFFICIAL-HYBRID-01",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "official_artifact": {
+      "metric": "official_checkpoint_identified",
+      "operator": "eq",
+      "threshold": 1,
+      "actual": null,
+      "pass": null
+    },
+    "hybrid_topology": {
+      "metric": "hybrid_layer_types_verified",
+      "operator": "eq",
+      "threshold": 24,
+      "actual": null,
+      "pass": null
+    },
+    "recurrent_layers": {
+      "metric": "physical_recurrent_layers",
+      "operator": "eq",
+      "threshold": 18,
+      "actual": null,
+      "pass": null
+    },
+    "attention_layers": {
+      "metric": "physical_full_attention_layers",
+      "operator": "eq",
+      "threshold": 6,
+      "actual": null,
+      "pass": null
+    },
+    "live_forward": {
+      "metric": "successful_live_forwards",
+      "operator": "eq",
+      "threshold": 24,
+      "actual": null,
+      "pass": null
+    },
+    "finite_outputs": {
+      "metric": "finite_output_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "runtime_unchanged": {
+      "metric": "serving_process_unchanged",
+      "operator": "eq",
+      "threshold": 1,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "failure_reproduction": null,
+    "falsifiable_hypothesis": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "invariant_controls": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "real_implementation": null,
+    "receipt_fingerprint": null,
+    "scorer_hashes": null,
+    "semantic_parity": null,
+    "service_maintenance": null,
+    "source_execution_receipt": null
+  },
+  "receipt_fingerprint": null
+}

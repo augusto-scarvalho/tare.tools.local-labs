@@ -96,6 +96,17 @@ adapter training claim is reproducible until the pending packet is written.
 
 ## Explicit pending backlog
 
+The table below is now enforced by the machine-readable
+[`config/research_backlog.json`](../config/research_backlog.json) and the
+fail-closed workflow in
+[`BACKLOG_IMPLEMENTATION_PIPELINE.md`](research/BACKLOG_IMPLEMENTATION_PIPELINE.md).
+Gemini must pass `python tools/analysis/backlog_pipeline.py gate`, use validated
+state transitions and stop for independent review before any promotion.
+The manual AGY execution plans for every item are in
+[`HANDOFF_2026-08-25_AGY_BACKLOG_PLANS.md`](HANDOFF_2026-08-25_AGY_BACKLOG_PLANS.md).
+This table contains the six Gemini-remediation items only; the canonical
+manifest and AGY handoff also reconcile nine older trigger-blocked residuals.
+
 | Priority | Pending work | Entry gate | Completion evidence |
 |---|---|---|---|
 | P0 | Requalify saved `ADAPT-01A`–`ADAPT-05` artifacts | Freeze adapter/config hashes, evaluation datasets, seed and scorers | Independent behavioral receipt per artifact; no training-reproducibility claim |

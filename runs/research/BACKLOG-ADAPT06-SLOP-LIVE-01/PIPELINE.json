@@ -1,0 +1,53 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT06-SLOP-LIVE-01",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-26T01:08:35Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-26T01:09:01Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-26T01:10:44Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "codex",
+      "at": "2026-08-26T01:11:32Z",
+      "reason": "Frozen artifacts are LoKr and cannot be materialized by active LoRA converter; successor freezes actual LoRA checkpoints."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-01/PRE_REGISTRATION.md",
+    "sha256": "4da2aaf993703e42bcce71a9cebf5931e5cf8fe8cdd0f940ae021f5311e06885"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_adapt06_slop_live.py",
+      "sha256": "504d562019225280a11aa32e3863e996b84afc02f5a3aaa3f49a4f4f920bea49"
+    },
+    {
+      "path": "tools/research/run_adapt06_slop_live.py",
+      "sha256": "850d2a30ce8ae636931644837035261dbf92cc6c43c4ee545a208037294c2586"
+    }
+  ],
+  "implementation_digest": "0359696526ad2ac9cf0a48614b26cfc147fcc1815cd0e7d367f1d79d478af2de",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

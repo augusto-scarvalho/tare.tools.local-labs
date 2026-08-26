@@ -1,0 +1,53 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-AGY-SYSTEM-BLOCKERS-01",
+  "evidence_class": "proxy_realization",
+  "executor": "codex",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-26T01:32:39Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-26T01:33:04Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-26T01:34:01Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "codex",
+      "at": "2026-08-26T01:34:31Z",
+      "reason": "WSL shell reinterpreted ERE metacharacters; successor uses direct wsl -e argv."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-01/PRE_REGISTRATION.md",
+    "sha256": "a6ce6a423f56d9b3328943fd984bd1df84b735667dc1af747da858f7248355ef"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_agy_system_blockers.py",
+      "sha256": "7796e8fc5c1cdb4b0dfcbfa98296510a91c83fcadf31c041daf964863b0a6bde"
+    },
+    {
+      "path": "tools/research/run_agy_system_blockers.py",
+      "sha256": "064b113ff68b935e576ee75ac64033cef66d61b1e5ad94d87642231dc1f53b2e"
+    }
+  ],
+  "implementation_digest": "bc60c9d0ca2ab47dda79374ecd231ab3e7f1aebef4c8b418adce118e92567221",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

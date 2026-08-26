@@ -1,0 +1,65 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-CTRL01-REAL-TOKEN-04",
+  "evidence_class": "mechanism_research",
+  "executor": "Codex executor",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:34:01Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:34:20Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:34:20Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:36:09Z",
+      "reason": "Physical execution and raw samples completed, but receipt used a noncanonical schema and lacked the required evidence map; pipeline correctly refused EXECUTED. Successor will independently rescore the immutable samples and emit a canonical receipt."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-CTRL01-REAL-TOKEN-04/PRE_REGISTRATION.md",
+    "sha256": "d34b12631dbde35bec0ebb62eadb05e912924d6b17c26e609cdb9ace12d25f87"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_ctrl01_real_token.py",
+      "sha256": "2b5a942e2e64a063d0e7731c4bf34804e53e3d5f149a3fde155b4c340a45daff"
+    },
+    {
+      "path": "tests/test_ctrl01_real_token_r2.py",
+      "sha256": "7c3fded4681b4ea2fc6fd93fc49bb1282a6b8a3082cf244014090ba6c5189cc7"
+    },
+    {
+      "path": "tools/analysis/ast_grammar_sidecar.py",
+      "sha256": "3cb90b1b5aa5aacdff93b7a8b0cdc38e689099e0d1365989f00b7b34acbb1463"
+    },
+    {
+      "path": "tools/research/run_ctrl01_real_token.py",
+      "sha256": "d17bf9f4996f89b00edfcff3ef6d1beffec3ba1badb59b32447c18feccd1b082"
+    },
+    {
+      "path": "tools/research/run_ctrl01_real_token_r4.py",
+      "sha256": "7b0e363917c8834ffb692f7ff929ca1121008dcedd2969599ac64c9ff57e0a6e"
+    }
+  ],
+  "implementation_digest": "a4359964c6527a538a87a7784f42cc344acfb961f809496c66e06ce2715aa747",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

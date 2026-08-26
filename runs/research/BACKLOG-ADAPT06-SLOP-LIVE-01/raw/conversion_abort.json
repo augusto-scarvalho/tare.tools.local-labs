@@ -1,0 +1,22 @@
+[
+  {
+    "argv": [
+      "wsl",
+      "-d",
+      "Ubuntu-24.04",
+      "--",
+      "/home/augus/.venvs/adapt00-20260824/bin/python",
+      "/home/augus/src/slop.cpp-main/convert_lora_to_gguf.py",
+      "/mnt/c/projects/tare.tools.local-labs/runs/research/ADAPT-02-MODULE-TARGETING-2026-08-25/raw/target_mlp_only/adapter",
+      "--base",
+      "/home/augus/.cache/huggingface/hub/models--Qwen--Qwen3.5-0.8B-Base/snapshots/dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+      "--outfile",
+      "/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-ADAPT06-SLOP-LIVE-01/raw/adapters/mlp-f16.gguf",
+      "--outtype",
+      "f16"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "INFO:lora-to-gguf:Loading base model: dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68\nINFO:lora-to-gguf:Using model architecture: Qwen3_5ForConditionalGeneration\nTraceback (most recent call last):\n  File \"/home/augus/src/slop.cpp-main/convert_lora_to_gguf.py\", line 528, in <module>\n    alpha: float = lparams[\"lora_alpha\"]\n                   ~~~~~~~^^^^^^^^^^^^^^\nKeyError: 'lora_alpha'"
+  }
+]

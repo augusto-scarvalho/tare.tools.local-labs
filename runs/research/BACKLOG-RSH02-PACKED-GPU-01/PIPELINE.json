@@ -1,0 +1,61 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-RSH02-PACKED-GPU-01",
+  "evidence_class": "mechanism_research",
+  "executor": "Codex executor",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:40:25Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:40:47Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:43:19Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:43:48Z",
+      "reason": "Physical buffers were encoded, but the first Triton compilation failed because tl was imported in local scope and unavailable to JIT source resolution. No GPU measurement or receipt was produced. Successor changes only compiler binding."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-RSH02-PACKED-GPU-01/PRE_REGISTRATION.md",
+    "sha256": "ab35ac3c12f785c0d7e7becaa7c71965b1fe65786eb07237dae890814c132dce"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_rsh02_packed_gpu.py",
+      "sha256": "3848293b883d915fefe4681ab34048733237893af84bb5599923e0fcc470ab0d"
+    },
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/rsh02_packed_gpu_worker.py",
+      "sha256": "49b68495508163bab2eda7ef494bd6163e3b62369b0c10f4637b566b3cedc61f"
+    },
+    {
+      "path": "tools/research/run_rsh02_packed_gpu.py",
+      "sha256": "2ec04e8d38ee41427eec2ca1b0a9e2fb35ec5aa4956136cfd8f0b99a7cf23cfb"
+    }
+  ],
+  "implementation_digest": "07e9c764ccfa20a049c9c7e19f09b58acb4941d1e71915966961c81668b8a9d4",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

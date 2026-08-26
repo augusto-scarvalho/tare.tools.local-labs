@@ -1,0 +1,163 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT-TRAIN-01",
+  "provenance": {
+    "schema": "local-labs-experiment-provenance-v1",
+    "started_at_utc": "2026-08-25T12:40:57Z",
+    "finished_at_utc": "2026-08-25T12:49:57Z",
+    "elapsed_seconds": 539.484,
+    "command": [
+      "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "tools/research/run_adapter_training.py",
+      "--outdir",
+      "runs/research/BACKLOG-ADAPT-TRAIN-01"
+    ],
+    "cwd": "C:\\projects\\tare.tools.local-labs",
+    "repository": {
+      "head": "eaf987446044443d700b02e1dd19df4dcb75fd9b",
+      "dirty": true,
+      "status_entry_count": 46,
+      "status_sha256": "1422f750f6e59a131ec23d9c498a9af3ad44a44f357e171ed68dfa4d74126479",
+      "errors": []
+    },
+    "script": {
+      "path": "C:\\projects\\tare.tools.local-labs\\tools\\research\\run_adapter_training.py",
+      "sha256": "6a1b2a21f229a554f363880129c095bcfc4f6b5494db9f57e4904e695f99f9cf"
+    },
+    "inputs": [
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRAIN-01\\raw\\checkpoint_hashes.json",
+        "status": "HASHED",
+        "bytes": 532,
+        "sha256": "2a8a4350f27555232f26159d1b7b9cb2d259ccd7f590b300f8616b9935decdcc"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRAIN-01\\raw\\dataset_hashes.json",
+        "status": "HASHED",
+        "bytes": 786,
+        "sha256": "2c60efa13a7dfae8d694fe40034dcadddd32b985c3ffd56efe5e09157f84117e"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRAIN-01\\raw\\model_hash.json",
+        "status": "HASHED",
+        "bytes": 405,
+        "sha256": "33ce6fdcddad26884f7c4b01949560956d6211f5556d4e9545508527c021704b"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRAIN-01\\raw\\seed.json",
+        "status": "HASHED",
+        "bytes": 69,
+        "sha256": "dd9bb1651d00dccda0a16dcb5050995ca86d9f3e1858b57f9392322ead8c5b83"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRAIN-01\\raw\\training_trace.json",
+        "status": "HASHED",
+        "bytes": 17450,
+        "sha256": "a1c21848acf5d6cf90610806db8f67a3d61acc979be52f36aff998ad37826a31"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRAIN-01\\raw\\samples.jsonl",
+        "status": "HASHED",
+        "bytes": 135915,
+        "sha256": "243311c37ff240d97f63539c4e85f3a9ec7272ea8eaa1279d31c7c38d44d50c4"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRAIN-01\\raw\\independent_evaluation.json",
+        "status": "HASHED",
+        "bytes": 489,
+        "sha256": "57d7e84b4f3f652ee56a386200ffefaadfc4ada552c2c0647071b10ae6f80024"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\a2\\market-r0__thinkingcap-27b-q4__gsm8k.json",
+        "status": "HASHED",
+        "bytes": 634971,
+        "sha256": "dc5cabe44c92e48b0e832881ef27ebad4047b140928c9a12678e0c0c6660006e"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\workloads\\gsm8k.jsonl",
+        "status": "HASHED",
+        "bytes": 389701,
+        "sha256": "68a72276898a45dacb893154477621ff3d05ae7e043a10820644b691d8b63d77"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\requalification\\QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23\\tasks.jsonl",
+        "status": "HASHED",
+        "bytes": 11016,
+        "sha256": "56434ebd53ff9f5adb477bd902566e28644fe9ea88619834f81417a06c66b84f"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\TRAIN-00B-GALORE-3090-2026-08-25\\RESULT.md",
+        "status": "HASHED",
+        "bytes": 632,
+        "sha256": "1a24d8a8f34e91330fdbd06f3aef3425105c49a109601310c53e673815151a75"
+      }
+    ],
+    "environment": {
+      "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+      "executable": "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "pytest": "9.1.1",
+        "torch": "NOT_INSTALLED",
+        "transformers": "NOT_INSTALLED",
+        "peft": "NOT_INSTALLED"
+      },
+      "gpu": {
+        "available": true,
+        "query": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576",
+        "error": null
+      }
+    },
+    "runtime": {
+      "execution_mode": "offline_gpu_adapter_training",
+      "seeds": [
+        20260824,
+        20260825
+      ]
+    }
+  },
+  "provenance_complete": true,
+  "gates": {
+    "fresh_output": {
+      "metric": "preexisting_output_files",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": 0,
+      "pass": true
+    },
+    "repeatability": {
+      "metric": "successful_repeated_seeds",
+      "operator": "ge",
+      "threshold": 2,
+      "actual": 2,
+      "pass": true
+    },
+    "behavioral_gain": {
+      "metric": "heldout_gain_over_base",
+      "operator": "gt",
+      "threshold": 0.0,
+      "actual": 0.0938,
+      "pass": true
+    },
+    "retention": {
+      "metric": "protected_regression",
+      "operator": "le",
+      "threshold": 0.05,
+      "actual": 0.0,
+      "pass": true
+    }
+  },
+  "evidence": {
+    "acceptance_gates": "raw/receipt.json",
+    "checkpoint_hashes": "raw/checkpoint_hashes.json",
+    "dataset_hashes": "raw/dataset_hashes.json",
+    "independent_evaluation": "raw/independent_evaluation.json",
+    "model_hash": "raw/model_hash.json",
+    "provenance": "raw/receipt.json",
+    "raw_samples": "raw/samples.jsonl",
+    "receipt_fingerprint": "raw/receipt.json",
+    "seed": "raw/seed.json",
+    "training_trace": "raw/training_trace.json"
+  },
+  "receipt_fingerprint": "9cadb9c0f041179cfe355764f584d211755ee667a538f87edac70a8985a0a565"
+}

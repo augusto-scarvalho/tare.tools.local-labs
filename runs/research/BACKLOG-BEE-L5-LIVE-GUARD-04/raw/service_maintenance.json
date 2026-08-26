@@ -1,0 +1,31 @@
+{
+  "service_untouched": true,
+  "before": {
+    "systemd": {
+      "MainPID": "29428",
+      "NRestarts": "0",
+      "ExecStart": "{ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Tue 2026-08-25 21:22:47 -03] ; stop_time=[n/a] ; pid=29428 ; code=(null) ; status=0/0 }",
+      "ActiveState": "active"
+    },
+    "binary": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+    "binary_sha256": "5719c246ec3622ea1df3c3f498075879f12f1f70b969f8b591e87b3a1f3c8808",
+    "health": {
+      "inference": 200,
+      "embedding": 200
+    }
+  },
+  "after": {
+    "systemd": {
+      "MainPID": "29428",
+      "NRestarts": "0",
+      "ExecStart": "{ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Tue 2026-08-25 21:22:47 -03] ; stop_time=[n/a] ; pid=29428 ; code=(null) ; status=0/0 }",
+      "ActiveState": "active"
+    },
+    "binary": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+    "binary_sha256": "5719c246ec3622ea1df3c3f498075879f12f1f70b969f8b591e87b3a1f3c8808",
+    "health": {
+      "inference": 200,
+      "embedding": 200
+    }
+  }
+}

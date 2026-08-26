@@ -1,0 +1,15 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "Codex",
+  "verdict": "REJECTED",
+  "receipt_sha256": "e7ef68149b5039f609cf607a9c497a76deb02194ef5c4c182ef891c4d5dd8b1e",
+  "implementation_digest": "55d41135d2fdd0b0707a138bfa8fec8ec7ee273f95d3f35582b00c8c1d16292c",
+  "findings": [
+    "Independent audit of paired distillation evaluation between 27B teacher (ThinkingCap-27B-Q4 / Fable-TC traces) and 0.8B student (Qwen/Qwen3.5-0.8B-Base with verified LoRA MLP adapter) across all 32 frozen GSM8K math panel tasks.",
+    "Verification of deterministic execution and raw sample traceability: 100% agreement between extraction and independent re-scoring across all 32 paired generation samples in raw/samples.jsonl with zero fabricated or randomized metrics.",
+    "Acceptance gate audit confirmed 2 passing gates (no_fabricated_metrics: true eq true, paired_panel: 32 ge 32) and 2 definitive gate failures: accuracy_noninferiority (-0.5625 < -0.03 threshold) and token_reduction (-1.0211 < 0.20 threshold).",
+    "Empirical evaluation demonstrated substantial accuracy regression (student achieved 14/32 or 43.75% vs teacher 32/32 or 100.0%) and token inflation (student median 192.0 tokens vs teacher median 95.0 tokens, an increase of +102.11%), decisively falsifying the concise distillation hypothesis.",
+    "Definitive rejection confirmed: The historical DISTILL-00-MOE-CONCISE-2026-08-25 synthetic claim (which relied on ungrounded random.randint token simulation and hard-coded accuracy) is permanently and authoritatively REJECTED.",
+    "Scope boundaries strictly enforced: Claim code DISTILLATION_REJECTED recorded; no distillation superiority, parameter efficiency, or general reasoning claims are permitted."
+  ]
+}

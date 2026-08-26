@@ -1,0 +1,89 @@
+{
+  "id": "BACKLOG-CUDAGRAPH-SERVING-02",
+  "priority": 1,
+  "title": "Causally validate CUDA Graph serving with explicit OFF and ON runtimes",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-CUDAGRAPH-SERVING-02",
+  "depends_on": [],
+  "source_artifacts": [
+    "docs/AUDIT_2026-08-25_CODEX_INDEPENDENT_AGY_EXECUTION.md",
+    "runs/research/BACKLOG-CUDAGRAPH-SERVING-01/raw/service_identity.json",
+    "runs/research/BACKLOG-CUDAGRAPH-SERVING-01/raw/effective_route.json",
+    "runs/research/BACKLOG-CUDAGRAPH-SERVING-01/raw/samples.jsonl",
+    "docs/research/STATUS.md"
+  ],
+  "required_evidence": [
+    "acceptance_gates",
+    "binary_identity",
+    "block_logs",
+    "effective_route",
+    "environment",
+    "hardware_metrics",
+    "paired_baseline",
+    "paired_metrics",
+    "provenance",
+    "raw_samples",
+    "receipt_fingerprint",
+    "recovery_state",
+    "service_maintenance",
+    "service_identity",
+    "treatment_controls"
+  ],
+  "acceptance_gates": [
+    {
+      "id": "treatment_identity",
+      "metric": "explicit_off_on_controls_verified",
+      "operator": "eq",
+      "threshold": true
+    },
+    {
+      "id": "binary_identity",
+      "metric": "distinct_binary_hashes_across_treatments",
+      "operator": "eq",
+      "threshold": 1
+    },
+    {
+      "id": "balanced_crossover",
+      "metric": "valid_abba_blocks",
+      "operator": "eq",
+      "threshold": 4
+    },
+    {
+      "id": "semantic_parity",
+      "metric": "response_mismatch_rate",
+      "operator": "eq",
+      "threshold": 0
+    },
+    {
+      "id": "paired_speedup",
+      "metric": "paired_wall_speedup_p50",
+      "operator": "ge",
+      "threshold": 1.1
+    },
+    {
+      "id": "tail_non_regression",
+      "metric": "on_vs_off_p95_regression",
+      "operator": "le",
+      "threshold": 0.0
+    },
+    {
+      "id": "service_recovery",
+      "metric": "service_and_embedding_restored",
+      "operator": "eq",
+      "threshold": true
+    }
+  ],
+  "allowed_claim_codes": [
+    "SERVING_CUDAGRAPH_CAUSAL_QUALIFIED_R2",
+    "SERVING_CUDAGRAPH_CAUSAL_REJECTED_R2"
+  ],
+  "forbidden_claims": [
+    "CUDA Graph effect inferred from first-request versus second-request warmup",
+    "driver launch overhead attribution without profiler evidence",
+    "performance generalization beyond the frozen binary, model, GPU and request shape",
+    "production promotion",
+    "semantic equivalence beyond the frozen paired prompts"
+  ],
+  "next_action": "Run fresh temporary serving processes in OFF-ON-ON-OFF order with symmetric discarded warmups, explicit GGML_CUDA_DISABLE_GRAPHS treatment evidence, identical binary and argv, and paired deterministic prompts.",
+  "supersedes": "BACKLOG-CUDAGRAPH-SERVING-01"
+}

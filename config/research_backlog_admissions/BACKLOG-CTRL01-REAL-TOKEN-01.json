@@ -1,0 +1,33 @@
+{
+  "id": "BACKLOG-CTRL01-REAL-TOKEN-01",
+  "priority": 0,
+  "title": "Requalify CTRL-01 on real model token streams and valid-token controls",
+  "evidence_class": "mechanism_research",
+  "packet_dir": "runs/research/BACKLOG-CTRL01-REAL-TOKEN-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/PRE_REGISTRATION.md",
+    "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/RESULT.md",
+    "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/raw/receipt.json",
+    "tools/analysis/ast_grammar_sidecar.py",
+    "tools/probes/ctrl01_ast_sidecar_probe.py"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "dataset_hashes",
+    "failure_reproduction", "falsifiable_hypothesis", "independent_evaluation",
+    "invalidation_rules", "invariant_controls", "provenance", "raw_samples",
+    "receipt_fingerprint", "semantic_parity", "source_execution_receipt"
+  ],
+  "acceptance_gates": [
+    {"id": "real_coverage", "metric": "real_model_outputs", "operator": "ge", "threshold": 24},
+    {"id": "real_validity", "metric": "sanitized_complete_valid_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "valid_control_recall", "metric": "valid_token_acceptance_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "valid_control_semantics", "metric": "valid_control_exact_preservation_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "overhead", "metric": "p95_overhead_us_per_token", "operator": "le", "threshold": 500.0},
+    {"id": "runtime_binding", "metric": "logit_mask_runtime_integrated", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": ["CTRL01_RUNTIME_QUALIFIED_R1", "CTRL01_FALSE_POSITIVE_CONFIRMED_R1"],
+  "forbidden_claims": ["production guarantee", "Python grammar qualification", "semantic correctness", "generalization beyond the frozen JSON panel"],
+  "next_action": "Replay real llama-server JSON generations with exact tokenizer pieces and test valid adversarial controls without repairing or appending output after filtering.",
+  "supersedes": null
+}

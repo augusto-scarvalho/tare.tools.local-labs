@@ -1,0 +1,16 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "Codex",
+  "verdict": "APPROVED",
+  "receipt_sha256": "77c749b5c1ac10fc606e753bc445542d78c1497e628edcf7d709c9090fdf6717",
+  "implementation_digest": "8aa702984dc81dfb3942e1b754a99ef428d5047b0f79f95114b053f502cbe724",
+  "findings": [
+    "Independent verification of live serving benchmark evaluating CUDA Graph replay on active 4-slot llama-server hosting fable-tc-l1.0-Q4_K_M on NVIDIA RTX 3090.",
+    "Exact semantic response parity verified across all 30 paired deterministic chat completions (response_mismatch_rate = 0.0, 0 mismatches across 30 pairs).",
+    "Latency acceleration gate verified: median wall-time speedup p50 of 1.5115x (baseline median 1080.33 ms vs graph replay candidate median 737.19 ms), comfortably exceeding the preregistered >= 1.15x threshold (+51.15% gain).",
+    "Tail latency regression gate verified: p95 latency reduced from 1234.13 ms to 823.25 ms, confirming zero tail regression (latency_p95_regression = 0.0000 <= 0.0).",
+    "Full service recovery verified: systemd MainPID 11434 remained unmodified, 0 restart increments recorded, all 4 slots returned to idle state, and parallel embedding daemon on port 8081 verified healthy (200 OK).",
+    "Machine-readable evidence artifacts independently inspected and verified: raw/receipt.json, raw/hardware_metrics.json, raw/recovery_state.json, raw/service_identity.json, raw/effective_route.json, raw/paired_baseline.json, and raw/samples.jsonl are cryptographically bound and complete.",
+    "Scope boundaries strictly enforced: Claim code SERVING_CUDAGRAPH_QUALIFIED is authorized; no claims asserted regarding driver launch isolation or persistent-megakernel ceilings."
+  ]
+}

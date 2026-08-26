@@ -1,0 +1,88 @@
+{
+  "id": "BACKLOG-ADAPT-REQUAL-02",
+  "priority": 0,
+  "title": "Requalify saved adapters with process-isolated clean base reloads",
+  "evidence_class": "artifact_requalification",
+  "packet_dir": "runs/research/BACKLOG-ADAPT-REQUAL-02",
+  "depends_on": [],
+  "source_artifacts": [
+    "docs/AUDIT_2026-08-25_CODEX_INDEPENDENT_AGY_EXECUTION.md",
+    "runs/research/BACKLOG-ADAPT-REQUAL-01/raw/artifact_hashes.json",
+    "runs/research/BACKLOG-ADAPT-REQUAL-01/raw/dataset_hashes.json",
+    "runs/research/ADAPT-01A-LOKR-SCALE-2026-08-25",
+    "runs/research/ADAPT-02-MODULE-TARGETING-2026-08-25",
+    "runs/research/ADAPT-03-SOFT-PROMPTS-2026-08-25",
+    "runs/research/ADAPT-04-PRIOR-PRESERVATION-2026-08-25",
+    "runs/research/ADAPT-05-MODULAR-MERGING-2026-08-25"
+  ],
+  "required_evidence": [
+    "acceptance_gates",
+    "artifact_hashes",
+    "clean_base_receipts",
+    "dataset_hashes",
+    "independent_evaluation",
+    "isolation_smoke",
+    "provenance",
+    "raw_samples",
+    "receipt_fingerprint",
+    "scorer_hashes",
+    "wsl_environment"
+  ],
+  "acceptance_gates": [
+    {
+      "id": "artifact_identity",
+      "metric": "hashed_artifacts",
+      "operator": "eq",
+      "threshold": 13
+    },
+    {
+      "id": "clean_base_per_arm",
+      "metric": "workers_with_zero_preexisting_peft_modules",
+      "operator": "eq",
+      "threshold": 17
+    },
+    {
+      "id": "isolation_smoke",
+      "metric": "smoke_order_invariant",
+      "operator": "eq",
+      "threshold": true
+    },
+    {
+      "id": "frozen_math_panel",
+      "metric": "scored_math_samples_per_arm",
+      "operator": "ge",
+      "threshold": 32
+    },
+    {
+      "id": "frozen_qa_panel",
+      "metric": "scored_qa_samples_per_arm",
+      "operator": "ge",
+      "threshold": 16
+    },
+    {
+      "id": "base_control",
+      "metric": "base_control_present",
+      "operator": "eq",
+      "threshold": true
+    },
+    {
+      "id": "independent_score",
+      "metric": "independent_scorer_match",
+      "operator": "eq",
+      "threshold": true
+    }
+  ],
+  "allowed_claim_codes": [
+    "ARTIFACT_REQUALIFIED_R2",
+    "ARTIFACT_REQUALIFICATION_R2_REJECTED"
+  ],
+  "forbidden_claims": [
+    "training reproduction",
+    "adapter finalist promotion without a separately preregistered selection rule",
+    "production promotion",
+    "general capability",
+    "isolated-arm claim from a reused PEFT-mutated base object"
+  ],
+  "next_action": "Run the three-arm process-isolation smoke in both orders, then execute all 13 adapters only if outputs are order invariant and every worker starts from a clean base.",
+  "supersedes": "BACKLOG-ADAPT-REQUAL-01"
+}

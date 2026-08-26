@@ -1,0 +1,82 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT-TRAIN-01",
+  "evidence_class": "model_training",
+  "executor": "AGY / Gemini 3.7 Flash High",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "BLOCKED",
+      "actor": "Codex",
+      "at": "2026-08-25T11:00:00Z"
+    },
+    {
+      "from": "BLOCKED",
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-25T12:31:01Z",
+      "reason": "BACKLOG-ADAPT-REQUAL-01 promoted target_mlp_only and lokr_1ep finalists"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "AGY / Gemini 3.7 Flash High",
+      "at": "2026-08-25T12:33:22Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "AGY / Gemini 3.7 Flash High",
+      "at": "2026-08-25T12:34:05Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "AGY / Gemini 3.7 Flash High",
+      "at": "2026-08-25T12:50:40Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "Codex",
+      "at": "2026-08-25T12:53:00Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "Codex",
+      "at": "2026-08-25T12:53:45Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT-TRAIN-01/PRE_REGISTRATION.md",
+    "sha256": "54794964e795e65c7bd74ae8af7c8fc7a0efec3e7a138dd9dd3aeefa2a13e0d4"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_adapter_training.py",
+      "sha256": "38f4ba875cbb856438f9b182cf98a5e5cf26e59eb5c25ba65033db6d084639f1"
+    },
+    {
+      "path": "tools/research/run_adapter_training.py",
+      "sha256": "6a1b2a21f229a554f363880129c095bcfc4f6b5494db9f57e4904e695f99f9cf"
+    }
+  ],
+  "implementation_digest": "0b1ec69aabc89bb23a56bc21b97c86cf8b0cdf36291df22880c962322216d927",
+  "execution": {
+    "path": "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/receipt.json",
+    "sha256": "903c723f3d63130cf06a5e501498451beee0cee34a8aa71d6f9de36faeb602b8"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-ADAPT-TRAIN-01/RESULT.md",
+    "sha256": "71e74be170373d4ecd8d6c7de97ee67da42defa53342e1da97b80164f50754f7"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-ADAPT-TRAIN-01/REVIEW.json",
+    "sha256": "49136b50deb9fc3acce6115b2ead3b76f9f2004763c27178ebf4ae37988076d1"
+  },
+  "claim_codes": [
+    "TRAINING_REPRODUCED"
+  ]
+}

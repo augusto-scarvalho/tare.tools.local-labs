@@ -1,0 +1,70 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-RSH02-PACKED-GPU-02",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "real_source": {
+      "metric": "actual_model_weight_elements",
+      "operator": "ge",
+      "threshold": 14000000,
+      "actual": null,
+      "pass": null
+    },
+    "physical_packing": {
+      "metric": "physical_packed_bitstream",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "exact_decode": {
+      "metric": "exact_roundtrip_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "compression": {
+      "metric": "physical_bits_per_element",
+      "operator": "le",
+      "threshold": 3.0,
+      "actual": null,
+      "pass": null
+    },
+    "throughput": {
+      "metric": "decoder_input_throughput_gbs",
+      "operator": "ge",
+      "threshold": 100.0,
+      "actual": null,
+      "pass": null
+    },
+    "penalty": {
+      "metric": "latency_penalty_vs_int4",
+      "operator": "le",
+      "threshold": 2.0,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "failure_reproduction": null,
+    "falsifiable_hypothesis": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "invariant_controls": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "real_implementation": null,
+    "receipt_fingerprint": null,
+    "semantic_parity": null,
+    "source_execution_receipt": null
+  },
+  "receipt_fingerprint": null
+}

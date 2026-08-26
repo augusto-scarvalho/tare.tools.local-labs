@@ -1,0 +1,62 @@
+{
+  "physical_cuda_training": true,
+  "fresh_seed": 20260827,
+  "probe_specs": [
+    [
+      "adapt01",
+      "tools/probes/adapt01_lokr_scale.py",
+      [
+        "--output-root",
+        "/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt01",
+        "--seed",
+        "20260827",
+        "--python",
+        "/home/augus/.venvs/adapt00-20260824/bin/python"
+      ]
+    ],
+    [
+      "adapt02",
+      "tools/probes/adapt02_module_targeting.py",
+      [
+        "--output-root",
+        "/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt02",
+        "--seed",
+        "20260827"
+      ]
+    ],
+    [
+      "adapt03",
+      "tools/probes/adapt03_soft_prompts.py",
+      [
+        "--output-root",
+        "/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt03",
+        "--seed",
+        "20260827"
+      ]
+    ],
+    [
+      "adapt04",
+      "tools/probes/adapt04_prior_preservation.py",
+      [
+        "--output-root",
+        "/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt04",
+        "--seed",
+        "20260827"
+      ]
+    ],
+    [
+      "adapt05",
+      "tools/probes/adapt05_modular_merging.py",
+      [
+        "--output-root",
+        "/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt05",
+        "--seed",
+        "20260827",
+        "--math-adapter",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt02/target_mlp_only/adapter",
+        "--qa-adapter",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt02/target_attn_only/adapter"
+      ]
+    ]
+  ]
+}

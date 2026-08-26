@@ -1,0 +1,95 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-BEE-L4-LIVE-MTP-01",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "request_coverage": {
+      "metric": "live_requests",
+      "operator": "eq",
+      "threshold": 100,
+      "actual": null,
+      "pass": null
+    },
+    "slot_coverage": {
+      "metric": "physical_slots",
+      "operator": "eq",
+      "threshold": 4,
+      "actual": null,
+      "pass": null
+    },
+    "speculation_coverage": {
+      "metric": "requests_with_draft_tokens",
+      "operator": "ge",
+      "threshold": 80,
+      "actual": null,
+      "pass": null
+    },
+    "rollback_coverage": {
+      "metric": "requests_with_rejected_draft_tokens",
+      "operator": "ge",
+      "threshold": 25,
+      "actual": null,
+      "pass": null
+    },
+    "state_consistency": {
+      "metric": "exact_repeat_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "nonce_integrity": {
+      "metric": "own_nonce_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "cross_slot_isolation": {
+      "metric": "cross_slot_leakage_count",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "service_integrity": {
+      "metric": "service_restarts",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "idle_recovery": {
+      "metric": "idle_slots_after",
+      "operator": "eq",
+      "threshold": 4,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "failure_reproduction": null,
+    "falsifiable_hypothesis": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "invariant_controls": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "real_implementation": null,
+    "receipt_fingerprint": null,
+    "semantic_parity": null,
+    "service_maintenance": null,
+    "source_execution_receipt": null,
+    "effective_route": null,
+    "recovery_state": null,
+    "service_identity": null
+  },
+  "receipt_fingerprint": null
+}

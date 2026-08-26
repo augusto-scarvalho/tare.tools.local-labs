@@ -1,0 +1,17 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "Codex",
+  "verdict": "APPROVED",
+  "receipt_sha256": "903c723f3d63130cf06a5e501498451beee0cee34a8aa71d6f9de36faeb602b8",
+  "implementation_digest": "0b1ec69aabc89bb23a56bc21b97c86cf8b0cdf36291df22880c962322216d927",
+  "findings": [
+    "Independent verification of clean-slate training execution across two distinct seeds (20260824 and 20260825) with zero preexisting files in the output directory.",
+    "Audit of PEFT LoRA training implementation targeting MLP projection layers (gate_proj, up_proj, down_proj, r=8, alpha=16) on Qwen/Qwen3.5-0.8B-Base with AdamW optimizer over 60 steps using 128 teacher reasoning pairs from runs/a2/market-r0__thinkingcap-27b-q4__gsm8k.json.",
+    "Both training runs demonstrated stable loss convergence without NaN/inf divergences (final loss 0.3004 on seed 20260824 and 0.7255 on seed 20260825) within ~5.0 GB peak VRAM on NVIDIA RTX 3090.",
+    "Offline behavioral evaluation verified across frozen 32-sample GSM8K math panel and 16-sample protected QA panel (144 total samples across base and both trained arms).",
+    "Independent scoring audit confirmed 100% deterministic agreement between logged extractions and deterministic grading functions with zero discrepancies.",
+    "All 4 preregistered acceptance gates passed: fresh_output (0 eq 0), repeatability (2 ge 2), behavioral_gain (+0.0938 gt 0), and retention (0.0000 le 0.05).",
+    "Behavioral qualification confirmed: trained adapter finalists achieved +21.9% (+7/32) on seed 20260824 and +9.4% (+3/32) on seed 20260825 over base control (7/32) while preserving 100% protected QA retention (0.0% regression).",
+    "Scope boundaries strictly upheld: Claim code TRAINING_REPRODUCED is valid; no claims made regarding GaLore generalization, single-seed promotions, or general model capabilities."
+  ]
+}

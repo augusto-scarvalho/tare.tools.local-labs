@@ -1,0 +1,63 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-HYPER01-REAL-ADAPTER-01",
+  "evidence_class": "proxy_realization",
+  "executor": "Codex executor",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:19:53Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:20:16Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:21:36Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:21:48Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-HYPER01-REAL-ADAPTER-01/PRE_REGISTRATION.md",
+    "sha256": "6969ca78bfcfa3e832895904c7dcea0f920f2e428a459051f2230b3b82da20f9"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_hyper01_real_adapter.py",
+      "sha256": "ba694f6d73d4bbc71114025f2c500b16d225b88a3e2a3132a47537053c0bcf52"
+    },
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/hyper01_real_adapter_worker.py",
+      "sha256": "1aeb1ac5ec2f83ea97f96a315a481b24dad9214c448c4d74630f1f3aadc8ebfd"
+    },
+    {
+      "path": "tools/research/run_hyper01_real_adapter.py",
+      "sha256": "38b699992333b7c47fdfff10fd44cd4e883355d218193a1769535d1b87de94b0"
+    }
+  ],
+  "implementation_digest": "38f6f21cebed80a3f46396f18b6c32aff1c5c2b15b239c6e1db72210788b654c",
+  "execution": {
+    "path": "runs/research/BACKLOG-HYPER01-REAL-ADAPTER-01/raw/receipt.json",
+    "sha256": "60e9d83a46a06c65b28067c141b06d8bfdb9ba5009fbfbcdb1dce37afe2f2fa3"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

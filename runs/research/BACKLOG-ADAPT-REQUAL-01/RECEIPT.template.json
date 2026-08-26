@@ -1,0 +1,54 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT-REQUAL-01",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "artifact_identity": {
+      "metric": "hashed_artifacts",
+      "operator": "eq",
+      "threshold": 13,
+      "actual": null,
+      "pass": null
+    },
+    "frozen_math_panel": {
+      "metric": "scored_math_samples_per_arm",
+      "operator": "ge",
+      "threshold": 32,
+      "actual": null,
+      "pass": null
+    },
+    "frozen_qa_panel": {
+      "metric": "scored_qa_samples_per_arm",
+      "operator": "ge",
+      "threshold": 16,
+      "actual": null,
+      "pass": null
+    },
+    "base_control": {
+      "metric": "base_control_present",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "independent_score": {
+      "metric": "independent_scorer_match",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "independent_evaluation": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "scorer_hashes": null
+  },
+  "receipt_fingerprint": null
+}

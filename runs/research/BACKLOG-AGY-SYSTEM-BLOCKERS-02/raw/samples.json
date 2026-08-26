@@ -1,0 +1,56 @@
+[
+  {
+    "item": "SLX-03",
+    "pattern": "state[-_ ]write[-_ ]elision|elision[_ -]n16|ephemeral[_ -]eos",
+    "binary_matches": [],
+    "source_matches": [],
+    "artifact_matches": [],
+    "missing_integration": true,
+    "unlock_criterion": "compiled recurrent-state write cadence/elision in the deployed decode path plus hardware write counters"
+  },
+  {
+    "item": "SLX-07",
+    "pattern": "\\bh2o\\b|heavy[-_ ]hitter|heavy hitter oracle",
+    "binary_matches": [],
+    "source_matches": [],
+    "artifact_matches": [],
+    "missing_integration": true,
+    "unlock_criterion": "H2O attention-score accumulator and eviction policy integrated into the deployed KV lifecycle"
+  },
+  {
+    "item": "REP-04",
+    "pattern": "\\bkvarn\\b|kvarn[_ -]",
+    "binary_matches": [],
+    "source_matches": [],
+    "artifact_matches": [],
+    "missing_integration": true,
+    "unlock_criterion": "native fused KVarN attention/dequantization kernel callable by the deployed runtime"
+  },
+  {
+    "item": "REP-05",
+    "pattern": "layerwise.{0,40}cache.{0,20}(type|precision)|per[-_ ]layer.{0,30}(kv|cache)",
+    "binary_matches": [],
+    "source_matches": [],
+    "artifact_matches": [],
+    "missing_integration": true,
+    "unlock_criterion": "per-layer KV precision allocator/CLI and physical mixed-precision cache buffers"
+  },
+  {
+    "item": "RETRO-01",
+    "pattern": "recurrent.{0,30}retrofit|retrofit.{0,30}recurrent",
+    "binary_matches": [],
+    "source_matches": [],
+    "artifact_matches": [],
+    "missing_integration": true,
+    "unlock_criterion": "trained recurrent-retrofit checkpoint with immutable model identity and runnable inference route"
+  },
+  {
+    "item": "SLX-08",
+    "pattern": "speculative.{0,30}prefill|prefill.{0,30}speculative|selected[-_ ]block.{0,30}(qkv|prefill)",
+    "binary_matches": [],
+    "source_matches": [],
+    "artifact_matches": [],
+    "missing_integration": true,
+    "unlock_criterion": "selected-block speculative-prefill implementation wired into real TTFT"
+  }
+]

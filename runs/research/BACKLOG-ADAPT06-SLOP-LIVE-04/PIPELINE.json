@@ -1,0 +1,53 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT06-SLOP-LIVE-04",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-26T01:19:42Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-26T01:20:03Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-26T01:21:20Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "codex",
+      "at": "2026-08-26T01:23:06Z",
+      "reason": "Restoration comparator included volatile systemd PID/start_time fields; successor compares immutable path+argv only."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-04/PRE_REGISTRATION.md",
+    "sha256": "93dc07c53d8742e3b2b9f8cafc2ed96c989dc8e6da48e9b85341407af45a3b16"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_adapt06_slop_live_r4.py",
+      "sha256": "132528f68dd3a464aeb17ea1ce99c8cda5224b1a0d329038f614220d256a6d58"
+    },
+    {
+      "path": "tools/research/run_adapt06_slop_live_r4.py",
+      "sha256": "1ea84a9e1d256efc6bd7edd0f34ceca4464c3f022dd941eb3bb68e347c454f25"
+    }
+  ],
+  "implementation_digest": "bb6dd56f963584f4f21dd1a37c753d02504c2f8e64027aa132e07bbc801b7810",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

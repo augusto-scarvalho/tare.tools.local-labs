@@ -1,0 +1,55 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX10-PACKED-RUNTIME-02",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-26T01:39:50Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-26T01:40:10Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-26T01:41:21Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "codex",
+      "at": "2026-08-26T01:42:42Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX10-PACKED-RUNTIME-02/PRE_REGISTRATION.md",
+    "sha256": "058efe1958e865a35de8e708846cee8cdfa8acc24c24d162dfb930c67fe7bf8c"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_slx10_packed_runtime_r2.py",
+      "sha256": "e8f44508408587319f16d5ddfb59527cff5bba43ef4f6efad714922054cad07c"
+    },
+    {
+      "path": "tools/research/run_slx10_packed_runtime_r2.py",
+      "sha256": "9418f79f8045be8ce1c4ce1ff07578e86169fd6316fd432b07230c87309ac8a1"
+    }
+  ],
+  "implementation_digest": "bdba973e2ab06db940825f1d6f3f87cd7a26580d98679b2cb3e6ee70e7a138d4",
+  "execution": {
+    "path": "runs/research/BACKLOG-SLX10-PACKED-RUNTIME-02/raw/receipt.json",
+    "sha256": "3744601a1c1b6c04027bc07b194ee810e67c733d100016ef4fa0306bb43f0a86"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

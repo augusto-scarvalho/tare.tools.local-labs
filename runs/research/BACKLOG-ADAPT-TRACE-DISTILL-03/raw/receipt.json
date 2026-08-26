@@ -1,0 +1,356 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-DISTILL-03",
+  "provenance": {
+    "schema": "local-labs-experiment-provenance-v1",
+    "started_at_utc": "2026-08-25T23:27:54Z",
+    "finished_at_utc": "2026-08-25T23:34:49Z",
+    "elapsed_seconds": 414.75,
+    "command": [
+      "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "tools/research/run_trace_distillation_training_r3.py",
+      "--outdir",
+      "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03"
+    ],
+    "cwd": "C:\\projects\\tare.tools.local-labs",
+    "repository": {
+      "head": "eaf987446044443d700b02e1dd19df4dcb75fd9b",
+      "dirty": true,
+      "status_entry_count": 230,
+      "status_sha256": "0ea012f21c89727b354df3b8cd0677a84837eea39be7d98163730ef50afc6edd",
+      "errors": []
+    },
+    "script": {
+      "path": "C:\\projects\\tare.tools.local-labs\\tools\\research\\run_trace_distillation_training_r3.py",
+      "sha256": "58049059877898be36aad710d1d2c20e6d088ec95617c4e2191f6b22fd33d3a1"
+    },
+    "inputs": [
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-03\\raw\\actual_scores.json",
+        "status": "HASHED",
+        "bytes": 905,
+        "sha256": "5f198e5616b6a01512a8fe08dc1fba416f9779cd4ca5dea666b49d6302b034c6"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-03\\raw\\checkpoint_hashes.json",
+        "status": "HASHED",
+        "bytes": 1462,
+        "sha256": "2a9f8a753b1b24439dfcf10a77a2878b9d93fb4a7f0233aedf1316944543e2ba"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-03\\raw\\clean_base_receipts.json",
+        "status": "HASHED",
+        "bytes": 1954,
+        "sha256": "82d59ca65a786d4916ec65f72893a7ce278cfbde9a5cb56ddb67d7204c8b30fb"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-03\\raw\\continuation_ledger.json",
+        "status": "HASHED",
+        "bytes": 3379,
+        "sha256": "f845b52a4e0584787fca900ed4e814a220d1ddfe54a5b1f79b94260d44725598"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-03\\raw\\dataset_hashes.json",
+        "status": "HASHED",
+        "bytes": 4839,
+        "sha256": "4f9a4979c6cd1771c3acbab9efc325a273590dd6aea32a4fbcf9e0905797b245"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-03\\raw\\independent_evaluation.json",
+        "status": "HASHED",
+        "bytes": 1028,
+        "sha256": "33dafb8d18fd590298c1e6b688ffdbe6e2b79f9390efef9629b97a139420d169"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-03\\raw\\model_hash.json",
+        "status": "HASHED",
+        "bytes": 397,
+        "sha256": "45f10080c70897cb106b21013bc4953f6a5696a27296098972d60ca132fad1ec"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-03\\raw\\samples.jsonl",
+        "status": "HASHED",
+        "bytes": 271455,
+        "sha256": "3b39f616503a7eddf70c8bb973b1109605ffe6b8b711d37865a3aecb8b6d28b9"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-03\\raw\\service_maintenance.json",
+        "status": "HASHED",
+        "bytes": 2695,
+        "sha256": "51e52e1185080f89fb0cec8704c09fa9dec85bfcaea73d2be6c5cdbc5b9c09f8"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-03\\raw\\student_samples.json",
+        "status": "HASHED",
+        "bytes": 290453,
+        "sha256": "295981203f499e8de2405f2bb7c536957ac220a6fe5a9c6a2601169df75480d9"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-03\\raw\\teacher_samples.json",
+        "status": "HASHED",
+        "bytes": 175402,
+        "sha256": "e545dfa0a35b97b00b72a1f1b32e35052a083b74d7bf8b26145ec6e87dcd102a"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-03\\raw\\training_pairs.json",
+        "status": "HASHED",
+        "bytes": 346561,
+        "sha256": "e6dd3bb9d86b0c8d34f89f68d07768e6d0f53451295e70a02fafc9d6a0748966"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-03\\raw\\training_trace.json",
+        "status": "HASHED",
+        "bytes": 124903,
+        "sha256": "eff24e56600af5fce58a013240d1324c445bac251d755a6de55f41df35fc8052"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-03\\raw\\treatment_materiality.json",
+        "status": "HASHED",
+        "bytes": 960,
+        "sha256": "e45ab6646bc6cad119bbe26b866e923b779f54d9ab86b2682c7a2979ea8e7eee"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-02\\ABORTED.md",
+        "status": "HASHED",
+        "bytes": 1384,
+        "sha256": "648970adb100d68f8a63523b5ef5f7a0eb9bf30228e3161f7bb0b7e4aeb770a9"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-02\\raw\\training_pairs.json",
+        "status": "HASHED",
+        "bytes": 346561,
+        "sha256": "e6dd3bb9d86b0c8d34f89f68d07768e6d0f53451295e70a02fafc9d6a0748966"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-02\\raw\\service_maintenance.json",
+        "status": "HASHED",
+        "bytes": 2695,
+        "sha256": "029892b166778978911c22f6847ade1f155019f632b11b3d5b0ae9a3608bbbbc"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-02\\raw\\workers\\seed_20260824_answer_only.json",
+        "status": "HASHED",
+        "bytes": 69957,
+        "sha256": "be30915b4b5c8b402a98953ecd0aba829afbe9fa58be5116616546614ccde79c"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-02\\raw\\workers\\seed_20260824_full_trace.json",
+        "status": "HASHED",
+        "bytes": 66507,
+        "sha256": "c389a8290effa80b45685516375499a0f0c41a79348b3490e489608d27eaa7db"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-02\\raw\\workers\\seed_20260825_answer_only.json",
+        "status": "HASHED",
+        "bytes": 70371,
+        "sha256": "a8fcd0a8bb782176840882513e60d9670550e13c1493f994b09f409c55a2ef36"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-02\\raw\\workers\\seed_20260825_full_trace.json",
+        "status": "HASHED",
+        "bytes": 65165,
+        "sha256": "0220a38e5ae1c74695ac91b25807c85a907fa8d0c949306c59e6be6e35f872f0"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-02\\raw\\checkpoints\\seed_20260824_answer_only\\adapter_config.json",
+        "status": "HASHED",
+        "bytes": 1127,
+        "sha256": "5acceba987552a5aa7f128d3840b9c465225345f60eb585ab0e9d7b7742e5e14"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-02\\raw\\checkpoints\\seed_20260824_answer_only\\adapter_model.safetensors",
+        "status": "HASHED",
+        "bytes": 10635280,
+        "sha256": "ef5bec8822e856883eaec930d2b851892bb6b681bde1fda5f76005667adbf1a2"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-02\\raw\\checkpoints\\seed_20260824_full_trace\\adapter_config.json",
+        "status": "HASHED",
+        "bytes": 1127,
+        "sha256": "4872214e344ce266b0b10a1f70db33775224441ff1d78dbe0c7fb4dd70aeac84"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-02\\raw\\checkpoints\\seed_20260824_full_trace\\adapter_model.safetensors",
+        "status": "HASHED",
+        "bytes": 10635280,
+        "sha256": "174832aa1bd25cbc5ed7f0ff717ad253ec94e2c23edc82e6f828ceadeed566b7"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-02\\raw\\checkpoints\\seed_20260825_answer_only\\adapter_config.json",
+        "status": "HASHED",
+        "bytes": 1127,
+        "sha256": "091ddc225ff85380e6815963fad17391f4d8e89fb38523ddc2b798086c82ecb1"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-02\\raw\\checkpoints\\seed_20260825_answer_only\\adapter_model.safetensors",
+        "status": "HASHED",
+        "bytes": 10635280,
+        "sha256": "56ff9be8c5ac0876389cf12fe23a2ac301eac7c99cef977fa455b76f5817a2e6"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-02\\raw\\checkpoints\\seed_20260825_full_trace\\adapter_config.json",
+        "status": "HASHED",
+        "bytes": 1127,
+        "sha256": "091ddc225ff85380e6815963fad17391f4d8e89fb38523ddc2b798086c82ecb1"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-02\\raw\\checkpoints\\seed_20260825_full_trace\\adapter_model.safetensors",
+        "status": "HASHED",
+        "bytes": 10635280,
+        "sha256": "dc696b7553cf8e4d920f8554ec4e3dee484a04da374ef0d54bcb48160044050a"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\config\\research_backlog_admissions\\BACKLOG-ADAPT-TRACE-DISTILL-03.json",
+        "status": "HASHED",
+        "bytes": 3132,
+        "sha256": "17915c826fe75ba2ede1a1be151824f9ae8c276f6e6047a0d9f3713cdf94dbed"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\config\\research_backlog_admissions\\BACKLOG-ADAPT-TRACE-DISTILL-02.json",
+        "status": "HASHED",
+        "bytes": 2869,
+        "sha256": "4b88fa1a699c886e6ba3f2a3654e4cb6f79aafa12e006ae7455cf20e423e2690"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\docs\\AUDIT_2026-08-25_CODEX_INDEPENDENT_AGY_EXECUTION.md",
+        "status": "HASHED",
+        "bytes": 16057,
+        "sha256": "e4364456156a3c2f015306d986192792fb1aa9ae9333b63a2237ec46e3ffc11f"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\a2\\market-r0__thinkingcap-27b-q4__gsm8k.json",
+        "status": "HASHED",
+        "bytes": 634971,
+        "sha256": "dc5cabe44c92e48b0e832881ef27ebad4047b140928c9a12678e0c0c6660006e"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\workloads\\gsm8k.jsonl",
+        "status": "HASHED",
+        "bytes": 389701,
+        "sha256": "68a72276898a45dacb893154477621ff3d05ae7e043a10820644b691d8b63d77"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\requalification\\QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23\\tasks.jsonl",
+        "status": "HASHED",
+        "bytes": 11016,
+        "sha256": "56434ebd53ff9f5adb477bd902566e28644fe9ea88619834f81417a06c66b84f"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-01\\raw\\teacher_samples.json",
+        "status": "HASHED",
+        "bytes": 28345,
+        "sha256": "9b9f86bdcfae10ccdd28a0f8a48ccf95da57b8b04cbf06c2f94cb9d6c14e8d08"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRAIN-01\\raw\\training_trace.json",
+        "status": "HASHED",
+        "bytes": 17450,
+        "sha256": "a1c21848acf5d6cf90610806db8f67a3d61acc979be52f36aff998ad37826a31"
+      }
+    ],
+    "environment": {
+      "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+      "executable": "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "pytest": "9.1.1"
+      },
+      "gpu": {
+        "available": true,
+        "query": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576",
+        "error": null
+      }
+    },
+    "runtime": {
+      "execution_mode": "frozen_trace_distillation_continuation",
+      "imported_workers": 4,
+      "new_workers": 2
+    }
+  },
+  "provenance_complete": true,
+  "gates": {
+    "continuation_integrity": {
+      "metric": "frozen_partial_workers_verified",
+      "operator": "eq",
+      "threshold": 4,
+      "actual": 4,
+      "pass": true
+    },
+    "treatment_materiality": {
+      "metric": "matched_distinct_training_targets_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": true,
+      "pass": true
+    },
+    "clean_base": {
+      "metric": "fresh_base_workers",
+      "operator": "eq",
+      "threshold": 6,
+      "actual": 6,
+      "pass": true
+    },
+    "paired_training": {
+      "metric": "matched_pairs_per_arm_per_seed",
+      "operator": "eq",
+      "threshold": 128,
+      "actual": 128,
+      "pass": true
+    },
+    "seed_coverage": {
+      "metric": "completed_paired_seeds",
+      "operator": "eq",
+      "threshold": 3,
+      "actual": 3,
+      "pass": true
+    },
+    "heldout_gain": {
+      "metric": "mean_trace_math_gain_over_answer_only",
+      "operator": "gt",
+      "threshold": 0.0,
+      "actual": 0.083333,
+      "pass": true
+    },
+    "directional_repeatability": {
+      "metric": "seeds_with_nonnegative_trace_math_gain",
+      "operator": "ge",
+      "threshold": 2,
+      "actual": 2,
+      "pass": true
+    },
+    "protected_regression": {
+      "metric": "mean_protected_qa_regression_vs_answer_only",
+      "operator": "le",
+      "threshold": 0.05,
+      "actual": 0.041667,
+      "pass": true
+    },
+    "service_recovery": {
+      "metric": "service_and_embedding_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": true,
+      "pass": true
+    }
+  },
+  "evidence": {
+    "acceptance_gates": "raw/receipt.json",
+    "actual_scores": "raw/actual_scores.json",
+    "checkpoint_hashes": "raw/checkpoint_hashes.json",
+    "clean_base_receipts": "raw/clean_base_receipts.json",
+    "continuation_ledger": "raw/continuation_ledger.json",
+    "dataset_hashes": "raw/dataset_hashes.json",
+    "independent_evaluation": "raw/independent_evaluation.json",
+    "model_hash": "raw/model_hash.json",
+    "provenance": "raw/receipt.json",
+    "raw_samples": "raw/samples.jsonl",
+    "receipt_fingerprint": "raw/receipt.json",
+    "service_maintenance": "raw/service_maintenance.json",
+    "student_samples": "raw/student_samples.json",
+    "teacher_samples": "raw/teacher_samples.json",
+    "training_pairs": "raw/training_pairs.json",
+    "training_trace": "raw/training_trace.json",
+    "treatment_materiality": "raw/treatment_materiality.json"
+  },
+  "receipt_fingerprint": "082d6952dae321802e29c22653a6aa6f04033cea5248922d9387188eb1a3eaa3"
+}

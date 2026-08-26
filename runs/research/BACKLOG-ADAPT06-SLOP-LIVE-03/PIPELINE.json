@@ -1,0 +1,53 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT06-SLOP-LIVE-03",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-26T01:13:39Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-26T01:13:54Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-26T01:14:20Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "codex",
+      "at": "2026-08-26T01:19:42Z",
+      "reason": "LoRAs are Qwen3.5-0.8B but active Fable GGUF has incompatible tensor shapes; successor converts matching frozen base."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-03/PRE_REGISTRATION.md",
+    "sha256": "d84708bea312661ee398b08e078ef57695d49212141c99501195273b74b7ab3a"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_adapt06_slop_live_r3.py",
+      "sha256": "331abf0661863568736794855263bb125e5a75a21b10afb4fec0ec8d5c17ec6b"
+    },
+    {
+      "path": "tools/research/run_adapt06_slop_live_r3.py",
+      "sha256": "8d23d446ef996c56a0a986c062ac493680ada8a86b8ffc917b0a2e1890f16901"
+    }
+  ],
+  "implementation_digest": "abaa8eb58ebdee434065c794a464d23326e88d52dac015231d130058474760bd",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

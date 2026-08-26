@@ -1,0 +1,34 @@
+{
+  "id": "BACKLOG-HYPER01-REAL-ADAPTER-01",
+  "priority": 0,
+  "title": "Retest HYPER-01 rejection against four physical LoRA checkpoints",
+  "evidence_class": "proxy_realization",
+  "packet_dir": "runs/research/BACKLOG-HYPER01-REAL-ADAPTER-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/HYPER-01-CAPSULES-2026-08-25/PRE_REGISTRATION.md",
+    "runs/research/HYPER-01-CAPSULES-2026-08-25/RESULT.md",
+    "runs/research/HYPER-01-CAPSULES-2026-08-25/raw/receipt.json",
+    "tools/probes/hyper01_capsule_generator.py",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/checkpoints"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "hardware_metrics",
+    "independent_evaluation", "invalidation_rules", "paired_baseline", "provenance",
+    "raw_samples", "real_implementation", "receipt_fingerprint", "semantic_parity",
+    "service_maintenance", "target_materiality"
+  ],
+  "acceptance_gates": [
+    {"id": "physical_targets", "metric": "physical_adapter_targets", "operator": "eq", "threshold": 4},
+    {"id": "target_distinctness", "metric": "distinct_target_deltas", "operator": "eq", "threshold": 4},
+    {"id": "latency", "metric": "median_synthesis_latency_ms", "operator": "le", "threshold": 5.0},
+    {"id": "fidelity", "metric": "mean_weight_delta_cosine", "operator": "ge", "threshold": 0.95},
+    {"id": "overhead", "metric": "generator_vram_overhead_mb", "operator": "le", "threshold": 20.0},
+    {"id": "independent_recompute", "metric": "independent_metric_recompute_match", "operator": "eq", "threshold": true},
+    {"id": "service_recovery", "metric": "service_and_embedding_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": ["HYPER01_FALSE_NEGATIVE_CANDIDATE_R1", "HYPER01_NEGATIVE_RETAINED_R1"],
+  "forbidden_claims": ["whole-adapter generation", "unseen-task generalization", "production adapter synthesis"],
+  "next_action": "Replace random target LoRA matrices with one matched physical module from four frozen checkpoints and rerun the original gates.",
+  "supersedes": null
+}

@@ -1,0 +1,53 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT06-SLOP-LIVE-02",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-26T01:11:32Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-26T01:11:47Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-26T01:12:22Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "codex",
+      "at": "2026-08-26T01:13:39Z",
+      "reason": "Unprivileged systemd stop left original daemon active; successor uses root and asserts port-down handoff."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-02/PRE_REGISTRATION.md",
+    "sha256": "0b5135d8f3c2cd26bed6b88ea1ea1d251ed0903aaea113caa609a084d97ff254"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_adapt06_slop_live_r2.py",
+      "sha256": "f6beaa66a8ae9127ae6c45d76d02dd8af08e219d00530ca4681af801d0075b54"
+    },
+    {
+      "path": "tools/research/run_adapt06_slop_live_r2.py",
+      "sha256": "2242b3e5e424297739828b115c53ed2f36e2c452218dc059f6eb57bfe718f860"
+    }
+  ],
+  "implementation_digest": "d5bf6a6703a93a9b7c0bc0f5ad11937181ffbd7c68c8fb3adf3ef3d80108023d",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

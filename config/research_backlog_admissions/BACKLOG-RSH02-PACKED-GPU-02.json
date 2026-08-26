@@ -1,0 +1,35 @@
+{
+  "id": "BACKLOG-RSH02-PACKED-GPU-02",
+  "priority": 0,
+  "title": "Requalify RSH-02 physical block-Huffman after Triton namespace fix",
+  "evidence_class": "mechanism_research",
+  "packet_dir": "runs/research/BACKLOG-RSH02-PACKED-GPU-02",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-RSH02-PACKED-GPU-01/ABORTED.md",
+    "runs/research/RSH-02-HYPERQUANT-2026-08-25/PRE_REGISTRATION.md",
+    "runs/research/RSH-02-HYPERQUANT-2026-08-25/RESULT.md",
+    "runs/research/RSH-02-HYPERQUANT-2026-08-25/raw/receipt.json",
+    "tools/probes/rsh02_hyperquant_entropy_coding.py",
+    "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-02/raw/model_hash.json"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "dataset_hashes",
+    "failure_reproduction", "falsifiable_hypothesis", "hardware_metrics",
+    "independent_evaluation", "invalidation_rules", "invariant_controls",
+    "paired_baseline", "provenance", "raw_samples", "real_implementation",
+    "receipt_fingerprint", "semantic_parity", "source_execution_receipt"
+  ],
+  "acceptance_gates": [
+    {"id": "real_source", "metric": "actual_model_weight_elements", "operator": "ge", "threshold": 14000000},
+    {"id": "physical_packing", "metric": "physical_packed_bitstream", "operator": "eq", "threshold": true},
+    {"id": "exact_decode", "metric": "exact_roundtrip_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "compression", "metric": "physical_bits_per_element", "operator": "le", "threshold": 3.0},
+    {"id": "throughput", "metric": "decoder_input_throughput_gbs", "operator": "ge", "threshold": 100.0},
+    {"id": "penalty", "metric": "latency_penalty_vs_int4", "operator": "le", "threshold": 2.0}
+  ],
+  "allowed_claim_codes": ["RSH02_PACKED_GPU_QUALIFIED_R2", "RSH02_NEGATIVE_RETAINED_R2", "RSH02_FALSE_NEGATIVE_CONFIRMED_R2"],
+  "forbidden_claims": ["serving qualification", "end-to-end model quality", "VRAM reduction", "ANS qualification", "generalization beyond frozen tensors and RTX 3090"],
+  "next_action": "Rerun the identical physical codec with only the Triton namespace binding corrected.",
+  "supersedes": "BACKLOG-RSH02-PACKED-GPU-01"
+}

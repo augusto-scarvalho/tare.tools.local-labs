@@ -1,0 +1,35 @@
+{
+  "id": "BACKLOG-SLX08-REAL-FIDELITY-01",
+  "priority": 0,
+  "title": "Retest the rejected SLX-08 fidelity gate with real Qwen QKV and the computed block indices",
+  "evidence_class": "proxy_realization",
+  "packet_dir": "runs/research/BACKLOG-SLX08-REAL-FIDELITY-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/SLX-08-SPECULATIVE-PREFILL-2026-08-25/PRE_REGISTRATION.md",
+    "runs/research/SLX-08-SPECULATIVE-PREFILL-2026-08-25/RESULT.md",
+    "runs/research/SLX-08-SPECULATIVE-PREFILL-2026-08-25/raw/receipt.json",
+    "tools/probes/slx08_speculative_prefill_oracle.py"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "dataset_hashes", "hardware_metrics",
+    "independent_evaluation", "invalidation_rules", "model_hash", "paired_baseline",
+    "provenance", "raw_samples", "real_implementation", "receipt_fingerprint",
+    "semantic_parity", "service_maintenance", "tensor_identity", "treatment_materiality"
+  ],
+  "acceptance_gates": [
+    {"id": "actual_qkv_coverage", "metric": "actual_qkv_cells", "operator": "ge", "threshold": 12},
+    {"id": "no_synthetic_decisive_tensors", "metric": "all_decisive_tensors_from_frozen_model", "operator": "eq", "threshold": true},
+    {"id": "computed_indices_used", "metric": "computed_top_block_indices_materially_used", "operator": "eq", "threshold": true},
+    {"id": "independent_recompute", "metric": "independent_metric_recompute_match", "operator": "eq", "threshold": true},
+    {"id": "fidelity", "metric": "median_selected_block_context_cosine", "operator": "ge", "threshold": 0.95},
+    {"id": "service_recovery", "metric": "service_and_embedding_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": ["SLX08_FIDELITY_FALSE_NEGATIVE_CANDIDATE_R1", "SLX08_FIDELITY_NEGATIVE_RETAINED_R1"],
+  "forbidden_claims": [
+    "TTFT speedup", "production speculative prefill", "packed memory reduction",
+    "full-model semantic parity", "generalization beyond the frozen cells"
+  ],
+  "next_action": "Use actual Qwen QKV, gather the blocks selected by the computed indices, and retest only the rejected fidelity gate.",
+  "supersedes": null
+}

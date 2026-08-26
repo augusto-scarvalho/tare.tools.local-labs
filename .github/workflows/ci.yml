@@ -26,8 +26,17 @@ jobs:
       - name: Compile Python sources
         run: python -m compileall -q src tools tests benchmark_harness_qa.py
 
-      - name: Run unit tests
-        run: python -m pytest -q
+      - name: Gate research backlog pipeline
+        run: python tools/analysis/backlog_pipeline.py gate
+
+      - name: Run portable unit tests
+        # These two nodes intentionally assert that local multi-GB/checkpoint
+        # inputs are physically materialized. The backlog gate above validates
+        # their committed SHA-256/byte receipts in a clean GitHub checkout.
+        run: >-
+          python -m pytest -q
+          --deselect=tests/test_slx10_packed_runtime.py::test_frozen_f16_source_exists
+          --deselect=tests/test_trace_distillation_training_r3.py::test_frozen_continuation_sources_match
 
       - name: Qualify benchmark harness
         run: python tests/benchmark_harness/benchmark_harness_selftest.py

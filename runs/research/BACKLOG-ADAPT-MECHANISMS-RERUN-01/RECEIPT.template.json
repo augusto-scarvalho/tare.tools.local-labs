@@ -1,0 +1,91 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT-MECHANISMS-RERUN-01",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "mechanism_coverage": {
+      "metric": "fresh_mechanisms_completed",
+      "operator": "eq",
+      "threshold": 5,
+      "actual": null,
+      "pass": null
+    },
+    "training_coverage": {
+      "metric": "fresh_training_arms",
+      "operator": "eq",
+      "threshold": 12,
+      "actual": null,
+      "pass": null
+    },
+    "evaluation_coverage": {
+      "metric": "fresh_scored_generations",
+      "operator": "eq",
+      "threshold": 768,
+      "actual": null,
+      "pass": null
+    },
+    "seed_control": {
+      "metric": "fresh_seed_verified",
+      "operator": "eq",
+      "threshold": 20260827,
+      "actual": null,
+      "pass": null
+    },
+    "independent_aggregate": {
+      "metric": "independent_score_match",
+      "operator": "eq",
+      "threshold": 1,
+      "actual": null,
+      "pass": null
+    },
+    "artifact_identity": {
+      "metric": "hashed_adapter_artifacts",
+      "operator": "ge",
+      "threshold": 13,
+      "actual": null,
+      "pass": null
+    },
+    "service_restore": {
+      "metric": "original_service_restored",
+      "operator": "eq",
+      "threshold": 1,
+      "actual": null,
+      "pass": null
+    },
+    "embedding_integrity": {
+      "metric": "embedding_health",
+      "operator": "eq",
+      "threshold": 200,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "checkpoint_hashes": null,
+    "dataset_hashes": null,
+    "failure_reproduction": null,
+    "falsifiable_hypothesis": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "invariant_controls": null,
+    "model_hash": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "real_implementation": null,
+    "receipt_fingerprint": null,
+    "scorer_hashes": null,
+    "seed": null,
+    "semantic_parity": null,
+    "service_maintenance": null,
+    "source_execution_receipt": null,
+    "training_receipt": null,
+    "training_trace": null
+  },
+  "receipt_fingerprint": null
+}

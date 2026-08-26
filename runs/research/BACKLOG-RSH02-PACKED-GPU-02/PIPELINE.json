@@ -1,0 +1,67 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-RSH02-PACKED-GPU-02",
+  "evidence_class": "mechanism_research",
+  "executor": "Codex executor",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:44:24Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:45:01Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:45:01Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:45:33Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-RSH02-PACKED-GPU-02/PRE_REGISTRATION.md",
+    "sha256": "147c4ff36d097fec785f47ed8b3e822f7595e6857203448a1e529a0a2977a60b"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_rsh02_packed_gpu.py",
+      "sha256": "3848293b883d915fefe4681ab34048733237893af84bb5599923e0fcc470ab0d"
+    },
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/rsh02_packed_gpu_worker.py",
+      "sha256": "4232f2bbc8b9adcd1a730a450ddf8f9c5b66af24521134cafa480391c21e025b"
+    },
+    {
+      "path": "tools/research/run_rsh02_packed_gpu.py",
+      "sha256": "2ec04e8d38ee41427eec2ca1b0a9e2fb35ec5aa4956136cfd8f0b99a7cf23cfb"
+    },
+    {
+      "path": "tools/research/run_rsh02_packed_gpu_r2.py",
+      "sha256": "3908af187fc78a1143ddbeb3365fc0dc16bf5e2da99c8ac147e06ce07497f02a"
+    }
+  ],
+  "implementation_digest": "ee9b89db8f6457928b89d9e0b5b0959d0f196aee849cd30487d471b4ad8476cb",
+  "execution": {
+    "path": "runs/research/BACKLOG-RSH02-PACKED-GPU-02/raw/receipt.json",
+    "sha256": "42d9eec4265f66b780a2da383f1959ce8423f33ed614829f2abdf6226014288b"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

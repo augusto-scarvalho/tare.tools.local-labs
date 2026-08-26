@@ -1,0 +1,63 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-GDN02-LEARNED-STATE-01",
+  "evidence_class": "mechanism_research",
+  "executor": "Codex executor",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:48:59Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:49:28Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:51:23Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:51:41Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-GDN02-LEARNED-STATE-01/PRE_REGISTRATION.md",
+    "sha256": "ec4d9514ed8497552e91b714c270020e61314155889776d1a12cbd98f7ae2373"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_gdn02_learned_state.py",
+      "sha256": "5fbf600fcfe73dd7939a99e306fa968830b9ec3490e48f6aa5e1dfc1dc74cbd3"
+    },
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/gdn02_learned_state_worker.py",
+      "sha256": "9d09cf2b93c870f14dadf20662a7f8298b14e60bedf91e2ca78ccca17d5970cf"
+    },
+    {
+      "path": "tools/research/run_gdn02_learned_state.py",
+      "sha256": "c6f37fccf63cff34d14a4b76595acd9bf50835ec2b3400f18c4742611d4e0fcb"
+    }
+  ],
+  "implementation_digest": "9a0a2619c746c13ce2240028894678eae83304c5b02a198988047e993ac5a921",
+  "execution": {
+    "path": "runs/research/BACKLOG-GDN02-LEARNED-STATE-01/raw/receipt.json",
+    "sha256": "3222aceaa925b48fda0b9eb684e32f5dac917e4e86a80c6fc65279cddbb7f236"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

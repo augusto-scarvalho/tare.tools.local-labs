@@ -1,0 +1,107 @@
+{
+  "commands": [
+    {
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04",
+        "-e",
+        "/home/augus/.venvs/adapt00-20260824/bin/python",
+        "/mnt/c/projects/tare.tools.local-labs/tools/probes/adapt01_lokr_scale.py",
+        "--model-path",
+        "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe",
+        "--output-root",
+        "/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt01",
+        "--seed",
+        "20260827",
+        "--python",
+        "/home/augus/.venvs/adapt00-20260824/bin/python"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 1234.8129999999946,
+      "name": "adapt01"
+    },
+    {
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04",
+        "-e",
+        "/home/augus/.venvs/adapt00-20260824/bin/python",
+        "/mnt/c/projects/tare.tools.local-labs/tools/probes/adapt02_module_targeting.py",
+        "--model-path",
+        "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe",
+        "--output-root",
+        "/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt02",
+        "--seed",
+        "20260827"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 1030.172000000006,
+      "name": "adapt02"
+    },
+    {
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04",
+        "-e",
+        "/home/augus/.venvs/adapt00-20260824/bin/python",
+        "/mnt/c/projects/tare.tools.local-labs/tools/probes/adapt03_soft_prompts.py",
+        "--model-path",
+        "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe",
+        "--output-root",
+        "/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt03",
+        "--seed",
+        "20260827"
+      ],
+      "returncode": 1,
+      "elapsed_seconds": 238.56200000000536,
+      "name": "adapt03"
+    },
+    {
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04",
+        "-e",
+        "/home/augus/.venvs/adapt00-20260824/bin/python",
+        "/mnt/c/projects/tare.tools.local-labs/tools/probes/adapt04_prior_preservation.py",
+        "--model-path",
+        "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe",
+        "--output-root",
+        "/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt04",
+        "--seed",
+        "20260827"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 1900.1559999999881,
+      "name": "adapt04"
+    },
+    {
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04",
+        "-e",
+        "/home/augus/.venvs/adapt00-20260824/bin/python",
+        "/mnt/c/projects/tare.tools.local-labs/tools/probes/adapt05_modular_merging.py",
+        "--model-path",
+        "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe",
+        "--output-root",
+        "/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt05",
+        "--seed",
+        "20260827",
+        "--math-adapter",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt02/target_mlp_only/adapter",
+        "--qa-adapter",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt02/target_attn_only/adapter"
+      ],
+      "returncode": 1,
+      "elapsed_seconds": 119.45300000000861,
+      "name": "adapt05"
+    }
+  ],
+  "gpu": "NVIDIA GeForce RTX 3090",
+  "service_downtime_seconds": 4523.156000000003
+}

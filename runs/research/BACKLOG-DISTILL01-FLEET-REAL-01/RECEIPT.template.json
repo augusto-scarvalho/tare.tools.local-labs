@@ -1,0 +1,74 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-DISTILL01-FLEET-REAL-01",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "source_execution": {
+      "metric": "source_real_execution_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "arm_coverage": {
+      "metric": "complete_required_arms",
+      "operator": "eq",
+      "threshold": 3,
+      "actual": null,
+      "pass": null
+    },
+    "sample_coverage": {
+      "metric": "complete_required_samples",
+      "operator": "eq",
+      "threshold": 144,
+      "actual": null,
+      "pass": null
+    },
+    "fleet_gain": {
+      "metric": "fleet_gain_over_monolith",
+      "operator": "ge",
+      "threshold": 0.2,
+      "actual": null,
+      "pass": null
+    },
+    "math_specialist": {
+      "metric": "fleet_math_correct",
+      "operator": "ge",
+      "threshold": 15,
+      "actual": null,
+      "pass": null
+    },
+    "qa_specialist": {
+      "metric": "fleet_qa_correct",
+      "operator": "ge",
+      "threshold": 5,
+      "actual": null,
+      "pass": null
+    },
+    "independent_scoring": {
+      "metric": "independent_rescore_match",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "failure_reproduction": null,
+    "falsifiable_hypothesis": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "invariant_controls": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "semantic_parity": null,
+    "source_execution_receipt": null
+  },
+  "receipt_fingerprint": null
+}

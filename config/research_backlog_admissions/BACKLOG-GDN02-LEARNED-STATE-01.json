@@ -1,0 +1,34 @@
+{
+  "id": "BACKLOG-GDN02-LEARNED-STATE-01",
+  "priority": 0,
+  "title": "Requalify GDN-02 on learned Qwen3.5 GatedDeltaNet states",
+  "evidence_class": "mechanism_research",
+  "packet_dir": "runs/research/BACKLOG-GDN02-LEARNED-STATE-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/GDN-02-ERASE-RETENTION-2026-08-25/PRE_REGISTRATION.md",
+    "runs/research/GDN-02-ERASE-RETENTION-2026-08-25/RESULT.md",
+    "runs/research/GDN-02-ERASE-RETENTION-2026-08-25/raw/receipt.json",
+    "tools/probes/gdn02_erase_retention_lab.py",
+    "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-02/raw/model_hash.json",
+    "workloads/gsm8k.jsonl"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "dataset_hashes",
+    "failure_reproduction", "falsifiable_hypothesis", "hardware_metrics",
+    "independent_evaluation", "invalidation_rules", "invariant_controls",
+    "paired_baseline", "provenance", "raw_samples", "real_implementation",
+    "receipt_fingerprint", "semantic_parity", "source_execution_receipt", "target_materiality"
+  ],
+  "acceptance_gates": [
+    {"id": "learned_states", "metric": "learned_gdn_layer_cells", "operator": "ge", "threshold": 3},
+    {"id": "target_leakage", "metric": "median_old_fact_leakage_pct", "operator": "le", "threshold": 5.0},
+    {"id": "collateral_retention", "metric": "median_collateral_retention_pct", "operator": "ge", "threshold": 90.0},
+    {"id": "update_fidelity", "metric": "median_updated_fact_fidelity_pct", "operator": "ge", "threshold": 95.0},
+    {"id": "state_materiality", "metric": "distinct_recurrent_state_conditions", "operator": "ge", "threshold": 3}
+  ],
+  "allowed_claim_codes": ["GDN02_LEARNED_STATE_QUALIFIED_R1", "GDN02_NEGATIVE_RETAINED_R1", "GDN02_FALSE_NEGATIVE_CONFIRMED_R1"],
+  "forbidden_claims": ["full-model behavioral editing", "serving integration", "permanent knowledge erasure", "generalization beyond frozen records/layers"],
+  "next_action": "Measure append-only fact correction against replace-in-place oracle using learned GatedDeltaNet layers and actual recurrent state hashes.",
+  "supersedes": null
+}

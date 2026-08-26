@@ -1,0 +1,540 @@
+{
+  "timestamp": "2026-08-26 02:42:14 UTC",
+  "agent": "Antigravity",
+  "model": "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe",
+  "summary": {
+    "target_correct": 18,
+    "target_n": 32,
+    "target_hash_format": 24,
+    "protected_pass": 0,
+    "protected_n": 16,
+    "natural_eos": 37,
+    "generation_n": 48,
+    "trainable_parameters": 8192,
+    "storage_footprint_kb": 16.0,
+    "train_loss_start": 0.5227,
+    "train_loss_end": 0.3159
+  },
+  "gates": {
+    "hash_format_rate_ge_75pct": true,
+    "protected_pass_ge_3": false,
+    "storage_footprint_le_32kb": true
+  },
+  "verdict": "REJECTED",
+  "target_results": [
+    {
+      "text": "Mark was unwell for 3 months, losing 10 pounds per month. The total weight loss is 3 months × 10 pounds/month = 30 pounds. His final weight was 70 pounds, so his initial weight was 70 pounds + 30 pounds = 100 pounds.\n\n#### 100",
+      "new_tokens": 74,
+      "natural_eos": true,
+      "wall_s": 1.3968940759950783,
+      "task_id": "gsm8k/548",
+      "gold": "100",
+      "extracted": "100",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "First, calculate the earnings for the first 40 hours at her regular hourly rate:\nRegular rate = $10 per hour\nEarnings for 40 hours = 40 × $10 = $400\n\nNext, calculate the overtime earnings. The overtime rate is 1.2 times the regular rate:\nOvertime rate = 1.2 × $10 = $12 per hour\nOvertime hours worked = 45 - 40 = 5 hours\nOvertime earnings = 5 × $12 = $60\n\nFinally, add the regular and overtime earnings to find the total:\nTotal earnings = $400 + $60 = $460\n\n#### 460",
+      "new_tokens": 158,
+      "natural_eos": true,
+      "wall_s": 2.910712853001314,
+      "task_id": "gsm8k/9",
+      "gold": "460",
+      "extracted": "460",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "Suzie bought 4 packs total. She paid $2 for strawberry gum and $7 for green apple gum. The remaining amount is $7 - $2 - $7 = -$2, which means she paid $2 for the remaining packs. Since she paid half as much for the green apple pack, the remaining packs cost $2 ÷ 2 = $1 each. Therefore, each strawberry gum pack costs $2 + $1 = $3.\n\n#### 3",
+      "new_tokens": 99,
+      "natural_eos": true,
+      "wall_s": 1.7724304769944865,
+      "task_id": "gsm8k/504",
+      "gold": "2",
+      "extracted": "3",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "Claire earns 1 badge per month. In one year (12 months), Claire earns 12 badges.\n\nAmber takes twice as long to earn a badge as Claire, so Amber earns 1 badge every 2 months. In one year, Amber earns 12 badges ÷ 2 months = 6 badges.\n\nWendy earns three times the amount of badges as Claire in the same time frame, so Wendy earns 3 × 12 = 36 badges in one year.\n\nThe difference between Wendy's and Amber's badges earned in a year is 36 - 6 = 30 badges.\n\n#### 30",
+      "new_tokens": 139,
+      "natural_eos": true,
+      "wall_s": 2.305506696997327,
+      "task_id": "gsm8k/861",
+      "gold": "30",
+      "extracted": "30",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "Let's break down the costs of each item:\n\n1. Chicken meal: $12\n2. Milk: 5 packs × $3/pack = $15\n3. Apples: 4 apples × $1.50/apple = $6\n4. Pizza: x boxes × $8.50/box = $8.50x\n\nThe total cost is $50, so we can set up the equation:\n$12 + $15 + $6 + $8.50x = $50\n\nCombine the known costs:\n$33 + $8.50x = $50\n\nSubtract $33 from both sides:\n$8.50x = $17\n\nDivide both sides by $8.50:\nx = $17 / $8.50\nx = 2\n\nTherefore, Marie ordered",
+      "new_tokens": 192,
+      "natural_eos": false,
+      "wall_s": 3.3569275670015486,
+      "task_id": "gsm8k/25",
+      "gold": "2",
+      "extracted": "2",
+      "correct": true,
+      "hash_format": false
+    },
+    {
+      "text": "First, calculate the number of chairs sent to the carpenter:\n- Normal chairs: 20\n- Baby chairs: 13\nTotal sent to carpenter = 20 + 13 = 33\n\nNext, subtract the chairs sent to the carpenter from the total number of chairs:\n- Normal chairs left: 170 - 20 = 150\n- Baby chairs left: 23 - 13 = 10\nTotal chairs left = 150 + 10 = 160\n\n#### 160",
+      "new_tokens": 126,
+      "natural_eos": true,
+      "wall_s": 2.4936925229994813,
+      "task_id": "gsm8k/723",
+      "gold": "160",
+      "extracted": "160",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "Larry's pets are cats, dogs, rabbits, fish, and gerbils.\n\n1. **Cats:** 3\n2. **Dogs:** 3 times the number of cats = 3 × 3 = 9\n3. **Rabbits:** 2 fewer than dogs = 9 - 2 = 7\n4. **Fish:** 3 times the number of rabbits = 3 × 7 = 21\n5. **Gerbils:** 1/3 of the number of fish = (1/3) × 21 = 7\n\nNow, sum all the pets:\n3 (cats) + 9 (dogs) + 7 (rabbits) + 21 (fish) + 7 (gerbils) = 45\n\n#### 45",
+      "new_tokens": 175,
+      "natural_eos": true,
+      "wall_s": 3.5094611829990754,
+      "task_id": "gsm8k/920",
+      "gold": "47",
+      "extracted": "45",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "Kora made 20 dishes.\nRory makes 20 more dishes than Kora, so Rory makes 20 + 20 = 40 dishes.\nJada makes twice as many dishes as Rory, so Jada makes 2 × 40 = 80 dishes.\nTogether, they make 20 + 40 + 80 = 140 dishes.\n\n#### 140",
+      "new_tokens": 94,
+      "natural_eos": true,
+      "wall_s": 1.8802516199939419,
+      "task_id": "gsm8k/836",
+      "gold": "140",
+      "extracted": "140",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "Let's break down the problem step by step:\n\n1. **Calculate candidate A's votes:**\n   Since A got 20% of the total votes, we can calculate this as:\n   20% of 100 = 0.20 × 100 = 20 votes.\n\n2. **Calculate candidate B's votes:**\n   B got 50% more than A. First, find 50% of A's votes:\n   50% of 20 = 0.50 × 20 = 10 votes.\n   Then add this to A's votes:\n   20 + 10 = 30 votes.\n\n3. **Calculate candidate C's votes:**\n   The total votes are 100, so subtract the votes for A and B:\n   100 - 2",
+      "new_tokens": 192,
+      "natural_eos": false,
+      "wall_s": 3.911617612000555,
+      "task_id": "gsm8k/735",
+      "gold": "50",
+      "extracted": "2",
+      "correct": false,
+      "hash_format": false
+    },
+    {
+      "text": "First, calculate the number of apple pie boxes sold on Sunday:\n- Saturday: 10 boxes\n- Sunday: 10 - 4 = 6 boxes\n\nNext, calculate the number of gingerbread boxes sold on Sunday:\n- Saturday: 10 boxes\n- Sunday: 10 + 5 = 15 boxes\n\nNow, calculate the total number of boxes sold over the two days:\n- Saturday: 10 + 6 = 16 boxes\n- Sunday: 15 + 15 = 30 boxes\n- Total: 16 + 30 = 46 boxes\n\nCalculate the total earnings:\n- Gingerbread: 46 boxes × $6 = $276\n- Apple pie: 30 boxes × $15 = $450\n- Total: $276 + $450 = $72",
+      "new_tokens": 192,
+      "natural_eos": false,
+      "wall_s": 4.109912125990377,
+      "task_id": "gsm8k/976",
+      "gold": "540",
+      "extracted": "72",
+      "correct": false,
+      "hash_format": false
+    },
+    {
+      "text": "Ana spends 3 minutes peeling each orange, so in one hour (60 minutes), Ana will peel 60 ÷ 3 = 20 oranges.\nJane spends 4 minutes peeling each orange, so in one hour, Jane will peel 60 ÷ 4 = 15 oranges.\nThe difference in the number of oranges peeled is 20 - 15 = 5.\n\n#### 5",
+      "new_tokens": 93,
+      "natural_eos": true,
+      "wall_s": 1.8567624200077262,
+      "task_id": "gsm8k/1315",
+      "gold": "5",
+      "extracted": "5",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "Monday's total rainfall is 2 inches.\nTwice Monday's total is 2 × 2 = 4 inches.\nThe expected rain on Tuesday is 1 inch more than this amount, so 4 + 1 = 5 inches.\n\n#### 5",
+      "new_tokens": 57,
+      "natural_eos": true,
+      "wall_s": 0.9780465099902358,
+      "task_id": "gsm8k/1224",
+      "gold": "5",
+      "extracted": "5",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "Perg's firezone is a circle with a radius of 1000 feet. Polly can throw the gold javelin for a distance of 400 feet, which is well within this radius. When Polly holds the sapphire gemstone, she can throw the javelin three times farther, so her throwing distance becomes 400 × 3 = 1200 feet.\n\nTo find the maximum distance Polly can stand while still hitting the dragon, we need to determine the radius of the circle where the javelin can still reach the dragon. This is the distance from Polly's throwing point to the center of the firezone. Since the firezone is a circle centered at the dragon's location, the maximum distance Polly can stand is the difference between the throwing distance and the firezone's radius:\n\nMaximum distance = 1200 feet - 1000 feet = 200 feet\n\n####",
+      "new_tokens": 192,
+      "natural_eos": false,
+      "wall_s": 3.822202384006232,
+      "task_id": "gsm8k/41",
+      "gold": "200",
+      "extracted": "200",
+      "correct": true,
+      "hash_format": false
+    },
+    {
+      "text": "Ali starts with $21. Leila gives him half of her $100, which is $50. Adding these amounts together gives:\n$21 + $50 = $71.\n\n#### 71",
+      "new_tokens": 50,
+      "natural_eos": true,
+      "wall_s": 1.1376596970076207,
+      "task_id": "gsm8k/462",
+      "gold": "71",
+      "extracted": "71",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "To find the total amount of stuffing needed, we first calculate the average stuffing weight for a collie bed:\n(2 pounds + 8 pounds) ÷ 2 = 5 pounds.\n\nNext, we multiply the number of collie beds by the average weight:\n3 beds × 5 pounds/bed = 15 pounds.\n\nThen, we multiply the number of chihuahua beds by their individual weight:\n4 beds × 2 pounds/bed = 8 pounds.\n\nFinally, we add the two amounts together to get the total:\n15 pounds + 8 pounds = 23 pounds.\n\n#### 23",
+      "new_tokens": 136,
+      "natural_eos": true,
+      "wall_s": 2.995610557991313,
+      "task_id": "gsm8k/362",
+      "gold": "23",
+      "extracted": "23",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "First, calculate the thickness of the third book:\n5 mm - 5 mm = 0 mm.\n\nNext, calculate the thickness of the fourth book:\n2 × 31 mm = 62 mm.\n\nNow, sum all the individual book thicknesses:\n31 mm + 50 mm + 0 mm + 62 mm = 143 mm.\n\n#### 143",
+      "new_tokens": 89,
+      "natural_eos": true,
+      "wall_s": 1.8505038760049501,
+      "task_id": "gsm8k/537",
+      "gold": "188",
+      "extracted": "143",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "First, calculate the total number of hot dogs needed for the new party:\n20 guests × 2 hot dogs per guest = 40 hot dogs.\n\nNext, determine how many hot dogs are already available:\n4 hot dogs.\n\nSubtract the available hot dogs from the total needed to find the number of hot dogs still required:\n40 - 4 = 36 hot dogs.\n\nSince each pack contains 6 hot dogs, divide the remaining amount by the pack size:\n36 ÷ 6 = 6 packs.\n\nFinally, calculate the total cost by multiplying the number of packs by the cost per pack:\n6 packs × $2/pack = $12.\n\n#### 12",
+      "new_tokens": 153,
+      "natural_eos": true,
+      "wall_s": 3.0597170580003876,
+      "task_id": "gsm8k/1282",
+      "gold": "12",
+      "extracted": "12",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "Charlotte's original order was $120.00 for pots and pans, $20.00 for mixing bowls, and 5 × $5.00 = $25.00 for utensils.\nTotal before discount: $120.00 + $20.00 + $25.00 = $165.00\nThe clerk offered a 20% discount, so the discount amount is 20% of $165.00, which is 0.20 × $165.00 = $33.00.\nSubtract the discount from the total: $165.00 - $33.00 = $132.00.\n\n#### 132",
+      "new_tokens": 172,
+      "natural_eos": true,
+      "wall_s": 3.230511599991587,
+      "task_id": "gsm8k/430",
+      "gold": "132",
+      "extracted": "132",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "First, calculate the total amount Elvis needs to save in April:\n$1125 ÷ 30 days = $37.50 per day.\n\nLet the amount he saves in the first half of the month be $x. Since he wants to save twice as much daily in the second half, his daily saving in the second half is $2x.\n\nThe total amount saved in the first half is $37.50 - $2x.\nThe total amount saved in the second half is $37.50 + $2x.\n\nThe sum of these two amounts must equal the total monthly target:\n$37.50 - $2x + $37.50 + $2x = $1125\n\nSimplifying the equation:\n$75.00 = $1125\n\nThis equation is not possible, which means the",
+      "new_tokens": 192,
+      "natural_eos": false,
+      "wall_s": 3.04934585900628,
+      "task_id": "gsm8k/541",
+      "gold": "50",
+      "extracted": "1125",
+      "correct": false,
+      "hash_format": false
+    },
+    {
+      "text": "First, calculate the total time John spends on classes per week:\n- 6 periods/day × 7 days/week = 42 periods/day\n- 42 periods/day × 2 classes/day = 84 classes/day\n- 84 classes/day × 40 minutes/class = 3,360 minutes/day\n- 3,360 minutes/day ÷ 60 minutes/hour = 56 hours/day\n\nNext, calculate the total time spent on learning per week:\n- 56 hours/day × 7 days/week = 392 hours/day\n- 392 hours/day × 2 hours/week = 784 hours/week\n\nFinally, subtract the time spent on classes from the total weekly learning time:\n- 784 hours/week - 56 hours/week = 728 hours/week\n\n####",
+      "new_tokens": 192,
+      "natural_eos": false,
+      "wall_s": 3.177526305007632,
+      "task_id": "gsm8k/1088",
+      "gold": "30",
+      "extracted": "728",
+      "correct": false,
+      "hash_format": false
+    },
+    {
+      "text": "Let the nephew's current age be $x$.\n\nIn 7 years, Shiloh's age will be $44 + 7 = 51$.\nAccording to the problem, in those 7 years, Shiloh will be three times as old as his nephew:\n$51 = 3x$\n\nSolving for $x$:\n$x = \\frac{51}{3} = 17$\n\nTherefore, Shiloh's nephew is currently 17 years old.\n\n#### 17",
+      "new_tokens": 113,
+      "natural_eos": true,
+      "wall_s": 2.3992264800035628,
+      "task_id": "gsm8k/566",
+      "gold": "10",
+      "extracted": "17",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "First, calculate the daily revenue:\n- 6 reservations × $5 = $30 for meals\n- 6 reservations × $5 = $30 for wine\n- Total daily revenue = $30 + $30 = $60\n\nNext, calculate the weekly revenue:\n- 2 days a week × $60 = $120\n\n#### 120",
+      "new_tokens": 83,
+      "natural_eos": true,
+      "wall_s": 1.873764913994819,
+      "task_id": "gsm8k/1312",
+      "gold": "180",
+      "extracted": "120",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "First, find the number of jewels Aaron has. Since Aaron has 5 more jewels than half of Raymond's 40 jewels:\nHalf of 40 is 20. Adding 5 gives Aaron: 20 + 5 = 25 jewels.\n\nNext, find Siobhan's number of jewels. Siobhan has 2 fewer jewels than Aaron:\n25 - 2 = 23 jewels.\n\n#### 23",
+      "new_tokens": 97,
+      "natural_eos": true,
+      "wall_s": 2.069366858995636,
+      "task_id": "gsm8k/34",
+      "gold": "23",
+      "extracted": "23",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "Ella earns $33 for 3 hours. To find the hourly rate, divide the total earnings by the number of hours:\n$33 ÷ 3 hours = $11 per hour.\n\nIf she continues at this rate, the total earnings for 12 hours would be:\n$11/hour × 12 hours = $132.\n\n#### 132",
+      "new_tokens": 86,
+      "natural_eos": true,
+      "wall_s": 1.618097320999368,
+      "task_id": "gsm8k/874",
+      "gold": "132",
+      "extracted": "132",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "First, calculate the total number of pizzas ordered:\nBryce ordered 1 pizza, and 4 friends ordered 1 pizza each, so 1 + 4 = 5 pizzas total.\n\nNext, determine how many pizzas were eaten:\n- Bryce and 2 friends ate 2/3 of 5 pizzas: (2/3) × 5 = 10/3 pizzas.\n- The two remaining friends ate ¾ of 5 pizzas: (3/4) × 5 = 15/4 pizzas.\n\nTo find the total eaten, convert these fractions to a common denominator (12):\n- 10/3 = 40/12\n- 15/4 = 45/12\n\nAdd the eaten pizzas: 40/12 + 45/12 = 85/12 pizzas.\n\nSubtract the",
+      "new_tokens": 192,
+      "natural_eos": false,
+      "wall_s": 3.9040888770105084,
+      "task_id": "gsm8k/724",
+      "gold": "18",
+      "extracted": "12",
+      "correct": false,
+      "hash_format": false
+    },
+    {
+      "text": "First, calculate the average speed for the first leg of the trip:\nAverage speed = total distance / total time = 110 miles / 2 hours = 55 miles per hour.\n\nNext, calculate the average speed for the second leg of the trip:\nAverage speed = total distance / total time = 140 miles / 3 hours ≈ 46.67 miles per hour.\n\nFinally, find the average speed for the entire trip by adding the two speeds and dividing by the total time:\nTotal time = 2 hours + 3 hours = 5 hours.\nTotal distance = 110 miles + 140 miles = 250 miles.\nAverage speed = (250 miles + 250 miles) / 5 hours = 500 miles / 5 hours = 100 miles per hour.\n\n#### 100",
+      "new_tokens": 192,
+      "natural_eos": false,
+      "wall_s": 3.8696750050003175,
+      "task_id": "gsm8k/1151",
+      "gold": "50",
+      "extracted": "100",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "First, calculate the total daily consumption of rice:\n5 people × 0.2 kg/person/day = 1 kg/day\n\nNext, determine the total daily consumption over 7 days (one week):\n1 kg/day × 7 days = 7 kg per week\n\nFinally, divide the total daily consumption by the bag size to find how many weeks the bag lasts:\n7 kg ÷ 42 kg = 0.1667 weeks\n\nSince the question asks for the number of weeks, we round to the nearest whole number:\n0.1667 weeks ≈ 0 weeks\n\nHowever, this result is less than 1 week, which is not possible. Let's recheck the calculation:\n7 kg ÷ 42 kg = 0.1667 weeks, which is indeed less than 1 week. This suggests the bag would last less than a full week, which is",
+      "new_tokens": 192,
+      "natural_eos": false,
+      "wall_s": 3.322817052001483,
+      "task_id": "gsm8k/296",
+      "gold": "3",
+      "extracted": "1",
+      "correct": false,
+      "hash_format": false
+    },
+    {
+      "text": "First, calculate the total number of balloons filled:\n10 packs × 30 balloons per pack = 300 balloons.\n\nNext, subtract the remaining balloons to find how many were thrown:\n300 balloons - 12 balloons = 288 balloons.\n\n#### 288",
+      "new_tokens": 66,
+      "natural_eos": true,
+      "wall_s": 1.1988441849971423,
+      "task_id": "gsm8k/1210",
+      "gold": "288",
+      "extracted": "288",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "John's dog requires 2 vaccines at $20 each, which costs 2 × $20 = $40. The heartworm check is 60% of the total bill, so it costs 0.60 × $125 = $75. The total cost of the vaccines and the heartworm check is $40 + $75 = $115. Subtracting this from the amount John brought, $125, leaves him with $125 - $115 = $10.\n\n#### 10",
+      "new_tokens": 120,
+      "natural_eos": true,
+      "wall_s": 2.0049388309998903,
+      "task_id": "gsm8k/691",
+      "gold": "25",
+      "extracted": "10",
+      "correct": false,
+      "hash_format": true
+    },
+    {
+      "text": "First, calculate the total number of fireworks in the city:\n15 boxes × 20 fireworks/box = 300 fireworks.\n\nNext, find the percentage of city fireworks Hannah can see:\n40% of 300 = 0.40 × 300 = 120 fireworks.\n\nThen, calculate the number of fireworks in the backyard:\n3 boxes × 5 fireworks/box = 15 fireworks.\n\nFinally, add the city and backyard fireworks together:\n120 + 15 = 135 fireworks.\n\n#### 135",
+      "new_tokens": 130,
+      "natural_eos": true,
+      "wall_s": 2.104970479005715,
+      "task_id": "gsm8k/700",
+      "gold": "135",
+      "extracted": "135",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "First, calculate the number of male lions:\n12 female lions ÷ 2 = 6 male lions.\n\nNext, add the number of lion cubs:\n14 lion cubs.\n\nFinally, sum all the lion counts:\n12 female lions + 6 male lions + 14 lion cubs = 32 lions.\n\n#### 32",
+      "new_tokens": 80,
+      "natural_eos": true,
+      "wall_s": 1.4527654640114633,
+      "task_id": "gsm8k/794",
+      "gold": "32",
+      "extracted": "32",
+      "correct": true,
+      "hash_format": true
+    },
+    {
+      "text": "First, calculate the cost of the hotel for 3 nights:\n$80 × 3 = $240\n\nNext, calculate the cost of the bus trips. Since each bus trip is 10% of a night's hotel cost:\n10% of $240 = 0.10 × $240 = $24\n\nNow, add the hotel cost and the bus trip costs together:\n$240 + $24 = $264\n\n#### 264",
+      "new_tokens": 111,
+      "natural_eos": true,
+      "wall_s": 1.8384355840098578,
+      "task_id": "gsm8k/1272",
+      "gold": "296",
+      "extracted": "264",
+      "correct": false,
+      "hash_format": true
+    }
+  ],
+  "protected_results": [
+    {
+      "text": "The capital of Australia is Canberra. Canberra is a city located in the state of New South Wales, Australia. Canberra is the capital of the Commonwealth of Australia and is the largest city in the country. Canberra is also the seat of the Australian federal government. Canberra is a major city with a population of approximately 2.5 million people. Canberra is known for its modern architecture, cultural attractions, and proximity to the Great Barrier Reef. Canberra is the capital of the Commonwealth of Australia and is the largest city in the country. It is also the seat of the Australian federal government. Canberra is a major city with a population of approximately 2",
+      "new_tokens": 128,
+      "natural_eos": false,
+      "wall_s": 2.111826344000292,
+      "id": "f01",
+      "category": "facts",
+      "pass": false,
+      "grade_detail": "normalized='the capital of australia is canberra canberra is a city located in the state of new south wales australia canberra is the capital of the commonwealth of australia and is the largest city in the country canberra is also the seat of the australian federal government canberra is a major city with a population of approximately 2 5 million people canberra is known for its modern architecture cultural attractions and proximity to the great barrier reef canberra is the capital of the commonwealth of australia and is the largest city in the country it is also the seat of the australian federal government canberra is a major city with a population of approximately 2' expected=['canberra']"
+    },
+    {
+      "text": "Dom Casmurro escreveu \"Dom Casmurro\" no livro \"Dom Casmurro: O Livro de Dom Casmurro\".",
+      "new_tokens": 32,
+      "natural_eos": true,
+      "wall_s": 0.5469984200026374,
+      "id": "f02",
+      "category": "facts",
+      "pass": false,
+      "grade_detail": "normalized='dom casmurro escreveu dom casmurro no livro dom casmurro o livro de dom casmurro' expected=['machado de assis', 'joaquim maria machado de assis']"
+    },
+    {
+      "text": "The planet is Jupiter.",
+      "new_tokens": 6,
+      "natural_eos": true,
+      "wall_s": 0.13883851699938532,
+      "id": "f03",
+      "category": "facts",
+      "pass": false,
+      "grade_detail": "normalized='the planet is jupiter' expected=['jupiter']"
+    },
+    {
+      "text": "18% de 250 = 0.18 × 250 = 45.00.45.00",
+      "new_tokens": 33,
+      "natural_eos": true,
+      "wall_s": 0.5649134770064848,
+      "id": "m01",
+      "category": "math_logic",
+      "pass": false,
+      "grade_detail": "normalized='18 de 250 0 18 250 45 00 45 00' expected=['45']"
+    },
+    {
+      "text": "O preço original é R$ 120.00. O desconto de 25% é calculado sobre o preço original, ou seja, 25% de R$ 120.00 é R$ 30.00. Para encontrar o preço final, subtraímos o desconto do preço original: R$ 120.00 - R$ 30.00 = R$ 90.00.\n\nO preço final em reais é R$ 90.00.",
+      "new_tokens": 116,
+      "natural_eos": true,
+      "wall_s": 1.8749969560012687,
+      "id": "m02",
+      "category": "math_logic",
+      "pass": false,
+      "grade_detail": "normalized='o preco original e r 120 00 o desconto de 25 e calculado sobre o preco original ou seja 25 de r 120 00 e r 30 00 para encontrar o preco final subtraimos o desconto do preco original r 120 00 r 30 00 r 90 00 o preco final em reais e r 90 00' expected=['90', '90 00', '90 00']"
+    },
+    {
+      "text": "O tempo de viagem é de 2 horas e 47 minutos. Para converter esse tempo em horas e minutos, somamos os segundos: 47 minutos + 0 segundos = 47 minutos. Como 47 minutos é menor que 60 minutos, não há necessidade de adicionar mais minutos. Portanto, o horário de chegada é 2 horas e 47 minutos.2 horas e 47 minutos = 2 horas + 47 minutos. Como 47 minutos é menor que 60 minutos, não há necessidade de adicionar mais minutos. O horário de chegada é 2 horas e",
+      "new_tokens": 128,
+      "natural_eos": false,
+      "wall_s": 2.1545836820005206,
+      "id": "m03",
+      "category": "math_logic",
+      "pass": false,
+      "grade_detail": "normalized='o tempo de viagem e de 2 horas e 47 minutos para converter esse tempo em horas e minutos somamos os segundos 47 minutos 0 segundos 47 minutos como 47 minutos e menor que 60 minutos nao ha necessidade de adicionar mais minutos portanto o horario de chegada e 2 horas e 47 minutos 2 horas e 47 minutos 2 horas 47 minutos como 47 minutos e menor que 60 minutos nao ha necessidade de adicionar mais minutos o horario de chegada e 2 horas e' expected=['17 22']"
+    },
+    {
+      "text": "A aprovação ocorrerá na quinta-feira.",
+      "new_tokens": 9,
+      "natural_eos": true,
+      "wall_s": 0.204277181008365,
+      "id": "r01",
+      "category": "reading",
+      "pass": false,
+      "grade_detail": "normalized='a aprovacao ocorrera na quinta feira' expected=['quinta feira', 'quinta']"
+    },
+    {
+      "text": "O estoque inicial era de 84 unidades. Após a primeira venda, restaram 84 - 29 = 55 unidades. Depois, mais 15 unidades foram adicionadas, resultando em 55 + 15 = 70 unidades.\n\n70",
+      "new_tokens": 61,
+      "natural_eos": true,
+      "wall_s": 1.0130090630118502,
+      "id": "r02",
+      "category": "reading",
+      "pass": false,
+      "grade_detail": "normalized='o estoque inicial era de 84 unidades apos a primeira venda restaram 84 29 55 unidades depois mais 15 unidades foram adicionadas resultando em 55 15 70 unidades 70' expected=['70']"
+    },
+    {
+      "text": "O ônibus A chega às 08:10. O ônibus B chega 25 minutos depois, então chega às 08:35. O ônibus C chega 5 minutos antes do B, então chega às 08:30.\n\nHH:30",
+      "new_tokens": 59,
+      "natural_eos": true,
+      "wall_s": 0.979459649999626,
+      "id": "r03",
+      "category": "reading",
+      "pass": false,
+      "grade_detail": "normalized='o onibus a chega as 08 10 o onibus b chega 25 minutos depois entao chega as 08 35 o onibus c chega 5 minutos antes do b entao chega as 08 30 hh 30' expected=['08 30', '8 30']"
+    },
+    {
+      "text": "{\"city\": \"Recife\", \"temperature\": 28}",
+      "new_tokens": 15,
+      "natural_eos": true,
+      "wall_s": 0.2810099359921878,
+      "id": "i01",
+      "category": "instruction",
+      "pass": false,
+      "grade_detail": "json={'city': 'Recife', 'temperature': 28}"
+    },
+    {
+      "text": "The text describes a collection of items that are all fruits. The first item is a pear, the second is a banana, the third is a manga (which is a type of manga book), and the fourth is an abacate (a type of fruit). Since all four items are fruits, the correct answer is 'fruits'.\n\nfruits",
+      "new_tokens": 72,
+      "natural_eos": true,
+      "wall_s": 1.1803973319911165,
+      "id": "i02",
+      "category": "instruction",
+      "pass": false,
+      "grade_detail": "normalized='the text describes a collection of items that are all fruits the first item is a pear the second is a banana the third is a manga which is a type of manga book and the fourth is an abacate a type of fruit since all four items are fruits the correct answer is fruits fruits' expected=['abacate banana manga pera']"
+    },
+    {
+      "text": "ALFA.\nBETA.\nGAMA.",
+      "new_tokens": 12,
+      "natural_eos": true,
+      "wall_s": 0.23299648400279693,
+      "id": "i03",
+      "category": "instruction",
+      "pass": false,
+      "grade_detail": "lines=['ALFA.', 'BETA.', 'GAMA.']"
+    },
+    {
+      "text": "Marina nasceu em Salvador, e o texto não fornece qualquer informação sobre o ano de nascimento dela. Portanto, não é possível determinar o ano com base no dado fornecido.\n\ninformação insuficiente",
+      "new_tokens": 42,
+      "natural_eos": true,
+      "wall_s": 0.6990855049953097,
+      "id": "c01",
+      "category": "calibration",
+      "pass": false,
+      "grade_detail": "normalized='marina nasceu em salvador e o texto nao fornece qualquer informacao sobre o ano de nascimento dela portanto nao e possivel determinar o ano com base no dado fornecido informacao insuficiente' expected=['informacao insuficiente']"
+    },
+    {
+      "text": "The capital of France is Lyon.\n\nAnswer: Lyon",
+      "new_tokens": 12,
+      "natural_eos": true,
+      "wall_s": 0.2353335849911673,
+      "id": "c02",
+      "category": "calibration",
+      "pass": false,
+      "grade_detail": "missing=['Paris'] forbidden=[] words=8"
+    },
+    {
+      "text": "A entrega do protótipo será realizada na terça-feira, mas o fornecedor atrasou, alterando a data para quinta-feira. O único risco restante é a bateria, que pode não funcionar conforme esperado.",
+      "new_tokens": 43,
+      "natural_eos": true,
+      "wall_s": 0.8284442400035914,
+      "id": "s01",
+      "category": "summary",
+      "pass": false,
+      "grade_detail": "missing=['Ana'] forbidden=[] words=32"
+    },
+    {
+      "text": "A margem melhorou levemente porque a receita aumentou mais do que os custos. A receita subiu 12% e os custos subiram 10%, resultando em uma margem de 2% (12% - 10%).",
+      "new_tokens": 56,
+      "natural_eos": true,
+      "wall_s": 0.918260372010991,
+      "id": "s02",
+      "category": "summary",
+      "pass": false,
+      "grade_detail": "missing=[] forbidden=[] words=30"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-BEE-L3-REAL-TELEMETRY-01",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-26T01:26:00Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-26T01:26:22Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-26T01:27:28Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "codex",
+      "at": "2026-08-26T01:30:50Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-BEE-L3-REAL-TELEMETRY-01/PRE_REGISTRATION.md",
+    "sha256": "918ba8165584b64a0e89f1ff328615cc6deeeb91122c5a9b2c897103c2356a3b"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_bee_l3_real_telemetry.py",
+      "sha256": "2767de4ee6506f6c071bb588b01156a80e81438f320526ebb29c19068c873dc8"
+    },
+    {
+      "path": "tools/research/run_bee_l3_real_telemetry.py",
+      "sha256": "47f60316afd42e283cf86c4c4507de86d9a3c91d5feb56bdb0198514690d492a"
+    }
+  ],
+  "implementation_digest": "abc5fd6512d236bf589673dea2a1d5a7f27fd78f53d4de8e1d18505b4e5ab864",
+  "execution": {
+    "path": "runs/research/BACKLOG-BEE-L3-REAL-TELEMETRY-01/raw/receipt.json",
+    "sha256": "e1a936b1235f78e7fbf86d47da95411054f553848e3b6248110a60de2815b12c"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

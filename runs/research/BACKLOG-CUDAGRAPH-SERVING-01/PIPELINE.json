@@ -1,0 +1,75 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-CUDAGRAPH-SERVING-01",
+  "evidence_class": "serving_runtime",
+  "executor": "AGY / Gemini 3.7 Flash High",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-25T11:00:00Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "AGY / Gemini 3.7 Flash High",
+      "at": "2026-08-25T13:13:33Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "AGY / Gemini 3.7 Flash High",
+      "at": "2026-08-25T13:14:10Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "AGY / Gemini 3.7 Flash High",
+      "at": "2026-08-25T13:15:29Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "Codex",
+      "at": "2026-08-25T13:17:34Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "Codex",
+      "at": "2026-08-25T13:17:36Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-CUDAGRAPH-SERVING-01/PRE_REGISTRATION.md",
+    "sha256": "2e2d16a796857af07e92b2a205081980dd5827c005a48df746ae977ea824b72e"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_serving_cudagraph_benchmark.py",
+      "sha256": "0bda8713e8e6f7406d27ba27f7f6a883271b3dfd1016f87862e30f32f395bc85"
+    },
+    {
+      "path": "tools/research/run_serving_cudagraph_benchmark.py",
+      "sha256": "5e57ffc250f48e5aad5facbeb32b635c9bbd96571cec00f66e75ecd10413c14d"
+    }
+  ],
+  "implementation_digest": "8aa702984dc81dfb3942e1b754a99ef428d5047b0f79f95114b053f502cbe724",
+  "execution": {
+    "path": "runs/research/BACKLOG-CUDAGRAPH-SERVING-01/raw/receipt.json",
+    "sha256": "77c749b5c1ac10fc606e753bc445542d78c1497e628edcf7d709c9090fdf6717"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-CUDAGRAPH-SERVING-01/RESULT.md",
+    "sha256": "ed3ce21a85fb02d65540961884b33a606e668920f4d6c54a59b2f667ed2d22c8"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-CUDAGRAPH-SERVING-01/REVIEW.json",
+    "sha256": "f8690545da848bc962ecc4716ec9f64a068170a88cdb5a989854861b3c0d5806"
+  },
+  "claim_codes": [
+    "SERVING_CUDAGRAPH_QUALIFIED"
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "id": "BACKLOG-ADAPT-TRACE-DISTILL-03",
+  "priority": 0,
+  "title": "Complete the frozen trace-distillation false-negative test after host log-decoder abort",
+  "evidence_class": "distillation",
+  "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/ABORTED.md",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/training_pairs.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/workers",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/checkpoints",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02/raw/service_maintenance.json"
+  ],
+  "required_evidence": [
+    "acceptance_gates",
+    "actual_scores",
+    "checkpoint_hashes",
+    "clean_base_receipts",
+    "continuation_ledger",
+    "dataset_hashes",
+    "independent_evaluation",
+    "model_hash",
+    "provenance",
+    "raw_samples",
+    "receipt_fingerprint",
+    "service_maintenance",
+    "student_samples",
+    "teacher_samples",
+    "training_pairs",
+    "training_trace",
+    "treatment_materiality"
+  ],
+  "acceptance_gates": [
+    {
+      "id": "continuation_integrity",
+      "metric": "frozen_partial_workers_verified",
+      "operator": "eq",
+      "threshold": 4
+    },
+    {
+      "id": "treatment_materiality",
+      "metric": "matched_distinct_training_targets_verified",
+      "operator": "eq",
+      "threshold": true
+    },
+    {
+      "id": "clean_base",
+      "metric": "fresh_base_workers",
+      "operator": "eq",
+      "threshold": 6
+    },
+    {
+      "id": "paired_training",
+      "metric": "matched_pairs_per_arm_per_seed",
+      "operator": "eq",
+      "threshold": 128
+    },
+    {
+      "id": "seed_coverage",
+      "metric": "completed_paired_seeds",
+      "operator": "eq",
+      "threshold": 3
+    },
+    {
+      "id": "heldout_gain",
+      "metric": "mean_trace_math_gain_over_answer_only",
+      "operator": "gt",
+      "threshold": 0.0
+    },
+    {
+      "id": "directional_repeatability",
+      "metric": "seeds_with_nonnegative_trace_math_gain",
+      "operator": "ge",
+      "threshold": 2
+    },
+    {
+      "id": "protected_regression",
+      "metric": "mean_protected_qa_regression_vs_answer_only",
+      "operator": "le",
+      "threshold": 0.05
+    },
+    {
+      "id": "service_recovery",
+      "metric": "service_and_embedding_restored",
+      "operator": "eq",
+      "threshold": true
+    }
+  ],
+  "allowed_claim_codes": [
+    "TRACE_DISTILLATION_FALSE_NEGATIVE_CONFIRMED_R3",
+    "TRACE_DISTILLATION_REJECTED_R3"
+  ],
+  "forbidden_claims": [
+    "changing seeds or thresholds after observing partial results",
+    "trace effect without distinct trained arms",
+    "adapter finalist selection",
+    "teacher-level noninferiority",
+    "production promotion",
+    "generalization beyond the frozen model, data and training budget"
+  ],
+  "next_action": "Verify and import the four frozen completed workers, run only the two preregistered seed-20260826 workers with UTF-8 replacement-safe log capture, and aggregate the unchanged three-seed design.",
+  "supersedes": "BACKLOG-ADAPT-TRACE-DISTILL-02"
+}

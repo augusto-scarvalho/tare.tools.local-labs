@@ -14,6 +14,10 @@
 # (including historical line endings) so external SHA-256 ledgers remain valid.
 runs/research/**/raw/*.json binary
 
+# Independent reviews are hash-bound historical evidence too. Keep their
+# original bytes while retaining ordinary textual diffs.
+runs/research/**/REVIEW.json -text
+
 # Binary — never diff or convert.
 *.db binary
 *.gguf binary

@@ -1,0 +1,39 @@
+{
+  "id": "BACKLOG-BEE-L5-LIVE-GUARD-01",
+  "priority": 0,
+  "title": "Audit BEE-L5 on real teacher traces and live streaming intervention",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-BEE-L5-LIVE-GUARD-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BEE-L5-REASONING-LOOP-GUARD-2026-08-25/PRE_REGISTRATION.md",
+    "runs/research/BEE-L5-REASONING-LOOP-GUARD-2026-08-25/RESULT.md",
+    "runs/research/BEE-L5-REASONING-LOOP-GUARD-2026-08-25/raw/receipt.json",
+    "tools/analysis/reasoning_loop_guard.py",
+    "tests/test_reasoning_loop_guard.py",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/teacher_samples.json"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "dataset_hashes",
+    "failure_reproduction", "falsifiable_hypothesis", "hardware_metrics",
+    "independent_evaluation", "invalidation_rules", "invariant_controls",
+    "paired_baseline", "provenance", "raw_samples", "real_implementation",
+    "receipt_fingerprint", "semantic_parity", "service_maintenance", "source_execution_receipt",
+    "effective_route", "recovery_state", "service_identity"
+  ],
+  "acceptance_gates": [
+    {"id": "legitimate_coverage", "metric": "real_legitimate_traces", "operator": "eq", "threshold": 128},
+    {"id": "pathology_coverage", "metric": "live_pathological_baselines", "operator": "eq", "threshold": 25},
+    {"id": "sensitivity", "metric": "sensitivity_tpr", "operator": "ge", "threshold": 0.95},
+    {"id": "specificity", "metric": "false_alarm_fpr", "operator": "le", "threshold": 0.02},
+    {"id": "physical_intervention", "metric": "stream_aborts_confirmed", "operator": "eq", "threshold": 25},
+    {"id": "token_savings", "metric": "median_token_savings", "operator": "ge", "threshold": 0.80},
+    {"id": "guard_overhead", "metric": "guard_p95_us_per_token", "operator": "le", "threshold": 2.0},
+    {"id": "service_integrity", "metric": "service_restarts", "operator": "eq", "threshold": 0},
+    {"id": "idle_recovery", "metric": "idle_slots_after", "operator": "eq", "threshold": 4}
+  ],
+  "allowed_claim_codes": ["BEE_L5_LIVE_GUARD_QUALIFIED_R1", "BEE_L5_FALSE_POSITIVE_CONFIRMED_R1"],
+  "forbidden_claims": ["natural loop prevalence", "server-side integration", "final-answer preservation", "production deployment", "generalization beyond frozen traces and prompts"],
+  "next_action": "Replay exact server token pieces from 128 real teacher traces and physically abort 25 live pathological streams when the historical guard fires.",
+  "supersedes": null
+}

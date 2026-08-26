@@ -1,0 +1,32 @@
+{
+  "id": "BACKLOG-ADAPT-MECHANISMS-RERUN-01",
+  "priority": 0,
+  "title": "Fresh causal rerun of ADAPT-01 through ADAPT-05 mechanisms",
+  "evidence_class": "model_training",
+  "packet_dir": "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/ADAPT-01A-LOKR-SCALE-2026-08-25/PRE_REGISTRATION.md",
+    "runs/research/ADAPT-02-MODULE-TARGETING-2026-08-25/PRE_REGISTRATION.md",
+    "runs/research/ADAPT-03-SOFT-PROMPTS-2026-08-25/PRE_REGISTRATION.md",
+    "runs/research/ADAPT-04-PRIOR-PRESERVATION-2026-08-25/PRE_REGISTRATION.md",
+    "runs/research/ADAPT-05-MODULAR-MERGING-2026-08-25/PRE_REGISTRATION.md",
+    "workloads/gsm8k.jsonl",
+    "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl"
+  ],
+  "required_evidence": ["acceptance_gates", "actual_scores", "artifact_hashes", "checkpoint_hashes", "dataset_hashes", "failure_reproduction", "falsifiable_hypothesis", "hardware_metrics", "independent_evaluation", "invalidation_rules", "invariant_controls", "model_hash", "paired_baseline", "provenance", "raw_samples", "real_implementation", "receipt_fingerprint", "scorer_hashes", "seed", "semantic_parity", "service_maintenance", "source_execution_receipt", "training_receipt", "training_trace"],
+  "acceptance_gates": [
+    {"id": "mechanism_coverage", "metric": "fresh_mechanisms_completed", "operator": "eq", "threshold": 5},
+    {"id": "training_coverage", "metric": "fresh_training_arms", "operator": "eq", "threshold": 12},
+    {"id": "evaluation_coverage", "metric": "fresh_scored_generations", "operator": "eq", "threshold": 768},
+    {"id": "seed_control", "metric": "fresh_seed_verified", "operator": "eq", "threshold": 20260827},
+    {"id": "independent_aggregate", "metric": "independent_score_match", "operator": "eq", "threshold": 1},
+    {"id": "artifact_identity", "metric": "hashed_adapter_artifacts", "operator": "ge", "threshold": 13},
+    {"id": "service_restore", "metric": "original_service_restored", "operator": "eq", "threshold": 1},
+    {"id": "embedding_integrity", "metric": "embedding_health", "operator": "eq", "threshold": 200}
+  ],
+  "allowed_claim_codes": ["ADAPT01_05_MECHANISMS_REPRODUCED_R1", "ADAPT01_05_MECHANISMS_MIXED_R1"],
+  "forbidden_claims": ["promotion from training loss alone", "general model capability", "production promotion", "cross-seed repeatability", "causal superiority without the frozen matched arms"],
+  "next_action": "Retrain every historical ADAPT mechanism at seed 20260827, score every original 32-math plus 16-QA arm, and build the composite only from fresh disjoint adapters.",
+  "supersedes": null
+}

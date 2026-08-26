@@ -1,0 +1,128 @@
+{
+  "schema": "local-labs-ctrl01-real-token-v4",
+  "executor": "Codex executor",
+  "metrics": {
+    "real_model_outputs": 24,
+    "raw_complete_valid_rate": 1.0,
+    "sanitized_complete_valid_rate": 0.75,
+    "real_exact_preservation_rate": 0.75,
+    "valid_controls": 12,
+    "valid_token_acceptance_rate": 0.9016393442622951,
+    "valid_control_exact_preservation_rate": 0.8333333333333334,
+    "valid_control_complete_valid_rate": 0.8333333333333334,
+    "p50_overhead_us_per_token": 20.071666666666665,
+    "p95_overhead_us_per_token": 34.85,
+    "logit_mask_runtime_integrated": false
+  },
+  "gates": {
+    "real_coverage": true,
+    "real_validity": false,
+    "valid_control_recall": false,
+    "valid_control_semantics": false,
+    "overhead": true,
+    "runtime_binding": false
+  },
+  "verdict": "FALSE_POSITIVE_CONFIRMED",
+  "claim_code_pending_independent_review": "CTRL01_FALSE_POSITIVE_CONFIRMED_R4",
+  "provenance": {
+    "timestamp_utc": "2026-08-26T00:35:30Z",
+    "command": "python tools/research/run_ctrl01_real_token_r4.py --outdir runs/research/BACKLOG-CTRL01-REAL-TOKEN-04",
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "base_url": "http://127.0.0.1:8080",
+    "health_before": {
+      "status": "ok"
+    },
+    "health_after": {
+      "status": "ok"
+    },
+    "models": {
+      "models": [
+        {
+          "name": "fable-tc-l1.0",
+          "model": "fable-tc-l1.0",
+          "modified_at": "",
+          "size": "",
+          "digest": "",
+          "type": "model",
+          "description": "",
+          "tags": [
+            ""
+          ],
+          "capabilities": [
+            "completion"
+          ],
+          "parameters": "",
+          "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "",
+            "families": [
+              ""
+            ],
+            "parameter_size": "",
+            "quantization_level": ""
+          }
+        }
+      ],
+      "object": "list",
+      "data": [
+        {
+          "id": "fable-tc-l1.0",
+          "aliases": [
+            "fable-tc-l1.0"
+          ],
+          "tags": [],
+          "object": "model",
+          "created": 1787704753,
+          "owned_by": "llamacpp",
+          "meta": {
+            "vocab_type": 2,
+            "n_vocab": 248320,
+            "n_ctx": 8192,
+            "n_ctx_train": 262144,
+            "n_embd": 5120,
+            "n_params": 27320697856,
+            "size": 16799719424,
+            "ftype": "Q4_K - Medium"
+          }
+        }
+      ]
+    },
+    "source_hashes": {
+      "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/PRE_REGISTRATION.md": "c07cb593242fdd22dda6dbe9058967da0df87204d75c3c8d3aa4ff14a5510946",
+      "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/RESULT.md": "cd4319c345bdaa8224da7d9782fde7ee8e2f861fe1b3c6caefb3041adf4b31eb",
+      "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/raw/receipt.json": "0f37ae1d3ff33286a193353731f864d699ce738734fd8cc5b5a55384c2cf2c7c",
+      "tools/analysis/ast_grammar_sidecar.py": "3cb90b1b5aa5aacdff93b7a8b0cdc38e689099e0d1365989f00b7b34acbb1463",
+      "tools/probes/ctrl01_ast_sidecar_probe.py": "9e7ed6d27936952f20bbb27f0fbcf6530f2ebbec24dbf46faf46de8c22feb669"
+    },
+    "preregistration_sha256": "d34b12631dbde35bec0ebb62eadb05e912924d6b17c26e609cdb9ace12d25f87",
+    "runner_sha256": "7b0e363917c8834ffb692f7ff929ca1121008dcedd2969599ac64c9ff57e0a6e",
+    "samples_sha256": "94ef7a81b5b7bd83d8c300bbc68f15852b622ce2180d37d1fbdfe8a802248ec5",
+    "runtime_binding_evidence": {
+      "production_code_matches": [],
+      "active_service": "MainPID=29428\nExecStart={ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Tue 2026-08-25 21:22:47 -03] ; stop_time=[n/a] ; pid=29428 ; code=(null) ; status=0/0 }",
+      "logit_mask_runtime_integrated": false,
+      "criterion": "requires a production code reference that binds the sidecar to candidate logits before sampling"
+    },
+    "max_tokens": 512,
+    "stable_model_identity": [
+      {
+        "id": "fable-tc-l1.0",
+        "aliases": [
+          "fable-tc-l1.0"
+        ],
+        "owned_by": "llamacpp",
+        "vocab_type": 2,
+        "n_vocab": 248320,
+        "n_ctx": 8192,
+        "n_ctx_train": 262144,
+        "n_embd": 5120,
+        "n_params": 27320697856,
+        "size": 16799719424,
+        "ftype": "Q4_K - Medium"
+      }
+    ]
+  },
+  "receipt_fingerprint_sha256": "9226a3e3d04a8b8c57b8e7b9e51558d3e6da38985a244921d5eeed3b10e42c53"
+}

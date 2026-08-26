@@ -1,0 +1,93 @@
+{
+  "persistent_service_stopped": true,
+  "events": [
+    {
+      "event": "persistent_stop",
+      "state": {
+        "returncode": 0,
+        "load_state": "loaded",
+        "active_state": "inactive",
+        "sub_state": "dead",
+        "main_pid": 0,
+        "n_restarts": 0,
+        "exec_start": "{ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Tue 2026-08-25 19:17:50 -03] ; stop_time=[Tue 2026-08-25 19:25:58 -03] ; pid=26576 ; code=exited ; status=0 }",
+        "environment_property": "LD_LIBRARY_PATH=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin",
+        "stderr": ""
+      }
+    }
+  ],
+  "persistent_health_final": {
+    "status": "ok"
+  },
+  "execution_error": null,
+  "final_service": {
+    "returncode": 0,
+    "load_state": "loaded",
+    "active_state": "active",
+    "sub_state": "running",
+    "main_pid": 27589,
+    "n_restarts": 0,
+    "exec_start": "{ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Tue 2026-08-25 19:28:11 -03] ; stop_time=[n/a] ; pid=27589 ; code=(null) ; status=0/0 }",
+    "environment_property": "LD_LIBRARY_PATH=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin",
+    "stderr": ""
+  },
+  "final_process": {
+    "pid": 27589,
+    "executable": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+    "argv": [
+      "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+      "-m",
+      "/home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf",
+      "--alias",
+      "fable-tc-l1.0",
+      "--host",
+      "0.0.0.0",
+      "--port",
+      "8080",
+      "-ngl",
+      "99",
+      "-fa",
+      "on",
+      "--ctx-size",
+      "8192",
+      "--spec-type",
+      "draft-mtp",
+      "--spec-draft-n-max",
+      "4",
+      "--jinja",
+      "--metrics"
+    ],
+    "environment": [
+      "CTX_SIZE=131072",
+      "HOME=/home/augus",
+      "INVOCATION_ID=8fe74d1f3d0e41018020d2fae85a7757",
+      "JOURNAL_STREAM=8:112566",
+      "LANG=C.UTF-8",
+      "LD_LIBRARY_PATH=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin",
+      "LOGNAME=augus",
+      "MEMORY_PRESSURE_WATCH=/sys/fs/cgroup/system.slice/llm-inference.service/memory.pressure",
+      "MEMORY_PRESSURE_WRITE=c29tZSAyMDAwMDAgMjAwMDAwMAA=",
+      "MODEL_ALIAS=qwen38-27b",
+      "MODEL_PATH=/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf",
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/snap/bin",
+      "PORT=8080",
+      "SERVER_ARGS=--no-mmproj --cache-type-k q4_0 --cache-type-v q4_0 --spec-type draft-mtp --spec-draft-n-max 3 -np 1 --ctx-checkpoints 32",
+      "SHELL=/bin/bash",
+      "SYSTEMD_EXEC_PID=27589",
+      "USER=augus"
+    ]
+  },
+  "final_embedding": {
+    "status": "ok"
+  },
+  "final_gpu": {
+    "name": "NVIDIA GeForce RTX 3090",
+    "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+    "temperature.gpu": "50",
+    "utilization.gpu": "3",
+    "clocks.sm": "1830",
+    "power.draw": "137.28",
+    "memory.used": "21107",
+    "memory.free": "3216"
+  }
+}

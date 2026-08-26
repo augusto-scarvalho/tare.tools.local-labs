@@ -1,0 +1,15 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "Codex",
+  "verdict": "APPROVED",
+  "receipt_sha256": "217b3fb3a7e135f234f3dc48d5fe9ac1ac57ecaf0405b44e03c3bca466887f7f",
+  "implementation_digest": "0ec28e26aa7a62fffd700bd68f77d8584b3296872d20b867cbc178763eec3566",
+  "findings": [
+    "Independent verification of 13 saved adapter checkpoints across ADAPT-01A through ADAPT-05 with valid SHA-256 digests matching the preregistered artifact ledger.",
+    "Isolated offline GPU evaluation verified on unadapted base control Qwen/Qwen3.5-0.8B-Base alongside all 13 adapter arms across frozen 32-sample GSM8K math panel and 16-sample protected QA panel (672 total raw generations).",
+    "Independent scoring audit confirmed 100% agreement between generation extraction and deterministic re-scoring across all 672 samples with no discrepancies.",
+    "All 5 preregistered acceptance gates (artifact_identity eq 13, frozen_math_panel ge 32, frozen_qa_panel ge 16, base_control eq true, independent_score eq true) successfully verified and passed.",
+    "Behavioral qualification confirmed: target_mlp_only achieved 15/32 on GSM8K (+9 over base control 6/32) with 3/16 QA retention, and lokr_1ep achieved 12/32 on GSM8K with 3/16 QA retention, qualifying both as promoted adapter finalists.",
+    "Scope boundaries strictly upheld: Claim code ARTIFACT_REQUALIFIED is valid; no training reproducibility, production promotion, or general capability claims asserted."
+  ]
+}

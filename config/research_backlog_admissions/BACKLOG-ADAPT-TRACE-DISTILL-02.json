@@ -1,0 +1,97 @@
+{
+  "id": "BACKLOG-ADAPT-TRACE-DISTILL-02",
+  "priority": 0,
+  "title": "Test the trace-distillation rejection with matched answer-only and full-trace SFT arms",
+  "evidence_class": "distillation",
+  "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-02",
+  "depends_on": [],
+  "source_artifacts": [
+    "docs/AUDIT_2026-08-25_CODEX_INDEPENDENT_AGY_EXECUTION.md",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-01/raw/teacher_samples.json",
+    "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/training_trace.json",
+    "runs/a2/market-r0__thinkingcap-27b-q4__gsm8k.json",
+    "workloads/gsm8k.jsonl"
+  ],
+  "required_evidence": [
+    "acceptance_gates",
+    "actual_scores",
+    "checkpoint_hashes",
+    "clean_base_receipts",
+    "dataset_hashes",
+    "independent_evaluation",
+    "model_hash",
+    "provenance",
+    "raw_samples",
+    "receipt_fingerprint",
+    "service_maintenance",
+    "student_samples",
+    "teacher_samples",
+    "training_pairs",
+    "training_trace",
+    "treatment_materiality"
+  ],
+  "acceptance_gates": [
+    {
+      "id": "treatment_materiality",
+      "metric": "matched_distinct_training_targets_verified",
+      "operator": "eq",
+      "threshold": true
+    },
+    {
+      "id": "clean_base",
+      "metric": "fresh_base_workers",
+      "operator": "eq",
+      "threshold": 6
+    },
+    {
+      "id": "paired_training",
+      "metric": "matched_pairs_per_arm_per_seed",
+      "operator": "eq",
+      "threshold": 128
+    },
+    {
+      "id": "seed_coverage",
+      "metric": "completed_paired_seeds",
+      "operator": "eq",
+      "threshold": 3
+    },
+    {
+      "id": "heldout_gain",
+      "metric": "mean_trace_math_gain_over_answer_only",
+      "operator": "gt",
+      "threshold": 0.0
+    },
+    {
+      "id": "directional_repeatability",
+      "metric": "seeds_with_nonnegative_trace_math_gain",
+      "operator": "ge",
+      "threshold": 2
+    },
+    {
+      "id": "protected_regression",
+      "metric": "mean_protected_qa_regression_vs_answer_only",
+      "operator": "le",
+      "threshold": 0.05
+    },
+    {
+      "id": "service_recovery",
+      "metric": "service_and_embedding_restored",
+      "operator": "eq",
+      "threshold": true
+    }
+  ],
+  "allowed_claim_codes": [
+    "TRACE_DISTILLATION_FALSE_NEGATIVE_CONFIRMED_R2",
+    "TRACE_DISTILLATION_REJECTED_R2"
+  ],
+  "forbidden_claims": [
+    "trace effect without a separately trained trace arm",
+    "gain against a contaminated or reused base object",
+    "adapter finalist selection",
+    "teacher-level noninferiority",
+    "production promotion",
+    "generalization beyond the frozen model, data and training budget"
+  ],
+  "next_action": "Train six fresh workers in a seed-matched answer-only versus full-teacher-trace comparison, then evaluate both arms on frozen disjoint math and protected-QA panels.",
+  "supersedes": "BACKLOG-ADAPT-TRACE-DISTILL-01"
+}

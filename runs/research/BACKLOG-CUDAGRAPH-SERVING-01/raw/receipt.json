@@ -1,0 +1,138 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-CUDAGRAPH-SERVING-01",
+  "provenance": {
+    "schema": "local-labs-experiment-provenance-v1",
+    "started_at_utc": "2026-08-25T13:14:18Z",
+    "finished_at_utc": "2026-08-25T13:15:19Z",
+    "elapsed_seconds": 60.922,
+    "command": [
+      "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "tools/research/run_serving_cudagraph_benchmark.py",
+      "--outdir",
+      "runs/research/BACKLOG-CUDAGRAPH-SERVING-01"
+    ],
+    "cwd": "C:\\projects\\tare.tools.local-labs",
+    "repository": {
+      "head": "eaf987446044443d700b02e1dd19df4dcb75fd9b",
+      "dirty": true,
+      "status_entry_count": 95,
+      "status_sha256": "4318597b4060c9536806b916e27d00ff84434aebf7801f36835179d70d8f0d6d",
+      "errors": []
+    },
+    "script": {
+      "path": "C:\\projects\\tare.tools.local-labs\\tools\\research\\run_serving_cudagraph_benchmark.py",
+      "sha256": "5e57ffc250f48e5aad5facbeb32b635c9bbd96571cec00f66e75ecd10413c14d"
+    },
+    "inputs": [
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-CUDAGRAPH-SERVING-01\\raw\\service_identity.json",
+        "status": "HASHED",
+        "bytes": 405,
+        "sha256": "e1ae69bd587bb266e0f5aadaf40555174234ea0e17885fe5087822345db6b315"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-CUDAGRAPH-SERVING-01\\raw\\effective_route.json",
+        "status": "HASHED",
+        "bytes": 184,
+        "sha256": "cddef60e4d0d7edce834ac50db8aadde1f18f5b246445f5759800ab7d4195b6a"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-CUDAGRAPH-SERVING-01\\raw\\recovery_state.json",
+        "status": "HASHED",
+        "bytes": 427,
+        "sha256": "ec255ba365deb9177680ec557d368f055299a9f6a59aaf32edccbf5347edf973"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-CUDAGRAPH-SERVING-01\\raw\\hardware_metrics.json",
+        "status": "HASHED",
+        "bytes": 267,
+        "sha256": "6aed09fd8d160b132bd72d9d38c7d3b3501bf9cbb25d99f4a06ac27885e97cd0"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-CUDAGRAPH-SERVING-01\\raw\\paired_baseline.json",
+        "status": "HASHED",
+        "bytes": 117,
+        "sha256": "d96c4d545c56242b12ef69341f8cb420fa3d837178785ece5baa17960fa8cf78"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-CUDAGRAPH-SERVING-01\\raw\\samples.jsonl",
+        "status": "HASHED",
+        "bytes": 11966,
+        "sha256": "4e4a1f8bcde43f6cf45dfb98f00fe26790535c915eb1fbd885f4012879a6ba13"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\SLX-05D-CUDA-GRAPH-REPLAY-2026-08-25\\RESULT.md",
+        "status": "HASHED",
+        "bytes": 756,
+        "sha256": "badb8dcc1fc341994a6cb681588041217d858db4aef392bd718fc66d031e426b"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\SLX-01C-SERVING-TORTURE-2026-08-25\\RESULT.md",
+        "status": "HASHED",
+        "bytes": 635,
+        "sha256": "c7e448cb78bf954ce04ca6dfa934073a55b6c9236e9b366dfaf456c1f3f7bef9"
+      }
+    ],
+    "environment": {
+      "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+      "executable": "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "pytest": "9.1.1"
+      },
+      "gpu": {
+        "available": true,
+        "query": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576",
+        "error": null
+      }
+    },
+    "runtime": {
+      "execution_mode": "live_serving_cudagraph_benchmark",
+      "requests": 30
+    }
+  },
+  "provenance_complete": true,
+  "gates": {
+    "semantic_parity": {
+      "metric": "response_mismatch_rate",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": 0,
+      "pass": true
+    },
+    "paired_speedup": {
+      "metric": "paired_wall_speedup_p50",
+      "operator": "ge",
+      "threshold": 1.15,
+      "actual": 1.5115,
+      "pass": true
+    },
+    "tail_regression": {
+      "metric": "latency_p95_regression",
+      "operator": "le",
+      "threshold": 0.0,
+      "actual": 0.0,
+      "pass": true
+    },
+    "service_recovery": {
+      "metric": "pid_restart_and_health_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": true,
+      "pass": true
+    }
+  },
+  "evidence": {
+    "acceptance_gates": "raw/receipt.json",
+    "effective_route": "raw/effective_route.json",
+    "hardware_metrics": "raw/hardware_metrics.json",
+    "paired_baseline": "raw/paired_baseline.json",
+    "provenance": "raw/receipt.json",
+    "raw_samples": "raw/samples.jsonl",
+    "receipt_fingerprint": "raw/receipt.json",
+    "recovery_state": "raw/recovery_state.json",
+    "service_identity": "raw/service_identity.json"
+  },
+  "receipt_fingerprint": "7448519dcbd00cb0d96e619da73d65000161b354cb875fe73f4d32abe784126e"
+}

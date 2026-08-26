@@ -1,0 +1,73 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-DISTILL-01",
+  "evidence_class": "distillation",
+  "executor": "AGY / Gemini 3.7 Flash High",
+  "stage": "REJECTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "BLOCKED",
+      "actor": "Codex",
+      "at": "2026-08-25T11:30:00Z"
+    },
+    {
+      "from": "BLOCKED",
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-25T12:53:48Z",
+      "reason": "BACKLOG-ADAPT-TRAIN-01 promoted verified trained behavioral finalist"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "AGY / Gemini 3.7 Flash High",
+      "at": "2026-08-25T13:02:43Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "AGY / Gemini 3.7 Flash High",
+      "at": "2026-08-25T13:03:37Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "AGY / Gemini 3.7 Flash High",
+      "at": "2026-08-25T13:09:31Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "Codex",
+      "at": "2026-08-25T13:10:44Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-01/PRE_REGISTRATION.md",
+    "sha256": "1157e3b874a7f495c3c7525989d65627335294de5742a54c779463a8a10c2d7c"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_trace_distillation_evaluation.py",
+      "sha256": "91a765c31b52837008848ad4aaa8c8df5a87a07ed4e510a1f70e6a0c654ff0d2"
+    },
+    {
+      "path": "tools/research/run_trace_distillation_evaluation.py",
+      "sha256": "eb05e4206a4de081bba0ffa2040ed1bedf9551edb097575e1f94622338592726"
+    }
+  ],
+  "implementation_digest": "4d78ffc60c34b6a09bde42462e71b2ada21bb8fdea3051485d59f38c151f5350",
+  "execution": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-01/raw/receipt.json",
+    "sha256": "388bf4acf7c76e44a914d8fd94658d3bd23f4e4abfe8e1e9c9279cab26f8f7bf"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-01/RESULT.md",
+    "sha256": "90d8798cc51dd5c1b3a6f52968d0a48720ebaf62e5a55ae76a0a781f14619ff6"
+  },
+  "review": {},
+  "claim_codes": [
+    "TRACE_DISTILLATION_REJECTED"
+  ]
+}

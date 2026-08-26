@@ -1,0 +1,49 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-DISTILL-01",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "behavioral_finalist": {
+      "metric": "promoted_behavioral_finalist_present",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "paired_traces": {
+      "metric": "paired_teacher_student_traces",
+      "operator": "ge",
+      "threshold": 32,
+      "actual": null,
+      "pass": null
+    },
+    "heldout_gain": {
+      "metric": "heldout_gain_over_finalist",
+      "operator": "gt",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "protected_regression": {
+      "metric": "protected_regression",
+      "operator": "le",
+      "threshold": 0.05,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "dataset_hashes": null,
+    "independent_evaluation": null,
+    "model_hash": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "student_samples": null,
+    "teacher_samples": null
+  },
+  "receipt_fingerprint": null
+}

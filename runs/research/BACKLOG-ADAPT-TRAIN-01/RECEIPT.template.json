@@ -1,0 +1,49 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT-TRAIN-01",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "fresh_output": {
+      "metric": "preexisting_output_files",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "repeatability": {
+      "metric": "successful_repeated_seeds",
+      "operator": "ge",
+      "threshold": 2,
+      "actual": null,
+      "pass": null
+    },
+    "behavioral_gain": {
+      "metric": "heldout_gain_over_base",
+      "operator": "gt",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "retention": {
+      "metric": "protected_regression",
+      "operator": "le",
+      "threshold": 0.05,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "checkpoint_hashes": null,
+    "dataset_hashes": null,
+    "independent_evaluation": null,
+    "model_hash": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "seed": null,
+    "training_trace": null
+  },
+  "receipt_fingerprint": null
+}

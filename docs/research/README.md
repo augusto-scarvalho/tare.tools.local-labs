@@ -11,6 +11,10 @@ trade-off. Preserve prior receipts and mark displaced conclusions `SUPERSEDED`; 
 and do not give an incumbent preference merely because it was qualified first.
 
 ## Key Files & Artifacts
+
+- [`../AUDIT_2026-08-26_CODEX_AGY_36_FULL_RERUN.md`](../AUDIT_2026-08-26_CODEX_AGY_36_FULL_RERUN.md): GitHub-facing independent closeout of all 36 AGY claims, including three false negatives, eight false positives/overclaims, retained results, objective integration blockers and restored serving state.
+- [`../AGY_36_INDEPENDENT_RERUN_TRACKER_2026-08-25.md`](../AGY_36_INDEPENDENT_RERUN_TRACKER_2026-08-25.md): rank-by-rank bridge from the historical AGY wave to canonical successor packets in `config/research_backlog.json`; no rows remain pending or partial.
+- [`BACKLOG_IMPLEMENTATION_PIPELINE.md`](BACKLOG_IMPLEMENTATION_PIPELINE.md): fail-closed executable queue, state machine, receipt schema, frozen-gate recalculation and independent-review workflow for Gemini backlog execution.
 - [`MASTER_RESEARCH_BACKLOG_2026.md`](MASTER_RESEARCH_BACKLOG_2026.md): **Master Research Backlog & Experimental Portfolio (2026)** — exaustive reconciliation of the BeeLlama, slop.cpp, PEFT and Diffusion-transfer research transcript across Tracks A (Attention/KV), B (Systems/SLX), C (PEFT/LyCORIS) and D (Portfolio/Framework), cross-referenced with executed runs and persistent scratchpads.
 - [`../EXECUTION_CLOSEOUT_2026-08-24_25.md`](../EXECUTION_CLOSEOUT_2026-08-24_25.md): consolidated execution ledger, persistent host/WSL effects, recovered failures, explicit non-actions, Git/CI receipts, live baseline, and trigger-gated pending work for the 2026-08-24/25 continuation.
 - [`BEELLAMA_SLOP_PEFT_ANALYSIS_2026-08-24.md`](BEELLAMA_SLOP_PEFT_ANALYSIS_2026-08-24.md): transcript reconciliation, pinned source archaeology, runtime challenger gates, adapter mechanics/matrix results, and the codec-independent KV qualification queue.

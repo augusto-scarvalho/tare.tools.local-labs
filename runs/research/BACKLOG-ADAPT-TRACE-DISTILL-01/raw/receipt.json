@@ -1,0 +1,166 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-DISTILL-01",
+  "provenance": {
+    "schema": "local-labs-experiment-provenance-v1",
+    "started_at_utc": "2026-08-25T13:03:50Z",
+    "finished_at_utc": "2026-08-25T13:09:21Z",
+    "elapsed_seconds": 331.078,
+    "command": [
+      "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "tools/research/run_trace_distillation_evaluation.py",
+      "--outdir",
+      "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-01"
+    ],
+    "cwd": "C:\\projects\\tare.tools.local-labs",
+    "repository": {
+      "head": "eaf987446044443d700b02e1dd19df4dcb75fd9b",
+      "dirty": true,
+      "status_entry_count": 80,
+      "status_sha256": "266f0e7b317785af136a158d7e9d06d3e178fc77ca97c6641504271a469f9c80",
+      "errors": []
+    },
+    "script": {
+      "path": "C:\\projects\\tare.tools.local-labs\\tools\\research\\run_trace_distillation_evaluation.py",
+      "sha256": "eb05e4206a4de081bba0ffa2040ed1bedf9551edb097575e1f94622338592726"
+    },
+    "inputs": [
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-01\\raw\\dataset_hashes.json",
+        "status": "HASHED",
+        "bytes": 992,
+        "sha256": "15acee74e9219a2502fa9585fe55d980b678a523c3a23e89d78b5134a307cc7a"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-01\\raw\\model_hash.json",
+        "status": "HASHED",
+        "bytes": 443,
+        "sha256": "6810a0bd80ef4e863f419ed49443f1b139eb03f0f685af5d4358ce24e2a5c1f1"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-01\\raw\\teacher_samples.json",
+        "status": "HASHED",
+        "bytes": 28345,
+        "sha256": "9b9f86bdcfae10ccdd28a0f8a48ccf95da57b8b04cbf06c2f94cb9d6c14e8d08"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-01\\raw\\student_samples.json",
+        "status": "HASHED",
+        "bytes": 33418,
+        "sha256": "c552bcef48c7367380b3afeaf45ac6a69703fab4f902cf9599d47718eb1c8f15"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-01\\raw\\samples.jsonl",
+        "status": "HASHED",
+        "bytes": 101960,
+        "sha256": "be9d085ae03c4ddf79caa2b60e87058a75341f353da37dde01cc4015f1ac87bc"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-01\\raw\\actual_scores.json",
+        "status": "HASHED",
+        "bytes": 267,
+        "sha256": "921de44ca21328145baf14b49aed7b73ae046499cdfaeb0b65a4bcacb8643e8a"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-TRACE-DISTILL-01\\raw\\independent_evaluation.json",
+        "status": "HASHED",
+        "bytes": 340,
+        "sha256": "64d79475f1725c5b8b120d4c3fea66f12f65472d6387fcfce711c5af5ac8afe5"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\a2\\market-r0__thinkingcap-27b-q4__gsm8k.json",
+        "status": "HASHED",
+        "bytes": 634971,
+        "sha256": "dc5cabe44c92e48b0e832881ef27ebad4047b140928c9a12678e0c0c6660006e"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\workloads\\gsm8k.jsonl",
+        "status": "HASHED",
+        "bytes": 389701,
+        "sha256": "68a72276898a45dacb893154477621ff3d05ae7e043a10820644b691d8b63d77"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\requalification\\QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23\\tasks.jsonl",
+        "status": "HASHED",
+        "bytes": 11016,
+        "sha256": "56434ebd53ff9f5adb477bd902566e28644fe9ea88619834f81417a06c66b84f"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\ADAPT-00C-BEHAVIORAL-2026-08-24\\RESULT.md",
+        "status": "HASHED",
+        "bytes": 2776,
+        "sha256": "c704ec68d6319e61d247d9da1d46fd86e064b362c024fd8479fbe08473ce81f0"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\docs\\research\\REMAINING_EXPERIMENTS_2026-08-24.md",
+        "status": "HASHED",
+        "bytes": 3342,
+        "sha256": "6e9be60052d2ad54f7f538017cf9511eebb620fab1c089b7037e05623286c068"
+      }
+    ],
+    "environment": {
+      "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+      "executable": "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "pytest": "9.1.1",
+        "torch": "NOT_INSTALLED",
+        "transformers": "NOT_INSTALLED",
+        "peft": "NOT_INSTALLED"
+      },
+      "gpu": {
+        "available": true,
+        "query": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576",
+        "error": null
+      }
+    },
+    "runtime": {
+      "execution_mode": "offline_gpu_trace_distillation_evaluation",
+      "paired_traces": 32
+    }
+  },
+  "provenance_complete": true,
+  "gates": {
+    "behavioral_finalist": {
+      "metric": "promoted_behavioral_finalist_present",
+      "operator": "eq",
+      "threshold": true,
+      "actual": true,
+      "pass": true
+    },
+    "paired_traces": {
+      "metric": "paired_teacher_student_traces",
+      "operator": "ge",
+      "threshold": 32,
+      "actual": 32,
+      "pass": true
+    },
+    "heldout_gain": {
+      "metric": "heldout_gain_over_finalist",
+      "operator": "gt",
+      "threshold": 0.0,
+      "actual": 0.0,
+      "pass": false
+    },
+    "protected_regression": {
+      "metric": "protected_regression",
+      "operator": "le",
+      "threshold": 0.05,
+      "actual": 0.0,
+      "pass": true
+    }
+  },
+  "evidence": {
+    "acceptance_gates": "raw/receipt.json",
+    "actual_scores": "raw/actual_scores.json",
+    "dataset_hashes": "raw/dataset_hashes.json",
+    "independent_evaluation": "raw/independent_evaluation.json",
+    "model_hash": "raw/model_hash.json",
+    "provenance": "raw/receipt.json",
+    "raw_samples": "raw/samples.jsonl",
+    "receipt_fingerprint": "raw/receipt.json",
+    "student_samples": "raw/student_samples.json",
+    "teacher_samples": "raw/teacher_samples.json"
+  },
+  "receipt_fingerprint": "4dfedf2bfe6b2bae8a2c44f49dc4398b9acd4c190b8151f01f140a66cdb8855a"
+}

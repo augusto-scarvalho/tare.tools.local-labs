@@ -1,0 +1,34 @@
+{
+  "id": "BACKLOG-CTRL01-REAL-TOKEN-06",
+  "priority": 0,
+  "title": "Recover canonical CTRL-01 receipt with production-only binding search",
+  "evidence_class": "mechanism_research",
+  "packet_dir": "runs/research/BACKLOG-CTRL01-REAL-TOKEN-06",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-CTRL01-REAL-TOKEN-05/ABORTED.md",
+    "runs/research/BACKLOG-CTRL01-REAL-TOKEN-04/PRE_REGISTRATION.md",
+    "runs/research/BACKLOG-CTRL01-REAL-TOKEN-04/raw/samples.jsonl",
+    "runs/research/BACKLOG-CTRL01-REAL-TOKEN-04/raw/receipt.json",
+    "runs/research/CTRL-01-AST-SIDECAR-2026-08-25/raw/receipt.json",
+    "tools/analysis/ast_grammar_sidecar.py"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "dataset_hashes",
+    "failure_reproduction", "falsifiable_hypothesis", "independent_evaluation",
+    "invalidation_rules", "invariant_controls", "provenance", "raw_samples",
+    "receipt_fingerprint", "semantic_parity", "source_execution_receipt"
+  ],
+  "acceptance_gates": [
+    {"id": "real_coverage", "metric": "real_model_outputs", "operator": "ge", "threshold": 24},
+    {"id": "real_validity", "metric": "sanitized_complete_valid_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "valid_control_recall", "metric": "valid_token_acceptance_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "valid_control_semantics", "metric": "valid_control_exact_preservation_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "overhead", "metric": "p95_overhead_us_per_token", "operator": "le", "threshold": 500.0},
+    {"id": "runtime_binding", "metric": "logit_mask_runtime_integrated", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": ["CTRL01_RUNTIME_QUALIFIED_R6", "CTRL01_FALSE_POSITIVE_CONFIRMED_R6"],
+  "forbidden_claims": ["new model inference", "production guarantee", "Python grammar qualification", "semantic correctness", "generalization beyond the frozen JSON panel"],
+  "next_action": "Repeat the deterministic rescore with runtime integration searched only in src and ops.",
+  "supersedes": "BACKLOG-CTRL01-REAL-TOKEN-05"
+}

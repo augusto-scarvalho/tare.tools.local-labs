@@ -1,0 +1,63 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-DISTILL01-FLEET-REAL-01",
+  "evidence_class": "mechanism_research",
+  "executor": "Codex executor",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:23:12Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:23:35Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:24:45Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:24:50Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-DISTILL01-FLEET-REAL-01/PRE_REGISTRATION.md",
+    "sha256": "e5fb8463bd4f6a5792643e942f2588ecab46b0b68eb5143d0ff7b3a0e887d002"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_distill01_fleet_real.py",
+      "sha256": "193cd99aaaf861ebd0240587f77c3272d19234fdab0fdeac5fd681313d422e90"
+    },
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/run_adapter_requalification.py",
+      "sha256": "d90bf442796d84eabcca4ee92cb8e63ea8fb5c9e1b3dc7122358654ce4b4158b"
+    },
+    {
+      "path": "tools/research/run_distill01_fleet_real.py",
+      "sha256": "fb5f0ac3c2b686b1fc68dccd4b4ae0ca15c0710cc6bf5b7c5429f5da87b33bf7"
+    }
+  ],
+  "implementation_digest": "9429410ad2090d30bed4010f25d3d1c67014852011dd71af59157c19185f556a",
+  "execution": {
+    "path": "runs/research/BACKLOG-DISTILL01-FLEET-REAL-01/raw/receipt.json",
+    "sha256": "2e10932d49489671978f0254c72656e12773b3ae4179487792af88193b96ba25"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

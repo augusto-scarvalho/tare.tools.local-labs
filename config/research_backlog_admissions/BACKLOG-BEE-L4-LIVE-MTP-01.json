@@ -1,0 +1,38 @@
+{
+  "id": "BACKLOG-BEE-L4-LIVE-MTP-01",
+  "priority": 0,
+  "title": "Qualify BEE-L4 observable slot isolation on the live MTP runtime",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-BEE-L4-LIVE-MTP-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BEE-L4-TRANSACTIONAL-MTP-2026-08-25/PRE_REGISTRATION.md",
+    "runs/research/BEE-L4-TRANSACTIONAL-MTP-2026-08-25/RESULT.md",
+    "runs/research/BEE-L4-TRANSACTIONAL-MTP-2026-08-25/raw/receipt.json",
+    "tools/analysis/transactional_mtp_manager.py",
+    "tests/test_transactional_mtp_manager.py"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "dataset_hashes",
+    "failure_reproduction", "falsifiable_hypothesis", "hardware_metrics",
+    "independent_evaluation", "invalidation_rules", "invariant_controls",
+    "paired_baseline", "provenance", "raw_samples", "real_implementation",
+    "receipt_fingerprint", "semantic_parity", "service_maintenance", "source_execution_receipt",
+    "effective_route", "recovery_state", "service_identity"
+  ],
+  "acceptance_gates": [
+    {"id": "request_coverage", "metric": "live_requests", "operator": "eq", "threshold": 100},
+    {"id": "slot_coverage", "metric": "physical_slots", "operator": "eq", "threshold": 4},
+    {"id": "speculation_coverage", "metric": "requests_with_draft_tokens", "operator": "ge", "threshold": 80},
+    {"id": "rollback_coverage", "metric": "requests_with_rejected_draft_tokens", "operator": "ge", "threshold": 25},
+    {"id": "state_consistency", "metric": "exact_repeat_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "nonce_integrity", "metric": "own_nonce_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "cross_slot_isolation", "metric": "cross_slot_leakage_count", "operator": "eq", "threshold": 0},
+    {"id": "service_integrity", "metric": "service_restarts", "operator": "eq", "threshold": 0},
+    {"id": "idle_recovery", "metric": "idle_slots_after", "operator": "eq", "threshold": 4}
+  ],
+  "allowed_claim_codes": ["BEE_L4_LIVE_SLOT_ISOLATION_QUALIFIED_R1", "BEE_L4_FALSE_POSITIVE_CONFIRMED_R1"],
+  "forbidden_claims": ["transaction overhead in microseconds", "internal pointer atomicity", "Python manager integration", "slot-file persistence", "generalization beyond active runtime"],
+  "next_action": "Run 25 four-slot concurrent cycles with deterministic code-word prompts and inspect physical MTP telemetry, output parity and service state.",
+  "supersedes": null
+}

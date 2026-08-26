@@ -1,0 +1,88 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-SLX10-PACKED-RUNTIME-02",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "packed_artifact": {
+      "metric": "q2k_file_ratio",
+      "operator": "le",
+      "threshold": 0.25,
+      "actual": null,
+      "pass": null
+    },
+    "physical_load": {
+      "metric": "loaded_arms",
+      "operator": "eq",
+      "threshold": 2,
+      "actual": null,
+      "pass": null
+    },
+    "memory_reduction": {
+      "metric": "vram_reduction",
+      "operator": "ge",
+      "threshold": 0.5,
+      "actual": null,
+      "pass": null
+    },
+    "throughput": {
+      "metric": "throughput_ratio",
+      "operator": "ge",
+      "threshold": 0.95,
+      "actual": null,
+      "pass": null
+    },
+    "quality": {
+      "metric": "accuracy_regression",
+      "operator": "le",
+      "threshold": 0.02,
+      "actual": null,
+      "pass": null
+    },
+    "semantic_stability": {
+      "metric": "exact_output_rate",
+      "operator": "ge",
+      "threshold": 0.8,
+      "actual": null,
+      "pass": null
+    },
+    "service_restore": {
+      "metric": "original_service_restored",
+      "operator": "eq",
+      "threshold": 1,
+      "actual": null,
+      "pass": null
+    },
+    "embedding_integrity": {
+      "metric": "embedding_health",
+      "operator": "eq",
+      "threshold": 200,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "failure_reproduction": null,
+    "falsifiable_hypothesis": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "invariant_controls": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "real_implementation": null,
+    "receipt_fingerprint": null,
+    "semantic_parity": null,
+    "service_maintenance": null,
+    "source_execution_receipt": null,
+    "effective_route": null,
+    "recovery_state": null,
+    "service_identity": null
+  },
+  "receipt_fingerprint": null
+}

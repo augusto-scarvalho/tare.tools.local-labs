@@ -1,0 +1,67 @@
+{
+  "original": {
+    "raw": {
+      "argv": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04",
+        "--",
+        "systemctl",
+        "show",
+        "llm-inference.service",
+        "-p",
+        "MainPID",
+        "-p",
+        "NRestarts",
+        "-p",
+        "ActiveState",
+        "-p",
+        "ExecStart",
+        "--no-pager"
+      ],
+      "returncode": 0,
+      "stdout": "MainPID=31459\nNRestarts=0\nExecStart={ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Tue 2026-08-25 22:27:04 -03] ; stop_time=[n/a] ; pid=31459 ; code=(null) ; status=0/0 }\nActiveState=active",
+      "stderr": ""
+    },
+    "values": {
+      "MainPID": "31459",
+      "NRestarts": "0",
+      "ExecStart": "{ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Tue 2026-08-25 22:27:04 -03] ; stop_time=[n/a] ; pid=31459 ; code=(null) ; status=0/0 }",
+      "ActiveState": "active"
+    }
+  },
+  "temporary_binary": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+  "temporary_binary_sha256": "5719c246ec3622ea1df3c3f498075879f12f1f70b969f8b591e87b3a1f3c8808",
+  "temporary_model_sha256": "514133770c0e30367721334fb86a76a8647bf8ab4d51fedc62980ce86dda1ac1",
+  "restored": {
+    "raw": {
+      "argv": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04",
+        "--",
+        "systemctl",
+        "show",
+        "llm-inference.service",
+        "-p",
+        "MainPID",
+        "-p",
+        "NRestarts",
+        "-p",
+        "ActiveState",
+        "-p",
+        "ExecStart",
+        "--no-pager"
+      ],
+      "returncode": 0,
+      "stdout": "MainPID=31702\nNRestarts=0\nExecStart={ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Tue 2026-08-25 22:29:37 -03] ; stop_time=[n/a] ; pid=31702 ; code=(null) ; status=0/0 }\nActiveState=active",
+      "stderr": ""
+    },
+    "values": {
+      "MainPID": "31702",
+      "NRestarts": "0",
+      "ExecStart": "{ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Tue 2026-08-25 22:29:37 -03] ; stop_time=[n/a] ; pid=31702 ; code=(null) ; status=0/0 }",
+      "ActiveState": "active"
+    }
+  }
+}

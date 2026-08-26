@@ -1,0 +1,71 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT-REQUAL-02",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "artifact_identity": {
+      "metric": "hashed_artifacts",
+      "operator": "eq",
+      "threshold": 13,
+      "actual": null,
+      "pass": null
+    },
+    "clean_base_per_arm": {
+      "metric": "workers_with_zero_preexisting_peft_modules",
+      "operator": "eq",
+      "threshold": 17,
+      "actual": null,
+      "pass": null
+    },
+    "isolation_smoke": {
+      "metric": "smoke_order_invariant",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "frozen_math_panel": {
+      "metric": "scored_math_samples_per_arm",
+      "operator": "ge",
+      "threshold": 32,
+      "actual": null,
+      "pass": null
+    },
+    "frozen_qa_panel": {
+      "metric": "scored_qa_samples_per_arm",
+      "operator": "ge",
+      "threshold": 16,
+      "actual": null,
+      "pass": null
+    },
+    "base_control": {
+      "metric": "base_control_present",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "independent_score": {
+      "metric": "independent_scorer_match",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "artifact_hashes": null,
+    "clean_base_receipts": null,
+    "dataset_hashes": null,
+    "independent_evaluation": null,
+    "isolation_smoke": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "scorer_hashes": null,
+    "wsl_environment": null
+  },
+  "receipt_fingerprint": null
+}

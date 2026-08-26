@@ -1,0 +1,76 @@
+{
+  "unit": "llm-inference.service",
+  "initial_service": {
+    "returncode": 0,
+    "load_state": "loaded",
+    "active_state": "active",
+    "sub_state": "running",
+    "main_pid": 26576,
+    "n_restarts": 0,
+    "exec_start": "{ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Tue 2026-08-25 19:17:50 -03] ; stop_time=[n/a] ; pid=26576 ; code=(null) ; status=0/0 }",
+    "environment_property": "LD_LIBRARY_PATH=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin",
+    "stderr": ""
+  },
+  "initial_process": {
+    "pid": 26576,
+    "executable": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+    "argv": [
+      "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+      "-m",
+      "/home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf",
+      "--alias",
+      "fable-tc-l1.0",
+      "--host",
+      "0.0.0.0",
+      "--port",
+      "8080",
+      "-ngl",
+      "99",
+      "-fa",
+      "on",
+      "--ctx-size",
+      "8192",
+      "--spec-type",
+      "draft-mtp",
+      "--spec-draft-n-max",
+      "4",
+      "--jinja",
+      "--metrics"
+    ],
+    "environment": [
+      "CTX_SIZE=131072",
+      "HOME=/home/augus",
+      "INVOCATION_ID=ab16ad578e224c358a38aee054d07396",
+      "JOURNAL_STREAM=8:118549",
+      "LANG=C.UTF-8",
+      "LD_LIBRARY_PATH=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin",
+      "LOGNAME=augus",
+      "MEMORY_PRESSURE_WATCH=/sys/fs/cgroup/system.slice/llm-inference.service/memory.pressure",
+      "MEMORY_PRESSURE_WRITE=c29tZSAyMDAwMDAgMjAwMDAwMAA=",
+      "MODEL_ALIAS=qwen38-27b",
+      "MODEL_PATH=/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf",
+      "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/snap/bin",
+      "PORT=8080",
+      "SERVER_ARGS=--no-mmproj --cache-type-k q4_0 --cache-type-v q4_0 --spec-type draft-mtp --spec-draft-n-max 3 -np 1 --ctx-checkpoints 32",
+      "SHELL=/bin/bash",
+      "SYSTEMD_EXEC_PID=26576",
+      "USER=augus"
+    ]
+  },
+  "initial_health": {
+    "status": "ok"
+  },
+  "initial_embedding": {
+    "status": "ok"
+  },
+  "initial_gpu": {
+    "name": "NVIDIA GeForce RTX 3090",
+    "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+    "temperature.gpu": "31",
+    "utilization.gpu": "19",
+    "clocks.sm": "210",
+    "power.draw": "48.22",
+    "memory.used": "21107",
+    "memory.free": "3216"
+  }
+}

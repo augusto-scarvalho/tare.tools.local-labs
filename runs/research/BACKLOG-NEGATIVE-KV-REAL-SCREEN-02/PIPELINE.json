@@ -1,0 +1,67 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-NEGATIVE-KV-REAL-SCREEN-02",
+  "evidence_class": "proxy_realization",
+  "executor": "Codex executor",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:12:47Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:13:19Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:14:05Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:14:30Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-02/PRE_REGISTRATION.md",
+    "sha256": "8d4573e52651dd2aebc7ef369d9e8cf233bfa3b0257373f041659cf664896438"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_negative_kv_real_screen.py",
+      "sha256": "11ccebc6c16e9d33325183d8aaa0d3cb9ef82c21e683a85e9f3cc28c63c6fd4b"
+    },
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/negative_kv_real_worker.py",
+      "sha256": "a3d059da1f80592d4a0a3c35c6a8f36e3b9deb5118b3200dd0402505b08534c4"
+    },
+    {
+      "path": "tools/research/run_negative_kv_real_screen.py",
+      "sha256": "5295afff2c3f8e4fe0ce9f6c85c9409ffb1ae8285f54085d25a95beabdfec97a"
+    },
+    {
+      "path": "tools/research/run_negative_kv_real_screen_r2.py",
+      "sha256": "579e8225464fd0b8f9d21968c08fe9d7f6d12b86445b641ccb11b37d2c5d46b7"
+    }
+  ],
+  "implementation_digest": "c0995005c0386d73ff76b0d31275b5308a4539bf496c98eb97a5071c32ef722e",
+  "execution": {
+    "path": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-02/raw/receipt.json",
+    "sha256": "18fac16ec34a64258fec6e83f36aed713803eb0766fb4f4e382bacc1fc57fc4e"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

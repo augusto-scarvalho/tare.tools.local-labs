@@ -1,0 +1,61 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-CTRL01-REAL-TOKEN-05",
+  "evidence_class": "mechanism_research",
+  "executor": "Codex executor",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:36:28Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:36:53Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:37:49Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:38:01Z",
+      "reason": "Independent scores matched except runtime_binding: the static search counted its own research script because the frozen source path contained ast_grammar_sidecar. No receipt written. Successor will restrict binding search to production runtime directories."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-CTRL01-REAL-TOKEN-05/PRE_REGISTRATION.md",
+    "sha256": "83a02fddcd7ace0b1c1bdd6186052f770e1e435acd482a3a31716eec7a2efcd9"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_ctrl01_receipt_recovery.py",
+      "sha256": "12c0c8e141b0781ce1bc26c1f77b547ae4a0d7483923af0cc79ab252e86730c0"
+    },
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/run_ctrl01_real_token.py",
+      "sha256": "d17bf9f4996f89b00edfcff3ef6d1beffec3ba1badb59b32447c18feccd1b082"
+    },
+    {
+      "path": "tools/research/run_ctrl01_receipt_recovery.py",
+      "sha256": "a24ebfdde6399d478fb684b4ba0230140dfa0c56227ae7012fc7af643b8d5b42"
+    }
+  ],
+  "implementation_digest": "1eed52d00e4d85d5eb3b2ab0fe4f1a9c04171b94cb1baa0e6b59ad2b1c848736",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

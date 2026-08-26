@@ -1,0 +1,37 @@
+{
+  "id": "BACKLOG-DISTILL01-FLEET-REAL-01",
+  "priority": 0,
+  "title": "Recompute DISTILL-01 routed-fleet superiority from clean process-isolated real generations",
+  "evidence_class": "mechanism_research",
+  "packet_dir": "runs/research/BACKLOG-DISTILL01-FLEET-REAL-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT-REQUAL-02/PRE_REGISTRATION.md",
+    "runs/research/BACKLOG-ADAPT-REQUAL-02/raw/receipt.json",
+    "runs/research/BACKLOG-ADAPT-REQUAL-02/raw/samples.jsonl",
+    "runs/research/BACKLOG-ADAPT-REQUAL-02/raw/artifact_hashes.json",
+    "runs/research/DISTILL-01-FLEET-DISTILLATION-2026-08-25/PRE_REGISTRATION.md",
+    "runs/research/DISTILL-01-FLEET-DISTILLATION-2026-08-25/RESULT.md",
+    "runs/research/DISTILL-01-FLEET-DISTILLATION-2026-08-25/raw/receipt.json",
+    "tools/probes/distill01_fleet_distillation.py"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "dataset_hashes",
+    "failure_reproduction", "falsifiable_hypothesis", "independent_evaluation",
+    "invalidation_rules", "invariant_controls", "provenance", "raw_samples",
+    "receipt_fingerprint", "semantic_parity", "source_execution_receipt"
+  ],
+  "acceptance_gates": [
+    {"id": "source_execution", "metric": "source_real_execution_verified", "operator": "eq", "threshold": true},
+    {"id": "arm_coverage", "metric": "complete_required_arms", "operator": "eq", "threshold": 3},
+    {"id": "sample_coverage", "metric": "complete_required_samples", "operator": "eq", "threshold": 144},
+    {"id": "fleet_gain", "metric": "fleet_gain_over_monolith", "operator": "ge", "threshold": 0.20},
+    {"id": "math_specialist", "metric": "fleet_math_correct", "operator": "ge", "threshold": 15},
+    {"id": "qa_specialist", "metric": "fleet_qa_correct", "operator": "ge", "threshold": 5},
+    {"id": "independent_scoring", "metric": "independent_rescore_match", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": ["DISTILL01_FLEET_QUALIFIED_R1", "DISTILL01_FALSE_POSITIVE_CONFIRMED_R1"],
+  "forbidden_claims": ["distillation training effect", "dynamic router latency", "production deployment", "generalization beyond frozen panels"],
+  "next_action": "Select the three frozen real arms, independently rescore their raw generations, and recompute the original routing rules and thresholds.",
+  "supersedes": null
+}

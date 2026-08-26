@@ -1,0 +1,55 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SPEC01-LIVE-HYBRID-01",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-26T01:43:24Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-26T01:43:48Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-26T01:44:52Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "codex",
+      "at": "2026-08-26T01:47:58Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SPEC01-LIVE-HYBRID-01/PRE_REGISTRATION.md",
+    "sha256": "1fcbcaf5bc04773573f83f7c4a51a6a1fdbb09401cd317420889db6b4d724df4"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_spec01_live_hybrid.py",
+      "sha256": "bd4e689ce489acefb51f33966213468e55a722a8dac5ba8153e3846aeacdb6cf"
+    },
+    {
+      "path": "tools/research/run_spec01_live_hybrid.py",
+      "sha256": "cff944960a72165d327647aa932285a6e55922c4952b9dc5fb186fb89da5628c"
+    }
+  ],
+  "implementation_digest": "f4def2d1b2cce60365d2974ac62e03610133b85789cc48b367fc23877c0cf0b2",
+  "execution": {
+    "path": "runs/research/BACKLOG-SPEC01-LIVE-HYBRID-01/raw/receipt.json",
+    "sha256": "b0329f38c0ff5f05057610d94cb9cdf1eeb7539cd5fdc79b245aefd5c74bafc8"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

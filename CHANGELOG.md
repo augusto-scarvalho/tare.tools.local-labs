@@ -6,6 +6,27 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added the complete independent rerun and consolidation of all 36 AGY claims,
+  with a rank-by-rank tracker, GitHub-facing audit report, provenance-complete
+  successor packets, raw scored samples, physical runtime receipts and explicit
+  claim limits.
+- Added fresh seed-20260827 training for ADAPT-01 through ADAPT-05, including
+  12 physical training arms and 768 independently reconciled behavioral
+  generations across the main and omitted-arm completion packets.
+- Added portable external-source receipts for Git-excluded GGUF/codec
+  derivatives. The backlog gate now requires committed path/digest/byte-count
+  evidence when a declared large source is absent from a checkout.
+- Added a fail-closed Gemini backlog pipeline with a dependency-aware canonical
+  queue, preregistration and implementation hash binding, provenance-complete
+  immutable receipts, centrally recomputed acceptance gates, evidence-class
+  promotion limits and mandatory independent review.
+- Added repository-level `GEMINI.md`, operator documentation, ten pipeline
+  regression tests and a CI gate covering every registered research packet.
+- Added a manual AGY handoff with a dedicated execution plan, frozen gates,
+  evidence requirements and stop conditions for each current backlog item.
+- Reconciled the six Gemini-remediation items with nine older residual
+  trigger-blocked items, yielding a 15-item canonical queue while keeping
+  parked, cancelled, `HOLD` and closed work outside executable selection.
 - Added the complete Gemini backlog evidence wave: 36 immutable run packets,
   their probes and analysis helpers, the 46-item hypothesis/literature map,
   comprehensive synthesis, and historical closeout handoffs.
@@ -31,6 +52,23 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Changed
 
+- Consolidated the 36-item AGY scientific ledger with the 52-record canonical
+  FSM history: 31 claims have a decisive physical successor, five are purely
+  implementation-blocked, and SLX-08 has a qualified fidelity result plus a
+  separately blocked TTFT claim.
+- Reclassified three historical outcomes as false negatives: ADAPT-01 found a
+  promoted 384-step/LR=1e-4 LoKr arm, full-trace distillation beat answer-only
+  by 8.33 percentage points, and corrected SLX-08 real-QKV fidelity reached
+  0.99545.
+- Reclassified or bounded eight historical promotions after physical reruns:
+  CUDA Graph, DISTILL-00, DISTILL-01, CTRL-01, BEE-L3, BEE-L5, SLX-10 and
+  SPEC-01 failed at least one decisive causal, quality or runtime gate.
+- Kept large regenerated GGUF, packed-codec and redundant tokenizer artifacts
+  out of ordinary Git while retaining immutable SHA-256/byte receipts and the
+  PEFT weights required by downstream source bindings.
+- Split physical-host and portable-CI validation: the research host passes all
+  141 tests, while GitHub runs 139 tests plus the fail-closed backlog gate and
+  deselects only two assertions that require locally materialized large inputs.
 - Superseded the Gemini claim that all 46 backlog items were executed and
   audited. Of the 36 new run packets, 25 are now `SIMULATION_ONLY`, nine were
   unverified model preliminaries, and two endpoint runs had insufficient gates.
@@ -56,6 +94,14 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Fixed
 
+- Fixed backlog portability so CI can validate source identity without storing
+  multi-gigabyte model derivatives; unbound missing inputs still fail closed.
+- Fixed the ADAPT-01 false-negative classification by evaluating the fresh
+  lower-learning-rate arm and separately closing the 640-step arm omitted by
+  the historical driver.
+- Replaced causal narratives based on proxy or order-confounded comparisons
+  with physical matched controls, including CUDA OFF/ON, MTP K0/K2/K4,
+  answer-only/full-trace SFT, and live MTP-plus-ngram serving.
 - Made effective-route receipts compare systemd argv, live process cmdline,
   model path/full SHA, build identity, slot realization, and a strict exercised
   canary instead of trusting requested configuration.
@@ -72,16 +118,15 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Pending
 
-- Requalify the existing `ADAPT-01A` through `ADAPT-05` artifacts under frozen
-  data splits, artifact hashes, seeds, and independent behavioral gates before
-  deciding whether to reproduce their training.
-- Replace proxy-only candidates with real model/runtime/kernel implementations
-  one at a time, starting from cheap mechanics gates; `DISTILL-00` must be
-  rebuilt without hard-coded or random decisive fields.
-- Benchmark any CUDA Graph integration inside the actual serving runtime before
-  making production throughput claims.
-- Require packed artifacts plus hardware VRAM/throughput receipts for every
-  compression, sparsity, or codec promotion.
+- Independently review the Codex successor packets currently stopped at
+  `EXECUTED`; the executor did not self-promote or author approval receipts.
+- Materialize the six absent integration claims before retesting them:
+  SLX-03 recurrent state-write elision, SLX-07 H2O eviction, SLX-08
+  selected-block TTFT, REP-04 KVarN fused kernel, REP-05 per-layer KV precision,
+  and RETRO-01 trained retrofit routing.
+- Retain the external-prerequisite backlog for genuine human judge labels,
+  official ThinkingCap/RetNet/APEX4 artifacts, quantizer provenance, MTP
+  identity/persistence and a physical BEE-L2 codec.
 
 ## 2026-08-24
 

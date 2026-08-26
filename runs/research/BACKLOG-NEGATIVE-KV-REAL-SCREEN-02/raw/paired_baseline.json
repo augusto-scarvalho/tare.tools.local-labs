@@ -1,0 +1,61 @@
+{
+  "candidate_decisions": {
+    "RSH-01": {
+      "pass": false,
+      "rules": [
+        "mse_ratio<=0.70",
+        "sqnr_gain_db>=2.5",
+        "cosine>=0.995"
+      ]
+    },
+    "REP-03": {
+      "pass": false,
+      "rules": [
+        "mse_reduction>=0.50",
+        "attention_cosine>=0.99"
+      ]
+    },
+    "RSH-03": {
+      "pass": false,
+      "rules": [
+        "mse_recovery>=0.50",
+        "output_cosine>=0.998",
+        "parameter_overhead<=0.01"
+      ]
+    },
+    "RSH-04": {
+      "pass": false,
+      "rules": [
+        "top_block_recall>=0.90",
+        "retained_fraction<=0.30"
+      ]
+    },
+    "REP-06": {
+      "pass": false,
+      "rules": [
+        "average_bits<=7.0",
+        "attention_cosine>=0.992",
+        "beats_static_int4=true"
+      ]
+    }
+  },
+  "scores": {
+    "actual_model_activation_cells": 18,
+    "actual_model_weight_matrices": 12,
+    "candidate_hypotheses_evaluated": 5,
+    "all_decisive_tensors_from_frozen_model": true,
+    "rsh01_fib_mse_ratio_vs_uniform": 1.5709404418002388,
+    "rsh01_fib_sqnr_gain_db": -1.9615957269765296,
+    "rsh01_fib_cosine_similarity": 0.9921410977840424,
+    "rep03_hadamard_mse_reduction": 0.2777539216667932,
+    "rep03_hadamard_attention_cosine": 0.9994560480117798,
+    "rsh03_rank4_mse_recovery": 0.03178882245116127,
+    "rsh03_rank4_output_cosine": 0.999200165271759,
+    "rsh03_rank4_parameter_overhead": 0.0078125,
+    "rsh04_binary_top_block_recall": 0.5078125,
+    "rsh04_retained_fraction": 0.25,
+    "rep06_average_bits_per_element": 7.796875,
+    "rep06_dynamic_attention_cosine": 0.9722859561443329,
+    "rep06_dynamic_beats_static_int4": false
+  }
+}

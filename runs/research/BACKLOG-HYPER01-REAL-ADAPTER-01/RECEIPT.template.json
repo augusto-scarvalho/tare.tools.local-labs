@@ -1,0 +1,74 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-HYPER01-REAL-ADAPTER-01",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "physical_targets": {
+      "metric": "physical_adapter_targets",
+      "operator": "eq",
+      "threshold": 4,
+      "actual": null,
+      "pass": null
+    },
+    "target_distinctness": {
+      "metric": "distinct_target_deltas",
+      "operator": "eq",
+      "threshold": 4,
+      "actual": null,
+      "pass": null
+    },
+    "latency": {
+      "metric": "median_synthesis_latency_ms",
+      "operator": "le",
+      "threshold": 5.0,
+      "actual": null,
+      "pass": null
+    },
+    "fidelity": {
+      "metric": "mean_weight_delta_cosine",
+      "operator": "ge",
+      "threshold": 0.95,
+      "actual": null,
+      "pass": null
+    },
+    "overhead": {
+      "metric": "generator_vram_overhead_mb",
+      "operator": "le",
+      "threshold": 20.0,
+      "actual": null,
+      "pass": null
+    },
+    "independent_recompute": {
+      "metric": "independent_metric_recompute_match",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "service_recovery": {
+      "metric": "service_and_embedding_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "real_implementation": null,
+    "receipt_fingerprint": null,
+    "semantic_parity": null,
+    "service_maintenance": null,
+    "target_materiality": null
+  },
+  "receipt_fingerprint": null
+}

@@ -1,0 +1,59 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT01-640-EVAL-01",
+  "evidence_class": "artifact_requalification",
+  "executor": "Codex executor",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T03:16:37Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T03:16:52Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T03:17:43Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T03:20:37Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT01-640-EVAL-01/PRE_REGISTRATION.md",
+    "sha256": "73be5f78a4ed1659b95132ea697f29a37c7b2021ae1f08957c05457bfd2ac204"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_adapt01_640_eval.py",
+      "sha256": "bdf230ed1dd03f391670fba2324cdb0c29d5588f018188888d3cadcb1dbf1d6b"
+    },
+    {
+      "path": "tools/research/adapt01_640_eval_worker.py",
+      "sha256": "3060ec98e4432e9fba8ca49e486ccc4922c63fa1c3aaa6b1b88dad642d660ce2"
+    },
+    {
+      "path": "tools/research/run_adapt01_640_eval.py",
+      "sha256": "099fc669aa1e17751b4c36320e6d45e1e58817354b50b4de7d996d45cca699fc"
+    }
+  ],
+  "implementation_digest": "839ffe5e495c3df7fbb05b74055c80a89399a337374060dfcba496a557b698ed",
+  "execution": {
+    "path": "runs/research/BACKLOG-ADAPT01-640-EVAL-01/raw/receipt.json",
+    "sha256": "cb0180cc424db42e5a8a81fd6bf60c66b5b61c5a2c029631e909418276e8d170"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

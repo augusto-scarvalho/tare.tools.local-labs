@@ -1,0 +1,65 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-CTRL01-REAL-TOKEN-03",
+  "evidence_class": "mechanism_research",
+  "executor": "Codex executor",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:31:26Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:31:54Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:31:55Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:33:26Z",
+      "reason": "All calls completed, but the harness compared the volatile /v1/models created timestamp and raised a false identity-change abort despite unchanged MainPID 29428 and NRestarts 0. No receipt was written; successor will compare stable identity fields only."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-CTRL01-REAL-TOKEN-03/PRE_REGISTRATION.md",
+    "sha256": "566ccfca88fc1b41397c8853d676eb11a60ca60a99d7bac21c87e341de46eca3"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_ctrl01_real_token.py",
+      "sha256": "eb550dc9c46c507aef75862caefdb544b0fc692d0d03ac72052e1c26dd8afa42"
+    },
+    {
+      "path": "tests/test_ctrl01_real_token_r2.py",
+      "sha256": "7c3fded4681b4ea2fc6fd93fc49bb1282a6b8a3082cf244014090ba6c5189cc7"
+    },
+    {
+      "path": "tools/analysis/ast_grammar_sidecar.py",
+      "sha256": "3cb90b1b5aa5aacdff93b7a8b0cdc38e689099e0d1365989f00b7b34acbb1463"
+    },
+    {
+      "path": "tools/research/run_ctrl01_real_token.py",
+      "sha256": "4fda0317bf41a26646b9086aa741582ae5aacabb0177eb56fc2800c98003eb90"
+    },
+    {
+      "path": "tools/research/run_ctrl01_real_token_r3.py",
+      "sha256": "7517c2ddc79740fc05c8a94e76c861d0ce749f4d27ce6ffc9841c37b4e59f215"
+    }
+  ],
+  "implementation_digest": "0aeecce5af3033cce0ec3d1df3d3edfe91fd8eea023dcf57cafa0d2e7fc75114",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

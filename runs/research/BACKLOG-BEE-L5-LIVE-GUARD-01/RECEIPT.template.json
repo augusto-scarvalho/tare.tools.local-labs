@@ -1,0 +1,95 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-BEE-L5-LIVE-GUARD-01",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "legitimate_coverage": {
+      "metric": "real_legitimate_traces",
+      "operator": "eq",
+      "threshold": 128,
+      "actual": null,
+      "pass": null
+    },
+    "pathology_coverage": {
+      "metric": "live_pathological_baselines",
+      "operator": "eq",
+      "threshold": 25,
+      "actual": null,
+      "pass": null
+    },
+    "sensitivity": {
+      "metric": "sensitivity_tpr",
+      "operator": "ge",
+      "threshold": 0.95,
+      "actual": null,
+      "pass": null
+    },
+    "specificity": {
+      "metric": "false_alarm_fpr",
+      "operator": "le",
+      "threshold": 0.02,
+      "actual": null,
+      "pass": null
+    },
+    "physical_intervention": {
+      "metric": "stream_aborts_confirmed",
+      "operator": "eq",
+      "threshold": 25,
+      "actual": null,
+      "pass": null
+    },
+    "token_savings": {
+      "metric": "median_token_savings",
+      "operator": "ge",
+      "threshold": 0.8,
+      "actual": null,
+      "pass": null
+    },
+    "guard_overhead": {
+      "metric": "guard_p95_us_per_token",
+      "operator": "le",
+      "threshold": 2.0,
+      "actual": null,
+      "pass": null
+    },
+    "service_integrity": {
+      "metric": "service_restarts",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "idle_recovery": {
+      "metric": "idle_slots_after",
+      "operator": "eq",
+      "threshold": 4,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "failure_reproduction": null,
+    "falsifiable_hypothesis": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "invariant_controls": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "real_implementation": null,
+    "receipt_fingerprint": null,
+    "semantic_parity": null,
+    "service_maintenance": null,
+    "source_execution_receipt": null,
+    "effective_route": null,
+    "recovery_state": null,
+    "service_identity": null
+  },
+  "receipt_fingerprint": null
+}

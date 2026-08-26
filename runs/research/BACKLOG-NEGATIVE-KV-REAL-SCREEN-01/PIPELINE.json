@@ -1,0 +1,61 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-NEGATIVE-KV-REAL-SCREEN-01",
+  "evidence_class": "proxy_realization",
+  "executor": "Codex executor",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:07:17Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:08:31Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:11:39Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T00:12:19Z",
+      "reason": "Worker model binding failed before measurement: Transformers exposes model.model as Qwen3_5TextModel; successor must freeze logs and change only the object binding."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-01/PRE_REGISTRATION.md",
+    "sha256": "dce466a9cdfc8a34b7baf1afe52f15752891bd063a32ac3d2f28450d7aebfe11"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_negative_kv_real_screen.py",
+      "sha256": "11ccebc6c16e9d33325183d8aaa0d3cb9ef82c21e683a85e9f3cc28c63c6fd4b"
+    },
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/negative_kv_real_worker.py",
+      "sha256": "7ae1f1107ba4f41bd41ac64e23d149fe46508a14f1625253ef481d3cabcdd847"
+    },
+    {
+      "path": "tools/research/run_negative_kv_real_screen.py",
+      "sha256": "155ed3fd3947e936cc41c6a7e3fee1f4550614f9ac55f9293af296dddffb11b1"
+    }
+  ],
+  "implementation_digest": "1190c599327389a0a98a6551cf54198ecf182bef3f8652da897b230dcdd7ffa8",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}
