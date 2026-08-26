@@ -12,6 +12,7 @@ and do not give an incumbent preference merely because it was qualified first.
 
 ## Key Files & Artifacts
 
+- [`../HANDOFF_2026-08-26_CONSOLIDATED_RESEARCH_BACKLOG.md`](../HANDOFF_2026-08-26_CONSOLIDATED_RESEARCH_BACKLOG.md): restart-safe handoff for the current 52-record canonical backlog, separating the 20-packet independent-review queue, ten genuine trigger-blocked items, 17 archived failed predecessors, and six objective integration gaps.
 - [`../AUDIT_2026-08-26_CODEX_AGY_36_FULL_RERUN.md`](../AUDIT_2026-08-26_CODEX_AGY_36_FULL_RERUN.md): GitHub-facing independent closeout of all 36 AGY claims, including three false negatives, eight false positives/overclaims, retained results, objective integration blockers and restored serving state.
 - [`../AGY_36_INDEPENDENT_RERUN_TRACKER_2026-08-25.md`](../AGY_36_INDEPENDENT_RERUN_TRACKER_2026-08-25.md): rank-by-rank bridge from the historical AGY wave to canonical successor packets in `config/research_backlog.json`; no rows remain pending or partial.
 - [`BACKLOG_IMPLEMENTATION_PIPELINE.md`](BACKLOG_IMPLEMENTATION_PIPELINE.md): fail-closed executable queue, state machine, receipt schema, frozen-gate recalculation and independent-review workflow for Gemini backlog execution.

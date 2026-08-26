@@ -24,6 +24,7 @@ scientific hypothesis.
 
 The human-facing reconciliation of the 36 AGY claims is maintained separately:
 
+- [`HANDOFF_2026-08-26_CONSOLIDATED_RESEARCH_BACKLOG.md`](../HANDOFF_2026-08-26_CONSOLIDATED_RESEARCH_BACKLOG.md) is the restart-safe operational handoff: review order, genuine blockers, archived failed attempts, integration gaps, service baseline, and stop conditions.
 - [`AGY_36_INDEPENDENT_RERUN_TRACKER_2026-08-25.md`](../AGY_36_INDEPENDENT_RERUN_TRACKER_2026-08-25.md) maps every original rank to its decisive successor or objective unblock condition.
 - [`AUDIT_2026-08-26_CODEX_AGY_36_FULL_RERUN.md`](../AUDIT_2026-08-26_CODEX_AGY_36_FULL_RERUN.md) consolidates the three false negatives, eight false positives/overclaims, retained results, physical blockers, service restoration, and claim limits.
 

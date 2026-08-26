@@ -6,6 +6,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added a restart-safe consolidated research-backlog handoff covering the
+  20-packet independent-review queue, ten genuine trigger-blocked items, 17
+  archived failed predecessors, six objective integration gaps, restart checks,
+  review order, claim boundaries and stop conditions.
 - Documented model-card lookup by canonical id or alias, including the stable JSON
   contract, artifact identity, qualification boundaries and evidence fields exposed
   to agent automation.
