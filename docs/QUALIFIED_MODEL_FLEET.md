@@ -38,6 +38,28 @@ model=qwen38 | qwen36-moe | fable-tc | hauhaucs | gemma-vision | muse-vision
 Aliases such as `coding`, `math`, `vision` and `vision-hard` are accepted, but durable
 automation should record the canonical model id returned by `modelctl recommend`.
 
+### Inspect a model card by alias
+
+`show` resolves either an alias or a canonical model id. The human-readable form is
+suited to interactive inspection; `--json` is the stable form for agents and scripts:
+
+```powershell
+python tools/agents/modelctl.py show coding
+python tools/agents/modelctl.py show coding --json
+python tools/agents/modelctl.py show hauhaucs --json
+```
+
+The returned card includes the canonical `id`, display name, qualification class,
+intended and excluded roles, modalities, summary, known limits, quantization, evidence
+paths, the originally requested alias, artifact path and SHA-256, and the public API
+base. Runtime launch arguments remain an operator concern in the machine-readable
+registry rather than part of the public agent card.
+
+For example, both `coding` and `hauhaucs` resolve to the role-qualified HauhauCS
+artifact. Agents should use it for coding, low-friction tool use and constrained
+summaries, but must not reinterpret that bounded qualification as a broad-default or
+bounded-math promotion.
+
 ## Qualified routes and boundaries
 
 | Route | Qualified role | Important boundary |

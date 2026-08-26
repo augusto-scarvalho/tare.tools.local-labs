@@ -228,13 +228,16 @@ python tests/benchmark_harness/benchmark_harness_selftest.py
 ```powershell
 python tools/agents/modelctl.py list
 python tools/agents/modelctl.py recommend coding
+python tools/agents/modelctl.py show coding --json
 python tools/agents/modelctl.py status
 ```
 
 The OpenAI-compatible endpoint is `http://127.0.0.1:8080/v1`; the JSON
 `model` field selects a route while the RTX 3090 keeps one generation model
-resident. See [`docs/QUALIFIED_MODEL_FLEET.md`](docs/QUALIFIED_MODEL_FLEET.md)
-for canonical ids, evidence boundaries, examples and rollback.
+resident. `show` accepts either a canonical id or an alias and reports the
+resolved artifact, SHA-256, qualified roles, limits and evidence paths. See
+[`docs/QUALIFIED_MODEL_FLEET.md`](docs/QUALIFIED_MODEL_FLEET.md) for canonical
+ids, evidence boundaries, examples and rollback.
 
 ### 3. Run Context Retrieval Probe (Needle-in-a-Haystack)
 ```bash

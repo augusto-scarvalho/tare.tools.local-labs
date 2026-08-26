@@ -6,6 +6,9 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Documented model-card lookup by canonical id or alias, including the stable JSON
+  contract, artifact identity, qualification boundaries and evidence fields exposed
+  to agent automation.
 - Added a fail-closed qualified-model fleet registry, an OpenAI-compatible on-demand
   gateway for the single RTX 3090, and an agent-facing `modelctl` CLI for discovery,
   role recommendation, evidence/limit inspection, live status and requests. Six
