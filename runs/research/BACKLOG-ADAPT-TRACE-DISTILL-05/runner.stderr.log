@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "C:\projects\tare.tools.local-labs\tools\research\run_trace_distillation_confirmation_r5.py", line 668, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_trace_distillation_confirmation_r5.py", line 662, in main
+    receipt = run_experiment(args.outdir.resolve())
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_trace_distillation_confirmation_r5.py", line 471, in run_experiment
+    raise RuntimeError(f"worker {label} failed: {completed.stderr[-4000:]}")
+RuntimeError: worker seed_20260834_full_trace failed: 
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]
+Loading weights:  13%|\u2588\u258e        | 43/320 [00:00<00:00, 429.05it/s]
+Loading weights:  85%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c | 272/320 [00:00<00:00, 1513.20it/s]
+Loading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 320/320 [00:00<00:00, 1439.06it/s]
+

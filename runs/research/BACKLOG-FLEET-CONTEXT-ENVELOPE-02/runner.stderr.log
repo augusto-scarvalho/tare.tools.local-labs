@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "C:\projects\tare.tools.local-labs\tools\research\run_fleet_context_envelope.py", line 370, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_fleet_context_envelope.py", line 364, in main
+    receipt = execute(args.outdir.resolve())
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_fleet_context_envelope.py", line 264, in execute
+    raise error
+  File "C:\projects\tare.tools.local-labs\tools\research\run_fleet_context_envelope.py", line 210, in execute
+    cases = build_cases(model)
+            ^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_fleet_context_envelope.py", line 124, in build_cases
+    filler_count, fitted_tokens = fit_filler_count(target)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_fleet_context_envelope.py", line 104, in fit_filler_count
+    high_tokens = token_count(make_prompt(high, "middle", probe_code))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_fleet_context_envelope.py", line 97, in token_count
+    raise RuntimeError(f"tokenizer failure: {status} {response}")
+RuntimeError: tokenizer failure: 404 {'_error': {'error': {'message': 'not found', 'type': 'not_found'}}}

@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "C:\projects\tare.tools.local-labs\tools\research\run_fleet_humanevalplus.py", line 335, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_fleet_humanevalplus.py", line 329, in main
+    receipt = execute(args.outdir.resolve())
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_fleet_humanevalplus.py", line 247, in execute
+    raise error
+  File "C:\projects\tare.tools.local-labs\tools\research\run_fleet_humanevalplus.py", line 220, in execute
+    scores[model] = score_model(model, sample_path, raw)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_fleet_humanevalplus.py", line 146, in score_model
+    raise RuntimeError(f"EvalPlus failed for {model}: {completed.stderr[-4000:]}")
+RuntimeError: EvalPlus failed for qwen38: Traceback (most recent call last):
+  File "/mnt/c/projects/tare.tools.local-labs/tools/analysis/a2_score_humaneval.py", line 19, in <module>
+    from benchmark_harness_qa import pad_subset, bust_stale_results  # single source of truth (LAB-QA-001)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'benchmark_harness_qa'
+

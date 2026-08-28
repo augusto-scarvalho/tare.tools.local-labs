@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "C:\projects\tare.tools.local-labs\tools\research\run_trace_distillation_confirmation_r6.py", line 401, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_trace_distillation_confirmation_r6.py", line 395, in main
+    receipt = execute(args.outdir.resolve())
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_trace_distillation_confirmation_r6.py", line 192, in execute
+    r2.systemctl("stop")
+  File "C:\projects\tare.tools.local-labs\tools\research\run_adapter_requalification_r2.py", line 136, in systemctl
+    completed = run_command(
+                ^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_adapter_requalification_r2.py", line 79, in run_command
+    return subprocess.run(
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\augus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\augus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1209, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\augus\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 1630, in _communicate
+    raise TimeoutExpired(self.args, orig_timeout)
+subprocess.TimeoutExpired: Command '['wsl', '-d', 'Ubuntu-24.04', '-u', 'root', '--', 'systemctl', 'stop', 'llm-inference.service']' timed out after 60.0 seconds

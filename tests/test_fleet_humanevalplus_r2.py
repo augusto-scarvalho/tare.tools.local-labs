@@ -17,5 +17,6 @@ def test_score_command_bootstraps_repository_pythonpath():
     )
     assert "env" in command
     assignment = next(value for value in command if value.startswith("PYTHONPATH="))
-    assert assignment == "PYTHONPATH=/mnt/c/projects/tare.tools.local-labs"
+    expected = experiment.paths.windows_path_to_wsl(experiment.ROOT)
+    assert assignment == f"PYTHONPATH={expected}"
     assert command[-4] == experiment.r1.EVALPLUS_PYTHON

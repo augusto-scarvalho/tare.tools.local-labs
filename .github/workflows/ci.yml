@@ -46,13 +46,17 @@ jobs:
         run: python tools/analysis/backlog_pipeline.py gate
 
       - name: Run portable unit tests
-        # These two nodes intentionally assert that local multi-GB/checkpoint
+        # These nodes intentionally assert that local multi-GB/checkpoint
         # inputs are physically materialized. The backlog gate above validates
         # their committed SHA-256/byte receipts in a clean GitHub checkout.
         run: >-
           python -m pytest -q
           --deselect=tests/test_slx10_packed_runtime.py::test_frozen_f16_source_exists
           --deselect=tests/test_trace_distillation_training_r3.py::test_frozen_continuation_sources_match
+          --deselect=tests/test_trace_distillation_confirmation_r6.py::test_continuation_sources_bind_nine_complete_workers
+          --deselect=tests/test_trace_distillation_replication_r8.py::test_second_panel_is_frozen_disjoint_and_source_bound
+          --deselect=tests/test_trace_vs_behavioral_finalist.py::test_frozen_sources_and_imported_trace_are_complete_and_rescore
+          --deselect=tests/test_trace_vs_behavioral_finalist_r2.py::test_all_frozen_hashes_verify
 
       - name: Qualify benchmark harness
         run: python tests/benchmark_harness/benchmark_harness_selftest.py

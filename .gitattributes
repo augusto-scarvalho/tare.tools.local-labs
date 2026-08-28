@@ -18,6 +18,12 @@ runs/research/**/raw/*.json binary
 # original bytes while retaining ordinary textual diffs.
 runs/research/**/REVIEW.json -text
 
+# Packet results and declared stderr inputs can be SHA-256-bound by receipts.
+# Preserve their authored bytes so a Linux checkout validates the same object
+# that the Windows research host validated.
+runs/research/**/RESULT.md -text -eol -diff
+runs/research/**/runner.stderr.log -text -eol -diff
+
 # Binary — never diff or convert.
 *.db binary
 *.gguf binary

@@ -134,6 +134,13 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Fixed
 
+- Preserved authored bytes for hash-bound packet `RESULT.md` files and
+  explicitly tracked receipt-declared `runner.stderr.log` inputs, eliminating
+  Windows CRLF versus Linux LF digest drift in the portable backlog gate.
+- Removed a clone-path assumption from the HumanEval+ command test and kept six
+  exact physical-source assertions active locally while deselecting them from
+  portable CI, where their multi-GB GGUF/checkpoint inputs are intentionally
+  represented by committed external-source receipts.
 - Detected and fail-closed the trace scorer's same-unit extraction defect. It
   failed 4/4 adversarial probes and produced observed false positives and
   false negatives despite reproducing all 512 stored labels and the reported
