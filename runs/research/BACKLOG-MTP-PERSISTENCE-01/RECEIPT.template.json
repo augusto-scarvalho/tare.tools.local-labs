@@ -1,0 +1,49 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-MTP-PERSISTENCE-01",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "original_failure": {
+      "metric": "original_failure_reproduced",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "controls": {
+      "metric": "invariant_controls_pass",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "fixed_repeats": {
+      "metric": "successful_fixed_path_repeats",
+      "operator": "ge",
+      "threshold": 20,
+      "actual": null,
+      "pass": null
+    },
+    "semantic_parity": {
+      "metric": "post_fix_mismatch_rate",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "failure_reproduction": null,
+    "falsifiable_hypothesis": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "invariant_controls": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "semantic_parity": null
+  },
+  "receipt_fingerprint": null
+}

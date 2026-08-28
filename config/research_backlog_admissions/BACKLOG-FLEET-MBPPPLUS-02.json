@@ -1,0 +1,45 @@
+{
+  "id": "BACKLOG-FLEET-MBPPPLUS-02",
+  "priority": 1,
+  "title": "Resolve coding-alias uncertainty with a final disjoint MBPP+ panel",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-FLEET-MBPPPLUS-02",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-FLEET-MBPPPLUS-01/raw/samples.jsonl",
+    "runs/research/BACKLOG-FLEET-MBPPPLUS-01/raw/official_scores.json",
+    "runs/research/BACKLOG-FLEET-MBPPPLUS-01/raw/receipt.json",
+    "config/qualified_model_fleet.json",
+    "workloads/mbpp_plus.jsonl",
+    "workloads/mbpp_plus.identity.json",
+    "tools/analysis/score_mbpp_subset.py",
+    "tools/research/run_fleet_mbppplus.py",
+    "benchmark_harness_qa.py"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "raw_samples", "provenance", "receipt_fingerprint",
+    "effective_route", "service_identity", "paired_baseline", "recovery_state",
+    "hardware_metrics", "artifact_hashes", "dataset_hashes", "official_scores",
+    "independent_evaluation", "source_execution_receipt"
+  ],
+  "acceptance_gates": [
+    {"id": "source_integrity", "metric": "r1_sources_and_model_artifacts_verified", "operator": "eq", "threshold": true},
+    {"id": "panel_isolation", "metric": "two_mbpp_panels_disjoint", "operator": "eq", "threshold": true},
+    {"id": "route_coverage", "metric": "verified_text_routes_completed", "operator": "eq", "threshold": 4},
+    {"id": "fresh_generation_coverage", "metric": "fresh_second_panel_generations", "operator": "eq", "threshold": 400},
+    {"id": "combined_score_coverage", "metric": "official_model_panel_scores", "operator": "eq", "threshold": 8},
+    {"id": "coding_alias_absolute", "metric": "combined_hauhaucs_mbpp_plus_pass_at_1", "operator": "ge", "threshold": 0.70},
+    {"id": "coding_alias_noninferiority", "metric": "stratified_bootstrap_95ci_lower_hauhaucs_minus_qwen38", "operator": "gt", "threshold": -0.05},
+    {"id": "service_recovery", "metric": "initial_route_and_services_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "HAUHAUCS_MBPPPLUS_200_CODING_ALIAS_RETAINED_R2",
+    "HAUHAUCS_MBPPPLUS_200_CODING_ALIAS_NOT_RETAINED_R2"
+  ],
+  "forbidden_claims": [
+    "additional adaptive MBPP panels after R2", "full MBPP+ pass at 1",
+    "HumanEval generalization", "latency ranking", "broad-default promotion"
+  ],
+  "next_action": "Run exactly one final disjoint 100-task panel on all four routes and synthesize equal-panel official scores and paired uncertainty over 200 tasks; stop this family afterward.",
+  "supersedes": "BACKLOG-FLEET-MBPPPLUS-01"
+}

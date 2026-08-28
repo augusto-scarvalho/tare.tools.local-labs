@@ -1,0 +1,43 @@
+{
+  "id": "BACKLOG-FLEET-MBPPPLUS-01",
+  "priority": 1,
+  "title": "Requalify the coding alias on a 100-task MBPP+ screen across the text fleet",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-FLEET-MBPPPLUS-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "config/qualified_model_fleet.json",
+    "workloads/mbpp_plus.jsonl",
+    "workloads/mbpp_plus.identity.json",
+    "tools/analysis/score_mbpp_subset.py",
+    "tools/benchmarks/mbpp_plus_bench.py",
+    "benchmark_harness_qa.py",
+    "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-01/raw/receipt.json"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "raw_samples", "provenance", "receipt_fingerprint",
+    "effective_route", "service_identity", "paired_baseline", "recovery_state",
+    "hardware_metrics", "artifact_hashes", "dataset_hashes", "official_scores",
+    "independent_evaluation", "source_execution_receipt"
+  ],
+  "acceptance_gates": [
+    {"id": "artifact_identity", "metric": "qualified_model_artifacts_verified", "operator": "eq", "threshold": 4},
+    {"id": "route_coverage", "metric": "verified_text_routes_completed", "operator": "eq", "threshold": 4},
+    {"id": "generation_coverage", "metric": "fresh_mbpp_generations", "operator": "eq", "threshold": 400},
+    {"id": "response_integrity", "metric": "successful_nonempty_responses", "operator": "ge", "threshold": 396},
+    {"id": "official_score_coverage", "metric": "models_scored_by_evalplus", "operator": "eq", "threshold": 4},
+    {"id": "coding_alias_absolute", "metric": "hauhaucs_mbpp_plus_pass_at_1", "operator": "ge", "threshold": 0.70},
+    {"id": "coding_alias_noninferiority", "metric": "paired_bootstrap_95ci_lower_hauhaucs_minus_qwen38", "operator": "gt", "threshold": -0.05},
+    {"id": "service_recovery", "metric": "initial_route_and_services_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "HAUHAUCS_MBPPPLUS_CODING_ALIAS_RETAINED_R1",
+    "HAUHAUCS_MBPPPLUS_CODING_ALIAS_NOT_RETAINED_R1"
+  ],
+  "forbidden_claims": [
+    "full MBPP+ pass at 1", "HumanEval generalization", "latency ranking",
+    "vision-model claims", "broad-default promotion", "production deployment change"
+  ],
+  "next_action": "Generate and officially execute-score the same frozen 100-task MBPP+ subset on qwen38, hauhaucs, fable-tc and qwen36-moe, then test the existing coding alias against qwen38 with a paired bootstrap.",
+  "supersedes": null
+}

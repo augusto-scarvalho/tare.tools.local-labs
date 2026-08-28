@@ -1,0 +1,73 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT-MECHANISMS-COMPLETE-03",
+  "evidence_class": "artifact_requalification",
+  "executor": "Codex",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:47:37Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:48:02Z",
+      "reason": "Frozen seed-evidence correction with no estimand change"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:49:13Z",
+      "reason": "Seed gate rebound to frozen execution receipt with unchanged 768-row estimand"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T10:49:51Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
+      "at": "2026-08-28T10:58:16Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
+      "at": "2026-08-28T10:58:17Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-03/PRE_REGISTRATION.md",
+    "sha256": "1f2eea846567aadde9f8370a58169e34912f5e55cc8a46dda92791d1fd4ea2b2"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_adapt_mechanisms_complete_r3.py",
+      "sha256": "bd2c434c7098e47f7453c5e0527ba362350eed1dc153c7bf6d2379e950521def"
+    }
+  ],
+  "implementation_digest": "6cf4b9c1a1621ce32e1385b54b6bf4cd35c1f1ab1b9e68cc479ad05f82067592",
+  "execution": {
+    "path": "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-03/raw/receipt.json",
+    "sha256": "bf9323182d499929be94bdf0e061adc99fa6687001e8a529daa0612539b7fe49"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-03/RESULT.md",
+    "sha256": "d40fdbf014fe9379b5e1e1d16b171ccf1cfe9451e448aaa973f9630a2c832bed"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-03/REVIEW.json",
+    "sha256": "7a66c9daab99f8f5e6da8155bfeb9188c7b84529359dd19c388e90c0be204a4b"
+  },
+  "claim_codes": [
+    "ADAPT01_05_MECHANISMS_COMPLETED_R3"
+  ]
+}

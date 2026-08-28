@@ -1,0 +1,53 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-02",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-27T20:14:45Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-27T20:15:16Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-27T20:17:28Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "Codex",
+      "at": "2026-08-27T20:23:10Z",
+      "reason": "The qualified gateway returned HTTP 404 for /tokenize before any generation. The active llama-server backend on port 18080 exposes the required tokenizer endpoint; successor changes only tokenizer calls from gateway port 8080 to the verified active backend port while retaining all scientific factors."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-02/PRE_REGISTRATION.md",
+    "sha256": "e851482e89abd1bc417db405921a1b0d4a4195f17452689eebb41b6f23e845ae"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_fleet_context_envelope.py",
+      "sha256": "ae5da0eedd0872a791c31c41bcfa6e55c0d503679b97fa28ff2d2302edc085e8"
+    },
+    {
+      "path": "tools/research/run_fleet_context_envelope.py",
+      "sha256": "1ebb0c07145edd48f1fcc7d8f97b248a954ce4faa554e4d6f220c6d693eb857b"
+    }
+  ],
+  "implementation_digest": "8b9f7a296b71dd86769ec782765a868665c300d622ddf72157ee76d8642b8c9e",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

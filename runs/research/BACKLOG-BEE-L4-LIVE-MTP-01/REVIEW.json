@@ -1,0 +1,17 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "APPROVED",
+  "receipt_sha256": "53cc372683f4b8c53c9d67218e1b132feef7e86930066b219908eb77e9a5a85a",
+  "implementation_digest": "d7812310135aa61131dcb021ea37160cd88e9a232f48ab86d185662d147eb389",
+  "findings": [
+    "Receipt fingerprint, implementation digest, all three implementation-file hashes and all 26 provenance inputs independently match. Fresh SHA-256 of the bound live llama-server binary reproduces 5719c246ec3622ea1df3c3f498075879f12f1f70b969f8b591e87b3a1f3c8808.",
+    "The bound pre-route snapshot has exactly four idle speculative slots 0 through 3, and ExecStart fixes the same binary, Fable-TC model path, four-slot context and --spec-type draft-mtp --spec-draft-n-max 4. PID 29428, ExecStart, binary hash, zero restarts and both health endpoints remain unchanged.",
+    "All 100 retained rows form exactly 25 complete four-slot rounds with unique round/slot keys and identical frozen request settings. Every physical response id_slot equals its requested slot, all responses stop naturally, and the four distinct baseline contents are reproduced byte-for-byte in all 96 non-baseline repetitions.",
+    "Independent scoring reproduces exact-repeat 100/100, own nonce 100/100 and zero foreign nonce occurrences. Each slot returns only its assigned content across all 25 rounds; excluding the trivially self-matching baseline round leaves the same 96/96 repeat result.",
+    "Every response reports real speculative work: draft_n ranges 8 to 16 and accepted drafts 3 to 7. Totals independently reproduce 1,308 proposed, 478 accepted and 830 rejected draft tokens; all 100 requests reject at least one draft.",
+    "Receipt-bound service logs corroborate explicit selected-slot IDs, overlapping launches on slots 0 through 3, draft-acceptance counts and clean releases. The final /slots snapshot contains four speculative, non-processing slots and preserves the frozen request parameters.",
+    "Adversarial false-positive audit notes that each nonce is present in its own prompt and therefore nonce success alone is weak. Prompt-cache reuse is also uneven across slots. Neither fact explains away the stronger physical-slot response binding, concurrent log evidence, 830 rollback events, exact per-slot repetitions and clean recovery, but they prohibit claims about cache persistence or internal pointer transactions.",
+    "Approval is strictly limited to observable live slot isolation for this exact binary, model route, deterministic short prompts and four-slot draft-MTP runtime. It does not validate the historical Python manager's microsecond overhead, internal pointer atomicity, long-context cache isolation, stochastic decoding, semantic workload quality or general production readiness."
+  ]
+}

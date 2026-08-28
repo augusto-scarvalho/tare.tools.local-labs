@@ -1,0 +1,38 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-01",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-27T20:13:08Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-27T20:13:36Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "BLOCKED",
+      "actor": "Codex",
+      "at": "2026-08-27T20:14:12Z",
+      "reason": "Pre-execution validation found Qwen3.6-MoE ctx-size 73728 is shared across four parallel slots, so the preregistered 64k single-request target exceeds the effective 18432-token slot envelope. No generation ran; successor changes only Qwen3.6 targets to 4k/12k/17k and records per-slot limits."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-01/PRE_REGISTRATION.md",
+    "sha256": "58496fcb6d374d2f08cc945404c1ed7cd1f68a067df70a90be3f9bc6fe3ae642"
+  },
+  "implementation": [],
+  "implementation_digest": null,
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

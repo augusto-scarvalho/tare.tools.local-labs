@@ -1,0 +1,93 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT-MECHANISMS-COMPLETE-02",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "source_integrity": {
+      "metric": "source_receipts_and_artifacts_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "mechanism_coverage": {
+      "metric": "fresh_mechanisms_completed",
+      "operator": "eq",
+      "threshold": 5,
+      "actual": null,
+      "pass": null
+    },
+    "training_coverage": {
+      "metric": "fresh_training_arms",
+      "operator": "eq",
+      "threshold": 12,
+      "actual": null,
+      "pass": null
+    },
+    "evaluation_coverage": {
+      "metric": "fresh_scored_generations",
+      "operator": "eq",
+      "threshold": 768,
+      "actual": null,
+      "pass": null
+    },
+    "arm_coverage": {
+      "metric": "complete_arm_instances",
+      "operator": "eq",
+      "threshold": 16,
+      "actual": null,
+      "pass": null
+    },
+    "seed_control": {
+      "metric": "fresh_seed_verified",
+      "operator": "eq",
+      "threshold": 20260827,
+      "actual": null,
+      "pass": null
+    },
+    "independent_aggregate": {
+      "metric": "independent_score_match",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "artifact_identity": {
+      "metric": "hashed_adapter_artifacts",
+      "operator": "ge",
+      "threshold": 13,
+      "actual": null,
+      "pass": null
+    },
+    "service_restore": {
+      "metric": "normalized_original_service_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "embedding_integrity": {
+      "metric": "embedding_health",
+      "operator": "eq",
+      "threshold": 200,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "independent_evaluation": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "scorer_hashes": null,
+    "service_maintenance": null,
+    "source_execution_receipt": null,
+    "training_trace": null
+  },
+  "receipt_fingerprint": null
+}

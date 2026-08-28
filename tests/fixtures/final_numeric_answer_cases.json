@@ -1,0 +1,21 @@
+[
+  {"id":"boxed","text":"Work: 9 + 8 = 17. Final: \\boxed{17}.","expected":"17","method":"boxed"},
+  {"id":"hash","text":"There were 14 items. #### 14","expected":"14","method":"hash_answer"},
+  {"id":"trailing_context","text":"Therefore, the trip takes 7 hours to cover the remaining 2800 miles.","expected":"7","method":"conclusion_cue"},
+  {"id":"weeks_context","text":"We first note 3 weeks of setup. Thus 11 workers are required for the schedule.","expected":"11","method":"conclusion_cue"},
+  {"id":"seconds_context","text":"The answer is 135 seconds, which is 45 seconds for each of 3 stages.","expected":"135","method":"conclusion_cue"},
+  {"id":"nested_cue","text":"Therefore, after 4 trials, the final answer is 23 units.","expected":"23","method":"conclusion_cue"},
+  {"id":"conclusion_equation","text":"Therefore, the total is 14 times 12 = 168 dollars.","expected":"168","method":"conclusion_equation_rhs"},
+  {"id":"equation","text":"Rate = 12.5 km/h. No prose conclusion follows.","expected":"12.5","method":"terminal_segment"},
+  {"id":"multiple_equations","text":"a = 4 and total = 28 dollars.","expected":"28","method":"terminal_segment"},
+  {"id":"commas","text":"Hence, 1,250 tickets were sold out of 2,000 printed.","expected":"1250","method":"conclusion_cue"},
+  {"id":"negative","text":"Consequently the net change is -6 degrees from a baseline of 20.","expected":"-6","method":"conclusion_cue"},
+  {"id":"fraction","text":"The final answer is 3/4 of the tank, after 2 hours.","expected":"3/4","method":"conclusion_cue"},
+  {"id":"terminal","text":"Intermediate value = 4. The computed total is 19.","expected":"19","method":"terminal_segment"},
+  {"id":"none","text":"No numeric result was produced.","expected":null,"method":"no_number"},
+  {"id":"question_time","question":"How many additional hours are needed?","text":"Therefore, the trip takes 7 hours to cover 2800 miles.","expected":"7","method":"question_unit_ranked"},
+  {"id":"question_currency","question":"How much does the tutor charge?","text":"Therefore, the tutor charges $168 for 2 weeks.","expected":"168","method":"question_unit_ranked"},
+  {"id":"question_days","question":"How many days until the plant reaches the target?","text":"Therefore, it reaches 600 inches in 12 days.","expected":"12","method":"question_unit_ranked"},
+  {"id":"question_pieces","question":"How many more pieces does Amy have?","text":"Ginger has 44 pieces. Amy has 14 more pieces than Ginger.","expected":"14","method":"question_unit_ranked"},
+  {"id":"question_distance","question":"How many miles apart are the cars?","text":"Therefore, they are 20 miles apart after 2 hours.","expected":"20","method":"question_unit_ranked"}
+]

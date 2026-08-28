@@ -1,0 +1,103 @@
+{
+  "initial_service": {
+    "command": {
+      "argv": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04",
+        "--",
+        "systemctl",
+        "show",
+        "llm-inference.service",
+        "-p",
+        "ActiveState",
+        "-p",
+        "MainPID",
+        "-p",
+        "NRestarts",
+        "-p",
+        "ExecStart",
+        "--no-pager"
+      ],
+      "returncode": 0,
+      "stdout": "MainPID=85438\nNRestarts=0\nExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/tools/serving/qualified_model_gateway.py --config /mnt/c/projects/tare.tools.local-labs/config/qualified_model_fleet.json --host 0.0.0.0 --port 8080 --backend-host 127.0.0.1 --backend-port 18080 --state-dir /home/augus/.local/state/tare-qualified-models --preload qwen38 ; ignore_errors=no ; start_time=[Thu 2026-08-27 13:32:32 -03] ; stop_time=[n/a] ; pid=85438 ; code=(null) ; status=0/0 }\nActiveState=active",
+      "stderr": ""
+    },
+    "active_state": "active",
+    "main_pid": 85438,
+    "n_restarts": 0,
+    "exec_start": "{ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/tools/serving/qualified_model_gateway.py --config /mnt/c/projects/tare.tools.local-labs/config/qualified_model_fleet.json --host 0.0.0.0 --port 8080 --backend-host 127.0.0.1 --backend-port 18080 --state-dir /home/augus/.local/state/tare-qualified-models --preload qwen38 ; ignore_errors=no ; start_time=[Thu 2026-08-27 13:32:32 -03] ; stop_time=[n/a] ; pid=85438 ; code=(null) ; status=0/0 }"
+  },
+  "initial_gateway": {
+    "status": "ok",
+    "role": "qualified-model-gateway",
+    "current_model": "qwen38",
+    "requested_name": "qwen38",
+    "backend_healthy": true,
+    "backend_pid": 93763,
+    "backend_port": 18080,
+    "last_switch_seconds": 11.532491958991159,
+    "last_error": null,
+    "max_resident_models": 1,
+    "available_models": [
+      "fable-tc",
+      "gemma-vision",
+      "hauhaucs",
+      "muse-vision",
+      "qwen36-moe",
+      "qwen38"
+    ]
+  },
+  "initial_model": "qwen38",
+  "restored_gateway": {
+    "status": "ok",
+    "role": "qualified-model-gateway",
+    "current_model": "qwen38",
+    "requested_name": "qwen38",
+    "backend_healthy": true,
+    "backend_pid": 93763,
+    "backend_port": 18080,
+    "last_switch_seconds": 11.532491958991159,
+    "last_error": null,
+    "max_resident_models": 1,
+    "available_models": [
+      "fable-tc",
+      "gemma-vision",
+      "hauhaucs",
+      "muse-vision",
+      "qwen36-moe",
+      "qwen38"
+    ]
+  },
+  "final_service": {
+    "command": {
+      "argv": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04",
+        "--",
+        "systemctl",
+        "show",
+        "llm-inference.service",
+        "-p",
+        "ActiveState",
+        "-p",
+        "MainPID",
+        "-p",
+        "NRestarts",
+        "-p",
+        "ExecStart",
+        "--no-pager"
+      ],
+      "returncode": 0,
+      "stdout": "MainPID=85438\nNRestarts=0\nExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/tools/serving/qualified_model_gateway.py --config /mnt/c/projects/tare.tools.local-labs/config/qualified_model_fleet.json --host 0.0.0.0 --port 8080 --backend-host 127.0.0.1 --backend-port 18080 --state-dir /home/augus/.local/state/tare-qualified-models --preload qwen38 ; ignore_errors=no ; start_time=[Thu 2026-08-27 13:32:32 -03] ; stop_time=[n/a] ; pid=85438 ; code=(null) ; status=0/0 }\nActiveState=active",
+      "stderr": ""
+    },
+    "active_state": "active",
+    "main_pid": 85438,
+    "n_restarts": 0,
+    "exec_start": "{ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/tools/serving/qualified_model_gateway.py --config /mnt/c/projects/tare.tools.local-labs/config/qualified_model_fleet.json --host 0.0.0.0 --port 8080 --backend-host 127.0.0.1 --backend-port 18080 --state-dir /home/augus/.local/state/tare-qualified-models --preload qwen38 ; ignore_errors=no ; start_time=[Thu 2026-08-27 13:32:32 -03] ; stop_time=[n/a] ; pid=85438 ; code=(null) ; status=0/0 }"
+  },
+  "final_embedding_status": 200,
+  "initial_route_and_services_restored": true
+}

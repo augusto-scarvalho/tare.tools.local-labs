@@ -1,0 +1,17 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "REJECTED",
+  "receipt_sha256": "b4fc924a1542e4913c3c1d70fdf77f8bb9be0e2662b8757d0d06f82b60d3f521",
+  "implementation_digest": "f9b4c9bbdb9f4bb79623fa1c8e5cfa14a43b6cfa382e928e024a6cc67e390dab",
+  "findings": [
+    "Receipt SHA-256, canonical fingerprint, implementation digest, both implementation-file hashes and all 27 provenance input byte counts and hashes independently match.",
+    "The selected seed 20260832 exactly reproduces the frozen prior-panel and zero-QA-regression rule; both checkpoint pairs match R7, and the third-panel hash is exact with zero teacher, training or prior-panel overlap.",
+    "Independent frozen-scorer replay of 512 unique rows reproduces answer-only 78/256, full-trace 98/256, gain 0.078125, discordant counts 47/27 and the 20,000-replicate paired-bootstrap interval [0.01171875, 0.140625].",
+    "The frozen absolute gate fails because stored trace accuracy is 0.3828125 below 0.40; all other gates, including imported zero QA regression and normalized service restoration, pass. The only legal disposition is the bounded NOT_CONFIRMED claim.",
+    "Adversarial false-negative audit confirms that the fallback scorer undercounts full-trace accuracy: it extracts the last number when no #### marker exists, even when a natural-EOS final sentence clearly gives the gold answer followed by a contextual number.",
+    "At least ten natural-EOS rows are unambiguous scorer false negatives: gsm8k/602, /616, /623, /695, /705, /708, /730, /771, /799 and /804. Correcting only these evident cases would raise trace accuracy from 98/256 to at least 108/256, or 0.421875, above the absolute threshold.",
+    "Generation-cap sensitivity also does not explain the negative claim: natural-EOS-only correct counts are 59 answer-only versus 90 full-trace, a positive 0.12109375 delta. The blocker is the frozen scorer/absolute gate, not missing treatment, checkpoint identity, selection leakage or panel coverage.",
+    "Rejection is therefore strictly operational: R1 is not confirmed under its preregistered scorer. It does not scientifically falsify the selected checkpoint's absolute accuracy or trace gain. A correction would require a successor with an independently frozen answer extractor; no fourth panel, post-result seed reselection or gate weakening is allowed."
+  ]
+}

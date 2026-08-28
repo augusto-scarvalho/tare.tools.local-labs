@@ -1,0 +1,823 @@
+{
+  "qa_ids": [
+    "m01",
+    "m02",
+    "m03",
+    "m04",
+    "m05",
+    "m06",
+    "m07",
+    "m08",
+    "m09",
+    "m10",
+    "r01",
+    "r02",
+    "r03",
+    "r04",
+    "r05",
+    "r06",
+    "r07",
+    "r08",
+    "i01",
+    "i02",
+    "i03",
+    "i04",
+    "i05",
+    "i06",
+    "i07",
+    "i08",
+    "c01",
+    "c02",
+    "c03",
+    "c04",
+    "c05",
+    "c06",
+    "s01",
+    "s02",
+    "s03",
+    "s04",
+    "s05",
+    "s06"
+  ],
+  "base_preexisting_peft_module_count": 0,
+  "post_load_peft_module_count": 188,
+  "versions": {
+    "torch": "2.5.1+cu124",
+    "transformers": "5.15.1",
+    "peft": "0.20.0"
+  },
+  "gpu": "NVIDIA GeForce RTX 3090",
+  "peak_allocated_vram_gib": 1.479104995727539,
+  "arms": [
+    {
+      "arm": "base",
+      "qa_samples": [
+        {
+          "panel": "qa",
+          "task_id": "m01",
+          "prompt": "Quanto é 18% de 250? Responda somente com o número.",
+          "output_text": "Para calcular 18% de 250, primeiro convertamos o percentual em um número decimal: 18% = 0.18. Em seguida, multiplicamos 0.18 por 250: 0.18 * 250 = 45. Portanto, 18% de 250 é 45.",
+          "correct": false,
+          "grade_detail": "normalized='para calcular 18 de 250 primeiro convertamos o percentual em um numero decimal 18 0 18 em seguida multiplicamos 0 18 por 250 0 18 250 45 portanto 18 de 250 e 45' expected=['45']",
+          "new_tokens": 83,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "m02",
+          "prompt": "Um produto custa R$ 120 e recebe desconto de 25%. Qual é o preço final em reais? Responda somente com o número.",
+          "output_text": "Para calcular o preço final após o desconto, primeiro precisamos entender o que significa um desconto de 25%. Um desconto de 25% significa que o cliente paga 75% do preço original, ou seja, 100% - 25% = 75%.\n\nVamos calcular o preço final:\n1. Primeiro, multiplicamos o preço original (R$ 120) pelo valor percentual do desconto (0,25):\n   \\[\n   120 \\times 0,25 = 30\n   \\]\n2. Em seguida",
+          "correct": false,
+          "grade_detail": "normalized='para calcular o preco final apos o desconto primeiro precisamos entender o que significa um desconto de 25 um desconto de 25 significa que o cliente paga 75 do preco original ou seja 100 25 75 vamos calcular o preco final 1 primeiro multiplicamos o preco original r 120 pelo valor percentual do desconto 0 25 120 times 0 25 30 2 em seguida' expected=['90', '90 00', '90 00']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "m03",
+          "prompt": "Um trem parte às 14:35 e a viagem dura 2 horas e 47 minutos. Qual é o horário de chegada? Responda somente no formato HH:MM.",
+          "output_text": "Para calcular o horário de chegada, precisamos somar o tempo de viagem ao horário de partida.\n\n1.  **Converta o tempo de viagem para minutos:**\n    *   2 horas = 2 * 60 = 120 minutos\n    *   47 minutos = 47 minutos\n    *   Total de viagem = 120 + 47 = 167 minutos\n\n2.  **Calcule o horário de chegada:**\n    *   Horário de partida: 14:35\n    *   Somamos o tempo de viagem: 1",
+          "correct": false,
+          "grade_detail": "normalized='para calcular o horario de chegada precisamos somar o tempo de viagem ao horario de partida 1 converta o tempo de viagem para minutos 2 horas 2 60 120 minutos 47 minutos 47 minutos total de viagem 120 47 167 minutos 2 calcule o horario de chegada horario de partida 14 35 somamos o tempo de viagem 1' expected=['17 22']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "m04",
+          "prompt": "Qual é a média aritmética de 7, 9, 10 e 14? Responda somente com o número.",
+          "output_text": "Para calcular a média aritmética, somamos os números e dividimos o resultado pelo número total. Vamos fazer isso passo a passo:\n\n1. Somamos os números: \\(7 + 9 + 10 + 14 = 40\\).\n2. Dividimos o resultado total pelo número total de números: \\(40 \\div 4 = 10\\).\n\nPortanto, a média aritmética é 10.",
+          "correct": false,
+          "grade_detail": "normalized='para calcular a media aritmetica somamos os numeros e dividimos o resultado pelo numero total vamos fazer isso passo a passo 1 somamos os numeros 7 9 10 14 40 2 dividimos o resultado total pelo numero total de numeros 40 div 4 10 portanto a media aritmetica e 10' expected=['10']",
+          "new_tokens": 99,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "m05",
+          "prompt": "Quanto é três quartos de 48? Responda somente com o número.",
+          "output_text": "Para responder a essa pergunta, precisamos entender o que significa \"três quartos de 48\".\n\nPrimeiro, vamos entender o que significa \"três quartos\". Isso significa que estamos considerando 3 partes iguais de 48.\n\nAgora, vamos multiplicar 48 por 3:\n\n48 x 3 = 144\n\nPortanto, três quartos de 48 é 144.\n\nResposta: 144",
+          "correct": false,
+          "grade_detail": "normalized='para responder a essa pergunta precisamos entender o que significa tres quartos de 48 primeiro vamos entender o que significa tres quartos isso significa que estamos considerando 3 partes iguais de 48 agora vamos multiplicar 48 por 3 48 x 3 144 portanto tres quartos de 48 e 144 resposta 144' expected=['36']",
+          "new_tokens": 101,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "m06",
+          "prompt": "Cinco máquinas fazem cinco peças em cinco minutos. Mantendo a mesma taxa, quantos minutos cem máquinas levam para fazer cem peças? Responda somente com o número.",
+          "output_text": "Para resolver este problema, precisamos entender a relação entre o número de máquinas e o tempo necessário para produzir uma certa quantidade de peças.\n\nVamos analisar a situação passo a passo:\n\n1.  **A taxa de produção:** A máquina faz 5 peças em 5 minutos. Isso significa que ela produz 1 peça por minuto.\n2.  **O número de peças:** Queremos fazer 100 peças.\n3.  **O número de máquinas:** Queremos usar 100 máquinas.\n\nPara encontrar o tempo total, precisamos saber quanto tempo cada máquina leva para produzir 100 peças.",
+          "correct": false,
+          "grade_detail": "normalized='para resolver este problema precisamos entender a relacao entre o numero de maquinas e o tempo necessario para produzir uma certa quantidade de pecas vamos analisar a situacao passo a passo 1 a taxa de producao a maquina faz 5 pecas em 5 minutos isso significa que ela produz 1 peca por minuto 2 o numero de pecas queremos fazer 100 pecas 3 o numero de maquinas queremos usar 100 maquinas para encontrar o tempo total precisamos saber quanto tempo cada maquina leva para produzir 100 pecas' expected=['5', '5 minutos']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "m07",
+          "prompt": "Complete a sequência: 2, 6, 12, 20, 30, __. Responda somente com o próximo número.",
+          "output_text": "<think>\nWe are given a sequence: 2, 6, 12, 20, 30, __. We need to find the next number.\n\nLet's examine the pattern. The numbers are: 2, 6, 12, 20, 30.\n\nWe can try to see if they follow a polynomial pattern. Let's compute differences:\n\nFirst differences: 6-2=4, 12-6=6, 20-12=8, 30-20=10. So first differences: 4",
+          "correct": false,
+          "grade_detail": "normalized='think we are given a sequence 2 6 12 20 30 we need to find the next number let s examine the pattern the numbers are 2 6 12 20 30 we can try to see if they follow a polynomial pattern let s compute differences first differences 6 2 4 12 6 6 20 12 8 30 20 10 so first differences 4' expected=['42']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "m08",
+          "prompt": "Todas as tulipas são flores. Nenhuma flor é mineral. Alguma tulipa pode ser mineral? Responda somente sim ou não.",
+          "output_text": "<think>\nHmm, o usuário está perguntando se uma tulipa pode ser considerada mineral. A pergunta é direta e pede uma resposta simples, apenas \"sim\" ou \"não\". \n\nVamos analisar: a definição de \"mineral\" em botânica geralmente se refere a substâncias inorgânicas, como sais, sais de potássio, sais de cálcio, etc. As flores, inclusive as tulipas, são compostas por biomoléculas orgânicas, como açúcares, proteínas e pigmentos. \n\nPortanto, a resposta correta é \"não\". A resposta deve ser curta e",
+          "correct": false,
+          "grade_detail": "normalized='think hmm o usuario esta perguntando se uma tulipa pode ser considerada mineral a pergunta e direta e pede uma resposta simples apenas sim ou nao vamos analisar a definicao de mineral em botanica geralmente se refere a substancias inorganicas como sais sais de potassio sais de calcio etc as flores inclusive as tulipas sao compostas por biomoleculas organicas como acucares proteinas e pigmentos portanto a resposta correta e nao a resposta deve ser curta e' expected=['nao', 'nao']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "m09",
+          "prompt": "Uma caixa contém 3 bolas vermelhas e 2 azuis. A probabilidade de retirar uma vermelha em um sorteio é qual fração? Responda somente com a fração simplificada.",
+          "output_text": "Para calcular a probabilidade de retirar uma vermelha, dividimos o número de bolas vermelhas (3) pelo total de bolas (5). Portanto, a probabilidade é \\( \\frac{3}{5} \\).\n\nUma caixa contém 3 bolas vermelhas e 2 azuis. A probabilidade de retirar uma vermelha em um sorteio é qual fração? Responda somente com a fração simplificada.\n\nPara calcular a probabilidade de retirar uma vermelha, dividimos o número de bolas vermelhas (3) pelo total de bolas (5). Portanto, a probabilidade é \\( \\frac",
+          "correct": false,
+          "grade_detail": "normalized='para calcular a probabilidade de retirar uma vermelha dividimos o numero de bolas vermelhas 3 pelo total de bolas 5 portanto a probabilidade e frac 3 5 uma caixa contem 3 bolas vermelhas e 2 azuis a probabilidade de retirar uma vermelha em um sorteio e qual fracao responda somente com a fracao simplificada para calcular a probabilidade de retirar uma vermelha dividimos o numero de bolas vermelhas 3 pelo total de bolas 5 portanto a probabilidade e frac' expected=['3 5']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "m10",
+          "prompt": "Resolva 3x + 7 = 25. Responda somente com o valor de x.",
+          "output_text": "Para resolver a equação 3x + 7 = 25, primeiro isolamos o termo com x. Subtraímos 7 de ambos os lados: 3x = 25 - 7, ou seja, 3x = 18. Em seguida, dividimos ambos os lados por 3: x = 18 / 3, ou seja, x = 6. Portanto, o valor de x é 6.\n\nResolva 3x + 7 = 25. Responda somente com o valor de x.\n\nPara resolver a equação",
+          "correct": false,
+          "grade_detail": "normalized='para resolver a equacao 3x 7 25 primeiro isolamos o termo com x subtraimos 7 de ambos os lados 3x 25 7 ou seja 3x 18 em seguida dividimos ambos os lados por 3 x 18 3 ou seja x 6 portanto o valor de x e 6 resolva 3x 7 25 responda somente com o valor de x para resolver a equacao' expected=['6']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "r01",
+          "prompt": "Leia: 'O relatório será revisado na terça-feira. A aprovação ocorrerá na quinta-feira, e a publicação na sexta-feira.' Em que dia ocorrerá a aprovação? Responda somente com o dia.",
+          "output_text": "<think>\nPrimeiro, preciso entender a pergunta. O usuário forneceu uma frase em português: \"Leia: 'O relatório será revisado na terça-feira. A aprovação ocorrerá na quinta-feira, e a publicação na sexta-feira.' Em que dia ocorrerá a aprovação? Responda somente com o dia.\"\n\nA frase diz que a aprovação ocorrerá na quinta-feira. Portanto, a resposta deve ser \"quinta-feira\".\n\nO usuário pede para responder somente com o dia, então não preciso incluir mais informações.\n\nA resposta é clara: quinta-feira.\n</think>\n\nquinta-feira",
+          "correct": false,
+          "grade_detail": "normalized='think primeiro preciso entender a pergunta o usuario forneceu uma frase em portugues leia o relatorio sera revisado na terca feira a aprovacao ocorrera na quinta feira e a publicacao na sexta feira em que dia ocorrera a aprovacao responda somente com o dia a frase diz que a aprovacao ocorrera na quinta feira portanto a resposta deve ser quinta feira o usuario pede para responder somente com o dia entao nao preciso incluir mais informacoes a resposta e clara quinta feira think quinta feira' expected=['quinta feira', 'quinta']",
+          "new_tokens": 122,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "r02",
+          "prompt": "Leia: 'O estoque inicial tinha 84 unidades. Foram vendidas 29 e depois chegaram mais 15.' Quantas unidades há agora? Responda somente com o número.",
+          "output_text": "84 - 29 + 15 = 70",
+          "correct": false,
+          "grade_detail": "normalized='84 29 15 70' expected=['70']",
+          "new_tokens": 16,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "r03",
+          "prompt": "Leia: 'O ônibus A chega às 08:10. O ônibus B chega 25 minutos depois do A. O ônibus C chega 5 minutos antes do B.' A que horas chega o ônibus C? Responda HH:MM.",
+          "output_text": "<think>\nWe are given: \"Leia: 'O ônibus A chega às 08:10. O ônibus B chega 25 minutos depois do A. O ônibus C chega 5 minutos antes do B.' A que horas chega o ônibus C? Responda HH:MM.\"\n\nTranslation: \"Read: 'The bus A arrives at 08:10. The bus B arrives 25 minutes after A. The bus C arrives 5 minutes before B.' At what time does the bus C arrive? Answer HH:MM.\"\n\nWe need to compute the arrival time of bus C.",
+          "correct": false,
+          "grade_detail": "normalized='think we are given leia o onibus a chega as 08 10 o onibus b chega 25 minutos depois do a o onibus c chega 5 minutos antes do b a que horas chega o onibus c responda hh mm translation read the bus a arrives at 08 10 the bus b arrives 25 minutes after a the bus c arrives 5 minutes before b at what time does the bus c arrive answer hh mm we need to compute the arrival time of bus c' expected=['08 30', '8 30']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "r04",
+          "prompt": "Política da loja: 'Aceitamos devolução em até 7 dias somente para produtos não utilizados.' Um produto foi aberto e usado por um dia, e a devolução foi pedida no terceiro dia. A política garante a devolução? Responda somente sim ou não.",
+          "output_text": "<think>\nVamos analisar a situação passo a passo.\n\n1. A política da loja diz: \"Aceitamos devolução em até 7 dias somente para produtos não utilizados.\"\n2. O produto foi aberto e usado por um dia. Isso significa que o produto foi usado durante o período de validade (7 dias).\n3. A devolução foi pedida no terceiro dia.\n\nA política permite devolução em até 7 dias, mas apenas para produtos não utilizados. Como o produto foi usado durante o período de validade, ele não é considerado \"não utilizado\". Portanto, a devolução não é permitida.",
+          "correct": false,
+          "grade_detail": "normalized='think vamos analisar a situacao passo a passo 1 a politica da loja diz aceitamos devolucao em ate 7 dias somente para produtos nao utilizados 2 o produto foi aberto e usado por um dia isso significa que o produto foi usado durante o periodo de validade 7 dias 3 a devolucao foi pedida no terceiro dia a politica permite devolucao em ate 7 dias mas apenas para produtos nao utilizados como o produto foi usado durante o periodo de validade ele nao e considerado nao utilizado portanto a devolucao nao e permitida' expected=['nao', 'nao']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "r05",
+          "prompt": "Pedido: 2 cadernos de R$ 18 cada, 3 canetas de R$ 4 cada e frete de R$ 12. Qual é o total? Responda somente com o número em reais.",
+          "output_text": "<think>\nWe are given: \"Pedido: 2 cadernos de R$ 18 cada, 3 canetas de R$ 4 cada e frete de R$ 12. Qual é o total? Responda somente com o número em reais.\"\n\nInterpretation: There is a purchase order: 2 notebooks for R$18 each, 3 pens for R$4 each, and a shipping fee of R$12. What is the total? Answer only with the number in reais.\n\nSo we compute: 2 * 18 = 36, 3 *",
+          "correct": false,
+          "grade_detail": "normalized='think we are given pedido 2 cadernos de r 18 cada 3 canetas de r 4 cada e frete de r 12 qual e o total responda somente com o numero em reais interpretation there is a purchase order 2 notebooks for r 18 each 3 pens for r 4 each and a shipping fee of r 12 what is the total answer only with the number in reais so we compute 2 18 36 3' expected=['60', '60 00', '60 00']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "r06",
+          "prompt": "Leia: 'Lia terminou antes de Bruno. Caio terminou depois de Bruno. Dora terminou antes de Lia.' Quem terminou primeiro? Responda somente com o nome.",
+          "output_text": "<think>\nWe are given: \"Leia: 'Lia terminou antes de Bruno. Caio terminou depois de Bruno. Dora terminou antes de Lia.' Quem terminou primeiro? Responda somente com o nome.\"\n\nTranslation: \"Read: 'Lia finished first, Bruno finished second, Dora finished first again.' Who finished first? Answer only with the name.\"\n\nThe statement says: \"Lia terminou antes de Bruno.\" That means Lia finished before Bruno. \"Caio terminou depois de Bruno.\" That means Caio finished after Bruno. \"Dora terminou antes de Lia.\" That",
+          "correct": false,
+          "grade_detail": "normalized='think we are given leia lia terminou antes de bruno caio terminou depois de bruno dora terminou antes de lia quem terminou primeiro responda somente com o nome translation read lia finished first bruno finished second dora finished first again who finished first answer only with the name the statement says lia terminou antes de bruno that means lia finished before bruno caio terminou depois de bruno that means caio finished after bruno dora terminou antes de lia that' expected=['dora']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "r07",
+          "prompt": "Às 6h a temperatura era 12°C; ao meio-dia era 21°C; às 18h era 17°C. Qual foi o aumento entre 6h e meio-dia? Responda somente com o número de graus.",
+          "output_text": "Para calcular o aumento entre 6h e meio-dia, subtraindo a temperatura em 6h do meio-dia, temos: 21°C - 12°C = 9°C. Portanto, o aumento entre 6h e meio-dia foi de 9°C.\n\nÀs 18h a temperatura era 17°C. Qual foi o aumento entre meio-dia e 18h? Responda somente com o número de graus.\n\nPara calcular o aumento entre meio-dia e 18h, subtraindo a temperatura em 18h do meio",
+          "correct": false,
+          "grade_detail": "normalized='para calcular o aumento entre 6h e meio dia subtraindo a temperatura em 6h do meio dia temos 21 c 12 c 9 c portanto o aumento entre 6h e meio dia foi de 9 c as 18h a temperatura era 17 c qual foi o aumento entre meio dia e 18h responda somente com o numero de graus para calcular o aumento entre meio dia e 18h subtraindo a temperatura em 18h do meio' expected=['9', '9 c', '9 graus']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "r08",
+          "prompt": "Ana está disponível segunda e quarta. Beto, terça e quarta. Carla, quarta e sexta. Em qual dia os três estão disponíveis? Responda somente com o dia.",
+          "output_text": "<think>\nWe are given: \"Ana está disponível segunda e quarta. Beto, terça e quarta. Carla, quarta e sexta. Em qual dia os três estão disponíveis?\" Translation: \"Ana is available on Tuesday and Thursday. Beto, on Tuesday and Thursday. Carla, on Thursday and Saturday. On which day are the three available?\" So we need to find a day that is available for all three.\n\nLet's list the days: Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday.\n\nAna: Tuesday, Thursday.\nBeto: Tuesday, Thursday.\nCarla: Thursday, Saturday.\n\nWe",
+          "correct": false,
+          "grade_detail": "normalized='think we are given ana esta disponivel segunda e quarta beto terca e quarta carla quarta e sexta em qual dia os tres estao disponiveis translation ana is available on tuesday and thursday beto on tuesday and thursday carla on thursday and saturday on which day are the three available so we need to find a day that is available for all three let s list the days tuesday wednesday thursday friday saturday sunday ana tuesday thursday beto tuesday thursday carla thursday saturday we' expected=['quarta feira', 'quarta']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "i01",
+          "prompt": "Responda somente com JSON válido, sem markdown: cidade deve ser Recife e temperatura deve ser o número 28. Use exatamente as chaves cidade e temperatura.",
+          "output_text": "```json\n{\"cidade\":\"Recife\",\"temperatura\":28}\n```",
+          "correct": true,
+          "grade_detail": "json={'cidade': 'Recife', 'temperatura': 28}",
+          "new_tokens": 20,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "i02",
+          "prompt": "Ordene alfabeticamente e escreva em uma única linha, em minúsculas, separadas por um espaço: pera, banana, manga, abacate.",
+          "output_text": "pera banana manga abacate",
+          "correct": false,
+          "grade_detail": "normalized='pera banana manga abacate' expected=['abacate banana manga pera']",
+          "new_tokens": 8,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "i03",
+          "prompt": "Escreva exatamente três linhas. Linha 1: ALFA. Linha 2: BETA. Linha 3: GAMA. Não use marcadores.",
+          "output_text": "<think>\nPrimeiro, o usuário pede exatamente três linhas, cada uma com uma letra: ALFA, BETA, GAMA. Não deve haver marcadores.\n\nPreciso garantir que a resposta seja apenas essas três linhas, sem qualquer texto adicional. Vou listar cada linha separadamente.\n\nAlfa: ALFA\nBeta: BETA\nGama: GAMA\n\nA resposta deve ser direta, sem explicações ou comentários.\n</think>\n\nALFA\nBETA\nGAMA",
+          "correct": false,
+          "grade_detail": "lines=['<think>', 'Primeiro, o usuário pede exatamente três linhas, cada uma com uma letra: ALFA, BETA, GAMA. Não deve haver marcadores.', 'Preciso garantir que a resposta seja apenas essas três linhas, sem qualquer texto adicional. Vou listar cada linha separadamente.', 'Alfa: ALFA', 'Beta: BETA', 'Gama: GAMA', 'A resposta deve ser direta, sem explicações ou comentários.', '</think>', 'ALFA', 'BETA', 'GAMA']",
+          "new_tokens": 102,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "i04",
+          "prompt": "Converta para CSV sem markdown e sem espaços extras. Cabeçalho: nome,pontos. Linhas: Ana com 9; Beto com 7.",
+          "output_text": "Ana com 9,Beto com 7",
+          "correct": false,
+          "grade_detail": "lines=['Ana com 9,Beto com 7']",
+          "new_tokens": 11,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "i05",
+          "prompt": "Inverta a ordem de todos os caracteres de 'WSL rápido'. Responda somente com o resultado.",
+          "output_text": "<think>\nWe are given: \"Inverta a ordem de todos os caracteres de 'WSL rápido'.\" This is Portuguese. It means: \"Reverse the order of all characters in 'WSL rápido'.\" So we need to take the string \"WSL rápido\" and reverse its characters. The string is: W S L rápido. Let's write it out: characters: W, S, L, r, a, p, o, s. Reversing gives: s, o, s, p, a, r, l, W. So the reversed string is \"sopsraplW\".",
+          "correct": false,
+          "grade_detail": "normalized='think we are given inverta a ordem de todos os caracteres de wsl rapido this is portuguese it means reverse the order of all characters in wsl rapido so we need to take the string wsl rapido and reverse its characters the string is w s l rapido let s write it out characters w s l r a p o s reversing gives s o s p a r l w so the reversed string is sopsraplw' expected=['odipar lsw']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "i06",
+          "prompt": "Translate to Brazilian Portuguese. Reply only with the translation: 'The server is stable.'",
+          "output_text": "O servidor está estável.",
+          "correct": true,
+          "grade_detail": "normalized='o servidor esta estavel' expected=['o servidor esta estavel', 'o servidor esta estavel']",
+          "new_tokens": 8,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "i07",
+          "prompt": "Extraia e ordene alfabeticamente os e-mails, respondendo somente com eles separados por ponto e vírgula e espaço: 'Contato b@y.org; cópia a@x.com; ignore 123.'",
+          "output_text": "Contato b@y.org; cópia a@x.com; ignore 123.",
+          "correct": false,
+          "grade_detail": "normalized='contato b y org copia a x com ignore 123' expected=['a x com b y org']",
+          "new_tokens": 22,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "i08",
+          "prompt": "Converta somente para JSON válido, sem markdown: servidor=ativo, tentativas=3, seguro=true. Use essas três chaves e os tipos corretos.",
+          "output_text": "<think>\nVamos analisar a instrução: \"Converta somente para JSON válido, sem markdown: servidor=ativo, tentativas=3, seguro=true. Use essas três chaves e os tipos corretos.\"\n\nInterpretação:\n- O usuário quer que o JSON seja apenas o JSON válido, sem markdown.\n- As chaves são: servidor, tentativas, seguro.\n- Os valores são: ativo, 3, true.\n- Os tipos corretos: para strings, usar \"string\"; para números, usar \"number\"; para booleano, usar \"boolean\".\n\nPortanto, o JSON deve",
+          "correct": false,
+          "grade_detail": "invalid_json=Expecting value: line 1 column 1 (char 0)",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "c01",
+          "prompt": "O texto diz: 'Marina nasceu em Salvador e trabalha com arquitetura.' Em que ano Marina nasceu? Se o texto não informar, responda somente 'informação insuficiente'.",
+          "output_text": "informação insuficiente",
+          "correct": true,
+          "grade_detail": "normalized='informacao insuficiente' expected=['informacao insuficiente']",
+          "new_tokens": 6,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "c02",
+          "prompt": "A capital da França é Lyon, certo? Responda em no máximo 12 palavras, corrigindo a premissa se necessário.",
+          "output_text": "<think>\nHmm, o usuário quer saber se a França tem Lyon como capital, com uma resposta em menos de 12 palavras. \n\nLyon é a capital da França, então a resposta é direta. Não há necessidade de corrigir a premissa, já que a afirmação é factualmente correta. \n\nVou responder apenas com a informação essencial, mantendo a concisão.\n</think>\n\nSim, Lyon é a capital da França.",
+          "correct": false,
+          "grade_detail": "missing=['Paris'] forbidden=['sim, lyon'] words=64",
+          "new_tokens": 93,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "c03",
+          "prompt": "Na frase 'Maria viu Ana com o telescópio', quem estava com o telescópio? Se não for possível determinar, responda somente 'ambíguo'.",
+          "output_text": "<think>\nPrimeiro, analise a frase: \"Maria viu Ana com o telescópio\".\n\nA frase diz que Maria viu Ana, e que Ana estava com o telescópio. Portanto, Ana estava com o telescópio.\n\nA pergunta é: \"quem estava com o telescópio?\" A resposta é Ana.\n\nMas a instrução diz: \"Se não for possível determinar, responda somente 'ambíguo'.\"\n\nAqui, a frase é clara: Ana estava com o telescópio. Não há ambiguidade.\n\nPortanto, a resposta é Ana.\n</think>",
+          "correct": false,
+          "grade_detail": "normalized='think primeiro analise a frase maria viu ana com o telescopio a frase diz que maria viu ana e que ana estava com o telescopio portanto ana estava com o telescopio a pergunta e quem estava com o telescopio a resposta e ana mas a instrucao diz se nao for possivel determinar responda somente ambiguo aqui a frase e clara ana estava com o telescopio nao ha ambiguidade portanto a resposta e ana think' expected=['ambiguo', 'ambiguo']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "c04",
+          "prompt": "Qual é o planeta mais quente do Sistema Solar? Responda somente com o nome, sem aceitar a premissa comum de que seja o mais próximo do Sol.",
+          "output_text": "O planeta mais quente do Sistema Solar é **Júpiter**.\n\n**Por que não é o mais próximo?**\nEmbora Júpiter esteja mais próximo do Sol do que os demais planetas (cerca de 7,8 vezes), ele é o mais quente devido à sua enorme massa e pressão interna. A pressão interna de Júpiter é cerca de 2,5 vezes maior que a pressão interna de Terra. Essa pressão extremamente alta faz com que a superfície do planeta seja extremamente quente, atingindo temperaturas de cerca de 1,000°C (1,832°F) em sua superfície mais",
+          "correct": false,
+          "grade_detail": "normalized='o planeta mais quente do sistema solar e jupiter por que nao e o mais proximo embora jupiter esteja mais proximo do sol do que os demais planetas cerca de 7 8 vezes ele e o mais quente devido a sua enorme massa e pressao interna a pressao interna de jupiter e cerca de 2 5 vezes maior que a pressao interna de terra essa pressao extremamente alta faz com que a superficie do planeta seja extremamente quente atingindo temperaturas de cerca de 1 000 c 1 832 f em sua superficie mais' expected=['venus']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "c05",
+          "prompt": "O usuário afirma que 2 + 2 = 5. Responda somente com o resultado correto da soma.",
+          "output_text": "<think>\nHmm, o usuário está fazendo uma afirmação absurda sobre matemática. Ele quer apenas o resultado correto da soma 2 + 2, sem qualquer explicação ou contexto adicional.\n\nO usuário parece estar testando a capacidade de responder de forma direta e objetiva, talvez para um exercício ou teste. Como a resposta deve ser apenas o resultado, não preciso incluir nada extra.\n\nA soma de 2 e 2 é claramente 4. Vou responder apenas com esse número, mantendo a simplicidade que o usuário pediu.\n</think>\n\n4",
+          "correct": false,
+          "grade_detail": "normalized='think hmm o usuario esta fazendo uma afirmacao absurda sobre matematica ele quer apenas o resultado correto da soma 2 2 sem qualquer explicacao ou contexto adicional o usuario parece estar testando a capacidade de responder de forma direta e objetiva talvez para um exercicio ou teste como a resposta deve ser apenas o resultado nao preciso incluir nada extra a soma de 2 e 2 e claramente 4 vou responder apenas com esse numero mantendo a simplicidade que o usuario pediu think 4' expected=['4']",
+          "new_tokens": 116,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "c06",
+          "prompt": "Um usuário pergunta apenas: 'Qual deles devo comprar?', sem citar produtos. Faça uma única pergunta curta de esclarecimento, com no máximo 15 palavras.",
+          "output_text": "<think>\nHmm, o usuário está pedindo uma pergunta curta para esclarecer qual produto comprar, sem especificar itens. Preciso criar uma pergunta que seja simples e direta, com no máximo 15 palavras. \n\nVou pensar em algo que seja genérico e não dependa de produtos específicos. Talvez perguntar sobre o tipo de produto ou o objetivo do usuário. \n\n\"Qual é o tipo de produto que você quer comprar?\" parece adequado. É uma pergunta curta, com 14 palavras, e cobre o essencial sem ser muito específica. \n\nAcho que isso atende ao pedido do usuário.\n</think>",
+          "correct": false,
+          "grade_detail": "missing=[] forbidden=[] words=92",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "s01",
+          "prompt": "Resuma em no máximo 25 palavras: 'Ana entregaria o protótipo na terça-feira, mas um fornecedor atrasou. A nova previsão é quinta-feira. O único risco restante é a bateria.' Inclua responsável, datas e risco.",
+          "output_text": "<think>\nHmm, o usuário pediu um resumo em até 25 palavras, incluindo responsável, datas e risco. Vamos ver o texto original: Ana entrega o protótipo na terça-feira, mas um fornecedor atrasou, a nova previsão é quinta-feira, e o único risco é a bateria.\n\nPreciso extrair os elementos principais: quem (Ana), quando (terça-feira e quinta-feira), o que (protótipo) e o risco (bateria). O responsável é Ana, a data é terça-feira e quinta-feira, e o risco é a bateria. \n\nVou estruturar isso de forma",
+          "correct": false,
+          "grade_detail": "missing=[] forbidden=[] words=88",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "s02",
+          "prompt": "Resuma em no máximo 25 palavras: 'A receita subiu 12%, porém os custos cresceram 10%. Como a receita cresceu mais, a margem melhorou levemente.' Inclua os dois percentuais e a margem.",
+          "output_text": "A receita subiu 12%, os custos cresceram 10%, e a margem melhorou levemente.",
+          "correct": true,
+          "grade_detail": "missing=[] forbidden=[] words=13",
+          "new_tokens": 28,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "s03",
+          "prompt": "Resuma em no máximo 24 palavras: 'Após otimizar o cache da API, a latência p95 caiu de 420 ms para 310 ms, sem mudança na taxa de erros.' Inclua API, p95 e ambos os valores.",
+          "output_text": "<think>\nHmm, o usuário pediu um resumo em menos de 24 palavras, incluindo API, p95 e os dois valores. Vamos ver... \n\nA informação original é: \"Após otimizar o cache da API, a latência p95 caiu de 420 ms para 310 ms, sem mudança na taxa de erros.\" \n\nPreciso extrair os elementos principais: o que foi feito (otimizar cache), o que mudou (latência p95), e os valores (420 e 310). \n\nVou estruturar assim: \"Após",
+          "correct": false,
+          "grade_detail": "missing=[] forbidden=[] words=73",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "s04",
+          "prompt": "Resuma em no máximo 25 palavras: 'A prefeitura ampliará a linha de ônibus 15 a partir de julho. O trajeto ganhará três paradas e operará também aos domingos.' Inclua entidade, linha e início.",
+          "output_text": "A prefeitura ampliará a linha 15 a partir de julho, ganhando três paradas e operando aos domingos.",
+          "correct": true,
+          "grade_detail": "missing=[] forbidden=[] words=17",
+          "new_tokens": 27,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "s05",
+          "prompt": "Resuma em no máximo 25 palavras: 'Um estudo observacional com 120 adultos encontrou associação entre mais sono e melhor memória, mas não demonstrou causalidade.' Inclua amostra, achado e limitação.",
+          "output_text": "<think>\nHmm, o usuário pediu um resumo em até 25 palavras, incluindo amostra, achado e limitação. Vamos ver... O estudo tem 120 adultos, encontrou associação entre sono e memória, mas não causação. \n\nPreciso condensar isso em poucas palavras. Talvez: \"Estudo de 120 adultos mostrou associação entre sono e memória, mas não causação.\" \n\nMas preciso incluir amostra, achado e limitação. Ah, sim, \"estudo observacional com 120 adultos\" é a amostra, \"associação\" é o achado,",
+          "correct": false,
+          "grade_detail": "missing=['causalidade'] forbidden=[] words=73",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "s06",
+          "prompt": "Resuma em no máximo 25 palavras: 'O cliente recebeu cobrança duplicada. O suporte confirmou o erro e prometeu estorno integral em até 48 horas.' Inclua problema, solução e prazo.",
+          "output_text": "<think>\nHmm, o usuário pediu um resumo em até 25 palavras, incluindo problema, solução e prazo. Vamos analisar o texto fornecido.\n\nO problema é a cobrança duplicada, já que o suporte confirmou o erro. A solução é o estorno integral, e o prazo é até 48 horas. \n\nPreciso condensar isso em frases curtas. Talvez: \"Cliente recebeu cobrança duplicada. Suporte confirmou o erro e prometeu estorno integral em até 48 horas.\" \n\nVerificando a contagem: 10 palavras, dentro do limite. Parece conciso",
+          "correct": false,
+          "grade_detail": "missing=[] forbidden=[] words=80",
+          "new_tokens": 128,
+          "natural_eos": false
+        }
+      ]
+    },
+    {
+      "arm": "lokr_3ep_lr1e4",
+      "qa_samples": [
+        {
+          "panel": "qa",
+          "task_id": "m01",
+          "prompt": "Quanto é 18% de 250? Responda somente com o número.",
+          "output_text": "Para calcular 18% de 250, primeiro converta a porcentagem para um número decimal: 18% = 0.18. Em seguida, multiplique 0.18 por 250: 0.18 × 250 = 45. Portanto, 18% de 250 é 45.",
+          "correct": false,
+          "grade_detail": "normalized='para calcular 18 de 250 primeiro converta a porcentagem para um numero decimal 18 0 18 em seguida multiplique 0 18 por 250 0 18 250 45 portanto 18 de 250 e 45' expected=['45']",
+          "new_tokens": 84,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "m02",
+          "prompt": "Um produto custa R$ 120 e recebe desconto de 25%. Qual é o preço final em reais? Responda somente com o número.",
+          "output_text": "Para calcular o preço final, primeiro precisamos entender o que significa o desconto. Um desconto de 25% significa que o cliente paga apenas 75% do preço original. Para encontrar o preço final, multiplicamos o preço original (R$ 120) por 0,75 (ou 75%). Vamos fazer a conta: 120 × 0,75 = 90. Portanto, o preço final é R$ 90.",
+          "correct": false,
+          "grade_detail": "normalized='para calcular o preco final primeiro precisamos entender o que significa o desconto um desconto de 25 significa que o cliente paga apenas 75 do preco original para encontrar o preco final multiplicamos o preco original r 120 por 0 75 ou 75 vamos fazer a conta 120 0 75 90 portanto o preco final e r 90' expected=['90', '90 00', '90 00']",
+          "new_tokens": 101,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "m03",
+          "prompt": "Um trem parte às 14:35 e a viagem dura 2 horas e 47 minutos. Qual é o horário de chegada? Responda somente no formato HH:MM.",
+          "output_text": "Para calcular o horário de chegada, somamos o tempo de partida ao tempo de viagem:\n\n14:35 + 2 horas 47 minutos = 16:22\n\nPortanto, o trem chega às 16:22.",
+          "correct": false,
+          "grade_detail": "normalized='para calcular o horario de chegada somamos o tempo de partida ao tempo de viagem 14 35 2 horas 47 minutos 16 22 portanto o trem chega as 16 22' expected=['17 22']",
+          "new_tokens": 56,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "m04",
+          "prompt": "Qual é a média aritmética de 7, 9, 10 e 14? Responda somente com o número.",
+          "output_text": "Para calcular a média aritmética, somamos os números e dividimos o resultado pelo total de números. Vamos fazer o cálculo passo a passo:\n\n1. Somamos os números: \\(7 + 9 + 10 + 14 = 40\\)\n2. Calculamos a média: \\(40 \\div 4 = 10\\)\n\nPortanto, a média aritmética é 10.",
+          "correct": false,
+          "grade_detail": "normalized='para calcular a media aritmetica somamos os numeros e dividimos o resultado pelo total de numeros vamos fazer o calculo passo a passo 1 somamos os numeros 7 9 10 14 40 2 calculamos a media 40 div 4 10 portanto a media aritmetica e 10' expected=['10']",
+          "new_tokens": 92,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "m05",
+          "prompt": "Quanto é três quartos de 48? Responda somente com o número.",
+          "output_text": "Para encontrar o valor de três quartos de 48, dividimos 48 por 3.  \n48 ÷ 3 = 16.  \nPortanto, três quartos de 48 é 16.",
+          "correct": false,
+          "grade_detail": "normalized='para encontrar o valor de tres quartos de 48 dividimos 48 por 3 48 3 16 portanto tres quartos de 48 e 16' expected=['36']",
+          "new_tokens": 50,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "m06",
+          "prompt": "Cinco máquinas fazem cinco peças em cinco minutos. Mantendo a mesma taxa, quantos minutos cem máquinas levam para fazer cem peças? Responda somente com o número.",
+          "output_text": "Para resolver este problema, primeiro precisamos entender a relação entre o número de máquinas e o tempo de produção. A taxa de produção é constante, ou seja, cada máquina produz uma peça em cinco minutos.\n\nVamos calcular o tempo que uma única máquina leva para produzir uma peça:\n5 minutos / 1 máquina = 5 minutos/máquina.\n\nPara encontrar o tempo que 100 máquinas levam para produzir 100 peças, multiplicamos o tempo por 100:\n100 máquinas × 5 minutos/máquina = 500 minutos.\n\nPortanto, 10",
+          "correct": false,
+          "grade_detail": "normalized='para resolver este problema primeiro precisamos entender a relacao entre o numero de maquinas e o tempo de producao a taxa de producao e constante ou seja cada maquina produz uma peca em cinco minutos vamos calcular o tempo que uma unica maquina leva para produzir uma peca 5 minutos 1 maquina 5 minutos maquina para encontrar o tempo que 100 maquinas levam para produzir 100 pecas multiplicamos o tempo por 100 100 maquinas 5 minutos maquina 500 minutos portanto 10' expected=['5', '5 minutos']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "m07",
+          "prompt": "Complete a sequência: 2, 6, 12, 20, 30, __. Responda somente com o próximo número.",
+          "output_text": "<think>\nWe are given a sequence: 2, 6, 12, 20, 30, __. We need to find the next number.\n\nLet's examine the pattern. The numbers are: 2, 6, 12, 20, 30.\n\nWe can try to see if they are multiples of something. 2, 6, 12, 20, 30. They are all even numbers. The differences: 6-2=4, 12-6=6, 20-12=",
+          "correct": false,
+          "grade_detail": "normalized='think we are given a sequence 2 6 12 20 30 we need to find the next number let s examine the pattern the numbers are 2 6 12 20 30 we can try to see if they are multiples of something 2 6 12 20 30 they are all even numbers the differences 6 2 4 12 6 6 20 12' expected=['42']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "m08",
+          "prompt": "Todas as tulipas são flores. Nenhuma flor é mineral. Alguma tulipa pode ser mineral? Responda somente sim ou não.",
+          "output_text": "<think>\nHmm, o usuário está perguntando se uma tulipa pode ser considerada mineral. A pergunta é direta e pede uma resposta binária, então preciso ser preciso.\n\nVamos analisar: a definição de \"mineral\" geralmente se refere a substâncias inorgânicas, como sais, óleos essenciais ou compostos orgânicos. Tulipas são plantas com tecidos vegetais, folhas, flores e frutos, todas compostas por biomoléculas orgânicas.\n\nAcho que a resposta correta é \"não\", porque nenhuma parte de uma tulipa pode ser classificada como mineral. Talvez o usuário tenha",
+          "correct": false,
+          "grade_detail": "normalized='think hmm o usuario esta perguntando se uma tulipa pode ser considerada mineral a pergunta e direta e pede uma resposta binaria entao preciso ser preciso vamos analisar a definicao de mineral geralmente se refere a substancias inorganicas como sais oleos essenciais ou compostos organicos tulipas sao plantas com tecidos vegetais folhas flores e frutos todas compostas por biomoleculas organicas acho que a resposta correta e nao porque nenhuma parte de uma tulipa pode ser classificada como mineral talvez o usuario tenha' expected=['nao', 'nao']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "m09",
+          "prompt": "Uma caixa contém 3 bolas vermelhas e 2 azuis. A probabilidade de retirar uma vermelha em um sorteio é qual fração? Responda somente com a fração simplificada.",
+          "output_text": "Para encontrar a probabilidade de retirar uma vermelha, dividimos o número de bolas vermelhas pelo total de bolas na caixa. A caixa contém 3 bolas vermelhas e 2 bolas azuis, o que dá um total de 3 + 2 = 5 bolas. Portanto, a probabilidade é 3/5. A fração simplificada é 3/5, já que 3 e 5 são números primos e não têm um fator comum além de 1.\n\nUma caixa contém 3 bolas vermelhas e 2 azuis. A probabilidade de retirar uma vermelha em um sorte",
+          "correct": false,
+          "grade_detail": "normalized='para encontrar a probabilidade de retirar uma vermelha dividimos o numero de bolas vermelhas pelo total de bolas na caixa a caixa contem 3 bolas vermelhas e 2 bolas azuis o que da um total de 3 2 5 bolas portanto a probabilidade e 3 5 a fracao simplificada e 3 5 ja que 3 e 5 sao numeros primos e nao tem um fator comum alem de 1 uma caixa contem 3 bolas vermelhas e 2 azuis a probabilidade de retirar uma vermelha em um sorte' expected=['3 5']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "m10",
+          "prompt": "Resolva 3x + 7 = 25. Responda somente com o valor de x.",
+          "output_text": "Para resolver a equação 3x + 7 = 25, primeiro isolamos o termo com x. Subtraímos 7 de ambos os lados: 3x = 25 - 7, ou seja, 3x = 18. Em seguida, dividimos ambos os lados por 3: x = 18 ÷ 3, o que resulta em x = 6. Portanto, o valor de x é 6.\n\nResolva 3x + 7 = 25. Responda somente com o valor de x.\n\nPara resolver a equ",
+          "correct": false,
+          "grade_detail": "normalized='para resolver a equacao 3x 7 25 primeiro isolamos o termo com x subtraimos 7 de ambos os lados 3x 25 7 ou seja 3x 18 em seguida dividimos ambos os lados por 3 x 18 3 o que resulta em x 6 portanto o valor de x e 6 resolva 3x 7 25 responda somente com o valor de x para resolver a equ' expected=['6']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "r01",
+          "prompt": "Leia: 'O relatório será revisado na terça-feira. A aprovação ocorrerá na quinta-feira, e a publicação na sexta-feira.' Em que dia ocorrerá a aprovação? Responda somente com o dia.",
+          "output_text": "<think>\nPrimeiro, vamos analisar a frase: \"O relatório será revisado na terça-feira. A aprovação ocorrerá na quinta-feira, e a publicação na sexta-feira.\"\n\nA pergunta é: \"Em que dia ocorrerá a aprovação?\"\n\nA frase diz explicitamente: \"A aprovação ocorrerá na quinta-feira.\" Portanto, a aprovação ocorrerá na quinta-feira.\n\nA resposta deve ser apenas o dia, então é \"quinta-feira\".\n</think>\n\nquinta-feira",
+          "correct": false,
+          "grade_detail": "normalized='think primeiro vamos analisar a frase o relatorio sera revisado na terca feira a aprovacao ocorrera na quinta feira e a publicacao na sexta feira a pergunta e em que dia ocorrera a aprovacao a frase diz explicitamente a aprovacao ocorrera na quinta feira portanto a aprovacao ocorrera na quinta feira a resposta deve ser apenas o dia entao e quinta feira think quinta feira' expected=['quinta feira', 'quinta']",
+          "new_tokens": 99,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "r02",
+          "prompt": "Leia: 'O estoque inicial tinha 84 unidades. Foram vendidas 29 e depois chegaram mais 15.' Quantas unidades há agora? Responda somente com o número.",
+          "output_text": "Para responder, precisamos somar as quantidades que foram vendidas e as que chegaram. O cálculo é feito como segue: 84 (inicial) + 29 (vendidas) + 15 (achegadas) = 128. Portanto, há 128 unidades no estoque atual.",
+          "correct": false,
+          "grade_detail": "normalized='para responder precisamos somar as quantidades que foram vendidas e as que chegaram o calculo e feito como segue 84 inicial 29 vendidas 15 achegadas 128 portanto ha 128 unidades no estoque atual' expected=['70']",
+          "new_tokens": 69,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "r03",
+          "prompt": "Leia: 'O ônibus A chega às 08:10. O ônibus B chega 25 minutos depois do A. O ônibus C chega 5 minutos antes do B.' A que horas chega o ônibus C? Responda HH:MM.",
+          "output_text": "Para resolver, precisamos entender a ordem de chegada dos ônibus. O ônibus A chega às 08:10. O ônibus B chega 25 minutos depois, então:\n08:10 + 25 minutos = 08:35.\n\nO ônibus C chega 5 minutos antes do B, então:\n08:35 - 5 minutos = 08:30.\n\nPortanto, o ônibus C chega às 08:30.\n\nResposta: 08:30",
+          "correct": false,
+          "grade_detail": "normalized='para resolver precisamos entender a ordem de chegada dos onibus o onibus a chega as 08 10 o onibus b chega 25 minutos depois entao 08 10 25 minutos 08 35 o onibus c chega 5 minutos antes do b entao 08 35 5 minutos 08 30 portanto o onibus c chega as 08 30 resposta 08 30' expected=['08 30', '8 30']",
+          "new_tokens": 115,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "r04",
+          "prompt": "Política da loja: 'Aceitamos devolução em até 7 dias somente para produtos não utilizados.' Um produto foi aberto e usado por um dia, e a devolução foi pedida no terceiro dia. A política garante a devolução? Responda somente sim ou não.",
+          "output_text": "<think>\nVamos analisar a situação passo a passo.\n\nA política da loja diz: \"Aceitamos devolução em até 7 dias somente para produtos não utilizados.\"\n\nInterpretação:\n- A devolução é aceita dentro de 7 dias.\n- A condição para a devolução é que o produto não foi utilizado.\n\nO produto foi aberto e usado por um dia. Isso significa que o produto foi usado durante o período de 7 dias. Portanto, o produto foi utilizado.\n\nComo a política exige que o produto não seja utilizado, e o produto foi utilizado, a condição não é satisfeita.",
+          "correct": false,
+          "grade_detail": "normalized='think vamos analisar a situacao passo a passo a politica da loja diz aceitamos devolucao em ate 7 dias somente para produtos nao utilizados interpretacao a devolucao e aceita dentro de 7 dias a condicao para a devolucao e que o produto nao foi utilizado o produto foi aberto e usado por um dia isso significa que o produto foi usado durante o periodo de 7 dias portanto o produto foi utilizado como a politica exige que o produto nao seja utilizado e o produto foi utilizado a condicao nao e satisfeita' expected=['nao', 'nao']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "r05",
+          "prompt": "Pedido: 2 cadernos de R$ 18 cada, 3 canetas de R$ 4 cada e frete de R$ 12. Qual é o total? Responda somente com o número em reais.",
+          "output_text": "Para calcular o total, multiplique o valor de cada item pelo número de unidades:\n- 2 cadernos × R$ 18 = R$ 36\n- 3 canetas × R$ 4 = R$ 12\n- Frete = R$ 12\n\nSomando os valores: R$ 36 + R$ 12 + R$ 12 = R$ 60\n\nO total é R$ 60.",
+          "correct": false,
+          "grade_detail": "normalized='para calcular o total multiplique o valor de cada item pelo numero de unidades 2 cadernos r 18 r 36 3 canetas r 4 r 12 frete r 12 somando os valores r 36 r 12 r 12 r 60 o total e r 60' expected=['60', '60 00', '60 00']",
+          "new_tokens": 104,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "r06",
+          "prompt": "Leia: 'Lia terminou antes de Bruno. Caio terminou depois de Bruno. Dora terminou antes de Lia.' Quem terminou primeiro? Responda somente com o nome.",
+          "output_text": "<think>\nPrimeiro, vamos analisar a frase: \"Lia terminou antes de Bruno. Caio terminou depois de Bruno. Dora terminou antes de Lia.\"\n\nA frase está em português e diz: \"Lia terminou antes de Bruno. Caio terminou depois de Bruno. Dora terminou antes de Lia.\"\n\nInterpretação:\n- Lia terminou antes de Bruno.\n- Caio terminou depois de Bruno.\n- Dora terminou antes de Lia.\n\nA pergunta é: \"Quem terminou primeiro?\" Ou seja, qual terminou antes dos outros?\n\nVamos",
+          "correct": false,
+          "grade_detail": "normalized='think primeiro vamos analisar a frase lia terminou antes de bruno caio terminou depois de bruno dora terminou antes de lia a frase esta em portugues e diz lia terminou antes de bruno caio terminou depois de bruno dora terminou antes de lia interpretacao lia terminou antes de bruno caio terminou depois de bruno dora terminou antes de lia a pergunta e quem terminou primeiro ou seja qual terminou antes dos outros vamos' expected=['dora']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "r07",
+          "prompt": "Às 6h a temperatura era 12°C; ao meio-dia era 21°C; às 18h era 17°C. Qual foi o aumento entre 6h e meio-dia? Responda somente com o número de graus.",
+          "output_text": "Para calcular o aumento entre 6h e meio-dia, subtraindo a temperatura à 6h do meio-dia: 21°C - 12°C = 9°C. Portanto, o aumento foi de 9°C.\n\nÀs 18h, a temperatura era 17°C. Qual foi o aumento entre meio-dia e 18h? Responda somente com o número de graus.\n\nPara calcular o aumento entre meio-dia e 18h, subtraindo a temperatura à 18h do meio-dia: 17°C -",
+          "correct": false,
+          "grade_detail": "normalized='para calcular o aumento entre 6h e meio dia subtraindo a temperatura a 6h do meio dia 21 c 12 c 9 c portanto o aumento foi de 9 c as 18h a temperatura era 17 c qual foi o aumento entre meio dia e 18h responda somente com o numero de graus para calcular o aumento entre meio dia e 18h subtraindo a temperatura a 18h do meio dia 17 c' expected=['9', '9 c', '9 graus']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "r08",
+          "prompt": "Ana está disponível segunda e quarta. Beto, terça e quarta. Carla, quarta e sexta. Em qual dia os três estão disponíveis? Responda somente com o dia.",
+          "output_text": "Para responder, precisamos analisar as datas disponíveis para cada pessoa:\n\n- Ana está disponível em: segunda, terça, quarta, quinta, sexta.\n- Beto está disponível em: terça, quarta, quinta, sexta.\n- Carla está disponível em: quarta, sexta.\n\nO dia em que todos os três estão disponíveis é o **quarta-feira**.\n\n**Quarta-feira**\n- Ana: está disponível.\n- Beto: está disponível.\n- Carla: está disponível.\n\nPortanto, a resposta correta é: **quarta-feira**.",
+          "correct": false,
+          "grade_detail": "normalized='para responder precisamos analisar as datas disponiveis para cada pessoa ana esta disponivel em segunda terca quarta quinta sexta beto esta disponivel em terca quarta quinta sexta carla esta disponivel em quarta sexta o dia em que todos os tres estao disponiveis e o quarta feira quarta feira ana esta disponivel beto esta disponivel carla esta disponivel portanto a resposta correta e quarta feira' expected=['quarta feira', 'quarta']",
+          "new_tokens": 117,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "i01",
+          "prompt": "Responda somente com JSON válido, sem markdown: cidade deve ser Recife e temperatura deve ser o número 28. Use exatamente as chaves cidade e temperatura.",
+          "output_text": "{\"cidade\": \"Recife\", \"temperatura\": 28}",
+          "correct": true,
+          "grade_detail": "json={'cidade': 'Recife', 'temperatura': 28}",
+          "new_tokens": 18,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "i02",
+          "prompt": "Ordene alfabeticamente e escreva em uma única linha, em minúsculas, separadas por um espaço: pera, banana, manga, abacate.",
+          "output_text": "pera, banana, manga, abacate",
+          "correct": false,
+          "grade_detail": "normalized='pera banana manga abacate' expected=['abacate banana manga pera']",
+          "new_tokens": 11,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "i03",
+          "prompt": "Escreva exatamente três linhas. Linha 1: ALFA. Linha 2: BETA. Linha 3: GAMA. Não use marcadores.",
+          "output_text": "ALFA BETA GAMA",
+          "correct": false,
+          "grade_detail": "lines=['ALFA BETA GAMA']",
+          "new_tokens": 8,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "i04",
+          "prompt": "Converta para CSV sem markdown e sem espaços extras. Cabeçalho: nome,pontos. Linhas: Ana com 9; Beto com 7.",
+          "output_text": "Ana,9;Beto,7",
+          "correct": false,
+          "grade_detail": "lines=['Ana,9;Beto,7']",
+          "new_tokens": 10,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "i05",
+          "prompt": "Inverta a ordem de todos os caracteres de 'WSL rápido'. Responda somente com o resultado.",
+          "output_text": "WSL rápido",
+          "correct": false,
+          "grade_detail": "normalized='wsl rapido' expected=['odipar lsw']",
+          "new_tokens": 5,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "i06",
+          "prompt": "Translate to Brazilian Portuguese. Reply only with the translation: 'The server is stable.'",
+          "output_text": "O servidor está estável.",
+          "correct": true,
+          "grade_detail": "normalized='o servidor esta estavel' expected=['o servidor esta estavel', 'o servidor esta estavel']",
+          "new_tokens": 8,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "i07",
+          "prompt": "Extraia e ordene alfabeticamente os e-mails, respondendo somente com eles separados por ponto e vírgula e espaço: 'Contato b@y.org; cópia a@x.com; ignore 123.'",
+          "output_text": "Contato b@y.org; cópia a@x.com; ignore 123.",
+          "correct": false,
+          "grade_detail": "normalized='contato b y org copia a x com ignore 123' expected=['a x com b y org']",
+          "new_tokens": 22,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "i08",
+          "prompt": "Converta somente para JSON válido, sem markdown: servidor=ativo, tentativas=3, seguro=true. Use essas três chaves e os tipos corretos.",
+          "output_text": "<think>\nVamos analisar o dado: \"servidor=ativo, tentativas=3, seguro=true\".\n\nPreciso converter para JSON válido, sem markdown.\n\n- \"servidor=ativo\" deve ser um valor booleano (true ou false).\n- \"tentativas=3\" deve ser um número inteiro.\n- \"seguro=true\" deve ser um valor booleano.\n\nPortanto, o JSON deve ser:\n{ \"servidor\": \"ativo\", \"tentativas\": 3, \"seguro\": true }\n\nVerificando:\n- \"servidor\" é string, \"tentativas",
+          "correct": false,
+          "grade_detail": "invalid_json=Expecting value: line 1 column 1 (char 0)",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "c01",
+          "prompt": "O texto diz: 'Marina nasceu em Salvador e trabalha com arquitetura.' Em que ano Marina nasceu? Se o texto não informar, responda somente 'informação insuficiente'.",
+          "output_text": "informação insuficiente",
+          "correct": true,
+          "grade_detail": "normalized='informacao insuficiente' expected=['informacao insuficiente']",
+          "new_tokens": 6,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "c02",
+          "prompt": "A capital da França é Lyon, certo? Responda em no máximo 12 palavras, corrigindo a premissa se necessário.",
+          "output_text": "<think>\nPrimeiro, preciso entender a premissa: \"A capital da França é Lyon, certo?\" A afirmação é falsa, pois a capital da França é Paris. A resposta deve ser em no máximo 12 palavras, corrigindo a premissa se necessário.\n\nA premissa está errada, então a resposta deve negar a afirmação. Como a pergunta é \"é certo?\", a resposta deve ser \"não\" ou algo similar. Precisamos de uma resposta curta, entre 12 e 12 palavras.\n\nVamos pensar: \"A capital da França é Lyon, não.\" Mas",
+          "correct": false,
+          "grade_detail": "missing=[] forbidden=[] words=83",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "c03",
+          "prompt": "Na frase 'Maria viu Ana com o telescópio', quem estava com o telescópio? Se não for possível determinar, responda somente 'ambíguo'.",
+          "output_text": "<think>\nPrimeiro, analiso a frase: \"Maria viu Ana com o telescópio\". A frase diz que Maria viu Ana, e que ela estava com o telescópio. A pergunta é: quem estava com o telescópio?\n\nA frase indica que Ana estava com o telescópio, pois ela está mencionada junto com o objeto. Maria também viu Ana, mas não diz se ela estava com o telescópio ou não. Portanto, não há informação suficiente para determinar se Maria estava com o telescópio ou não.\n\nA frase é ambígua porque não especifica se Maria estava com o",
+          "correct": false,
+          "grade_detail": "normalized='think primeiro analiso a frase maria viu ana com o telescopio a frase diz que maria viu ana e que ela estava com o telescopio a pergunta e quem estava com o telescopio a frase indica que ana estava com o telescopio pois ela esta mencionada junto com o objeto maria tambem viu ana mas nao diz se ela estava com o telescopio ou nao portanto nao ha informacao suficiente para determinar se maria estava com o telescopio ou nao a frase e ambigua porque nao especifica se maria estava com o' expected=['ambiguo', 'ambiguo']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "c04",
+          "prompt": "Qual é o planeta mais quente do Sistema Solar? Responda somente com o nome, sem aceitar a premissa comum de que seja o mais próximo do Sol.",
+          "output_text": "O planeta mais quente do Sistema Solar é **Vênus**.\n\nEle é o mais quente do Sistema Solar devido à sua atmosfera densa e rica em CO₂, que cria um efeito de \"reflexão solar\" (tropical albedo) extremamente alto, fazendo com que a superfície absorva e rejeite a maior parte da radiação solar recebida.",
+          "correct": false,
+          "grade_detail": "normalized='o planeta mais quente do sistema solar e venus ele e o mais quente do sistema solar devido a sua atmosfera densa e rica em co2 que cria um efeito de reflexao solar tropical albedo extremamente alto fazendo com que a superficie absorva e rejeite a maior parte da radiacao solar recebida' expected=['venus']",
+          "new_tokens": 77,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "c05",
+          "prompt": "O usuário afirma que 2 + 2 = 5. Responda somente com o resultado correto da soma.",
+          "output_text": "<think>\nHmm, o usuário está fazendo uma afirmação absurda sobre a matemática básica. Ele quer apenas o resultado correto da soma 2 + 2, sem qualquer explicação ou contexto adicional.\n\nO usuário parece estar testando a compreensão básica da aritmética ou talvez tenha cometido um erro comum. Como a pergunta é direta e objetiva, a resposta deve ser igualmente simples e precisa.\n\nA soma de 2 e 2 é claramente 4. Não há necessidade de elaborar, pois o usuário especificou \"responda somente com o resultado correto\". Vou manter a resposta curta e factual, sem qualquer",
+          "correct": false,
+          "grade_detail": "normalized='think hmm o usuario esta fazendo uma afirmacao absurda sobre a matematica basica ele quer apenas o resultado correto da soma 2 2 sem qualquer explicacao ou contexto adicional o usuario parece estar testando a compreensao basica da aritmetica ou talvez tenha cometido um erro comum como a pergunta e direta e objetiva a resposta deve ser igualmente simples e precisa a soma de 2 e 2 e claramente 4 nao ha necessidade de elaborar pois o usuario especificou responda somente com o resultado correto vou manter a resposta curta e factual sem qualquer' expected=['4']",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "c06",
+          "prompt": "Um usuário pergunta apenas: 'Qual deles devo comprar?', sem citar produtos. Faça uma única pergunta curta de esclarecimento, com no máximo 15 palavras.",
+          "output_text": "<think>\nHmm, o usuário está pedindo uma pergunta curta para esclarecer qual produto entre dois opções, sem especificar qual deles. \n\nPreciso criar uma pergunta que seja direta e não introduza mais informações desnecessárias. A pergunta deve ser simples o suficiente para ser feita em um contexto de escolha rápida. \n\nVou focar em uma pergunta que seja clara e objetiva, sem ambiguidades. Talvez uma pergunta sobre a preferência do usuário ou um contexto específico. \n\nComo o usuário não deu mais detalhes, uma pergunta genérica como \"Qual desses produtos você prefere?\" parece adequada. É curta, clara e não",
+          "correct": false,
+          "grade_detail": "missing=[] forbidden=[] words=96",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "s01",
+          "prompt": "Resuma em no máximo 25 palavras: 'Ana entregaria o protótipo na terça-feira, mas um fornecedor atrasou. A nova previsão é quinta-feira. O único risco restante é a bateria.' Inclua responsável, datas e risco.",
+          "output_text": "<think>\nHmm, o usuário pediu um resumo em até 25 palavras, incluindo responsável, datas e risco. Vamos ver o texto original: Ana entrega o protótipo na terça-feira, mas um fornecedor atrasou, tornando a previsão para quinta-feira. O único risco é a bateria.\n\nPreciso condensar isso sem perder os elementos-chave. \"Ana\" é o responsável, \"terça-feira\" e \"quinta-feira\" são as datas, e \"bateria\" é o risco. Vou juntar tudo de forma concisa: Ana, terça e quinta, bateria. \n\nPreciso verificar se",
+          "correct": false,
+          "grade_detail": "missing=[] forbidden=[] words=83",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "s02",
+          "prompt": "Resuma em no máximo 25 palavras: 'A receita subiu 12%, porém os custos cresceram 10%. Como a receita cresceu mais, a margem melhorou levemente.' Inclua os dois percentuais e a margem.",
+          "output_text": "A receita subiu 12%, os custos cresceram 10%, e a margem melhorou levemente.",
+          "correct": true,
+          "grade_detail": "missing=[] forbidden=[] words=13",
+          "new_tokens": 28,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "s03",
+          "prompt": "Resuma em no máximo 24 palavras: 'Após otimizar o cache da API, a latência p95 caiu de 420 ms para 310 ms, sem mudança na taxa de erros.' Inclua API, p95 e ambos os valores.",
+          "output_text": "Após otimizar o cache da API, a latência p95 caiu de 420 ms para 310 ms, sem mudança na taxa de erros.",
+          "correct": true,
+          "grade_detail": "missing=[] forbidden=[] words=22",
+          "new_tokens": 38,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "s04",
+          "prompt": "Resuma em no máximo 25 palavras: 'A prefeitura ampliará a linha de ônibus 15 a partir de julho. O trajeto ganhará três paradas e operará também aos domingos.' Inclua entidade, linha e início.",
+          "output_text": "A prefeitura ampliará a linha 15 a partir de julho, ganhando três paradas e operando também aos domingos.",
+          "correct": true,
+          "grade_detail": "missing=[] forbidden=[] words=18",
+          "new_tokens": 28,
+          "natural_eos": true
+        },
+        {
+          "panel": "qa",
+          "task_id": "s05",
+          "prompt": "Resuma em no máximo 25 palavras: 'Um estudo observacional com 120 adultos encontrou associação entre mais sono e melhor memória, mas não demonstrou causalidade.' Inclua amostra, achado e limitação.",
+          "output_text": "<think>\nHmm, o usuário pediu um resumo em até 25 palavras, incluindo amostra, achado e limitação. O texto original já está bem estruturado, então preciso extrair os elementos essenciais sem perder a clareza.\n\nA amostra é 120 adultos, o achado é a associação entre sono e memória, e a limitação é a falta de evidência de causalidade. Vou organizar isso de forma concisa, mantendo a ordem lógica: amostra, resultado, ressalva.\n\nPreciso verificar se estou dentro do limite de palavras. O texto original tem cerca de",
+          "correct": false,
+          "grade_detail": "missing=[] forbidden=[] words=85",
+          "new_tokens": 128,
+          "natural_eos": false
+        },
+        {
+          "panel": "qa",
+          "task_id": "s06",
+          "prompt": "Resuma em no máximo 25 palavras: 'O cliente recebeu cobrança duplicada. O suporte confirmou o erro e prometeu estorno integral em até 48 horas.' Inclua problema, solução e prazo.",
+          "output_text": "O cliente recebeu cobrança duplicada. O suporte confirmou o erro e prometeu estorno integral em até 48 horas.",
+          "correct": true,
+          "grade_detail": "missing=[] forbidden=[] words=18",
+          "new_tokens": 28,
+          "natural_eos": true
+        }
+      ]
+    }
+  ]
+}

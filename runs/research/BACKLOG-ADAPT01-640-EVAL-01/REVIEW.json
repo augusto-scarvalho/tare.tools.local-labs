@@ -1,0 +1,14 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "REJECTED",
+  "receipt_sha256": "cb0180cc424db42e5a8a81fd6bf60c66b5b61c5a2c029631e909418276e8d170",
+  "implementation_digest": "839ffe5e495c3df7fbb05b74055c80a89399a337374060dfcba496a557b698ed",
+  "findings": [
+    "Receipt fingerprint, implementation digest, 17 provenance inputs and all seven frozen artifact hashes independently match.",
+    "Independent rescoring of all 48 rows reproduces 16/32 math, 5/16 protected QA and 39/48 natural EOS with no scorer disagreement.",
+    "The target-to-teacher median token ratio independently recomputes as 157.5/119.5 = 1.3179916317991631.",
+    "The frozen natural-EOS gate fails 39 >= 40 and the frozen length-control gate fails 1.3179916317991631 <= 1.25; both failures remain after adversarial checks for missing rows, scorer error, treatment identity, service change and dataset drift.",
+    "Ten generations reached their frozen token caps, but changing caps or thresholds after observation is forbidden; this is a bounded rejection of this artifact on this panel, not a general LoKr or capability claim."
+  ]
+}

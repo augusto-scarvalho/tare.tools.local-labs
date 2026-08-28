@@ -1,0 +1,55 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-QWEN38-KV-PRECISION-02",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-27T19:58:59Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-27T19:59:25Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-27T20:01:14Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T20:11:32Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-QWEN38-KV-PRECISION-02/PRE_REGISTRATION.md",
+    "sha256": "d19efbe25c860b17dfec323e858a80e47eb4989cee640e4a5e84af61d643c29f"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_qwen38_kv_precision_r2.py",
+      "sha256": "d4ee7babfb482f01a1045e6ea33c54834470aa20cb1b519b72e4b2cc641640be"
+    },
+    {
+      "path": "tools/research/run_qwen38_kv_precision_r2.py",
+      "sha256": "fdf2d469a652381821af23d7d4612898d9ec65d1f4fae5323ee9e50efa7d8158"
+    }
+  ],
+  "implementation_digest": "f02b392add6f904130fc4bec421b39d6ea3fd3be6150a8a6f5e78bee914e5394",
+  "execution": {
+    "path": "runs/research/BACKLOG-QWEN38-KV-PRECISION-02/raw/receipt.json",
+    "sha256": "aba1cc2685f5b74ab01a16937b13d7c063898e9cf2df6ac97bb30564a4074bd7"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

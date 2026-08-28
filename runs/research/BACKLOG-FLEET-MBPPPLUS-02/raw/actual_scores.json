@@ -1,0 +1,59 @@
+{
+  "r1_sources_and_model_artifacts_verified": true,
+  "two_mbpp_panels_disjoint": true,
+  "verified_text_routes_completed": 4,
+  "fresh_second_panel_generations": 400,
+  "successful_nonempty_second_panel_responses": 400,
+  "official_model_panel_scores": 8,
+  "combined_hauhaucs_mbpp_plus_pass_at_1": 0.745,
+  "stratified_hauhaucs_minus_qwen38": {
+    "panel_deltas": [
+      -0.02,
+      0.03
+    ],
+    "point": 0.005,
+    "replicates": 20000,
+    "seed": 2026082713,
+    "lower_95": -0.025,
+    "upper_95": 0.035
+  },
+  "combined": {
+    "qwen38": {
+      "n": 200,
+      "base_pass": 181,
+      "base_pass_at_1": 0.905,
+      "plus_pass": 148,
+      "plus_pass_at_1": 0.74,
+      "r1_plus_pass": 75,
+      "r2_plus_pass": 73
+    },
+    "hauhaucs": {
+      "n": 200,
+      "base_pass": 183,
+      "base_pass_at_1": 0.915,
+      "plus_pass": 149,
+      "plus_pass_at_1": 0.745,
+      "r1_plus_pass": 73,
+      "r2_plus_pass": 76
+    },
+    "fable-tc": {
+      "n": 200,
+      "base_pass": 182,
+      "base_pass_at_1": 0.91,
+      "plus_pass": 153,
+      "plus_pass_at_1": 0.765,
+      "r1_plus_pass": 76,
+      "r2_plus_pass": 77
+    },
+    "qwen36-moe": {
+      "n": 200,
+      "base_pass": 183,
+      "base_pass_at_1": 0.915,
+      "plus_pass": 150,
+      "plus_pass_at_1": 0.75,
+      "r1_plus_pass": 77,
+      "r2_plus_pass": 73
+    }
+  },
+  "initial_route_and_services_restored": true
+}

@@ -1,0 +1,100 @@
+{
+  "batch_id": "LARGE-BATCH-2026-08-26",
+  "started_at_utc": "2026-08-26T21:49:17Z",
+  "manifest": "config/autonomous_experiment_batch_2026-08-26.json",
+  "completed_tasks": [
+    {
+      "task_id": "BACKLOG-FLEET-REGRESSION-SCREEN-01",
+      "checks": {
+        "runner_completed": true,
+        "packet_executed": true,
+        "restored": true,
+        "gateway_health": true,
+        "embedding_health": true
+      }
+    },
+    {
+      "task_id": "BACKLOG-MTP-PERSISTENCE-01",
+      "checks": {
+        "runner_completed": true,
+        "packet_executed": true,
+        "restored": true,
+        "gateway_health": true,
+        "embedding_health": true
+      }
+    }
+  ],
+  "status": "completed",
+  "current_task": null,
+  "current_pid": null,
+  "task_progress": {
+    "task_id": "BACKLOG-FLEET-REGRESSION-SCREEN-01",
+    "started_at_utc": "2026-08-26T21:34:17Z",
+    "initial_service": {
+      "command": {
+        "argv": [
+          "wsl",
+          "-d",
+          "Ubuntu-24.04",
+          "--",
+          "systemctl",
+          "show",
+          "llm-inference.service",
+          "-p",
+          "ActiveState",
+          "-p",
+          "MainPID",
+          "-p",
+          "NRestarts",
+          "-p",
+          "ExecStart",
+          "--no-pager"
+        ],
+        "returncode": 0,
+        "stdout": "MainPID=46324\nNRestarts=0\nExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/tools/serving/qualified_model_gateway.py --config /mnt/c/projects/tare.tools.local-labs/config/qualified_model_fleet.json --host 0.0.0.0 --port 8080 --backend-host 127.0.0.1 --backend-port 18080 --state-dir /home/augus/.local/state/tare-qualified-models --preload qwen38 ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }\nActiveState=active",
+        "stderr": ""
+      },
+      "active_state": "active",
+      "main_pid": 46324,
+      "n_restarts": 0,
+      "exec_start": "{ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/tools/serving/qualified_model_gateway.py --config /mnt/c/projects/tare.tools.local-labs/config/qualified_model_fleet.json --host 0.0.0.0 --port 8080 --backend-host 127.0.0.1 --backend-port 18080 --state-dir /home/augus/.local/state/tare-qualified-models --preload qwen38 ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }"
+    },
+    "initial_gateway": {
+      "status": "ok",
+      "role": "qualified-model-gateway",
+      "current_model": "fable-tc",
+      "requested_name": "fable-tc",
+      "backend_healthy": true,
+      "backend_pid": 63434,
+      "backend_port": 18080,
+      "last_switch_seconds": 3.8061947230016813,
+      "last_error": "[Errno 104] Connection reset by peer",
+      "max_resident_models": 1,
+      "available_models": [
+        "fable-tc",
+        "gemma-vision",
+        "hauhaucs",
+        "muse-vision",
+        "qwen36-moe",
+        "qwen38"
+      ]
+    },
+    "initial_model": "fable-tc",
+    "completed_requests": 448,
+    "status": "running",
+    "last_key": [
+      "qwen36-moe",
+      1,
+      "agent",
+      "irreversible_no_blind_retry"
+    ],
+    "last_http_status": 200
+  },
+  "command": [
+    "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "tools/research/run_mtp_persistence_first_instance.py",
+    "--outdir",
+    "runs/research/BACKLOG-MTP-PERSISTENCE-01"
+  ],
+  "finished_at_utc": "2026-08-26T22:02:56Z"
+}

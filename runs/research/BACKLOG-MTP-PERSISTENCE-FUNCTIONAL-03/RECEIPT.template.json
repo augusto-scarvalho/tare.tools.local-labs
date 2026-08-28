@@ -1,0 +1,83 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-MTP-PERSISTENCE-FUNCTIONAL-03",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "source_integrity": {
+      "metric": "sources_and_runtime_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "cycle_coverage": {
+      "metric": "completed_cycles",
+      "operator": "eq",
+      "threshold": 16,
+      "actual": null,
+      "pass": null
+    },
+    "lifecycle_integrity": {
+      "metric": "successful_lifecycle_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "functional_cache_reuse": {
+      "metric": "cycles_with_cache_n_positive",
+      "operator": "eq",
+      "threshold": 16,
+      "actual": null,
+      "pass": null
+    },
+    "material_cache_reuse": {
+      "metric": "median_cache_fraction_of_prompt",
+      "operator": "ge",
+      "threshold": 0.8,
+      "actual": null,
+      "pass": null
+    },
+    "prefill_reduction": {
+      "metric": "median_prefill_token_reduction",
+      "operator": "ge",
+      "threshold": 0.8,
+      "actual": null,
+      "pass": null
+    },
+    "continuation_parity": {
+      "metric": "exact_continuation_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "service_recovery": {
+      "metric": "service_and_embedding_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "effective_route": null,
+    "functional_reuse": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "recovery_state": null,
+    "service_identity": null,
+    "service_maintenance": null,
+    "source_execution_receipt": null
+  },
+  "receipt_fingerprint": null
+}

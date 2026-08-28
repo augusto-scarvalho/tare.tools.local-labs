@@ -1,0 +1,21 @@
+{
+  "schema": "local-labs-experiment-watch-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-27-FLEET-CONTEXT-R3",
+  "experiment_mode": true,
+  "poll_seconds": 300,
+  "service_settle_seconds": 180,
+  "experiments": [
+    {
+      "task_id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-03",
+      "pid": 52324,
+      "packet_dir": "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-03",
+      "progress_glob": "raw/finalized/*.json",
+      "expected_progress": 4
+    }
+  ],
+  "final_health_urls": [
+    "http://127.0.0.1:8080/health",
+    "http://127.0.0.1:8081/health"
+  ],
+  "actor": "Codex executor watcher"
+}

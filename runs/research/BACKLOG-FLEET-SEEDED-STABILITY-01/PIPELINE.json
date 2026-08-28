@@ -1,0 +1,55 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-FLEET-SEEDED-STABILITY-01",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex executor",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T23:45:13Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T23:46:46Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T23:46:46Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor",
+      "at": "2026-08-27T00:05:11Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-01/PRE_REGISTRATION.md",
+    "sha256": "026284a3288aa90700b46b409a2f945bbf92973f3e22d52991c78324c12cd5e3"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_fleet_regression_screen.py",
+      "sha256": "7cbf942375c120970ac78fb40f7f15050ebddb7ec5372cb40bd721009faf1de3"
+    },
+    {
+      "path": "tools/research/run_fleet_seeded_stability.py",
+      "sha256": "71189428e1d1c7aff8a3ddb55d56c2f2034cd89c9df516f1a6490e7a2888676c"
+    }
+  ],
+  "implementation_digest": "535f0041cf447be4564f0f2838c4d35d8958cedf7ce1739d5df8b44858647203",
+  "execution": {
+    "path": "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-01/raw/receipt.json",
+    "sha256": "0d7bc9a65f6243cd0e0e1e83d670e76a2eb97a4c6ba27a5f9cf73f65a5620e5c"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

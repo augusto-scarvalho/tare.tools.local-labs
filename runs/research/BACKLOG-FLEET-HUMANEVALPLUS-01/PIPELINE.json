@@ -1,0 +1,49 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-FLEET-HUMANEVALPLUS-01",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-27T17:11:43Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-27T17:12:12Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-27T17:14:33Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "Codex",
+      "at": "2026-08-27T17:23:00Z",
+      "reason": "Execution aborted after 164 complete qwen38 generations because the direct-file EvalPlus scorer lacked repository PYTHONPATH; no receipt/result was emitted and services were restored."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-01/PRE_REGISTRATION.md",
+    "sha256": "bb93658ec154eaaa136074ec418ddfbc6ce657957670e45c4c497b0d90b1b0fd"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_fleet_humanevalplus.py",
+      "sha256": "e495a2094097d1e616709f6064850e8b3d2fd0778b81c9f4ef05944934cb6cfe"
+    }
+  ],
+  "implementation_digest": "a85e0bc3ae8d7fe66f0076e8936bc2f6e84ca9b868b68a7c158724fc8349a2df",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

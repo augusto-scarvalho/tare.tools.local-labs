@@ -1,0 +1,17 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "REJECTED",
+  "receipt_sha256": "2e10932d49489671978f0254c72656e12773b3ae4179487792af88193b96ba25",
+  "implementation_digest": "9429410ad2090d30bed4010f25d3d1c67014852011dd71af59157c19185f556a",
+  "findings": [
+    "Receipt fingerprint, implementation digest, all four implementation-file hashes and all 22 packet provenance inputs independently match. The frozen source receipt fingerprint and all 41 of its materialized provenance inputs also match.",
+    "The source contains exactly 144 unique arm/panel/task cells: 32 math plus 16 QA for each of target_mlp_only, target_attn_only and target_all_linear. The successor copy equals an independent rescore projection byte-for-byte and its canonical semantic SHA-256 reproduces as 034981173da382b1b682650e24886dc610252b8c3f2c587b51e57c8ba98cb842.",
+    "All 17 current source worker projections reproduce their receipt-bound semantic hashes and metadata with 17 unique PIDs. The three selected source rows exactly equal workers smoke_a_03_target_mlp_only, full_06_target_attn_only and full_05_target_all_linear; their bound commands name the exact artifact-ledger paths, loaded type is LOKR, base pre-existing PEFT count is zero, and post-load module counts are 74, 26 and 98. This direct recomputation does not reproduce the semantic-hash mismatch previously recorded for the held predecessor item.",
+    "Independent frozen scoring reproduces target_mlp_only 10/32 math and 3/16 QA, target_attn_only 9/32 and 5/16, and target_all_linear 10/32 and 3/16. The routed fleet is 15/48 versus monolith 13/48, relative gain 0.15384615384615385; gain and math-specialist gates fail while QA equals its threshold.",
+    "Adversarial scorer review confirms at least one target_mlp_only false negative: gsm8k/19 explicitly concludes the required speed is 6 mph, but last-number extraction selects the later contextual average 4. It also confirms at least two monolith false negatives: gsm8k/1001 concludes 2:00 pm but the extractor returns 00, and gsm8k/1212 derives combined capacity 150 before a capped prompt repetition makes the extractor return 120.",
+    "Correcting only those unambiguous extractor errors yields routed math 11, fleet total 16, monolith total 15 and relative gain 0.06666666666666667. Both frozen negative gates still fail by wide margins. Fourteen target_mlp and fourteen monolith math rows are capped; unfinished reasoning was not credited, and no post-result cap extension is allowed.",
+    "The QA scorer intentionally enforces requested answer form as well as semantic content: for example target_attn_only m01/m02/r01 contain the semantic answer but violate the requested answer-only form and remain frozen failures. Relaxing this construct after observing results would change the hypothesis. The routed QA arm nevertheless passes at 5/16.",
+    "The allowed negative claim is therefore bounded to non-reproduction of the historical deterministic routing composition on these exact clean generations and frozen scorers. It is not evidence of adapter harm, a causal failure of distillation training, dynamic-router latency, cross-panel generalization or production ineligibility."
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-FLEET-HUMANEVALPLUS-02",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-27T17:23:33Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-27T17:24:05Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-27T17:26:45Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T17:51:05Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T02:14:11Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T02:14:24Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-02/PRE_REGISTRATION.md",
+    "sha256": "54d727d209264b11853f07ed59137414f2db10673cf5ec6a154473171d05f862"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_fleet_humanevalplus_r2.py",
+      "sha256": "139e5596bcd5cb8fda1cbcf0813aaee87959513232885a146dd83b1913203fe2"
+    }
+  ],
+  "implementation_digest": "afcbe1f1bba75bdbe39aa6cfdc2527617734d325728ff9e3e77b88666baac825",
+  "execution": {
+    "path": "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-02/raw/receipt.json",
+    "sha256": "b6cce633af34db44f92d76f345e19b3c3b0a5e8ccc0c9b756904f545be9f615a"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-02/RESULT.md",
+    "sha256": "21478ba24553475f67d116717642b9789ac58b2f920eccc424a08ec128a7d0a8"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-02/REVIEW.json",
+    "sha256": "95934e564a33259d2080e4a394b4a8585664f4cf319a6d054ee6d737b71a7421"
+  },
+  "claim_codes": [
+    "HAUHAUCS_FULL_HUMANEVALPLUS_CODING_ALIAS_RETAINED_R2"
+  ]
+}

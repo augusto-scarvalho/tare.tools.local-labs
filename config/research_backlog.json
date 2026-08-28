@@ -1,6 +1,6 @@
 {
   "schema": "local-labs-backlog-v1",
-  "updated_at": "2026-08-26T10:35:44Z",
+  "updated_at": "2026-08-28T11:17:14Z",
   "policy": {
     "executor": "Gemini",
     "independent_review_required": true,
@@ -654,7 +654,7 @@
       "id": "BACKLOG-MTP-PERSISTENCE-01",
       "priority": 1,
       "title": "Root-cause intermittent MTP cache persistence failure",
-      "state": "BLOCKED",
+      "state": "EXECUTED",
       "evidence_class": "mechanism_research",
       "packet_dir": "runs/research/BACKLOG-MTP-PERSISTENCE-01",
       "depends_on": [],
@@ -710,13 +710,38 @@
         "cache promotion with intermittent mismatch"
       ],
       "next_action": "Form a new falsifiable cache-lifecycle hypothesis with invariant controls and explicit invalidation rules.",
-      "blocker": "No sufficiently specific falsifiable cache-lifecycle mechanism hypothesis exists",
+      "blocker": null,
       "state_history": [
         {
           "from": null,
           "to": "BLOCKED",
           "actor": "Codex",
           "at": "2026-08-25T11:30:00Z"
+        },
+        {
+          "from": "BLOCKED",
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T21:35:15Z",
+          "reason": "Freeze and test a first-instance MTP lifecycle hypothesis: an unprimed speculative draft state before the first persisted slot causes the intermittent restore mismatch, while one discarded MTP warmup before cache population prevents it."
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T21:47:57Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T21:47:57Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T22:02:56Z"
         }
       ]
     },
@@ -1277,7 +1302,7 @@
       ],
       "next_action": "Run the three-arm process-isolation smoke in both orders, then execute all 13 adapters only if outputs are order invariant and every worker starts from a clean base.",
       "supersedes": "BACKLOG-ADAPT-REQUAL-01",
-      "state": "EXECUTED",
+      "state": "PROMOTED",
       "blocker": null,
       "state_history": [
         {
@@ -1303,6 +1328,20 @@
           "to": "EXECUTED",
           "actor": "Codex executor",
           "at": "2026-08-25T22:14:02Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T03:20:33Z",
+          "reason": "Independent digest-bound review reproduced all seven frozen gates and found no surviving evidence-binding blocker."
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T03:20:39Z",
+          "reason": "Artifact-requalification evidence class permits promotion of the bounded ARTIFACT_REQUALIFIED_R2 claim after independent verification."
         }
       ]
     },
@@ -1394,7 +1433,7 @@
       ],
       "next_action": "Run fresh temporary serving processes in OFF-ON-ON-OFF order with symmetric discarded warmups, explicit GGML_CUDA_DISABLE_GRAPHS treatment evidence, identical binary and argv, and paired deterministic prompts.",
       "supersedes": "BACKLOG-CUDAGRAPH-SERVING-01",
-      "state": "EXECUTED",
+      "state": "REJECTED",
       "blocker": null,
       "state_history": [
         {
@@ -1420,6 +1459,12 @@
           "to": "EXECUTED",
           "actor": "Codex executor",
           "at": "2026-08-25T22:23:57Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T02:23:10Z"
         }
       ]
     },
@@ -1656,7 +1701,7 @@
       ],
       "next_action": "Verify and import the four frozen completed workers, run only the two preregistered seed-20260826 workers with UTF-8 replacement-safe log capture, and aggregate the unchanged three-seed design.",
       "supersedes": "BACKLOG-ADAPT-TRACE-DISTILL-02",
-      "state": "EXECUTED",
+      "state": "PROMOTED",
       "blocker": null,
       "state_history": [
         {
@@ -1682,6 +1727,18 @@
           "to": "EXECUTED",
           "actor": "Codex executor",
           "at": "2026-08-25T23:35:08Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T01:11:47Z"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T01:11:48Z"
         }
       ],
       "external_source_receipts": {
@@ -2465,7 +2522,7 @@
       ],
       "next_action": "Select the three frozen real arms, independently rescore their raw generations, and recompute the original routing rules and thresholds.",
       "supersedes": null,
-      "state": "EXECUTED",
+      "state": "REJECTED",
       "blocker": null,
       "state_history": [
         {
@@ -2491,6 +2548,13 @@
           "to": "EXECUTED",
           "actor": "Codex executor",
           "at": "2026-08-26T00:24:50Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T02:35:25Z",
+          "reason": "Frozen routed-fleet gain and math-specialist gates fail after independent rescore; bounded scorer-error sensitivity remains below both thresholds."
         }
       ]
     },
@@ -3130,7 +3194,7 @@
       ],
       "next_action": "Repeat the deterministic rescore with runtime integration searched only in src and ops.",
       "supersedes": "BACKLOG-CTRL01-REAL-TOKEN-05",
-      "state": "EXECUTED",
+      "state": "REJECTED",
       "blocker": null,
       "state_history": [
         {
@@ -3156,6 +3220,13 @@
           "to": "EXECUTED",
           "actor": "Codex executor",
           "at": "2026-08-26T00:38:57Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T02:38:22Z",
+          "reason": "Frozen physical rescore fails validity, valid-control recall/preservation and production runtime-binding gates; rejection is bounded to the offline proxy and historical runtime claim."
         }
       ]
     },
@@ -3360,7 +3431,7 @@
       ],
       "next_action": "Rerun the identical physical codec with only the Triton namespace binding corrected.",
       "supersedes": "BACKLOG-RSH02-PACKED-GPU-01",
-      "state": "EXECUTED",
+      "state": "REJECTED",
       "blocker": null,
       "state_history": [
         {
@@ -3386,6 +3457,13 @@
           "to": "EXECUTED",
           "actor": "Codex executor",
           "at": "2026-08-26T00:45:33Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T02:41:05Z",
+          "reason": "Independent physical-symbol reconstruction and CPU decode confirm exactness, while frozen compression, throughput and paired-latency gates fail by wide margins."
         }
       ]
     },
@@ -3604,7 +3682,7 @@
       ],
       "next_action": "Run 25 four-slot concurrent cycles with deterministic code-word prompts and inspect physical MTP telemetry, output parity and service state.",
       "supersedes": null,
-      "state": "EXECUTED",
+      "state": "PROMOTED",
       "blocker": null,
       "state_history": [
         {
@@ -3630,6 +3708,20 @@
           "to": "EXECUTED",
           "actor": "Codex executor",
           "at": "2026-08-26T00:54:59Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T02:46:08Z",
+          "reason": "Independent rescore verifies four physical slots, 100 live requests, 830 rejected drafts, byte-exact per-slot repeats, correct response slot IDs, zero cross-slot nonce leakage and clean service/slot recovery."
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T02:46:20Z",
+          "reason": "All frozen live slot-isolation gates pass under digest-bound independent review; claim remains limited to observable behavior."
         }
       ]
     },
@@ -5006,7 +5098,7 @@
       ],
       "next_action": "Measure 48 paired prompts under physical K0 K2 K4 routes and replay the frozen controller against measured arm latency/acceptance.",
       "supersedes": null,
-      "state": "EXECUTED",
+      "state": "REJECTED",
       "blocker": null,
       "state_history": [
         {
@@ -5032,6 +5124,13 @@
           "to": "EXECUTED",
           "actor": "codex",
           "at": "2026-08-26T01:30:50Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T02:56:47Z",
+          "reason": "Independent recomputation reproduces exact parity 40/48 and adaptive gain over K4 3.6757%, so two mandatory gates fail; cap-only parity divergence limits answer-level interpretation but cannot rescue the robust static-gain miss."
         }
       ]
     },
@@ -5483,7 +5582,7 @@
       ],
       "next_action": "Repeat the physical runtime protocol with supported Q2_K and explicit 25 percent file ceiling.",
       "supersedes": null,
-      "state": "EXECUTED",
+      "state": "REJECTED",
       "blocker": null,
       "state_history": [
         {
@@ -5509,6 +5608,13 @@
           "to": "EXECUTED",
           "actor": "codex",
           "at": "2026-08-26T01:42:42Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T03:06:06Z",
+          "reason": "Independent recomputation confirms mandatory packed-artifact and semantic-stability failures; answer-quality inference is cap-limited, so rejection is bounded to the frozen all-gates qualification."
         }
       ],
       "external_source_receipts": {
@@ -5626,7 +5732,7 @@
       ],
       "next_action": "Compare active MTP with a physical draft-mtp,ngram-cache route on paired structured prompts.",
       "supersedes": null,
-      "state": "EXECUTED",
+      "state": "REJECTED",
       "blocker": null,
       "state_history": [
         {
@@ -5652,6 +5758,13 @@
           "to": "EXECUTED",
           "actor": "codex",
           "at": "2026-08-26T01:47:58Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T03:09:17Z",
+          "reason": "Independent live recomputation confirms a 0.6889x hybrid/MTP wall ratio and no per-proposer attribution; claim is bounded to the frozen live R1 hypothesis, not the simulator's autoregressive-baseline arithmetic."
         }
       ]
     },
@@ -5998,7 +6111,7 @@
       ],
       "next_action": "Load the already fresh seed-20260827 640-step adapter and score the omitted 32-math plus 16-QA panel without touching serving.",
       "supersedes": null,
-      "state": "EXECUTED",
+      "state": "REJECTED",
       "blocker": null,
       "state_history": [
         {
@@ -6024,6 +6137,4587 @@
           "to": "EXECUTED",
           "actor": "Codex executor",
           "at": "2026-08-26T03:20:37Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T00:56:58Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-REGRESSION-SCREEN-01",
+      "priority": 1,
+      "title": "Run a large repeatability and regression screen across the qualified text fleet",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "config/qualified_model_fleet.json",
+        "workloads/gsm8k.jsonl",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl",
+        "tools/benchmarks/agent_suite_v2.py",
+        "docs/HANDOFF_2026-08-26_CONSOLIDATED_RESEARCH_BACKLOG.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "dataset_hashes",
+        "effective_route",
+        "environment",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "service_maintenance",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "route_coverage",
+          "metric": "route_models_completed",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_coverage",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 448
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "route_identity",
+          "metric": "route_identity_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "repeatability",
+          "metric": "exact_repeat_rate",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "service_integrity",
+          "metric": "service_restarts",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_model_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUALIFIED_TEXT_FLEET_SCREEN_COMPLETE_R1",
+        "QUALIFIED_TEXT_FLEET_SCREEN_REJECTED_R1"
+      ],
+      "forbidden_claims": [
+        "cross-model superiority",
+        "production promotion",
+        "vision-model qualification",
+        "general capability from the frozen panels",
+        "determinism beyond the frozen greedy request contract"
+      ],
+      "next_action": "Run two complete frozen passes over 32 GSM8K, 16 protected QA and eight agent-tool cases for qwen38, hauhaucs, fable-tc and qwen36-moe through the qualified gateway, then restore the initially resident route.",
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T21:28:06Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T21:33:58Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T21:33:58Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T21:51:15Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-QWEN38-KV-PRECISION-01",
+      "priority": 1,
+      "title": "Qualify Qwen3.8 Q4_0 KV cache against F16 on physical serving",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-QWEN38-KV-PRECISION-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "config/qualified_model_fleet.json",
+        "workloads/gsm8k.jsonl",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl",
+        "docs/HANDOFF_2026-08-26_CONSOLIDATED_RESEARCH_BACKLOG.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "binary_identity",
+        "block_logs",
+        "dataset_hashes",
+        "effective_route",
+        "environment",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "service_maintenance",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "treatment_identity",
+          "metric": "explicit_cache_controls_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "balanced_crossover",
+          "metric": "valid_abba_blocks",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "semantic_parity",
+          "metric": "extracted_answer_parity_rate",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "quality_non_regression",
+          "metric": "q4_accuracy_regression",
+          "operator": "le",
+          "threshold": 0.03125
+        },
+        {
+          "id": "physical_memory_saving",
+          "metric": "vram_saving_mib",
+          "operator": "ge",
+          "threshold": 1000
+        },
+        {
+          "id": "throughput_non_regression",
+          "metric": "q4_vs_f16_throughput_ratio",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QWEN38_Q4_KV_PHYSICALLY_QUALIFIED_R1",
+        "QWEN38_Q4_KV_PHYSICALLY_REJECTED_R1"
+      ],
+      "forbidden_claims": [
+        "quality equivalence outside the frozen panel",
+        "memory savings on GPUs or context sizes other than the frozen setup",
+        "causal attribution to bandwidth without profiler evidence",
+        "production promotion",
+        "generalization to other model architectures"
+      ],
+      "next_action": "Run fresh F16-Q4-Q4-F16 physical server blocks on Qwen3.8 with identical MTP/runtime controls, a frozen 32-case GSM8K panel, physical VRAM telemetry and exact service restoration.",
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T21:50:28Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T21:54:36Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T21:54:37Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T22:11:25Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-MTP-PERSISTENCE-RESCORE-02",
+      "priority": 0,
+      "title": "Correct the MTP persistence false negative against current cache telemetry",
+      "evidence_class": "mechanism_research",
+      "packet_dir": "runs/research/BACKLOG-MTP-PERSISTENCE-RESCORE-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-MTP-PERSISTENCE-01/raw/samples.jsonl",
+        "runs/research/BACKLOG-MTP-PERSISTENCE-01/raw/receipt.json",
+        "runs/research/BACKLOG-MTP-PERSISTENCE-01/RESULT.md",
+        "tools/research/run_mtp_persistence_first_instance.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "semantic_parity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_coverage",
+          "metric": "rescored_observations",
+          "operator": "eq",
+          "threshold": 44
+        },
+        {
+          "id": "physical_persistence",
+          "metric": "physical_persistence_successes",
+          "operator": "eq",
+          "threshold": 44
+        },
+        {
+          "id": "semantic_parity",
+          "metric": "exact_semantic_successes",
+          "operator": "eq",
+          "threshold": 44
+        },
+        {
+          "id": "priming_materiality",
+          "metric": "material_primed_observations",
+          "operator": "eq",
+          "threshold": 20
+        },
+        {
+          "id": "legacy_false_negative",
+          "metric": "legacy_false_negative_confirmed",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "historical_failure",
+          "metric": "unprimed_physical_failures",
+          "operator": "eq",
+          "threshold": 0
+        }
+      ],
+      "allowed_claim_codes": [
+        "MTP_PERSISTENCE_HISTORICAL_FAILURE_NOT_REPRODUCED_R2",
+        "MTP_PERSISTENCE_RESCORE_INVALID_R2"
+      ],
+      "forbidden_claims": [
+        "the historical failure never existed",
+        "MTP persistence is universally correct",
+        "cache_n is valid cache telemetry in this runtime",
+        "production promotion",
+        "causal benefit from priming"
+      ],
+      "next_action": "Rescore all 44 immutable observations using successful save/restore counts, tokens_cached, exact output and oracle evidence; retain timings.cache_n only as the reproduced stale-field defect.",
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T23:40:33Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T23:42:11Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T23:42:11Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T23:42:12Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-GATEWAY-ROUTE-STRESS-01",
+      "priority": 1,
+      "title": "Stress all qualified gateway routes across repeated cold model switches",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "config/qualified_model_fleet.json",
+        "tools/serving/qualified_model_gateway.py",
+        "docs/HANDOFF_2026-08-26_CONSOLIDATED_RESEARCH_BACKLOG.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "effective_route",
+        "service_identity",
+        "paired_baseline",
+        "recovery_state",
+        "hardware_metrics",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "independent_evaluation",
+        "treatment_controls",
+        "service_maintenance"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "switch_coverage",
+          "metric": "verified_switches",
+          "operator": "eq",
+          "threshold": 30
+        },
+        {
+          "id": "request_coverage",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 120
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "route_identity",
+          "metric": "route_identity_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "cycle_repeatability",
+          "metric": "exact_cycle_repeat_rate",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "service_integrity",
+          "metric": "service_restarts",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_boundary_successes",
+          "operator": "eq",
+          "threshold": 30
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_model_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUALIFIED_GATEWAY_ROUTE_STRESS_PASSED_R1",
+        "QUALIFIED_GATEWAY_ROUTE_STRESS_REJECTED_R1"
+      ],
+      "forbidden_claims": [
+        "model quality superiority",
+        "vision capability from text-only probes",
+        "multi-resident model serving",
+        "production promotion",
+        "reliability beyond the frozen 30-switch campaign"
+      ],
+      "next_action": "Run five rotated cycles over all six registered aliases, verifying route identity, four deterministic text probes, embedding health, service PID/restarts and restoration after every cold switch.",
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T23:42:49Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T23:44:45Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T23:44:46Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T23:53:30Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-SEEDED-STABILITY-01",
+      "priority": 1,
+      "title": "Measure fixed-seed sampling stability across the qualified text fleet",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "config/qualified_model_fleet.json",
+        "workloads/gsm8k.jsonl",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl",
+        "tools/research/run_fleet_regression_screen.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "effective_route",
+        "service_identity",
+        "paired_baseline",
+        "recovery_state",
+        "hardware_metrics",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "independent_evaluation",
+        "treatment_controls",
+        "service_maintenance"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "route_coverage",
+          "metric": "routes_completed",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_coverage",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 288
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "seeded_stability",
+          "metric": "exact_seeded_repeat_rate",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "service_integrity",
+          "metric": "service_restarts",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_model_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUALIFIED_TEXT_FLEET_SEEDED_STABLE_R1",
+        "QUALIFIED_TEXT_FLEET_SEEDED_UNSTABLE_R1"
+      ],
+      "forbidden_claims": [
+        "unseeded determinism",
+        "quality superiority",
+        "production promotion",
+        "generalization beyond temperature 0.2 and the frozen panel"
+      ],
+      "next_action": "Run three fixed-seed temperature-0.2 passes over 16 GSM8K and eight protected QA cases for each of four text aliases, then compare semantic projections and restore the initial route.",
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T23:45:13Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T23:46:46Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-26T23:46:46Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-27T00:05:11Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-TRACE-DISTILL-04",
+      "priority": 0,
+      "title": "Confirm trace distillation with seven paired seeds, longer training, and broad held-out panels",
+      "evidence_class": "distillation",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-04",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/a2/market-r0__thinkingcap-27b-q4__gsm8k.json",
+        "workloads/gsm8k.jsonl",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/receipt.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "checkpoint_hashes",
+        "dataset_hashes",
+        "independent_evaluation",
+        "model_hash",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "service_maintenance",
+        "student_samples",
+        "teacher_samples",
+        "training_pairs",
+        "training_trace",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "treatment_materiality",
+          "metric": "matched_distinct_training_targets_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "training_budget",
+          "metric": "training_steps_per_arm_per_seed",
+          "operator": "eq",
+          "threshold": 504
+        },
+        {
+          "id": "seed_coverage",
+          "metric": "completed_paired_seeds",
+          "operator": "eq",
+          "threshold": 7
+        },
+        {
+          "id": "heldout_coverage",
+          "metric": "heldout_math_samples_per_arm_per_seed",
+          "operator": "eq",
+          "threshold": 256
+        },
+        {
+          "id": "confirmed_gain",
+          "metric": "hierarchical_bootstrap_95ci_lower_trace_math_gain",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "directional_repeatability",
+          "metric": "seeds_with_positive_trace_math_gain",
+          "operator": "ge",
+          "threshold": 5
+        },
+        {
+          "id": "protected_retention",
+          "metric": "mean_protected_qa_regression_vs_answer_only",
+          "operator": "le",
+          "threshold": 0.05
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "TRACE_DISTILLATION_CONFIRMED_R4",
+        "TRACE_DISTILLATION_NOT_CONFIRMED_R4"
+      ],
+      "forbidden_claims": [
+        "teacher-level noninferiority",
+        "production promotion",
+        "generalization beyond Qwen3.5-0.8B, the frozen corpora, and the tested training budget",
+        "causal attribution to trace style components not isolated by this experiment"
+      ],
+      "next_action": "Run seven fresh paired answer-only and full-trace LoRA trainings for 504 steps each, then evaluate every arm on 256 untouched GSM8K prompts and all 48 protected QA prompts.",
+      "supersedes": "BACKLOG-ADAPT-TRACE-DISTILL-03",
+      "state": "BLOCKED",
+      "blocker": "Pre-execution validation found that the teacher artifact is a noncontiguous 200-item sample and overlaps the preregistered gsm8k/200..455 held-out panel; no GPU worker launched. A successor must freeze a panel disjoint from every teacher task ID.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-27T00:13:28Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-27T00:15:34Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "BLOCKED",
+          "actor": "Codex executor",
+          "at": "2026-08-27T00:19:25Z",
+          "reason": "Pre-execution validation found that the teacher artifact is a noncontiguous 200-item sample and overlaps the preregistered gsm8k/200..455 held-out panel; no GPU worker launched. A successor must freeze a panel disjoint from every teacher task ID."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-TRACE-DISTILL-05",
+      "priority": 0,
+      "title": "Confirm trace distillation with seven paired seeds and a teacher-disjoint broad held-out panel",
+      "evidence_class": "distillation",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-05",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/a2/market-r0__thinkingcap-27b-q4__gsm8k.json",
+        "workloads/gsm8k.jsonl",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-04/PRE_REGISTRATION.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "checkpoint_hashes",
+        "dataset_hashes",
+        "independent_evaluation",
+        "model_hash",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "service_maintenance",
+        "student_samples",
+        "teacher_samples",
+        "training_pairs",
+        "training_trace",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "treatment_materiality",
+          "metric": "matched_distinct_training_targets_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "training_budget",
+          "metric": "training_steps_per_arm_per_seed",
+          "operator": "eq",
+          "threshold": 504
+        },
+        {
+          "id": "seed_coverage",
+          "metric": "completed_paired_seeds",
+          "operator": "eq",
+          "threshold": 7
+        },
+        {
+          "id": "heldout_coverage",
+          "metric": "heldout_math_samples_per_arm_per_seed",
+          "operator": "eq",
+          "threshold": 256
+        },
+        {
+          "id": "confirmed_gain",
+          "metric": "hierarchical_bootstrap_95ci_lower_trace_math_gain",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "directional_repeatability",
+          "metric": "seeds_with_positive_trace_math_gain",
+          "operator": "ge",
+          "threshold": 5
+        },
+        {
+          "id": "protected_retention",
+          "metric": "mean_protected_qa_regression_vs_answer_only",
+          "operator": "le",
+          "threshold": 0.05
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "TRACE_DISTILLATION_CONFIRMED_R5",
+        "TRACE_DISTILLATION_NOT_CONFIRMED_R5"
+      ],
+      "forbidden_claims": [
+        "teacher-level noninferiority",
+        "production promotion",
+        "generalization beyond Qwen3.5-0.8B, the frozen corpora, and the tested training budget",
+        "causal attribution to trace style components not isolated by this experiment"
+      ],
+      "next_action": "Run seven fresh paired answer-only and full-trace LoRA trainings for 504 steps each, then evaluate every arm on 256 prompts disjoint from all teacher tasks and all 48 protected QA prompts.",
+      "supersedes": "BACKLOG-ADAPT-TRACE-DISTILL-04",
+      "state": "BLOCKED",
+      "blocker": "Fail-closed abort after 9/14 workers: the preregistration required all 48 protected-QA tasks, but implementation QA_IDS=f01..f48 materialized only the 10 existing f-family tasks. Each completed worker produced 266 rather than 304 evaluations. No receipt or result was issued; service baseline restored. A successor must freeze the actual 48 IDs and may import only hash-verified partial checkpoints/outputs.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-27T00:19:52Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-27T00:20:42Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-27T00:21:24Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T03:38:22Z",
+          "reason": "Fail-closed abort after 9/14 workers: the preregistration required all 48 protected-QA tasks, but implementation QA_IDS=f01..f48 materialized only the 10 existing f-family tasks. Each completed worker produced 266 rather than 304 evaluations. No receipt or result was issued; service baseline restored. A successor must freeze the actual 48 IDs and may import only hash-verified partial checkpoints/outputs."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02",
+      "priority": 0,
+      "title": "Evaluate the fresh 384-step LoKr artifact on a broad teacher-disjoint panel under GPU co-tenancy",
+      "evidence_class": "artifact_requalification",
+      "packet_dir": "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt01/lokr_3ep_lr1e4/adapter",
+        "workloads/gsm8k.jsonl",
+        "runs/a2/market-r0__thinkingcap-27b-q4__gsm8k.json",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "clean_base_receipts",
+        "dataset_hashes",
+        "independent_evaluation",
+        "isolation_smoke",
+        "model_hash",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "service_maintenance",
+        "source_execution_receipt",
+        "wsl_environment"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "artifact_identity",
+          "metric": "artifact_hashes_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "panel_isolation",
+          "metric": "teacher_disjoint_math_tasks",
+          "operator": "eq",
+          "threshold": 256
+        },
+        {
+          "id": "evaluation_coverage",
+          "metric": "paired_math_and_qa_generations",
+          "operator": "eq",
+          "threshold": 608
+        },
+        {
+          "id": "broad_gain",
+          "metric": "paired_bootstrap_95ci_lower_math_gain",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "protected_retention",
+          "metric": "protected_qa_regression",
+          "operator": "le",
+          "threshold": 0.05
+        },
+        {
+          "id": "co_tenancy_boundary",
+          "metric": "outer_runner_alive_and_embedding_healthy",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT01_384_ARTIFACT_BROAD_GAIN_R2",
+        "ADAPT01_384_ARTIFACT_BROAD_GAIN_NOT_CONFIRMED_R2"
+      ],
+      "forbidden_claims": [
+        "training repeatability across seeds",
+        "latency or throughput qualification under GPU co-tenancy",
+        "production promotion",
+        "generalization beyond the frozen artifact, model, and panels"
+      ],
+      "next_action": "Evaluate the immutable 384-step LoKr artifact and a clean base control on 256 teacher-disjoint GSM8K prompts and all 48 protected QA prompts while the outer R5 maintenance owner remains active.",
+      "supersedes": "BACKLOG-ADAPT01-640-EVAL-01",
+      "state": "REJECTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-27T00:30:54Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-27T00:31:32Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-27T00:34:00Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T01:26:35Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T00:59:04Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-TRACE-DISTILL-06",
+      "priority": 0,
+      "title": "Complete the seven-seed trace confirmation with the actual 48-task QA panel",
+      "evidence_class": "distillation",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-06",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-05/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-05/raw/training_pairs.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-05/raw/workers",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-05/raw/checkpoints",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-05/raw/service_maintenance.json",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "checkpoint_hashes",
+        "continuation_ledger",
+        "dataset_hashes",
+        "independent_evaluation",
+        "model_hash",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "service_maintenance",
+        "student_samples",
+        "teacher_samples",
+        "training_pairs",
+        "training_trace",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "continuation_integrity",
+          "metric": "hash_verified_imported_workers",
+          "operator": "eq",
+          "threshold": 9
+        },
+        {
+          "id": "treatment_materiality",
+          "metric": "matched_distinct_training_targets_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "training_budget",
+          "metric": "training_steps_per_arm_per_seed",
+          "operator": "eq",
+          "threshold": 504
+        },
+        {
+          "id": "seed_coverage",
+          "metric": "completed_paired_seeds",
+          "operator": "eq",
+          "threshold": 7
+        },
+        {
+          "id": "math_coverage",
+          "metric": "heldout_math_samples_per_arm_per_seed",
+          "operator": "eq",
+          "threshold": 256
+        },
+        {
+          "id": "qa_coverage",
+          "metric": "protected_qa_samples_per_arm_per_seed",
+          "operator": "eq",
+          "threshold": 48
+        },
+        {
+          "id": "confirmed_gain",
+          "metric": "hierarchical_bootstrap_95ci_lower_trace_math_gain",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "directional_repeatability",
+          "metric": "seeds_with_positive_trace_math_gain",
+          "operator": "ge",
+          "threshold": 5
+        },
+        {
+          "id": "protected_retention",
+          "metric": "mean_protected_qa_regression_vs_answer_only",
+          "operator": "le",
+          "threshold": 0.05
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "TRACE_DISTILLATION_CONFIRMED_R6",
+        "TRACE_DISTILLATION_NOT_CONFIRMED_R6"
+      ],
+      "forbidden_claims": [
+        "changing the seven seeds, training orders, or thresholds after partial math results",
+        "teacher-level noninferiority",
+        "production promotion",
+        "generalization beyond Qwen3.5-0.8B, the frozen corpora, and the tested budget"
+      ],
+      "next_action": "Hash-import nine complete R5 workers, evaluate their 38 missing QA tasks, train only the five absent arms, and aggregate all seven paired seeds over 256 math plus the actual 48 QA IDs.",
+      "supersedes": "BACKLOG-ADAPT-TRACE-DISTILL-05",
+      "state": "BLOCKED",
+      "blocker": "Operational abort before the first worker: systemctl stop of qwen38 exceeded the inherited 60-second helper timeout and left the unit failed after systemd completed its stop timeout. No worker, receipt, or result was produced. Baseline qwen38 and embedding were manually restored healthy. Successor must use a bounded 180-second service-stop helper while preserving the R6 scientific design and R5 continuation ledger.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-27T03:47:53Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-27T03:49:05Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-27T03:52:02Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T03:56:23Z",
+          "reason": "Operational abort before the first worker: systemctl stop of qwen38 exceeded the inherited 60-second helper timeout and left the unit failed after systemd completed its stop timeout. No worker, receipt, or result was produced. Baseline qwen38 and embedding were manually restored healthy. Successor must use a bounded 180-second service-stop helper while preserving the R6 scientific design and R5 continuation ledger."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-TRACE-DISTILL-07",
+      "priority": 0,
+      "title": "Complete the corrected seven-seed trace confirmation after bounded shutdown timeout",
+      "evidence_class": "distillation",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-06/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-06/CONTINUATION_SOURCES.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-06/runner.stderr.log",
+        "runs/autonomous/EXPERIMENT-WATCH-2026-08-27-R6/FINAL.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-05/raw/workers",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-05/raw/checkpoints"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "checkpoint_hashes",
+        "continuation_ledger",
+        "dataset_hashes",
+        "independent_evaluation",
+        "model_hash",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "service_maintenance",
+        "student_samples",
+        "teacher_samples",
+        "training_pairs",
+        "training_trace",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "continuation_integrity",
+          "metric": "hash_verified_imported_workers",
+          "operator": "eq",
+          "threshold": 9
+        },
+        {
+          "id": "treatment_materiality",
+          "metric": "matched_distinct_training_targets_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "training_budget",
+          "metric": "training_steps_per_arm_per_seed",
+          "operator": "eq",
+          "threshold": 504
+        },
+        {
+          "id": "seed_coverage",
+          "metric": "completed_paired_seeds",
+          "operator": "eq",
+          "threshold": 7
+        },
+        {
+          "id": "math_coverage",
+          "metric": "heldout_math_samples_per_arm_per_seed",
+          "operator": "eq",
+          "threshold": 256
+        },
+        {
+          "id": "qa_coverage",
+          "metric": "protected_qa_samples_per_arm_per_seed",
+          "operator": "eq",
+          "threshold": 48
+        },
+        {
+          "id": "confirmed_gain",
+          "metric": "hierarchical_bootstrap_95ci_lower_trace_math_gain",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "directional_repeatability",
+          "metric": "seeds_with_positive_trace_math_gain",
+          "operator": "ge",
+          "threshold": 5
+        },
+        {
+          "id": "protected_retention",
+          "metric": "mean_protected_qa_regression_vs_answer_only",
+          "operator": "le",
+          "threshold": 0.05
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "TRACE_DISTILLATION_CONFIRMED_R7",
+        "TRACE_DISTILLATION_NOT_CONFIRMED_R7"
+      ],
+      "forbidden_claims": [
+        "changing seeds, training orders, panels, estimands, or scientific thresholds",
+        "teacher-level noninferiority",
+        "production promotion",
+        "generalization beyond Qwen3.5-0.8B, the frozen corpora, and the tested budget"
+      ],
+      "next_action": "Run the unchanged R6 scientific continuation with a 180-second bounded systemd stop helper, then restore both serving endpoints and let the persistent watcher validate EXECUTED.",
+      "supersedes": "BACKLOG-ADAPT-TRACE-DISTILL-06",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-27T03:56:57Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-27T03:57:29Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-27T03:58:26Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T05:52:07Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T01:16:32Z"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T01:16:33Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-03",
+      "priority": 0,
+      "title": "Complete the broad LoKr artifact evaluation with the actual 48-task protected-QA panel",
+      "evidence_class": "artifact_requalification",
+      "packet_dir": "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02/raw/worker.json",
+        "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt01/lokr_3ep_lr1e4/adapter",
+        "workloads/gsm8k.jsonl",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "clean_base_receipts",
+        "continuation_ledger",
+        "dataset_hashes",
+        "independent_evaluation",
+        "isolation_smoke",
+        "model_hash",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "service_maintenance",
+        "source_execution_receipt",
+        "wsl_environment"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "continuation_integrity",
+          "metric": "source_worker_hash_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "artifact_identity",
+          "metric": "artifact_hashes_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "panel_isolation",
+          "metric": "teacher_disjoint_math_tasks",
+          "operator": "eq",
+          "threshold": 256
+        },
+        {
+          "id": "evaluation_coverage",
+          "metric": "paired_math_and_qa_generations",
+          "operator": "eq",
+          "threshold": 608
+        },
+        {
+          "id": "broad_gain",
+          "metric": "paired_bootstrap_95ci_lower_math_gain",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "protected_retention",
+          "metric": "protected_qa_regression",
+          "operator": "le",
+          "threshold": 0.05
+        },
+        {
+          "id": "independent_score",
+          "metric": "independent_rescore_match",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT01_384_ARTIFACT_BROAD_GAIN_R3",
+        "ADAPT01_384_ARTIFACT_BROAD_GAIN_NOT_CONFIRMED_R3"
+      ],
+      "forbidden_claims": [
+        "training repeatability across seeds",
+        "latency or throughput qualification",
+        "production promotion",
+        "generalization beyond the frozen artifact, model, and panels"
+      ],
+      "next_action": "Import the hash-verified 256-math and 10-QA source worker, generate the missing 38 protected-QA responses for both clean-base and LoKr arms, independently rescore the merged 608 samples, and restore serving.",
+      "supersedes": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex continuous experiment controller",
+          "at": "2026-08-27T10:35:02Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous experiment controller",
+          "at": "2026-08-27T10:35:47Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous experiment controller",
+          "at": "2026-08-27T10:39:06Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T10:42:30Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T01:01:06Z"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T01:01:18Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-04",
+      "priority": 0,
+      "title": "Replicate the broad LoKr artifact gain on a second teacher-disjoint math panel",
+      "evidence_class": "artifact_requalification",
+      "packet_dir": "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-04",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-03/raw/merged_worker.json",
+        "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-03/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt01/lokr_3ep_lr1e4/adapter",
+        "workloads/gsm8k.jsonl",
+        "runs/a2/market-r0__thinkingcap-27b-q4__gsm8k.json",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "clean_base_receipts",
+        "continuation_ledger",
+        "dataset_hashes",
+        "independent_evaluation",
+        "isolation_smoke",
+        "model_hash",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "service_maintenance",
+        "source_execution_receipt",
+        "wsl_environment"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "r3_source_hashes_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "artifact_identity",
+          "metric": "artifact_hashes_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "panel_isolation",
+          "metric": "second_panel_disjoint_from_teacher_and_r3",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "evaluation_coverage",
+          "metric": "fresh_paired_math_generations",
+          "operator": "eq",
+          "threshold": 512
+        },
+        {
+          "id": "replicated_gain",
+          "metric": "paired_bootstrap_95ci_lower_math_gain",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "directional_consistency",
+          "metric": "r3_and_r4_math_gain_positive",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "protected_retention",
+          "metric": "imported_r3_protected_qa_regression",
+          "operator": "le",
+          "threshold": 0.05
+        },
+        {
+          "id": "independent_score",
+          "metric": "independent_rescore_match",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT01_384_ARTIFACT_SECOND_PANEL_GAIN_R4",
+        "ADAPT01_384_ARTIFACT_SECOND_PANEL_GAIN_NOT_CONFIRMED_R4"
+      ],
+      "forbidden_claims": [
+        "training repeatability across seeds",
+        "latency or throughput qualification",
+        "production promotion",
+        "generalization beyond Qwen3.5-0.8B and the two frozen panels"
+      ],
+      "next_action": "Evaluate clean-base and immutable LoKr arms on the next 256 teacher-disjoint GSM8K IDs after the R3 panel, import R3 protected-QA only by hash, independently rescore, and restore serving.",
+      "supersedes": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-03",
+      "state": "REJECTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex continuous experiment controller",
+          "at": "2026-08-27T10:43:46Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous experiment controller",
+          "at": "2026-08-27T10:44:23Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous experiment controller",
+          "at": "2026-08-27T10:46:51Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T11:20:33Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T01:02:49Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-05",
+      "priority": 0,
+      "title": "Resolve LoKr panel uncertainty with one final third panel and a frozen three-panel synthesis",
+      "evidence_class": "artifact_requalification",
+      "packet_dir": "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-05",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-03/raw/merged_worker.json",
+        "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-03/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-04/raw/combined_worker.json",
+        "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-04/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt01/lokr_3ep_lr1e4/adapter",
+        "workloads/gsm8k.jsonl",
+        "runs/a2/market-r0__thinkingcap-27b-q4__gsm8k.json",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "clean_base_receipts",
+        "continuation_ledger",
+        "dataset_hashes",
+        "independent_evaluation",
+        "isolation_smoke",
+        "model_hash",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "service_maintenance",
+        "source_execution_receipt",
+        "wsl_environment"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "r3_r4_source_hashes_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "artifact_identity",
+          "metric": "artifact_hashes_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "panel_isolation",
+          "metric": "three_panels_pairwise_and_teacher_disjoint",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "evaluation_coverage",
+          "metric": "fresh_third_panel_paired_math_generations",
+          "operator": "eq",
+          "threshold": 512
+        },
+        {
+          "id": "pooled_gain",
+          "metric": "stratified_bootstrap_95ci_lower_three_panel_math_gain",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "third_panel_direction",
+          "metric": "third_panel_math_gain",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "panel_repeatability",
+          "metric": "panels_with_positive_math_gain",
+          "operator": "ge",
+          "threshold": 2
+        },
+        {
+          "id": "protected_retention",
+          "metric": "imported_r3_protected_qa_regression",
+          "operator": "le",
+          "threshold": 0.05
+        },
+        {
+          "id": "independent_score",
+          "metric": "independent_rescore_match",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT01_384_ARTIFACT_THREE_PANEL_GAIN_R5",
+        "ADAPT01_384_ARTIFACT_THREE_PANEL_GAIN_NOT_CONFIRMED_R5"
+      ],
+      "forbidden_claims": [
+        "additional adaptive panels after R5",
+        "training repeatability across seeds",
+        "latency or throughput qualification",
+        "production promotion",
+        "generalization beyond Qwen3.5-0.8B and the three frozen panels"
+      ],
+      "next_action": "Run exactly one final 256-task teacher-disjoint math panel, then compute the frozen equal-panel stratified bootstrap over R3, R4 and R5; stop this experiment family afterward regardless of outcome.",
+      "supersedes": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-04",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex continuous experiment controller",
+          "at": "2026-08-27T11:21:53Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous experiment controller",
+          "at": "2026-08-27T11:22:28Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous experiment controller",
+          "at": "2026-08-27T11:25:16Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T11:58:41Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T01:04:23Z"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T01:04:34Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-TRACE-DISTILL-08",
+      "priority": 0,
+      "title": "Replicate the seven-seed trace-distillation gain on a second teacher-disjoint math panel",
+      "evidence_class": "distillation",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-08",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/checkpoints",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/checkpoint_hashes.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/actual_scores.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/student_samples.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/training_pairs.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/receipt.json",
+        "workloads/gsm8k.jsonl",
+        "runs/a2/market-r0__thinkingcap-27b-q4__gsm8k.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "checkpoint_hashes",
+        "continuation_ledger",
+        "dataset_hashes",
+        "independent_evaluation",
+        "model_hash",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "service_maintenance",
+        "source_execution_receipt",
+        "student_samples",
+        "teacher_samples",
+        "wsl_environment"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "r7_source_and_checkpoint_hashes_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "panel_isolation",
+          "metric": "second_panel_disjoint_from_teacher_training_and_r7_panel",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "checkpoint_coverage",
+          "metric": "immutable_checkpoints_evaluated",
+          "operator": "eq",
+          "threshold": 14
+        },
+        {
+          "id": "evaluation_coverage",
+          "metric": "fresh_second_panel_generations",
+          "operator": "eq",
+          "threshold": 3584
+        },
+        {
+          "id": "replicated_gain",
+          "metric": "hierarchical_bootstrap_95ci_lower_trace_math_gain",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "directional_repeatability",
+          "metric": "seeds_with_positive_trace_math_gain",
+          "operator": "ge",
+          "threshold": 5
+        },
+        {
+          "id": "protected_retention",
+          "metric": "imported_r7_mean_protected_qa_regression",
+          "operator": "le",
+          "threshold": 0.05
+        },
+        {
+          "id": "independent_score",
+          "metric": "independent_rescore_match",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "TRACE_DISTILLATION_SECOND_PANEL_REPLICATED_R8",
+        "TRACE_DISTILLATION_SECOND_PANEL_NOT_REPLICATED_R8"
+      ],
+      "forbidden_claims": [
+        "new training evidence",
+        "teacher noninferiority",
+        "latency or throughput qualification",
+        "production promotion",
+        "generalization beyond Qwen3.5-0.8B and the two frozen panels"
+      ],
+      "next_action": "Evaluate all fourteen immutable R7 checkpoints on one preregistered second 256-task teacher-disjoint panel, import protected QA by hash, and stop this replication family after the result.",
+      "supersedes": null,
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-27T12:01:07Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-27T12:01:44Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-27T12:05:15Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T15:22:16Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T01:18:46Z"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T01:18:47Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-TRACE-VS-FINALIST-01",
+      "priority": 0,
+      "title": "Compare replicated full-trace checkpoints against the reproduced behavioral finalist",
+      "evidence_class": "distillation",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-VS-FINALIST-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/checkpoint_seed_20260824",
+        "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/checkpoint_seed_20260825",
+        "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/student_samples.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-08/raw/student_samples.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-08/raw/receipt.json",
+        "workloads/gsm8k.jsonl",
+        "runs/a2/market-r0__thinkingcap-27b-q4__gsm8k.json",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "continuation_ledger",
+        "dataset_hashes",
+        "independent_evaluation",
+        "model_hash",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "service_maintenance",
+        "source_execution_receipt",
+        "student_samples",
+        "teacher_samples",
+        "wsl_environment"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "all_source_and_checkpoint_hashes_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "panel_isolation",
+          "metric": "two_panels_disjoint_from_teacher_training_and_each_other",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "trace_import_coverage",
+          "metric": "imported_full_trace_generations",
+          "operator": "eq",
+          "threshold": 3920
+        },
+        {
+          "id": "behavioral_checkpoint_coverage",
+          "metric": "behavioral_checkpoints_evaluated",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "fresh_evaluation_coverage",
+          "metric": "fresh_behavioral_generations",
+          "operator": "eq",
+          "threshold": 1120
+        },
+        {
+          "id": "practical_superiority",
+          "metric": "hierarchical_bootstrap_95ci_lower_trace_minus_behavioral_math",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "panel_consistency",
+          "metric": "panels_with_positive_trace_minus_behavioral_math",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "protected_retention",
+          "metric": "mean_trace_minus_behavioral_qa_accuracy",
+          "operator": "ge",
+          "threshold": -0.05
+        },
+        {
+          "id": "independent_score",
+          "metric": "independent_rescore_match",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "TRACE_DISTILLATION_PRACTICALLY_SUPERIOR_TO_BEHAVIORAL_FINALIST_R1",
+        "TRACE_DISTILLATION_NOT_PRACTICALLY_SUPERIOR_TO_BEHAVIORAL_FINALIST_R1"
+      ],
+      "forbidden_claims": [
+        "training-budget-controlled causal superiority",
+        "teacher noninferiority",
+        "latency or throughput qualification",
+        "production promotion",
+        "generalization beyond Qwen3.5-0.8B and the two frozen panels"
+      ],
+      "next_action": "Hash-import the seven replicated full-trace outputs, freshly evaluate both reproduced behavioral checkpoints on the same 512 math and 48 QA tasks, and compare checkpoint-family means with a frozen hierarchical bootstrap.",
+      "supersedes": null,
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-27T15:25:07Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-27T15:25:42Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-27T15:29:08Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T16:32:56Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T01:21:43Z"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T01:21:44Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-MBPPPLUS-01",
+      "priority": 1,
+      "title": "Requalify the coding alias on a 100-task MBPP+ screen across the text fleet",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-MBPPPLUS-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "config/qualified_model_fleet.json",
+        "workloads/mbpp_plus.jsonl",
+        "workloads/mbpp_plus.identity.json",
+        "tools/analysis/score_mbpp_subset.py",
+        "tools/benchmarks/mbpp_plus_bench.py",
+        "benchmark_harness_qa.py",
+        "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-01/raw/receipt.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "raw_samples",
+        "provenance",
+        "receipt_fingerprint",
+        "effective_route",
+        "service_identity",
+        "paired_baseline",
+        "recovery_state",
+        "hardware_metrics",
+        "artifact_hashes",
+        "dataset_hashes",
+        "official_scores",
+        "independent_evaluation",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "artifact_identity",
+          "metric": "qualified_model_artifacts_verified",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "route_coverage",
+          "metric": "verified_text_routes_completed",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "generation_coverage",
+          "metric": "fresh_mbpp_generations",
+          "operator": "eq",
+          "threshold": 400
+        },
+        {
+          "id": "response_integrity",
+          "metric": "successful_nonempty_responses",
+          "operator": "ge",
+          "threshold": 396
+        },
+        {
+          "id": "official_score_coverage",
+          "metric": "models_scored_by_evalplus",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "coding_alias_absolute",
+          "metric": "hauhaucs_mbpp_plus_pass_at_1",
+          "operator": "ge",
+          "threshold": 0.7
+        },
+        {
+          "id": "coding_alias_noninferiority",
+          "metric": "paired_bootstrap_95ci_lower_hauhaucs_minus_qwen38",
+          "operator": "gt",
+          "threshold": -0.05
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_route_and_services_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "HAUHAUCS_MBPPPLUS_CODING_ALIAS_RETAINED_R1",
+        "HAUHAUCS_MBPPPLUS_CODING_ALIAS_NOT_RETAINED_R1"
+      ],
+      "forbidden_claims": [
+        "full MBPP+ pass at 1",
+        "HumanEval generalization",
+        "latency ranking",
+        "vision-model claims",
+        "broad-default promotion",
+        "production deployment change"
+      ],
+      "next_action": "Generate and officially execute-score the same frozen 100-task MBPP+ subset on qwen38, hauhaucs, fable-tc and qwen36-moe, then test the existing coding alias against qwen38 with a paired bootstrap.",
+      "supersedes": null,
+      "state": "REJECTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-27T16:35:06Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-27T16:35:36Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-27T16:38:12Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T16:52:49Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T02:01:51Z",
+          "reason": "Independent EvalPlus 0.3.1 replay and frozen paired bootstrap reproduce lower 95% bound -0.06, failing strict > -0.05 noninferiority gate; bounded to this panel."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-MBPPPLUS-02",
+      "priority": 1,
+      "title": "Resolve coding-alias uncertainty with a final disjoint MBPP+ panel",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-MBPPPLUS-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-FLEET-MBPPPLUS-01/raw/samples.jsonl",
+        "runs/research/BACKLOG-FLEET-MBPPPLUS-01/raw/official_scores.json",
+        "runs/research/BACKLOG-FLEET-MBPPPLUS-01/raw/receipt.json",
+        "config/qualified_model_fleet.json",
+        "workloads/mbpp_plus.jsonl",
+        "workloads/mbpp_plus.identity.json",
+        "tools/analysis/score_mbpp_subset.py",
+        "tools/research/run_fleet_mbppplus.py",
+        "benchmark_harness_qa.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "raw_samples",
+        "provenance",
+        "receipt_fingerprint",
+        "effective_route",
+        "service_identity",
+        "paired_baseline",
+        "recovery_state",
+        "hardware_metrics",
+        "artifact_hashes",
+        "dataset_hashes",
+        "official_scores",
+        "independent_evaluation",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "r1_sources_and_model_artifacts_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "panel_isolation",
+          "metric": "two_mbpp_panels_disjoint",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "route_coverage",
+          "metric": "verified_text_routes_completed",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "fresh_generation_coverage",
+          "metric": "fresh_second_panel_generations",
+          "operator": "eq",
+          "threshold": 400
+        },
+        {
+          "id": "combined_score_coverage",
+          "metric": "official_model_panel_scores",
+          "operator": "eq",
+          "threshold": 8
+        },
+        {
+          "id": "coding_alias_absolute",
+          "metric": "combined_hauhaucs_mbpp_plus_pass_at_1",
+          "operator": "ge",
+          "threshold": 0.7
+        },
+        {
+          "id": "coding_alias_noninferiority",
+          "metric": "stratified_bootstrap_95ci_lower_hauhaucs_minus_qwen38",
+          "operator": "gt",
+          "threshold": -0.05
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_route_and_services_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "HAUHAUCS_MBPPPLUS_200_CODING_ALIAS_RETAINED_R2",
+        "HAUHAUCS_MBPPPLUS_200_CODING_ALIAS_NOT_RETAINED_R2"
+      ],
+      "forbidden_claims": [
+        "additional adaptive MBPP panels after R2",
+        "full MBPP+ pass at 1",
+        "HumanEval generalization",
+        "latency ranking",
+        "broad-default promotion"
+      ],
+      "next_action": "Run exactly one final disjoint 100-task panel on all four routes and synthesize equal-panel official scores and paired uncertainty over 200 tasks; stop this family afterward.",
+      "supersedes": "BACKLOG-FLEET-MBPPPLUS-01",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-27T16:54:02Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-27T16:54:36Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-27T16:56:51Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T17:10:33Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T02:07:14Z"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T02:07:24Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-HUMANEVALPLUS-01",
+      "priority": 1,
+      "title": "Requalify the coding alias on the full HumanEval+ benchmark across the text fleet",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "config/qualified_model_fleet.json",
+        "workloads/humaneval_plus.jsonl",
+        "tools/analysis/a2_score_humaneval.py",
+        "benchmark_harness_qa.py",
+        "runs/research/BACKLOG-FLEET-MBPPPLUS-02/raw/receipt.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "raw_samples",
+        "provenance",
+        "receipt_fingerprint",
+        "effective_route",
+        "service_identity",
+        "paired_baseline",
+        "recovery_state",
+        "hardware_metrics",
+        "artifact_hashes",
+        "dataset_hashes",
+        "official_scores",
+        "independent_evaluation",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "artifact_identity",
+          "metric": "qualified_model_artifacts_verified",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "route_coverage",
+          "metric": "verified_text_routes_completed",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "generation_coverage",
+          "metric": "fresh_humaneval_generations",
+          "operator": "eq",
+          "threshold": 656
+        },
+        {
+          "id": "response_integrity",
+          "metric": "successful_nonempty_responses",
+          "operator": "ge",
+          "threshold": 650
+        },
+        {
+          "id": "official_score_coverage",
+          "metric": "models_scored_by_evalplus",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "coding_alias_absolute",
+          "metric": "hauhaucs_humaneval_plus_pass_at_1",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "coding_alias_noninferiority",
+          "metric": "paired_bootstrap_95ci_lower_hauhaucs_minus_qwen38",
+          "operator": "gt",
+          "threshold": -0.05
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_route_and_services_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "HAUHAUCS_FULL_HUMANEVALPLUS_CODING_ALIAS_RETAINED_R1",
+        "HAUHAUCS_FULL_HUMANEVALPLUS_CODING_ALIAS_NOT_RETAINED_R1"
+      ],
+      "forbidden_claims": [
+        "MBPP superiority",
+        "latency ranking",
+        "vision-model claims",
+        "broad-default promotion",
+        "production deployment change"
+      ],
+      "next_action": "Generate and officially execute-score all 164 HumanEval+ tasks on qwen38, hauhaucs, fable-tc and qwen36-moe, then pair HauhauCS against Qwen3.8 task by task.",
+      "supersedes": null,
+      "state": "BLOCKED",
+      "blocker": "Execution aborted after 164 complete qwen38 generations because the direct-file EvalPlus scorer lacked repository PYTHONPATH; no receipt/result was emitted and services were restored.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-27T17:11:43Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-27T17:12:12Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-27T17:14:33Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex",
+          "at": "2026-08-27T17:23:00Z",
+          "reason": "Execution aborted after 164 complete qwen38 generations because the direct-file EvalPlus scorer lacked repository PYTHONPATH; no receipt/result was emitted and services were restored."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-HUMANEVALPLUS-02",
+      "priority": 1,
+      "title": "Continue full HumanEval+ fleet evaluation after scorer import abort",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-01/raw/samples.jsonl",
+        "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-01/raw/qwen38.samples.jsonl",
+        "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-01/raw/recovery_state.json",
+        "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-01/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-01/runner.stderr.log",
+        "runs/autonomous/EXPERIMENT-WATCH-2026-08-27-FLEET-HUMANEVAL-R1/FINAL.json",
+        "tools/research/run_fleet_humanevalplus.py",
+        "config/qualified_model_fleet.json",
+        "workloads/humaneval_plus.jsonl",
+        "tools/analysis/a2_score_humaneval.py",
+        "benchmark_harness_qa.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "raw_samples",
+        "provenance",
+        "receipt_fingerprint",
+        "effective_route",
+        "service_identity",
+        "paired_baseline",
+        "recovery_state",
+        "hardware_metrics",
+        "artifact_hashes",
+        "dataset_hashes",
+        "official_scores",
+        "independent_evaluation",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "r1_partial_sources_and_model_artifacts_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "imported_coverage",
+          "metric": "imported_qwen38_generations",
+          "operator": "eq",
+          "threshold": 164
+        },
+        {
+          "id": "fresh_coverage",
+          "metric": "fresh_remaining_generations",
+          "operator": "eq",
+          "threshold": 492
+        },
+        {
+          "id": "route_coverage",
+          "metric": "verified_text_routes_completed",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "response_integrity",
+          "metric": "successful_nonempty_responses",
+          "operator": "ge",
+          "threshold": 650
+        },
+        {
+          "id": "official_score_coverage",
+          "metric": "models_scored_by_evalplus",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "coding_alias_absolute",
+          "metric": "hauhaucs_humaneval_plus_pass_at_1",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "coding_alias_noninferiority",
+          "metric": "paired_bootstrap_95ci_lower_hauhaucs_minus_qwen38",
+          "operator": "gt",
+          "threshold": -0.05
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_route_and_services_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "HAUHAUCS_FULL_HUMANEVALPLUS_CODING_ALIAS_RETAINED_R2",
+        "HAUHAUCS_FULL_HUMANEVALPLUS_CODING_ALIAS_NOT_RETAINED_R2"
+      ],
+      "forbidden_claims": [
+        "treating the R1 import failure as model evidence",
+        "regenerating qwen38",
+        "MBPP superiority",
+        "latency ranking",
+        "broad-default promotion"
+      ],
+      "next_action": "Hash-import and officially score the 164 complete qwen38 rows, generate only the three missing routes, score all four with a repository-root PYTHONPATH, and preserve the original scientific gates.",
+      "supersedes": "BACKLOG-FLEET-HUMANEVALPLUS-01",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-27T17:23:33Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-27T17:24:05Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-27T17:26:45Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T17:51:05Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T02:14:11Z"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T02:14:24Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-HUMANEVALPLUS-03",
+      "priority": 1,
+      "title": "Rescore full HumanEval+ after bounded regeneration of objectively truncated rows",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-02/raw/samples.jsonl",
+        "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-02/raw/official_scores.json",
+        "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-02/raw/receipt.json",
+        "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-02/raw/dataset_hashes.json",
+        "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-02/PRE_REGISTRATION.md",
+        "tools/research/run_fleet_humanevalplus_r2.py",
+        "config/qualified_model_fleet.json",
+        "workloads/humaneval_plus.jsonl",
+        "tools/analysis/a2_score_humaneval.py",
+        "benchmark_harness_qa.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "raw_samples",
+        "provenance",
+        "receipt_fingerprint",
+        "effective_route",
+        "service_identity",
+        "paired_baseline",
+        "recovery_state",
+        "hardware_metrics",
+        "artifact_hashes",
+        "dataset_hashes",
+        "official_scores",
+        "independent_evaluation",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "r2_sources_and_model_artifacts_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "objective_selection",
+          "metric": "source_rows_selected_only_by_truncation",
+          "operator": "eq",
+          "threshold": 13
+        },
+        {
+          "id": "fresh_correction_coverage",
+          "metric": "fresh_1536_token_regenerations",
+          "operator": "eq",
+          "threshold": 13
+        },
+        {
+          "id": "official_score_coverage",
+          "metric": "models_rescored_by_evalplus",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "truncation_recovery",
+          "metric": "remaining_truncated_target_rows",
+          "operator": "le",
+          "threshold": 2
+        },
+        {
+          "id": "coding_alias_absolute",
+          "metric": "corrected_hauhaucs_humaneval_plus_pass_at_1",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "coding_alias_noninferiority",
+          "metric": "corrected_paired_bootstrap_95ci_lower_hauhaucs_minus_qwen38",
+          "operator": "gt",
+          "threshold": -0.05
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_route_and_services_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "HAUHAUCS_HUMANEVALPLUS_CAP_CORRECTED_ALIAS_RETAINED_R3",
+        "HAUHAUCS_HUMANEVALPLUS_CAP_CORRECTED_ALIAS_NOT_RETAINED_R3"
+      ],
+      "forbidden_claims": [
+        "selecting rows by correctness",
+        "regenerating non-truncated rows",
+        "additional cap extensions after R3",
+        "latency ranking",
+        "broad-default promotion"
+      ],
+      "next_action": "Regenerate exactly the thirteen source rows marked truncated with max_tokens 1536, merge them into the immutable 164-task matrices, officially rescore all models, and stop the HumanEval cap-correction family.",
+      "supersedes": "BACKLOG-FLEET-HUMANEVALPLUS-02",
+      "state": "REJECTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-27T17:54:59Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-27T17:55:43Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-27T17:58:29Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T18:08:44Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T02:18:41Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-QWEN38-KV-PRECISION-02",
+      "priority": 0,
+      "title": "Qualify Qwen3.8 Q8_0 KV cache as the bounded compromise after Q4_0 divergence",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-QWEN38-KV-PRECISION-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-QWEN38-KV-PRECISION-01/raw/receipt.json",
+        "runs/research/BACKLOG-QWEN38-KV-PRECISION-01/raw/samples.jsonl",
+        "tools/research/run_qwen38_kv_precision.py",
+        "config/qualified_model_fleet.json",
+        "workloads/gsm8k.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "binary_identity",
+        "block_logs",
+        "dataset_hashes",
+        "effective_route",
+        "environment",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "treatment_identity",
+          "metric": "explicit_cache_controls_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "balanced_crossover",
+          "metric": "valid_abba_blocks",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "f16_repeatability",
+          "metric": "f16_repeat_parity_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "q8_repeatability",
+          "metric": "q8_repeat_parity_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "semantic_parity",
+          "metric": "q8_f16_extracted_answer_parity_rate",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "quality_non_regression",
+          "metric": "q8_accuracy_regression",
+          "operator": "le",
+          "threshold": 0.03125
+        },
+        {
+          "id": "physical_memory_saving",
+          "metric": "vram_saving_mib",
+          "operator": "ge",
+          "threshold": 500
+        },
+        {
+          "id": "throughput_non_regression",
+          "metric": "q8_vs_f16_throughput_ratio",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QWEN38_Q8_KV_PHYSICALLY_QUALIFIED_R2",
+        "QWEN38_Q8_KV_PHYSICALLY_REJECTED_R2"
+      ],
+      "forbidden_claims": [
+        "Q4_0 qualification",
+        "all-model generalization",
+        "long-context quality",
+        "latency improvement from model-load time",
+        "promotion without independent review"
+      ],
+      "next_action": "Run a fresh-process F16-Q8_0-Q8_0-F16 crossover on the same frozen panel and stop after R2 regardless of outcome.",
+      "supersedes": "BACKLOG-QWEN38-KV-PRECISION-01",
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-27T19:58:59Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-27T19:59:25Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-27T20:01:14Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T20:11:32Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-01",
+      "priority": 0,
+      "title": "Measure bounded long-context retrieval envelopes for every qualified text route",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "config/qualified_model_fleet.json",
+        "tools/research/run_fleet_regression_screen.py",
+        "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-01/raw/receipt.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "artifact_hashes",
+        "case_manifest",
+        "dataset_hashes",
+        "effective_route",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "artifact_identity",
+          "metric": "verified_model_artifacts",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_coverage",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 72
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "context_fit",
+          "metric": "requests_within_route_context",
+          "operator": "eq",
+          "threshold": 72
+        },
+        {
+          "id": "qwen38_recall",
+          "metric": "qwen38_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "hauhaucs_recall",
+          "metric": "hauhaucs_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "fable_recall",
+          "metric": "fable_tc_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "qwen36_moe_recall",
+          "metric": "qwen36_moe_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "position_robustness",
+          "metric": "minimum_position_bucket_recall",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_route_and_services_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUALIFIED_TEXT_FLEET_CONTEXT_ENVELOPES_MEASURED_R1",
+        "QUALIFIED_TEXT_FLEET_CONTEXT_ENVELOPES_NOT_CONFIRMED_R1"
+      ],
+      "forbidden_claims": [
+        "general long-context reasoning",
+        "RAG production quality",
+        "context beyond configured route limits",
+        "latency ranking",
+        "promotion without independent review"
+      ],
+      "next_action": "Run 18 deterministic physical needle-retrieval cases per route across route-specific low, middle, and high in-profile context lengths and three needle positions.",
+      "supersedes": null,
+      "state": "BLOCKED",
+      "blocker": "Pre-execution validation found Qwen3.6-MoE ctx-size 73728 is shared across four parallel slots, so the preregistered 64k single-request target exceeds the effective 18432-token slot envelope. No generation ran; successor changes only Qwen3.6 targets to 4k/12k/17k and records per-slot limits.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-27T20:13:08Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-27T20:13:36Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "BLOCKED",
+          "actor": "Codex",
+          "at": "2026-08-27T20:14:12Z",
+          "reason": "Pre-execution validation found Qwen3.6-MoE ctx-size 73728 is shared across four parallel slots, so the preregistered 64k single-request target exceeds the effective 18432-token slot envelope. No generation ran; successor changes only Qwen3.6 targets to 4k/12k/17k and records per-slot limits."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-02",
+      "priority": 0,
+      "title": "Measure bounded per-slot context retrieval envelopes for every qualified text route",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-01/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-01/PIPELINE.json",
+        "config/qualified_model_fleet.json",
+        "tools/research/run_fleet_regression_screen.py",
+        "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-01/raw/receipt.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "artifact_hashes",
+        "case_manifest",
+        "dataset_hashes",
+        "effective_route",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "artifact_identity",
+          "metric": "verified_model_artifacts",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_coverage",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 72
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "context_fit",
+          "metric": "requests_within_route_slot_context",
+          "operator": "eq",
+          "threshold": 72
+        },
+        {
+          "id": "qwen38_recall",
+          "metric": "qwen38_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "hauhaucs_recall",
+          "metric": "hauhaucs_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "fable_recall",
+          "metric": "fable_tc_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "qwen36_moe_recall",
+          "metric": "qwen36_moe_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "position_robustness",
+          "metric": "minimum_position_bucket_recall",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_route_and_services_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUALIFIED_TEXT_FLEET_SLOT_CONTEXT_ENVELOPES_MEASURED_R2",
+        "QUALIFIED_TEXT_FLEET_SLOT_CONTEXT_ENVELOPES_NOT_CONFIRMED_R2"
+      ],
+      "forbidden_claims": [
+        "general long-context reasoning",
+        "RAG production quality",
+        "aggregate context treated as per-slot context",
+        "latency ranking",
+        "promotion without independent review"
+      ],
+      "next_action": "Run 18 deterministic physical needle-retrieval cases per route at low, middle, and high per-slot in-profile context lengths.",
+      "supersedes": "BACKLOG-FLEET-CONTEXT-ENVELOPE-01",
+      "state": "BLOCKED",
+      "blocker": "The qualified gateway returned HTTP 404 for /tokenize before any generation. The active llama-server backend on port 18080 exposes the required tokenizer endpoint; successor changes only tokenizer calls from gateway port 8080 to the verified active backend port while retaining all scientific factors.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-27T20:14:45Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-27T20:15:16Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-27T20:17:28Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex",
+          "at": "2026-08-27T20:23:10Z",
+          "reason": "The qualified gateway returned HTTP 404 for /tokenize before any generation. The active llama-server backend on port 18080 exposes the required tokenizer endpoint; successor changes only tokenizer calls from gateway port 8080 to the verified active backend port while retaining all scientific factors."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-03",
+      "priority": 0,
+      "title": "Complete per-slot context retrieval through the verified backend tokenizer endpoint",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-02/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-02/PIPELINE.json",
+        "tools/research/run_fleet_context_envelope.py",
+        "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-02/runner.stderr.log",
+        "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-02/raw/recovery_state.json",
+        "runs/autonomous/EXPERIMENT-WATCH-2026-08-27-FLEET-CONTEXT-R2/FINAL.json",
+        "config/qualified_model_fleet.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "artifact_hashes",
+        "case_manifest",
+        "dataset_hashes",
+        "effective_route",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "artifact_identity",
+          "metric": "verified_model_artifacts",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_coverage",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 72
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "context_fit",
+          "metric": "requests_within_route_slot_context",
+          "operator": "eq",
+          "threshold": 72
+        },
+        {
+          "id": "qwen38_recall",
+          "metric": "qwen38_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "hauhaucs_recall",
+          "metric": "hauhaucs_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "fable_recall",
+          "metric": "fable_tc_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "qwen36_moe_recall",
+          "metric": "qwen36_moe_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "position_robustness",
+          "metric": "minimum_position_bucket_recall",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_route_and_services_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUALIFIED_TEXT_FLEET_SLOT_CONTEXT_ENVELOPES_MEASURED_R3",
+        "QUALIFIED_TEXT_FLEET_SLOT_CONTEXT_ENVELOPES_NOT_CONFIRMED_R3"
+      ],
+      "forbidden_claims": [
+        "general long-context reasoning",
+        "RAG production quality",
+        "aggregate context treated as per-slot context",
+        "latency ranking",
+        "promotion without independent review"
+      ],
+      "next_action": "Keep the R2 matrix unchanged and route only tokenizer calls to the currently verified llama-server backend port 18080.",
+      "supersedes": "BACKLOG-FLEET-CONTEXT-ENVELOPE-02",
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-27T20:23:36Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-27T20:24:00Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-27T20:24:46Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T20:39:53Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01",
+      "priority": 0,
+      "title": "Select one trace-distilled deployment finalist and validate it on a third untouched panel",
+      "evidence_class": "distillation",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/checkpoint_hashes.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/actual_scores.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/student_samples.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/training_pairs.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-08/raw/actual_scores.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-08/raw/dataset_hashes.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-08/raw/receipt.json",
+        "tools/research/run_trace_distillation_replication_r8.py",
+        "workloads/gsm8k.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "checkpoint_hashes",
+        "dataset_hashes",
+        "independent_evaluation",
+        "model_hash",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "service_maintenance",
+        "source_execution_receipt",
+        "student_samples",
+        "teacher_samples",
+        "wsl_environment"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "r7_r8_sources_and_checkpoints_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "selection_reproducibility",
+          "metric": "selected_seed",
+          "operator": "eq",
+          "threshold": 20260832
+        },
+        {
+          "id": "panel_isolation",
+          "metric": "third_panel_disjoint_from_training_and_prior_panels",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "checkpoint_coverage",
+          "metric": "immutable_checkpoints_evaluated",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "evaluation_coverage",
+          "metric": "fresh_third_panel_generations",
+          "operator": "eq",
+          "threshold": 512
+        },
+        {
+          "id": "finalist_gain",
+          "metric": "paired_bootstrap_95ci_lower_trace_minus_answer",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "finalist_absolute",
+          "metric": "trace_third_panel_accuracy",
+          "operator": "ge",
+          "threshold": 0.4
+        },
+        {
+          "id": "protected_retention",
+          "metric": "imported_selected_seed_qa_regression",
+          "operator": "le",
+          "threshold": 0.05
+        },
+        {
+          "id": "independent_score",
+          "metric": "independent_rescore_match",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "TRACE_DISTILLATION_DEPLOYMENT_FINALIST_CONFIRMED_R1",
+        "TRACE_DISTILLATION_DEPLOYMENT_FINALIST_NOT_CONFIRMED_R1"
+      ],
+      "forbidden_claims": [
+        "best possible seed",
+        "teacher-equivalent performance",
+        "broad reasoning generalization",
+        "production deployment before independent review",
+        "additional panel selection after seeing R1"
+      ],
+      "next_action": "Select seed 20260832 by the frozen prior-panel and QA rule, compare its trace and answer-only checkpoints on one third disjoint 256-task panel, then stop the finalist-selection family.",
+      "supersedes": null,
+      "state": "REJECTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-27T20:42:01Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-27T20:42:29Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-27T20:44:54Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T21:15:23Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T01:24:15Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-01",
+      "priority": 0,
+      "title": "Stress qualified text routes with long-context associative retrieval under hard decoys",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-03/raw/receipt.json",
+        "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-03/raw/case_manifest.json",
+        "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-03/RESULT.md",
+        "tools/research/run_fleet_context_envelope.py",
+        "tools/research/run_fleet_context_envelope_r3.py",
+        "config/qualified_model_fleet.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "artifact_hashes",
+        "case_manifest",
+        "dataset_hashes",
+        "effective_route",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "artifact_identity",
+          "metric": "verified_model_artifacts",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_coverage",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 72
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "context_fit",
+          "metric": "requests_within_route_slot_context",
+          "operator": "eq",
+          "threshold": 72
+        },
+        {
+          "id": "qwen38_recall",
+          "metric": "qwen38_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "hauhaucs_recall",
+          "metric": "hauhaucs_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "fable_recall",
+          "metric": "fable_tc_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "qwen36_moe_recall",
+          "metric": "qwen36_moe_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "position_robustness",
+          "metric": "minimum_position_bucket_recall",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_route_and_services_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUALIFIED_TEXT_FLEET_CONTEXT_INTERFERENCE_MEASURED_R1",
+        "QUALIFIED_TEXT_FLEET_CONTEXT_INTERFERENCE_NOT_CONFIRMED_R1"
+      ],
+      "forbidden_claims": [
+        "general long-context reasoning",
+        "production RAG quality",
+        "context beyond per-slot limits",
+        "latency ranking",
+        "promotion without independent review"
+      ],
+      "next_action": "Repeat the 72-case physical envelope with one requested labeled record among 31 near-name and near-code secure-record distractors.",
+      "supersedes": null,
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-27T21:16:27Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-27T21:16:53Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-27T21:17:55Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T21:33:04Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-QWEN38-Q8-KV-UTILITY-01",
+      "priority": 0,
+      "title": "Test Qwen3.8 Q8_0 KV utility noninferiority on a broad fresh math panel",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-QWEN38-KV-PRECISION-02/raw/receipt.json",
+        "runs/research/BACKLOG-QWEN38-KV-PRECISION-02/raw/samples.jsonl",
+        "runs/research/BACKLOG-QWEN38-KV-PRECISION-02/raw/actual_scores.json",
+        "tools/research/run_qwen38_kv_precision.py",
+        "tools/research/run_qwen38_kv_precision_r2.py",
+        "config/qualified_model_fleet.json",
+        "workloads/gsm8k.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "binary_identity",
+        "block_logs",
+        "dataset_hashes",
+        "effective_route",
+        "environment",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "q8_r2_sources_and_artifacts_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "panel_isolation",
+          "metric": "fresh_panel_disjoint_from_q8_r2",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "treatment_identity",
+          "metric": "explicit_cache_controls_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "request_coverage",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 256
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "utility_noninferiority",
+          "metric": "paired_bootstrap_95ci_lower_q8_minus_f16_accuracy",
+          "operator": "gt",
+          "threshold": -0.05
+        },
+        {
+          "id": "quality_regression",
+          "metric": "f16_minus_q8_accuracy",
+          "operator": "le",
+          "threshold": 0.03
+        },
+        {
+          "id": "physical_memory_saving",
+          "metric": "vram_saving_mib",
+          "operator": "ge",
+          "threshold": 500
+        },
+        {
+          "id": "throughput_non_regression",
+          "metric": "q8_vs_f16_throughput_ratio",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QWEN38_Q8_KV_UTILITY_NONINFERIOR_R1",
+        "QWEN38_Q8_KV_UTILITY_NOT_NONINFERIOR_R1"
+      ],
+      "forbidden_claims": [
+        "exact semantic equivalence",
+        "Q4_0 qualification",
+        "all-model generalization",
+        "long-context quality",
+        "promotion without independent review"
+      ],
+      "next_action": "Run one fresh F16 and one fresh Q8_0 process over GSM8K tasks 32..159, paired-score correctness, bootstrap Q8-minus-F16 utility, and retain output parity only as a descriptive metric.",
+      "supersedes": null,
+      "state": "EXECUTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-27T21:47:43Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-27T21:48:10Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-27T21:50:18Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T22:10:41Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-TRACE-VS-FINALIST-02",
+      "priority": 0,
+      "title": "Compare the selected trace deployment candidate with behavioral finalists on the third panel",
+      "evidence_class": "distillation",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-VS-FINALIST-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/student_samples.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/dataset_hashes.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-VS-FINALIST-01/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-VS-FINALIST-01/raw/student_samples.json",
+        "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/receipt.json",
+        "tools/research/run_trace_vs_behavioral_finalist.py",
+        "tools/research/run_trace_distillation_replication_r8.py",
+        "workloads/gsm8k.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "continuation_ledger",
+        "dataset_hashes",
+        "independent_evaluation",
+        "model_hash",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "service_maintenance",
+        "source_execution_receipt",
+        "student_samples",
+        "teacher_samples",
+        "wsl_environment"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "all_source_and_checkpoint_hashes_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "panel_isolation",
+          "metric": "third_panel_disjoint_from_training_and_prior_panels",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "trace_import_coverage",
+          "metric": "imported_selected_trace_generations",
+          "operator": "eq",
+          "threshold": 256
+        },
+        {
+          "id": "behavioral_checkpoint_coverage",
+          "metric": "behavioral_checkpoints_evaluated",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "fresh_evaluation_coverage",
+          "metric": "fresh_behavioral_generations",
+          "operator": "eq",
+          "threshold": 512
+        },
+        {
+          "id": "practical_superiority",
+          "metric": "hierarchical_bootstrap_95ci_lower_trace_minus_behavioral_math",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "point_superiority",
+          "metric": "selected_trace_minus_behavioral_mean_math",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "protected_retention",
+          "metric": "selected_trace_minus_behavioral_mean_qa",
+          "operator": "ge",
+          "threshold": -0.05
+        },
+        {
+          "id": "independent_score",
+          "metric": "independent_rescore_match",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "SELECTED_TRACE_PRACTICALLY_SUPERIOR_TO_BEHAVIORAL_FINALISTS_R2",
+        "SELECTED_TRACE_NOT_PRACTICALLY_SUPERIOR_TO_BEHAVIORAL_FINALISTS_R2"
+      ],
+      "forbidden_claims": [
+        "best possible adapter",
+        "teacher-equivalent performance",
+        "broad reasoning generalization",
+        "fourth-panel retry",
+        "production deployment before independent review"
+      ],
+      "next_action": "Import the selected trace seed's immutable third-panel rows, freshly evaluate both behavioral finalist checkpoints on the same panel, bootstrap trace versus the behavioral seed distribution, and stop.",
+      "supersedes": null,
+      "state": "REJECTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-27T22:11:52Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-27T22:13:54Z",
+          "reason": "Frozen protocol SHA256 95cde6cada7a73e3b3f7b1601e4dfb699e2ce421a52712c636c6679b3f4aa2aa"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-27T22:16:58Z",
+          "reason": "Runner and fixture-backed frozen-input/bootstrap tests implemented"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "codex",
+          "at": "2026-08-27T22:23:43Z",
+          "reason": "First launch exposed an invalid reused-worker arm label before any generation; implementation corrected"
+        },
+        {
+          "from": "BLOCKED",
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-27T22:23:44Z",
+          "reason": "Corrected runner ready for the unchanged frozen protocol"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-27T22:23:44Z",
+          "reason": "Reaffirm unchanged frozen protocol SHA256 95cde6cada7a73e3b3f7b1601e4dfb699e2ce421a52712c636c6679b3f4aa2aa"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-27T22:23:45Z",
+          "reason": "Corrected worker invocation after zero-generation preflight failure"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-27T22:54:13Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-28T01:31:03Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-QWEN38-Q8-KV-UTILITY-02",
+      "priority": 0,
+      "title": "Repeat Qwen3.8 Q8_0 KV utility without mutable handoff provenance",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-01/raw/receipt.json",
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-01/raw/samples.jsonl",
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-01/raw/actual_scores.json",
+        "tools/research/run_qwen38_q8_kv_utility.py",
+        "tools/research/run_qwen38_kv_precision.py",
+        "config/qualified_model_fleet.json",
+        "workloads/gsm8k.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "binary_identity",
+        "block_logs",
+        "dataset_hashes",
+        "effective_route",
+        "environment",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "q8_sources_and_artifacts_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "panel_isolation",
+          "metric": "fresh_panel_disjoint_from_q8_r2",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "treatment_identity",
+          "metric": "explicit_cache_controls_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "request_coverage",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 256
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "utility_noninferiority",
+          "metric": "paired_bootstrap_95ci_lower_q8_minus_f16_accuracy",
+          "operator": "gt",
+          "threshold": -0.05
+        },
+        {
+          "id": "quality_regression",
+          "metric": "f16_minus_q8_accuracy",
+          "operator": "le",
+          "threshold": 0.03
+        },
+        {
+          "id": "physical_memory_saving",
+          "metric": "vram_saving_mib",
+          "operator": "ge",
+          "threshold": 500
+        },
+        {
+          "id": "throughput_non_regression",
+          "metric": "q8_vs_f16_throughput_ratio",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QWEN38_Q8_KV_UTILITY_NONINFERIOR_R2",
+        "QWEN38_Q8_KV_UTILITY_NOT_NONINFERIOR_R2"
+      ],
+      "forbidden_claims": [
+        "exact semantic equivalence",
+        "Q4_0 qualification",
+        "all-model generalization",
+        "long-context quality",
+        "promotion without independent review"
+      ],
+      "next_action": "Repeat the frozen 128-task paired F16/Q8_0 run with only immutable scientific inputs and physical model/binary identities in provenance.",
+      "supersedes": "BACKLOG-QWEN38-Q8-KV-UTILITY-01",
+      "state": "BLOCKED",
+      "blocker": "HOLD_FAIL_CLOSED: q8 gsm8k/111 incidental last-number false positive and scorer dependency not provenance-bound; semantic rescore successor required",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:09:25Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:10:30Z",
+          "reason": "Frozen paired physical rerun without mutable handoff identity"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:11:54Z",
+          "reason": "Clean-provenance wrapper verified against immutable host and WSL identities"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T10:32:21Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "BLOCKED",
+          "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
+          "at": "2026-08-28T11:07:38Z",
+          "reason": "HOLD_FAIL_CLOSED: q8 gsm8k/111 incidental last-number false positive and scorer dependency not provenance-bound; semantic rescore successor required"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-AGY-SYSTEM-BLOCKERS-03",
+      "priority": 0,
+      "title": "Semantically classify six AGY integration blockers",
+      "evidence_class": "mechanism_research",
+      "packet_dir": "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-02/raw/receipt.json",
+        "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-02/raw/samples.json",
+        "tools/research/run_agy_system_blockers_r2.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "semantic_parity",
+        "service_identity",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "scope_coverage",
+          "metric": "classified_items",
+          "operator": "eq",
+          "threshold": 6
+        },
+        {
+          "id": "semantic_evidence",
+          "metric": "items_with_semantic_evidence",
+          "operator": "eq",
+          "threshold": 6
+        },
+        {
+          "id": "false_negative_detection",
+          "metric": "confirmed_predecessor_false_negatives",
+          "operator": "ge",
+          "threshold": 1
+        },
+        {
+          "id": "runtime_integrity",
+          "metric": "runtime_unchanged",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "AGY_SYSTEM_BLOCKER_FALSE_NEGATIVE_CONFIRMED_R3",
+        "AGY_SYSTEM_BLOCKER_FALSE_NEGATIVE_NOT_CONFIRMED_R3"
+      ],
+      "forbidden_claims": [
+        "performance qualification",
+        "complete absence outside the inspected commit and inventory",
+        "equivalence to the predecessor cadence or hardware counter claim",
+        "promotion without independent review"
+      ],
+      "next_action": "Inspect the entire immutable candidate commit semantically, retain positive and near-match source spans, and classify each predecessor claim with bounded language.",
+      "supersedes": "BACKLOG-AGY-SYSTEM-BLOCKERS-02",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:13:17Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:13:51Z",
+          "reason": "Frozen semantic whole-tree audit at immutable WSL commit"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:15:27Z",
+          "reason": "Semantic whole-tree source audit implemented and self-checked"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T10:28:49Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
+          "at": "2026-08-28T11:13:40Z",
+          "reason": "Independent immutable-commit source audit confirms bounded SLX-03 materialization only"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
+          "at": "2026-08-28T11:13:47Z",
+          "reason": "Promoted solely as bounded source-materialization false-negative correction at immutable commit 87a416bd"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-02",
+      "priority": 0,
+      "title": "Rescore the frozen trace deployment finalist with an external fixture-validated extractor",
+      "evidence_class": "distillation",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/student_samples.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/actual_scores.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/dataset_hashes.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/checkpoint_hashes.json",
+        "tools/analysis/final_numeric_answer.py",
+        "tests/fixtures/final_numeric_answer_cases.json",
+        "tests/test_final_numeric_answer.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "checkpoint_hashes",
+        "dataset_hashes",
+        "external_fixture_validation",
+        "independent_evaluation",
+        "model_hash",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "source_execution_receipt",
+        "student_samples",
+        "teacher_samples"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "frozen_deployment_sources_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "fixture_validation",
+          "metric": "external_fixture_pass_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "fixture_coverage",
+          "metric": "external_fixture_cases",
+          "operator": "ge",
+          "threshold": 18
+        },
+        {
+          "id": "selection_reproducibility",
+          "metric": "selected_seed",
+          "operator": "eq",
+          "threshold": 20260832
+        },
+        {
+          "id": "panel_isolation",
+          "metric": "third_panel_disjoint_from_training_and_prior_panels",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "evaluation_coverage",
+          "metric": "rescored_generations",
+          "operator": "eq",
+          "threshold": 512
+        },
+        {
+          "id": "finalist_gain",
+          "metric": "paired_bootstrap_95ci_lower_trace_minus_answer",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "finalist_absolute",
+          "metric": "trace_third_panel_accuracy",
+          "operator": "ge",
+          "threshold": 0.4
+        },
+        {
+          "id": "protected_retention",
+          "metric": "imported_selected_seed_qa_regression",
+          "operator": "le",
+          "threshold": 0.05
+        },
+        {
+          "id": "scorer_blinding",
+          "metric": "scorer_does_not_receive_gold",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "TRACE_DISTILLATION_DEPLOYMENT_FINALIST_RESCORED_R2",
+        "TRACE_DISTILLATION_DEPLOYMENT_FINALIST_NOT_CONFIRMED_R2"
+      ],
+      "forbidden_claims": [
+        "fresh generation",
+        "fourth-panel confirmation",
+        "seed reselection",
+        "teacher-equivalent performance",
+        "production deployment",
+        "promotion without independent review"
+      ],
+      "next_action": "Freeze and validate a generic question-aware numeric extractor on external fixtures, then apply it once to all 512 already-frozen third-panel outputs.",
+      "supersedes": "BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01",
+      "state": "BLOCKED",
+      "blocker": "HOLD_FAIL_CLOSED: gold-blind scorer has observed same-unit incidental-number false positives; 512-row semantic accuracy is not independently signable",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:20:06Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:20:29Z",
+          "reason": "Frozen external fixture-validated rescore over existing 512 outputs"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:22:06Z",
+          "reason": "Gold-blind scorer and 18 external fixtures self-checked"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T10:22:42Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "BLOCKED",
+          "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
+          "at": "2026-08-28T11:02:43Z",
+          "reason": "HOLD_FAIL_CLOSED: gold-blind scorer has observed same-unit incidental-number false positives; 512-row semantic accuracy is not independently signable"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-MTP-PERSISTENCE-FUNCTIONAL-03",
+      "priority": 0,
+      "title": "Test functional MTP slot reuse after save and restore",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-MTP-PERSISTENCE-FUNCTIONAL-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-MTP-PERSISTENCE-01/raw/receipt.json",
+        "runs/research/BACKLOG-MTP-PERSISTENCE-01/raw/samples.jsonl",
+        "runs/research/BACKLOG-MTP-PERSISTENCE-RESCORE-02/raw/receipt.json",
+        "tools/research/run_mtp_persistence_first_instance.py",
+        "config/qualified_model_fleet.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "effective_route",
+        "functional_reuse",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "service_maintenance",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "sources_and_runtime_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "cycle_coverage",
+          "metric": "completed_cycles",
+          "operator": "eq",
+          "threshold": 16
+        },
+        {
+          "id": "lifecycle_integrity",
+          "metric": "successful_lifecycle_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "functional_cache_reuse",
+          "metric": "cycles_with_cache_n_positive",
+          "operator": "eq",
+          "threshold": 16
+        },
+        {
+          "id": "material_cache_reuse",
+          "metric": "median_cache_fraction_of_prompt",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "prefill_reduction",
+          "metric": "median_prefill_token_reduction",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "continuation_parity",
+          "metric": "exact_continuation_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "MTP_PERSISTENCE_FUNCTIONAL_REUSE_CONFIRMED_R3",
+        "MTP_PERSISTENCE_FUNCTIONAL_REUSE_REJECTED_R3"
+      ],
+      "forbidden_claims": [
+        "cross-model persistence",
+        "crash recovery",
+        "production durability",
+        "semantic success without cache reuse",
+        "promotion without independent review"
+      ],
+      "next_action": "Run sixteen physical save/erase/restore cycles and require cache reuse, material prefill reduction and exact continuation parity jointly.",
+      "supersedes": "BACKLOG-MTP-PERSISTENCE-RESCORE-02",
+      "state": "REJECTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:33:17Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:33:50Z",
+          "reason": "Frozen 16-cycle functional reuse test"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:35:33Z",
+          "reason": "Sixteen-cycle cache reuse, prefill reduction and parity test implemented"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T10:39:53Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
+          "at": "2026-08-28T11:17:14Z",
+          "reason": "Independent 16-cycle audit confirms serialization but zero functional cache reuse or prefill reduction"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-MECHANISMS-COMPLETE-02",
+      "priority": 0,
+      "title": "Complete the five-mechanism ADAPT matrix from the frozen missing arm",
+      "evidence_class": "artifact_requalification",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/samples.jsonl",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/training_trace.json",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/artifact_hashes.json",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/service_maintenance.json",
+        "runs/research/BACKLOG-ADAPT01-640-EVAL-01/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT01-640-EVAL-01/raw/samples.jsonl",
+        "runs/research/BACKLOG-ADAPT01-640-EVAL-01/raw/service_maintenance.json",
+        "tools/analysis/a2_stats.py",
+        "tools/benchmarks/normal_qa_ab.py",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "independent_evaluation",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "service_maintenance",
+        "source_execution_receipt",
+        "training_trace"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "source_receipts_and_artifacts_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "mechanism_coverage",
+          "metric": "fresh_mechanisms_completed",
+          "operator": "eq",
+          "threshold": 5
+        },
+        {
+          "id": "training_coverage",
+          "metric": "fresh_training_arms",
+          "operator": "eq",
+          "threshold": 12
+        },
+        {
+          "id": "evaluation_coverage",
+          "metric": "fresh_scored_generations",
+          "operator": "eq",
+          "threshold": 768
+        },
+        {
+          "id": "arm_coverage",
+          "metric": "complete_arm_instances",
+          "operator": "eq",
+          "threshold": 16
+        },
+        {
+          "id": "seed_control",
+          "metric": "fresh_seed_verified",
+          "operator": "eq",
+          "threshold": 20260827
+        },
+        {
+          "id": "independent_aggregate",
+          "metric": "independent_score_match",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "artifact_identity",
+          "metric": "hashed_adapter_artifacts",
+          "operator": "ge",
+          "threshold": 13
+        },
+        {
+          "id": "service_restore",
+          "metric": "normalized_original_service_restored",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT01_05_MECHANISMS_COMPLETED_R2",
+        "ADAPT01_05_MECHANISMS_MIXED_R2"
+      ],
+      "forbidden_claims": [
+        "new training",
+        "new generation",
+        "cross-seed repeatability",
+        "production promotion",
+        "causal superiority outside frozen matched arms",
+        "promotion without independent review"
+      ],
+      "next_action": "Join the 720 complete R1 rows with the independently executed 48-row lokr_5ep arm, independently rescore all 768 rows and normalize historical service identity.",
+      "supersedes": "BACKLOG-ADAPT-MECHANISMS-RERUN-01",
+      "state": "BLOCKED",
+      "blocker": "HOLD_FAIL_CLOSED: executor seed_control false negative preserved; superseded by R3 seed-source correction",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:41:38Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:42:15Z",
+          "reason": "Frozen read-only completion from 720 plus 48 physical rows"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:45:33Z",
+          "reason": "Read-only 720+48 synthesis and scorer replay implemented"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T10:46:12Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "BLOCKED",
+          "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
+          "at": "2026-08-28T10:56:55Z",
+          "reason": "HOLD_FAIL_CLOSED: executor seed_control false negative preserved; superseded by R3 seed-source correction"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-MECHANISMS-COMPLETE-03",
+      "priority": 0,
+      "title": "Correct the ADAPT completion seed-evidence false negative",
+      "evidence_class": "artifact_requalification",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-02/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-02/raw/samples.jsonl",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-02/raw/actual_scores.json",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-02/raw/artifact_hashes.json",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-02/raw/scorer_hashes.json",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-02/raw/service_maintenance.json",
+        "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/seed.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "independent_evaluation",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "service_maintenance",
+        "source_execution_receipt",
+        "training_trace"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "r2_sources_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "mechanism_coverage",
+          "metric": "fresh_mechanisms_completed",
+          "operator": "eq",
+          "threshold": 5
+        },
+        {
+          "id": "training_coverage",
+          "metric": "fresh_training_arms",
+          "operator": "eq",
+          "threshold": 12
+        },
+        {
+          "id": "evaluation_coverage",
+          "metric": "fresh_scored_generations",
+          "operator": "eq",
+          "threshold": 768
+        },
+        {
+          "id": "arm_coverage",
+          "metric": "complete_arm_instances",
+          "operator": "eq",
+          "threshold": 16
+        },
+        {
+          "id": "seed_control",
+          "metric": "frozen_execution_seed",
+          "operator": "eq",
+          "threshold": 20260827
+        },
+        {
+          "id": "independent_aggregate",
+          "metric": "independent_score_match",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "artifact_identity",
+          "metric": "hashed_adapter_artifacts",
+          "operator": "ge",
+          "threshold": 13
+        },
+        {
+          "id": "service_restore",
+          "metric": "normalized_original_service_restored",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT01_05_MECHANISMS_COMPLETED_R3",
+        "ADAPT01_05_MECHANISMS_MIXED_R3"
+      ],
+      "forbidden_claims": [
+        "new training",
+        "new generation",
+        "cross-seed repeatability",
+        "production promotion",
+        "causal superiority outside frozen matched arms",
+        "promotion without independent review"
+      ],
+      "next_action": "Rebind the seed gate to the frozen execution-level seed receipt while preserving and independently checking all 768 R2 rows.",
+      "supersedes": "BACKLOG-ADAPT-MECHANISMS-COMPLETE-02",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:47:37Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:48:02Z",
+          "reason": "Frozen seed-evidence correction with no estimand change"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex",
+          "at": "2026-08-28T10:49:13Z",
+          "reason": "Seed gate rebound to frozen execution receipt with unchanged 768-row estimand"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T10:49:51Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
+          "at": "2026-08-28T10:58:16Z"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
+          "at": "2026-08-28T10:58:17Z"
         }
       ]
     }

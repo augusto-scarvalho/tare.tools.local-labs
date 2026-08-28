@@ -1,0 +1,59 @@
+{
+  "id": "BACKLOG-ADAPT-TRACE-DISTILL-08",
+  "priority": 0,
+  "title": "Replicate the seven-seed trace-distillation gain on a second teacher-disjoint math panel",
+  "evidence_class": "distillation",
+  "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-08",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/checkpoints",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/checkpoint_hashes.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/actual_scores.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/student_samples.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/training_pairs.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/receipt.json",
+    "workloads/gsm8k.jsonl",
+    "runs/a2/market-r0__thinkingcap-27b-q4__gsm8k.json"
+  ],
+  "required_evidence": [
+    "acceptance_gates",
+    "actual_scores",
+    "checkpoint_hashes",
+    "continuation_ledger",
+    "dataset_hashes",
+    "independent_evaluation",
+    "model_hash",
+    "provenance",
+    "raw_samples",
+    "receipt_fingerprint",
+    "service_maintenance",
+    "source_execution_receipt",
+    "student_samples",
+    "teacher_samples",
+    "wsl_environment"
+  ],
+  "acceptance_gates": [
+    {"id": "source_integrity", "metric": "r7_source_and_checkpoint_hashes_verified", "operator": "eq", "threshold": true},
+    {"id": "panel_isolation", "metric": "second_panel_disjoint_from_teacher_training_and_r7_panel", "operator": "eq", "threshold": true},
+    {"id": "checkpoint_coverage", "metric": "immutable_checkpoints_evaluated", "operator": "eq", "threshold": 14},
+    {"id": "evaluation_coverage", "metric": "fresh_second_panel_generations", "operator": "eq", "threshold": 3584},
+    {"id": "replicated_gain", "metric": "hierarchical_bootstrap_95ci_lower_trace_math_gain", "operator": "gt", "threshold": 0.0},
+    {"id": "directional_repeatability", "metric": "seeds_with_positive_trace_math_gain", "operator": "ge", "threshold": 5},
+    {"id": "protected_retention", "metric": "imported_r7_mean_protected_qa_regression", "operator": "le", "threshold": 0.05},
+    {"id": "independent_score", "metric": "independent_rescore_match", "operator": "eq", "threshold": true},
+    {"id": "service_recovery", "metric": "service_and_embedding_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "TRACE_DISTILLATION_SECOND_PANEL_REPLICATED_R8",
+    "TRACE_DISTILLATION_SECOND_PANEL_NOT_REPLICATED_R8"
+  ],
+  "forbidden_claims": [
+    "new training evidence",
+    "teacher noninferiority",
+    "latency or throughput qualification",
+    "production promotion",
+    "generalization beyond Qwen3.5-0.8B and the two frozen panels"
+  ],
+  "next_action": "Evaluate all fourteen immutable R7 checkpoints on one preregistered second 256-task teacher-disjoint panel, import protected QA by hash, and stop this replication family after the result.",
+  "supersedes": null
+}

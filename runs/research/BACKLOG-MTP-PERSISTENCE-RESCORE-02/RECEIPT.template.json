@@ -1,0 +1,63 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-MTP-PERSISTENCE-RESCORE-02",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "source_coverage": {
+      "metric": "rescored_observations",
+      "operator": "eq",
+      "threshold": 44,
+      "actual": null,
+      "pass": null
+    },
+    "physical_persistence": {
+      "metric": "physical_persistence_successes",
+      "operator": "eq",
+      "threshold": 44,
+      "actual": null,
+      "pass": null
+    },
+    "semantic_parity": {
+      "metric": "exact_semantic_successes",
+      "operator": "eq",
+      "threshold": 44,
+      "actual": null,
+      "pass": null
+    },
+    "priming_materiality": {
+      "metric": "material_primed_observations",
+      "operator": "eq",
+      "threshold": 20,
+      "actual": null,
+      "pass": null
+    },
+    "legacy_false_negative": {
+      "metric": "legacy_false_negative_confirmed",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "historical_failure": {
+      "metric": "unprimed_physical_failures",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "failure_reproduction": null,
+    "falsifiable_hypothesis": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "invariant_controls": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "semantic_parity": null
+  },
+  "receipt_fingerprint": null
+}

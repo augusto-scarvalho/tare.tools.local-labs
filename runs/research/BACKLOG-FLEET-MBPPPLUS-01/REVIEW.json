@@ -1,0 +1,17 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "REJECTED",
+  "receipt_sha256": "cbbd3ea566581b152c71d992f8cf29bf2131eabb8d7ccd09de551ddc51205b5e",
+  "implementation_digest": "f0fb0f4bb93dba53f01b730debf5db8b4d089abaf64ac7bc1601da1740cd1aef",
+  "findings": [
+    "Receipt SHA-256, canonical fingerprint, implementation digest, implementation-file hash and all 28 receipt provenance input byte counts and SHA-256 values independently match.",
+    "The seed-20260726 subset is independently reconstructed from all 378 MBPP+ rows: 100 unique ordered task ids exactly match the recorded list and canonical subset hash 288ceec36e29dea4f39822770e8a61bd93df8f57e8fc5b8cdf9f0fc58a238e91.",
+    "All 400 full sample rows have unique model/task keys, HTTP 200, nonempty responses, matching response aliases, exact frozen task order and reproducible request hashes. Reapplying the frozen shared extractor to every completion reproduces each receipt-bound model solution; the four 100-row EvalPlus input files match those extracted solutions.",
+    "Independent EvalPlus 0.3.1 execution over temporary copies of the receipt-bound solutions exactly reproduces qwen38 93/100 Base and 75/100 Plus, hauhaucs 91/100 and 73/100, fable-tc 91/100 and 76/100, and qwen36-moe 93/100 and 77/100. Stored per-task Plus failure sets and current padded evaluation results agree.",
+    "Independent replay of 20,000 paired-bootstrap replicates at seed 2026082712 reproduces point -0.02, HauhauCS-only passes 1, Qwen3.8-only passes 3 and interval [-0.06, 0.02]. Because the frozen lower-bound gate requires strictly greater than -0.05, coding_alias_noninferiority fails while the absolute HauhauCS gate 0.73 >= 0.70 and every operational gate pass.",
+    "Adversarial false-negative audit finds five capped generations overall, including three HauhauCS rows, but none of the four task-level discordances that determine the HauhauCS-minus-Qwen3.8 delta is truncated. The three Qwen3.8-only passes are Mbpp/84, Mbpp/279 and Mbpp/432; the HauhauCS-only pass is Mbpp/757. Their complete extracted implementations show substantive algorithm/formula differences, not scorer, parser or token-cap artifacts.",
+    "The strict-gate rejection is bounded: it does not show HauhauCS is harmful or below the absolute coding threshold, and the interval still includes positive differences. It says only that the frozen 100-task screen did not establish the preregistered -0.05 noninferiority margin. The disjoint R2 successor is a distinct hypothesis and must not retroactively weaken this gate.",
+    "Artifact identities for all four GGUFs, four route snapshots, the unchanged gateway PID 85438 with zero restarts, restored initial qwen38 route and embedding HTTP 200 are receipt-bound. The referenced prior fleet receipt is not a manifest dependency and this packet independently establishes its physical treatment identities."
+  ]
+}

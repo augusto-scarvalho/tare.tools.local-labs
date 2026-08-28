@@ -1,0 +1,76 @@
+{
+  "id": "BACKLOG-MTP-PERSISTENCE-RESCORE-02",
+  "priority": 0,
+  "title": "Correct the MTP persistence false negative against current cache telemetry",
+  "evidence_class": "mechanism_research",
+  "packet_dir": "runs/research/BACKLOG-MTP-PERSISTENCE-RESCORE-02",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-MTP-PERSISTENCE-01/raw/samples.jsonl",
+    "runs/research/BACKLOG-MTP-PERSISTENCE-01/raw/receipt.json",
+    "runs/research/BACKLOG-MTP-PERSISTENCE-01/RESULT.md",
+    "tools/research/run_mtp_persistence_first_instance.py"
+  ],
+  "required_evidence": [
+    "acceptance_gates",
+    "failure_reproduction",
+    "falsifiable_hypothesis",
+    "independent_evaluation",
+    "invalidation_rules",
+    "invariant_controls",
+    "provenance",
+    "raw_samples",
+    "receipt_fingerprint",
+    "semantic_parity"
+  ],
+  "acceptance_gates": [
+    {
+      "id": "source_coverage",
+      "metric": "rescored_observations",
+      "operator": "eq",
+      "threshold": 44
+    },
+    {
+      "id": "physical_persistence",
+      "metric": "physical_persistence_successes",
+      "operator": "eq",
+      "threshold": 44
+    },
+    {
+      "id": "semantic_parity",
+      "metric": "exact_semantic_successes",
+      "operator": "eq",
+      "threshold": 44
+    },
+    {
+      "id": "priming_materiality",
+      "metric": "material_primed_observations",
+      "operator": "eq",
+      "threshold": 20
+    },
+    {
+      "id": "legacy_false_negative",
+      "metric": "legacy_false_negative_confirmed",
+      "operator": "eq",
+      "threshold": true
+    },
+    {
+      "id": "historical_failure",
+      "metric": "unprimed_physical_failures",
+      "operator": "eq",
+      "threshold": 0
+    }
+  ],
+  "allowed_claim_codes": [
+    "MTP_PERSISTENCE_HISTORICAL_FAILURE_NOT_REPRODUCED_R2",
+    "MTP_PERSISTENCE_RESCORE_INVALID_R2"
+  ],
+  "forbidden_claims": [
+    "the historical failure never existed",
+    "MTP persistence is universally correct",
+    "cache_n is valid cache telemetry in this runtime",
+    "production promotion",
+    "causal benefit from priming"
+  ],
+  "next_action": "Rescore all 44 immutable observations using successful save/restore counts, tokens_cached, exact output and oracle evidence; retain timings.cache_n only as the reproduced stale-field defect."
+}

@@ -1,6 +1,10 @@
-> **CANONICAL REMEDIATION HANDOFF (2026-08-25):** Read
-> [`HANDOFF_2026-08-25_CODEX_REMEDIATION.md`](HANDOFF_2026-08-25_CODEX_REMEDIATION.md)
-> first. The former `FINAL_CLOSEOUT` and its 46/46 validation claim are
+> **CURRENT RESEARCH HANDOFF (2026-08-28):** Read
+> [`HANDOFF_2026-08-28_REJECTED_HOLD_RECOVERY_WAVE.md`](HANDOFF_2026-08-28_REJECTED_HOLD_RECOVERY_WAVE.md)
+> first, then the completed
+> [`HANDOFF_2026-08-27_INDEPENDENT_AUDIT_QUEUE.md`](HANDOFF_2026-08-27_INDEPENDENT_AUDIT_QUEUE.md).
+> The current handoff binds the six-packet rejected/HOLD recovery wave and its
+> independent-review queue. The 2026-08-25 remediation handoff and former
+> `FINAL_CLOSEOUT` remain historical; the latter's 46/46 validation claim is
 > `SUPERSEDED`. For the hypothesis and literature map, see
 > [`research/COMPREHENSIVE_SCIENTIFIC_SYNTHESIS_2026.md`](research/COMPREHENSIVE_SCIENTIFIC_SYNTHESIS_2026.md) and
 > [`research/MASTER_RESEARCH_BACKLOG_2026.md`](research/MASTER_RESEARCH_BACKLOG_2026.md).

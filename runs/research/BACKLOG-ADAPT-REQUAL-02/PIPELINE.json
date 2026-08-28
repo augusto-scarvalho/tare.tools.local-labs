@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-ADAPT-REQUAL-02",
   "evidence_class": "artifact_requalification",
   "executor": "Codex executor",
-  "stage": "EXECUTED",
+  "stage": "PROMOTED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,20 @@
       "to": "EXECUTED",
       "actor": "Codex executor",
       "at": "2026-08-25T22:14:02Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T03:20:33Z",
+      "reason": "Independent digest-bound review reproduced all seven frozen gates and found no surviving evidence-binding blocker."
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T03:20:39Z",
+      "reason": "Artifact-requalification evidence class permits promotion of the bounded ARTIFACT_REQUALIFIED_R2 claim after independent verification."
     }
   ],
   "preregistration": {
@@ -57,7 +71,15 @@
     "path": "runs/research/BACKLOG-ADAPT-REQUAL-02/raw/receipt.json",
     "sha256": "8bc38d1f2cb5ef60f53ddb989e5c0aa1104b81359efbc5a2c8e4bbd0d92bc876"
   },
-  "result": {},
-  "review": {},
-  "claim_codes": []
+  "result": {
+    "path": "runs/research/BACKLOG-ADAPT-REQUAL-02/RESULT.md",
+    "sha256": "567f32089d9119d666a4100fac43d16de22cd47f4f15e0a4baa16295411abe2d"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-ADAPT-REQUAL-02/REVIEW.json",
+    "sha256": "5b8e4222bc04c9c7910a7af313d21929603528fc9a90c745ad76bb2b21f09fc4"
+  },
+  "claim_codes": [
+    "ARTIFACT_REQUALIFIED_R2"
+  ]
 }

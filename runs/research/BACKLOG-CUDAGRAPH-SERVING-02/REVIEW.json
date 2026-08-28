@@ -1,0 +1,17 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "REJECTED",
+  "receipt_sha256": "eaa409f1620b45cb9bc939223f4407aed2b3be5615e5f4bd0027a00539f225f6",
+  "implementation_digest": "4adac4f71008f3d0b7d1317ceb0f63cc7e9acd1a804048384e362626053543fc",
+  "findings": [
+    "Receipt fingerprint, implementation digest, all three implementation-file hashes and all 21 provenance inputs independently match; fresh physical SHA-256 and byte-size reads reproduce the server, CUDA backend and Fable-TC model identities.",
+    "Four distinct transient PIDs materialize the frozen OFF-ON-ON-OFF order. Both OFF processes contain exactly GGML_CUDA_DISABLE_GRAPHS=1, both ON processes omit it, and executable plus argv are identical across blocks; each block records four discarded warmups and fifteen planned prompts.",
+    "Independent reconstruction finds 60 unique block/prompt rows, exactly one OFF and one ON observation for every prompt 1 through 30, exact frozen prompts, one system fingerprint and symmetric 64-token length finishes. Every stored semantic projection and pair hash reproduces with 30/30 exact matches.",
+    "Independent metric recomputation exactly reproduces OFF/ON wall medians 1412.608/1348.767 ms, paired median speedup 1.036998, p95 values 1460.224/1439.080 ms and tail regression -0.01447997. The frozen 1.10 speedup gate therefore fails while all six other gates pass.",
+    "Adversarial order sensitivity gives paired wall medians 1.02015 for prompts 1-15 where ON follows OFF and 1.05142 for prompts 16-30 where ON precedes OFF; both remain below 1.10. ON is faster in 27/30 wall pairs, but only one pair reaches 1.10.",
+    "A decode-only sensitivity from server predicted milliseconds is also below threshold at median 1.05603, with half-panel medians 1.04116 and 1.06986. Thus prompt-evaluation time in the wall proxy does not hide a preregistered-size decode effect.",
+    "The CUDA library binds the default-enable environment control and graph code strings, but graph warmup/reuse log counts are zero because those events are debug-level and no profiler was preregistered. Rejection is therefore an intention-to-treat qualification failure for default-on versus explicitly disabled on this tuple, not proof that graph replay never activated or that the mechanism has no benefit.",
+    "All responses stop at the symmetric 64-token cap, which fixes the measured decode shape but limits generalization to natural completion latency. The observed small directional benefit and tail improvement survive; the claim rejects only the frozen minimum effect size and cannot support driver-overhead attribution, cross-model generalization or production promotion. Persistent service argv/executable, restart count and embedding health were restored."
+  ]
+}

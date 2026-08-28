@@ -1,0 +1,53 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-AGY-SYSTEM-BLOCKERS-03",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "scope_coverage": {
+      "metric": "classified_items",
+      "operator": "eq",
+      "threshold": 6,
+      "actual": null,
+      "pass": null
+    },
+    "semantic_evidence": {
+      "metric": "items_with_semantic_evidence",
+      "operator": "eq",
+      "threshold": 6,
+      "actual": null,
+      "pass": null
+    },
+    "false_negative_detection": {
+      "metric": "confirmed_predecessor_false_negatives",
+      "operator": "ge",
+      "threshold": 1,
+      "actual": null,
+      "pass": null
+    },
+    "runtime_integrity": {
+      "metric": "runtime_unchanged",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "failure_reproduction": null,
+    "falsifiable_hypothesis": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "invariant_controls": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "semantic_parity": null,
+    "service_identity": null,
+    "source_execution_receipt": null
+  },
+  "receipt_fingerprint": null
+}

@@ -1,0 +1,738 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-MTP-PERSISTENCE-01",
+  "provenance": {
+    "schema": "local-labs-experiment-provenance-v1",
+    "started_at_utc": "2026-08-26T21:51:20Z",
+    "finished_at_utc": "2026-08-26T22:02:55Z",
+    "elapsed_seconds": 695.812,
+    "command": [
+      "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "tools/research/run_mtp_persistence_first_instance.py",
+      "--outdir",
+      "runs/research/BACKLOG-MTP-PERSISTENCE-01"
+    ],
+    "cwd": "C:\\projects\\tare.tools.local-labs",
+    "repository": {
+      "head": "9d46725a5f9e58eff4172ec46ea4bd1eb0b84a02",
+      "dirty": true,
+      "status_entry_count": 98,
+      "status_sha256": "23eef4c35502151ec09bebc08f70226b1777a8ac9e1acedbb506926c17c71f75",
+      "errors": []
+    },
+    "script": {
+      "path": "C:\\projects\\tare.tools.local-labs\\tools\\research\\run_mtp_persistence_first_instance.py",
+      "sha256": "2a70897b1a9d73fb5fbf77159fa8c6706a41786c95bd428061e8963b8abde7b1"
+    },
+    "inputs": [
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\cache\\LAB-CACHE-001-MTP-2026-08-22\\RESULT.md",
+        "status": "HASHED",
+        "bytes": 3686,
+        "sha256": "5dd8cd202fafcd021a16eebdb4cbf9885d6ef080862179c5507619409a018c47"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\docs\\research\\BLOCKER_REVALIDATION_2026-08-24.md",
+        "status": "HASHED",
+        "bytes": 3413,
+        "sha256": "d5888a2ee3c11711113fbc0a1596a00caa21cc31bfc553d9dd87cb0144aba658"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\config\\qualified_model_fleet.json",
+        "status": "HASHED",
+        "bytes": 9783,
+        "sha256": "042fedf5907f031fb9993c03058f3cc9c8fe2c8d75a3235ea4b5e11c7412cd82"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\tools\\probes\\slot_save_restore_probe.py",
+        "status": "HASHED",
+        "bytes": 4705,
+        "sha256": "b24b5f3e2f4ef6bd8687763791a3c78d33ae91e9a129997aa4a16295b3cb81cd"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\tools\\probes\\cache_correctness_v2.py",
+        "status": "HASHED",
+        "bytes": 10166,
+        "sha256": "4d23c2effc666912af5166085c1d9dd756a5be885cb5571a1af80345fc44a7fb"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\PRE_REGISTRATION.md",
+        "status": "HASHED",
+        "bytes": 5361,
+        "sha256": "72d726941ab2f0b38880955844aa2827e4f2669c7742eff6d0b9abe99e8005f6"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\actual_scores.json",
+        "status": "HASHED",
+        "bytes": 447,
+        "sha256": "8391b139e4bb47c76da433c316d360002b3a5adf3c192efad4decc47a2d3fa97"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-00.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "c2d9ac19688cb4f07b8df2d1dbab51343a76bcede42edcb7f76b89c1852d5927"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-01.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "9c00fba19aebad91618da0843633f5f2d475ef280eec009c79357cb3cc30115a"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-02.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "9223d9d95005ac493b7b2dbca98acec5d81ca6657362b6dd10949cb3355c4395"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-03.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "f9a2a4becedd44de890f3be36cab994b153e5a3f1c2d6eec0a9c784aa2346810"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-04.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "abfd9f2721f23d7e7258b6b2c9eaa96943bc8ac1a5a5746ce7c0a8e387ad0d41"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-05.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "137363fa984fadfa80276fef1ae4fd928e1790c42fa1f45fbbf27733a59eab3f"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-06.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "480ca5e8a38041be08ed0c77b8b1201952ad0b845055422493302af4722d6810"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-07.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "325ec3e6a9a32935496cc984310d3639fd38d8bc6611aa022673e3f0d215f7d1"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-08.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "c6cb25004ca16f872a5620d5a27bd1c4d4be527995e0d95ce1c2fa731034cf9e"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-09.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "ab43521edab5b49fb7069e3d533c375011215b7d1e7b6d0320cfb993542e2684"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-10.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "897e1a564b2d08333ec02cee10fe60e70d21f2d994d10726bc42ebffe4f68fe7"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-11.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "80582d11e6b8847d0cd2cc2ea169ad4440d72181d258bec7f543a3cb7c3bcb4d"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-12.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "26e81c7081b6c34bb62ab9c223ccee5f09ac779b163d3b3f6d49ab18bba2370a"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-13.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "203937f644e8ed2a506f8c0800b3cb6e66ad10d9dcf8d8182ce161882329adf0"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-14.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "b3aa77b3d962804007651e2a5cc8446a5951b11e17bfa5c4f576f74fa79f99cb"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-15.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "dc26ea3a597f063c32f63b65a222bb59fd0b6395e030de0f7a442070dcc589b8"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-16.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "cadeac49127807d64c827d4140ceadce872dbf5bda64404b64e39f072ddfd73d"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-17.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "014e2f57f64e1b8ffb53be35dfb7197a98e44a024325c190ef56317d9ed4c177"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-18.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "30a71e4059e790fde415b31dd68f111451d7db1e0a7818e4b882c257cf4ecbe7"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-19.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "9c3f4d348a88174ee02962e8dffb4f98de7f24bf2d76215e7914a09f0a054728"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-20.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "e600bba5b26c87ce68bd02aff1ff75ce4d2c0441d89a7e7c164bbec3f2f21610"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-21.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "d03cb9cf4d7b3c931074a7b68cf51a30b7afe0294f46d45ab36c3802b9f252c9"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-22.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "3406494113f32835d0d33a3abcef4725f64f73344cdfaaff01497d78139bee8d"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-23.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "f9e631ceda1d34e01788aa24d239c434883f0ac2734c7c0515c114b86fa9aa55"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-24.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "688e5b04b264e9dd068f900fafcdb3e35f6726f889d854cd3e973182759a6f30"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-25.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "d0c027132418360a2bdd19fcae983b313125c37a0c5eec7740a2489b35bd2892"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-26.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "38c9491632f7ab668ca59754ce9a30e9b139990ab039c099b561bcc60cc94da1"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-27.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "9b915d40f5a3aadb78271aca5dc75c0efb1d254dce4444ac462b15c9809a5482"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-28.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "a1549f9e60fc9b6cdbb84e1de7aa65277a403bd137eb0679583ae5be34a2fabb"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-29.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "8c54242a824ed7a8e6b797a43e51f0e6edb7b3518e26a3b7cfb771e7045446c5"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-30.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "711b687ae3200fec5beb17c0eec49662e7b28634533b0e9e47582b17e5cbe951"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-31.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "d319f0d1e8f9307de4c7306dc847471e539d11f4365de2ea5769e0d61adf50fa"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-32.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "fc8f12861837dfbe9cc4d8448045544b4f569c7d0b030d61a22894eb5c2eb461"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-33.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "f9b0cfaeaf0e21c07c42cfd298e079b4a50d8def3801527bbad9ba650499838d"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-34.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "107671c5c11100e4dc760deb49569a12ea0411a5afe3a92efe1568b96ebe5a94"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-35.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "4085a4de9ef32ffff4ad5a1ba236b3cb06ece7d411a7acd1971dba7b9f6e425d"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-36.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "3c09e37da12a5198f2b30f3306968429a28391b3abb863891f0bedbab9b20367"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-37.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "ba5993dec44d7463c5929859a1eafd85ad76f260bb84661e38d45bee40d53fe3"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-38.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "acad23544aee18b7306858f7e1d2aec2e1334285ca45dc36eab45ff18c0cf795"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-39.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "61a6cc7b55c702173e1b9af8c6c0d5304bf7db14922b0dbd5bce18cdfe930364"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-40.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "a46ca777e4b0e3fd214566981f1e50d2d4fbff33e7cde784663dab92879cefca"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-41.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "93d1e3d8eb2fd31f174c4ed4d07b5546b98128ee32ec92f97619d4ad1100e982"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-42.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "8e098b35c2b12793c4e5bc79a6bc9deff35cd8da97b21c7b7f492de1f4ed56ff"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\cleanup\\obs-43.json",
+        "status": "HASHED",
+        "bytes": 598,
+        "sha256": "5416bd0366a9ab8b88ec33014e24137d16830452abe0c4078114c75995306374"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\failure_reproduction.json",
+        "status": "HASHED",
+        "bytes": 167,
+        "sha256": "c0091e05587c04b69534882bf5bd164af6432c4c007adefde07d0b6796a8c432"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\falsifiable_hypothesis.json",
+        "status": "HASHED",
+        "bytes": 285,
+        "sha256": "20a97ed98d31a237dc65cfd4bd5c14a0069819c96202f17e3f25d086baf47539"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\frozen_inputs.json",
+        "status": "HASHED",
+        "bytes": 1437,
+        "sha256": "280ca6d13785cebe2ca8738ce91297f46f894551e4fded8d0426dce911c9a523"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\hardware_metrics.json",
+        "status": "HASHED",
+        "bytes": 1658,
+        "sha256": "776d9fe7b6329831132af94d74e01de8d7efe39bf2109d48520ec8b9f2899b86"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\independent_evaluation.json",
+        "status": "HASHED",
+        "bytes": 544,
+        "sha256": "00b32413bcc2e24983fff7a03ede7a28311e78f4ed4066420bcc24601eab9af1"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\invalidation_rules.json",
+        "status": "HASHED",
+        "bytes": 191,
+        "sha256": "4d9e17f9a00a5e4215760f3fa93558e40c6ae20107a01844441ac77f641a5b6d"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\invariant_controls.json",
+        "status": "HASHED",
+        "bytes": 3544,
+        "sha256": "96f88baf32e5ede0250e43755b65ea7b628fb0978b535469bc01e4286c94544e"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-00.service.log",
+        "status": "HASHED",
+        "bytes": 4745,
+        "sha256": "fdfff93e84f794ccbe6b5a7f221affd947334c8610c387530d49ea54af62ea5b"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-01.service.log",
+        "status": "HASHED",
+        "bytes": 4745,
+        "sha256": "e55c99fa27a3697647d416208cd36015591a4cc113514e5016c1890dbf97f43b"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-02.service.log",
+        "status": "HASHED",
+        "bytes": 4745,
+        "sha256": "6f1584bcb49e0bf814f2e5be65ecbbf570b61df131e2376c9d0157937d554e59"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-03.service.log",
+        "status": "HASHED",
+        "bytes": 4745,
+        "sha256": "46d961b7e8251e57100864e131a7e3f94fc8666db21e7535a3a582bc5ccc5981"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-04.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "b680f72538620c819936ccd8274932321e6e3b8fc631fc24a1def3a4f2b74888"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-05.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "88ce67ba9382b7bb4b125dde8ef2499c629b7bb6266cfb7e9737719f8b949921"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-06.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "d2718c225d45c4c16a4ca5ab204e8f23d7bbe6b66827fef1e3aedf87c7a4da8f"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-07.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "b7a1f1ede5ffb5f87811b94d3855a7c373f3506e5381ef1d3807571573ada3d8"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-08.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "854b34f8443ff55fd63c1970603569702eac87a06735076745c5721b92d06a7e"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-09.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "b678586b08682f79df61a7e9d0d05145d671db42b50b7b8749ee88d66a9855a4"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-10.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "d7203eb0dac98b1548a5ff1a4a6f0dd3d026800ea975b6bcef853660daad38ed"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-11.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "8b6a089914d1df4605a24a10bcae057733641618adb0a17dd799b8cc71855782"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-12.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "94859e284a04fc87f185d1ae20a40cc64c7f77414272b239b4c4d02c2d5a2f11"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-13.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "da62274d96bc9a225acee474471ceeca61f0cd1ae39ca0a96985d6a6b35efb2f"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-14.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "15dc7bd0ec5dbd2d7c066e2bee9bf30e7b824155800a3f486803d1971e417e28"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-15.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "cb4805aa13f52648cfc83ad9c9d12f41a2a4ace9c714aa3cbef77f9f41332ebb"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-16.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "8224d0e299ed26068331ee4b250bfd40fb482c203275251cfaa388debb1d578f"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-17.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "1355adf102cfb5b34cd1f166d207346611f2a12ca4f30dbc928c396363b62533"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-18.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "87bd7802e44612dd29d88f1376ec9e1cba1a336410219e994fa7da139b3382a4"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-19.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "b3a60332ba46fb2e0f72dc9bad780ff286b5df967b24bd4a9f63dac71207a459"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-20.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "dcd52597a7969119bff8245306c59dc64f422a55d143b7c3e70e14bd59b22747"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-21.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "7f83285693691a7d5922a60e95d9f5de161b0fe87ae84adfda71cd940f028a51"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-22.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "f1ce4b1cad8245ed4ed5ef2dfbb34fd8b9a58c073cb2f0aad4a47bdf04e1af5d"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-23.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "1ffd121ea1c93efa34722591a9c5c36cf9b6d351fa0f13d86f85a64afa79e6cd"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-24.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "03d9fef45f35545b2d0ad1516bb75653099189fcc0972010db8c13b65e373020"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-25.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "a5cc356308536c4619cc768124484e89b69a97dd259668242b0c7443ba8cadf5"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-26.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "e30bbaf6aa76f9037117b7d367af3fe75198c3abbac6b83e80ee020940b2429f"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-27.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "3878950d1b8aa0a58a416fcfbc967646571bfed124fa03ac0e1d6f7c7038c533"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-28.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "2c86314cc8f4845f0b187b1a82b7b70c6b4f54b5146d1c95007c89855cbd1d3a"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-29.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "d4f19d3832af704ec545e94b66af609af18246f8a4e4ab08647b41b44f4164fc"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-30.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "73466caf2dc2c523e6881cd6962b6531cfaa5d262012578e9bf9b6edb8a03931"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-31.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "b92b26e160d3bc153d337243e5d07c57ab400a55a4b42b413e233b123a888323"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-32.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "d0775cdd422fd4e4e8c878e2af452cc00415130f4af94a687b3fc70f29e70a11"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-33.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "44948cdac1a7a3f07ae1bcd444df457a2a42bd74bdee7b5df127bd82aac63397"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-34.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "111dcbc67cad092db76cc33674f6ff6cb40624d566d592897ff1a43a03b97d32"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-35.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "8a84b5337fbe92305a31f6bc2536a4e1925c19974a33e1f72ce2d4818ab2673e"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-36.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "36b14dad728c86bd1de58231602ce475139859b454387a4309b9523fbe45308e"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-37.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "e858da5ec07973187cb3db76347d0833b6af578dc2c8ab3eab99b58591117e47"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-38.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "ada412f46eaf86bb084e8b78ab29e75f85dd05a3f40770b271ad0906fdc26e06"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-39.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "a5944dd56f914cd4ba19a11fbb52cd4e67e20461020a56beee750157fc95ce2e"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-40.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "6de55efd82a7ca200029ce33ee402428bd47941c31215c9a0d16b6fcee86b432"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-41.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "c3e8d670ce9684015b7bdadba296cb26554548787a310ed44099e4ede17a7aae"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-42.service.log",
+        "status": "HASHED",
+        "bytes": 6871,
+        "sha256": "f597cd1089299429d74cd3cf181b224ece91b6f0d3943de81c1c68f65761c9c3"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\logs\\local-labs-mtp-persist-43.service.log",
+        "status": "HASHED",
+        "bytes": 5562,
+        "sha256": "f8e0caa44523682ea836b715fd683e4bd66e93a28e58b05aebf454dd68ba42d2"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\recovery_state.json",
+        "status": "HASHED",
+        "bytes": 1815,
+        "sha256": "c30a58c210eba759d82c44a8635f0c91e293fb552802a987a5f571eb5a707ba4"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\runner_state.json",
+        "status": "HASHED",
+        "bytes": 3380,
+        "sha256": "9dd8ebf1a9bc18d8f8fe2bb79fdfe1116d9e11f35d388121feb77a0934a8663f"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\samples.jsonl",
+        "status": "HASHED",
+        "bytes": 2681187,
+        "sha256": "ae235a397007db32e6c5adc4228f26023fd0a7a5efa4a93cab8d7ba9e6b1b34d"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\semantic_parity.json",
+        "status": "HASHED",
+        "bytes": 72,
+        "sha256": "92eea0bdc94e8495da563fa1c6a0036c3a37fa8c694ccf58e1ae38f70ce852f9"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\service_identity.json",
+        "status": "HASHED",
+        "bytes": 1587,
+        "sha256": "3b907b6318e3d2ccb857a76fd85bf41ca8fb6edbf3af66eab5da7de8efe11b57"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-MTP-PERSISTENCE-01\\raw\\service_maintenance.json",
+        "status": "HASHED",
+        "bytes": 2044,
+        "sha256": "1d3f73ee040055c7140e1906ed386dd603b1c28cd5045e516f1ccdf9f0de816a"
+      }
+    ],
+    "environment": {
+      "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+      "executable": "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {},
+      "gpu": {
+        "available": true,
+        "query": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576",
+        "error": null
+      }
+    },
+    "runtime": {
+      "execution_mode": "fresh_systemd_units",
+      "observations": 44,
+      "restartable": true
+    }
+  },
+  "provenance_complete": true,
+  "gates": {
+    "original_failure": {
+      "metric": "original_failure_reproduced",
+      "operator": "eq",
+      "threshold": true,
+      "actual": false,
+      "pass": false
+    },
+    "controls": {
+      "metric": "invariant_controls_pass",
+      "operator": "eq",
+      "threshold": true,
+      "actual": false,
+      "pass": false
+    },
+    "fixed_repeats": {
+      "metric": "successful_fixed_path_repeats",
+      "operator": "ge",
+      "threshold": 20,
+      "actual": 0,
+      "pass": false
+    },
+    "semantic_parity": {
+      "metric": "post_fix_mismatch_rate",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": 0.0,
+      "pass": true
+    }
+  },
+  "evidence": {
+    "acceptance_gates": "raw/receipt.json",
+    "failure_reproduction": "raw/failure_reproduction.json",
+    "falsifiable_hypothesis": "raw/falsifiable_hypothesis.json",
+    "independent_evaluation": "raw/independent_evaluation.json",
+    "invalidation_rules": "raw/invalidation_rules.json",
+    "invariant_controls": "raw/invariant_controls.json",
+    "provenance": "raw/receipt.json",
+    "raw_samples": "raw/samples.jsonl",
+    "receipt_fingerprint": "raw/receipt.json",
+    "semantic_parity": "raw/semantic_parity.json"
+  },
+  "receipt_fingerprint": "2aac0f35c30ca507a74acda0e3448d3f37368786cc757c6861daac7ca56c86df"
+}

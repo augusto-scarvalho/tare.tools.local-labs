@@ -1,0 +1,95 @@
+{
+  "id": "BACKLOG-QWEN38-KV-PRECISION-01",
+  "priority": 1,
+  "title": "Qualify Qwen3.8 Q4_0 KV cache against F16 on physical serving",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-QWEN38-KV-PRECISION-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "config/qualified_model_fleet.json",
+    "workloads/gsm8k.jsonl",
+    "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl",
+    "docs/HANDOFF_2026-08-26_CONSOLIDATED_RESEARCH_BACKLOG.md"
+  ],
+  "required_evidence": [
+    "acceptance_gates",
+    "actual_scores",
+    "binary_identity",
+    "block_logs",
+    "dataset_hashes",
+    "effective_route",
+    "environment",
+    "hardware_metrics",
+    "independent_evaluation",
+    "paired_baseline",
+    "provenance",
+    "raw_samples",
+    "receipt_fingerprint",
+    "recovery_state",
+    "service_identity",
+    "service_maintenance",
+    "treatment_controls"
+  ],
+  "acceptance_gates": [
+    {
+      "id": "treatment_identity",
+      "metric": "explicit_cache_controls_verified",
+      "operator": "eq",
+      "threshold": true
+    },
+    {
+      "id": "balanced_crossover",
+      "metric": "valid_abba_blocks",
+      "operator": "eq",
+      "threshold": 4
+    },
+    {
+      "id": "request_integrity",
+      "metric": "successful_response_rate",
+      "operator": "eq",
+      "threshold": 1.0
+    },
+    {
+      "id": "semantic_parity",
+      "metric": "extracted_answer_parity_rate",
+      "operator": "ge",
+      "threshold": 0.9
+    },
+    {
+      "id": "quality_non_regression",
+      "metric": "q4_accuracy_regression",
+      "operator": "le",
+      "threshold": 0.03125
+    },
+    {
+      "id": "physical_memory_saving",
+      "metric": "vram_saving_mib",
+      "operator": "ge",
+      "threshold": 1000
+    },
+    {
+      "id": "throughput_non_regression",
+      "metric": "q4_vs_f16_throughput_ratio",
+      "operator": "ge",
+      "threshold": 0.95
+    },
+    {
+      "id": "service_recovery",
+      "metric": "service_and_embedding_restored",
+      "operator": "eq",
+      "threshold": true
+    }
+  ],
+  "allowed_claim_codes": [
+    "QWEN38_Q4_KV_PHYSICALLY_QUALIFIED_R1",
+    "QWEN38_Q4_KV_PHYSICALLY_REJECTED_R1"
+  ],
+  "forbidden_claims": [
+    "quality equivalence outside the frozen panel",
+    "memory savings on GPUs or context sizes other than the frozen setup",
+    "causal attribution to bandwidth without profiler evidence",
+    "production promotion",
+    "generalization to other model architectures"
+  ],
+  "next_action": "Run fresh F16-Q4-Q4-F16 physical server blocks on Qwen3.8 with identical MTP/runtime controls, a frozen 32-case GSM8K panel, physical VRAM telemetry and exact service restoration."
+}

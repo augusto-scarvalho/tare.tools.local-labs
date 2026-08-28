@@ -1,0 +1,65 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-MTP-PERSISTENCE-FUNCTIONAL-03",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex",
+  "stage": "REJECTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:33:17Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:33:50Z",
+      "reason": "Frozen 16-cycle functional reuse test"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:35:33Z",
+      "reason": "Sixteen-cycle cache reuse, prefill reduction and parity test implemented"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T10:39:53Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
+      "at": "2026-08-28T11:17:14Z",
+      "reason": "Independent 16-cycle audit confirms serialization but zero functional cache reuse or prefill reduction"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-MTP-PERSISTENCE-FUNCTIONAL-03/PRE_REGISTRATION.md",
+    "sha256": "f6effb18628b83973eb8b884e52b0929a00efa7485765b586e3501f8564977f4"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_mtp_persistence_functional_r3.py",
+      "sha256": "2668769066c9483a350e8fb7df6b98b384d8f56a1e6689444a330502863a0b32"
+    }
+  ],
+  "implementation_digest": "7a34c7391e42c11c5e31ba8f53f176e736a67f39a1754a0ec9af97a455ae233f",
+  "execution": {
+    "path": "runs/research/BACKLOG-MTP-PERSISTENCE-FUNCTIONAL-03/raw/receipt.json",
+    "sha256": "abb33c7a777b1604cf91315456d003dae5ac0a6341219688a35e4dc7d858facd"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-MTP-PERSISTENCE-FUNCTIONAL-03/RESULT.md",
+    "sha256": "fe5e6c55cee96becd97dec2558a3baff5d6f8f5e362acf430a55f3df43e049f2"
+  },
+  "review": {},
+  "claim_codes": [
+    "MTP_PERSISTENCE_FUNCTIONAL_REUSE_REJECTED_R3"
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "schema": "local-labs-experiment-watch-status-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-26-01",
+  "updated_at": "2026-08-27T03:37:47Z",
+  "experiments": [
+    {
+      "task_id": "BACKLOG-ADAPT-TRACE-DISTILL-05",
+      "pid": 42416,
+      "process_alive": false,
+      "progress": 9,
+      "expected_progress": 14,
+      "pipeline_stage": "IMPLEMENTED",
+      "watch_status": "failed_no_receipt"
+    },
+    {
+      "task_id": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02",
+      "pid": 49112,
+      "process_alive": false,
+      "progress": 1,
+      "expected_progress": 1,
+      "pipeline_stage": "EXECUTED",
+      "watch_status": "executed_valid"
+    }
+  ],
+  "gpu": {
+    "memory_used_mib": 19751,
+    "memory_free_mib": 4572,
+    "utilization_percent": 1,
+    "temperature_c": 43,
+    "power_w": 107.65
+  },
+  "health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "states": {
+    "BACKLOG-ADAPT-TRACE-DISTILL-05": {
+      "status": "failed_no_receipt",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-27T03:37:47Z",
+        "receipt_exists": false,
+        "result_exists": false,
+        "stage_before": "IMPLEMENTED",
+        "status": "failed_no_receipt"
+      }
+    },
+    "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02": {
+      "status": "executed_valid",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-27T01:26:35Z",
+        "receipt_exists": true,
+        "result_exists": true,
+        "stage_before": "IMPLEMENTED",
+        "advance": {
+          "returncode": 0,
+          "stdout": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02: advanced to EXECUTED",
+          "stderr": ""
+        },
+        "stage_after": "EXECUTED",
+        "gate": {
+          "returncode": 0,
+          "stdout": "BACKLOG PIPELINE: PASS",
+          "stderr": ""
+        },
+        "status": "executed_valid"
+      }
+    }
+  },
+  "final": {
+    "schema": "local-labs-experiment-watch-final-v1",
+    "watch_id": "EXPERIMENT-WATCH-2026-08-26-01",
+    "finished_at": "2026-08-27T03:37:47Z",
+    "status": "complete_with_alert",
+    "states": {
+      "BACKLOG-ADAPT-TRACE-DISTILL-05": {
+        "status": "failed_no_receipt",
+        "was_seen_alive": true,
+        "finalization": {
+          "at": "2026-08-27T03:37:47Z",
+          "receipt_exists": false,
+          "result_exists": false,
+          "stage_before": "IMPLEMENTED",
+          "status": "failed_no_receipt"
+        }
+      },
+      "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02": {
+        "status": "executed_valid",
+        "was_seen_alive": true,
+        "finalization": {
+          "at": "2026-08-27T01:26:35Z",
+          "receipt_exists": true,
+          "result_exists": true,
+          "stage_before": "IMPLEMENTED",
+          "advance": {
+            "returncode": 0,
+            "stdout": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02: advanced to EXECUTED",
+            "stderr": ""
+          },
+          "stage_after": "EXECUTED",
+          "gate": {
+            "returncode": 0,
+            "stdout": "BACKLOG PIPELINE: PASS",
+            "stderr": ""
+          },
+          "status": "executed_valid"
+        }
+      }
+    },
+    "pipeline_gate": {
+      "returncode": 0,
+      "stdout": "BACKLOG PIPELINE: PASS",
+      "stderr": ""
+    },
+    "final_health": {
+      "http://127.0.0.1:8080/health": 200,
+      "http://127.0.0.1:8081/health": 200
+    },
+    "final_gpu": {
+      "memory_used_mib": 19751,
+      "memory_free_mib": 4572,
+      "utilization_percent": 1,
+      "temperature_c": 43,
+      "power_w": 107.65
+    }
+  }
+}

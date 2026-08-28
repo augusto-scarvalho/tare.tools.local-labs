@@ -1,0 +1,55 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-01",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-27T21:16:27Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-27T21:16:53Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-27T21:17:55Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T21:33:04Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-01/PRE_REGISTRATION.md",
+    "sha256": "bf5ef2c20ba6b08852ab14fcd2761c54230b389b34058caa0487f062d645dbe7"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_fleet_context_interference.py",
+      "sha256": "9494c2b886213b394f68d2ba157eaec7a7d942930dff980bf4f77d24c98cdb1a"
+    },
+    {
+      "path": "tools/research/run_fleet_context_interference.py",
+      "sha256": "ef62c2e4075ed0c70f30c0b44534344423c4aba3beea8965bcbb6e72b473091b"
+    }
+  ],
+  "implementation_digest": "cd9c14e1c78a3279d174ae81986054491f0696020ff28d1fed0c4c53ec56290a",
+  "execution": {
+    "path": "runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-01/raw/receipt.json",
+    "sha256": "96c57a33a1539c8f0e6d3eac1dca20352cc8bfd274e5a72a8ccb00c95667d8de"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

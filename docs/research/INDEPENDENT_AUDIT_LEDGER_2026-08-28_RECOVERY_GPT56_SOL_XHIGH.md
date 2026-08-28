@@ -1,0 +1,56 @@
+# Independent recovery-wave audit ledger — 2026-08-28
+
+Reviewer: `GPT-5.6 Sol xhigh recovery independent audit instance`
+
+Policy: packets are reviewed sequentially from immutable raw evidence. Receipt SHA-256, canonical fingerprint, provenance inputs, implementation digest, frozen gates, claim boundaries, service evidence, and both false-positive and false-negative alternatives are checked before any disposition. Raw evidence is not modified; manifest transitions use only `tools/analysis/backlog_pipeline.py advance`.
+
+## 1. BACKLOG-ADAPT-MECHANISMS-COMPLETE-02
+
+- Binding: receipt `fee03cc40a3bae4c7701775a44b59f9da837e6e6d752fefcc3c6e033ba2e1aa2`; fingerprint `c1167c1e19a9a9cdb1fb7044068d9d8e7db812b87c8aecd13b5863f1785715d5`; implementation digest `af8c1377f326a3cbda6e0350bbbcb660c20e443c9b59c7747f11d7a0c508f74b`; all 23 provenance inputs match.
+- Recomputed evidence: exact 720+48 source-row projection; 768 unique keys; 16 arms; 32 math and 16 QA rows per arm; 768/768 frozen-scorer agreement; `adapt01/lokr_5ep` = 16/32 math and 5/16 QA; 13 adapter checkpoints; normalized historical service restoration passes.
+- Disposition: `EXECUTED -> BLOCKED`, review verdict `HOLD_FAIL_CLOSED`, superseded by R3. The receipt's frozen `seed_control` gate remains mechanically failed and is not rewritten.
+- False-positive/false-negative audit: confirmed executor false negative. Four nested arm records carry seed 20260827 while eight omit the redundant field inspected by R2. The source R1 receipt validly binds experiment-level `seed.json` (`d9ad3488...7b5d13b`) and five commands with `--seed 20260827`; the missing-arm source independently records the same seed. No row, scorer, coverage, artifact or restoration false positive was found.
+- Claim limits: this packet is preserved as a false-negative regression case. It does not authorize `ADAPT01_05_MECHANISMS_COMPLETED_R2`, scientific rejection, cross-seed repeatability, universal superiority, fresh execution or production use.
+
+## 2. BACKLOG-ADAPT-MECHANISMS-COMPLETE-03
+
+- Binding: receipt `bf9323182d499929be94bdf0e061adc99fa6687001e8a529daa0612539b7fe49`; fingerprint `7cf7e27b1d11383d48d98b49b1186297e10dbae3622e2f37358c2d74b719403f`; implementation digest `6cf4b9c1a1621ce32e1385b54b6bf4cd35c1f1ab1b9e68cc479ad05f82067592`; all 18 provenance inputs match.
+- Recomputed evidence: exact pointer to R2 samples SHA `dfd74427...3bfdc3`; 768 unique keys; 16 arms; 32+16 rows per arm; key-set SHA `1ae59c2c...18ec0`; 768/768 scorer agreement. All shared metrics and arm summaries equal R2; `lokr_5ep` remains 16/32 math, 5/16 QA. Artifact, scorer and service evidence are byte-identical.
+- Disposition: approved for `ADAPT01_05_MECHANISMS_COMPLETED_R3`; all ten frozen gates pass.
+- False-positive/false-negative audit: R3 corrects only the evidence source for seed to digest-bound experiment-level `seed.json` = 20260827. No row, arm, score, threshold, panel, artifact, service criterion or estimand changed; no new training/inference occurred. The source-integrity metric is renamed only to describe the R2 source.
+- Claim limits: frozen seed-20260827 five-mechanism completion on the 32-math/16-QA panels only; no cross-seed repeatability, universal or causal superiority, fresh generation/training, or production claim.
+
+## 3. BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-02
+
+- Binding: receipt `a6240c4408934f7c1efd785a079ff619e472de7b90babe45352de34ae2065740`; fingerprint `8e728d306ba505dbd7fe6e668b997eb99dfbd4a504972834c1915b3f7c8c14bf`; implementation digest `8ee3aaa73cc3b3f4003542fe9bb7262f39adfe753e18210fd6ca2f8b1b54617a`; all 22 provenance inputs match; source fingerprint recomputes.
+- Recomputed evidence: exact 512/512 extraction-label projection; answer-only 76/256, trace 105/256, delta 0.11328125, paired discordance 48 versus 19; fresh 20,000-replicate bootstrap seed 2026082711 gives `[0.05078125, 0.17578125]`. Three 256-task panels are pairwise disjoint. Signature is `(question, text)` and all 19 frozen fixtures replay.
+- Disposition: `EXECUTED -> BLOCKED`, review verdict `HOLD_FAIL_CLOSED`. All receipt gates are mechanically pass, so `REJECTED` is illegal; positive promotion is scientifically unsafe.
+- False-positive/false-negative audit: same-unit adversarial probes fail 4/4. The scorer chooses later incidental 9h over final 7h, $200 over final $168, 44 pieces over final 14, and 15 slices over an explicit 0-slice conclusion. The latter exists in-panel at full_trace `gsm8k/838` and becomes a false correct label; answer-only `gsm8k/665` and `/711` are two more observed false positives. Multiple explicit correct final answers are also turned false, so arm accuracy is not reliable despite exact algorithmic reproducibility.
+- Claim limits: no `TRACE_DISTILLATION_DEPLOYMENT_FINALIST_RESCORED_R2`, deployment, fourth-panel, teacher-equivalence or production claim. A successor needs frozen same-unit/observed-panel adversarial fixtures and a complete 512-row rescore; no new generation or seed selection is needed.
+
+## 4. BACKLOG-QWEN38-Q8-KV-UTILITY-02
+
+- Binding: receipt `c4653adbc30ba652ef64d60130f416b47667e14c97ca726d5b55e309e7af2b20`; fingerprint `5d080939a0a9c5097b94fc482fa4fe6820e2a6eb30392f37868626121e65981b`; implementation digest `5497daf2057394302378503f6c53fa8a11fcdf3021400e94f87affdc5964bcff`; all 33 provenance inputs and both predecessor fingerprints match. Fresh WSL hashes reproduce binary `efb2f06c...1cfbe2` and 17,923,394,624-byte model `bee238bb...fb1372`.
+- Physical treatment: distinct zero-restart PIDs 120042/120210; process argv and current journal invocation bind K/V jointly to `f16/f16` and `q8_0/q8_0`; same binary/model/common controls; four warmups then 128 requests per arm.
+- Recomputed evidence: 256 successful unique arm-task rows; panel SHA `78338489...a786`, no prior-panel overlap. Stored scorer replay gives F16 38/128, Q8 37/128, delta -0.0078125 and 20k bootstrap `[-0.046875, 0.0234375]`. TPS medians 87.2271475/85.245499, ratio 0.9772817459; global VRAM 21,263/20,391 MiB, saving 872 MiB; qwen38/backend and embedding restored.
+- Disposition: `EXECUTED -> BLOCKED`, review verdict `HOLD_FAIL_CLOSED`. All receipt gates are mechanically pass, so `REJECTED` is illegal.
+- False-positive/false-negative audit: 201/256 capped outputs lack `####`; q8 `gsm8k/111` stops before calculating water intake and is falsely marked correct because last-number fallback selects incidental `16 seconds`. Corrected result is F16 38/128 versus Q8 36/128, delta -0.015625, discordance 1/3 and bootstrap `[-0.046875, 0.015625]`; the bounded thresholds still pass, but the receipt metric is false and `a2_stats.py` is not directly provenance-bound.
+- Claim limits: no signature of `QWEN38_Q8_KV_UTILITY_NONINFERIOR_R2` from this receipt. A scorer-bound semantic rescore successor can use the retained 256 outputs without rerunning inference. No exact equivalence, Q4_0, all-model, long-context, per-process VRAM or production claim.
+
+## 5. BACKLOG-AGY-SYSTEM-BLOCKERS-03
+
+- Binding: receipt `5ebe76094b02ed4557533fa6def8b64241a3b1ad4fc0124c7d10359df6e8589e`; fingerprint `ece0d27dac51fd408ea6b0c5710af0c2755a7457fe8f97849b5679f22757010c`; implementation digest `994c6fe374b727c4a126d05529914063d3742671d27774ecc4e8583282bf94dc`; all 16 provenance inputs and the R2 predecessor fingerprint match. HEAD and commit object are the exact immutable `87a416bd75d5a64e66e55846b779c0a54eca21bd`; all 14 recorded whole-tree search counts/output hashes and the model-inventory digest replay exactly.
+- Recomputed evidence: `ggml_cuda_try_gdn_cache_fusion` recognizes the GDN-plus-strided-copy graph, validates the snapshot tail/cache view, and provides the physical cache pointer/stride. `ggml_cuda_op_gated_delta_net_fused_cache` redirects `state_d` to that cache, while `ggml_cuda_try_fuse` dispatches the fused op and skips the matched copy nodes.
+- Disposition: approved for `AGY_SYSTEM_BLOCKER_FALSE_NEGATIVE_CONFIRMED_R3`, strictly as a source-materialization finding at commit `87a416bd`. The R2 path-restricted missing-source conclusion is a confirmed false negative.
+- False-positive/false-negative audit: direct semantic inspection establishes more than a lexical near-match for SLX-03, but finds no proof of build/deployed callability, N16/EOS-only cadence, functional execution, hardware write reduction or performance. The five remaining classifications are bounded search results only: global KV control is not per-layer allocation, DFlash is nearby rather than selected-block prefill/TTFT, and no feature-specific H2O, KVarN or retrofit artifact anchor was identified. They do not prove universal absence.
+- Service evidence: recorded before/after identity is exact, zero-restart and healthy on 8080/8081. Fresh inspection remains healthy with the same executable/argv shape and zero restarts; a later PID is not substituted into historical evidence.
+- Claim limits: no inference from the earlier synthetic policy/oracle to N16, EOS, hardware counters or speed; no deployment, equivalence, production or complete-absence claim. The `semantic_evidence` gate is interpreted as classification coverage, not six affirmative mechanism proofs.
+
+## 6. BACKLOG-MTP-PERSISTENCE-FUNCTIONAL-03
+
+- Binding: receipt `abb33c7a777b1604cf91315456d003dae5ac0a6341219688a35e4dc7d858facd`; fingerprint `a570e2b3b2becb2534fa852e6033688129fa7b1caf547ab4b033b0cb21b0b4ba`; implementation digest `7a34c7391e42c11c5e31ba8f53f176e736a67f39a1754a0ec9af97a455ae233f`; all 37 provenance inputs and both predecessor fingerprints match. Fresh physical hashes reproduce binary `efb2f06c...1cfbe2` and model `bee238bb...fb1372`.
+- Recomputed evidence: 16 ordered, unique-prompt cycles; prompt-set SHA `c1e0e698...99172b`; every lifecycle action HTTP 200; every save/restore reports 6,744 tokens; 16 distinct 281,362,032-byte slot-file hashes. All finalized projections match. Yet every warm request has `cache_n=0`, cold/warm `prompt_n=6739`, cache fraction 0 and prefill-token reduction 0. Exact continuation is 16/16.
+- Disposition: review approves the negative disposition and the canonical state advances `EXECUTED -> REJECTED` with `MTP_PERSISTENCE_FUNCTIONAL_REUSE_REJECTED_R3`. The three functional gates fail exactly as recorded; serialization/lifecycle and parity gates pass.
+- False-positive/false-negative audit: a nonempty file, `n_restored=6744` and deterministic continuation parity cannot substitute for reusable cache state. Conversely, absent `cache_n` is not merely a telemetry false negative: the journal independently has 32 full 6,739-token prompt evaluations and median paired prompt-time reduction only 0.0002337 with mixed signs.
+- Service evidence: isolated PID 120921 ran q4_0/q4_0 with `draft-mtp`; persistent service was stopped through systemd and qwen38/embedding restored. Fresh checks show the gateway active with zero restarts, qwen38 healthy, embedding 200, transient unit absent and save directory removed.
+- Claim limits: reject functional reuse only for this runtime/model/configuration and these sixteen same-process cycles. Do not reject file serialization; do not infer cross-process persistence, crash recovery, general MTP failure, cross-model behavior, production durability or performance.

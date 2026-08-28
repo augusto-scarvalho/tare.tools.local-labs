@@ -1,0 +1,66 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02",
+  "evidence_class": "artifact_requalification",
+  "executor": "Codex executor",
+  "stage": "REJECTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-27T00:30:54Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-27T00:31:32Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-27T00:34:00Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T01:26:35Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T00:59:04Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02/PRE_REGISTRATION.md",
+    "sha256": "477e3ece2ff5c70250c45a9c91160f563c36fa10d5344059268c84b99939b196"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_adapt01_broad_artifact_eval_r2.py",
+      "sha256": "723e6f81f2754c95748b2c76678a843266131619231f478588d69794cfb76431"
+    },
+    {
+      "path": "tools/research/run_adapt01_broad_artifact_eval_r2.py",
+      "sha256": "7978351859fc4c03a534088339b9e58c91074fdc43ee6bb1c5cef99a87aee022"
+    }
+  ],
+  "implementation_digest": "18b3df0b2390a77ab1354194b72125ac9c566c1a4b997459ab95fb17654ead9f",
+  "execution": {
+    "path": "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02/raw/receipt.json",
+    "sha256": "c64faac1231dcbba3b0c7e2ae9071ce6e503ebf62766e6c53b9b95b416ca4780"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02/RESULT.md",
+    "sha256": "7e2201a74ec68b98fab8ae1e4701256e73f851288e29168ad5903aaf16493bd6"
+  },
+  "review": {},
+  "claim_codes": [
+    "ADAPT01_384_ARTIFACT_BROAD_GAIN_NOT_CONFIRMED_R2"
+  ]
+}

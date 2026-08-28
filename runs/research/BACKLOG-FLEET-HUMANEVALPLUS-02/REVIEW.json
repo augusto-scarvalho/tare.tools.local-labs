@@ -1,0 +1,16 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "APPROVED",
+  "receipt_sha256": "b6cce633af34db44f92d76f345e19b3c3b0a5e8ccc0c9b756904f545be9f615a",
+  "implementation_digest": "afcbe1f1bba75bdbe39aa6cfdc2527617734d325728ff9e3e77b88666baac825",
+  "findings": [
+    "Receipt fingerprint, implementation digest and all 32 provenance inputs independently match; fresh SHA-256 and byte-size reads also reproduce all four bound GGUF identities.",
+    "The frozen full panel contains 164 unique ordered HumanEval+ tasks with hash 8c4a9413be6b6b793de94b702ab733ca734db2f5d6bca361605f1d7f71dd9ebe; the 164 Qwen3.8 records and solution rows exactly reproduce the failed-no-receipt R1 source, while the other three routes contribute exactly 492 fresh rows.",
+    "All 656 rows are unique, HTTP-successful and nonempty. Independent reconstruction reproduces every request hash, response alias, task order, finish/truncation flag and frozen code extraction, and every per-model solution file exactly joins to its raw records.",
+    "Independent cache-busted EvalPlus 0.3.1 execution reproduces every per-task verdict and Plus score: qwen38 146/164, hauhaucs 146/164, fable-tc 147/164 and qwen36-moe 135/164.",
+    "The independently recomputed 20000-replicate paired bootstrap at seed 2026082714 reproduces hauhaucs minus qwen38 point 0, discordance 4/4 and 95 percent interval [-0.0304878, 0.03658537], passing the frozen -0.05 noninferiority margin; hauhaucs absolute pass@1 is 0.8902439.",
+    "Thirteen rows hit the symmetric 768-token cap and all thirteen fail the official scorer, so truncation cannot create a false positive. Three are gated-comparison discordances, with a net one-row disadvantage to hauhaucs; the separately preregistered cap-correction successor keeps both scientific gates positive, while its recovery gate remains a distinct operational hypothesis.",
+    "The R1 scorer-import abort is used only as hash-bound continuation provenance, never as model evidence. Approval is limited to these aliases, full panel, greedy 768-token contract and runtime; it does not establish MBPP superiority, latency ranking, broad-default promotion or permission to weaken the successor's frozen cap-recovery gate."
+  ]
+}

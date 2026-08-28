@@ -1,0 +1,252 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02",
+  "provenance": {
+    "schema": "local-labs-experiment-provenance-v1",
+    "started_at_utc": "2026-08-27T00:34:11Z",
+    "finished_at_utc": "2026-08-27T01:26:16Z",
+    "elapsed_seconds": 3124.813,
+    "command": [
+      "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "tools/research/run_adapt01_broad_artifact_eval_r2.py",
+      "--outdir",
+      "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02",
+      "--outer-runner-pid",
+      "42416"
+    ],
+    "cwd": "C:\\projects\\tare.tools.local-labs",
+    "repository": {
+      "head": "9d46725a5f9e58eff4172ec46ea4bd1eb0b84a02",
+      "dirty": true,
+      "status_entry_count": 229,
+      "status_sha256": "fa726f3282853dab99759480d4068f15234a16c8f965174fa972d3039210a2e8",
+      "errors": []
+    },
+    "script": {
+      "path": "C:\\projects\\tare.tools.local-labs\\tools\\research\\run_adapt01_broad_artifact_eval_r2.py",
+      "sha256": "7978351859fc4c03a534088339b9e58c91074fdc43ee6bb1c5cef99a87aee022"
+    },
+    "inputs": [
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\config\\research_backlog_admissions\\BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02.json",
+        "status": "HASHED",
+        "bytes": 2420,
+        "sha256": "1691233003e4ab97b9986c035e78581e4ef04b565f766dd3e19a1449e4d81b8c"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-MECHANISMS-RERUN-01\\raw\\receipt.json",
+        "status": "HASHED",
+        "bytes": 21368,
+        "sha256": "dd975197993bab7943ea2407a664f20fda927bb6fc581714eba093f7e93be0c6"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-MECHANISMS-RERUN-01\\raw\\mechanisms\\adapt01\\lokr_3ep_lr1e4\\adapter\\adapter_model.safetensors",
+        "status": "HASHED",
+        "bytes": 1505752,
+        "sha256": "7f6d082243f6b406259791dc15a65e4b092b48597fad9b68018d507872ad8fa7"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-MECHANISMS-RERUN-01\\raw\\mechanisms\\adapt01\\lokr_3ep_lr1e4\\adapter\\adapter_config.json",
+        "status": "HASHED",
+        "bytes": 823,
+        "sha256": "08cf4d254e2a6c9aba9d34ba6a0c76926b478d7cd0ad771062acefb71a31d934"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT-MECHANISMS-RERUN-01\\raw\\mechanisms\\adapt01\\lokr_3ep_lr1e4\\metrics.json",
+        "status": "HASHED",
+        "bytes": 5396,
+        "sha256": "09d6295f934843fa85cd2a4757a1b045695e1b83c8a56c19c73c3d8bbecc0a9c"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\workloads\\gsm8k.jsonl",
+        "status": "HASHED",
+        "bytes": 389701,
+        "sha256": "68a72276898a45dacb893154477621ff3d05ae7e043a10820644b691d8b63d77"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\a2\\market-r0__thinkingcap-27b-q4__gsm8k.json",
+        "status": "HASHED",
+        "bytes": 634971,
+        "sha256": "dc5cabe44c92e48b0e832881ef27ebad4047b140928c9a12678e0c0c6660006e"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\requalification\\QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23\\tasks.jsonl",
+        "status": "HASHED",
+        "bytes": 11016,
+        "sha256": "56434ebd53ff9f5adb477bd902566e28644fe9ea88619834f81417a06c66b84f"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02\\raw\\worker.json",
+        "status": "HASHED",
+        "bytes": 574588,
+        "sha256": "930172bc74c565ab93e9afe36a54c23fb7e84e7dc0b2b66a15b1dba6b1e5a38b"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02\\raw\\panel.json",
+        "status": "HASHED",
+        "bytes": 5228,
+        "sha256": "2d0d5e4e9f3f05a9595c767f2e471f475d56670a4bd79dd4c441f7d2e27d27fd"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02\\raw\\actual_scores.json",
+        "status": "HASHED",
+        "bytes": 487,
+        "sha256": "dcefff0bb4ad1ae4e03ec8f3876a72624d0d5fc7c4c92552bd2cd8080900b5c0"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02\\raw\\artifact_hashes.json",
+        "status": "HASHED",
+        "bytes": 1560,
+        "sha256": "b0d86f7604d07ed0535b804ef4e00026c25df0c199148622fe00153e5d4373e2"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02\\raw\\clean_base_receipts.json",
+        "status": "HASHED",
+        "bytes": 49,
+        "sha256": "b78adf9c6ee91c48cc745426a65540edf1b9cb07ea2317a37d4fc46a3986c25b"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02\\raw\\dataset_hashes.json",
+        "status": "HASHED",
+        "bytes": 500,
+        "sha256": "f6cbdc266cfab6f17297ab632505548b9f70ec0c5dc4870e0f640e629c3e8d43"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02\\raw\\independent_evaluation.json",
+        "status": "HASHED",
+        "bytes": 558,
+        "sha256": "75a6a768db8570c494460e428fa573cd66729eaa8918e77fc39f763e0eb603f7"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02\\raw\\isolation_smoke.json",
+        "status": "HASHED",
+        "bytes": 154,
+        "sha256": "897c2562bb64d3b3a907859bf443f5e20bfa1eb3ae2d15f3d3f6b1a2cce768f5"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02\\raw\\model_hash.json",
+        "status": "HASHED",
+        "bytes": 397,
+        "sha256": "45f10080c70897cb106b21013bc4953f6a5696a27296098972d60ca132fad1ec"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02\\raw\\paired_baseline.json",
+        "status": "HASHED",
+        "bytes": 138,
+        "sha256": "f90b1852f11656e37fa4636d8ecfcc852502e400acd4e17eed457ace34639020"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02\\raw\\samples.jsonl",
+        "status": "HASHED",
+        "bytes": 527393,
+        "sha256": "691d10da554d2ba6eab1c7d9c6d40181673ecde60c89b791c32aed643fc12603"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02\\raw\\scorer_hashes.json",
+        "status": "HASHED",
+        "bytes": 242,
+        "sha256": "4d3db0c4ad337a95ee1141ab747fa3f4f70803dec85df7018e42a63e50c2042e"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02\\raw\\service_maintenance.json",
+        "status": "HASHED",
+        "bytes": 350,
+        "sha256": "785abfcb98fc49c51a43f2d6d155c4280e8d0b5b7ce41f37e01af192a150d9f6"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02\\raw\\source_execution_receipt.json",
+        "status": "HASHED",
+        "bytes": 101,
+        "sha256": "a2052d9d31ff178c9fd39797439e336fd4717f89cec8077c390bd825235c2d3d"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02\\raw\\wsl_environment.json",
+        "status": "HASHED",
+        "bytes": 165,
+        "sha256": "cb4bb52075dcf7a845e6cdda0a737938f765b750fac1ae539e6a393abf19c16a"
+      }
+    ],
+    "environment": {
+      "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+      "executable": "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {
+        "pytest": "9.1.1"
+      },
+      "gpu": {
+        "available": true,
+        "query": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576",
+        "error": null
+      }
+    },
+    "runtime": {
+      "execution_mode": "gpu_cotenant_artifact_evaluation",
+      "outer_runner_pid": 42416,
+      "timing_is_evidence": false
+    }
+  },
+  "provenance_complete": true,
+  "gates": {
+    "artifact_identity": {
+      "metric": "artifact_hashes_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": true,
+      "pass": true
+    },
+    "panel_isolation": {
+      "metric": "teacher_disjoint_math_tasks",
+      "operator": "eq",
+      "threshold": 256,
+      "actual": 256,
+      "pass": true
+    },
+    "evaluation_coverage": {
+      "metric": "paired_math_and_qa_generations",
+      "operator": "eq",
+      "threshold": 608,
+      "actual": 532,
+      "pass": false
+    },
+    "broad_gain": {
+      "metric": "paired_bootstrap_95ci_lower_math_gain",
+      "operator": "gt",
+      "threshold": 0.0,
+      "actual": 0.0234375,
+      "pass": true
+    },
+    "protected_retention": {
+      "metric": "protected_qa_regression",
+      "operator": "le",
+      "threshold": 0.05,
+      "actual": 0.0,
+      "pass": true
+    },
+    "co_tenancy_boundary": {
+      "metric": "outer_runner_alive_and_embedding_healthy",
+      "operator": "eq",
+      "threshold": true,
+      "actual": true,
+      "pass": true
+    }
+  },
+  "evidence": {
+    "acceptance_gates": "raw/receipt.json",
+    "actual_scores": "raw/actual_scores.json",
+    "artifact_hashes": "raw/artifact_hashes.json",
+    "clean_base_receipts": "raw/clean_base_receipts.json",
+    "dataset_hashes": "raw/dataset_hashes.json",
+    "independent_evaluation": "raw/independent_evaluation.json",
+    "isolation_smoke": "raw/isolation_smoke.json",
+    "model_hash": "raw/model_hash.json",
+    "paired_baseline": "raw/paired_baseline.json",
+    "provenance": "raw/receipt.json",
+    "raw_samples": "raw/samples.jsonl",
+    "receipt_fingerprint": "raw/receipt.json",
+    "scorer_hashes": "raw/scorer_hashes.json",
+    "service_maintenance": "raw/service_maintenance.json",
+    "source_execution_receipt": "raw/source_execution_receipt.json",
+    "wsl_environment": "raw/wsl_environment.json"
+  },
+  "receipt_fingerprint": "6c418e18b8319a8db0457630e55f7001700a7edf0d09b7d5aa613c093c19a012"
+}

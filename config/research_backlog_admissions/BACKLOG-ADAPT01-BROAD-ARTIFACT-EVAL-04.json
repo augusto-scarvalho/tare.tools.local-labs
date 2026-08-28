@@ -1,0 +1,43 @@
+{
+  "id": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-04",
+  "priority": 0,
+  "title": "Replicate the broad LoKr artifact gain on a second teacher-disjoint math panel",
+  "evidence_class": "artifact_requalification",
+  "packet_dir": "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-04",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-03/raw/merged_worker.json",
+    "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-03/raw/receipt.json",
+    "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt01/lokr_3ep_lr1e4/adapter",
+    "workloads/gsm8k.jsonl",
+    "runs/a2/market-r0__thinkingcap-27b-q4__gsm8k.json",
+    "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "clean_base_receipts",
+    "continuation_ledger", "dataset_hashes", "independent_evaluation", "isolation_smoke",
+    "model_hash", "paired_baseline", "provenance", "raw_samples", "receipt_fingerprint",
+    "scorer_hashes", "service_maintenance", "source_execution_receipt", "wsl_environment"
+  ],
+  "acceptance_gates": [
+    {"id": "source_integrity", "metric": "r3_source_hashes_verified", "operator": "eq", "threshold": true},
+    {"id": "artifact_identity", "metric": "artifact_hashes_verified", "operator": "eq", "threshold": true},
+    {"id": "panel_isolation", "metric": "second_panel_disjoint_from_teacher_and_r3", "operator": "eq", "threshold": true},
+    {"id": "evaluation_coverage", "metric": "fresh_paired_math_generations", "operator": "eq", "threshold": 512},
+    {"id": "replicated_gain", "metric": "paired_bootstrap_95ci_lower_math_gain", "operator": "gt", "threshold": 0.0},
+    {"id": "directional_consistency", "metric": "r3_and_r4_math_gain_positive", "operator": "eq", "threshold": true},
+    {"id": "protected_retention", "metric": "imported_r3_protected_qa_regression", "operator": "le", "threshold": 0.05},
+    {"id": "independent_score", "metric": "independent_rescore_match", "operator": "eq", "threshold": true},
+    {"id": "service_recovery", "metric": "service_and_embedding_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "ADAPT01_384_ARTIFACT_SECOND_PANEL_GAIN_R4",
+    "ADAPT01_384_ARTIFACT_SECOND_PANEL_GAIN_NOT_CONFIRMED_R4"
+  ],
+  "forbidden_claims": [
+    "training repeatability across seeds", "latency or throughput qualification",
+    "production promotion", "generalization beyond Qwen3.5-0.8B and the two frozen panels"
+  ],
+  "next_action": "Evaluate clean-base and immutable LoKr arms on the next 256 teacher-disjoint GSM8K IDs after the R3 panel, import R3 protected-QA only by hash, independently rescore, and restore serving.",
+  "supersedes": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-03"
+}

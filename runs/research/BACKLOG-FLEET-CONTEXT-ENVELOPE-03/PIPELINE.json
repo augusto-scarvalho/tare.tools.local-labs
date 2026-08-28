@@ -1,0 +1,55 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-03",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-27T20:23:36Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-27T20:24:00Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-27T20:24:46Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T20:39:53Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-03/PRE_REGISTRATION.md",
+    "sha256": "d0a62bbec7f7b64840098abdbd869cc3cdc783a613fbad88a54f58daed9bcac4"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_fleet_context_envelope_r3.py",
+      "sha256": "63b22441b007150adeaa61be183238ad71e6647ca095ceee822af43b25015c3d"
+    },
+    {
+      "path": "tools/research/run_fleet_context_envelope_r3.py",
+      "sha256": "a674174eeeb4aebb2a5cd871ed6211085b5e1c28040d1e8041e519100ba857cf"
+    }
+  ],
+  "implementation_digest": "937c28bba7fb86c97a5c99db44d52561ddbbe6691d077f7a606b843abedaa574",
+  "execution": {
+    "path": "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-03/raw/receipt.json",
+    "sha256": "17f0ec8b541f6d769dd5909ca4a44bc3f7c2813d13cc51ec8b206d74090d15d6"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

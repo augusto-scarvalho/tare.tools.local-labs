@@ -1,0 +1,21 @@
+{
+  "schema": "local-labs-experiment-watch-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-27-BROAD-R4",
+  "experiment_mode": true,
+  "poll_seconds": 15,
+  "service_settle_seconds": 180,
+  "experiments": [
+    {
+      "task_id": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-04",
+      "pid": 37080,
+      "packet_dir": "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-04",
+      "progress_glob": "raw/finalized/*.json",
+      "expected_progress": 1
+    }
+  ],
+  "final_health_urls": [
+    "http://127.0.0.1:8080/health",
+    "http://127.0.0.1:8081/health"
+  ],
+  "actor": "Codex executor watcher"
+}

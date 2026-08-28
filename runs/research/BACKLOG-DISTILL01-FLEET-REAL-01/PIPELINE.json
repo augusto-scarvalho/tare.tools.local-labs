@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-DISTILL01-FLEET-REAL-01",
   "evidence_class": "mechanism_research",
   "executor": "Codex executor",
-  "stage": "EXECUTED",
+  "stage": "REJECTED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,13 @@
       "to": "EXECUTED",
       "actor": "Codex executor",
       "at": "2026-08-26T00:24:50Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T02:35:25Z",
+      "reason": "Frozen routed-fleet gain and math-specialist gates fail after independent rescore; bounded scorer-error sensitivity remains below both thresholds."
     }
   ],
   "preregistration": {
@@ -57,7 +64,12 @@
     "path": "runs/research/BACKLOG-DISTILL01-FLEET-REAL-01/raw/receipt.json",
     "sha256": "2e10932d49489671978f0254c72656e12773b3ae4179487792af88193b96ba25"
   },
-  "result": {},
+  "result": {
+    "path": "runs/research/BACKLOG-DISTILL01-FLEET-REAL-01/RESULT.md",
+    "sha256": "183d18af0547c0061c3737b949b70e9ae25aa1bf2a61c98b6659170842120799"
+  },
   "review": {},
-  "claim_codes": []
+  "claim_codes": [
+    "DISTILL01_FALSE_POSITIVE_CONFIRMED_R1"
+  ]
 }

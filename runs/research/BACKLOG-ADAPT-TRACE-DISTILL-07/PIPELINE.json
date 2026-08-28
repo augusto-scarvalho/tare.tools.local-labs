@@ -1,0 +1,83 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-DISTILL-07",
+  "evidence_class": "distillation",
+  "executor": "Codex executor",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-27T03:56:57Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-27T03:57:29Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-27T03:58:26Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T05:52:07Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T01:16:32Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T01:16:33Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/PRE_REGISTRATION.md",
+    "sha256": "39fbf88e3ad1683a3c268d1bf93dd7eb09511356103fc12664639c23c605cae7"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_trace_distillation_confirmation_r6.py",
+      "sha256": "c20c68d3fe1e5e3fb71e80b50b79e0a097352afdeabdeaa46f2c49525daa52af"
+    },
+    {
+      "path": "tests/test_trace_distillation_confirmation_r7.py",
+      "sha256": "3e8e313cd4bfb3939e6e4e5c859053522c749bfb15ef5ddbc2aee6c3d8bf6949"
+    },
+    {
+      "path": "tools/research/run_trace_distillation_confirmation_r6.py",
+      "sha256": "8bad4b065bb99ab97fe78250f999e44748bccb7ab889727d721531c2aacc00ee"
+    },
+    {
+      "path": "tools/research/run_trace_distillation_confirmation_r7.py",
+      "sha256": "715251b5fd80f9dbf8503cd9731f561b72a9d8d587aee471122b8d4e5db246b3"
+    }
+  ],
+  "implementation_digest": "bd9991e6df99439dff8fc256d91b401157a85e3f8ec46c9237a1418796668a94",
+  "execution": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/receipt.json",
+    "sha256": "782d9e58a97c5ac55dd6ebc2d62c67f9e003af415fb62e14ac8124718ea93b3a"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/RESULT.md",
+    "sha256": "c588ad9a56813472767014a34bea16d7d4122fb3ec949731c31ee1b0e1479f43"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/REVIEW.json",
+    "sha256": "041ff2a6ae34d0931df04ec2d54367a9101f4db0c7ef5a62a60435f985f6492f"
+  },
+  "claim_codes": [
+    "TRACE_DISTILLATION_CONFIRMED_R7"
+  ]
+}

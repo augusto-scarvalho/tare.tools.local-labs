@@ -1,0 +1,21 @@
+{
+  "schema": "local-labs-experiment-watch-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-27-FLEET-HUMANEVAL-R1",
+  "experiment_mode": true,
+  "poll_seconds": 15,
+  "service_settle_seconds": 180,
+  "experiments": [
+    {
+      "task_id": "BACKLOG-FLEET-HUMANEVALPLUS-01",
+      "pid": 29460,
+      "packet_dir": "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-01",
+      "progress_glob": "raw/finalized/*.json",
+      "expected_progress": 4
+    }
+  ],
+  "final_health_urls": [
+    "http://127.0.0.1:8080/health",
+    "http://127.0.0.1:8081/health"
+  ],
+  "actor": "Codex executor watcher"
+}

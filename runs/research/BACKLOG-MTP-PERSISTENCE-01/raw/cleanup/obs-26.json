@@ -1,0 +1,35 @@
+{
+  "stop": {
+    "argv": [
+      "wsl",
+      "-d",
+      "Ubuntu-24.04",
+      "-u",
+      "root",
+      "--",
+      "systemctl",
+      "stop",
+      "local-labs-mtp-persist-26.service"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "remove": {
+    "argv": [
+      "wsl",
+      "-d",
+      "Ubuntu-24.04",
+      "-u",
+      "root",
+      "--",
+      "rm",
+      "-rf",
+      "--",
+      "/home/augus/.local/state/tare-mtp-persistence/BACKLOG-MTP-PERSISTENCE-01/obs-26"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+}

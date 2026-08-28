@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-CUDAGRAPH-SERVING-02",
   "evidence_class": "serving_runtime",
   "executor": "Codex executor",
-  "stage": "EXECUTED",
+  "stage": "REJECTED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,12 @@
       "to": "EXECUTED",
       "actor": "Codex executor",
       "at": "2026-08-25T22:23:57Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T02:23:10Z"
     }
   ],
   "preregistration": {
@@ -53,7 +59,12 @@
     "path": "runs/research/BACKLOG-CUDAGRAPH-SERVING-02/raw/receipt.json",
     "sha256": "eaa409f1620b45cb9bc939223f4407aed2b3be5615e5f4bd0027a00539f225f6"
   },
-  "result": {},
+  "result": {
+    "path": "runs/research/BACKLOG-CUDAGRAPH-SERVING-02/RESULT.md",
+    "sha256": "bc4ea23d65d3ebc84cb38f1fd7240125de33040a284259a1a62dbd2ffc939a9a"
+  },
   "review": {},
-  "claim_codes": []
+  "claim_codes": [
+    "SERVING_CUDAGRAPH_CAUSAL_REJECTED_R2"
+  ]
 }

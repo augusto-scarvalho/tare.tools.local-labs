@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-ADAPT01-640-EVAL-01",
   "evidence_class": "artifact_requalification",
   "executor": "Codex executor",
-  "stage": "EXECUTED",
+  "stage": "REJECTED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,12 @@
       "to": "EXECUTED",
       "actor": "Codex executor",
       "at": "2026-08-26T03:20:37Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T00:56:58Z"
     }
   ],
   "preregistration": {
@@ -53,7 +59,12 @@
     "path": "runs/research/BACKLOG-ADAPT01-640-EVAL-01/raw/receipt.json",
     "sha256": "cb0180cc424db42e5a8a81fd6bf60c66b5b61c5a2c029631e909418276e8d170"
   },
-  "result": {},
+  "result": {
+    "path": "runs/research/BACKLOG-ADAPT01-640-EVAL-01/RESULT.md",
+    "sha256": "30ecd70efa8b0800dca84a4e28b2043692c9e273a898b41e0da72a0058d90fe7"
+  },
   "review": {},
-  "claim_codes": []
+  "claim_codes": [
+    "ADAPT01_640_ARM_REJECTED_R1"
+  ]
 }

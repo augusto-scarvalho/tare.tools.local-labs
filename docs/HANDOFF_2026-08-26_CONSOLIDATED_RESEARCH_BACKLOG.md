@@ -1,5 +1,10 @@
 # Handoff: consolidated research backlog after the full AGY rerun audit
 
+> **Queue snapshot superseded:** for the current 80-record manifest and
+> 43-packet independent-audit queue, use
+> [`HANDOFF_2026-08-27_INDEPENDENT_AUDIT_QUEUE.md`](HANDOFF_2026-08-27_INDEPENDENT_AUDIT_QUEUE.md).
+> This document remains historical context for the first 52-record consolidation.
+
 Date: 2026-08-26  
 Repository: `tare.tools.local-labs`  
 Canonical manifest: `config/research_backlog.json`  

@@ -1,0 +1,17 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "REJECTED",
+  "receipt_sha256": "873f05f8aa91798f0185d643fabe7bd62444dda835baf703f1b69c2e946885a4",
+  "implementation_digest": "92a783ca73a5c391fb387e0eb57ed502eafe2c533bc6086aae17b088b144e6e4",
+  "findings": [
+    "Receipt fingerprint, implementation digest, all six implementation-file hashes and all 18 provenance inputs independently match. The wrapper command and base recovery implementation are both covered by the implementation digest.",
+    "The immutable source contains exactly 36 rows: 24 real-model rows covering eight schemas by three seeds and 12 valid controls. All 24 requests target local, all responses identify fable-tc-l1.0, all finish naturally, and every raw and filtered string reconstructs exactly from the retained token pieces and acceptance decisions.",
+    "Independent recomputation reproduces raw real validity 24/24, filtered real validity 18/24, real exact preservation 18/24, valid-control token acceptance 110/122, valid-control exact preservation and validity 10/12, p50 20.0716667 and frozen nearest-rank p95 34.85 microseconds/token. Four mandatory substantive gates fail and overhead passes.",
+    "The sidecar corrupts already-valid nested objects and record arrays. For example it rejects token pieces ':\"{' and the final braces from {\"status\":\"ok\",\"meta\":{\"enabled\":true,\"note\":null}}, producing invalid {\"status\":\"ok\",\"metaenabled\":true,\"note\":null; the same defects appear in valid controls. These are genuine construct failures of the frozen offline filter.",
+    "Adversarial false-negative audit shows that discarding an already sampled invalid candidate without re-sampling is not equivalent to logit masking before sampling. Therefore the 0.75 validity and 0.901639 recall values cannot falsify a distinct, correctly integrated constrained-decoding mechanism; they diagnose this offline proxy and its tokenizer-piece handling.",
+    "The operational integration failure is direct: production-only search under src and ops finds no ASTGrammarSidecar or ast_grammar_sidecar reference, and the bound active llama-server argv contains no sidecar or grammar integration. Current production-tree search independently remains empty. This packet performs no integrated treatment.",
+    "The historical 100% result used hand-built corrupted chunks and appended a closing brace after filtering before parsing. That repair and synthetic tokenization make the historical promotion a confirmed false positive for a runtime guarantee, even though they do not prove that all future constrained decoders fail.",
+    "The allowed rejection is limited to CTRL-01 runtime qualification and the historical promotion on this frozen JSON construct. It is an integration/proxy rejection, not a claim of model harm, a causal comparison of samplers, Python-mode failure, or impossibility of a successor that binds masking to candidate logits and re-samples."
+  ]
+}

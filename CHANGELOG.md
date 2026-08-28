@@ -6,6 +6,19 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added a six-packet rejected/HOLD recovery wave with independent-audit queue:
+  corrected trace deployment scoring, clean-provenance Q8 KV utility,
+  semantic AGY blocker classification, functional MTP reuse falsification,
+  and complete 768-row ADAPT mechanism synthesis including an explicitly
+  preserved and corrected executor-side seed false negative.
+- Added a restart-safe independent-audit handoff and machine-readable review
+  queue for all 43 `EXECUTED` research packets in the current 80-record
+  manifest, preserving successor-chain order, claim boundaries, evidence
+  bindings, operational checks and fail-closed stop conditions.
+- Added comprehensive experiment-watcher documentation covering lifecycle,
+  queue handoff, progress markers, persisted artifacts, failure semantics,
+  low-noise polling, fixtures, live canary and known limitations; the canary
+  now explicitly uses its bounded five-second polling cadence.
 - Added a shared, tested changelog guard for local pre-push and GitHub CI. It
   requires meaningful `Unreleased` entries for material changes, exempts
   documentation-only work, validates committed rather than worktree content,
@@ -67,6 +80,18 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Changed
 
+- Closed the six-packet GPT-5.6 Sol xhigh recovery audit with two promotions,
+  three fail-closed holds and one bounded rejection. The review independently
+  recomputed receipt bindings, raw projections, frozen gates and operational
+  restoration rather than accepting executor summaries.
+- Promoted the complete 768-row ADAPT mechanism matrix after confirming that
+  its predecessor's failed seed gate was an executor false negative, and
+  confirmed bounded SLX-03 source materialization at immutable slop.cpp commit
+  `87a416bd` without extending the claim to build, deployment or performance.
+- Kept Q8 KV's physical throughput and 872 MiB memory observations distinct
+  from its blocked behavioral receipt: the corrected 38/128 versus 36/128
+  result remains inside the preregistered noninferiority interval, but requires
+  a provenance-bound semantic rescore before promotion.
 - Consolidated the 36-item AGY scientific ledger with the 52-record canonical
   FSM history: 31 claims have a decisive physical successor, five are purely
   implementation-blocked, and SLX-08 has a qualified fidelity result plus a
@@ -109,6 +134,18 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Fixed
 
+- Detected and fail-closed the trace scorer's same-unit extraction defect. It
+  failed 4/4 adversarial probes and produced observed false positives and
+  false negatives despite reproducing all 512 stored labels and the reported
+  bootstrap interval.
+- Detected a Q8 scoring false positive where a truncated answer's incidental
+  `16 seconds` matched the gold value. The auditable correction changes Q8
+  accuracy from 37/128 to 36/128; retained raw outputs allow repair without
+  another inference run.
+- Distinguished MTP cache-file serialization from functional KV reuse: sixteen
+  save/restore cycles produced valid files and exact continuations, but all
+  warm requests had `cache_n=0`, identical 6,739-token prefill and zero prefill
+  reduction, so functional reuse was rejected for the tested route.
 - Fixed backlog portability so CI can validate source identity without storing
   multi-gigabyte model derivatives; unbound missing inputs still fail closed.
 - Fixed the ADAPT-01 false-negative classification by evaluating the fresh
@@ -133,8 +170,9 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Pending
 
-- Independently review the Codex successor packets currently stopped at
-  `EXECUTED`; the executor did not self-promote or author approval receipts.
+- Repair and fully rescore the held trace and Q8 packets using frozen
+  same-unit adversarial fixtures and a provenance-bound semantic scorer. Their
+  retained 512 and 256 outputs respectively make new GPU inference unnecessary.
 - Materialize the six absent integration claims before retesting them:
   SLX-03 recurrent state-write elision, SLX-07 H2O eviction, SLX-08
   selected-block TTFT, REP-04 KVarN fused kernel, REP-05 per-layer KV precision,
@@ -142,6 +180,13 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 - Retain the external-prerequisite backlog for genuine human judge labels,
   official ThinkingCap/RetNet/APEX4 artifacts, quantizer provenance, MTP
   identity/persistence and a physical BEE-L2 codec.
+
+## 2026-08-27
+
+### Pending
+
+- Independently review the Codex successor packets currently stopped at
+  `EXECUTED`; the executor did not self-promote or author approval receipts.
 
 ## 2026-08-24
 

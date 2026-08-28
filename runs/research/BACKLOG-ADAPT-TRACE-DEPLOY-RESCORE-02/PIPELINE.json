@@ -1,0 +1,60 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-02",
+  "evidence_class": "distillation",
+  "executor": "Codex",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:20:06Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:20:29Z",
+      "reason": "Frozen external fixture-validated rescore over existing 512 outputs"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:22:06Z",
+      "reason": "Gold-blind scorer and 18 external fixtures self-checked"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T10:22:42Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "BLOCKED",
+      "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
+      "at": "2026-08-28T11:02:43Z",
+      "reason": "HOLD_FAIL_CLOSED: gold-blind scorer has observed same-unit incidental-number false positives; 512-row semantic accuracy is not independently signable"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-02/PRE_REGISTRATION.md",
+    "sha256": "d1913954b36609a5e1089dd8ee79c10af981ebb3c94b12270c6b407c2e0e8910"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_trace_deploy_rescore_r2.py",
+      "sha256": "4a5b54f7531d08a0e5d03cc12e7b7f47984b4fec5e5a1b753a4027368a4b6e3e"
+    }
+  ],
+  "implementation_digest": "8ee3aaa73cc3b3f4003542fe9bb7262f39adfe753e18210fd6ca2f8b1b54617a",
+  "execution": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-02/raw/receipt.json",
+    "sha256": "a6240c4408934f7c1efd785a079ff619e472de7b90babe45352de34ae2065740"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

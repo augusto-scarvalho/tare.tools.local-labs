@@ -1,0 +1,71 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-DISTILL-08",
+  "evidence_class": "distillation",
+  "executor": "Codex",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-27T12:01:07Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-27T12:01:44Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-27T12:05:15Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T15:22:16Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T01:18:46Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T01:18:47Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-08/PRE_REGISTRATION.md",
+    "sha256": "616dd2e9db64dca15e8578843588cc85c33ad197b85c871fe6c0fd7ae2a7cb63"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_trace_distillation_replication_r8.py",
+      "sha256": "0ad1f687c8ed1b9f0d923a61fa853a47ece9b35dbaaaa0b72b483e9793cbcbec"
+    }
+  ],
+  "implementation_digest": "61206ae22cdfaddf1a1a407d97c48ed2d5acb6a6a77c4599acbf13e8f1625219",
+  "execution": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-08/raw/receipt.json",
+    "sha256": "eb4cff3c9d5022887f2621bdf0c303b4aca807e9449e8c600860bd72a046b990"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-08/RESULT.md",
+    "sha256": "4c11c244dba89de6b74baa1c9aeb35447704ce5c5b358c9952ed798562b4a13b"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-08/REVIEW.json",
+    "sha256": "1f08156bf7ad972d3f549229d9bc0c78ad88fd3fbc8d95f022e1ab4b3b951a01"
+  },
+  "claim_codes": [
+    "TRACE_DISTILLATION_SECOND_PANEL_REPLICATED_R8"
+  ]
+}

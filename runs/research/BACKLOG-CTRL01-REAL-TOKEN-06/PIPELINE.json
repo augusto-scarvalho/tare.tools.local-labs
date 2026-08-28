@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-CTRL01-REAL-TOKEN-06",
   "evidence_class": "mechanism_research",
   "executor": "Codex executor",
-  "stage": "EXECUTED",
+  "stage": "REJECTED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,13 @@
       "to": "EXECUTED",
       "actor": "Codex executor",
       "at": "2026-08-26T00:38:57Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T02:38:22Z",
+      "reason": "Frozen physical rescore fails validity, valid-control recall/preservation and production runtime-binding gates; rejection is bounded to the offline proxy and historical runtime claim."
     }
   ],
   "preregistration": {
@@ -65,7 +72,12 @@
     "path": "runs/research/BACKLOG-CTRL01-REAL-TOKEN-06/raw/receipt.json",
     "sha256": "873f05f8aa91798f0185d643fabe7bd62444dda835baf703f1b69c2e946885a4"
   },
-  "result": {},
+  "result": {
+    "path": "runs/research/BACKLOG-CTRL01-REAL-TOKEN-06/RESULT.md",
+    "sha256": "ce15f67207eea79ebb7af1825c47acd585ed5c26f0b40ef715ec8f1254d00bdc"
+  },
   "review": {},
-  "claim_codes": []
+  "claim_codes": [
+    "CTRL01_FALSE_POSITIVE_CONFIRMED_R6"
+  ]
 }

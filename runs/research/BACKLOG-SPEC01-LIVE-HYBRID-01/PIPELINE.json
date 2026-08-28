@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-SPEC01-LIVE-HYBRID-01",
   "evidence_class": "serving_runtime",
   "executor": "codex",
-  "stage": "EXECUTED",
+  "stage": "REJECTED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,13 @@
       "to": "EXECUTED",
       "actor": "codex",
       "at": "2026-08-26T01:47:58Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T03:09:17Z",
+      "reason": "Independent live recomputation confirms a 0.6889x hybrid/MTP wall ratio and no per-proposer attribution; claim is bounded to the frozen live R1 hypothesis, not the simulator's autoregressive-baseline arithmetic."
     }
   ],
   "preregistration": {
@@ -49,7 +56,12 @@
     "path": "runs/research/BACKLOG-SPEC01-LIVE-HYBRID-01/raw/receipt.json",
     "sha256": "b0329f38c0ff5f05057610d94cb9cdf1eeb7539cd5fdc79b245aefd5c74bafc8"
   },
-  "result": {},
+  "result": {
+    "path": "runs/research/BACKLOG-SPEC01-LIVE-HYBRID-01/RESULT.md",
+    "sha256": "a760a24653d0dfa9668a1a99fb8888bb8f5ebe5d1d1ced2239173f6c73541b93"
+  },
   "review": {},
-  "claim_codes": []
+  "claim_codes": [
+    "SPEC01_FALSE_POSITIVE_CONFIRMED_R1"
+  ]
 }

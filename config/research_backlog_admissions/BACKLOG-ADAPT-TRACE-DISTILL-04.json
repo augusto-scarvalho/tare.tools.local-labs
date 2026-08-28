@@ -1,0 +1,93 @@
+{
+  "id": "BACKLOG-ADAPT-TRACE-DISTILL-04",
+  "priority": 0,
+  "title": "Confirm trace distillation with seven paired seeds, longer training, and broad held-out panels",
+  "evidence_class": "distillation",
+  "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-04",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/a2/market-r0__thinkingcap-27b-q4__gsm8k.json",
+    "workloads/gsm8k.jsonl",
+    "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/receipt.json"
+  ],
+  "required_evidence": [
+    "acceptance_gates",
+    "actual_scores",
+    "checkpoint_hashes",
+    "dataset_hashes",
+    "independent_evaluation",
+    "model_hash",
+    "provenance",
+    "raw_samples",
+    "receipt_fingerprint",
+    "service_maintenance",
+    "student_samples",
+    "teacher_samples",
+    "training_pairs",
+    "training_trace",
+    "treatment_materiality"
+  ],
+  "acceptance_gates": [
+    {
+      "id": "treatment_materiality",
+      "metric": "matched_distinct_training_targets_verified",
+      "operator": "eq",
+      "threshold": true
+    },
+    {
+      "id": "training_budget",
+      "metric": "training_steps_per_arm_per_seed",
+      "operator": "eq",
+      "threshold": 504
+    },
+    {
+      "id": "seed_coverage",
+      "metric": "completed_paired_seeds",
+      "operator": "eq",
+      "threshold": 7
+    },
+    {
+      "id": "heldout_coverage",
+      "metric": "heldout_math_samples_per_arm_per_seed",
+      "operator": "eq",
+      "threshold": 256
+    },
+    {
+      "id": "confirmed_gain",
+      "metric": "hierarchical_bootstrap_95ci_lower_trace_math_gain",
+      "operator": "gt",
+      "threshold": 0.0
+    },
+    {
+      "id": "directional_repeatability",
+      "metric": "seeds_with_positive_trace_math_gain",
+      "operator": "ge",
+      "threshold": 5
+    },
+    {
+      "id": "protected_retention",
+      "metric": "mean_protected_qa_regression_vs_answer_only",
+      "operator": "le",
+      "threshold": 0.05
+    },
+    {
+      "id": "service_recovery",
+      "metric": "service_and_embedding_restored",
+      "operator": "eq",
+      "threshold": true
+    }
+  ],
+  "allowed_claim_codes": [
+    "TRACE_DISTILLATION_CONFIRMED_R4",
+    "TRACE_DISTILLATION_NOT_CONFIRMED_R4"
+  ],
+  "forbidden_claims": [
+    "teacher-level noninferiority",
+    "production promotion",
+    "generalization beyond Qwen3.5-0.8B, the frozen corpora, and the tested training budget",
+    "causal attribution to trace style components not isolated by this experiment"
+  ],
+  "next_action": "Run seven fresh paired answer-only and full-trace LoRA trainings for 504 steps each, then evaluate every arm on 256 untouched GSM8K prompts and all 48 protected QA prompts.",
+  "supersedes": "BACKLOG-ADAPT-TRACE-DISTILL-03"
+}

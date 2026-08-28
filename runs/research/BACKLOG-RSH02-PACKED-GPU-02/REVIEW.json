@@ -1,0 +1,17 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "REJECTED",
+  "receipt_sha256": "42d9eec4265f66b780a2da383f1959ce8423f33ed614829f2abdf6226014288b",
+  "implementation_digest": "ee9b89db8f6457928b89d9e0b5b0959d0f196aee849cd30487d471b4ad8476cb",
+  "findings": [
+    "Receipt fingerprint, implementation digest, all five implementation-file hashes and all 29 provenance inputs independently match. Fresh SHA-256 of the physical Qwen shard reproduces c2b1e5a17d9c1e27685d92ed9b382911ebb99955ecd89052d1721241adfbab6c.",
+    "Fresh CPU reads and 64-element signed-INT4 quantization of the four frozen layer-0/1 gate/up tensors reproduce every tensor shape/hash, every per-tensor symbol hash and the complete 14,680,064-symbol ledger byte-for-byte.",
+    "Independent CPU Huffman decoding of all 114,688 restart blocks reproduces the symbol ledger exactly. Independent nibble unpack of int4_packed.bin is also exact. This verifies physical packing and round trip without a GPU rerun.",
+    "Physical sizes independently reproduce 6,478,036 bitstream bytes plus 458,752 offset bytes plus 8,192 lookup bytes = 6,944,980 bytes, or 3.7847137451171875 bits/element. Even excluding all offset and codebook overhead, empirical code lengths require 3.5029142243521556 bits/element, so accounting cannot rescue the frozen 3.0 gate.",
+    "The ten bound timing batches reproduce medians 1.3183660888671875 ms Huffman and 0.043356161117553714 ms INT4, input throughput 5.267869113629514 GB/s and penalty 30.407814134942345x. All thresholds are recomputed from retained raw batch values.",
+    "Adversarial batch sensitivity remains far from qualification: choosing the fastest Huffman batch yields only 5.342129278844687 GB/s, and pairing fastest Huffman with slowest INT4 still gives 25.67381091817008x. Counting decoded output bytes instead of compressed input would be about 11.14 GB/s, also far below 100 GB/s.",
+    "The packed Huffman representation is only 5.382% smaller than physical INT4. The paired service PID and health remain stable and 25 warmups precede five 100-iteration CUDA-event batches; lack of clock/utilization telemetry limits fine attribution but cannot plausibly bridge the 18.7x throughput and 12.8x penalty margins in these stable batches.",
+    "The negative is retained only for this frozen 128-symbol restart codec, lookup decoder, four Qwen tensors and RTX 3090 screen. It does not reject entropy coding universally, a different parallel decoder or block size, serving integration, VRAM reduction, model quality or end-to-end latency."
+  ]
+}

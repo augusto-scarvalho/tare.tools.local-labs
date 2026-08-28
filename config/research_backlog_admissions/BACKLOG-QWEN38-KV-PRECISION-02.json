@@ -1,0 +1,44 @@
+{
+  "id": "BACKLOG-QWEN38-KV-PRECISION-02",
+  "priority": 0,
+  "title": "Qualify Qwen3.8 Q8_0 KV cache as the bounded compromise after Q4_0 divergence",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-QWEN38-KV-PRECISION-02",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-QWEN38-KV-PRECISION-01/raw/receipt.json",
+    "runs/research/BACKLOG-QWEN38-KV-PRECISION-01/raw/samples.jsonl",
+    "tools/research/run_qwen38_kv_precision.py",
+    "config/qualified_model_fleet.json",
+    "workloads/gsm8k.jsonl"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "binary_identity", "block_logs",
+    "dataset_hashes", "effective_route", "environment", "hardware_metrics",
+    "independent_evaluation", "paired_baseline", "provenance", "raw_samples",
+    "receipt_fingerprint", "recovery_state", "service_identity",
+    "service_maintenance", "source_execution_receipt", "treatment_controls"
+  ],
+  "acceptance_gates": [
+    {"id": "treatment_identity", "metric": "explicit_cache_controls_verified", "operator": "eq", "threshold": true},
+    {"id": "balanced_crossover", "metric": "valid_abba_blocks", "operator": "eq", "threshold": 4},
+    {"id": "request_integrity", "metric": "successful_response_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "f16_repeatability", "metric": "f16_repeat_parity_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "q8_repeatability", "metric": "q8_repeat_parity_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "semantic_parity", "metric": "q8_f16_extracted_answer_parity_rate", "operator": "ge", "threshold": 0.95},
+    {"id": "quality_non_regression", "metric": "q8_accuracy_regression", "operator": "le", "threshold": 0.03125},
+    {"id": "physical_memory_saving", "metric": "vram_saving_mib", "operator": "ge", "threshold": 500},
+    {"id": "throughput_non_regression", "metric": "q8_vs_f16_throughput_ratio", "operator": "ge", "threshold": 0.95},
+    {"id": "service_recovery", "metric": "service_and_embedding_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "QWEN38_Q8_KV_PHYSICALLY_QUALIFIED_R2",
+    "QWEN38_Q8_KV_PHYSICALLY_REJECTED_R2"
+  ],
+  "forbidden_claims": [
+    "Q4_0 qualification", "all-model generalization", "long-context quality",
+    "latency improvement from model-load time", "promotion without independent review"
+  ],
+  "next_action": "Run a fresh-process F16-Q8_0-Q8_0-F16 crossover on the same frozen panel and stop after R2 regardless of outcome.",
+  "supersedes": "BACKLOG-QWEN38-KV-PRECISION-01"
+}

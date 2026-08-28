@@ -1,0 +1,55 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-GATEWAY-ROUTE-STRESS-01",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex executor",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T23:42:49Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T23:44:45Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T23:44:46Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T23:53:30Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-01/PRE_REGISTRATION.md",
+    "sha256": "15928db4b6c40047430c3445dcf59ffa7b3643ada4120b3f69c0e5940a06d506"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_fleet_regression_screen.py",
+      "sha256": "7cbf942375c120970ac78fb40f7f15050ebddb7ec5372cb40bd721009faf1de3"
+    },
+    {
+      "path": "tools/research/run_gateway_route_stress.py",
+      "sha256": "b2320b36685a0d535b8d7d9d85da0e4a39b49abf3be134cb9f3c2802363515a8"
+    }
+  ],
+  "implementation_digest": "66300a274e0b7b9a63a15b68a1b22f45e722bd505dfc684729bc571803b15506",
+  "execution": {
+    "path": "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-01/raw/receipt.json",
+    "sha256": "527e308b2aa54fe96bb641f1d5380b04b42e7871245d173ee107cec0dabbfe41"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

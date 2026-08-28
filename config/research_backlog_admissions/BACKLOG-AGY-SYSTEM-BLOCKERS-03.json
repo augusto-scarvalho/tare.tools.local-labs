@@ -1,0 +1,35 @@
+{
+  "id": "BACKLOG-AGY-SYSTEM-BLOCKERS-03",
+  "priority": 0,
+  "title": "Semantically classify six AGY integration blockers",
+  "evidence_class": "mechanism_research",
+  "packet_dir": "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-03",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-02/raw/receipt.json",
+    "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-02/raw/samples.json",
+    "tools/research/run_agy_system_blockers_r2.py"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "failure_reproduction",
+    "falsifiable_hypothesis", "independent_evaluation", "invalidation_rules",
+    "invariant_controls", "provenance", "raw_samples", "receipt_fingerprint",
+    "semantic_parity", "service_identity", "source_execution_receipt"
+  ],
+  "acceptance_gates": [
+    {"id": "scope_coverage", "metric": "classified_items", "operator": "eq", "threshold": 6},
+    {"id": "semantic_evidence", "metric": "items_with_semantic_evidence", "operator": "eq", "threshold": 6},
+    {"id": "false_negative_detection", "metric": "confirmed_predecessor_false_negatives", "operator": "ge", "threshold": 1},
+    {"id": "runtime_integrity", "metric": "runtime_unchanged", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "AGY_SYSTEM_BLOCKER_FALSE_NEGATIVE_CONFIRMED_R3",
+    "AGY_SYSTEM_BLOCKER_FALSE_NEGATIVE_NOT_CONFIRMED_R3"
+  ],
+  "forbidden_claims": [
+    "performance qualification", "complete absence outside the inspected commit and inventory",
+    "equivalence to the predecessor cadence or hardware counter claim", "promotion without independent review"
+  ],
+  "next_action": "Inspect the entire immutable candidate commit semantically, retain positive and near-match source spans, and classify each predecessor claim with bounded language.",
+  "supersedes": "BACKLOG-AGY-SYSTEM-BLOCKERS-02"
+}

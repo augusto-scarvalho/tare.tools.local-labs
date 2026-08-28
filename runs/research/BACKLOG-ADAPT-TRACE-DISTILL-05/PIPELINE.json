@@ -1,0 +1,53 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-DISTILL-05",
+  "evidence_class": "distillation",
+  "executor": "Codex executor",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-27T00:19:52Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-27T00:20:42Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-27T00:21:24Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T03:38:22Z",
+      "reason": "Fail-closed abort after 9/14 workers: the preregistration required all 48 protected-QA tasks, but implementation QA_IDS=f01..f48 materialized only the 10 existing f-family tasks. Each completed worker produced 266 rather than 304 evaluations. No receipt or result was issued; service baseline restored. A successor must freeze the actual 48 IDs and may import only hash-verified partial checkpoints/outputs."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-05/PRE_REGISTRATION.md",
+    "sha256": "30b87154ef906703bc04f35eea67ba110b9968ba6e2c0b2bb2264526bfdd86e1"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_trace_distillation_confirmation_r5.py",
+      "sha256": "df53734727a35a3965564520996f85de85e3f5946c6bb0e65a7eae02320f5d8c"
+    },
+    {
+      "path": "tools/research/run_trace_distillation_confirmation_r5.py",
+      "sha256": "e32f1053230217af69e7994738d7777306724229248e2052c260a1751820bdcf"
+    }
+  ],
+  "implementation_digest": "7bba08336f3b86b4add09642bcafe4a8a52a5eb71e6b7e4079997891df9a2a86",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

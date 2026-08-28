@@ -1,0 +1,26 @@
+{
+  "id": "BACKLOG-FLEET-SEEDED-STABILITY-01",
+  "priority": 1,
+  "title": "Measure fixed-seed sampling stability across the qualified text fleet",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "config/qualified_model_fleet.json",
+    "workloads/gsm8k.jsonl",
+    "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl",
+    "tools/research/run_fleet_regression_screen.py"
+  ],
+  "required_evidence": ["acceptance_gates", "effective_route", "service_identity", "paired_baseline", "recovery_state", "hardware_metrics", "provenance", "raw_samples", "receipt_fingerprint", "independent_evaluation", "treatment_controls", "service_maintenance"],
+  "acceptance_gates": [
+    {"id": "route_coverage", "metric": "routes_completed", "operator": "eq", "threshold": 4},
+    {"id": "request_coverage", "metric": "recorded_requests", "operator": "eq", "threshold": 288},
+    {"id": "request_integrity", "metric": "successful_response_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "seeded_stability", "metric": "exact_seeded_repeat_rate", "operator": "ge", "threshold": 0.9},
+    {"id": "service_integrity", "metric": "service_restarts", "operator": "eq", "threshold": 0},
+    {"id": "service_recovery", "metric": "initial_model_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": ["QUALIFIED_TEXT_FLEET_SEEDED_STABLE_R1", "QUALIFIED_TEXT_FLEET_SEEDED_UNSTABLE_R1"],
+  "forbidden_claims": ["unseeded determinism", "quality superiority", "production promotion", "generalization beyond temperature 0.2 and the frozen panel"],
+  "next_action": "Run three fixed-seed temperature-0.2 passes over 16 GSM8K and eight protected QA cases for each of four text aliases, then compare semantic projections and restore the initial route."
+}

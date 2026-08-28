@@ -1,0 +1,56 @@
+{
+  "id": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-03",
+  "priority": 0,
+  "title": "Complete the broad LoKr artifact evaluation with the actual 48-task protected-QA panel",
+  "evidence_class": "artifact_requalification",
+  "packet_dir": "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-03",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02/raw/worker.json",
+    "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02/raw/receipt.json",
+    "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt01/lokr_3ep_lr1e4/adapter",
+    "workloads/gsm8k.jsonl",
+    "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl"
+  ],
+  "required_evidence": [
+    "acceptance_gates",
+    "actual_scores",
+    "artifact_hashes",
+    "clean_base_receipts",
+    "continuation_ledger",
+    "dataset_hashes",
+    "independent_evaluation",
+    "isolation_smoke",
+    "model_hash",
+    "paired_baseline",
+    "provenance",
+    "raw_samples",
+    "receipt_fingerprint",
+    "scorer_hashes",
+    "service_maintenance",
+    "source_execution_receipt",
+    "wsl_environment"
+  ],
+  "acceptance_gates": [
+    {"id": "continuation_integrity", "metric": "source_worker_hash_verified", "operator": "eq", "threshold": true},
+    {"id": "artifact_identity", "metric": "artifact_hashes_verified", "operator": "eq", "threshold": true},
+    {"id": "panel_isolation", "metric": "teacher_disjoint_math_tasks", "operator": "eq", "threshold": 256},
+    {"id": "evaluation_coverage", "metric": "paired_math_and_qa_generations", "operator": "eq", "threshold": 608},
+    {"id": "broad_gain", "metric": "paired_bootstrap_95ci_lower_math_gain", "operator": "gt", "threshold": 0.0},
+    {"id": "protected_retention", "metric": "protected_qa_regression", "operator": "le", "threshold": 0.05},
+    {"id": "independent_score", "metric": "independent_rescore_match", "operator": "eq", "threshold": true},
+    {"id": "service_recovery", "metric": "service_and_embedding_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "ADAPT01_384_ARTIFACT_BROAD_GAIN_R3",
+    "ADAPT01_384_ARTIFACT_BROAD_GAIN_NOT_CONFIRMED_R3"
+  ],
+  "forbidden_claims": [
+    "training repeatability across seeds",
+    "latency or throughput qualification",
+    "production promotion",
+    "generalization beyond the frozen artifact, model, and panels"
+  ],
+  "next_action": "Import the hash-verified 256-math and 10-QA source worker, generate the missing 38 protected-QA responses for both clean-base and LoKr arms, independently rescore the merged 608 samples, and restore serving.",
+  "supersedes": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02"
+}

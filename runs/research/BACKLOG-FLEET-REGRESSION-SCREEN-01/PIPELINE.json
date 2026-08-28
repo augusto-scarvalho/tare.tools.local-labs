@@ -1,0 +1,59 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-FLEET-REGRESSION-SCREEN-01",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex executor",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T21:28:06Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T21:33:58Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T21:33:58Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T21:51:15Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-01/PRE_REGISTRATION.md",
+    "sha256": "0b428ea735b129f269616ba2dc3c5dc5fdb77d1567f13e90c39219e416b9fa44"
+  },
+  "implementation": [
+    {
+      "path": "tools/analysis/a2_stats.py",
+      "sha256": "d63e4c0e5fcb820d912c2492fa1e4f50c94b2488970c8fa1278c749e6b0bd459"
+    },
+    {
+      "path": "tools/benchmarks/agent_suite_v2.py",
+      "sha256": "14d0a1b76d4d729228678f215ecefa3254aef214eb65ac9d8d7061bccc0dc59e"
+    },
+    {
+      "path": "tools/research/run_fleet_regression_screen.py",
+      "sha256": "7cbf942375c120970ac78fb40f7f15050ebddb7ec5372cb40bd721009faf1de3"
+    }
+  ],
+  "implementation_digest": "59666c2180c90fd5855bde2dbf2a6c6b8decedcd254d5126b97a0f9d09177d68",
+  "execution": {
+    "path": "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-01/raw/receipt.json",
+    "sha256": "d303490b152babcc8f590b0b840fb14c4da02c865430f8398bdca7023a0eeb94"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

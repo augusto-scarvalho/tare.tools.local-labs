@@ -1,0 +1,49 @@
+{
+  "id": "BACKLOG-GATEWAY-ROUTE-STRESS-01",
+  "priority": 1,
+  "title": "Stress all qualified gateway routes across repeated cold model switches",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "config/qualified_model_fleet.json",
+    "tools/serving/qualified_model_gateway.py",
+    "docs/HANDOFF_2026-08-26_CONSOLIDATED_RESEARCH_BACKLOG.md"
+  ],
+  "required_evidence": [
+    "acceptance_gates",
+    "effective_route",
+    "service_identity",
+    "paired_baseline",
+    "recovery_state",
+    "hardware_metrics",
+    "provenance",
+    "raw_samples",
+    "receipt_fingerprint",
+    "independent_evaluation",
+    "treatment_controls",
+    "service_maintenance"
+  ],
+  "acceptance_gates": [
+    {"id": "switch_coverage", "metric": "verified_switches", "operator": "eq", "threshold": 30},
+    {"id": "request_coverage", "metric": "recorded_requests", "operator": "eq", "threshold": 120},
+    {"id": "request_integrity", "metric": "successful_response_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "route_identity", "metric": "route_identity_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "cycle_repeatability", "metric": "exact_cycle_repeat_rate", "operator": "ge", "threshold": 0.95},
+    {"id": "service_integrity", "metric": "service_restarts", "operator": "eq", "threshold": 0},
+    {"id": "embedding_integrity", "metric": "embedding_boundary_successes", "operator": "eq", "threshold": 30},
+    {"id": "service_recovery", "metric": "initial_model_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "QUALIFIED_GATEWAY_ROUTE_STRESS_PASSED_R1",
+    "QUALIFIED_GATEWAY_ROUTE_STRESS_REJECTED_R1"
+  ],
+  "forbidden_claims": [
+    "model quality superiority",
+    "vision capability from text-only probes",
+    "multi-resident model serving",
+    "production promotion",
+    "reliability beyond the frozen 30-switch campaign"
+  ],
+  "next_action": "Run five rotated cycles over all six registered aliases, verifying route identity, four deterministic text probes, embedding health, service PID/restarts and restoration after every cold switch."
+}

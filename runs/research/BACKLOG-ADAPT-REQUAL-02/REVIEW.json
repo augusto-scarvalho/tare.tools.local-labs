@@ -1,0 +1,17 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "APPROVED",
+  "receipt_sha256": "8bc38d1f2cb5ef60f53ddb989e5c0aa1104b81359efbc5a2c8e4bbd0d92bc876",
+  "implementation_digest": "221d65416c5d2eb9e4cd1402fee6c87a585397e8c1e24c2a1602338661ae521b",
+  "findings": [
+    "Receipt SHA-256, canonical receipt fingerprint, implementation digest, all four implementation-file hashes and all 41 materialized provenance-input byte counts and SHA-256 values independently match.",
+    "The frozen 13-adapter ledger matches all 26 config and weight artifacts, and the execution-bound dataset ledger records the expected math panel, protected-QA panel and exact Qwen3.5-0.8B base weights, config and tokenizer identities. The bound runner maps each worker arm to those frozen adapter paths without substitution.",
+    "Exact recomputation with the implementation-bound semantic_samples() and canonical_json_sha256() reproduces all 17 semantic_sha256 values in clean_base_receipts.json. Fresh compare_smoke() recomputation reproduces isolation_smoke.json exactly: base, lokr_1ep and target_mlp_only are semantically identical in forward and reverse orders.",
+    "All 17 clean-worker receipts have distinct PIDs and distinct process commands, zero pre-existing PEFT modules, 48 samples each and expected post-load PEFT types/module counts. The complete evaluation has 672 unique arm-panel-task rows across 14 arms, with exactly 32 math and 16 protected-QA samples per arm and a present base control.",
+    "Independent frozen-scorer replay reproduces every stored correctness flag and every arm aggregate. All seven preregistered acceptance gates therefore pass without changing a threshold or rerunning an experiment.",
+    "The individual worker JSON files are intermediate artifacts rather than receipt provenance inputs, but this does not leave a decisive binding gap: digest-bound clean_base_receipts.json preserves each worker PID, arm, command, clean-base/treatment metadata, sample count and semantic hash; digest-bound samples.jsonl reproduces every semantic projection; and the digest-bound runner plus artifact ledger binds each arm label to its physical adapter. The unbound workers independently agree with those two bound projections but are not needed as the sole source of a gate fact.",
+    "Adversarial false-positive and false-negative review found no treatment, model, runtime, panel, scorer, token-cap or contamination issue capable of changing the artifact-isolation decision. The historical target_mlp_only ranking does not reproduce, but performance selection was explicitly outside this packet; descriptive score errors could not authorize or defeat the allowed artifact-requalification claim.",
+    "The stored exec_start_restored=false is a volatile systemd-rendering comparison, not a surviving abort: the captured executable and argv are identical before and after the controlled stop/start, restart count is zero, the inference and embedding health checks pass, and service_restored is true. Approval is limited to artifact identity, process isolation and frozen-panel deterministic evaluation; it is not training reproduction, finalist selection, production approval or general capability evidence."
+  ]
+}

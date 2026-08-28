@@ -1,0 +1,58 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-MTP-PERSISTENCE-01",
+  "evidence_class": "mechanism_research",
+  "executor": "Codex executor",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "BLOCKED",
+      "actor": "Codex",
+      "at": "2026-08-25T11:30:00Z"
+    },
+    {
+      "from": "BLOCKED",
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T21:35:15Z",
+      "reason": "Freeze and test a first-instance MTP lifecycle hypothesis: an unprimed speculative draft state before the first persisted slot causes the intermittent restore mismatch, while one discarded MTP warmup before cache population prevents it."
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T21:47:57Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T21:47:57Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T22:02:56Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-MTP-PERSISTENCE-01/PRE_REGISTRATION.md",
+    "sha256": "72d726941ab2f0b38880955844aa2827e4f2669c7742eff6d0b9abe99e8005f6"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_mtp_persistence_first_instance.py",
+      "sha256": "2a70897b1a9d73fb5fbf77159fa8c6706a41786c95bd428061e8963b8abde7b1"
+    }
+  ],
+  "implementation_digest": "fea5a0c29cf9cf2ffbeadb66d1207f213c80e9dbf75ed807836eb129c61d1073",
+  "execution": {
+    "path": "runs/research/BACKLOG-MTP-PERSISTENCE-01/raw/receipt.json",
+    "sha256": "6a52f8690b9f20c6583bdfa80e947ca4f7469e3297b24e046195a799c4116079"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

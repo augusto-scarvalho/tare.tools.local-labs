@@ -1,0 +1,82 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-DISTILL-04",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "treatment_materiality": {
+      "metric": "matched_distinct_training_targets_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "training_budget": {
+      "metric": "training_steps_per_arm_per_seed",
+      "operator": "eq",
+      "threshold": 504,
+      "actual": null,
+      "pass": null
+    },
+    "seed_coverage": {
+      "metric": "completed_paired_seeds",
+      "operator": "eq",
+      "threshold": 7,
+      "actual": null,
+      "pass": null
+    },
+    "heldout_coverage": {
+      "metric": "heldout_math_samples_per_arm_per_seed",
+      "operator": "eq",
+      "threshold": 256,
+      "actual": null,
+      "pass": null
+    },
+    "confirmed_gain": {
+      "metric": "hierarchical_bootstrap_95ci_lower_trace_math_gain",
+      "operator": "gt",
+      "threshold": 0.0,
+      "actual": null,
+      "pass": null
+    },
+    "directional_repeatability": {
+      "metric": "seeds_with_positive_trace_math_gain",
+      "operator": "ge",
+      "threshold": 5,
+      "actual": null,
+      "pass": null
+    },
+    "protected_retention": {
+      "metric": "mean_protected_qa_regression_vs_answer_only",
+      "operator": "le",
+      "threshold": 0.05,
+      "actual": null,
+      "pass": null
+    },
+    "service_recovery": {
+      "metric": "service_and_embedding_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "checkpoint_hashes": null,
+    "dataset_hashes": null,
+    "independent_evaluation": null,
+    "model_hash": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "service_maintenance": null,
+    "student_samples": null,
+    "teacher_samples": null,
+    "training_pairs": null,
+    "training_trace": null,
+    "treatment_materiality": null
+  },
+  "receipt_fingerprint": null
+}

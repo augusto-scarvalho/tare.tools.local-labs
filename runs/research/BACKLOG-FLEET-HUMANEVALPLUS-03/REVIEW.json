@@ -1,0 +1,17 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "REJECTED",
+  "receipt_sha256": "a4a74250b11362dcee16d6896d482df31ca827389b13439c91941eccbe180ec9",
+  "implementation_digest": "b77b6fd145cb3d89cf9551542ef23da91b52c44ecbf5a14872842f52e4c83a3e",
+  "findings": [
+    "Receipt fingerprint, implementation digest, both implementation-file hashes and all 32 provenance inputs independently match; fresh SHA-256 and byte-size reads reproduce all four bound GGUF identities.",
+    "The objective source predicate independently selects exactly the frozen thirteen R2 rows whose truncated field is true: qwen38 three, hauhaucs five, fable-tc zero and qwen36-moe five; no correctness value enters selection.",
+    "The thirteen correction keys exactly equal that target set. Independent reconstruction reproduces every 1536-token request hash, response alias, task identity, finish/truncation flag and frozen code extraction, while all 643 non-target records remain byte-for-byte equivalent under canonical hashing.",
+    "Five corrected targets still finish at the 1536-token cap: qwen38 HumanEval/129, hauhaucs HumanEval/129 and HumanEval/147, and qwen36-moe HumanEval/116 and HumanEval/132. This independently reproduces 5 greater than the frozen maximum 2, so the mandatory truncation_recovery gate genuinely fails.",
+    "Independent cache-busted EvalPlus 0.3.1 execution reproduces every per-task verdict and corrected Plus score: qwen38 148/164, hauhaucs 147/164, fable-tc 147/164 and qwen36-moe 137/164. All five still-truncated rows fail, so no lucky truncated-code false positive masks the operational gate failure.",
+    "The independent 20000-replicate paired bootstrap at seed 2026082714 reproduces hauhaucs minus qwen38 point -0.00609756, discordance 3/4 and interval [-0.03658537, 0.02439024]. HauhauCS absolute pass@1 0.89634146 and the frozen -0.05 noninferiority margin both pass.",
+    "False-negative audit therefore rejects only the composite cap-correction package: the broad scientific interpretation that the HauhauCS coding alias was not retained is contradicted by both coding gates. The allowed negative claim code is bounded here to failure of the preregistered truncation-recovery component, not coding inferiority or harm.",
+    "The exact treatment improved two qwen38 rows, one hauhaucs row and two qwen36-moe rows, but did not meet its frozen censoring target. The family must stop after R3: no additional cap extension, correctness-selected regeneration, latency ranking or broad-default claim is permitted. Gateway PID 85438/restarts zero and restored qwen38/embedding are verified."
+  ]
+}

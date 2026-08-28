@@ -1,0 +1,21 @@
+{
+  "schema": "local-labs-experiment-watch-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-28-QWEN38-Q8-UTILITY-R2",
+  "experiment_mode": true,
+  "poll_seconds": 300,
+  "service_settle_seconds": 180,
+  "experiments": [
+    {
+      "task_id": "BACKLOG-QWEN38-Q8-KV-UTILITY-02",
+      "pid": 21492,
+      "packet_dir": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-02",
+      "progress_glob": "raw/finalized/*.json",
+      "expected_progress": 2
+    }
+  ],
+  "final_health_urls": [
+    "http://127.0.0.1:8080/health",
+    "http://127.0.0.1:8081/health"
+  ],
+  "actor": "Codex executor watcher"
+}

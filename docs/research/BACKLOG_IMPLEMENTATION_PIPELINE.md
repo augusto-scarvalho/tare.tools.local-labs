@@ -175,6 +175,26 @@ an atomic `external_source_receipts` entry. On a portable checkout, `gate`
 accepts the absent derivative only when the evidence file contains the exact
 same path, digest, and byte count. Missing unbound inputs still fail closed.
 
+## Persistent watcher for background execution
+
+Every experiment launched as a detached or background process must have a
+persistent watcher launched in the same operational handoff. A background PID
+without a live watcher is not a complete launch.
+
+The watcher must record the experiment PID, packet directory, expected progress
+count, pipeline stage, GPU state, relevant endpoint health, and append-only
+progress events. When the process exits, it must require a canonical receipt,
+validate the repository gate, and may advance only `IMPLEMENTED -> EXECUTED` as
+the executor. It must never self-review, verify, reject, or promote a result.
+
+If the receipt is absent, validation fails, or the service baseline does not
+recover, the watcher records a fail-closed alert. Each launch reports clickable
+paths for the live status, event stream, and final record. The reusable watcher
+is `tools/analysis/watch_experiment_processes.py`.
+Its complete lifecycle, progress-marker contract, artifact schemas, controller
+handoff, failure matrix, fixtures and live-canary runbook are documented in
+[`EXPERIMENT_WATCHER.md`](EXPERIMENT_WATCHER.md).
+
 ## Independent review and closeout
 
 The reviewer inspects implementation, raw evidence, recomputed gates and scope

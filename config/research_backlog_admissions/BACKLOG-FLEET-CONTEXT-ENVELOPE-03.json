@@ -1,0 +1,45 @@
+{
+  "id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-03",
+  "priority": 0,
+  "title": "Complete per-slot context retrieval through the verified backend tokenizer endpoint",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-03",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-02/PRE_REGISTRATION.md",
+    "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-02/PIPELINE.json",
+    "tools/research/run_fleet_context_envelope.py",
+    "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-02/runner.stderr.log",
+    "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-02/raw/recovery_state.json",
+    "runs/autonomous/EXPERIMENT-WATCH-2026-08-27-FLEET-CONTEXT-R2/FINAL.json",
+    "config/qualified_model_fleet.json"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "artifact_hashes", "case_manifest", "dataset_hashes",
+    "effective_route", "hardware_metrics", "independent_evaluation", "paired_baseline",
+    "provenance", "raw_samples", "receipt_fingerprint", "recovery_state",
+    "service_identity", "source_execution_receipt"
+  ],
+  "acceptance_gates": [
+    {"id": "artifact_identity", "metric": "verified_model_artifacts", "operator": "eq", "threshold": 4},
+    {"id": "request_coverage", "metric": "recorded_requests", "operator": "eq", "threshold": 72},
+    {"id": "request_integrity", "metric": "successful_response_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "context_fit", "metric": "requests_within_route_slot_context", "operator": "eq", "threshold": 72},
+    {"id": "qwen38_recall", "metric": "qwen38_exact_recall", "operator": "ge", "threshold": 0.90},
+    {"id": "hauhaucs_recall", "metric": "hauhaucs_exact_recall", "operator": "ge", "threshold": 0.90},
+    {"id": "fable_recall", "metric": "fable_tc_exact_recall", "operator": "ge", "threshold": 0.90},
+    {"id": "qwen36_moe_recall", "metric": "qwen36_moe_exact_recall", "operator": "ge", "threshold": 0.90},
+    {"id": "position_robustness", "metric": "minimum_position_bucket_recall", "operator": "ge", "threshold": 0.80},
+    {"id": "service_recovery", "metric": "initial_route_and_services_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "QUALIFIED_TEXT_FLEET_SLOT_CONTEXT_ENVELOPES_MEASURED_R3",
+    "QUALIFIED_TEXT_FLEET_SLOT_CONTEXT_ENVELOPES_NOT_CONFIRMED_R3"
+  ],
+  "forbidden_claims": [
+    "general long-context reasoning", "RAG production quality", "aggregate context treated as per-slot context",
+    "latency ranking", "promotion without independent review"
+  ],
+  "next_action": "Keep the R2 matrix unchanged and route only tokenizer calls to the currently verified llama-server backend port 18080.",
+  "supersedes": "BACKLOG-FLEET-CONTEXT-ENVELOPE-02"
+}

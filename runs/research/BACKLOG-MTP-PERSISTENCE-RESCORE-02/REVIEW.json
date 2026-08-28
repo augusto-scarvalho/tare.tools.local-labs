@@ -1,0 +1,16 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "REJECTED",
+  "receipt_sha256": "b7ab4e3567f48be73c8be933316af1126fcde644f3e0adca8450a0672d611021",
+  "implementation_digest": "1f0767cf2c3ae9b8032e10ce337e5d57a32eacf39398b92aa453f2d9efbaa4ca",
+  "findings": [
+    "Receipt SHA-256, canonical fingerprint, implementation digest, implementation-file hash and all 14 provenance input byte counts and hashes independently match.",
+    "Independent projection of all 44 immutable source rows exactly reproduces the stored rescore: treatment counts 4 no-spec, 20 unprimed and 20 primed; formula-level physical successes 44, exact-and-oracle rows 44, material priming rows 20 and unprimed formula failures zero.",
+    "The rescore's replacement proxy does not materialize functional cache restoration. Top-level tokens_cached is 5,039 on both the cold completion before save and the warm completion after restore in every row, so it records final slot population rather than the number of restored prefix tokens reused.",
+    "All 44 warm completions report timings.cache_n=0 and prompt_n=5,033. Median warm prompt_ms is 3,730.7155 versus cold 3,788.7495, ratio 0.98468, and median wall time is similarly 4,100.423 versus 4,155.323 ms. This is full prompt reevaluation, not an obsolete telemetry field hiding a cache hit.",
+    "Nonzero n_saved=n_restored=5,039 and the 249,894,552-byte slot images prove file serialization and restore API activity, but not that the restored KV state was consumed by the subsequent completion. Exact deterministic content and the MAGNOLIA oracle also cannot distinguish reuse from full reevaluation.",
+    "The stored legacy_false_negative_confirmed value is circular: it declares the old cache_n-dependent pass false, substitutes tokens_cached as truth without an independent reuse signal, then labels the disagreement a false negative. Under the scientific hypothesis of functional persistence, that gate is not established and physical_persistence_successes cannot be accepted as 44.",
+    "The correct bounded disposition is MTP_PERSISTENCE_RESCORE_INVALID_R2. These 44 rows did not reproduce the historical exclamation-mark semantic failure, but they also do not qualify restored-prefix reuse, prove that cache_n is stale, show causal benefit from priming, or support production or universal persistence claims."
+  ]
+}

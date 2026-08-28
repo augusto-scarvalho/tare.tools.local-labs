@@ -1,0 +1,71 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-FLEET-MBPPPLUS-02",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-27T16:54:02Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-27T16:54:36Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-27T16:56:51Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T17:10:33Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T02:07:14Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T02:07:24Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-FLEET-MBPPPLUS-02/PRE_REGISTRATION.md",
+    "sha256": "3a507eccc7e69926d1a8afa222680bbff13e94722ab54921edcc58f8bbbcedd5"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_fleet_mbppplus_r2.py",
+      "sha256": "469efa25ade130cecd6af84505108eff751097d77c5185a93a3444f91392a92d"
+    }
+  ],
+  "implementation_digest": "1a28f0a6f822128e07dbd69eb5aad57e14081618830fa5bdb8cb092e41a0100f",
+  "execution": {
+    "path": "runs/research/BACKLOG-FLEET-MBPPPLUS-02/raw/receipt.json",
+    "sha256": "48fbe796e40c9f31e8b783a8fc92af40137be5847798d70e1f1ef6497c45c9fc"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-FLEET-MBPPPLUS-02/RESULT.md",
+    "sha256": "af36dc6f7f05afda5d82998c092c34bfa17784a506ad6ff080eaeddec67c91eb"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-FLEET-MBPPPLUS-02/REVIEW.json",
+    "sha256": "0d21402d9af09d5d59b24e77f80be800e0238471b0bd691b06183663c2c16cba"
+  },
+  "claim_codes": [
+    "HAUHAUCS_MBPPPLUS_200_CODING_ALIAS_RETAINED_R2"
+  ]
+}

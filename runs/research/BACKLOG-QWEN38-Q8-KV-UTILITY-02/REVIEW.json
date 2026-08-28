@@ -1,0 +1,17 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh recovery independent audit instance",
+  "verdict": "HOLD_FAIL_CLOSED",
+  "receipt_sha256": "c4653adbc30ba652ef64d60130f416b47667e14c97ca726d5b55e309e7af2b20",
+  "implementation_digest": "5497daf2057394302378503f6c53fa8a11fcdf3021400e94f87affdc5964bcff",
+  "findings": [
+    "The queue receipt SHA-256 and canonical fingerprint independently recompute to c4653adbc30ba652ef64d60130f416b47667e14c97ca726d5b55e309e7af2b20 and 5d080939a0a9c5097b94fc482fa4fe6820e2a6eb30392f37868626121e65981b. The implementation file hash, implementation digest and all 33 receipt provenance inputs match; both predecessor receipt fingerprints independently recompute.",
+    "Fresh live WSL hashing reproduces the physical binary identity efb2f06c19d26605a1934c0a9ed5b65dd69034e8765f2d29d0426b7a011cfbe2 at 17,920 bytes and the Qwen3.8 GGUF identity bee238bbeb3dc0a34bde4d0dedbaee1f98c009e8bb4226f03070054c12fb1372 at 17,923,394,624 bytes.",
+    "Physical process snapshots and current-invocation journal lines bind two distinct zero-restart PIDs to the same binary/model and common argv. PID 120042 carries both --cache-type-k f16 and --cache-type-v f16; PID 120210 carries both --cache-type-k q8_0 and --cache-type-v q8_0. Four warmups precede each complete 128-request block.",
+    "The 256 raw rows contain 128 unique paired tasks per arm, indices 0 through 127, no prior-panel overlap and 256 successful HTTP responses. The task-ID canonical hash independently reproduces 78338489c487181cc63b42f0f26c90e3068c1bb6cef789257ab522258249a786.",
+    "Exact replay of the packet's unbound gsm8k_extract fallback reproduces every stored label, F16 38/128, Q8 37/128, point -0.0078125 and the 20,000-replicate seed-2026082712 interval [-0.046875, 0.0234375]. However, 201/256 capped outputs contain no requested #### answer, so the last-number fallback is a decisive scientific dependency rather than a formatting detail.",
+    "The stored Q8 count has an observed false positive. q8 gsm8k/111 stops during Step 1 after computing only the rowing distance and before applying the water-intake rate; the fallback selects the incidental phrase 16 seconds and marks it correct against gold 16. A semantic correction gives F16 38/128 and Q8 36/128, point -0.015625, Q8-only/F16-only discordance 1/3 and bootstrap interval [-0.046875, 0.015625]. The bounded noninferiority thresholds still pass under this correction, but the receipt's advertised accuracy is false and tools/analysis/a2_stats.py is not directly bound in its provenance inputs.",
+    "Independent recomputation reproduces median throughput 87.2271475 versus 85.245499 tokens/s, ratio 0.9772817459, and global GPU-memory snapshots 21,263 versus 20,391 MiB, saving 872 MiB. Memory is a same-host global snapshot rather than per-process attribution, so the claim is limited to this fixed-order RTX 3090 run.",
+    "Recovery evidence records the persistent gateway active before and after, qwen38 restored with a healthy backend, zero service restarts and embedding HTTP 200. Literal answer parity is descriptive only. Because the all-pass receipt contains a scientific label error and an unbound scorer dependency, REJECTED is illegal and promotion is unsafe; hold BLOCKED until a scorer-bound semantic rescore successor corrects all 256 retained outputs. No physical rerun is required."
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "schema": "local-labs-autonomous-batch-v1",
+  "batch_id": "LARGE-BATCH-WAVE2-2026-08-26",
+  "authorized_by": "user",
+  "authorized_at_local": "2026-08-26",
+  "poll_seconds": 15,
+  "queue": [
+    {"task_id": "BACKLOG-GATEWAY-ROUTE-STRESS-01", "mode": "monitor", "pid": 40760},
+    {
+      "task_id": "BACKLOG-FLEET-SEEDED-STABILITY-01",
+      "mode": "run",
+      "command": ["tools/research/run_fleet_seeded_stability.py", "--outdir", "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-01"]
+    }
+  ],
+  "stop_conditions": [
+    "route stress did not reach EXECUTED",
+    "initial route or embedding service was not restored",
+    "seeded stability runner exits nonzero"
+  ]
+}

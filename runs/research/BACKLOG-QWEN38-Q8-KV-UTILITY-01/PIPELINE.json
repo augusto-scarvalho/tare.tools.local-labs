@@ -1,0 +1,55 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-QWEN38-Q8-KV-UTILITY-01",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-27T21:47:43Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-27T21:48:10Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-27T21:50:18Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T22:10:41Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-01/PRE_REGISTRATION.md",
+    "sha256": "8b8d76d73b43fad7f39860452d8701d4ff9e9c91150c816e905efac7b6b4b60f"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_qwen38_q8_kv_utility.py",
+      "sha256": "16a5fa12f1f77df7272a107e2fbff8f253ab72d7fd4af079bb2b7b7bc731b140"
+    },
+    {
+      "path": "tools/research/run_qwen38_q8_kv_utility.py",
+      "sha256": "e1e0c30a201dc87b0d924067d59b5fe17fa6b81049c696cd1ad8e723e2de58d6"
+    }
+  ],
+  "implementation_digest": "4cc1a68f054e9b65281c54b7da7d80b167d98e91cb2eb153df87720bb7d67e8a",
+  "execution": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-01/raw/receipt.json",
+    "sha256": "3a7e0eaabc678e6514e13875906005d89789adccca1edd44b6b880e7d72dbb24"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

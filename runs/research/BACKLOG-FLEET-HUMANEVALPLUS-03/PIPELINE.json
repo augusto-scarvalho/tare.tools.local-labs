@@ -1,0 +1,66 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-FLEET-HUMANEVALPLUS-03",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex",
+  "stage": "REJECTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-27T17:54:59Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-27T17:55:43Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-27T17:58:29Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T18:08:44Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T02:18:41Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-03/PRE_REGISTRATION.md",
+    "sha256": "797e2b67ee31bd16062ea08d2a6db2439e4ac12b19c6f8c4286a21e0bb034ba6"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_fleet_humanevalplus_r3.py",
+      "sha256": "7479d0f7a67c83603629d243b1a93e5ea42cc0393280e88de866eca0e6952609"
+    },
+    {
+      "path": "tools/research/run_fleet_humanevalplus_r3.py",
+      "sha256": "0b1cd8ee5ab92ef25c27d6702f78dd5b6eec95713c4bf915fe1c4db4337aff97"
+    }
+  ],
+  "implementation_digest": "b77b6fd145cb3d89cf9551542ef23da91b52c44ecbf5a14872842f52e4c83a3e",
+  "execution": {
+    "path": "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-03/raw/receipt.json",
+    "sha256": "a4a74250b11362dcee16d6896d482df31ca827389b13439c91941eccbe180ec9"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-03/RESULT.md",
+    "sha256": "570c2e2d6a392bd5305dc623719f466cf7ed6ca48a175b470f8a2370b8e03baa"
+  },
+  "review": {},
+  "claim_codes": [
+    "HAUHAUCS_HUMANEVALPLUS_CAP_CORRECTED_ALIAS_NOT_RETAINED_R3"
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "schema": "local-labs-recovery-audit-queue-v1",
+  "snapshot_date": "2026-08-28",
+  "manifest": "config/research_backlog.json",
+  "handoff": "docs/HANDOFF_2026-08-28_REJECTED_HOLD_RECOVERY_WAVE.md",
+  "required_reviewer": "A genuinely independent actor that did not execute these packets",
+  "policy": {
+    "review_one_packet_at_a_time": true,
+    "recompute_from_raw_evidence": true,
+    "search_for_false_positives_and_false_negatives": true,
+    "raw_receipts_immutable": true,
+    "direct_manifest_edits_forbidden": true
+  },
+  "audit_completion": {
+    "completed_at": "2026-08-28T11:17:14Z",
+    "reviewer": "GPT-5.6 Sol xhigh recovery independent audit instance",
+    "ledger": "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-28_RECOVERY_GPT56_SOL_XHIGH.md",
+    "processed": 6,
+    "promoted": 2,
+    "hold_fail_closed": 3,
+    "rejected": 1,
+    "pending": 0,
+    "dispositions": {
+      "BACKLOG-ADAPT-MECHANISMS-COMPLETE-02": "HOLD_FAIL_CLOSED_SUPERSEDED_BY_R3",
+      "BACKLOG-ADAPT-MECHANISMS-COMPLETE-03": "PROMOTED",
+      "BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-02": "HOLD_FAIL_CLOSED_SCORER_INVALID",
+      "BACKLOG-QWEN38-Q8-KV-UTILITY-02": "HOLD_FAIL_CLOSED_SCORER_PROVENANCE_INVALID",
+      "BACKLOG-AGY-SYSTEM-BLOCKERS-03": "PROMOTED_SOURCE_ONLY",
+      "BACKLOG-MTP-PERSISTENCE-FUNCTIONAL-03": "REJECTED_FUNCTIONAL_REUSE"
+    }
+  },
+  "items": [
+    {
+      "order": 1,
+      "id": "BACKLOG-ADAPT-MECHANISMS-COMPLETE-02",
+      "state": "EXECUTED",
+      "receipt_sha256": "fee03cc40a3bae4c7701775a44b59f9da837e6e6d752fefcc3c6e033ba2e1aa2",
+      "receipt_fingerprint": "c1167c1e19a9a9cdb1fb7044068d9d8e7db812b87c8aecd13b5863f1785715d5",
+      "expected_focus": "Confirm the executor-side seed_control false negative: seed.json and command freeze 20260827 while eight arm metric files omit a redundant seed field.",
+      "expected_disposition": "HOLD_FAIL_CLOSED_SUPERSEDED_BY_R3"
+    },
+    {
+      "order": 2,
+      "id": "BACKLOG-ADAPT-MECHANISMS-COMPLETE-03",
+      "state": "EXECUTED",
+      "receipt_sha256": "bf9323182d499929be94bdf0e061adc99fa6687001e8a529daa0612539b7fe49",
+      "receipt_fingerprint": "7cf7e27b1d11383d48d98b49b1186297e10dbae3622e2f37358c2d74b719403f",
+      "expected_focus": "Verify the seed-only correction, 768 unique rows, 16 complete arms, independent scorer agreement and normalized historical service identity.",
+      "claim_code": "ADAPT01_05_MECHANISMS_COMPLETED_R3"
+    },
+    {
+      "order": 3,
+      "id": "BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-02",
+      "state": "EXECUTED",
+      "receipt_sha256": "a6240c4408934f7c1efd785a079ff619e472de7b90babe45352de34ae2065740",
+      "receipt_fingerprint": "8e728d306ba505dbd7fe6e668b997eb99dfbd4a504972834c1915b3f7c8c14bf",
+      "expected_focus": "Challenge the gold-blind question-unit scorer, all 19 external fixtures, 512 row projection and the corrected paired bootstrap.",
+      "claim_code": "TRACE_DISTILLATION_DEPLOYMENT_FINALIST_RESCORED_R2"
+    },
+    {
+      "order": 4,
+      "id": "BACKLOG-QWEN38-Q8-KV-UTILITY-02",
+      "state": "EXECUTED",
+      "receipt_sha256": "c4653adbc30ba652ef64d60130f416b47667e14c97ca726d5b55e309e7af2b20",
+      "receipt_fingerprint": "5d080939a0a9c5097b94fc482fa4fe6820e2a6eb30392f37868626121e65981b",
+      "expected_focus": "Verify clean provenance, physical cache argv, 256 requests, paired correctness/bootstrap, 872 MiB saving and restored services.",
+      "claim_code": "QWEN38_Q8_KV_UTILITY_NONINFERIOR_R2"
+    },
+    {
+      "order": 5,
+      "id": "BACKLOG-AGY-SYSTEM-BLOCKERS-03",
+      "state": "EXECUTED",
+      "receipt_sha256": "5ebe76094b02ed4557533fa6def8b64241a3b1ad4fc0124c7d10359df6e8589e",
+      "receipt_fingerprint": "ece0d27dac51fd408ea6b0c5710af0c2755a7457fe8f97849b5679f22757010c",
+      "expected_focus": "Reinspect immutable commit 87a416bd and determine whether GDN cache fusion is a bounded SLX-03 materialization without overclaiming N16/EOS cadence.",
+      "claim_code": "AGY_SYSTEM_BLOCKER_FALSE_NEGATIVE_CONFIRMED_R3"
+    },
+    {
+      "order": 6,
+      "id": "BACKLOG-MTP-PERSISTENCE-FUNCTIONAL-03",
+      "state": "EXECUTED",
+      "receipt_sha256": "abb33c7a777b1604cf91315456d003dae5ac0a6341219688a35e4dc7d858facd",
+      "receipt_fingerprint": "a570e2b3b2becb2534fa852e6033688129fa7b1caf547ab4b033b0cb21b0b4ba",
+      "expected_focus": "Verify sixteen save/erase/restore cycles, zero cache_n, equal 6739-token cold/warm prefill and exact continuation; reject functional reuse only, not file persistence.",
+      "claim_code": "MTP_PERSISTENCE_FUNCTIONAL_REUSE_REJECTED_R3"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "BACKLOG-ADAPT-MECHANISMS-COMPLETE-03",
+  "priority": 0,
+  "title": "Correct the ADAPT completion seed-evidence false negative",
+  "evidence_class": "artifact_requalification",
+  "packet_dir": "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-03",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-02/raw/receipt.json",
+    "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-02/raw/samples.jsonl",
+    "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-02/raw/actual_scores.json",
+    "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-02/raw/artifact_hashes.json",
+    "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-02/raw/scorer_hashes.json",
+    "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-02/raw/service_maintenance.json",
+    "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/seed.json"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "dataset_hashes",
+    "independent_evaluation", "provenance", "raw_samples", "receipt_fingerprint",
+    "scorer_hashes", "service_maintenance", "source_execution_receipt", "training_trace"
+  ],
+  "acceptance_gates": [
+    {"id": "source_integrity", "metric": "r2_sources_verified", "operator": "eq", "threshold": true},
+    {"id": "mechanism_coverage", "metric": "fresh_mechanisms_completed", "operator": "eq", "threshold": 5},
+    {"id": "training_coverage", "metric": "fresh_training_arms", "operator": "eq", "threshold": 12},
+    {"id": "evaluation_coverage", "metric": "fresh_scored_generations", "operator": "eq", "threshold": 768},
+    {"id": "arm_coverage", "metric": "complete_arm_instances", "operator": "eq", "threshold": 16},
+    {"id": "seed_control", "metric": "frozen_execution_seed", "operator": "eq", "threshold": 20260827},
+    {"id": "independent_aggregate", "metric": "independent_score_match", "operator": "eq", "threshold": true},
+    {"id": "artifact_identity", "metric": "hashed_adapter_artifacts", "operator": "ge", "threshold": 13},
+    {"id": "service_restore", "metric": "normalized_original_service_restored", "operator": "eq", "threshold": true},
+    {"id": "embedding_integrity", "metric": "embedding_health", "operator": "eq", "threshold": 200}
+  ],
+  "allowed_claim_codes": [
+    "ADAPT01_05_MECHANISMS_COMPLETED_R3",
+    "ADAPT01_05_MECHANISMS_MIXED_R3"
+  ],
+  "forbidden_claims": [
+    "new training", "new generation", "cross-seed repeatability", "production promotion",
+    "causal superiority outside frozen matched arms", "promotion without independent review"
+  ],
+  "next_action": "Rebind the seed gate to the frozen execution-level seed receipt while preserving and independently checking all 768 R2 rows.",
+  "supersedes": "BACKLOG-ADAPT-MECHANISMS-COMPLETE-02"
+}

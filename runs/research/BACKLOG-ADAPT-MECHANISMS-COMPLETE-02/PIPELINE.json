@@ -1,0 +1,60 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT-MECHANISMS-COMPLETE-02",
+  "evidence_class": "artifact_requalification",
+  "executor": "Codex",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:41:38Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:42:15Z",
+      "reason": "Frozen read-only completion from 720 plus 48 physical rows"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:45:33Z",
+      "reason": "Read-only 720+48 synthesis and scorer replay implemented"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T10:46:12Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "BLOCKED",
+      "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
+      "at": "2026-08-28T10:56:55Z",
+      "reason": "HOLD_FAIL_CLOSED: executor seed_control false negative preserved; superseded by R3 seed-source correction"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-02/PRE_REGISTRATION.md",
+    "sha256": "19b6fff623566412de1b27eaae44201c6e8b79d3bc92c6b7435658065378fa59"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_adapt_mechanisms_complete_r2.py",
+      "sha256": "d08510312e3ee10763328d51f240999bb3ac083bd379244fc7426ac70922a5ec"
+    }
+  ],
+  "implementation_digest": "af8c1377f326a3cbda6e0350bbbcb660c20e443c9b59c7747f11d7a0c508f74b",
+  "execution": {
+    "path": "runs/research/BACKLOG-ADAPT-MECHANISMS-COMPLETE-02/raw/receipt.json",
+    "sha256": "fee03cc40a3bae4c7701775a44b59f9da837e6e6d752fefcc3c6e033ba2e1aa2"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

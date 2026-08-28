@@ -1,0 +1,66 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01",
+  "evidence_class": "distillation",
+  "executor": "Codex",
+  "stage": "REJECTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-27T20:42:01Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-27T20:42:29Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-27T20:44:54Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T21:15:23Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T01:24:15Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/PRE_REGISTRATION.md",
+    "sha256": "6b4a4d7eabc1a2f6f9e90e7f56b697b2b153eb4d01fa1d4c50ee0f0da33aef0d"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_trace_distillation_deploy_finalist.py",
+      "sha256": "d42ed6bafcc0bc945720b3212c62830e60333e3e4811eb2cbd1f39903fec5f7f"
+    },
+    {
+      "path": "tools/research/run_trace_distillation_deploy_finalist.py",
+      "sha256": "482f552729983141384827feaccae3df75491e2f270bd43ab6ecc5518bec03f2"
+    }
+  ],
+  "implementation_digest": "f9b4c9bbdb9f4bb79623fa1c8e5cfa14a43b6cfa382e928e024a6cc67e390dab",
+  "execution": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/receipt.json",
+    "sha256": "b4fc924a1542e4913c3c1d70fdf77f8bb9be0e2662b8757d0d06f82b60d3f521"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/RESULT.md",
+    "sha256": "38405a41de658a6f35c1de0b328cdce7839102b0cc6398c2a7a6fe8bcb7b27a8"
+  },
+  "review": {},
+  "claim_codes": [
+    "TRACE_DISTILLATION_DEPLOYMENT_FINALIST_NOT_CONFIRMED_R1"
+  ]
+}

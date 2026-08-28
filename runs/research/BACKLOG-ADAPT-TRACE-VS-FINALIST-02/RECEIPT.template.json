@@ -1,0 +1,97 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-VS-FINALIST-02",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "source_integrity": {
+      "metric": "all_source_and_checkpoint_hashes_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "panel_isolation": {
+      "metric": "third_panel_disjoint_from_training_and_prior_panels",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "trace_import_coverage": {
+      "metric": "imported_selected_trace_generations",
+      "operator": "eq",
+      "threshold": 256,
+      "actual": null,
+      "pass": null
+    },
+    "behavioral_checkpoint_coverage": {
+      "metric": "behavioral_checkpoints_evaluated",
+      "operator": "eq",
+      "threshold": 2,
+      "actual": null,
+      "pass": null
+    },
+    "fresh_evaluation_coverage": {
+      "metric": "fresh_behavioral_generations",
+      "operator": "eq",
+      "threshold": 512,
+      "actual": null,
+      "pass": null
+    },
+    "practical_superiority": {
+      "metric": "hierarchical_bootstrap_95ci_lower_trace_minus_behavioral_math",
+      "operator": "gt",
+      "threshold": 0.0,
+      "actual": null,
+      "pass": null
+    },
+    "point_superiority": {
+      "metric": "selected_trace_minus_behavioral_mean_math",
+      "operator": "gt",
+      "threshold": 0.0,
+      "actual": null,
+      "pass": null
+    },
+    "protected_retention": {
+      "metric": "selected_trace_minus_behavioral_mean_qa",
+      "operator": "ge",
+      "threshold": -0.05,
+      "actual": null,
+      "pass": null
+    },
+    "independent_score": {
+      "metric": "independent_rescore_match",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "service_recovery": {
+      "metric": "service_and_embedding_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "continuation_ledger": null,
+    "dataset_hashes": null,
+    "independent_evaluation": null,
+    "model_hash": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "service_maintenance": null,
+    "source_execution_receipt": null,
+    "student_samples": null,
+    "teacher_samples": null,
+    "wsl_environment": null
+  },
+  "receipt_fingerprint": null
+}

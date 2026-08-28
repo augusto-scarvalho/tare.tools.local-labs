@@ -1,0 +1,21 @@
+{
+  "schema": "local-labs-experiment-watch-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-27-TRACE-DEPLOY-FINALIST-R1",
+  "experiment_mode": true,
+  "poll_seconds": 300,
+  "service_settle_seconds": 180,
+  "experiments": [
+    {
+      "task_id": "BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01",
+      "pid": 36116,
+      "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01",
+      "progress_glob": "raw/finalized/*.json",
+      "expected_progress": 2
+    }
+  ],
+  "final_health_urls": [
+    "http://127.0.0.1:8080/health",
+    "http://127.0.0.1:8081/health"
+  ],
+  "actor": "Codex executor watcher"
+}

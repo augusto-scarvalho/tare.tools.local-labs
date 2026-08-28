@@ -1,0 +1,71 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-VS-FINALIST-01",
+  "evidence_class": "distillation",
+  "executor": "Codex",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-27T15:25:07Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-27T15:25:42Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-27T15:29:08Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T16:32:56Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T01:21:43Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T01:21:44Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-VS-FINALIST-01/PRE_REGISTRATION.md",
+    "sha256": "b300c3fe69e0a4c9253d3f9165202ba41b7519e0c279aed334d53da8f26005a3"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_trace_vs_behavioral_finalist.py",
+      "sha256": "a1cdb8766699108effcd17e53b681667bbe7757ca0e3371f712c9d3f8d7b6ff6"
+    }
+  ],
+  "implementation_digest": "c4758cd4e0ab7b135c80942ef459114e77a206f5f4d786e371dcba314ecee522",
+  "execution": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-VS-FINALIST-01/raw/receipt.json",
+    "sha256": "54ada49af2a437513f47b766dc2f6fd9a71b93e88d06e48ae896b6cca88a1487"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-VS-FINALIST-01/RESULT.md",
+    "sha256": "d258abdc971e96ffc3570c69e25134ba4463b41a65a8ce6cf1e4c37221d822c0"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-VS-FINALIST-01/REVIEW.json",
+    "sha256": "55f082048193b57797db4af202070f75e425786f7fa7da6587fe3f2e0e1a8cff"
+  },
+  "claim_codes": [
+    "TRACE_DISTILLATION_PRACTICALLY_SUPERIOR_TO_BEHAVIORAL_FINALIST_R1"
+  ]
+}

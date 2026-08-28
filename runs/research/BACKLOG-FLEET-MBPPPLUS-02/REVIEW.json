@@ -1,0 +1,16 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "APPROVED",
+  "receipt_sha256": "48fbe796e40c9f31e8b783a8fc92af40137be5847798d70e1f1ef6497c45c9fc",
+  "implementation_digest": "1a28f0a6f822128e07dbd69eb5aad57e14081618830fa5bdb8cb092e41a0100f",
+  "findings": [
+    "Receipt fingerprint, implementation digest and all 35 provenance inputs independently match.",
+    "The frozen R1 and R2 panels contain 100 tasks each, are disjoint, reproduce hashes 288ce1cf0a758cd9864fb24c4c9c1ab2fd0350e7bb3a6a5c185f4edbdff47e91 and 27374fbfa49a550697716649042c7f56bc8ef5718d4355a7f49c4176637f9ef0, and match the imported-plus-fresh row order exactly.",
+    "All 800 rows are unique, HTTP-successful, nonempty and bind the requested alias, task, request hash and frozen code extraction; the first 400 rows exactly reproduce R1 and the second 400 are the fresh R2 panel.",
+    "Independent EvalPlus 0.3.1 execution on cache-busted copies reproduces R2 Plus scores qwen38 73/100, hauhaucs 76/100, fable-tc 77/100 and qwen36-moe 73/100; combined R1+R2 scores are 148/200, 149/200, 153/200 and 150/200.",
+    "The independently recomputed equal-panel paired bootstrap at seed 2026082713 and 20000 replicates reproduces hauhaucs minus qwen38 point 0.005 and 95 percent interval [-0.025, 0.035], which passes the frozen -0.05 noninferiority gate.",
+    "The five fresh hauhaucs-versus-qwen38 discordances contain complete, substantive implementations and none is capped; the only two fresh capped generations are qwen36-moe rows outside the gated comparison, so no truncation or scorer false positive explains the result.",
+    "R1 remains rejected under its preregistered 100-task estimand. This distinct, pre-frozen disjoint-panel synthesis supports only the 200-task bounded coding-alias claim; it does not establish universal coding superiority, deployment readiness, latency equivalence or permission for an adaptive R3."
+  ]
+}

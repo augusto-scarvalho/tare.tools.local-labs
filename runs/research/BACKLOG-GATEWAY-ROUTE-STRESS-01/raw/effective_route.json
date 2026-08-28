@@ -1,0 +1,1684 @@
+{
+  "switches": [
+    {
+      "cycle": 0,
+      "model": "qwen38",
+      "order": [
+        "qwen38",
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "qwen38",
+        "requested_name": "qwen38",
+        "backend_healthy": true,
+        "backend_pid": 72248,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.033241744007682,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19922, 4401, 36, 146.73, 49",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19922",
+          "memory.free": "4401",
+          "temperature.gpu": "36",
+          "power.draw": "146.73",
+          "utilization.gpu": "49"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 0,
+      "model": "hauhaucs",
+      "order": [
+        "qwen38",
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "hauhaucs",
+        "requested_name": "hauhaucs",
+        "backend_healthy": true,
+        "backend_pid": 72289,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.026348520012107,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19922, 4401, 37, 150.86, 46",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19922",
+          "memory.free": "4401",
+          "temperature.gpu": "37",
+          "power.draw": "150.86",
+          "utilization.gpu": "46"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 0,
+      "model": "fable-tc",
+      "order": [
+        "qwen38",
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "fable-tc",
+        "requested_name": "fable-tc",
+        "backend_healthy": true,
+        "backend_pid": 72326,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.532381545985118,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 18740, 5583, 37, 124.37, 44",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "18740",
+          "memory.free": "5583",
+          "temperature.gpu": "37",
+          "power.draw": "124.37",
+          "utilization.gpu": "44"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 0,
+      "model": "qwen36-moe",
+      "order": [
+        "qwen38",
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "qwen36-moe",
+        "requested_name": "qwen36-moe",
+        "backend_healthy": true,
+        "backend_pid": 72362,
+        "backend_port": 18080,
+        "last_switch_seconds": 15.557784131990047,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 22210, 2113, 36, 91.85, 2",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "22210",
+          "memory.free": "2113",
+          "temperature.gpu": "36",
+          "power.draw": "91.85",
+          "utilization.gpu": "2"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 0,
+      "model": "gemma-vision",
+      "order": [
+        "qwen38",
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "gemma-vision",
+        "requested_name": "gemma-vision",
+        "backend_healthy": true,
+        "backend_pid": 72408,
+        "backend_port": 18080,
+        "last_switch_seconds": 7.029661851993296,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 10277, 14046, 37, 111.09, 48",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "10277",
+          "memory.free": "14046",
+          "temperature.gpu": "37",
+          "power.draw": "111.09",
+          "utilization.gpu": "48"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 0,
+      "model": "muse-vision",
+      "order": [
+        "qwen38",
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "muse-vision",
+        "requested_name": "muse-vision",
+        "backend_healthy": true,
+        "backend_pid": 72455,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.114136118005263,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19415, 4908, 38, 137.82, 16",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19415",
+          "memory.free": "4908",
+          "temperature.gpu": "38",
+          "power.draw": "137.82",
+          "utilization.gpu": "16"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 1,
+      "model": "hauhaucs",
+      "order": [
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "hauhaucs",
+        "requested_name": "hauhaucs",
+        "backend_healthy": true,
+        "backend_pid": 72501,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.569326011987869,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19925, 4398, 40, 136.37, 0",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19925",
+          "memory.free": "4398",
+          "temperature.gpu": "40",
+          "power.draw": "136.37",
+          "utilization.gpu": "0"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 1,
+      "model": "fable-tc",
+      "order": [
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "fable-tc",
+        "requested_name": "fable-tc",
+        "backend_healthy": true,
+        "backend_pid": 72538,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.048093744000653,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 18743, 5580, 40, 130.01, 1",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "18743",
+          "memory.free": "5580",
+          "temperature.gpu": "40",
+          "power.draw": "130.01",
+          "utilization.gpu": "1"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 1,
+      "model": "qwen36-moe",
+      "order": [
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "qwen36-moe",
+        "requested_name": "qwen36-moe",
+        "backend_healthy": true,
+        "backend_pid": 72574,
+        "backend_port": 18080,
+        "last_switch_seconds": 14.576052006013924,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 22213, 2110, 39, 119.47, 1",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "22213",
+          "memory.free": "2110",
+          "temperature.gpu": "39",
+          "power.draw": "119.47",
+          "utilization.gpu": "1"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 1,
+      "model": "gemma-vision",
+      "order": [
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "gemma-vision",
+        "requested_name": "gemma-vision",
+        "backend_healthy": true,
+        "backend_pid": 72620,
+        "backend_port": 18080,
+        "last_switch_seconds": 6.545973471016623,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 10277, 14046, 40, 128.66, 1",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "10277",
+          "memory.free": "14046",
+          "temperature.gpu": "40",
+          "power.draw": "128.66",
+          "utilization.gpu": "1"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 1,
+      "model": "muse-vision",
+      "order": [
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "muse-vision",
+        "requested_name": "muse-vision",
+        "backend_healthy": true,
+        "backend_pid": 72656,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.543076884991024,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19415, 4908, 40, 138.48, 1",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19415",
+          "memory.free": "4908",
+          "temperature.gpu": "40",
+          "power.draw": "138.48",
+          "utilization.gpu": "1"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 1,
+      "model": "qwen38",
+      "order": [
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "qwen38",
+        "requested_name": "qwen38",
+        "backend_healthy": true,
+        "backend_pid": 72693,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.532495710998774,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19925, 4398, 42, 129.39, 44",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19925",
+          "memory.free": "4398",
+          "temperature.gpu": "42",
+          "power.draw": "129.39",
+          "utilization.gpu": "44"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 2,
+      "model": "fable-tc",
+      "order": [
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "fable-tc",
+        "requested_name": "fable-tc",
+        "backend_healthy": true,
+        "backend_pid": 72735,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.556881662021624,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 18743, 5580, 42, 119.05, 0",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "18743",
+          "memory.free": "5580",
+          "temperature.gpu": "42",
+          "power.draw": "119.05",
+          "utilization.gpu": "0"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 2,
+      "model": "qwen36-moe",
+      "order": [
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "qwen36-moe",
+        "requested_name": "qwen36-moe",
+        "backend_healthy": true,
+        "backend_pid": 72771,
+        "backend_port": 18080,
+        "last_switch_seconds": 14.592021688993555,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 22213, 2110, 41, 119.37, 0",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "22213",
+          "memory.free": "2110",
+          "temperature.gpu": "41",
+          "power.draw": "119.37",
+          "utilization.gpu": "0"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 2,
+      "model": "gemma-vision",
+      "order": [
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "gemma-vision",
+        "requested_name": "gemma-vision",
+        "backend_healthy": true,
+        "backend_pid": 72817,
+        "backend_port": 18080,
+        "last_switch_seconds": 6.125542392983334,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 10277, 14046, 41, 131.94, 21",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "10277",
+          "memory.free": "14046",
+          "temperature.gpu": "41",
+          "power.draw": "131.94",
+          "utilization.gpu": "21"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 2,
+      "model": "muse-vision",
+      "order": [
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "muse-vision",
+        "requested_name": "muse-vision",
+        "backend_healthy": true,
+        "backend_pid": 72853,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.532554384000832,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19415, 4908, 47, 159.09, 94",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19415",
+          "memory.free": "4908",
+          "temperature.gpu": "47",
+          "power.draw": "159.09",
+          "utilization.gpu": "94"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 2,
+      "model": "qwen38",
+      "order": [
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "qwen38",
+        "requested_name": "qwen38",
+        "backend_healthy": true,
+        "backend_pid": 72891,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.657023098989157,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19925, 4398, 43, 124.12, 43",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19925",
+          "memory.free": "4398",
+          "temperature.gpu": "43",
+          "power.draw": "124.12",
+          "utilization.gpu": "43"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 2,
+      "model": "hauhaucs",
+      "order": [
+        "fable-tc",
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "hauhaucs",
+        "requested_name": "hauhaucs",
+        "backend_healthy": true,
+        "backend_pid": 72932,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.535035056993365,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19925, 4398, 42, 142.63, 0",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19925",
+          "memory.free": "4398",
+          "temperature.gpu": "42",
+          "power.draw": "142.63",
+          "utilization.gpu": "0"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 3,
+      "model": "qwen36-moe",
+      "order": [
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs",
+        "fable-tc"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "qwen36-moe",
+        "requested_name": "qwen36-moe",
+        "backend_healthy": true,
+        "backend_pid": 72969,
+        "backend_port": 18080,
+        "last_switch_seconds": 14.538401867990615,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 22213, 2110, 42, 119.32, 10",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "22213",
+          "memory.free": "2110",
+          "temperature.gpu": "42",
+          "power.draw": "119.32",
+          "utilization.gpu": "10"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 3,
+      "model": "gemma-vision",
+      "order": [
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs",
+        "fable-tc"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "gemma-vision",
+        "requested_name": "gemma-vision",
+        "backend_healthy": true,
+        "backend_pid": 73015,
+        "backend_port": 18080,
+        "last_switch_seconds": 6.520922019000864,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 10277, 14046, 42, 132.48, 24",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "10277",
+          "memory.free": "14046",
+          "temperature.gpu": "42",
+          "power.draw": "132.48",
+          "utilization.gpu": "24"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 3,
+      "model": "muse-vision",
+      "order": [
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs",
+        "fable-tc"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "muse-vision",
+        "requested_name": "muse-vision",
+        "backend_healthy": true,
+        "backend_pid": 73050,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.585134084016318,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19415, 4908, 46, 146.83, 92",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19415",
+          "memory.free": "4908",
+          "temperature.gpu": "46",
+          "power.draw": "146.83",
+          "utilization.gpu": "92"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 3,
+      "model": "qwen38",
+      "order": [
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs",
+        "fable-tc"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "qwen38",
+        "requested_name": "qwen38",
+        "backend_healthy": true,
+        "backend_pid": 73088,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.632842082006391,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19925, 4398, 44, 144.01, 1",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19925",
+          "memory.free": "4398",
+          "temperature.gpu": "44",
+          "power.draw": "144.01",
+          "utilization.gpu": "1"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 3,
+      "model": "hauhaucs",
+      "order": [
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs",
+        "fable-tc"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "hauhaucs",
+        "requested_name": "hauhaucs",
+        "backend_healthy": true,
+        "backend_pid": 73124,
+        "backend_port": 18080,
+        "last_switch_seconds": 12.029245479992824,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19925, 4398, 45, 134.60, 47",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19925",
+          "memory.free": "4398",
+          "temperature.gpu": "45",
+          "power.draw": "134.60",
+          "utilization.gpu": "47"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 3,
+      "model": "fable-tc",
+      "order": [
+        "qwen36-moe",
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs",
+        "fable-tc"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "fable-tc",
+        "requested_name": "fable-tc",
+        "backend_healthy": true,
+        "backend_pid": 73161,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.528895591996843,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 18743, 5580, 45, 162.99, 68",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "18743",
+          "memory.free": "5580",
+          "temperature.gpu": "45",
+          "power.draw": "162.99",
+          "utilization.gpu": "68"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 4,
+      "model": "gemma-vision",
+      "order": [
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "gemma-vision",
+        "requested_name": "gemma-vision",
+        "backend_healthy": true,
+        "backend_pid": 73198,
+        "backend_port": 18080,
+        "last_switch_seconds": 6.52840700399247,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 10277, 14046, 44, 142.19, 56",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "10277",
+          "memory.free": "14046",
+          "temperature.gpu": "44",
+          "power.draw": "142.19",
+          "utilization.gpu": "56"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 4,
+      "model": "muse-vision",
+      "order": [
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "muse-vision",
+        "requested_name": "muse-vision",
+        "backend_healthy": true,
+        "backend_pid": 73233,
+        "backend_port": 18080,
+        "last_switch_seconds": 12.028206811985001,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19415, 4908, 47, 165.16, 86",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19415",
+          "memory.free": "4908",
+          "temperature.gpu": "47",
+          "power.draw": "165.16",
+          "utilization.gpu": "86"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 4,
+      "model": "qwen38",
+      "order": [
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "qwen38",
+        "requested_name": "qwen38",
+        "backend_healthy": true,
+        "backend_pid": 73272,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.552361285022926,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19925, 4398, 45, 142.95, 3",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19925",
+          "memory.free": "4398",
+          "temperature.gpu": "45",
+          "power.draw": "142.95",
+          "utilization.gpu": "3"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 4,
+      "model": "hauhaucs",
+      "order": [
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "hauhaucs",
+        "requested_name": "hauhaucs",
+        "backend_healthy": true,
+        "backend_pid": 73308,
+        "backend_port": 18080,
+        "last_switch_seconds": 12.06426133797504,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19925, 4398, 43, 139.09, 1",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19925",
+          "memory.free": "4398",
+          "temperature.gpu": "43",
+          "power.draw": "139.09",
+          "utilization.gpu": "1"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 4,
+      "model": "fable-tc",
+      "order": [
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "fable-tc",
+        "requested_name": "fable-tc",
+        "backend_healthy": true,
+        "backend_pid": 73344,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.026593316986691,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 18743, 5580, 45, 122.56, 43",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "18743",
+          "memory.free": "5580",
+          "temperature.gpu": "45",
+          "power.draw": "122.56",
+          "utilization.gpu": "43"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "cycle": 4,
+      "model": "qwen36-moe",
+      "order": [
+        "gemma-vision",
+        "muse-vision",
+        "qwen38",
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe"
+      ],
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "qwen36-moe",
+        "requested_name": "qwen36-moe",
+        "backend_healthy": true,
+        "backend_pid": 73380,
+        "backend_port": 18080,
+        "last_switch_seconds": 15.538798510999186,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 22213, 2110, 42, 126.27, 44",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "22213",
+          "memory.free": "2110",
+          "temperature.gpu": "42",
+          "power.draw": "126.27",
+          "utilization.gpu": "44"
+        }
+      },
+      "embedding_health": 200
+    }
+  ]
+}

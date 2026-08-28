@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-BEE-L3-REAL-TELEMETRY-01",
   "evidence_class": "serving_runtime",
   "executor": "codex",
-  "stage": "EXECUTED",
+  "stage": "REJECTED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,13 @@
       "to": "EXECUTED",
       "actor": "codex",
       "at": "2026-08-26T01:30:50Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T02:56:47Z",
+      "reason": "Independent recomputation reproduces exact parity 40/48 and adaptive gain over K4 3.6757%, so two mandatory gates fail; cap-only parity divergence limits answer-level interpretation but cannot rescue the robust static-gain miss."
     }
   ],
   "preregistration": {
@@ -49,7 +56,12 @@
     "path": "runs/research/BACKLOG-BEE-L3-REAL-TELEMETRY-01/raw/receipt.json",
     "sha256": "e1a936b1235f78e7fbf86d47da95411054f553848e3b6248110a60de2815b12c"
   },
-  "result": {},
+  "result": {
+    "path": "runs/research/BACKLOG-BEE-L3-REAL-TELEMETRY-01/RESULT.md",
+    "sha256": "c3b535847498ecec5a9ad32e8c4174b6586be5d1129e038a3e68cc056a4cf398"
+  },
   "review": {},
-  "claim_codes": []
+  "claim_codes": [
+    "BEE_L3_FALSE_POSITIVE_CONFIRMED_R1"
+  ]
 }

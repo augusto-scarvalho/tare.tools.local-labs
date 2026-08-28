@@ -1,0 +1,59 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-QWEN38-KV-PRECISION-01",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex executor",
+  "stage": "EXECUTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T21:50:28Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T21:54:36Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T21:54:37Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor",
+      "at": "2026-08-26T22:11:25Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-QWEN38-KV-PRECISION-01/PRE_REGISTRATION.md",
+    "sha256": "8b0ddc15d0bca6cc6ce0021a6d929f739fef2fc33de432524d84e5b1948f51b2"
+  },
+  "implementation": [
+    {
+      "path": "tools/analysis/a2_stats.py",
+      "sha256": "d63e4c0e5fcb820d912c2492fa1e4f50c94b2488970c8fa1278c749e6b0bd459"
+    },
+    {
+      "path": "tools/research/run_mtp_persistence_first_instance.py",
+      "sha256": "2a70897b1a9d73fb5fbf77159fa8c6706a41786c95bd428061e8963b8abde7b1"
+    },
+    {
+      "path": "tools/research/run_qwen38_kv_precision.py",
+      "sha256": "84da3a32cccf309a6cc7106e25a7afb282f9c57acc4dbd3ab2c6c7694a22baf9"
+    }
+  ],
+  "implementation_digest": "e997114930dba4694f38dc991c7cf1e87156e00f03e23a106c14ded26e864770",
+  "execution": {
+    "path": "runs/research/BACKLOG-QWEN38-KV-PRECISION-01/raw/receipt.json",
+    "sha256": "9e068c702f431a8fc6cc34a393f0daee6ac5a02d3329d10233747f451f7a2652"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

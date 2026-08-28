@@ -1,0 +1,17 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "REJECTED",
+  "receipt_sha256": "51f8436c988b57966e30c90c32634a847a1a72bf8db5be3d2cb5786e397c348a",
+  "implementation_digest": "1188ea20ddbd4c271c32a3adc2834da10db9849fef5eb9e4954c79213cb61168",
+  "findings": [
+    "Receipt SHA-256, canonical fingerprint, implementation digest, the implementation-file hash and all 31 provenance input byte counts and hashes independently match.",
+    "The imported trace projection is byte-for-byte equal to selected seed 20260832 from DEPLOY-FINALIST-01; both fresh behavioral projections are exactly recoverable from their worker payloads after adding only the declared family label, and both checkpoint pairs match their frozen sources.",
+    "Independent frozen-scorer replay of all 768 math rows reproduces trace 98/256, behavioral seeds 92/256 and 83/256, behavioral mean 0.34179688 and trace-minus-behavioral delta 0.04101562 with zero stored-scorer mismatch.",
+    "Independent replay of the frozen family-and-prompt hierarchical bootstrap at 20,000 replicates and seed 2026082817 exactly reproduces interval [-0.02734375, 0.11132812]. The lower bound is not greater than zero, so the preregistered practical-superiority gate fails; all coverage, point-direction, QA-retention, scorer and normalized-service gates pass.",
+    "Adversarial scoring audit finds symmetric last-number false negatives rather than a differential explanation for the failed uncertainty gate. Unambiguous natural-EOS false negatives number 10 for trace, 11 for behavioral seed 20260824 and 7 for behavioral seed 20260825; examples include a correct final 5 hours followed by contextual 2000 miles and a correct final 120 feet followed by 40 seconds.",
+    "The symmetric false-positive audit also finds three cap-truncated lucky-score cases: trace gsm8k/783 stops before solving and inherits the initial white-fish count 4; behavioral seed 20260825 gsm8k/654 ends on an invalid intermediate 2; and gsm8k/798 stops after restating 20 work hours before calculating the answer.",
+    "A conservative hand-audited scorer sensitivity correcting those 28 false negatives and three false positives yields trace 107/256, behavioral 103/256 and 88/256, delta 0.044921875, but the identically seeded bootstrap still crosses zero at [-0.03125, 0.125]. Thus scorer error does not reverse the point ordering or rescue the frozen uncertainty gate.",
+    "The negative disposition is a strict gate failure with only two behavioral seeds, not evidence of harm and not broad scientific falsification of trace superiority. It supports only the bounded NOT_PRACTICALLY_SUPERIOR claim under this frozen panel and bootstrap; any successor must preregister added independent behavioral-seed coverage without reusing this panel as a new confirmatory test or weakening the gate."
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "SLX-03": {
+    "requested": "recurrent-state write elision in the deployed decode path",
+    "observed": "MATERIALIZED_BOUNDED",
+    "scope_note": "Direct GDN snapshot-to-cache fusion is present; N16/EOS cadence and hardware write counters remain unproven."
+  },
+  "SLX-07": {
+    "requested": "H2O heavy-hitter KV eviction",
+    "observed": "NOT_MATERIALIZED_IN_COMMIT",
+    "scope_note": "No feature-specific H2O accumulator or eviction policy was found in the immutable tracked tree."
+  },
+  "REP-04": {
+    "requested": "native fused KVarN attention/dequantization kernel",
+    "observed": "NOT_MATERIALIZED_IN_COMMIT",
+    "scope_note": "Generic quantized attention and Hadamard code do not establish a KVarN kernel."
+  },
+  "REP-05": {
+    "requested": "per-layer KV cache precision allocation",
+    "observed": "NEARBY_GLOBAL_CONTROL_ONLY",
+    "scope_note": "Global K/V cache types exist; no per-layer allocator or CLI was identified."
+  },
+  "RETRO-01": {
+    "requested": "trained recurrent-retrofit checkpoint and route",
+    "observed": "ARTIFACT_NOT_IDENTIFIED_BOUNDED",
+    "scope_note": "Native recurrent architectures are not evidence of the requested trained retrofit artifact."
+  },
+  "SLX-08": {
+    "requested": "selected-block speculative prefill wired into real TTFT",
+    "observed": "NEARBY_DFLASH_MECHANISM_ONLY",
+    "scope_note": "DFlash support exists, but no selected-block speculative-prefill route matching the claim was identified."
+  }
+}

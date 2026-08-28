@@ -1,0 +1,154 @@
+{
+  "host": {
+    "config/research_backlog_admissions/BACKLOG-FLEET-REGRESSION-SCREEN-01.json": {
+      "bytes": 2609,
+      "sha256": "31a9ba96a9272a6301fa73454c134b9f16216502de31c36faec68ea9f71e0991"
+    },
+    "config/qualified_model_fleet.json": {
+      "bytes": 9783,
+      "sha256": "042fedf5907f031fb9993c03058f3cc9c8fe2c8d75a3235ea4b5e11c7412cd82"
+    },
+    "workloads/gsm8k.jsonl": {
+      "bytes": 389701,
+      "sha256": "68a72276898a45dacb893154477621ff3d05ae7e043a10820644b691d8b63d77"
+    },
+    "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl": {
+      "bytes": 11016,
+      "sha256": "56434ebd53ff9f5adb477bd902566e28644fe9ea88619834f81417a06c66b84f"
+    },
+    "tools/benchmarks/agent_suite_v2.py": {
+      "bytes": 13035,
+      "sha256": "14d0a1b76d4d729228678f215ecefa3254aef214eb65ac9d8d7061bccc0dc59e"
+    },
+    "docs/HANDOFF_2026-08-26_CONSOLIDATED_RESEARCH_BACKLOG.md": {
+      "bytes": 20043,
+      "sha256": "895fec3ac345bdf26350b4a97f513bf4f4b3bad9898d09701db07a985f8b7d55"
+    },
+    "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-01/PRE_REGISTRATION.md": {
+      "bytes": 4960,
+      "sha256": "0b428ea735b129f269616ba2dc3c5dc5fdb77d1567f13e90c39219e416b9fa44"
+    }
+  },
+  "wsl_artifacts": {
+    "qwen38": {
+      "path": "/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf",
+      "bytes": 17923394624,
+      "sha256": "bee238bbeb3dc0a34bde4d0dedbaee1f98c009e8bb4226f03070054c12fb1372",
+      "binary": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+      "runtime_args": [
+        "--ctx-size",
+        "32768",
+        "--flash-attn",
+        "on",
+        "--gpu-layers",
+        "all",
+        "--metrics",
+        "--jinja",
+        "--no-mmproj",
+        "--cache-type-k",
+        "q4_0",
+        "--cache-type-v",
+        "q4_0",
+        "--parallel",
+        "1",
+        "--batch-size",
+        "2048",
+        "--ubatch-size",
+        "512",
+        "--ctx-checkpoints",
+        "32",
+        "--spec-type",
+        "draft-mtp",
+        "--spec-draft-n-max",
+        "3"
+      ]
+    },
+    "hauhaucs": {
+      "path": "/home/augus/models/qwen38-27b/hauhaucs-aggressive-993a5971/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-Q4_K_P.gguf",
+      "bytes": 17923393664,
+      "sha256": "ba36dc3c2b2ff5e0aa5d71092a8894546996a6a119ae391803dda07cdc08516d",
+      "binary": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+      "runtime_args": [
+        "--ctx-size",
+        "32768",
+        "--flash-attn",
+        "on",
+        "--gpu-layers",
+        "all",
+        "--metrics",
+        "--jinja",
+        "--no-mmproj",
+        "--cache-type-k",
+        "q4_0",
+        "--cache-type-v",
+        "q4_0",
+        "--parallel",
+        "1",
+        "--batch-size",
+        "2048",
+        "--ubatch-size",
+        "512",
+        "--ctx-checkpoints",
+        "32",
+        "--spec-type",
+        "draft-mtp",
+        "--spec-draft-n-max",
+        "3"
+      ]
+    },
+    "fable-tc": {
+      "path": "/home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf",
+      "bytes": 16810714400,
+      "sha256": "052c08ca13d75d8d88c9cc3f201d7bfa9167e2a1e69ad3e1e1f26ff73c1b390b",
+      "binary": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+      "runtime_args": [
+        "--ctx-size",
+        "8192",
+        "--flash-attn",
+        "on",
+        "--gpu-layers",
+        "all",
+        "--metrics",
+        "--jinja",
+        "--parallel",
+        "1",
+        "--spec-type",
+        "draft-mtp",
+        "--spec-draft-n-max",
+        "4"
+      ]
+    },
+    "qwen36-moe": {
+      "path": "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+      "bytes": 22663387424,
+      "sha256": "0b21525e972670ed59e1812e170b27c26355381f0656ecc4e25617ece7dac58b",
+      "binary": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+      "runtime_args": [
+        "--ctx-size",
+        "73728",
+        "--flash-attn",
+        "on",
+        "--gpu-layers",
+        "all",
+        "--n-cpu-moe",
+        "8",
+        "--metrics",
+        "--jinja",
+        "--parallel",
+        "4",
+        "--cache-type-k",
+        "q8_0",
+        "--cache-type-v",
+        "q8_0",
+        "--batch-size",
+        "2048",
+        "--ubatch-size",
+        "2048",
+        "--spec-type",
+        "draft-mtp",
+        "--spec-draft-n-max",
+        "4"
+      ]
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-04",
+  "evidence_class": "artifact_requalification",
+  "executor": "Codex continuous experiment controller",
+  "stage": "REJECTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex continuous experiment controller",
+      "at": "2026-08-27T10:43:46Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex continuous experiment controller",
+      "at": "2026-08-27T10:44:23Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex continuous experiment controller",
+      "at": "2026-08-27T10:46:51Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T11:20:33Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T01:02:49Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-04/PRE_REGISTRATION.md",
+    "sha256": "73cfe7178bee1770a55b41982836ac836d5e0f4b011e95e151cdce0d09db7d5c"
+  },
+  "implementation": [
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/run_adapt01_broad_artifact_eval_r2.py",
+      "sha256": "7978351859fc4c03a534088339b9e58c91074fdc43ee6bb1c5cef99a87aee022"
+    },
+    {
+      "path": "tools/research/run_adapt01_broad_artifact_eval_r3.py",
+      "sha256": "4aee5af93a5585977ce0dfe5c7b020218b4bc34130a9d1419607663f3b85794f"
+    },
+    {
+      "path": "tools/research/run_adapt01_broad_artifact_eval_r4.py",
+      "sha256": "ac1f7453cb873fba1ba04d544f87776e975da6a41c27956a3e310d76c6e1c539"
+    },
+    {
+      "path": "tools/research/run_adapter_requalification.py",
+      "sha256": "d90bf442796d84eabcca4ee92cb8e63ea8fb5c9e1b3dc7122358654ce4b4158b"
+    },
+    {
+      "path": "tools/research/run_adapter_requalification_r2.py",
+      "sha256": "bb4d2b1ce5b7eebcf3a72791cce875f460178e4f245ffdecd89c06be9b6291f6"
+    },
+    {
+      "path": "tools/research/run_trace_distillation_training_r2.py",
+      "sha256": "55301c4ad8fcecaf60fbff1313f792a9c969bd14a87316ec1ac30c4abedf7b73"
+    }
+  ],
+  "implementation_digest": "629de80058c5ef5e1b0008d2fa023bc52dfe2f71dae39cd26463c6e6e5ca4760",
+  "execution": {
+    "path": "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-04/raw/receipt.json",
+    "sha256": "185935ee19679509b780150d683707ef294818dd6711b7076b09ac5cb835f8e8"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-04/RESULT.md",
+    "sha256": "590214863ac67aee8b0474594913155c2a3f7ab189fd89293d3407a3760a980d"
+  },
+  "review": {},
+  "claim_codes": [
+    "ADAPT01_384_ARTIFACT_SECOND_PANEL_GAIN_NOT_CONFIRMED_R4"
+  ]
+}

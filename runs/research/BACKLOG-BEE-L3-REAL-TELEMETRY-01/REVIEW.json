@@ -1,0 +1,16 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "REJECTED",
+  "receipt_sha256": "e1a936b1235f78e7fbf86d47da95411054f553848e3b6248110a60de2815b12c",
+  "implementation_digest": "abc5fd6512d236bf589673dea2a1d5a7f27fd78f53d4de8e1d18505b4e5ab864",
+  "findings": [
+    "Receipt fingerprint, implementation digest, both implementation-file hashes and all 26 provenance inputs independently match. Fresh prompt selection reproduces the ordered 48-task panel and semantic SHA-256 aa76300d9eda23d6e9428e0b0a7814e09e500781594910368c03d1717b344c8a.",
+    "The 144 bound rows form complete physical K0, K2 and K4 arms over the same 48 prompts. All responses bind the expected fable-tc-l1.0 alias, requested physical slot and frozen greedy controls. Draft telemetry is self-consistent: K0 has no drafts, K2 has 1,671 drafted/1,362 accepted and K4 has 2,442 drafted/1,591 accepted tokens, with drafts present in all 48 K4 requests.",
+    "Independent exact-output comparison reproduces parity on 40/48 tasks = 0.8333333333333334. Every one of the eight mismatches is among the 32 GSM rows stopped at the frozen 64-token limit; all 16 natural-EOS rows are byte-exact across arms. This makes broad answer-level harm inconclusive, but it cannot satisfy or relax the frozen exact-parity gate after observation.",
+    "Unmodified controller replay reproduces recommended depths K4 once, K2 37 times and K3 ten times; the frozen mapping therefore selects physical K2 for 47/48 tasks and K4 once. Independent aggregation reproduces K0/K2/K4/adaptive throughput 0.033588400690886075/0.04923294013716922/0.04724016192645037/0.04897655929525627 tokens per millisecond, speedup over K0 1.4581390684834137 and gain over K4 only 0.036756803914206326.",
+    "False-negative sensitivity does not rescue the 15% K4-gain gate: parity-only wall-time gain is 3.7628%, excluding the first potentially cold prompt is 3.7996%, capped GSM-only is 3.4758%, and natural-EOS-only is 4.7316%. Server predicted-time sensitivity reaches only 10.8925% on the natural-EOS subset. The observed miss is therefore not explained by cap, first-request warmup, client overhead or parity filtering.",
+    "The preregistered bottom K4-acceptance quartile and tie break reproduce exactly, as does low-acceptance protection 1.268575415009493. Original path/argv restoration and healthy endpoints are retained. These passes do not override the two mandatory failed gates.",
+    "The historical receipt itself marked the >=15% static-K4 gate false and verdict REJECTED while its narrative RESULT called the controller QUALIFIED. The physical successor confirms that qualification was a false positive. Rejection is bounded to this controller, frozen mapping/panel and counterfactual replay; it does not claim live request-level switching was tested, that speculative decoding produces wrong final answers, or that no differently preregistered controller can outperform K4."
+  ]
+}

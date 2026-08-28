@@ -1,0 +1,41 @@
+{
+  "id": "BACKLOG-FLEET-HUMANEVALPLUS-01",
+  "priority": 1,
+  "title": "Requalify the coding alias on the full HumanEval+ benchmark across the text fleet",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "config/qualified_model_fleet.json",
+    "workloads/humaneval_plus.jsonl",
+    "tools/analysis/a2_score_humaneval.py",
+    "benchmark_harness_qa.py",
+    "runs/research/BACKLOG-FLEET-MBPPPLUS-02/raw/receipt.json"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "raw_samples", "provenance", "receipt_fingerprint",
+    "effective_route", "service_identity", "paired_baseline", "recovery_state",
+    "hardware_metrics", "artifact_hashes", "dataset_hashes", "official_scores",
+    "independent_evaluation", "source_execution_receipt"
+  ],
+  "acceptance_gates": [
+    {"id": "artifact_identity", "metric": "qualified_model_artifacts_verified", "operator": "eq", "threshold": 4},
+    {"id": "route_coverage", "metric": "verified_text_routes_completed", "operator": "eq", "threshold": 4},
+    {"id": "generation_coverage", "metric": "fresh_humaneval_generations", "operator": "eq", "threshold": 656},
+    {"id": "response_integrity", "metric": "successful_nonempty_responses", "operator": "ge", "threshold": 650},
+    {"id": "official_score_coverage", "metric": "models_scored_by_evalplus", "operator": "eq", "threshold": 4},
+    {"id": "coding_alias_absolute", "metric": "hauhaucs_humaneval_plus_pass_at_1", "operator": "ge", "threshold": 0.80},
+    {"id": "coding_alias_noninferiority", "metric": "paired_bootstrap_95ci_lower_hauhaucs_minus_qwen38", "operator": "gt", "threshold": -0.05},
+    {"id": "service_recovery", "metric": "initial_route_and_services_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "HAUHAUCS_FULL_HUMANEVALPLUS_CODING_ALIAS_RETAINED_R1",
+    "HAUHAUCS_FULL_HUMANEVALPLUS_CODING_ALIAS_NOT_RETAINED_R1"
+  ],
+  "forbidden_claims": [
+    "MBPP superiority", "latency ranking", "vision-model claims",
+    "broad-default promotion", "production deployment change"
+  ],
+  "next_action": "Generate and officially execute-score all 164 HumanEval+ tasks on qwen38, hauhaucs, fable-tc and qwen36-moe, then pair HauhauCS against Qwen3.8 task by task.",
+  "supersedes": null
+}

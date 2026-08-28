@@ -1,0 +1,79 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-GATEWAY-ROUTE-STRESS-01",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "switch_coverage": {
+      "metric": "verified_switches",
+      "operator": "eq",
+      "threshold": 30,
+      "actual": null,
+      "pass": null
+    },
+    "request_coverage": {
+      "metric": "recorded_requests",
+      "operator": "eq",
+      "threshold": 120,
+      "actual": null,
+      "pass": null
+    },
+    "request_integrity": {
+      "metric": "successful_response_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "route_identity": {
+      "metric": "route_identity_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "cycle_repeatability": {
+      "metric": "exact_cycle_repeat_rate",
+      "operator": "ge",
+      "threshold": 0.95,
+      "actual": null,
+      "pass": null
+    },
+    "service_integrity": {
+      "metric": "service_restarts",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "embedding_integrity": {
+      "metric": "embedding_boundary_successes",
+      "operator": "eq",
+      "threshold": 30,
+      "actual": null,
+      "pass": null
+    },
+    "service_recovery": {
+      "metric": "initial_model_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "effective_route": null,
+    "service_identity": null,
+    "paired_baseline": null,
+    "recovery_state": null,
+    "hardware_metrics": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "independent_evaluation": null,
+    "treatment_controls": null,
+    "service_maintenance": null
+  },
+  "receipt_fingerprint": null
+}

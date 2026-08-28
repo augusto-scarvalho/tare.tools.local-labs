@@ -1,0 +1,17 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "APPROVED",
+  "receipt_sha256": "782d9e58a97c5ac55dd6ebc2d62c67f9e003af415fb62e14ac8124718ea93b3a",
+  "implementation_digest": "bd9991e6df99439dff8fc256d91b401157a85e3f8ec46c9237a1418796668a94",
+  "findings": [
+    "Receipt SHA-256, canonical fingerprint, implementation digest, all four implementation hashes and all 24 provenance input byte counts and hashes independently match.",
+    "All fourteen checkpoint config and weight hashes match; all nine imported R5 worker/checkpoint triples match the frozen continuation ledger; the fourteen finalized scientific sample projections, 504-step traces and base-model identity are internally consistent.",
+    "Independent rescoring of 4,256 unique arm-seed-panel-task rows reproduces all seven math and QA counts with no scorer disagreement: mean math gain 0.14174107, seven positive seeds and mean protected-QA regression 0.02380952.",
+    "Independent replay of the frozen 20,000-replicate hierarchical bootstrap at seed 2026082604 exactly reproduces the 95 percent interval [0.11383929, 0.17020089], with pooled discordant counts 396 trace-only versus 142 answer-only.",
+    "Treatment identity is material and matched: the same 168 training tasks and frozen three-epoch order were used within each seed, every trace target differs from its answer-only target, all fourteen training ledgers contain 504 finite ordered steps, and tokenizer replay found zero target truncations under the 512-token limit.",
+    "Adversarial false-positive audit found 1,520 of 3,584 math generations reached the frozen 192-token cap, disproportionately answer-only 1,064 versus full-trace 456. A conservative natural-EOS-only sensitivity strengthens rather than removes the result: mean gain 0.16796875 and seven positive seeds.",
+    "The actual heterogeneous 48-task QA panel is complete for every arm and seed; the nine imported checkpoints received exactly the disjoint 38-task augmentation, while five arms were trained fresh. Normalized gateway executable and argv, zero restart count, qwen38 health and embedding health were restored.",
+    "Approval is limited to Qwen3.5-0.8B, the frozen teacher corpus, panels, seven seeds and 504-step recipe. It does not establish teacher noninferiority, production promotion or cross-model generalization."
+  ]
+}

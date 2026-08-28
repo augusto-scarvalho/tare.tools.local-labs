@@ -1,0 +1,63 @@
+{
+  "candidate_commit": "87a416bd75d5a64e66e55846b779c0a54eca21bd",
+  "source_root": "/home/augus/src/slop.cpp-main",
+  "features": {
+    "SLX-03": {
+      "requested": "recurrent-state write elision in the deployed decode path",
+      "patterns": [
+        "ggml_cuda_try_gdn_cache_fusion",
+        "ggml_cuda_op_gated_delta_net_fused_cache",
+        "fused gated_delta_net snapshot copies"
+      ],
+      "classification": "MATERIALIZED_BOUNDED",
+      "scope_note": "Direct GDN snapshot-to-cache fusion is present; N16/EOS cadence and hardware write counters remain unproven."
+    },
+    "SLX-07": {
+      "requested": "H2O heavy-hitter KV eviction",
+      "patterns": [
+        "heavy.?hitter",
+        "\\bh2o\\b"
+      ],
+      "classification": "NOT_MATERIALIZED_IN_COMMIT",
+      "scope_note": "No feature-specific H2O accumulator or eviction policy was found in the immutable tracked tree."
+    },
+    "REP-04": {
+      "requested": "native fused KVarN attention/dequantization kernel",
+      "patterns": [
+        "\\bkvarn\\b",
+        "kvarn[_ -]"
+      ],
+      "classification": "NOT_MATERIALIZED_IN_COMMIT",
+      "scope_note": "Generic quantized attention and Hadamard code do not establish a KVarN kernel."
+    },
+    "REP-05": {
+      "requested": "per-layer KV cache precision allocation",
+      "patterns": [
+        "cache-type-[kv]",
+        "per.?layer.{0,40}(kv|cache).{0,40}(type|precision)"
+      ],
+      "classification": "NEARBY_GLOBAL_CONTROL_ONLY",
+      "scope_note": "Global K/V cache types exist; no per-layer allocator or CLI was identified."
+    },
+    "RETRO-01": {
+      "requested": "trained recurrent-retrofit checkpoint and route",
+      "patterns": [
+        "recurrent.{0,30}retrofit",
+        "retrofit.{0,30}recurrent"
+      ],
+      "classification": "ARTIFACT_NOT_IDENTIFIED_BOUNDED",
+      "scope_note": "Native recurrent architectures are not evidence of the requested trained retrofit artifact."
+    },
+    "SLX-08": {
+      "requested": "selected-block speculative prefill wired into real TTFT",
+      "patterns": [
+        "speculative.{0,30}prefill",
+        "selected.?block.{0,30}(qkv|prefill)",
+        "\\bdflash\\b"
+      ],
+      "classification": "NEARBY_DFLASH_MECHANISM_ONLY",
+      "scope_note": "DFlash support exists, but no selected-block speculative-prefill route matching the claim was identified."
+    }
+  },
+  "read_only": true
+}

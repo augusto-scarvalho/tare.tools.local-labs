@@ -1,0 +1,92 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-VS-FINALIST-02",
+  "evidence_class": "distillation",
+  "executor": "Codex",
+  "stage": "REJECTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-27T22:11:52Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-27T22:13:54Z",
+      "reason": "Frozen protocol SHA256 95cde6cada7a73e3b3f7b1601e4dfb699e2ce421a52712c636c6679b3f4aa2aa"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-27T22:16:58Z",
+      "reason": "Runner and fixture-backed frozen-input/bootstrap tests implemented"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "codex",
+      "at": "2026-08-27T22:23:43Z",
+      "reason": "First launch exposed an invalid reused-worker arm label before any generation; implementation corrected"
+    },
+    {
+      "from": "BLOCKED",
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-27T22:23:44Z",
+      "reason": "Corrected runner ready for the unchanged frozen protocol"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-27T22:23:44Z",
+      "reason": "Reaffirm unchanged frozen protocol SHA256 95cde6cada7a73e3b3f7b1601e4dfb699e2ce421a52712c636c6679b3f4aa2aa"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-27T22:23:45Z",
+      "reason": "Corrected worker invocation after zero-generation preflight failure"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T22:54:13Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T01:31:03Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-VS-FINALIST-02/PRE_REGISTRATION.md",
+    "sha256": "95cde6cada7a73e3b3f7b1601e4dfb699e2ce421a52712c636c6679b3f4aa2aa"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_trace_vs_behavioral_finalist_r2.py",
+      "sha256": "6b890ba812f4b5089a70b31111d72b2ab2cada1dbb707cfefa1fff802f315f9a"
+    }
+  ],
+  "implementation_digest": "1188ea20ddbd4c271c32a3adc2834da10db9849fef5eb9e4954c79213cb61168",
+  "execution": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-VS-FINALIST-02/raw/receipt.json",
+    "sha256": "51f8436c988b57966e30c90c32634a847a1a72bf8db5be3d2cb5786e397c348a"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-VS-FINALIST-02/RESULT.md",
+    "sha256": "c513882a9e9aabd9674dbeaf7ede4b1096f616ad3adb55abdd56147014249402"
+  },
+  "review": {},
+  "claim_codes": [
+    "SELECTED_TRACE_NOT_PRACTICALLY_SUPERIOR_TO_BEHAVIORAL_FINALISTS_R2"
+  ]
+}

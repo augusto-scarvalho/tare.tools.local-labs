@@ -1,0 +1,77 @@
+{
+  "batch_id": "LARGE-BATCH-TAIL-2026-08-26",
+  "started_at_utc": "2026-08-26T21:55:11Z",
+  "manifest": "config/autonomous_experiment_tail_2026-08-26.json",
+  "completed_tasks": [
+    {
+      "task_id": "BACKLOG-MTP-PERSISTENCE-01",
+      "checks": {
+        "runner_completed": true,
+        "packet_executed": true,
+        "restored": true,
+        "gateway_health": true,
+        "embedding_health": true
+      }
+    },
+    {
+      "task_id": "BACKLOG-QWEN38-KV-PRECISION-01",
+      "checks": {
+        "runner_completed": true,
+        "packet_executed": true,
+        "restored": true,
+        "gateway_health": true,
+        "embedding_health": true
+      }
+    }
+  ],
+  "status": "completed",
+  "current_task": null,
+  "current_pid": null,
+  "task_progress": {
+    "task_id": "BACKLOG-MTP-PERSISTENCE-01",
+    "started_at_utc": "2026-08-26T21:51:20Z",
+    "status": "running",
+    "initial_service": {
+      "returncode": 0,
+      "load_state": "loaded",
+      "active_state": "active",
+      "sub_state": "running",
+      "main_pid": 46324,
+      "n_restarts": 0,
+      "exec_start": "{ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/tools/serving/qualified_model_gateway.py --config /mnt/c/projects/tare.tools.local-labs/config/qualified_model_fleet.json --host 0.0.0.0 --port 8080 --backend-host 127.0.0.1 --backend-port 18080 --state-dir /home/augus/.local/state/tare-qualified-models --preload qwen38 ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+      "stderr": ""
+    },
+    "initial_gateway": {
+      "status": "ok",
+      "role": "qualified-model-gateway",
+      "current_model": "fable-tc",
+      "requested_name": "fable-tc",
+      "backend_healthy": true,
+      "backend_pid": 65134,
+      "backend_port": 18080,
+      "last_switch_seconds": 7.520996713981731,
+      "last_error": null,
+      "max_resident_models": 1,
+      "available_models": [
+        "fable-tc",
+        "gemma-vision",
+        "hauhaucs",
+        "muse-vision",
+        "qwen36-moe",
+        "qwen38"
+      ]
+    },
+    "initial_model": "fable-tc",
+    "completed_observations": 44,
+    "last_index": 43,
+    "last_arm": "cold",
+    "last_pass": false
+  },
+  "command": [
+    "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+    "tools/research/run_qwen38_kv_precision.py",
+    "--outdir",
+    "runs/research/BACKLOG-QWEN38-KV-PRECISION-01"
+  ],
+  "finished_at_utc": "2026-08-26T22:11:25Z"
+}

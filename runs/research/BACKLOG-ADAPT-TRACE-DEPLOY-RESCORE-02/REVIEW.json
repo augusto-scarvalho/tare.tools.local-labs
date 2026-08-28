@@ -1,0 +1,16 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh recovery independent audit instance",
+  "verdict": "HOLD_FAIL_CLOSED",
+  "receipt_sha256": "a6240c4408934f7c1efd785a079ff619e472de7b90babe45352de34ae2065740",
+  "implementation_digest": "8ee3aaa73cc3b3f4003542fe9bb7262f39adfe753e18210fd6ca2f8b1b54617a",
+  "findings": [
+    "The queue receipt SHA-256 and canonical fingerprint independently recompute to a6240c4408934f7c1efd785a079ff619e472de7b90babe45352de34ae2065740 and 8e728d306ba505dbd7fe6e668b997eb99dfbd4a504972834c1915b3f7c8c14bf. The implementation file hash, implementation digest and all 22 receipt provenance inputs match; the source receipt fingerprint also independently recomputes.",
+    "Independent replay from the 512 frozen source outputs exactly reproduces every stored extraction, method and correctness label: answer-only 76/256, full-trace 105/256, delta 0.11328125, 48 trace-only wins and 19 answer-only wins. A fresh 20,000-replicate paired bootstrap at seed 2026082711 reproduces the 95% interval [0.05078125, 0.17578125]. The three 256-task panels are pairwise disjoint.",
+    "The scorer function signature is exactly (question, text), and source inspection confirms gold is used only after extraction by numeric_equal. All 19 frozen external fixtures replay exactly. Gold blinding itself is therefore valid, but it does not establish semantic extraction validity.",
+    "Adversarial same-unit testing exposes an uncovered deterministic failure: after an explicit final answer, a later incidental value with the same requested unit wins by recency. Fresh probes select 9 instead of a concluded 7 hours, 200 instead of a concluded 168 dollars, and 44 instead of a concluded 14 pieces. The frozen 19 fixtures test later different-unit values but contain no later incidental same-unit counterexample.",
+    "The failure occurs in the actual 512-output panel. For full_trace gsm8k/838 the model explicitly concludes that 0 slices remain, but the scorer selects an earlier incidental 15 slices and marks it correct against gold 15. For answer_only gsm8k/665 the model concludes 15 hours after an erroneous division, but the scorer selects the earlier 360 hours; for answer_only gsm8k/711 the model concludes 4 scoops, but currency-mode selection picks the $6 budget and matches gold 6. These are receipt-level scientific false positives, not hypothetical robustness concerns.",
+    "The scorer also deterministically converts several explicit correct conclusions into false negatives, including 2 dozens to 24 eggs, 770 calories to 40, 490 fruits to 290, 60 branches to 0.25, and full-trace 12 dollars to 88. Thus neither arm aggregate is a trustworthy semantic accuracy estimate even though the stored algorithm and bootstrap are reproducible.",
+    "Because all receipt gates are mechanically pass, REJECTED is illegal under the repository FSM; the packet is held BLOCKED fail-closed rather than promoted. A successor must freeze same-unit and observed-panel adversarial fixtures and rescore all 512 rows with a validated conclusion-aware extractor. No deployment-finalist, fourth-panel, production or teacher-equivalence claim is authorized."
+  ]
+}

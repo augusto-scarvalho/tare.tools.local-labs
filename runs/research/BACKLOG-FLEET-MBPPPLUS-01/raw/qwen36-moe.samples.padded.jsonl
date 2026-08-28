@@ -1,0 +1,378 @@
+{"task_id": "Mbpp/2", "solution": ""}
+{"task_id": "Mbpp/3", "solution": "def is_not_prime(n: int) -> bool:\n    \"\"\"\n    Identify if a number is not prime.\n    \n    Args:\n        n: The number to check.\n        \n    Returns:\n        True if the number is not prime, False otherwise.\n    \"\"\"\n    if n < 2:\n        return True\n    if n == 2:\n        return False\n    if n % 2 == 0:\n        return True\n    for i in range(3, int(n**0.5) + 1, 2):\n        if n % i == 0:\n            return True\n    return False"}
+{"task_id": "Mbpp/4", "solution": ""}
+{"task_id": "Mbpp/6", "solution": ""}
+{"task_id": "Mbpp/7", "solution": ""}
+{"task_id": "Mbpp/8", "solution": "def square_nums(nums):\n    return [x ** 2 for x in nums]"}
+{"task_id": "Mbpp/9", "solution": ""}
+{"task_id": "Mbpp/11", "solution": ""}
+{"task_id": "Mbpp/12", "solution": ""}
+{"task_id": "Mbpp/14", "solution": ""}
+{"task_id": "Mbpp/16", "solution": ""}
+{"task_id": "Mbpp/17", "solution": ""}
+{"task_id": "Mbpp/18", "solution": ""}
+{"task_id": "Mbpp/19", "solution": ""}
+{"task_id": "Mbpp/20", "solution": ""}
+{"task_id": "Mbpp/56", "solution": ""}
+{"task_id": "Mbpp/57", "solution": "def find_Max_Num(digits: list) -> int:\n    \"\"\"\n    Find the largest number that can be formed with the given list of digits.\n    \n    Args:\n        digits: A list of integers (0-9) representing digits.\n        \n    Returns:\n        The largest integer that can be formed by arranging the digits in descending order.\n    \"\"\"\n    # Sort the digits in descending order\n    sorted_digits = sorted(digits, reverse=True)\n    \n    # Convert the sorted digits to a string and then to an integer\n    result = int(''.join(map(str, sorted_digits)))\n    \n    return result"}
+{"task_id": "Mbpp/58", "solution": ""}
+{"task_id": "Mbpp/59", "solution": ""}
+{"task_id": "Mbpp/61", "solution": ""}
+{"task_id": "Mbpp/62", "solution": "def smallest_num(lst):\n    return min(lst)"}
+{"task_id": "Mbpp/63", "solution": ""}
+{"task_id": "Mbpp/64", "solution": ""}
+{"task_id": "Mbpp/65", "solution": ""}
+{"task_id": "Mbpp/66", "solution": "def pos_count(lst):\n    return sum(1 for x in lst if x > 0)"}
+{"task_id": "Mbpp/67", "solution": ""}
+{"task_id": "Mbpp/68", "solution": ""}
+{"task_id": "Mbpp/69", "solution": ""}
+{"task_id": "Mbpp/70", "solution": ""}
+{"task_id": "Mbpp/71", "solution": "def comb_sort(arr: list) -> list:\n    \"\"\"\n    Sort a list of elements using the comb sort algorithm.\n    \n    Args:\n        arr: A list of comparable elements to be sorted in ascending order.\n        \n    Returns:\n        A new sorted list.\n    \"\"\"\n    if not arr or len(arr) <= 1:\n        return arr[:]\n    \n    # Create a copy to avoid modifying the original list\n    arr_copy = arr[:]\n    n = len(arr_copy)\n    gap = n\n    shrink = 1.3  # Common shrink factor for comb sort\n    sorted_flag = False\n    \n    while not sorted_flag:\n        # Update the gap for the next pass\n        gap = int(gap / shrink)\n        if gap <= 1:\n            gap = 1\n            sorted_flag = True  # If gap is 1, we're done if no swaps occurred\n        \n        # Compare elements separated by the gap\n        for i in range(n - gap):\n            if arr_copy[i] > arr_copy[i + gap]:\n                arr_copy[i], arr_copy[i + gap] = arr_copy[i + gap], arr_copy[i]\n                sorted_flag = False  # If a swap occurred, we're not sorted yet\n    \n    return arr_copy"}
+{"task_id": "Mbpp/72", "solution": ""}
+{"task_id": "Mbpp/74", "solution": ""}
+{"task_id": "Mbpp/75", "solution": ""}
+{"task_id": "Mbpp/77", "solution": ""}
+{"task_id": "Mbpp/79", "solution": ""}
+{"task_id": "Mbpp/80", "solution": "def tetrahedral_number(n: int) -> int:\n    \"\"\"\n    Calculate the nth tetrahedral number.\n    \n    The nth tetrahedral number is the sum of the first n triangular numbers.\n    Formula: T_n = n * (n + 1) * (n + 2) / 6\n    \n    Args:\n        n: A positive integer representing the position in the tetrahedral sequence.\n        \n    Returns:\n        The nth tetrahedral number.\n    \"\"\"\n    if n < 1:\n        raise ValueError(\"n must be a positive integer\")\n    return n * (n + 1) * (n + 2) // 6"}
+{"task_id": "Mbpp/82", "solution": ""}
+{"task_id": "Mbpp/84", "solution": "def sequence(n: int) -> int:\n    \"\"\"\n    Find the nth number in the Newman-Conway sequence.\n    \n    The Newman-Conway sequence is defined as:\n    P(1) = 1\n    P(2) = 1\n    P(n) = P(P(n-1)) + P(n - P(n-1)) for n > 2\n    \n    Args:\n        n: A positive integer\n        \n    Returns:\n        The nth number in the Newman-Conway sequence\n    \"\"\"\n    if n <= 0:\n        raise ValueError(\"n must be a positive integer\")\n    if n == 1 or n == 2:\n        return 1\n    \n    # Use dynamic programming to compute the sequence up to n\n    p = [0] * (n + 1)\n    p[1] = 1\n    p[2] = 1\n    \n    for i in range(3, n + 1):\n        p[i] = p[p[i - 1]] + p[i - p[i - 1]]\n    \n    return p[n]"}
+{"task_id": "Mbpp/85", "solution": "import math\n\ndef surfacearea_sphere(radius: float) -> float:\n    \"\"\"\n    Calculate the surface area of a sphere.\n    \n    The formula for the surface area of a sphere is 4 * pi * r^2.\n    \n    Args:\n        radius: The radius of the sphere.\n        \n    Returns:\n        The surface area of the sphere.\n    \"\"\"\n    return 4 * math.pi * radius ** 2"}
+{"task_id": "Mbpp/86", "solution": ""}
+{"task_id": "Mbpp/87", "solution": "def merge_dictionaries_three(dict1, dict2, dict3):\n    merged = {}\n    merged.update(dict1)\n    merged.update(dict2)\n    merged.update(dict3)\n    return merged"}
+{"task_id": "Mbpp/88", "solution": ""}
+{"task_id": "Mbpp/89", "solution": "def closest_num(n: int) -> int:\n    \"\"\"\n    Find the closest smaller number than n.\n    \n    Args:\n        n: An integer\n        \n    Returns:\n        The closest smaller integer than n, which is n - 1\n    \"\"\"\n    return n - 1"}
+{"task_id": "Mbpp/90", "solution": ""}
+{"task_id": "Mbpp/91", "solution": "def find_substring(string_list, substring):\n    \"\"\"\n    Check if a string is present as a substring in any of the strings in the given list.\n    \n    Args:\n        string_list: A list of strings to search within.\n        substring: The substring to search for.\n    \n    Returns:\n        True if the substring is found in any string in the list, False otherwise.\n    \"\"\"\n    for s in string_list:\n        if substring in s:\n            return True\n    return False"}
+{"task_id": "Mbpp/92", "solution": ""}
+{"task_id": "Mbpp/93", "solution": ""}
+{"task_id": "Mbpp/94", "solution": "def index_minimum(tuples_list):\n    \"\"\"\n    Given a list of tuples, returns the first value of the tuple with the smallest second value.\n    \n    Args:\n        tuples_list: A list of tuples where each tuple contains at least two elements.\n        \n    Returns:\n        The first element of the tuple with the smallest second element.\n    \"\"\"\n    if not tuples_list:\n        raise ValueError(\"The list of tuples is empty\")\n    \n    min_tuple = min(tuples_list, key=lambda x: x[1])\n    return min_tuple[0]"}
+{"task_id": "Mbpp/95", "solution": ""}
+{"task_id": "Mbpp/96", "solution": ""}
+{"task_id": "Mbpp/97", "solution": ""}
+{"task_id": "Mbpp/98", "solution": ""}
+{"task_id": "Mbpp/99", "solution": "def decimal_to_binary(n: int) -> str:\n    \"\"\"\n    Convert a decimal number to its binary equivalent as a string with no leading zeros.\n    \n    Args:\n        n: A non-negative integer\n        \n    Returns:\n        A string representing the binary equivalent of the decimal number\n        \n    Raises:\n        ValueError: If the input is negative\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"Input must be a non-negative integer\")\n    if n == 0:\n        return '0'\n    \n    binary_digits = []\n    while n > 0:\n        binary_digits.append(str(n % 2))\n        n //= 2\n    \n    # Reverse to get correct binary representation\n    return ''.join(reversed(binary_digits))"}
+{"task_id": "Mbpp/100", "solution": ""}
+{"task_id": "Mbpp/101", "solution": ""}
+{"task_id": "Mbpp/102", "solution": ""}
+{"task_id": "Mbpp/103", "solution": ""}
+{"task_id": "Mbpp/104", "solution": ""}
+{"task_id": "Mbpp/105", "solution": ""}
+{"task_id": "Mbpp/106", "solution": ""}
+{"task_id": "Mbpp/108", "solution": ""}
+{"task_id": "Mbpp/109", "solution": ""}
+{"task_id": "Mbpp/111", "solution": ""}
+{"task_id": "Mbpp/113", "solution": ""}
+{"task_id": "Mbpp/116", "solution": ""}
+{"task_id": "Mbpp/118", "solution": "def string_to_list(s: str) -> list:\n    return s.split(' ')"}
+{"task_id": "Mbpp/119", "solution": "def search(arr):\n    \"\"\"\n    Find the element that appears only once in a sorted array.\n    All other elements appear exactly twice.\n    \"\"\"\n    if not arr:\n        return None\n    \n    left, right = 0, len(arr) - 1\n    \n    while left < right:\n        mid = (left + right) // 2\n        \n        # Check if mid is even or odd\n        if mid % 2 == 0:\n            # If mid is even, the pair should be at mid and mid+1\n            if arr[mid] == arr[mid + 1]:\n                # The single element is after mid\n                left = mid + 2\n            else:\n                # The single element is at mid or before\n                right = mid\n        else:\n            # If mid is odd, the pair should be at mid-1 and mid\n            if arr[mid] == arr[mid - 1]:\n                # The single element is after mid\n                left = mid + 1\n            else:\n                # The single element is at mid or before\n                right = mid\n    \n    return arr[left]"}
+{"task_id": "Mbpp/120", "solution": ""}
+{"task_id": "Mbpp/123", "solution": ""}
+{"task_id": "Mbpp/124", "solution": ""}
+{"task_id": "Mbpp/125", "solution": ""}
+{"task_id": "Mbpp/126", "solution": ""}
+{"task_id": "Mbpp/127", "solution": ""}
+{"task_id": "Mbpp/128", "solution": ""}
+{"task_id": "Mbpp/129", "solution": ""}
+{"task_id": "Mbpp/130", "solution": ""}
+{"task_id": "Mbpp/131", "solution": ""}
+{"task_id": "Mbpp/132", "solution": ""}
+{"task_id": "Mbpp/133", "solution": ""}
+{"task_id": "Mbpp/135", "solution": ""}
+{"task_id": "Mbpp/137", "solution": "import math\n\ndef zero_count(arr):\n    \"\"\"\n    Find the ratio of zeroes to non-zeroes in an array of integers.\n    \n    Args:\n        arr: List of integers\n        \n    Returns:\n        Ratio of zero count to non-zero count\n    \"\"\"\n    if not arr:\n        return 0.0\n    \n    zero_count = sum(1 for x in arr if x == 0)\n    non_zero_count = sum(1 for x in arr if x != 0)\n    \n    if non_zero_count == 0:\n        return 0.0\n    \n    return zero_count / non_zero_count"}
+{"task_id": "Mbpp/138", "solution": ""}
+{"task_id": "Mbpp/139", "solution": ""}
+{"task_id": "Mbpp/140", "solution": ""}
+{"task_id": "Mbpp/141", "solution": "def pancake_sort(arr: list) -> list:\n    \"\"\"\n    Sort a list using the pancake sort algorithm.\n    \n    Args:\n        arr: List of elements to sort\n        \n    Returns:\n        Sorted list in ascending order\n    \"\"\"\n    if not arr:\n        return []\n    \n    # Make a copy to avoid modifying the original\n    arr = arr.copy()\n    n = len(arr)\n    \n    for size in range(n, 1, -1):\n        # Find the index of the maximum element in arr[0:size]\n        max_idx = 0\n        for i in range(1, size):\n            if arr[i] > arr[max_idx]:\n                max_idx = i\n        \n        # If the maximum element is not at the end, move it there\n        if max_idx != size - 1:\n            # Flip to bring the maximum element to the front\n            _flip(arr, max_idx + 1)\n            # Flip to move the maximum element to its correct position\n            _flip(arr, size)\n    \n    return arr\n\n\ndef _flip(arr: list, k: int) -> None:\n    \"\"\"\n    Reverse the first k elements of the array.\n    \n    Args:\n        arr: List to flip\n        k: Number of elements to flip from the beginning\n    \"\"\"\n    arr[:k] = arr[:k][::-1]"}
+{"task_id": "Mbpp/142", "solution": ""}
+{"task_id": "Mbpp/145", "solution": "def max_Abs_Diff(arr):\n    \"\"\"\n    Find the maximum difference between any two elements in a given array.\n    \n    The maximum difference is defined as the maximum absolute difference\n    between any two elements in the array.\n    \n    Args:\n        arr: A tuple or list of numbers\n        \n    Returns:\n        The maximum absolute difference between any two elements\n    \"\"\"\n    if len(arr) < 2:\n        return 0\n    \n    min_val = min(arr)\n    max_val = max(arr)\n    \n    return max_val - min_val"}
+{"task_id": "Mbpp/160", "solution": "def find_solution(a: int, b: int, n: int) -> tuple:\n    \"\"\"\n    Find integers x and y such that ax + by = n.\n    Returns (x, y) if a solution exists, None otherwise.\n    \"\"\"\n    # Extended Euclidean Algorithm to find gcd(a, b) and coefficients x, y such that ax + by = gcd(a, b)\n    def extended_gcd(a, b):\n        if a == 0:\n            return b, 0, 1\n        gcd, x1, y1 = extended_gcd(b % a, a)\n        x = y1 - (b // a) * x1\n        y = x1\n        return gcd, x, y\n    \n    # Handle edge cases\n    if a == 0 and b == 0:\n        if n == 0:\n            return (0, 0)\n        else:\n            return None\n    \n    if a == 0:\n        # Then by = n, so y = n/b if n is divisible by b\n        if n % b == 0:\n            return (0, n // b)\n        else:\n            return None\n    \n    if b == 0:\n        # Then ax = n, so x = n/a if n is divisible by a\n        if n % a == 0:\n            return (n // a, 0)\n        else:\n            return None\n    \n    gcd, x0, y0 = extended_gcd(a, b)\n    \n    # Check if n is divisible by gcd(a, b)\n    if n % gcd != 0:\n        return None\n    \n    # Scale the solution\n    x = x0 * (n // gcd)\n    y = y0 * (n // gcd)\n    \n    return (x, y)"}
+{"task_id": "Mbpp/161", "solution": "def remove_elements(lst1, lst2):\n    \"\"\"\n    Remove all elements from lst1 that are present in lst2.\n    \n    Args:\n        lst1: The original list\n        lst2: The list containing elements to remove from lst1\n    \n    Returns:\n        A new list with elements from lst1 that are not in lst2\n    \"\"\"\n    set2 = set(lst2)\n    return [x for x in lst1 if x not in set2]"}
+{"task_id": "Mbpp/162", "solution": "def sum_series(n: int) -> int:\n    \"\"\"\n    Calculate the sum (n - 2*i) from i=0 to n // 2.\n    For example, for n=6: 6 + 4 + 2 = 12\n    \"\"\"\n    total = 0\n    for i in range(n // 2 + 1):\n        total += (n - 2 * i)\n    return total"}
+{"task_id": "Mbpp/165", "solution": ""}
+{"task_id": "Mbpp/166", "solution": ""}
+{"task_id": "Mbpp/167", "solution": ""}
+{"task_id": "Mbpp/168", "solution": ""}
+{"task_id": "Mbpp/170", "solution": ""}
+{"task_id": "Mbpp/171", "solution": ""}
+{"task_id": "Mbpp/172", "solution": ""}
+{"task_id": "Mbpp/222", "solution": "def check_type(t):\n    if not t:\n        return True\n    first_type = type(t[0])\n    return all(isinstance(item, first_type) for item in t)"}
+{"task_id": "Mbpp/223", "solution": ""}
+{"task_id": "Mbpp/224", "solution": ""}
+{"task_id": "Mbpp/226", "solution": ""}
+{"task_id": "Mbpp/227", "solution": ""}
+{"task_id": "Mbpp/230", "solution": ""}
+{"task_id": "Mbpp/232", "solution": ""}
+{"task_id": "Mbpp/233", "solution": ""}
+{"task_id": "Mbpp/234", "solution": ""}
+{"task_id": "Mbpp/235", "solution": "def even_bit_set_number(n: int) -> int:\n    \"\"\"\n    Set all even bits of a given number.\n    \n    Even bits are bits at positions 0, 2, 4, 6, ... (0-indexed from the right).\n    Setting a bit means making it 1.\n    \n    For example:\n    - 10 in binary is 1010\n    - Even bit positions (0, 2, 4, ...): bit 0 is 0, bit 2 is 0, bit 4 is 0, etc.\n    - Setting all even bits: bit 0 becomes 1, bit 2 becomes 1, bit 4 becomes 1, etc.\n    - 1010 -> set bit 0: 1011, set bit 2: 1111, set bit 4: 11111, etc.\n    - But we need to be careful about what \"even bits\" means and how many bits to consider.\n    \n    Let's think about it differently. The assertion says even_bit_set_number(10) == 10.\n    10 in binary is 1010.\n    If we set all even-positioned bits (0-indexed from right):\n    - Position 0 (even): currently 0, set to 1 -> 1011 = 11\n    - Position 2 (even): currently 0, set to 1 -> 1111 = 15\n    - Position 4 (even): currently 0, set to 1 -> 11111 = 31\n    \n    That doesn't give 10. So maybe \"even bits\" means bits at even positions that are already set?\n    Or maybe it means something else.\n    \n    Wait, let me reconsider. Perhaps \"even bits\" refers to bits at positions 1, 3, 5, ... (1-indexed from right, i.e., the second, fourth, etc. bits).\n    \n    Let's try: 10 = 1010 in binary.\n    If we consider 1-indexed positions from right:\n    - Position 1 (odd): bit 0 = 0\n    - Position 2 (even): bit 1 = 1\n    - Position 3 (odd): bit 2 = 0\n    - Position 4 (even): bit 3 = 1\n    \n    Setting all even-positioned bits (1-indexed): positions 2 and 4 are already 1, so no change. Result = 10. That matches!\n    \n    So \"even bits\" means bits at even positions when counting from 1 (i.e., positions 2, 4, 6, ... from the right, which correspond to bit indices 1, 3, 5, ... in 0-indexed notation).\n    \n    A mask for bits at positions 1, 3, 5, ... (0-indexed) is: 0b10101010... = 0xAA, 0xAAAA, etc.\n    We can create a mask with all odd-indexed bits set (0-indexed), which corresponds to even positions (1-indexed).\n    \n    The mask 0xAAAAAAAAAAAA... has bits set at positions 1, 3, 5, 7, ...\n    We OR the number with this mask to set those bits.\n    \"\"\"\n    # Create"}
+{"task_id": "Mbpp/237", "solution": ""}
+{"task_id": "Mbpp/238", "solution": "def number_of_substrings(s: str) -> int:\n    \"\"\"\n    Count the number of non-empty substrings of a given string.\n    \n    A substring is a contiguous sequence of characters within the string.\n    For a string of length n, the number of non-empty substrings is n*(n+1)/2.\n    \n    Args:\n        s: The input string\n        \n    Returns:\n        The number of non-empty substrings\n    \"\"\"\n    n = len(s)\n    return n * (n + 1) // 2"}
+{"task_id": "Mbpp/239", "solution": ""}
+{"task_id": "Mbpp/240", "solution": "def replace_list(lst1, lst2):\n    \"\"\"\n    Takes in two lists and replaces the last element of the first list with the elements of the second list.\n    \n    Args:\n        lst1: The first list whose last element will be replaced.\n        lst2: The second list whose elements will replace the last element of lst1.\n    \n    Returns:\n        A new list with the last element of lst1 replaced by the elements of lst2.\n    \"\"\"\n    if not lst1:\n        return lst2[:]\n    return lst1[:-1] + lst2"}
+{"task_id": "Mbpp/242", "solution": ""}
+{"task_id": "Mbpp/244", "solution": ""}
+{"task_id": "Mbpp/245", "solution": ""}
+{"task_id": "Mbpp/247", "solution": "def lps(s: str) -> int:\n    \"\"\"\n    Find the length of the longest palindromic subsequence in the given string.\n    \n    Args:\n        s: Input string\n        \n    Returns:\n        Length of the longest palindromic subsequence\n    \"\"\"\n    n = len(s)\n    if n == 0:\n        return 0\n    \n    # Create a 2D DP table\n    # dp[i][j] represents the length of the longest palindromic subsequence\n    # in the substring s[i..j]\n    dp = [[0] * n for _ in range(n)]\n    \n    # Every single character is a palindrome of length 1\n    for i in range(n):\n        dp[i][i] = 1\n    \n    # Fill the table for substrings of length 2 to n\n    for cl in range(2, n + 1):  # cl is the chain length\n        for i in range(n - cl + 1):\n            j = i + cl - 1\n            if s[i] == s[j] and cl == 2:\n                dp[i][j] = 2\n            elif s[i] == s[j]:\n                dp[i][j] = dp[i + 1][j - 1] + 2\n            else:\n                dp[i][j] = max(dp[i + 1][j], dp[i][j - 1])\n    \n    return dp[0][n - 1]"}
+{"task_id": "Mbpp/250", "solution": "def count_X(t, x):\n    return t.count(x)"}
+{"task_id": "Mbpp/251", "solution": ""}
+{"task_id": "Mbpp/252", "solution": ""}
+{"task_id": "Mbpp/253", "solution": ""}
+{"task_id": "Mbpp/255", "solution": ""}
+{"task_id": "Mbpp/256", "solution": ""}
+{"task_id": "Mbpp/257", "solution": ""}
+{"task_id": "Mbpp/259", "solution": "def maximize_elements(tup1, tup2):\n    \"\"\"\n    Maximize the given two tuples element-wise.\n    \n    For each corresponding pair of elements from the two tuples,\n    take the maximum of the two.\n    \n    Args:\n        tup1: First tuple of tuples\n        tup2: Second tuple of tuples\n    \n    Returns:\n        A new tuple where each element is the maximum of the corresponding\n        elements from tup1 and tup2.\n    \"\"\"\n    return tuple(\n        tuple(max(a, b) for a, b in zip(t1, t2))\n        for t1, t2 in zip(tup1, tup2)\n    )"}
+{"task_id": "Mbpp/260", "solution": "def newman_prime(n: int) -> int:\n    \"\"\"\n    Find the nth Newman-Shanks-Williams (NSW) prime number.\n    \n    The NSW numbers are defined by the recurrence:\n    S(0) = 1\n    S(1) = 1\n    S(n) = 2*S(n-1) + S(n-2) for n >= 2\n    \n    An NSW prime is an NSW number that is also prime.\n    \n    Args:\n        n: The index of the NSW prime to find (1-indexed)\n        \n    Returns:\n        The nth NSW prime number\n    \"\"\"\n    def is_prime(num: int) -> bool:\n        if num < 2:\n            return False\n        if num == 2:\n            return True\n        if num % 2 == 0:\n            return False\n        for i in range(3, int(num**0.5) + 1, 2):\n            if num % i == 0:\n                return False\n        return True\n    \n    def generate_nsw_numbers():\n        \"\"\"Generate NSW numbers using the recurrence relation.\"\"\"\n        a, b = 1, 1\n        yield a  # S(0) = 1\n        yield b  # S(1) = 1\n        while True:\n            c = 2 * b + a\n            yield c\n            a, b = b, c\n    \n    # Generate NSW numbers and find the nth one that is prime\n    count = 0\n    for nsw_num in generate_nsw_numbers():\n        if is_prime(nsw_num):\n            count += 1\n            if count == n:\n                return nsw_num"}
+{"task_id": "Mbpp/261", "solution": ""}
+{"task_id": "Mbpp/262", "solution": ""}
+{"task_id": "Mbpp/264", "solution": "def dog_age(human_years: int) -> int:\n    \"\"\"\n    Calculate a dog's age in dog's years.\n    \n    The first year of a dog's life equals 10.5 human years.\n    Each additional year equals 4 human years.\n    \n    Args:\n        human_years: The dog's age in human years.\n        \n    Returns:\n        The dog's age in dog's years.\n    \"\"\"\n    if human_years <= 0:\n        return 0\n    elif human_years == 1:\n        return 10.5\n    else:\n        return 10.5 + (human_years - 1) * 4"}
+{"task_id": "Mbpp/265", "solution": ""}
+{"task_id": "Mbpp/266", "solution": ""}
+{"task_id": "Mbpp/267", "solution": ""}
+{"task_id": "Mbpp/268", "solution": ""}
+{"task_id": "Mbpp/269", "solution": "def ascii_value(char: str) -> int:\n    \"\"\"\n    Find the ASCII value of a character.\n    \n    Args:\n        char: A single character string\n        \n    Returns:\n        The ASCII value of the character as an integer\n        \n    Raises:\n        ValueError: If the input is not a single character\n    \"\"\"\n    if len(char) != 1:\n        raise ValueError(\"Input must be a single character\")\n    return ord(char)"}
+{"task_id": "Mbpp/270", "solution": "def sum_even_and_even_index(lst):\n    \"\"\"\n    Find the sum of even numbers at even positions (0-indexed) of a list.\n    \n    Args:\n        lst: A list of integers.\n        \n    Returns:\n        The sum of even numbers that are at even indices.\n    \"\"\"\n    total = 0\n    for i in range(0, len(lst), 2):\n        if lst[i] % 2 == 0:\n            total += lst[i]\n    return total"}
+{"task_id": "Mbpp/271", "solution": ""}
+{"task_id": "Mbpp/272", "solution": ""}
+{"task_id": "Mbpp/273", "solution": ""}
+{"task_id": "Mbpp/274", "solution": ""}
+{"task_id": "Mbpp/276", "solution": ""}
+{"task_id": "Mbpp/277", "solution": ""}
+{"task_id": "Mbpp/278", "solution": ""}
+{"task_id": "Mbpp/279", "solution": "def is_num_decagonal(n: int) -> int:\n    \"\"\"\n    Find the nth decagonal number.\n    \n    The nth decagonal number is given by the formula: D_n = n * (4*n - 3)\n    \n    Args:\n        n: A positive integer representing the position in the decagonal number sequence.\n        \n    Returns:\n        The nth decagonal number.\n    \"\"\"\n    return n * (4 * n - 3)"}
+{"task_id": "Mbpp/280", "solution": ""}
+{"task_id": "Mbpp/281", "solution": ""}
+{"task_id": "Mbpp/282", "solution": ""}
+{"task_id": "Mbpp/283", "solution": ""}
+{"task_id": "Mbpp/284", "solution": ""}
+{"task_id": "Mbpp/285", "solution": "import re\n\ndef text_match_two_three(text: str) -> bool:\n    \"\"\"\n    Checks whether a string contains the 'a' character followed by two or three 'b' characters.\n    \n    Args:\n        text: The input string to check.\n        \n    Returns:\n        True if the string contains 'a' followed by exactly two or three 'b' characters, False otherwise.\n    \"\"\"\n    # Pattern: 'a' followed by exactly 2 or 3 'b's\n    # We need to ensure it's exactly 2 or 3 'b's, not more\n    # So we use word boundaries or lookahead/lookbehind, or simply match the pattern\n    # The pattern should match 'ab{2,3}' but we need to make sure there aren't more 'b's after\n    # Using regex: a followed by 2 or 3 b's, where the next character is not a 'b' (or end of string)\n    pattern = r'ab{2,3}(?![b])'\n    return bool(re.search(pattern, text))"}
+{"task_id": "Mbpp/286", "solution": ""}
+{"task_id": "Mbpp/287", "solution": ""}
+{"task_id": "Mbpp/290", "solution": ""}
+{"task_id": "Mbpp/292", "solution": "def find(a, b):\n    \"\"\"\n    Find the quotient of two numbers rounded down to the nearest integer.\n    \n    Args:\n        a: The dividend\n        b: The divisor\n    \n    Returns:\n        The floor division of a by b\n    \"\"\"\n    return a // b"}
+{"task_id": "Mbpp/293", "solution": "import math\n\ndef otherside_rightangle(a, b):\n    \"\"\"\n    Find the third side of a right angled triangle.\n    Given two sides a and b, this function calculates the hypotenuse.\n    \"\"\"\n    return math.sqrt(a**2 + b**2)"}
+{"task_id": "Mbpp/294", "solution": ""}
+{"task_id": "Mbpp/296", "solution": "def get_Inv_Count(arr):\n    \"\"\"\n    Count the number of inversions in an array.\n    An inversion is a pair (i, j) such that i < j and arr[i] > arr[j].\n    \"\"\"\n    def merge_sort(arr):\n        if len(arr) <= 1:\n            return arr, 0\n        \n        mid = len(arr) // 2\n        left, left_count = merge_sort(arr[:mid])\n        right, right_count = merge_sort(arr[mid:])\n        \n        merged, merge_count = merge(left, right)\n        \n        total_count = left_count + right_count + merge_count\n        return merged, total_count\n    \n    def merge(left, right):\n        merged = []\n        i = 0\n        j = 0\n        count = 0\n        \n        while i < len(left) and j < len(right):\n            if left[i] <= right[j]:\n                merged.append(left[i])\n                i += 1\n            else:\n                merged.append(right[j])\n                j += 1\n                # All remaining elements in left[i:] are greater than right[j]\n                count += len(left) - i\n        \n        # Append remaining elements\n        merged.extend(left[i:])\n        merged.extend(right[j:])\n        \n        return merged, count\n    \n    _, inversion_count = merge_sort(arr)\n    return inversion_count"}
+{"task_id": "Mbpp/297", "solution": "def flatten_list(nested_list):\n    \"\"\"\n    Flatten a nested list structure into a single-level list.\n    \n    Args:\n        nested_list: A potentially nested list structure\n        \n    Returns:\n        A flattened list with all elements at the top level\n    \"\"\"\n    result = []\n    for item in nested_list:\n        if isinstance(item, list):\n            result.extend(flatten_list(item))\n        else:\n            result.append(item)\n    return result"}
+{"task_id": "Mbpp/299", "solution": "def max_aggregate(tuples_list):\n    \"\"\"\n    Calculate the maximum aggregate from the list of tuples.\n    The aggregate is the sum of values for each unique name.\n    Returns the tuple (name, total_sum) with the highest total sum.\n    \"\"\"\n    # Aggregate sums by name\n    aggregates = {}\n    for name, value in tuples_list:\n        if name in aggregates:\n            aggregates[name] += value\n        else:\n            aggregates[name] = value\n    \n    # Find the name with the maximum aggregate\n    max_name = None\n    max_sum = None\n    for name, total in aggregates.items():\n        if max_sum is None or total > max_sum:\n            max_sum = total\n            max_name = name\n    \n    return (max_name, max_sum)"}
+{"task_id": "Mbpp/300", "solution": ""}
+{"task_id": "Mbpp/301", "solution": ""}
+{"task_id": "Mbpp/305", "solution": ""}
+{"task_id": "Mbpp/306", "solution": ""}
+{"task_id": "Mbpp/308", "solution": ""}
+{"task_id": "Mbpp/309", "solution": ""}
+{"task_id": "Mbpp/310", "solution": ""}
+{"task_id": "Mbpp/311", "solution": ""}
+{"task_id": "Mbpp/312", "solution": ""}
+{"task_id": "Mbpp/388", "solution": ""}
+{"task_id": "Mbpp/389", "solution": ""}
+{"task_id": "Mbpp/390", "solution": ""}
+{"task_id": "Mbpp/391", "solution": "def convert_list_dictionary(list1, list2, list3):\n    \"\"\"\n    Convert multiple lists to a nested dictionary structure.\n    \n    Args:\n        list1: List of keys for the outer dictionary\n        list2: List of keys for the inner dictionary\n        list3: List of values for the inner dictionary\n    \n    Returns:\n        A list of dictionaries, each containing one key-value pair where the value is a nested dictionary\n    \"\"\"\n    result = []\n    for i in range(len(list1)):\n        nested_dict = {list2[i]: list3[i]}\n        outer_dict = {list1[i]: nested_dict}\n        result.append(outer_dict)\n    return result"}
+{"task_id": "Mbpp/392", "solution": ""}
+{"task_id": "Mbpp/394", "solution": ""}
+{"task_id": "Mbpp/395", "solution": ""}
+{"task_id": "Mbpp/397", "solution": ""}
+{"task_id": "Mbpp/398", "solution": ""}
+{"task_id": "Mbpp/404", "solution": ""}
+{"task_id": "Mbpp/405", "solution": ""}
+{"task_id": "Mbpp/406", "solution": ""}
+{"task_id": "Mbpp/409", "solution": ""}
+{"task_id": "Mbpp/410", "solution": ""}
+{"task_id": "Mbpp/412", "solution": "def remove_odd(lst):\n    return [x for x in lst if x % 2 == 0]"}
+{"task_id": "Mbpp/413", "solution": ""}
+{"task_id": "Mbpp/414", "solution": ""}
+{"task_id": "Mbpp/415", "solution": ""}
+{"task_id": "Mbpp/418", "solution": "def Find_Max(lst):\n    \"\"\"\n    Find the element of a list having maximum length.\n    \n    Args:\n        lst: A list of elements (typically lists or strings)\n        \n    Returns:\n        The element with the maximum length\n    \"\"\"\n    if not lst:\n        return None\n    return max(lst, key=len)"}
+{"task_id": "Mbpp/419", "solution": ""}
+{"task_id": "Mbpp/420", "solution": ""}
+{"task_id": "Mbpp/421", "solution": "def concatenate_tuple(tup):\n    return '-'.join(str(item) for item in tup)"}
+{"task_id": "Mbpp/422", "solution": ""}
+{"task_id": "Mbpp/424", "solution": ""}
+{"task_id": "Mbpp/425", "solution": ""}
+{"task_id": "Mbpp/426", "solution": "def filter_oddnumbers(numbers):\n    return [n for n in numbers if n % 2 != 0]"}
+{"task_id": "Mbpp/427", "solution": "def change_date_format(date_str: str) -> str:\n    \"\"\"\n    Convert a date from yyyy-mm-dd format to dd-mm-yyyy format.\n    \n    Args:\n        date_str: A string in yyyy-mm-dd format\n        \n    Returns:\n        A string in dd-mm-yyyy format\n    \"\"\"\n    parts = date_str.split('-')\n    year = parts[0]\n    month = parts[1]\n    day = parts[2]\n    return f\"{day}-{month}-{year}\""}
+{"task_id": "Mbpp/428", "solution": ""}
+{"task_id": "Mbpp/429", "solution": ""}
+{"task_id": "Mbpp/430", "solution": ""}
+{"task_id": "Mbpp/432", "solution": "def median_trapezium(a, b, c):\n    \"\"\"\n    Find the median length of a trapezium.\n    \n    The median (or midline) of a trapezium is the average of the lengths of the two parallel sides.\n    In a trapezium with parallel sides a and b, the median is (a + b) / 2.\n    The third parameter c is typically the height or another side, but for the median length,\n    we only need the two parallel sides.\n    \n    Based on the assertion: median_trapezium(15, 25, 35) == 20\n    (15 + 25) / 2 = 20, so the first two arguments are the parallel sides.\n    \"\"\"\n    return (a + b) / 2"}
+{"task_id": "Mbpp/433", "solution": ""}
+{"task_id": "Mbpp/435", "solution": "def last_Digit(n: int) -> int:\n    \"\"\"\n    Find the last digit of a given number.\n    \n    Args:\n        n: An integer number\n        \n    Returns:\n        The last digit of the number\n    \"\"\"\n    return abs(n) % 10"}
+{"task_id": "Mbpp/436", "solution": "def neg_nos(lst):\n    return [x for x in lst if x < 0]"}
+{"task_id": "Mbpp/437", "solution": ""}
+{"task_id": "Mbpp/439", "solution": ""}
+{"task_id": "Mbpp/440", "solution": ""}
+{"task_id": "Mbpp/441", "solution": "def surfacearea_cube(size: float) -> float:\n    \"\"\"\n    Calculate the surface area of a cube given its size (edge length).\n    \n    The surface area of a cube is 6 * side^2.\n    \n    Args:\n        size: The edge length of the cube.\n        \n    Returns:\n        The surface area of the cube.\n    \"\"\"\n    return 6 * size ** 2"}
+{"task_id": "Mbpp/445", "solution": "def index_multiplication(t1, t2):\n    \"\"\"\n    Perform index-wise multiplication of tuple elements in the given two tuples.\n    \n    Args:\n        t1: First tuple of tuples\n        t2: Second tuple of tuples\n    \n    Returns:\n        A tuple where each element is the product of corresponding elements from t1 and t2\n    \"\"\"\n    return tuple(\n        tuple(a * b for a, b in zip(t1[i], t2[i]))\n        for i in range(len(t1))\n    )"}
+{"task_id": "Mbpp/446", "solution": ""}
+{"task_id": "Mbpp/447", "solution": ""}
+{"task_id": "Mbpp/448", "solution": ""}
+{"task_id": "Mbpp/450", "solution": ""}
+{"task_id": "Mbpp/451", "solution": "def remove_whitespaces(s: str) -> str:\n    return s.replace(\" \", \"\")"}
+{"task_id": "Mbpp/453", "solution": ""}
+{"task_id": "Mbpp/454", "solution": ""}
+{"task_id": "Mbpp/455", "solution": ""}
+{"task_id": "Mbpp/456", "solution": "def reverse_string_list(strings: list[str]) -> list[str]:\n    return [s[::-1] for s in strings]"}
+{"task_id": "Mbpp/457", "solution": ""}
+{"task_id": "Mbpp/458", "solution": ""}
+{"task_id": "Mbpp/459", "solution": "def remove_uppercase(s: str) -> str:\n    \"\"\"\n    Remove all uppercase characters from the given string.\n    \n    Args:\n        s: Input string\n        \n    Returns:\n        String with all uppercase characters removed\n    \"\"\"\n    return ''.join(char for char in s if not char.isupper())"}
+{"task_id": "Mbpp/460", "solution": "def Extract(lst):\n    return [sublist[0] for sublist in lst]"}
+{"task_id": "Mbpp/462", "solution": ""}
+{"task_id": "Mbpp/463", "solution": ""}
+{"task_id": "Mbpp/465", "solution": ""}
+{"task_id": "Mbpp/468", "solution": ""}
+{"task_id": "Mbpp/470", "solution": ""}
+{"task_id": "Mbpp/471", "solution": ""}
+{"task_id": "Mbpp/472", "solution": "def check_Consecutive(lst):\n    \"\"\"\n    Check whether the given list contains consecutive numbers or not.\n    \n    Args:\n        lst: A list of numbers\n        \n    Returns:\n        True if the list contains consecutive numbers, False otherwise\n    \"\"\"\n    if not lst:\n        return False\n    \n    sorted_lst = sorted(lst)\n    \n    for i in range(len(sorted_lst) - 1):\n        if sorted_lst[i + 1] - sorted_lst[i] != 1:\n            return False\n    \n    return True"}
+{"task_id": "Mbpp/473", "solution": ""}
+{"task_id": "Mbpp/474", "solution": "def replace_char(s: str, old: str, new: str) -> str:\n    return s.replace(old, new)"}
+{"task_id": "Mbpp/475", "solution": ""}
+{"task_id": "Mbpp/476", "solution": ""}
+{"task_id": "Mbpp/477", "solution": ""}
+{"task_id": "Mbpp/478", "solution": "def remove_lowercase(s: str) -> str:\n    \"\"\"\n    Remove lowercase substrings from a given string.\n    \n    A lowercase substring is defined as a contiguous sequence of lowercase letters.\n    We remove all such sequences from the string.\n    \n    Args:\n        s: Input string\n        \n    Returns:\n        String with all lowercase substrings removed\n        \n    Example:\n        >>> remove_lowercase(\"PYTHon\")\n        'PYTH'\n    \"\"\"\n    result = []\n    i = 0\n    n = len(s)\n    \n    while i < n:\n        if s[i].islower():\n            # Skip all consecutive lowercase characters\n            while i < n and s[i].islower():\n                i += 1\n        else:\n            result.append(s[i])\n            i += 1\n    \n    return ''.join(result)"}
+{"task_id": "Mbpp/479", "solution": "def first_Digit(n: int) -> int:\n    \"\"\"\n    Find the first digit of a given number.\n    \n    Args:\n        n: An integer number\n        \n    Returns:\n        The first digit of the number\n        \n    Examples:\n        >>> first_Digit(123)\n        1\n        >>> first_Digit(-456)\n        4\n        >>> first_Digit(7)\n        7\n    \"\"\"\n    # Handle negative numbers by taking absolute value\n    n = abs(n)\n    \n    # Convert to string and get the first character, then convert back to int\n    return int(str(n)[0])"}
+{"task_id": "Mbpp/554", "solution": ""}
+{"task_id": "Mbpp/555", "solution": ""}
+{"task_id": "Mbpp/556", "solution": ""}
+{"task_id": "Mbpp/557", "solution": "def toggle_string(s: str) -> str:\n    return s.swapcase()"}
+{"task_id": "Mbpp/558", "solution": ""}
+{"task_id": "Mbpp/559", "solution": "def max_sub_array_sum(arr: list, n: int) -> int:\n    \"\"\"\n    Find the sum of the largest contiguous sublist in the given list.\n    \n    Args:\n        arr: The input list of numbers\n        n: The length of the list\n    \n    Returns:\n        The maximum sum of any contiguous sublist\n    \"\"\"\n    if n == 0:\n        return 0\n    \n    max_sum = arr[0]\n    current_sum = arr[0]\n    \n    for i in range(1, n):\n        current_sum = max(arr[i], current_sum + arr[i])\n        max_sum = max(max_sum, current_sum)\n    \n    return max_sum"}
+{"task_id": "Mbpp/560", "solution": ""}
+{"task_id": "Mbpp/562", "solution": ""}
+{"task_id": "Mbpp/563", "solution": ""}
+{"task_id": "Mbpp/564", "solution": ""}
+{"task_id": "Mbpp/565", "solution": ""}
+{"task_id": "Mbpp/566", "solution": ""}
+{"task_id": "Mbpp/567", "solution": ""}
+{"task_id": "Mbpp/568", "solution": "def empty_list(N: int) -> list:\n    \"\"\"\n    Create a list of N empty dictionaries.\n    \n    Args:\n        N: Number of empty dictionaries to create\n        \n    Returns:\n        A list containing N empty dictionaries\n    \"\"\"\n    return [{} for _ in range(N)]"}
+{"task_id": "Mbpp/569", "solution": ""}
+{"task_id": "Mbpp/572", "solution": ""}
+{"task_id": "Mbpp/573", "solution": ""}
+{"task_id": "Mbpp/576", "solution": ""}
+{"task_id": "Mbpp/577", "solution": ""}
+{"task_id": "Mbpp/578", "solution": ""}
+{"task_id": "Mbpp/579", "solution": ""}
+{"task_id": "Mbpp/580", "solution": ""}
+{"task_id": "Mbpp/581", "solution": "import math\n\ndef surface_Area(base_edge, height):\n    \"\"\"\n    Calculate the surface area of a square pyramid.\n    \n    The surface area consists of the base area plus the lateral surface area.\n    Base area = base_edge^2\n    Lateral surface area = 4 * (1/2 * base_edge * slant_height)\n    Slant height = sqrt((base_edge/2)^2 + height^2)\n    \n    Args:\n        base_edge: Length of the base edge of the square pyramid\n        height: Height of the pyramid\n    \n    Returns:\n        Total surface area of the square pyramid\n    \"\"\"\n    # Calculate the slant height\n    slant_height = math.sqrt((base_edge / 2) ** 2 + height ** 2)\n    \n    # Base area\n    base_area = base_edge ** 2\n    \n    # Lateral surface area (4 triangular faces)\n    lateral_area = 4 * (0.5 * base_edge * slant_height)\n    \n    # Total surface area\n    total_surface_area = base_area + lateral_area\n    \n    return total_surface_area"}
+{"task_id": "Mbpp/583", "solution": ""}
+{"task_id": "Mbpp/585", "solution": "def expensive_items(items, n):\n    \"\"\"\n    Find the n most expensive items in a given dataset.\n    \n    Args:\n        items: A list of dictionaries, each containing 'name' and 'price' keys.\n        n: The number of most expensive items to return.\n        \n    Returns:\n        A list of the n most expensive items, sorted by price in descending order.\n    \"\"\"\n    # Sort items by price in descending order and take the first n items\n    sorted_items = sorted(items, key=lambda x: x['price'], reverse=True)\n    return sorted_items[:n]"}
+{"task_id": "Mbpp/586", "solution": ""}
+{"task_id": "Mbpp/587", "solution": ""}
+{"task_id": "Mbpp/588", "solution": ""}
+{"task_id": "Mbpp/589", "solution": ""}
+{"task_id": "Mbpp/590", "solution": ""}
+{"task_id": "Mbpp/591", "solution": ""}
+{"task_id": "Mbpp/592", "solution": ""}
+{"task_id": "Mbpp/593", "solution": "def removezero_ip(ip: str) -> str:\n    \"\"\"\n    Remove leading zeroes from each octet of an IP address.\n    \n    Args:\n        ip: A string representing an IP address with potential leading zeroes.\n        \n    Returns:\n        A string representing the IP address with leading zeroes removed.\n    \"\"\"\n    octets = ip.split('.')\n    cleaned_octets = [str(int(octet)) for octet in octets]\n    return '.'.join(cleaned_octets)"}
+{"task_id": "Mbpp/594", "solution": ""}
+{"task_id": "Mbpp/596", "solution": ""}
+{"task_id": "Mbpp/597", "solution": ""}
+{"task_id": "Mbpp/598", "solution": ""}
+{"task_id": "Mbpp/599", "solution": "def sum_average(n: int) -> tuple:\n    \"\"\"\n    Find the sum and average of the first n natural numbers.\n    \n    Args:\n        n: A positive integer representing the count of natural numbers\n        \n    Returns:\n        A tuple containing (sum, average) of the first n natural numbers\n    \"\"\"\n    if n <= 0:\n        return (0, 0.0)\n    \n    total_sum = n * (n + 1) // 2\n    average = total_sum / n\n    \n    return (total_sum, average)"}
+{"task_id": "Mbpp/600", "solution": "def is_Even(n: int) -> bool:\n    \"\"\"Check whether the given number is even or not.\"\"\"\n    return n % 2 == 0"}
+{"task_id": "Mbpp/602", "solution": ""}
+{"task_id": "Mbpp/603", "solution": ""}
+{"task_id": "Mbpp/604", "solution": ""}
+{"task_id": "Mbpp/605", "solution": "def prime_num(n: int) -> bool:\n    \"\"\"Check if the given integer is a prime number.\"\"\"\n    if n < 2:\n        return False\n    if n == 2:\n        return True\n    if n % 2 == 0:\n        return False\n    for i in range(3, int(n**0.5) + 1, 2):\n        if n % i == 0:\n            return False\n    return True"}
+{"task_id": "Mbpp/606", "solution": "import math\n\ndef radian_degree(degrees: float) -> float:\n    \"\"\"\n    Convert degrees to radians.\n    \n    Args:\n        degrees: The angle in degrees.\n        \n    Returns:\n        The angle in radians.\n    \"\"\"\n    return math.radians(degrees)"}
+{"task_id": "Mbpp/607", "solution": ""}
+{"task_id": "Mbpp/608", "solution": ""}
+{"task_id": "Mbpp/610", "solution": ""}
+{"task_id": "Mbpp/611", "solution": ""}
+{"task_id": "Mbpp/612", "solution": ""}
+{"task_id": "Mbpp/614", "solution": "def cummulative_sum(tuple_list):\n    \"\"\"\n    Find the cumulative sum of all the values that are present in the given tuple list.\n    \n    Args:\n        tuple_list: A list of tuples containing numeric values\n        \n    Returns:\n        The sum of all elements in all tuples\n        \n    Example:\n        >>> cummulative_sum([(1, 3), (5, 6, 7), (2, 6)])\n        30\n    \"\"\"\n    total = 0\n    for tup in tuple_list:\n        for value in tup:\n            total += value\n    return total"}
+{"task_id": "Mbpp/615", "solution": ""}
+{"task_id": "Mbpp/616", "solution": ""}
+{"task_id": "Mbpp/618", "solution": ""}
+{"task_id": "Mbpp/619", "solution": ""}
+{"task_id": "Mbpp/620", "solution": ""}
+{"task_id": "Mbpp/622", "solution": "def get_median(nums1: list, nums2: list, n: int) -> float:\n    \"\"\"\n    Find the median of two sorted lists of the same size.\n    \n    Args:\n        nums1: First sorted list\n        nums2: Second sorted list\n        n: Size of each list\n    \n    Returns:\n        The median of the combined sorted lists\n    \"\"\"\n    # Merge the two sorted lists\n    merged = []\n    i, j = 0, 0\n    while i < n and j < n:\n        if nums1[i] <= nums2[j]:\n            merged.append(nums1[i])\n            i += 1\n        else:\n            merged.append(nums2[j])\n            j += 1\n    \n    # Add remaining elements\n    while i < n:\n        merged.append(nums1[i])\n        i += 1\n    while j < n:\n        merged.append(nums2[j])\n        j += 1\n    \n    # Find median of the merged list\n    total_len = 2 * n\n    if total_len % 2 == 0:\n        median = (merged[total_len // 2 - 1] + merged[total_len // 2]) / 2.0\n    else:\n        median = float(merged[total_len // 2])\n    \n    return median"}
+{"task_id": "Mbpp/623", "solution": ""}
+{"task_id": "Mbpp/624", "solution": ""}
+{"task_id": "Mbpp/626", "solution": ""}
+{"task_id": "Mbpp/628", "solution": ""}
+{"task_id": "Mbpp/629", "solution": ""}
+{"task_id": "Mbpp/630", "solution": ""}
+{"task_id": "Mbpp/631", "solution": ""}
+{"task_id": "Mbpp/632", "solution": "def move_zero(lst: list) -> list:\n    \"\"\"\n    Move all zeroes to the end of the given list while maintaining the relative order of non-zero elements.\n    \n    Args:\n        lst: A list of integers\n        \n    Returns:\n        A new list with all zeroes moved to the end\n    \"\"\"\n    non_zeros = [x for x in lst if x != 0]\n    zeros = [x for x in lst if x == 0]\n    return non_zeros + zeros"}
+{"task_id": "Mbpp/633", "solution": "def pair_xor_Sum(arr, n):\n    \"\"\"\n    Find the sum of xor of all pairs of numbers in the given list.\n    \n    Args:\n        arr: List of integers\n        n: Length of the list\n    \n    Returns:\n        Sum of XOR of all pairs\n    \"\"\"\n    total_sum = 0\n    for i in range(n):\n        for j in range(i + 1, n):\n            total_sum += arr[i] ^ arr[j]\n    return total_sum"}
+{"task_id": "Mbpp/635", "solution": "def heap_sort(arr):\n    \"\"\"\n    Sort a list using the heap sort algorithm.\n    \n    Args:\n        arr: List of elements to sort\n        \n    Returns:\n        Sorted list in ascending order\n    \"\"\"\n    n = len(arr)\n    \n    # Build a max heap\n    def heapify(arr, n, i):\n        largest = i\n        left = 2 * i + 1\n        right = 2 * i + 2\n        \n        if left < n and arr[left] > arr[largest]:\n            largest = left\n        \n        if right < n and arr[right] > arr[largest]:\n            largest = right\n        \n        if largest != i:\n            arr[i], arr[largest] = arr[largest], arr[i]\n            heapify(arr, n, largest)\n    \n    # Build max heap\n    for i in range(n // 2 - 1, -1, -1):\n        heapify(arr, n, i)\n    \n    # Extract elements one by one\n    for i in range(n - 1, 0, -1):\n        arr[i], arr[0] = arr[0], arr[i]\n        heapify(arr, i, 0)\n    \n    return arr"}
+{"task_id": "Mbpp/637", "solution": ""}
+{"task_id": "Mbpp/638", "solution": "import math\n\ndef wind_chill(wind_velocity_kmh: float, temperature_celsius: float) -> int:\n    \"\"\"\n    Calculate the wind chill index rounded to the next integer.\n    \n    The wind chill formula (for temperatures <= 10\u00b0C and wind speeds >= 4.8 km/h):\n    WC = 13.12 + 0.6215*T - 11.37*V^0.16 + 0.3965*T*V^0.16\n    \n    For temperatures > 10\u00b0C, wind chill is not typically calculated, but we'll still apply the formula.\n    For wind speeds < 4.8 km/h, the formula may not be accurate, but we'll still apply it.\n    \n    Args:\n        wind_velocity_kmh: Wind velocity in km/h\n        temperature_celsius: Temperature in Celsius\n    \n    Returns:\n        Wind chill index rounded to the next integer (ceiling)\n    \"\"\"\n    if wind_velocity_kmh <= 0 or temperature_celsius > 10:\n        # For wind speeds <= 0 or temperatures > 10\u00b0C, wind chill is not applicable\n        # Return the temperature rounded up\n        return math.ceil(temperature_celsius)\n    \n    # Wind chill formula\n    wc = 13.12 + 0.6215 * temperature_celsius - 11.37 * (wind_velocity_kmh ** 0.16) + 0.3965 * temperature_celsius * (wind_velocity_kmh ** 0.16)\n    \n    # Round to the next integer (ceiling)\n    return math.ceil(wc)"}
+{"task_id": "Mbpp/639", "solution": "def sample_nam(names):\n    \"\"\"\n    Sum the length of the names in the list after removing names that start with a lowercase letter.\n    \n    Args:\n        names: A list of strings (names)\n        \n    Returns:\n        The sum of the lengths of names that do NOT start with a lowercase letter\n    \"\"\"\n    total_length = 0\n    for name in names:\n        # Keep names that do NOT start with a lowercase letter\n        # A name starts with a lowercase letter if name[0] is between 'a' and 'z'\n        if not name or not name[0].islower():\n            total_length += len(name)\n    return total_length"}
+{"task_id": "Mbpp/641", "solution": ""}
+{"task_id": "Mbpp/643", "solution": ""}
+{"task_id": "Mbpp/644", "solution": "def reverse_Array_Upto_K(arr, k):\n    \"\"\"\n    Reverse the array up to a given position k.\n    \n    Args:\n        arr: List of elements\n        k: Position up to which the array should be reversed (1-indexed)\n    \n    Returns:\n        New list with elements reversed up to position k\n    \"\"\"\n    # Convert k to 0-indexed slice end\n    # If k=4, we reverse elements at indices 0,1,2,3 (first 4 elements)\n    result = arr[:]\n    result[:k] = result[:k][::-1]\n    return result"}
+{"task_id": "Mbpp/720", "solution": ""}
+{"task_id": "Mbpp/721", "solution": ""}
+{"task_id": "Mbpp/722", "solution": ""}
+{"task_id": "Mbpp/723", "solution": "def count_same_pair(list1, list2):\n    \"\"\"\n    Count the number of indices where two lists have the same values.\n    \n    Args:\n        list1: First list\n        list2: Second list (same length as list1)\n    \n    Returns:\n        Integer count of indices where list1[i] == list2[i]\n    \"\"\"\n    return sum(1 for i in range(len(list1)) if list1[i] == list2[i])"}
+{"task_id": "Mbpp/724", "solution": ""}
+{"task_id": "Mbpp/725", "solution": ""}
+{"task_id": "Mbpp/726", "solution": "def multiply_elements(t):\n    \"\"\"\n    Takes a tuple of numbers (t_1,...,t_{N+1}) and returns a tuple of length N\n    where the i-th element is t_i * t_{i+1}.\n    \"\"\"\n    return tuple(t[i] * t[i + 1] for i in range(len(t) - 1))"}
+{"task_id": "Mbpp/728", "solution": ""}
+{"task_id": "Mbpp/730", "solution": "def consecutive_duplicates(lst):\n    \"\"\"\n    Remove consecutive duplicates from a list.\n    \n    Args:\n        lst: Input list\n        \n    Returns:\n        List with consecutive duplicates removed\n    \"\"\"\n    if not lst:\n        return []\n    \n    result = [lst[0]]\n    for i in range(1, len(lst)):\n        if lst[i] != lst[i - 1]:\n            result.append(lst[i])\n    \n    return result"}
+{"task_id": "Mbpp/731", "solution": ""}
+{"task_id": "Mbpp/732", "solution": ""}
+{"task_id": "Mbpp/733", "solution": ""}
+{"task_id": "Mbpp/734", "solution": "def sum_Of_Subarray_Prod(lst):\n    \"\"\"\n    Find the sum of products of all possible sublists of a given list.\n    \n    A sublist (or subarray) is a contiguous part of the list.\n    For each sublist, compute the product of its elements.\n    Sum all these products.\n    \n    Example:\n    [1, 2, 3]\n    Sublists:\n    [1] -> 1\n    [2] -> 2\n    [3] -> 3\n    [1,2] -> 2\n    [2,3] -> 6\n    [1,2,3] -> 6\n    Sum = 1 + 2 + 3 + 2 + 6 + 6 = 20\n    \"\"\"\n    n = len(lst)\n    total_sum = 0\n    \n    for i in range(n):\n        for j in range(i + 1, n + 1):\n            # sublist from index i to j-1\n            product = 1\n            for k in range(i, j):\n                product *= lst[k]\n            total_sum += product\n    \n    return total_sum"}
+{"task_id": "Mbpp/735", "solution": ""}
+{"task_id": "Mbpp/736", "solution": ""}
+{"task_id": "Mbpp/737", "solution": ""}
+{"task_id": "Mbpp/739", "solution": "def find_Index(n: int) -> int:\n    \"\"\"\n    Find the index of the smallest triangular number with n digits.\n    \n    A triangular number is given by T(k) = k*(k+1)/2.\n    We need to find the smallest k such that T(k) has exactly n digits.\n    \n    Args:\n        n: Number of digits\n        \n    Returns:\n        The index k of the smallest triangular number with n digits.\n        \n    Example:\n        find_Index(2) == 4 because T(4) = 10, which is the smallest triangular number with 2 digits.\n    \"\"\"\n    if n <= 0:\n        raise ValueError(\"n must be a positive integer\")\n    \n    # The smallest number with n digits is 10^(n-1)\n    # We need the smallest k such that k*(k+1)/2 >= 10^(n-1)\n    # Approximate: k^2/2 \u2248 10^(n-1), so k \u2248 sqrt(2 * 10^(n-1))\n    \n    lower_bound = 10 ** (n - 1)\n    \n    # Binary search for the smallest k such that k*(k+1)//2 >= lower_bound\n    low = 1\n    high = 2 * 10 ** n  # Upper bound, since k*(k+1)/2 grows quadratically\n    \n    while low < high:\n        mid = (low + high) // 2\n        triangular = mid * (mid + 1) // 2\n        if triangular < lower_bound:\n            low = mid + 1\n        else:\n            high = mid\n    \n    return low"}
+{"task_id": "Mbpp/740", "solution": ""}
+{"task_id": "Mbpp/741", "solution": ""}
+{"task_id": "Mbpp/742", "solution": "import math\n\ndef area_tetrahedron(edge_length: float) -> float:\n    \"\"\"\n    Calculate the surface area of a regular tetrahedron given its edge length.\n    \n    The surface area of a regular tetrahedron is given by:\n    A = sqrt(3) * a^2\n    where a is the edge length.\n    \n    Args:\n        edge_length: The length of an edge of the tetrahedron.\n        \n    Returns:\n        The surface area of the tetrahedron.\n    \"\"\"\n    return math.sqrt(3) * edge_length ** 2"}
+{"task_id": "Mbpp/743", "solution": ""}
+{"task_id": "Mbpp/744", "solution": "def check_none(tup: tuple) -> bool:\n    \"\"\"\n    Check if the given tuple has any None value.\n    \n    Args:\n        tup: The tuple to check for None values.\n        \n    Returns:\n        True if any element in the tuple is None, False otherwise.\n    \"\"\"\n    return None in tup"}
+{"task_id": "Mbpp/745", "solution": ""}
+{"task_id": "Mbpp/748", "solution": ""}
+{"task_id": "Mbpp/749", "solution": ""}
+{"task_id": "Mbpp/750", "solution": "def add_tuple(lst, tup):\n    return lst + list(tup)"}
+{"task_id": "Mbpp/751", "solution": "def check_min_heap(arr):\n    \"\"\"\n    Check if the given array represents a min heap.\n    \n    In a min heap represented as an array:\n    - For every index i, the value at arr[i] should be less than or equal to \n      the values at its children (arr[2*i+1] and arr[2*i+2]).\n    - The array is considered a valid min heap if this property holds for all \n      non-leaf nodes.\n    \n    Args:\n        arr: List of numbers representing a binary heap\n        \n    Returns:\n        True if the array represents a min heap, False otherwise\n    \"\"\"\n    n = len(arr)\n    \n    # For each non-leaf node, check if it satisfies the min-heap property\n    # Non-leaf nodes are from index 0 to n//2 - 1\n    for i in range(n // 2):\n        left_child = 2 * i + 1\n        right_child = 2 * i + 2\n        \n        # Check left child\n        if left_child < n:\n            if arr[i] > arr[left_child]:\n                return False\n        \n        # Check right child\n        if right_child < n:\n            if arr[i] > arr[right_child]:\n                return False\n    \n    return True"}
+{"task_id": "Mbpp/752", "solution": ""}
+{"task_id": "Mbpp/753", "solution": ""}
+{"task_id": "Mbpp/754", "solution": "def extract_index_list(l1, l2, l3):\n    \"\"\"\n    Find elements that appear in all three lists at the same index.\n    \n    Args:\n        l1: First list\n        l2: Second list\n        l3: Third list\n    \n    Returns:\n        A list of elements that are common to all three lists at the same index.\n    \"\"\"\n    result = []\n    # Get the minimum length to avoid index out of range\n    min_len = min(len(l1), len(l2), len(l3))\n    \n    for i in range(min_len):\n        if l1[i] == l2[i] == l3[i]:\n            result.append(l1[i])\n    \n    return result"}
+{"task_id": "Mbpp/755", "solution": ""}
+{"task_id": "Mbpp/757", "solution": "def count_reverse_pairs(strings: list) -> int:\n    \"\"\"\n    Count the number of pairs of reverse strings in the given list.\n    \n    A pair is formed when two strings are reverses of each other.\n    Each pair is counted once, and a string can only be part of one pair.\n    \n    Args:\n        strings: A list of strings.\n        \n    Returns:\n        The number of reverse string pairs.\n    \"\"\"\n    from collections import Counter\n    \n    # Count occurrences of each string\n    count = Counter(strings)\n    \n    # Track which strings have been paired\n    paired = set()\n    pair_count = 0\n    \n    for s in strings:\n        if s in paired:\n            continue\n        reversed_s = s[::-1]\n        if reversed_s == s:\n            # Palindrome: needs another identical string to form a pair\n            if count[s] >= 2:\n                pair_count += 1\n                paired.add(s)\n        else:\n            # Check if the reverse exists and hasn't been paired yet\n            if reversed_s in count and reversed_s not in paired:\n                pair_count += 1\n                paired.add(s)\n                paired.add(reversed_s)\n    \n    return pair_count"}
+{"task_id": "Mbpp/758", "solution": "def unique_sublists(lst):\n    \"\"\"\n    Count lists within a list. Return a dictionary where every list is converted to a tuple\n    and the value is the number of its occurrences in the original list.\n    \"\"\"\n    result = {}\n    for item in lst:\n        if isinstance(item, list):\n            key = tuple(item)\n            result[key] = result.get(key, 0) + 1\n    return result"}
+{"task_id": "Mbpp/759", "solution": "import re\n\ndef is_decimal(s: str) -> bool:\n    \"\"\"\n    Check whether a given string is a decimal number with a precision of 2.\n    \n    A decimal number with precision of 2 means it has exactly 2 digits after the decimal point.\n    Examples: '123.11', '0.00', '99.99' are valid.\n    '123', '123.1', '123.111', 'abc' are invalid.\n    \"\"\"\n    # Match optional sign, digits, a decimal point, and exactly 2 digits\n    pattern = r'^-?\\d+\\.\\d{2}$'\n    return bool(re.match(pattern, s))"}
+{"task_id": "Mbpp/760", "solution": ""}
+{"task_id": "Mbpp/762", "solution": ""}
+{"task_id": "Mbpp/763", "solution": "def find_min_diff(arr, n):\n    \"\"\"\n    Find the minimum difference between any two elements in a given array.\n    \n    Args:\n        arr: A tuple or list of numbers\n        n: The number of elements in the array\n    \n    Returns:\n        The minimum difference between any two elements\n    \"\"\"\n    if n < 2:\n        return 0\n    \n    # Convert to list and sort\n    sorted_arr = sorted(arr)\n    \n    # Find minimum difference between adjacent elements\n    min_diff = float('inf')\n    for i in range(n - 1):\n        diff = sorted_arr[i + 1] - sorted_arr[i]\n        if diff < min_diff:\n            min_diff = diff\n    \n    return min_diff"}
+{"task_id": "Mbpp/764", "solution": ""}
+{"task_id": "Mbpp/765", "solution": ""}
+{"task_id": "Mbpp/766", "solution": ""}
+{"task_id": "Mbpp/767", "solution": ""}
+{"task_id": "Mbpp/769", "solution": ""}
+{"task_id": "Mbpp/770", "solution": "def odd_num_sum(n: int) -> int:\n    \"\"\"\n    Find the sum of fourth power of first n odd natural numbers.\n    \n    The first n odd natural numbers are: 1, 3, 5, ..., (2n-1)\n    \n    Args:\n        n: Number of odd natural numbers to consider\n        \n    Returns:\n        Sum of fourth powers of the first n odd natural numbers\n    \"\"\"\n    total = 0\n    for i in range(1, n + 1):\n        odd_num = 2 * i - 1\n        total += odd_num ** 4\n    return total"}
+{"task_id": "Mbpp/771", "solution": ""}
+{"task_id": "Mbpp/772", "solution": ""}
+{"task_id": "Mbpp/773", "solution": ""}
+{"task_id": "Mbpp/775", "solution": ""}
+{"task_id": "Mbpp/777", "solution": ""}
+{"task_id": "Mbpp/778", "solution": ""}
+{"task_id": "Mbpp/780", "solution": ""}
+{"task_id": "Mbpp/781", "solution": "def count_divisors(n: int) -> bool:\n    \"\"\"\n    Check whether the count of divisors of n is even.\n    \n    Args:\n        n: A positive integer\n        \n    Returns:\n        True if the count of divisors is even, False otherwise\n    \"\"\"\n    if n <= 0:\n        raise ValueError(\"Input must be a positive integer\")\n    \n    count = 0\n    i = 1\n    while i * i <= n:\n        if n % i == 0:\n            if i * i == n:\n                count += 1\n            else:\n                count += 2\n        i += 1\n    \n    return count % 2 == 0"}
+{"task_id": "Mbpp/782", "solution": ""}
+{"task_id": "Mbpp/784", "solution": ""}
+{"task_id": "Mbpp/785", "solution": ""}
+{"task_id": "Mbpp/786", "solution": ""}
+{"task_id": "Mbpp/787", "solution": ""}
+{"task_id": "Mbpp/788", "solution": "def new_tuple(lst, string):\n    return tuple(lst) + (string,)"}
+{"task_id": "Mbpp/790", "solution": ""}
+{"task_id": "Mbpp/791", "solution": ""}
+{"task_id": "Mbpp/792", "solution": ""}
+{"task_id": "Mbpp/793", "solution": ""}
+{"task_id": "Mbpp/794", "solution": ""}
+{"task_id": "Mbpp/796", "solution": ""}
+{"task_id": "Mbpp/797", "solution": "def sum_in_range(l, r):\n    \"\"\"\n    Find the sum of all odd natural numbers within the range l and r (inclusive).\n    \n    Args:\n        l: Lower bound of the range\n        r: Upper bound of the range\n    \n    Returns:\n        Sum of all odd numbers in the range [l, r]\n    \"\"\"\n    # Adjust l to the first odd number >= l\n    if l % 2 == 0:\n        l = l + 1\n    \n    # If l > r after adjustment, there are no odd numbers in the range\n    if l > r:\n        return 0\n    \n    # Number of terms in the arithmetic sequence of odd numbers\n    # Sequence: l, l+2, l+4, ..., last_odd\n    last_odd = r if r % 2 != 0 else r - 1\n    \n    # Number of terms\n    n = ((last_odd - l) // 2) + 1\n    \n    # Sum of arithmetic sequence: n/2 * (first + last)\n    total = n * (l + last_odd) // 2\n    \n    return total"}
+{"task_id": "Mbpp/798", "solution": "def _sum(arr):\n    return sum(arr)"}
+{"task_id": "Mbpp/799", "solution": "def left_rotate(n, d):\n    \"\"\"\n    Rotate left bits by d bits a given 32-bit number.\n    \n    Args:\n        n: The number to rotate (assumed to be 32-bit)\n        d: The number of bits to rotate left\n    \n    Returns:\n        The result of rotating n left by d bits\n    \"\"\"\n    # Ensure we're working with 32-bit numbers\n    n = n & 0xFFFFFFFF\n    d = d % 32  # Handle cases where d >= 32\n    \n    # Rotate left: shift left by d, then OR with the bits that wrapped around\n    return ((n << d) | (n >> (32 - d))) & 0xFFFFFFFF"}
+{"task_id": "Mbpp/800", "solution": "def remove_all_spaces(s: str) -> str:\n    return s.replace(\" \", \"\")"}
+{"task_id": "Mbpp/801", "solution": ""}
+{"task_id": "Mbpp/803", "solution": ""}
+{"task_id": "Mbpp/804", "solution": ""}
+{"task_id": "Mbpp/805", "solution": ""}
+{"task_id": "Mbpp/806", "solution": "def max_run_uppercase(s: str) -> int:\n    \"\"\"\n    Find the maximum run of uppercase characters in the given string.\n    \n    A run is a consecutive sequence of uppercase characters.\n    \n    Args:\n        s: Input string\n        \n    Returns:\n        The length of the longest consecutive sequence of uppercase characters\n    \"\"\"\n    max_run = 0\n    current_run = 0\n    \n    for char in s:\n        if char.isupper():\n            current_run += 1\n            if current_run > max_run:\n                max_run = current_run\n        else:\n            current_run = 0\n    \n    return max_run"}
+{"task_id": "Mbpp/807", "solution": ""}
+{"task_id": "Mbpp/808", "solution": "def check_K(tup, k):\n    \"\"\"\n    Check if the given tuple contains the element k.\n    \n    Args:\n        tup: A tuple to search in.\n        k: The element to search for.\n    \n    Returns:\n        True if k is in the tuple, False otherwise.\n    \"\"\"\n    return k in tup"}
+{"task_id": "Mbpp/809", "solution": ""}

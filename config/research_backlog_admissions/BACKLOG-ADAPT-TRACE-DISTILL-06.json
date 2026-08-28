@@ -1,0 +1,58 @@
+{
+  "id": "BACKLOG-ADAPT-TRACE-DISTILL-06",
+  "priority": 0,
+  "title": "Complete the seven-seed trace confirmation with the actual 48-task QA panel",
+  "evidence_class": "distillation",
+  "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-06",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-05/PRE_REGISTRATION.md",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-05/raw/training_pairs.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-05/raw/workers",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-05/raw/checkpoints",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-05/raw/service_maintenance.json",
+    "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl"
+  ],
+  "required_evidence": [
+    "acceptance_gates",
+    "actual_scores",
+    "checkpoint_hashes",
+    "continuation_ledger",
+    "dataset_hashes",
+    "independent_evaluation",
+    "model_hash",
+    "provenance",
+    "raw_samples",
+    "receipt_fingerprint",
+    "service_maintenance",
+    "student_samples",
+    "teacher_samples",
+    "training_pairs",
+    "training_trace",
+    "treatment_materiality"
+  ],
+  "acceptance_gates": [
+    {"id": "continuation_integrity", "metric": "hash_verified_imported_workers", "operator": "eq", "threshold": 9},
+    {"id": "treatment_materiality", "metric": "matched_distinct_training_targets_verified", "operator": "eq", "threshold": true},
+    {"id": "training_budget", "metric": "training_steps_per_arm_per_seed", "operator": "eq", "threshold": 504},
+    {"id": "seed_coverage", "metric": "completed_paired_seeds", "operator": "eq", "threshold": 7},
+    {"id": "math_coverage", "metric": "heldout_math_samples_per_arm_per_seed", "operator": "eq", "threshold": 256},
+    {"id": "qa_coverage", "metric": "protected_qa_samples_per_arm_per_seed", "operator": "eq", "threshold": 48},
+    {"id": "confirmed_gain", "metric": "hierarchical_bootstrap_95ci_lower_trace_math_gain", "operator": "gt", "threshold": 0.0},
+    {"id": "directional_repeatability", "metric": "seeds_with_positive_trace_math_gain", "operator": "ge", "threshold": 5},
+    {"id": "protected_retention", "metric": "mean_protected_qa_regression_vs_answer_only", "operator": "le", "threshold": 0.05},
+    {"id": "service_recovery", "metric": "service_and_embedding_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "TRACE_DISTILLATION_CONFIRMED_R6",
+    "TRACE_DISTILLATION_NOT_CONFIRMED_R6"
+  ],
+  "forbidden_claims": [
+    "changing the seven seeds, training orders, or thresholds after partial math results",
+    "teacher-level noninferiority",
+    "production promotion",
+    "generalization beyond Qwen3.5-0.8B, the frozen corpora, and the tested budget"
+  ],
+  "next_action": "Hash-import nine complete R5 workers, evaluate their 38 missing QA tasks, train only the five absent arms, and aggregate all seven paired seeds over 256 math plus the actual 48 QA IDs.",
+  "supersedes": "BACKLOG-ADAPT-TRACE-DISTILL-05"
+}

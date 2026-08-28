@@ -1,0 +1,17 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "APPROVED",
+  "receipt_sha256": "54ada49af2a437513f47b766dc2f6fd9a71b93e88d06e48ae896b6cca88a1487",
+  "implementation_digest": "c4758cd4e0ab7b135c80942ef459114e77a206f5f4d786e371dcba314ecee522",
+  "findings": [
+    "Receipt SHA-256, canonical fingerprint, implementation digest, implementation-file hash and all 29 provenance input byte counts and hashes independently match.",
+    "Both behavioral checkpoint config and weight pairs match their ADAPT-TRAIN-01 sources; all seven trace panel-1, panel-2 and QA projections exactly match the hash-bound R7/R8 full-trace sources.",
+    "Independent rescoring of 5,040 unique rows reproduces both panel family means, trace 0.41517857 versus behavioral 0.36523438 and trace 0.44252232 versus behavioral 0.35546875, for an equal-panel delta of 0.06849888 with no scorer mismatch.",
+    "Independent replay of the frozen family-and-prompt hierarchical bootstrap at 20,000 replicates and seed 2026082711 exactly reproduces interval [0.01032366, 0.12723214]. Both panel point differences are positive.",
+    "The imported and fresh QA rows independently reproduce trace mean 0.21428571, behavioral mean 0.22916667 and delta -0.01488095, within the frozen retention floor.",
+    "Adversarial truncation audit found 898/3,584 trace and 448/1,024 behavioral math rows reached the 192-token cap. A natural-EOS-only sensitivity preserves positive trace deltas on both panels, 0.06780134 and 0.10491071, so scorer fallback does not create the practical ordering.",
+    "Normalized gateway identity, qwen38 health and embedding health were restored with zero restart-count change after the bounded VRAM handoff.",
+    "Approval supports only practical superiority of these artifact families. Trace checkpoints used 504 training steps versus 60 for behavioral checkpoints and there are only two behavioral seeds, so this is not training-budget-controlled causal evidence, teacher noninferiority, production qualification or cross-model generalization."
+  ]
+}

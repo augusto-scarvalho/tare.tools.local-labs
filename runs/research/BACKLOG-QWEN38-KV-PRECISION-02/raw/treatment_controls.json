@@ -1,0 +1,45 @@
+{
+  "order": [
+    "f16",
+    "q8_0",
+    "q8_0",
+    "f16"
+  ],
+  "server_common": [
+    "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+    "-m",
+    "/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf",
+    "--alias",
+    "qwen38-kv-precision",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "18080",
+    "--ctx-size",
+    "32768",
+    "--flash-attn",
+    "on",
+    "--gpu-layers",
+    "all",
+    "--metrics",
+    "--jinja",
+    "--no-mmproj",
+    "--parallel",
+    "1",
+    "--batch-size",
+    "2048",
+    "--ubatch-size",
+    "512",
+    "--ctx-checkpoints",
+    "32",
+    "--spec-type",
+    "draft-mtp",
+    "--spec-draft-n-max",
+    "3"
+  ],
+  "cache_types": [
+    "f16",
+    "q8_0"
+  ],
+  "warmups_per_block": 4
+}

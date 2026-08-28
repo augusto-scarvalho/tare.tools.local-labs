@@ -1,0 +1,53 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-DISTILL-06",
+  "evidence_class": "distillation",
+  "executor": "Codex executor",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-27T03:47:53Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-27T03:49:05Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-27T03:52:02Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T03:56:23Z",
+      "reason": "Operational abort before the first worker: systemctl stop of qwen38 exceeded the inherited 60-second helper timeout and left the unit failed after systemd completed its stop timeout. No worker, receipt, or result was produced. Baseline qwen38 and embedding were manually restored healthy. Successor must use a bounded 180-second service-stop helper while preserving the R6 scientific design and R5 continuation ledger."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-06/PRE_REGISTRATION.md",
+    "sha256": "bbf8cf1c5f7a952460da014c942cada1e74a7646d4101fcd30324e56b8e51a78"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_trace_distillation_confirmation_r6.py",
+      "sha256": "c20c68d3fe1e5e3fb71e80b50b79e0a097352afdeabdeaa46f2c49525daa52af"
+    },
+    {
+      "path": "tools/research/run_trace_distillation_confirmation_r6.py",
+      "sha256": "8bad4b065bb99ab97fe78250f999e44748bccb7ab889727d721531c2aacc00ee"
+    }
+  ],
+  "implementation_digest": "6cf2369a5aa3fb529740ea3c75e951cfaa870a55bd7850fd1599f486c9cafa36",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

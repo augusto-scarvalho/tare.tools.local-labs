@@ -1,0 +1,15 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh recovery independent audit instance",
+  "verdict": "APPROVED",
+  "receipt_sha256": "bf9323182d499929be94bdf0e061adc99fa6687001e8a529daa0612539b7fe49",
+  "implementation_digest": "6cf4b9c1a1621ce32e1385b54b6bf4cd35c1f1ab1b9e68cc479ad05f82067592",
+  "findings": [
+    "The queue receipt SHA-256 and canonical fingerprint independently recompute to bf9323182d499929be94bdf0e061adc99fa6687001e8a529daa0612539b7fe49 and 7cf7e27b1d11383d48d98b49b1186297e10dbae3622e2f37358c2d74b719403f. The implementation file hash, implementation digest and all 18 provenance inputs match their materialized bytes.",
+    "R3 points to the exact R2 samples SHA-256 dfd74427278fff8a718d24be2f5c016ffcbb36553e622da1fcab487efc3bfdc3. Independent rereading of those immutable rows reproduces 768 unique mechanism-arm-panel-task keys, 16 arms, exactly 32 math and 16 protected-QA rows per arm, and the stored key-set hash 1ae59c2cfc4713afc0ac9c6f24585e58069d329583e03f6fe3d4bde76e918ec0.",
+    "Fresh frozen-scorer replay again reproduces all 768 labels. Every shared R2/R3 metric and every arm summary is identical, including lokr_5ep at 16/32 math, 5/16 QA and 39 natural-EOS rows. Artifact hashes, scorer hashes and normalized service evidence are byte-identical to R2.",
+    "The only scientific gate correction is seed source selection: R3 reads the frozen experiment-level seed.json, whose live SHA-256 is d9ad3488127806b15a2ff081e1ca898fc9945716920a49e5bfba0d9497b5d13b and value is 20260827, instead of inferring a set from optional per-arm fields. Source-integrity metric naming changes to reflect the R2 source, but no row, threshold, panel, arm, score, artifact, service criterion or estimand changes.",
+    "All ten frozen gates independently pass. Adversarial false-positive review found no hidden generation, training or mutable row substitution: the bound runtime is read-only, records estimand_changed=false, and the 768-row source is immutable and digest-bound. False-negative review confirms the corrected seed gate resolves exactly the R2 executor defect without weakening scientific controls.",
+    "Approval is bounded to completion of the frozen five-mechanism matrix at seed 20260827 on these 32-math/16-QA panels. It does not establish cross-seed repeatability, universal mechanism superiority, causal ranking outside matched arms, new training or generation, or production readiness."
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "initial_gpu": {
+    "query": {
+      "argv": [
+        "nvidia-smi",
+        "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+        "--format=csv,noheader,nounits"
+      ],
+      "returncode": 0,
+      "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 18676, 5647, 53, 175.22, 70",
+      "stderr": ""
+    },
+    "values": {
+      "name": "NVIDIA GeForce RTX 3090",
+      "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+      "driver_version": "591.86",
+      "memory.total": "24576",
+      "memory.used": "18676",
+      "memory.free": "5647",
+      "temperature.gpu": "53",
+      "power.draw": "175.22",
+      "utilization.gpu": "70"
+    }
+  },
+  "wsl_distro": "Ubuntu-24.04"
+}

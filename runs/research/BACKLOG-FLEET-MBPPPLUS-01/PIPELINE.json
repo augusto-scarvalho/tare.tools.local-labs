@@ -1,0 +1,63 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-FLEET-MBPPPLUS-01",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex",
+  "stage": "REJECTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-27T16:35:06Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-27T16:35:36Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-27T16:38:12Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-27T16:52:49Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T02:01:51Z",
+      "reason": "Independent EvalPlus 0.3.1 replay and frozen paired bootstrap reproduce lower 95% bound -0.06, failing strict > -0.05 noninferiority gate; bounded to this panel."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-FLEET-MBPPPLUS-01/PRE_REGISTRATION.md",
+    "sha256": "3be7bdf941f7e9f903b7b49a78f60b5c09db1306f3dd6f140f210ea443e2cab8"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_fleet_mbppplus.py",
+      "sha256": "bab01e2ca100cba1f280947322b0c22b137cb35a2181b490a0c1e44387ef3a39"
+    }
+  ],
+  "implementation_digest": "f0fb0f4bb93dba53f01b730debf5db8b4d089abaf64ac7bc1601da1740cd1aef",
+  "execution": {
+    "path": "runs/research/BACKLOG-FLEET-MBPPPLUS-01/raw/receipt.json",
+    "sha256": "cbbd3ea566581b152c71d992f8cf29bf2131eabb8d7ccd09de551ddc51205b5e"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-FLEET-MBPPPLUS-01/RESULT.md",
+    "sha256": "3144c2a097fe6f3a93414d8f215894629cbf6ac1c9bb34da020079cf3353acd5"
+  },
+  "review": {},
+  "claim_codes": [
+    "HAUHAUCS_MBPPPLUS_CODING_ALIAS_NOT_RETAINED_R1"
+  ]
+}

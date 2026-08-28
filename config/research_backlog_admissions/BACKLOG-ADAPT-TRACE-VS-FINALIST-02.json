@@ -1,0 +1,47 @@
+{
+  "id": "BACKLOG-ADAPT-TRACE-VS-FINALIST-02",
+  "priority": 0,
+  "title": "Compare the selected trace deployment candidate with behavioral finalists on the third panel",
+  "evidence_class": "distillation",
+  "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-VS-FINALIST-02",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/receipt.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/student_samples.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/dataset_hashes.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-VS-FINALIST-01/raw/receipt.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-VS-FINALIST-01/raw/student_samples.json",
+    "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/receipt.json",
+    "tools/research/run_trace_vs_behavioral_finalist.py",
+    "tools/research/run_trace_distillation_replication_r8.py",
+    "workloads/gsm8k.jsonl"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "continuation_ledger",
+    "dataset_hashes", "independent_evaluation", "model_hash", "paired_baseline",
+    "provenance", "raw_samples", "receipt_fingerprint", "service_maintenance",
+    "source_execution_receipt", "student_samples", "teacher_samples", "wsl_environment"
+  ],
+  "acceptance_gates": [
+    {"id": "source_integrity", "metric": "all_source_and_checkpoint_hashes_verified", "operator": "eq", "threshold": true},
+    {"id": "panel_isolation", "metric": "third_panel_disjoint_from_training_and_prior_panels", "operator": "eq", "threshold": true},
+    {"id": "trace_import_coverage", "metric": "imported_selected_trace_generations", "operator": "eq", "threshold": 256},
+    {"id": "behavioral_checkpoint_coverage", "metric": "behavioral_checkpoints_evaluated", "operator": "eq", "threshold": 2},
+    {"id": "fresh_evaluation_coverage", "metric": "fresh_behavioral_generations", "operator": "eq", "threshold": 512},
+    {"id": "practical_superiority", "metric": "hierarchical_bootstrap_95ci_lower_trace_minus_behavioral_math", "operator": "gt", "threshold": 0.0},
+    {"id": "point_superiority", "metric": "selected_trace_minus_behavioral_mean_math", "operator": "gt", "threshold": 0.0},
+    {"id": "protected_retention", "metric": "selected_trace_minus_behavioral_mean_qa", "operator": "ge", "threshold": -0.05},
+    {"id": "independent_score", "metric": "independent_rescore_match", "operator": "eq", "threshold": true},
+    {"id": "service_recovery", "metric": "service_and_embedding_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "SELECTED_TRACE_PRACTICALLY_SUPERIOR_TO_BEHAVIORAL_FINALISTS_R2",
+    "SELECTED_TRACE_NOT_PRACTICALLY_SUPERIOR_TO_BEHAVIORAL_FINALISTS_R2"
+  ],
+  "forbidden_claims": [
+    "best possible adapter", "teacher-equivalent performance", "broad reasoning generalization",
+    "fourth-panel retry", "production deployment before independent review"
+  ],
+  "next_action": "Import the selected trace seed's immutable third-panel rows, freshly evaluate both behavioral finalist checkpoints on the same panel, bootstrap trace versus the behavioral seed distribution, and stop.",
+  "supersedes": null
+}

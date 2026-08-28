@@ -1,0 +1,15 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "APPROVED",
+  "receipt_sha256": "b616ed47887bc12b16750b40b95a03a60d17c14879092a113de2ff9b7a19de30",
+  "implementation_digest": "90d75d0222ba5851f394ed6c8e1526c30d2f07bb423b806bea5786f81901b07d",
+  "findings": [
+    "Receipt fingerprint, implementation digest, 29 provenance inputs and all twelve frozen artifact hashes independently match.",
+    "All three 256-task panels are pairwise-disjoint, teacher-disjoint and match their frozen ordered digests; R3 and R4 rows are imported by exact worker hashes.",
+    "Independent rescoring of 1632 rows reproduces panel counts 66/88, 74/89 and 55/90 for base/adapter, plus complete R3 QA 7/48 versus 9/48, with no scorer disagreement.",
+    "Independent equal-panel stratified bootstrap at seed 2026082705 reproduces gains [0.0859375, 0.05859375, 0.13671875], pooled gain 0.09375 and 95 percent interval [0.05729167, 0.13151042].",
+    "All three panel point estimates are positive, the third panel is positive, protected regression is zero and normalized service identity plus embedding health were restored.",
+    "Approval supports only a pooled three-panel gain for this exact seed-20260827 artifact. The family must stop after R5 and this is not universal LoKr superiority or training repeatability."
+  ]
+}

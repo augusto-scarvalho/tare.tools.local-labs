@@ -1,0 +1,17 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "APPROVED",
+  "receipt_sha256": "eb4cff3c9d5022887f2621bdf0c303b4aca807e9449e8c600860bd72a046b990",
+  "implementation_digest": "61206ae22cdfaddf1a1a407d97c48ed2d5acb6a6a77c4599acbf13e8f1625219",
+  "findings": [
+    "Receipt SHA-256, canonical fingerprint, implementation digest, implementation-file hash and all 37 provenance input byte counts and hashes independently match.",
+    "All fourteen evaluated checkpoint config and weight hashes match both the R8 ledger and the immutable R7 source ledger; source receipt SHA-256 and fingerprint also match.",
+    "The ordered 256-task second-panel hash independently reproduces as 4c88bd4c27eb8fea9240e11503ef781e744313c5de7b1f0391bb680f7e3379bd and has zero overlap with teacher rows, the 168-task training pool or the R7 panel.",
+    "Independent rescoring of 3,584 unique fresh rows reproduces per-seed answer/trace counts 69/107, 77/114, 79/115, 80/112, 76/110, 75/118 and 78/117 with no scorer mismatch; raw samples and student projections exactly match the digest-bound worker files.",
+    "Independent replay of the 20,000-replicate hierarchical bootstrap at seed 2026082708 exactly reproduces mean gain 0.14453125 and 95 percent interval [0.11774554, 0.17131696], with seven positive seeds and pooled discordant counts 413 trace-only versus 154 answer-only.",
+    "Imported R7 protected-QA rows are bound by source hash and independently reproduce mean per-seed regression 0.02380952. Normalized gateway identity, qwen38 health and embedding health were restored with zero restart-count change.",
+    "Adversarial false-positive audit found 1,462 of 3,584 generations at the frozen cap, more answer-only 1,020 than full-trace 442. Natural-EOS-only sensitivity remains positive in seven of seven seeds with mean gain 0.17578125, so truncation does not explain the replication.",
+    "Approval is a second-panel replication for the same fourteen R7 checkpoints only. The preregistered family must stop after R8; this is not new training evidence, teacher noninferiority, latency qualification, production approval or generalization beyond the frozen model and panels."
+  ]
+}

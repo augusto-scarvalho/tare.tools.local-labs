@@ -1,0 +1,280 @@
+[
+  {
+    "item": "SLX-03",
+    "requested_feature": "recurrent-state write elision in the deployed decode path",
+    "classification": "MATERIALIZED_BOUNDED",
+    "scope_note": "Direct GDN snapshot-to-cache fusion is present; N16/EOS cadence and hardware write counters remain unproven.",
+    "searches": [
+      {
+        "pattern": "ggml_cuda_try_gdn_cache_fusion",
+        "match_count": 3,
+        "matches": [
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:ggml/src/ggml-cuda/gated_delta_net.cuh:12:// same op, but writes the snapshot(s) into the cache instead of dst (see ggml_cuda_try_gdn_cache_fusion)",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:ggml/src/ggml-cuda/ggml-cuda.cu:2658:static int ggml_cuda_try_gdn_cache_fusion(",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:ggml/src/ggml-cuda/ggml-cuda.cu:3172:        const int nodes_to_skip = ggml_cuda_try_gdn_cache_fusion(cgraph, i, fused_state_cpy);"
+        ],
+        "full_output_sha256": "4ea2d21cc37554ebe11ffbcb51dc865b3a8a130e09cdc7e90b94df52522e07e0",
+        "returncode": 0
+      },
+      {
+        "pattern": "ggml_cuda_op_gated_delta_net_fused_cache",
+        "match_count": 3,
+        "matches": [
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:ggml/src/ggml-cuda/gated_delta_net.cu:922:void ggml_cuda_op_gated_delta_net_fused_cache(",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:ggml/src/ggml-cuda/gated_delta_net.cuh:13:void ggml_cuda_op_gated_delta_net_fused_cache(ggml_backend_cuda_context & ctx, ggml_tensor * dst,",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:ggml/src/ggml-cuda/ggml-cuda.cu:3178:            ggml_cuda_op_gated_delta_net_fused_cache(*cuda_ctx, node, fused_state_cpy);"
+        ],
+        "full_output_sha256": "d5b8044cf14b20ccdfebfe28e4e7a47d78e70ffa220184c1b8c60c0630dd2b19",
+        "returncode": 0
+      },
+      {
+        "pattern": "fused gated_delta_net snapshot copies",
+        "match_count": 1,
+        "matches": [
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:ggml/src/ggml-cuda/ggml-cuda.cu:3175:            GGML_LOG_INFO(\"%s: fused gated_delta_net snapshot copies for %s (skipped %d nodes)\\n\","
+        ],
+        "full_output_sha256": "9fac4813fcdd9653e348d639e6ccc64c3f83c15487b39fc134e0f33efb88e760",
+        "returncode": 0
+      }
+    ],
+    "semantic_evidence_complete": true,
+    "predecessor_missing_integration": true,
+    "predecessor_false_negative": true
+  },
+  {
+    "item": "SLX-07",
+    "requested_feature": "H2O heavy-hitter KV eviction",
+    "classification": "NOT_MATERIALIZED_IN_COMMIT",
+    "scope_note": "No feature-specific H2O accumulator or eviction policy was found in the immutable tracked tree.",
+    "searches": [
+      {
+        "pattern": "heavy.?hitter",
+        "match_count": 0,
+        "matches": [],
+        "full_output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "returncode": 1
+      },
+      {
+        "pattern": "\\bh2o\\b",
+        "match_count": 3,
+        "matches": [
+          "Binary file 87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/mtmd/tests/test-1-positive.png matches",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/ui/tests/unit/latex-protection.test.ts:293:\t\tconst input = 'Chemical reaction: \\\\( \\\\ce{H2O} \\\\) and $\\\\ce{CO2}$';",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/ui/tests/unit/latex-protection.test.ts:296:\t\texpect(output).toBe('Chemical reaction: $ \\\\ce{H2O} $ and $\\\\ce{CO2}$');"
+        ],
+        "full_output_sha256": "ff4ce54b05e3bc45b96e27695db0febdc28cfc1e48621d7e59df83e00071c4ec",
+        "returncode": 0
+      }
+    ],
+    "semantic_evidence_complete": true,
+    "predecessor_missing_integration": true,
+    "predecessor_false_negative": false
+  },
+  {
+    "item": "REP-04",
+    "requested_feature": "native fused KVarN attention/dequantization kernel",
+    "classification": "NOT_MATERIALIZED_IN_COMMIT",
+    "scope_note": "Generic quantized attention and Hadamard code do not establish a KVarN kernel.",
+    "searches": [
+      {
+        "pattern": "\\bkvarn\\b",
+        "match_count": 0,
+        "matches": [],
+        "full_output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "returncode": 1
+      },
+      {
+        "pattern": "kvarn[_ -]",
+        "match_count": 0,
+        "matches": [],
+        "full_output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "returncode": 1
+      }
+    ],
+    "semantic_evidence_complete": true,
+    "predecessor_missing_integration": true,
+    "predecessor_false_negative": false
+  },
+  {
+    "item": "REP-05",
+    "requested_feature": "per-layer KV cache precision allocation",
+    "classification": "NEARBY_GLOBAL_CONTROL_ONLY",
+    "scope_note": "Global K/V cache types exist; no per-layer allocator or CLI was identified.",
+    "searches": [
+      {
+        "pattern": "cache-type-[kv]",
+        "match_count": 28,
+        "matches": [
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:README.md:152:  --cache-type-k q4_0 --cache-type-v q4_0 \\",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:2297:        {\"-ctk\", \"--cache-type-k\"}, \"TYPE\",",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:2310:        {\"-ctv\", \"--cache-type-v\"}, \"TYPE\",",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:3939:        {\"--spec-draft-type-k\", \"-ctkd\", \"--cache-type-k-draft\"}, \"TYPE\",",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:3952:        {\"--spec-draft-type-v\", \"-ctvd\", \"--cache-type-v-draft\"}, \"TYPE\",",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:docs/AGENT_MAINTENANCE_GUIDE.md:125:| FlashAttention falls back to CPU (`t/s` drops 50%) | Asymmetric KV quant (`q8_0` key, `q4_0` value). | Check server start log for `FlashAttention` | Switch to symmetric `--cache-type-k q4_0 --cache-type-v q4_0`. |",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:docs/multi-gpu.md:44:| `-ctk` | `--cache-type-k` | `f32` \\| `f16` \\| `bf16` \\| `q8_0` \\| `q4_0` \\| ... | `f16` | KV cache type for K. |",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:docs/multi-gpu.md:45:| `-ctv` | `--cache-type-v` | same as `-ctk` | `f16` | KV cache type for V. |",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:docs/speculative.md:245:--spec-draft-type-k, -ctkd, --cache-type-k-draft  TYPE",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:docs/speculative.md:249:--spec-draft-type-v, -ctvd, --cache-type-v-draft  TYPE",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/cli/README.md:53:| `-ctk, --cache-type-k TYPE` | KV cache data type for K<br/>allowed values: f32, f16, bf16, q8_0, q4_0, q4_1, iq4_nl, q5_0, q5_1<br/>(default: f16)<br/>(env: LLAMA_ARG_CACHE_TYPE_K) |",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/cli/README.md:54:| `-ctv, --cache-type-v TYPE` | KV cache data type for V<br/>allowed values: f32, f16, bf16, q8_0, q4_0, q4_1, iq4_nl, q5_0, q5_1<br/>(default: f16)<br/>(env: LLAMA_ARG_CACHE_TYPE_V) |",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/cli/README.md:99:| `--spec-draft-type-k, -ctkd, --cache-type-k-draft TYPE` | KV cache data type for K for the draft model<br/>allowed values: f32, f16, bf16, q8_0, q4_0, q4_1, iq4_nl, q5_0, q5_1<br/>(default: f16)<br/>(env: LLAMA_ARG_SPEC_DRAFT_CACHE_TYPE_K) |",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/cli/README.md:100:| `--spec-draft-type-v, -ctvd, --cache-type-v-draft TYPE` | KV cache data type for V for the draft model<br/>allowed values: f32, f16, bf16, q8_0, q4_0, q4_1, iq4_nl, q5_0, q5_1<br/>(default: f16)<br/>(env: LLAMA_ARG_SPEC_DRAFT_CACHE_TYPE_V) |",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/completion/README.md:136:| `-ctk, --cache-type-k TYPE` | KV cache data type for K<br/>allowed values: f32, f16, bf16, q8_0, q4_0, q4_1, iq4_nl, q5_0, q5_1<br/>(default: f16)<br/>(env: LLAMA_ARG_CACHE_TYPE_K) |",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/completion/README.md:137:| `-ctv, --cache-type-v TYPE` | KV cache data type for V<br/>allowed values: f32, f16, bf16, q8_0, q4_0, q4_1, iq4_nl, q5_0, q5_1<br/>(default: f16)<br/>(env: LLAMA_ARG_CACHE_TYPE_V) |",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/completion/README.md:182:| `--spec-draft-type-k, -ctkd, --cache-type-k-draft TYPE` | KV cache data type for K for the draft model<br/>allowed values: f32, f16, bf16, q8_0, q4_0, q4_1, iq4_nl, q5_0, q5_1<br/>(default: f16)<br/>(env: LLAMA_ARG_SPEC_DRAFT_CACHE_TYPE_K) |",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/completion/README.md:183:| `--spec-draft-type-v, -ctvd, --cache-type-v-draft TYPE` | KV cache data type for V for the draft model<br/>allowed values: f32, f16, bf16, q8_0, q4_0, q4_1, iq4_nl, q5_0, q5_1<br/>(default: f16)<br/>(env: LLAMA_ARG_SPEC_DRAFT_CACHE_TYPE_V) |",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/llama-bench/README.md:57:  -ctk, --cache-type-k <t>                  (default: f16)",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/llama-bench/README.md:58:  -ctv, --cache-type-v <t>                  (default: f16)",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/llama-bench/llama-bench.cpp:449:    printf(\"  -ctk, --cache-type-k <t>                    (default: %s)\\n\", join(transform_to_str(cmd_params_defaults.type_k, ggml_type_name), \",\").c_str());",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/llama-bench/llama-bench.cpp:450:    printf(\"  -ctv, --cache-type-v <t>                    (default: %s)\\n\", join(transform_to_str(cmd_params_defaults.type_v, ggml_type_name), \",\").c_str());",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/llama-bench/llama-bench.cpp:614:            } else if (arg == \"-ctk\" || arg == \"--cache-type-k\") {",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/llama-bench/llama-bench.cpp:634:            } else if (arg == \"-ctv\" || arg == \"--cache-type-v\") {",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/server/README.md:71:| `-ctk, --cache-type-k TYPE` | KV cache data type for K<br/>allowed values: f32, f16, bf16, q8_0, q4_0, q4_1, iq4_nl, q5_0, q5_1<br/>(default: f16)<br/>(env: LLAMA_ARG_CACHE_TYPE_K) |",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/server/README.md:72:| `-ctv, --cache-type-v TYPE` | KV cache data type for V<br/>allowed values: f32, f16, bf16, q8_0, q4_0, q4_1, iq4_nl, q5_0, q5_1<br/>(default: f16)<br/>(env: LLAMA_ARG_CACHE_TYPE_V) |",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/server/README.md:116:| `--spec-draft-type-k, -ctkd, --cache-type-k-draft TYPE` | KV cache data type for K for the draft model<br/>allowed values: f32, f16, bf16, q8_0, q4_0, q4_1, iq4_nl, q5_0, q5_1<br/>(default: f16)<br/>(env: LLAMA_ARG_SPEC_DRAFT_CACHE_TYPE_K) |",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/server/README.md:117:| `--spec-draft-type-v, -ctvd, --cache-type-v-draft TYPE` | KV cache data type for V for the draft model<br/>allowed values: f32, f16, bf16, q8_0, q4_0, q4_1, iq4_nl, q5_0, q5_1<br/>(default: f16)<br/>(env: LLAMA_ARG_SPEC_DRAFT_CACHE_TYPE_V) |"
+        ],
+        "full_output_sha256": "950aac326b011b683c0ee158583f1dcde894f01b334f01b2ef5e26da9ba64dad",
+        "returncode": 0
+      },
+      {
+        "pattern": "per.?layer.{0,40}(kv|cache).{0,40}(type|precision)",
+        "match_count": 0,
+        "matches": [],
+        "full_output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "returncode": 1
+      }
+    ],
+    "semantic_evidence_complete": true,
+    "predecessor_missing_integration": true,
+    "predecessor_false_negative": false
+  },
+  {
+    "item": "RETRO-01",
+    "requested_feature": "trained recurrent-retrofit checkpoint and route",
+    "classification": "ARTIFACT_NOT_IDENTIFIED_BOUNDED",
+    "scope_note": "Native recurrent architectures are not evidence of the requested trained retrofit artifact.",
+    "searches": [
+      {
+        "pattern": "recurrent.{0,30}retrofit",
+        "match_count": 0,
+        "matches": [],
+        "full_output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "returncode": 1
+      },
+      {
+        "pattern": "retrofit.{0,30}recurrent",
+        "match_count": 0,
+        "matches": [],
+        "full_output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "returncode": 1
+      }
+    ],
+    "semantic_evidence_complete": true,
+    "predecessor_missing_integration": true,
+    "predecessor_false_negative": false,
+    "artifact_inventory_matches": [],
+    "artifact_inventory_full_sha256": "822648696cd189097dc21182fad994f1783bf1e6d82f77fa62078075db790d22"
+  },
+  {
+    "item": "SLX-08",
+    "requested_feature": "selected-block speculative prefill wired into real TTFT",
+    "classification": "NEARBY_DFLASH_MECHANISM_ONLY",
+    "scope_note": "DFlash support exists, but no selected-block speculative-prefill route matching the claim was identified.",
+    "searches": [
+      {
+        "pattern": "speculative.{0,30}prefill",
+        "match_count": 0,
+        "matches": [],
+        "full_output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "returncode": 1
+      },
+      {
+        "pattern": "selected.?block.{0,30}(qkv|prefill)",
+        "match_count": 0,
+        "matches": [],
+        "full_output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "returncode": 1
+      },
+      {
+        "pattern": "\\bdflash\\b",
+        "match_count": 68,
+        "matches": [
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:546:            plan_spec.dflash = {};",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:548:        } else if (!plan_spec.dflash.local_path.empty()) {",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:558:                                    !plan_spec.dflash.local_path.empty() ||",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:570:    if (!plan_spec.dflash.local_path.empty() && !had_spec_url) {",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:571:        tasks.emplace_back(plan_spec.dflash, opts, [&]() {",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:572:            // only use the discovered DFlash sidecar when no draft path is set yet",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:574:                params.speculative.draft.mparams.path = hf_cache::finalize_file(plan_spec.dflash);",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:576:                hf_cache::finalize_file(plan_spec.dflash);",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:620:    if (!plan.dflash.local_path.empty() && !had_spec_url) {",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:621:        tasks.emplace_back(plan.dflash, opts, [&]() {",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:622:            // only fall back to the discovered DFlash sidecar when no draft was explicitly provided",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:624:                params.speculative.draft.mparams.path = hf_cache::finalize_file(plan.dflash);",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:626:                hf_cache::finalize_file(plan.dflash);",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:3001:        {\"--dflash\"},",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/arg.cpp:3002:        \"also download the DFlash sidecar, if available (default: unused)\",",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/common.h:175:    COMMON_SPECULATIVE_TYPE_DRAFT_DFLASH,  // DFlash speculative decoding",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/download.cpp:630:    return find_best_sibling(files, model, \"dflash-\");",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/download.cpp:647:           filename.find(\"dflash-\") == std::string::npos;",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/download.cpp:756:        plan.dflash = find_best_dflash(all, primary.path);",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/download.cpp:935:            split.prefix.find(\"dflash-\") != std::string::npos) {",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/download.h:112:    hf_cache::hf_file dflash;",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/speculative.cpp:36:    {\"draft-dflash\",  COMMON_SPECULATIVE_TYPE_DRAFT_DFLASH},",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/speculative.cpp:905:// DFlash: block-diffusion drafting with a draft-side KV cache injection",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/speculative.cpp:933:        GGML_ASSERT(ctx_tgt && ctx_dft && \"DFlash requires ctx_tgt and ctx_dft to be set\");",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/speculative.cpp:940:        GGML_ASSERT(target_layer_ids_n > 0 && \"DFlash model has no target_layer_ids\");",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/speculative.cpp:946:        // read the trained block size from the dflash.block_size metadata key",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/speculative.cpp:950:            if (llama_model_meta_val_str(model_dft, \"dflash.block_size\", buf, sizeof(buf)) >= 0) {",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/speculative.cpp:956:        LOG_INF(\"%s: adding speculative implementation 'draft-dflash'\\n\", __func__);",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/speculative.cpp:960:        // DFlash input is [id_last, <mask> * (block_size-1)], so it can draft at most block_size-1 tokens per step",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/speculative.cpp:962:            LOG_WRN(\"%s: requested draft size (n_max=%d, n_min=%d) exceeds the trained DFlash block size %d -- clamping to %d\\n\",",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/speculative.cpp:986:        llama_set_causal_attn(ctx_dft, false); // DFlash needs non-causal attention",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/speculative.cpp:1057:                        GGML_ABORT(\"DFlash: target layer %d input not extracted.\", target_layer_ids[k]);",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/speculative.cpp:1066:                // fuse extracted features through DFlash encoder",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/speculative.cpp:1085:                GGML_ASSERT(inp_g && \"DFlash encoder produced no output.\");",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/speculative.cpp:1087:                // inject the DFlash decoder K/V cache at the tokens' target positions",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:common/speculative.cpp:2147:        case COMMON_SPECULATIVE_TYPE_DRAFT_DFLASH:  return \"draft-dflash\";",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:conversion/qwen.py:635:    model_arch = gguf.MODEL_ARCH.DFLASH",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:conversion/qwen.py:640:                \"DFlash draft model requires --target-model-dir to be specified. \"",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:conversion/qwen.py:643:        logger.info(f\"DFlash: Using tokenizer from target model: {self.target_model_dir}\")",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:convert_hf_to_gguf.py:160:            \"(e.g. EAGLE3 / DFlash) that needs target-model metadata such as tokenizer, hidden size, and \"",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:docs/speculative.md:55:### DFlash (`draft-dflash`)",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:docs/speculative.md:57:DFlash produces an entire block of draft tokens in a single forward pass (block diffusion) and",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:docs/speculative.md:60:(a single-layer autoregressive draft), the DFlash draft uses several transformer layers but emits a",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:docs/speculative.md:64:`z-lab/Qwen3-4B-DFlash` for `Qwen/Qwen3-4B`). Convert it with `--target-model-dir` so it inherits the",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:docs/speculative.md:68:python convert_hf_to_gguf.py z-lab/Qwen3-4B-DFlash \\",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:docs/speculative.md:69:    --target-model-dir Qwen/Qwen3-4B --outtype bf16 --outfile Qwen3-4B-DFlash.gguf",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:docs/speculative.md:71:llama-server -m Qwen3-4B.gguf -md Qwen3-4B-DFlash.gguf \\",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:docs/speculative.md:72:    --spec-type draft-dflash --spec-draft-n-max 15 -fa on --jinja",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:docs/speculative.md:176:--spec-type [none|draft-simple|draft-eagle3|draft-dflash|draft-mtp|ngram-cache|ngram-simple|ngram-map-k|ngram-map-k4v|ngram-mod]",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:docs/speculative.md:316:| `draft-dflash` | Use a DFlash block-diffusion draft model that emits a block per step |",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:gguf-py/gguf/constants.py:535:    DFLASH           = auto()",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:gguf-py/gguf/constants.py:1118:    MODEL_ARCH.DFLASH:           \"dflash\",",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:gguf-py/gguf/constants.py:4252:    MODEL_ARCH.DFLASH: [",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:gguf-py/gguf/tensor_mapping.py:1287:            \"model.hidden_norm\",        # dflash",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:gguf-py/gguf/tensor_mapping.py:1291:            \"model.fc\", # dflash",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:src/llama-arch.cpp:135:    { LLM_ARCH_DFLASH,           \"dflash\"           },",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:src/llama-context.cpp:1401:    // eagle3/DFlash: features as encoder input, and non-draft paths fall back to model's input dim",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:src/llama-graph.cpp:472:    // (e.g. DFlash's KV-injection pass)",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:src/llama-model.h:611:    // unified vector to store target-model extracted layer ids in eagle3, dflash, etc.",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:src/models/dflash.cpp:12:        throw std::runtime_error(\"DFlash model requires 'target_layers' in GGUF metadata\");",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:src/models/dflash.cpp:17:    LLAMA_LOG_INFO(\"%s: DFlash extract_layers = [\", __func__);",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:src/models/dflash.cpp:24:    // DFlash has a single rope, so the SWA rope == main rope.",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:src/models/dflash.cpp:91:// DFlash Encoder: processes target model features through feature fusion layer",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:src/models/dflash.cpp:108:// DFlash decoder, dual-mode by batch type:",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:src/models/dflash.cpp:204:        GGML_ASSERT(model_other->tok_embd != nullptr && \"DFlash decoder requires the target model's token embeddings\");",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:src/models/dflash.cpp:284:        GGML_ASSERT(model_other->output != nullptr && \"DFlash decoder requires the target model's output projection\");",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/cli/README.md:206:| `--spec-type none,draft-simple,draft-eagle3,draft-mtp,draft-dflash,ngram-simple,ngram-map-k,ngram-map-k4v,ngram-mod,ngram-cache` | comma-separated list of types of speculative decoding to use (default: none)<br/><br/>(env: LLAMA_ARG_SPEC_TYPE) |",
+          "87a416bd75d5a64e66e55846b779c0a54eca21bd:tools/server/README.md:262:| `--spec-type none,draft-simple,draft-eagle3,draft-mtp,draft-dflash,ngram-simple,ngram-map-k,ngram-map-k4v,ngram-mod,ngram-cache` | comma-separated list of types of speculative decoding to use (default: none)<br/><br/>(env: LLAMA_ARG_SPEC_TYPE) |"
+        ],
+        "full_output_sha256": "cdec4066fa8f5f80282328ae9acbc464fbd0330f0594c48e4535fcf12afea622",
+        "returncode": 0
+      }
+    ],
+    "semantic_evidence_complete": true,
+    "predecessor_missing_integration": true,
+    "predecessor_false_negative": false
+  }
+]

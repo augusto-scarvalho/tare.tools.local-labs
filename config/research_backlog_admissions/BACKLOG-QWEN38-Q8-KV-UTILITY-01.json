@@ -1,0 +1,46 @@
+{
+  "id": "BACKLOG-QWEN38-Q8-KV-UTILITY-01",
+  "priority": 0,
+  "title": "Test Qwen3.8 Q8_0 KV utility noninferiority on a broad fresh math panel",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-QWEN38-KV-PRECISION-02/raw/receipt.json",
+    "runs/research/BACKLOG-QWEN38-KV-PRECISION-02/raw/samples.jsonl",
+    "runs/research/BACKLOG-QWEN38-KV-PRECISION-02/raw/actual_scores.json",
+    "tools/research/run_qwen38_kv_precision.py",
+    "tools/research/run_qwen38_kv_precision_r2.py",
+    "config/qualified_model_fleet.json",
+    "workloads/gsm8k.jsonl"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "binary_identity", "block_logs",
+    "dataset_hashes", "effective_route", "environment", "hardware_metrics",
+    "independent_evaluation", "paired_baseline", "provenance", "raw_samples",
+    "receipt_fingerprint", "recovery_state", "service_identity",
+    "service_maintenance", "source_execution_receipt", "treatment_controls"
+  ],
+  "acceptance_gates": [
+    {"id": "source_integrity", "metric": "q8_r2_sources_and_artifacts_verified", "operator": "eq", "threshold": true},
+    {"id": "panel_isolation", "metric": "fresh_panel_disjoint_from_q8_r2", "operator": "eq", "threshold": true},
+    {"id": "treatment_identity", "metric": "explicit_cache_controls_verified", "operator": "eq", "threshold": true},
+    {"id": "request_coverage", "metric": "recorded_requests", "operator": "eq", "threshold": 256},
+    {"id": "request_integrity", "metric": "successful_response_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "utility_noninferiority", "metric": "paired_bootstrap_95ci_lower_q8_minus_f16_accuracy", "operator": "gt", "threshold": -0.05},
+    {"id": "quality_regression", "metric": "f16_minus_q8_accuracy", "operator": "le", "threshold": 0.03},
+    {"id": "physical_memory_saving", "metric": "vram_saving_mib", "operator": "ge", "threshold": 500},
+    {"id": "throughput_non_regression", "metric": "q8_vs_f16_throughput_ratio", "operator": "ge", "threshold": 0.95},
+    {"id": "service_recovery", "metric": "service_and_embedding_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "QWEN38_Q8_KV_UTILITY_NONINFERIOR_R1",
+    "QWEN38_Q8_KV_UTILITY_NOT_NONINFERIOR_R1"
+  ],
+  "forbidden_claims": [
+    "exact semantic equivalence", "Q4_0 qualification", "all-model generalization",
+    "long-context quality", "promotion without independent review"
+  ],
+  "next_action": "Run one fresh F16 and one fresh Q8_0 process over GSM8K tasks 32..159, paired-score correctness, bootstrap Q8-minus-F16 utility, and retain output parity only as a descriptive metric.",
+  "supersedes": null
+}

@@ -1,0 +1,95 @@
+{
+  "schema": "local-labs-experiment-watch-status-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-27-FLEET-HUMANEVAL-R1",
+  "updated_at": "2026-08-27T17:22:22Z",
+  "experiments": [
+    {
+      "task_id": "BACKLOG-FLEET-HUMANEVALPLUS-01",
+      "pid": 29460,
+      "process_alive": false,
+      "progress": 0,
+      "expected_progress": 4,
+      "pipeline_stage": "IMPLEMENTED",
+      "watch_status": "failed_no_receipt"
+    }
+  ],
+  "gpu": {
+    "memory_used_mib": 20210,
+    "memory_free_mib": 4113,
+    "utilization_percent": 3,
+    "temperature_c": 60,
+    "power_w": 99.83
+  },
+  "health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "states": {
+    "BACKLOG-FLEET-HUMANEVALPLUS-01": {
+      "status": "failed_no_receipt",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-27T17:22:21Z",
+        "receipt_exists": false,
+        "result_exists": false,
+        "stage_before": "IMPLEMENTED",
+        "progress": 0,
+        "expected_progress": 4,
+        "status": "failed_no_receipt"
+      }
+    }
+  },
+  "final": {
+    "schema": "local-labs-experiment-watch-final-v1",
+    "watch_id": "EXPERIMENT-WATCH-2026-08-27-FLEET-HUMANEVAL-R1",
+    "finished_at": "2026-08-27T17:22:22Z",
+    "status": "complete_with_alert",
+    "experiment_mode": true,
+    "states": {
+      "BACKLOG-FLEET-HUMANEVALPLUS-01": {
+        "status": "failed_no_receipt",
+        "was_seen_alive": true,
+        "finalization": {
+          "at": "2026-08-27T17:22:21Z",
+          "receipt_exists": false,
+          "result_exists": false,
+          "stage_before": "IMPLEMENTED",
+          "progress": 0,
+          "expected_progress": 4,
+          "status": "failed_no_receipt"
+        }
+      }
+    },
+    "pipeline_gate": {
+      "returncode": 0,
+      "stdout": "BACKLOG PIPELINE: PASS",
+      "stderr": ""
+    },
+    "backlog_queue": {
+      "refreshed_at": "2026-08-27T17:22:22Z",
+      "status_returncode": 0,
+      "next_returncode": 0,
+      "valid": true,
+      "state_counts": {
+        "BLOCKED": 29,
+        "EXECUTED": 35,
+        "IMPLEMENTED": 1,
+        "PROMOTED": 3,
+        "REJECTED": 2
+      },
+      "next_candidate": null
+    },
+    "completion_action": "inspect_alert_before_dispatch",
+    "final_health": {
+      "http://127.0.0.1:8080/health": 200,
+      "http://127.0.0.1:8081/health": 200
+    },
+    "final_gpu": {
+      "memory_used_mib": 20210,
+      "memory_free_mib": 4113,
+      "utilization_percent": 3,
+      "temperature_c": 60,
+      "power_w": 99.83
+    }
+  }
+}

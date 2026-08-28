@@ -1,0 +1,53 @@
+{
+  "id": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02",
+  "priority": 0,
+  "title": "Evaluate the fresh 384-step LoKr artifact on a broad teacher-disjoint panel under GPU co-tenancy",
+  "evidence_class": "artifact_requalification",
+  "packet_dir": "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-02",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/receipt.json",
+    "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt01/lokr_3ep_lr1e4/adapter",
+    "workloads/gsm8k.jsonl",
+    "runs/a2/market-r0__thinkingcap-27b-q4__gsm8k.json",
+    "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl"
+  ],
+  "required_evidence": [
+    "acceptance_gates",
+    "actual_scores",
+    "artifact_hashes",
+    "clean_base_receipts",
+    "dataset_hashes",
+    "independent_evaluation",
+    "isolation_smoke",
+    "model_hash",
+    "paired_baseline",
+    "provenance",
+    "raw_samples",
+    "receipt_fingerprint",
+    "scorer_hashes",
+    "service_maintenance",
+    "source_execution_receipt",
+    "wsl_environment"
+  ],
+  "acceptance_gates": [
+    {"id": "artifact_identity", "metric": "artifact_hashes_verified", "operator": "eq", "threshold": true},
+    {"id": "panel_isolation", "metric": "teacher_disjoint_math_tasks", "operator": "eq", "threshold": 256},
+    {"id": "evaluation_coverage", "metric": "paired_math_and_qa_generations", "operator": "eq", "threshold": 608},
+    {"id": "broad_gain", "metric": "paired_bootstrap_95ci_lower_math_gain", "operator": "gt", "threshold": 0.0},
+    {"id": "protected_retention", "metric": "protected_qa_regression", "operator": "le", "threshold": 0.05},
+    {"id": "co_tenancy_boundary", "metric": "outer_runner_alive_and_embedding_healthy", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "ADAPT01_384_ARTIFACT_BROAD_GAIN_R2",
+    "ADAPT01_384_ARTIFACT_BROAD_GAIN_NOT_CONFIRMED_R2"
+  ],
+  "forbidden_claims": [
+    "training repeatability across seeds",
+    "latency or throughput qualification under GPU co-tenancy",
+    "production promotion",
+    "generalization beyond the frozen artifact, model, and panels"
+  ],
+  "next_action": "Evaluate the immutable 384-step LoKr artifact and a clean base control on 256 teacher-disjoint GSM8K prompts and all 48 protected QA prompts while the outer R5 maintenance owner remains active.",
+  "supersedes": "BACKLOG-ADAPT01-640-EVAL-01"
+}

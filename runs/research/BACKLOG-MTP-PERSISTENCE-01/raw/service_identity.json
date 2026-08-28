@@ -1,0 +1,48 @@
+{
+  "initial_service": {
+    "returncode": 0,
+    "load_state": "loaded",
+    "active_state": "active",
+    "sub_state": "running",
+    "main_pid": 46324,
+    "n_restarts": 0,
+    "exec_start": "{ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/tools/serving/qualified_model_gateway.py --config /mnt/c/projects/tare.tools.local-labs/config/qualified_model_fleet.json --host 0.0.0.0 --port 8080 --backend-host 127.0.0.1 --backend-port 18080 --state-dir /home/augus/.local/state/tare-qualified-models --preload qwen38 ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }",
+    "stderr": ""
+  },
+  "initial_gateway": {
+    "status": "ok",
+    "role": "qualified-model-gateway",
+    "current_model": "fable-tc",
+    "requested_name": "fable-tc",
+    "backend_healthy": true,
+    "backend_pid": 65134,
+    "backend_port": 18080,
+    "last_switch_seconds": 7.520996713981731,
+    "last_error": null,
+    "max_resident_models": 1,
+    "available_models": [
+      "fable-tc",
+      "gemma-vision",
+      "hauhaucs",
+      "muse-vision",
+      "qwen36-moe",
+      "qwen38"
+    ]
+  },
+  "initial_embedding": {
+    "http_status": 200,
+    "body": {
+      "status": "ok"
+    }
+  },
+  "initial_gpu": {
+    "name": "NVIDIA GeForce RTX 3090",
+    "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+    "driver_version": "591.86",
+    "memory.total": "24576",
+    "memory.used": "18676",
+    "memory.free": "5647",
+    "temperature.gpu": "41",
+    "power.draw": "38.63"
+  }
+}

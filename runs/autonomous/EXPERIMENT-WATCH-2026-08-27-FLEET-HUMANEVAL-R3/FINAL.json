@@ -1,0 +1,63 @@
+{
+  "schema": "local-labs-experiment-watch-final-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-27-FLEET-HUMANEVAL-R3",
+  "finished_at": "2026-08-27T18:08:46Z",
+  "status": "complete",
+  "experiment_mode": true,
+  "states": {
+    "BACKLOG-FLEET-HUMANEVALPLUS-03": {
+      "status": "executed_valid",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-27T18:08:44Z",
+        "receipt_exists": true,
+        "result_exists": true,
+        "stage_before": "IMPLEMENTED",
+        "progress": 4,
+        "expected_progress": 4,
+        "advance": {
+          "returncode": 0,
+          "stdout": "BACKLOG-FLEET-HUMANEVALPLUS-03: advanced to EXECUTED",
+          "stderr": ""
+        },
+        "stage_after": "EXECUTED",
+        "gate": {
+          "returncode": 0,
+          "stdout": "BACKLOG PIPELINE: PASS",
+          "stderr": ""
+        },
+        "status": "executed_valid"
+      }
+    }
+  },
+  "pipeline_gate": {
+    "returncode": 0,
+    "stdout": "BACKLOG PIPELINE: PASS",
+    "stderr": ""
+  },
+  "backlog_queue": {
+    "refreshed_at": "2026-08-27T18:08:46Z",
+    "status_returncode": 0,
+    "next_returncode": 0,
+    "valid": true,
+    "state_counts": {
+      "BLOCKED": 30,
+      "EXECUTED": 37,
+      "PROMOTED": 3,
+      "REJECTED": 2
+    },
+    "next_candidate": null
+  },
+  "completion_action": "notify_queue_empty",
+  "final_health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "final_gpu": {
+    "memory_used_mib": 20166,
+    "memory_free_mib": 4157,
+    "utilization_percent": 2,
+    "temperature_c": 34,
+    "power_w": 48.81
+  }
+}

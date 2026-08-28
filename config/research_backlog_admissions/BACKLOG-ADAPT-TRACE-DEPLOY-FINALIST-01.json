@@ -1,0 +1,48 @@
+{
+  "id": "BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01",
+  "priority": 0,
+  "title": "Select one trace-distilled deployment finalist and validate it on a third untouched panel",
+  "evidence_class": "distillation",
+  "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/checkpoint_hashes.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/actual_scores.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/student_samples.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/training_pairs.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07/raw/receipt.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-08/raw/actual_scores.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-08/raw/dataset_hashes.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-08/raw/receipt.json",
+    "tools/research/run_trace_distillation_replication_r8.py",
+    "workloads/gsm8k.jsonl"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "checkpoint_hashes", "dataset_hashes",
+    "independent_evaluation", "model_hash", "paired_baseline", "provenance",
+    "raw_samples", "receipt_fingerprint", "service_maintenance",
+    "source_execution_receipt", "student_samples", "teacher_samples", "wsl_environment"
+  ],
+  "acceptance_gates": [
+    {"id": "source_integrity", "metric": "r7_r8_sources_and_checkpoints_verified", "operator": "eq", "threshold": true},
+    {"id": "selection_reproducibility", "metric": "selected_seed", "operator": "eq", "threshold": 20260832},
+    {"id": "panel_isolation", "metric": "third_panel_disjoint_from_training_and_prior_panels", "operator": "eq", "threshold": true},
+    {"id": "checkpoint_coverage", "metric": "immutable_checkpoints_evaluated", "operator": "eq", "threshold": 2},
+    {"id": "evaluation_coverage", "metric": "fresh_third_panel_generations", "operator": "eq", "threshold": 512},
+    {"id": "finalist_gain", "metric": "paired_bootstrap_95ci_lower_trace_minus_answer", "operator": "gt", "threshold": 0.0},
+    {"id": "finalist_absolute", "metric": "trace_third_panel_accuracy", "operator": "ge", "threshold": 0.40},
+    {"id": "protected_retention", "metric": "imported_selected_seed_qa_regression", "operator": "le", "threshold": 0.05},
+    {"id": "independent_score", "metric": "independent_rescore_match", "operator": "eq", "threshold": true},
+    {"id": "service_recovery", "metric": "service_and_embedding_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "TRACE_DISTILLATION_DEPLOYMENT_FINALIST_CONFIRMED_R1",
+    "TRACE_DISTILLATION_DEPLOYMENT_FINALIST_NOT_CONFIRMED_R1"
+  ],
+  "forbidden_claims": [
+    "best possible seed", "teacher-equivalent performance", "broad reasoning generalization",
+    "production deployment before independent review", "additional panel selection after seeing R1"
+  ],
+  "next_action": "Select seed 20260832 by the frozen prior-panel and QA rule, compare its trace and answer-only checkpoints on one third disjoint 256-task panel, then stop the finalist-selection family.",
+  "supersedes": null
+}

@@ -1,0 +1,16 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "APPROVED",
+  "receipt_sha256": "2d157b63a1b342f6b5c9c9f7f075bd550404a76b03787f4893ef00d585a5f23d",
+  "implementation_digest": "925c4f15d2e7e4ccb9d093d3a990616826436ce08ebdbef2159c2770364817b3",
+  "findings": [
+    "Receipt SHA-256, canonical fingerprint, implementation digest, all six implementation-file hashes and all 37 provenance input byte counts and hashes independently match.",
+    "All six checkpoint config and weight hashes match, the four imported workers and their predecessor artifacts match the continuation ledger, and the base-model config, weights and tokenizer hashes were independently recomputed in WSL.",
+    "Independent rescoring of 288 unique samples reproduces per-seed math counts 11/9, 9/12 and 9/16 for answer-only/full-trace, QA counts 4/4, 4/2 and 4/5, mean math gain 0.083333, two nonnegative seeds and mean protected-QA regression 0.041667 with no stored-scorer mismatch.",
+    "The treatment was materially realized: each paired arm used the same 128 task IDs in the same order, all 128 target texts differ per seed, all six training traces contain 128 finite ordered steps, and independent tokenizer replay found zero target truncations under the 512-token training limit.",
+    "Adversarial false-positive audit found 108 of 192 math generations reached the frozen token cap, disproportionately answer-only 63 versus full-trace 45. The preregistered scorer still reproduces exactly; a conservative natural-EOS-only sensitivity remains positive at 22/96 versus 29/96, mean gain 0.072917, with two nonnegative seeds.",
+    "The predecessor broad rejection was a false negative for trace distillation because its runner evaluated the behavioral-finalist adapter and unadapted base without training or evaluating a materially distinct trace arm. R3 corrects that treatment/control identity error.",
+    "Approval is bounded to the frozen model, teacher data, three seeds, panels, scorer and 128-step recipe. Seed uncertainty is large (descriptive t interval across three seed effects includes zero), so this is not population-level generalization, teacher noninferiority, finalist selection or production approval."
+  ]
+}

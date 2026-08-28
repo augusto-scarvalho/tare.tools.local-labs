@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-ADAPT-TRACE-DISTILL-03",
   "evidence_class": "distillation",
   "executor": "Codex executor",
-  "stage": "EXECUTED",
+  "stage": "PROMOTED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,18 @@
       "to": "EXECUTED",
       "actor": "Codex executor",
       "at": "2026-08-25T23:35:08Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T01:11:47Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T01:11:48Z"
     }
   ],
   "preregistration": {
@@ -65,7 +77,15 @@
     "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/receipt.json",
     "sha256": "2d157b63a1b342f6b5c9c9f7f075bd550404a76b03787f4893ef00d585a5f23d"
   },
-  "result": {},
-  "review": {},
-  "claim_codes": []
+  "result": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/RESULT.md",
+    "sha256": "cde18d39e0b61374dc7e0d0b58cca4157bfa491f52fce71ba05e0c43905b86f0"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/REVIEW.json",
+    "sha256": "60736ac6171486cea83fcda9a371e1cf5cb9fc8a4729bb34b9910e626ac7bcde"
+  },
+  "claim_codes": [
+    "TRACE_DISTILLATION_FALSE_NEGATIVE_CONFIRMED_R3"
+  ]
 }

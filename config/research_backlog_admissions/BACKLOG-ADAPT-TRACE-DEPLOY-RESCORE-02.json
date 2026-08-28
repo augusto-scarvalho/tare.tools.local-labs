@@ -1,0 +1,46 @@
+{
+  "id": "BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-02",
+  "priority": 0,
+  "title": "Rescore the frozen trace deployment finalist with an external fixture-validated extractor",
+  "evidence_class": "distillation",
+  "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-02",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/receipt.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/student_samples.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/actual_scores.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/dataset_hashes.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/checkpoint_hashes.json",
+    "tools/analysis/final_numeric_answer.py",
+    "tests/fixtures/final_numeric_answer_cases.json",
+    "tests/test_final_numeric_answer.py"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "checkpoint_hashes", "dataset_hashes",
+    "external_fixture_validation", "independent_evaluation", "model_hash",
+    "paired_baseline", "provenance", "raw_samples", "receipt_fingerprint",
+    "scorer_hashes", "source_execution_receipt", "student_samples", "teacher_samples"
+  ],
+  "acceptance_gates": [
+    {"id": "source_integrity", "metric": "frozen_deployment_sources_verified", "operator": "eq", "threshold": true},
+    {"id": "fixture_validation", "metric": "external_fixture_pass_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "fixture_coverage", "metric": "external_fixture_cases", "operator": "ge", "threshold": 18},
+    {"id": "selection_reproducibility", "metric": "selected_seed", "operator": "eq", "threshold": 20260832},
+    {"id": "panel_isolation", "metric": "third_panel_disjoint_from_training_and_prior_panels", "operator": "eq", "threshold": true},
+    {"id": "evaluation_coverage", "metric": "rescored_generations", "operator": "eq", "threshold": 512},
+    {"id": "finalist_gain", "metric": "paired_bootstrap_95ci_lower_trace_minus_answer", "operator": "gt", "threshold": 0.0},
+    {"id": "finalist_absolute", "metric": "trace_third_panel_accuracy", "operator": "ge", "threshold": 0.40},
+    {"id": "protected_retention", "metric": "imported_selected_seed_qa_regression", "operator": "le", "threshold": 0.05},
+    {"id": "scorer_blinding", "metric": "scorer_does_not_receive_gold", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "TRACE_DISTILLATION_DEPLOYMENT_FINALIST_RESCORED_R2",
+    "TRACE_DISTILLATION_DEPLOYMENT_FINALIST_NOT_CONFIRMED_R2"
+  ],
+  "forbidden_claims": [
+    "fresh generation", "fourth-panel confirmation", "seed reselection",
+    "teacher-equivalent performance", "production deployment", "promotion without independent review"
+  ],
+  "next_action": "Freeze and validate a generic question-aware numeric extractor on external fixtures, then apply it once to all 512 already-frozen third-panel outputs.",
+  "supersedes": "BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01"
+}

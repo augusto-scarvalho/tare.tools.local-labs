@@ -1,0 +1,81 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-FLEET-MBPPPLUS-02",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "source_integrity": {
+      "metric": "r1_sources_and_model_artifacts_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "panel_isolation": {
+      "metric": "two_mbpp_panels_disjoint",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "route_coverage": {
+      "metric": "verified_text_routes_completed",
+      "operator": "eq",
+      "threshold": 4,
+      "actual": null,
+      "pass": null
+    },
+    "fresh_generation_coverage": {
+      "metric": "fresh_second_panel_generations",
+      "operator": "eq",
+      "threshold": 400,
+      "actual": null,
+      "pass": null
+    },
+    "combined_score_coverage": {
+      "metric": "official_model_panel_scores",
+      "operator": "eq",
+      "threshold": 8,
+      "actual": null,
+      "pass": null
+    },
+    "coding_alias_absolute": {
+      "metric": "combined_hauhaucs_mbpp_plus_pass_at_1",
+      "operator": "ge",
+      "threshold": 0.7,
+      "actual": null,
+      "pass": null
+    },
+    "coding_alias_noninferiority": {
+      "metric": "stratified_bootstrap_95ci_lower_hauhaucs_minus_qwen38",
+      "operator": "gt",
+      "threshold": -0.05,
+      "actual": null,
+      "pass": null
+    },
+    "service_recovery": {
+      "metric": "initial_route_and_services_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "raw_samples": null,
+    "provenance": null,
+    "receipt_fingerprint": null,
+    "effective_route": null,
+    "service_identity": null,
+    "paired_baseline": null,
+    "recovery_state": null,
+    "hardware_metrics": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "official_scores": null,
+    "independent_evaluation": null,
+    "source_execution_receipt": null
+  },
+  "receipt_fingerprint": null
+}

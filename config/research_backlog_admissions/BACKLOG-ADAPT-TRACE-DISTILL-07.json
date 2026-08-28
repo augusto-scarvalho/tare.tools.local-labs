@@ -1,0 +1,42 @@
+{
+  "id": "BACKLOG-ADAPT-TRACE-DISTILL-07",
+  "priority": 0,
+  "title": "Complete the corrected seven-seed trace confirmation after bounded shutdown timeout",
+  "evidence_class": "distillation",
+  "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-07",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-06/PRE_REGISTRATION.md",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-06/CONTINUATION_SOURCES.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-06/runner.stderr.log",
+    "runs/autonomous/EXPERIMENT-WATCH-2026-08-27-R6/FINAL.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-05/raw/workers",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-05/raw/checkpoints"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "checkpoint_hashes", "continuation_ledger",
+    "dataset_hashes", "independent_evaluation", "model_hash", "provenance", "raw_samples",
+    "receipt_fingerprint", "service_maintenance", "student_samples", "teacher_samples",
+    "training_pairs", "training_trace", "treatment_materiality"
+  ],
+  "acceptance_gates": [
+    {"id": "continuation_integrity", "metric": "hash_verified_imported_workers", "operator": "eq", "threshold": 9},
+    {"id": "treatment_materiality", "metric": "matched_distinct_training_targets_verified", "operator": "eq", "threshold": true},
+    {"id": "training_budget", "metric": "training_steps_per_arm_per_seed", "operator": "eq", "threshold": 504},
+    {"id": "seed_coverage", "metric": "completed_paired_seeds", "operator": "eq", "threshold": 7},
+    {"id": "math_coverage", "metric": "heldout_math_samples_per_arm_per_seed", "operator": "eq", "threshold": 256},
+    {"id": "qa_coverage", "metric": "protected_qa_samples_per_arm_per_seed", "operator": "eq", "threshold": 48},
+    {"id": "confirmed_gain", "metric": "hierarchical_bootstrap_95ci_lower_trace_math_gain", "operator": "gt", "threshold": 0.0},
+    {"id": "directional_repeatability", "metric": "seeds_with_positive_trace_math_gain", "operator": "ge", "threshold": 5},
+    {"id": "protected_retention", "metric": "mean_protected_qa_regression_vs_answer_only", "operator": "le", "threshold": 0.05},
+    {"id": "service_recovery", "metric": "service_and_embedding_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": ["TRACE_DISTILLATION_CONFIRMED_R7", "TRACE_DISTILLATION_NOT_CONFIRMED_R7"],
+  "forbidden_claims": [
+    "changing seeds, training orders, panels, estimands, or scientific thresholds",
+    "teacher-level noninferiority", "production promotion",
+    "generalization beyond Qwen3.5-0.8B, the frozen corpora, and the tested budget"
+  ],
+  "next_action": "Run the unchanged R6 scientific continuation with a 180-second bounded systemd stop helper, then restore both serving endpoints and let the persistent watcher validate EXECUTED.",
+  "supersedes": "BACKLOG-ADAPT-TRACE-DISTILL-06"
+}

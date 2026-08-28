@@ -1,0 +1,47 @@
+{
+  "id": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-05",
+  "priority": 0,
+  "title": "Resolve LoKr panel uncertainty with one final third panel and a frozen three-panel synthesis",
+  "evidence_class": "artifact_requalification",
+  "packet_dir": "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-05",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-03/raw/merged_worker.json",
+    "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-03/raw/receipt.json",
+    "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-04/raw/combined_worker.json",
+    "runs/research/BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-04/raw/receipt.json",
+    "runs/research/BACKLOG-ADAPT-MECHANISMS-RERUN-01/raw/mechanisms/adapt01/lokr_3ep_lr1e4/adapter",
+    "workloads/gsm8k.jsonl",
+    "runs/a2/market-r0__thinkingcap-27b-q4__gsm8k.json",
+    "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "clean_base_receipts",
+    "continuation_ledger", "dataset_hashes", "independent_evaluation", "isolation_smoke",
+    "model_hash", "paired_baseline", "provenance", "raw_samples", "receipt_fingerprint",
+    "scorer_hashes", "service_maintenance", "source_execution_receipt", "wsl_environment"
+  ],
+  "acceptance_gates": [
+    {"id": "source_integrity", "metric": "r3_r4_source_hashes_verified", "operator": "eq", "threshold": true},
+    {"id": "artifact_identity", "metric": "artifact_hashes_verified", "operator": "eq", "threshold": true},
+    {"id": "panel_isolation", "metric": "three_panels_pairwise_and_teacher_disjoint", "operator": "eq", "threshold": true},
+    {"id": "evaluation_coverage", "metric": "fresh_third_panel_paired_math_generations", "operator": "eq", "threshold": 512},
+    {"id": "pooled_gain", "metric": "stratified_bootstrap_95ci_lower_three_panel_math_gain", "operator": "gt", "threshold": 0.0},
+    {"id": "third_panel_direction", "metric": "third_panel_math_gain", "operator": "gt", "threshold": 0.0},
+    {"id": "panel_repeatability", "metric": "panels_with_positive_math_gain", "operator": "ge", "threshold": 2},
+    {"id": "protected_retention", "metric": "imported_r3_protected_qa_regression", "operator": "le", "threshold": 0.05},
+    {"id": "independent_score", "metric": "independent_rescore_match", "operator": "eq", "threshold": true},
+    {"id": "service_recovery", "metric": "service_and_embedding_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "ADAPT01_384_ARTIFACT_THREE_PANEL_GAIN_R5",
+    "ADAPT01_384_ARTIFACT_THREE_PANEL_GAIN_NOT_CONFIRMED_R5"
+  ],
+  "forbidden_claims": [
+    "additional adaptive panels after R5", "training repeatability across seeds",
+    "latency or throughput qualification", "production promotion",
+    "generalization beyond Qwen3.5-0.8B and the three frozen panels"
+  ],
+  "next_action": "Run exactly one final 256-task teacher-disjoint math panel, then compute the frozen equal-panel stratified bootstrap over R3, R4 and R5; stop this experiment family afterward regardless of outcome.",
+  "supersedes": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-04"
+}

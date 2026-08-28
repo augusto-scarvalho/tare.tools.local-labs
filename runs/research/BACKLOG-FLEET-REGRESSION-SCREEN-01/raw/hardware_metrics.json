@@ -1,0 +1,286 @@
+{
+  "models": {
+    "qwen38": {
+      "recorded": 112,
+      "suite_scores": {
+        "math": {
+          "passed": 20,
+          "total": 64
+        },
+        "qa": {
+          "passed": 32,
+          "total": 32
+        },
+        "agent": {
+          "passed": 16,
+          "total": 16
+        }
+      },
+      "wall_p50_ms": 3199.47,
+      "wall_p95_ms": 3850.124,
+      "draft_tokens": 13952,
+      "accepted_draft_tokens": 12066,
+      "draft_acceptance_rate": 0.86482225
+    },
+    "hauhaucs": {
+      "recorded": 112,
+      "suite_scores": {
+        "math": {
+          "passed": 22,
+          "total": 64
+        },
+        "qa": {
+          "passed": 28,
+          "total": 32
+        },
+        "agent": {
+          "passed": 16,
+          "total": 16
+        }
+      },
+      "wall_p50_ms": 3342.512,
+      "wall_p95_ms": 3836.388,
+      "draft_tokens": 13924,
+      "accepted_draft_tokens": 12030,
+      "draft_acceptance_rate": 0.86397587
+    },
+    "fable-tc": {
+      "recorded": 112,
+      "suite_scores": {
+        "math": {
+          "passed": 64,
+          "total": 64
+        },
+        "qa": {
+          "passed": 32,
+          "total": 32
+        },
+        "agent": {
+          "passed": 14,
+          "total": 16
+        }
+      },
+      "wall_p50_ms": 1457.194,
+      "wall_p95_ms": 3678.865,
+      "draft_tokens": 9280,
+      "accepted_draft_tokens": 6967,
+      "draft_acceptance_rate": 0.75075431
+    },
+    "qwen36-moe": {
+      "recorded": 112,
+      "suite_scores": {
+        "math": {
+          "passed": 24,
+          "total": 64
+        },
+        "qa": {
+          "passed": 30,
+          "total": 32
+        },
+        "agent": {
+          "passed": 16,
+          "total": 16
+        }
+      },
+      "wall_p50_ms": 2080.27,
+      "wall_p95_ms": 2550.847,
+      "draft_tokens": 15656,
+      "accepted_draft_tokens": 12640,
+      "draft_acceptance_rate": 0.8073582
+    }
+  },
+  "route_snapshots": [
+    {
+      "model": "qwen38",
+      "at": "2026-08-26T21:35:24Z",
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "qwen38",
+        "requested_name": "qwen38",
+        "backend_healthy": true,
+        "backend_pid": 64426,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.537749807001092,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19855, 4468, 34, 135.58, 1",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19855",
+          "memory.free": "4468",
+          "temperature.gpu": "34",
+          "power.draw": "135.58",
+          "utilization.gpu": "1"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "model": "hauhaucs",
+      "at": "2026-08-26T21:40:04Z",
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "hauhaucs",
+        "requested_name": "hauhaucs",
+        "backend_healthy": true,
+        "backend_pid": 64607,
+        "backend_port": 18080,
+        "last_switch_seconds": 8.709851168008754,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19855, 4468, 55, 129.35, 43",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "19855",
+          "memory.free": "4468",
+          "temperature.gpu": "55",
+          "power.draw": "129.35",
+          "utilization.gpu": "43"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "model": "fable-tc",
+      "at": "2026-08-26T21:44:48Z",
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "fable-tc",
+        "requested_name": "fable-tc",
+        "backend_healthy": true,
+        "backend_pid": 64779,
+        "backend_port": 18080,
+        "last_switch_seconds": 12.032285101013258,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 18673, 5650, 57, 161.10, 50",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "18673",
+          "memory.free": "5650",
+          "temperature.gpu": "57",
+          "power.draw": "161.10",
+          "utilization.gpu": "50"
+        }
+      },
+      "embedding_health": 200
+    },
+    {
+      "model": "qwen36-moe",
+      "at": "2026-08-26T21:48:05Z",
+      "status": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "qwen36-moe",
+        "requested_name": "qwen36-moe",
+        "backend_healthy": true,
+        "backend_pid": 64961,
+        "backend_port": 18080,
+        "last_switch_seconds": 15.03888083001948,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "gpu": {
+        "query": {
+          "argv": [
+            "nvidia-smi",
+            "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+            "--format=csv,noheader,nounits"
+          ],
+          "returncode": 0,
+          "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 22143, 2180, 50, 81.43, 12",
+          "stderr": ""
+        },
+        "values": {
+          "name": "NVIDIA GeForce RTX 3090",
+          "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+          "driver_version": "591.86",
+          "memory.total": "24576",
+          "memory.used": "22143",
+          "memory.free": "2180",
+          "temperature.gpu": "50",
+          "power.draw": "81.43",
+          "utilization.gpu": "12"
+        }
+      },
+      "embedding_health": 200
+    }
+  ]
+}

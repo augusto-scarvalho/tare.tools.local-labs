@@ -1,0 +1,99 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-QWEN38-Q8-KV-UTILITY-02",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "source_integrity": {
+      "metric": "q8_sources_and_artifacts_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "panel_isolation": {
+      "metric": "fresh_panel_disjoint_from_q8_r2",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "treatment_identity": {
+      "metric": "explicit_cache_controls_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "request_coverage": {
+      "metric": "recorded_requests",
+      "operator": "eq",
+      "threshold": 256,
+      "actual": null,
+      "pass": null
+    },
+    "request_integrity": {
+      "metric": "successful_response_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "utility_noninferiority": {
+      "metric": "paired_bootstrap_95ci_lower_q8_minus_f16_accuracy",
+      "operator": "gt",
+      "threshold": -0.05,
+      "actual": null,
+      "pass": null
+    },
+    "quality_regression": {
+      "metric": "f16_minus_q8_accuracy",
+      "operator": "le",
+      "threshold": 0.03,
+      "actual": null,
+      "pass": null
+    },
+    "physical_memory_saving": {
+      "metric": "vram_saving_mib",
+      "operator": "ge",
+      "threshold": 500,
+      "actual": null,
+      "pass": null
+    },
+    "throughput_non_regression": {
+      "metric": "q8_vs_f16_throughput_ratio",
+      "operator": "ge",
+      "threshold": 0.95,
+      "actual": null,
+      "pass": null
+    },
+    "service_recovery": {
+      "metric": "service_and_embedding_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "binary_identity": null,
+    "block_logs": null,
+    "dataset_hashes": null,
+    "effective_route": null,
+    "environment": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "recovery_state": null,
+    "service_identity": null,
+    "service_maintenance": null,
+    "source_execution_receipt": null,
+    "treatment_controls": null
+  },
+  "receipt_fingerprint": null
+}

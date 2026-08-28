@@ -1,0 +1,15 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh recovery independent audit instance",
+  "verdict": "HOLD_FAIL_CLOSED",
+  "receipt_sha256": "fee03cc40a3bae4c7701775a44b59f9da837e6e6d752fefcc3c6e033ba2e1aa2",
+  "implementation_digest": "af8c1377f326a3cbda6e0350bbbcb660c20e443c9b59c7747f11d7a0c508f74b",
+  "findings": [
+    "The queue receipt SHA-256 and canonical fingerprint independently recompute to fee03cc40a3bae4c7701775a44b59f9da837e6e6d752fefcc3c6e033ba2e1aa2 and c1167c1e19a9a9cdb1fb7044068d9d8e7db812b87c8aecd13b5863f1785715d5. The implementation file hash, implementation digest and all 23 receipt provenance inputs match their materialized bytes.",
+    "The combined raw evidence is an exact projection of the predecessor 720 rows plus the independently executed 48-row lokr_5ep source, apart from the packet's two derived review fields and the added mechanism/arm labels on the missing-arm rows. It contains 768 unique mechanism-arm-panel-task keys, 16 arms, and exactly 32 math plus 16 protected-QA rows per arm.",
+    "Fresh frozen-scorer replay from raw text, gold and QA tasks reproduces all 768 stored labels and both derived label fields. The missing lokr_5ep arm independently scores 16/32 math and 5/16 QA; no aggregation false positive or false negative was found.",
+    "The recorded seed_control failure is an executor-side false negative. Four training entries expose seed 20260827 through their nested metrics and eight omit that redundant per-arm field, so the implementation's set over arm.metrics.seed becomes {20260827, null}. The source R1 receipt has a valid canonical fingerprint, binds raw/seed.json at SHA-256 d9ad3488127806b15a2ff081e1ca898fc9945716920a49e5bfba0d9497b5d13b, and records five physical commands with --seed 20260827; the missing-arm source receipt separately records the same seed and also has a valid fingerprint.",
+    "The normalized historical service evidence independently matches executable and argv before/after, active state, zero restarts and HTTP 200 on ports 8080 and 8081; the missing-arm packet records service_untouched=true. This is historical restoration evidence, not a new live-service observation.",
+    "Fail-closed hold is required because the immutable receipt itself has a failed frozen gate even though the scientific seed fact is supported by the correct experiment-level evidence. The packet is superseded by R3 and is not approved, rejected as a scientific negative, or authorized for a completion claim. Scope remains the frozen five-mechanism seed-20260827 matrix; no cross-seed, universal mechanism, new-training, new-generation or production claim is supported."
+  ]
+}

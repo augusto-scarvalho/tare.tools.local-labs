@@ -1,0 +1,116 @@
+{
+  "schema": "local-labs-experiment-watch-status-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-27-BROAD-R5",
+  "updated_at": "2026-08-27T11:58:42Z",
+  "experiments": [
+    {
+      "task_id": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-05",
+      "pid": 15904,
+      "process_alive": false,
+      "progress": 1,
+      "expected_progress": 1,
+      "pipeline_stage": "EXECUTED",
+      "watch_status": "executed_valid"
+    }
+  ],
+  "gpu": {
+    "memory_used_mib": 20210,
+    "memory_free_mib": 4113,
+    "utilization_percent": 2,
+    "temperature_c": 42,
+    "power_w": 35.14
+  },
+  "health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "states": {
+    "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-05": {
+      "status": "executed_valid",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-27T11:58:41Z",
+        "receipt_exists": true,
+        "result_exists": true,
+        "stage_before": "IMPLEMENTED",
+        "progress": 1,
+        "expected_progress": 1,
+        "advance": {
+          "returncode": 0,
+          "stdout": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-05: advanced to EXECUTED",
+          "stderr": ""
+        },
+        "stage_after": "EXECUTED",
+        "gate": {
+          "returncode": 0,
+          "stdout": "BACKLOG PIPELINE: PASS",
+          "stderr": ""
+        },
+        "status": "executed_valid"
+      }
+    }
+  },
+  "final": {
+    "schema": "local-labs-experiment-watch-final-v1",
+    "watch_id": "EXPERIMENT-WATCH-2026-08-27-BROAD-R5",
+    "finished_at": "2026-08-27T11:58:42Z",
+    "status": "complete",
+    "experiment_mode": true,
+    "states": {
+      "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-05": {
+        "status": "executed_valid",
+        "was_seen_alive": true,
+        "finalization": {
+          "at": "2026-08-27T11:58:41Z",
+          "receipt_exists": true,
+          "result_exists": true,
+          "stage_before": "IMPLEMENTED",
+          "progress": 1,
+          "expected_progress": 1,
+          "advance": {
+            "returncode": 0,
+            "stdout": "BACKLOG-ADAPT01-BROAD-ARTIFACT-EVAL-05: advanced to EXECUTED",
+            "stderr": ""
+          },
+          "stage_after": "EXECUTED",
+          "gate": {
+            "returncode": 0,
+            "stdout": "BACKLOG PIPELINE: PASS",
+            "stderr": ""
+          },
+          "status": "executed_valid"
+        }
+      }
+    },
+    "pipeline_gate": {
+      "returncode": 0,
+      "stdout": "BACKLOG PIPELINE: PASS",
+      "stderr": ""
+    },
+    "backlog_queue": {
+      "refreshed_at": "2026-08-27T11:58:42Z",
+      "status_returncode": 0,
+      "next_returncode": 0,
+      "valid": true,
+      "state_counts": {
+        "BLOCKED": 29,
+        "EXECUTED": 31,
+        "PROMOTED": 3,
+        "REJECTED": 2
+      },
+      "next_candidate": null
+    },
+    "completion_action": "notify_queue_empty",
+    "final_health": {
+      "http://127.0.0.1:8080/health": 200,
+      "http://127.0.0.1:8081/health": 200
+    },
+    "final_gpu": {
+      "memory_used_mib": 20210,
+      "memory_free_mib": 4113,
+      "utilization_percent": 2,
+      "temperature_c": 42,
+      "power_w": 35.14
+    }
+  }
+}

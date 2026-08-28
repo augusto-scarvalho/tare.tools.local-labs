@@ -1,0 +1,38 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-DISTILL-04",
+  "evidence_class": "distillation",
+  "executor": "Codex executor",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-27T00:13:28Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-27T00:15:34Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "BLOCKED",
+      "actor": "Codex executor",
+      "at": "2026-08-27T00:19:25Z",
+      "reason": "Pre-execution validation found that the teacher artifact is a noncontiguous 200-item sample and overlaps the preregistered gsm8k/200..455 held-out panel; no GPU worker launched. A successor must freeze a panel disjoint from every teacher task ID."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-04/PRE_REGISTRATION.md",
+    "sha256": "725e178bf4349298f70f6183971f268dc8f4dae6b8199a96a77e703a535eb9f4"
+  },
+  "implementation": [],
+  "implementation_digest": null,
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

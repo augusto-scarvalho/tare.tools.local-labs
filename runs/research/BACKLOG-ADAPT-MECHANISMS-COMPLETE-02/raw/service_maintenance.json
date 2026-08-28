@@ -1,0 +1,65 @@
+{
+  "r1": {
+    "before": {
+      "values": {
+        "MainPID": "39740",
+        "NRestarts": "0",
+        "ExecStart": "{ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Tue 2026-08-25 22:52:34 -03] ; stop_time=[n/a] ; pid=39740 ; code=(null) ; status=0/0 }",
+        "ActiveState": "active"
+      },
+      "health": {
+        "8080": 200,
+        "8081": 200
+      }
+    },
+    "after": {
+      "values": {
+        "MainPID": "41486",
+        "NRestarts": "0",
+        "ExecStart": "{ path=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server ; argv[]=/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics ; ignore_errors=no ; start_time=[Wed 2026-08-26 00:15:55 -03] ; stop_time=[n/a] ; pid=41486 ; code=(null) ; status=0/0 }",
+        "ActiveState": "active"
+      },
+      "health": {
+        "8080": 200,
+        "8081": 200
+      }
+    },
+    "systemd_root_handoff": true,
+    "original_service_restored": 0,
+    "embedding_health": 200
+  },
+  "missing_arm": {
+    "before": {
+      "values": {
+        "MainPID": "41486",
+        "NRestarts": "0",
+        "ActiveState": "active"
+      },
+      "health": {
+        "8080": 200,
+        "8081": 200
+      }
+    },
+    "after": {
+      "values": {
+        "MainPID": "41486",
+        "NRestarts": "0",
+        "ActiveState": "active"
+      },
+      "health": {
+        "8080": 200,
+        "8081": 200
+      }
+    },
+    "service_untouched": true
+  },
+  "normalized_before": {
+    "path": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+    "argv": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics"
+  },
+  "normalized_after": {
+    "path": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+    "argv": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server -m /home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf --alias fable-tc-l1.0 --host 0.0.0.0 --port 8080 -ngl 99 -fa on --ctx-size 8192 --spec-type draft-mtp --spec-draft-n-max 4 --jinja --metrics"
+  },
+  "normalized_original_service_restored": true
+}

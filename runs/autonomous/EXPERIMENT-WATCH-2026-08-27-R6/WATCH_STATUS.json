@@ -1,0 +1,75 @@
+{
+  "schema": "local-labs-experiment-watch-status-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-27-R6",
+  "updated_at": "2026-08-27T03:55:38Z",
+  "experiments": [
+    {
+      "task_id": "BACKLOG-ADAPT-TRACE-DISTILL-06",
+      "pid": 4492,
+      "process_alive": false,
+      "progress": 0,
+      "expected_progress": 14,
+      "pipeline_stage": "IMPLEMENTED",
+      "watch_status": "failed_no_receipt"
+    }
+  ],
+  "gpu": {
+    "memory_used_mib": 20209,
+    "memory_free_mib": 4114,
+    "utilization_percent": 1,
+    "temperature_c": 32,
+    "power_w": 81.63
+  },
+  "health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "states": {
+    "BACKLOG-ADAPT-TRACE-DISTILL-06": {
+      "status": "failed_no_receipt",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-27T03:54:11Z",
+        "receipt_exists": false,
+        "result_exists": false,
+        "stage_before": "IMPLEMENTED",
+        "status": "failed_no_receipt"
+      }
+    }
+  },
+  "final": {
+    "schema": "local-labs-experiment-watch-final-v1",
+    "watch_id": "EXPERIMENT-WATCH-2026-08-27-R6",
+    "finished_at": "2026-08-27T03:55:38Z",
+    "status": "complete_with_alert",
+    "states": {
+      "BACKLOG-ADAPT-TRACE-DISTILL-06": {
+        "status": "failed_no_receipt",
+        "was_seen_alive": true,
+        "finalization": {
+          "at": "2026-08-27T03:54:11Z",
+          "receipt_exists": false,
+          "result_exists": false,
+          "stage_before": "IMPLEMENTED",
+          "status": "failed_no_receipt"
+        }
+      }
+    },
+    "pipeline_gate": {
+      "returncode": 0,
+      "stdout": "BACKLOG PIPELINE: PASS",
+      "stderr": ""
+    },
+    "final_health": {
+      "http://127.0.0.1:8080/health": 200,
+      "http://127.0.0.1:8081/health": 200
+    },
+    "final_gpu": {
+      "memory_used_mib": 20209,
+      "memory_free_mib": 4114,
+      "utilization_percent": 1,
+      "temperature_c": 32,
+      "power_w": 81.63
+    }
+  }
+}

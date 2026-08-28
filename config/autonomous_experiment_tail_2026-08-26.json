@@ -1,0 +1,29 @@
+{
+  "schema": "local-labs-autonomous-batch-v1",
+  "batch_id": "LARGE-BATCH-TAIL-2026-08-26",
+  "authorized_by": "user",
+  "authorized_at_local": "2026-08-26",
+  "poll_seconds": 15,
+  "queue": [
+    {
+      "task_id": "BACKLOG-MTP-PERSISTENCE-01",
+      "mode": "monitor",
+      "pid": 27716
+    },
+    {
+      "task_id": "BACKLOG-QWEN38-KV-PRECISION-01",
+      "mode": "run",
+      "command": [
+        "tools/research/run_qwen38_kv_precision.py",
+        "--outdir",
+        "runs/research/BACKLOG-QWEN38-KV-PRECISION-01"
+      ]
+    }
+  ],
+  "stop_conditions": [
+    "MTP task did not reach EXECUTED",
+    "MTP task did not restore its initial route",
+    "inference or embedding endpoint unhealthy between tasks",
+    "KV precision runner exits nonzero"
+  ]
+}

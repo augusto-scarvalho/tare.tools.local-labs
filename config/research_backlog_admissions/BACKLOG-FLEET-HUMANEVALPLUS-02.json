@@ -1,0 +1,48 @@
+{
+  "id": "BACKLOG-FLEET-HUMANEVALPLUS-02",
+  "priority": 1,
+  "title": "Continue full HumanEval+ fleet evaluation after scorer import abort",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-02",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-01/raw/samples.jsonl",
+    "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-01/raw/qwen38.samples.jsonl",
+    "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-01/raw/recovery_state.json",
+    "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-01/PRE_REGISTRATION.md",
+    "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-01/runner.stderr.log",
+    "runs/autonomous/EXPERIMENT-WATCH-2026-08-27-FLEET-HUMANEVAL-R1/FINAL.json",
+    "tools/research/run_fleet_humanevalplus.py",
+    "config/qualified_model_fleet.json",
+    "workloads/humaneval_plus.jsonl",
+    "tools/analysis/a2_score_humaneval.py",
+    "benchmark_harness_qa.py"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "raw_samples", "provenance", "receipt_fingerprint",
+    "effective_route", "service_identity", "paired_baseline", "recovery_state",
+    "hardware_metrics", "artifact_hashes", "dataset_hashes", "official_scores",
+    "independent_evaluation", "source_execution_receipt"
+  ],
+  "acceptance_gates": [
+    {"id": "source_integrity", "metric": "r1_partial_sources_and_model_artifacts_verified", "operator": "eq", "threshold": true},
+    {"id": "imported_coverage", "metric": "imported_qwen38_generations", "operator": "eq", "threshold": 164},
+    {"id": "fresh_coverage", "metric": "fresh_remaining_generations", "operator": "eq", "threshold": 492},
+    {"id": "route_coverage", "metric": "verified_text_routes_completed", "operator": "eq", "threshold": 4},
+    {"id": "response_integrity", "metric": "successful_nonempty_responses", "operator": "ge", "threshold": 650},
+    {"id": "official_score_coverage", "metric": "models_scored_by_evalplus", "operator": "eq", "threshold": 4},
+    {"id": "coding_alias_absolute", "metric": "hauhaucs_humaneval_plus_pass_at_1", "operator": "ge", "threshold": 0.80},
+    {"id": "coding_alias_noninferiority", "metric": "paired_bootstrap_95ci_lower_hauhaucs_minus_qwen38", "operator": "gt", "threshold": -0.05},
+    {"id": "service_recovery", "metric": "initial_route_and_services_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "HAUHAUCS_FULL_HUMANEVALPLUS_CODING_ALIAS_RETAINED_R2",
+    "HAUHAUCS_FULL_HUMANEVALPLUS_CODING_ALIAS_NOT_RETAINED_R2"
+  ],
+  "forbidden_claims": [
+    "treating the R1 import failure as model evidence", "regenerating qwen38",
+    "MBPP superiority", "latency ranking", "broad-default promotion"
+  ],
+  "next_action": "Hash-import and officially score the 164 complete qwen38 rows, generate only the three missing routes, score all four with a repository-root PYTHONPATH, and preserve the original scientific gates.",
+  "supersedes": "BACKLOG-FLEET-HUMANEVALPLUS-01"
+}

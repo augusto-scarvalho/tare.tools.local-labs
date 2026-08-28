@@ -1,0 +1,46 @@
+{
+  "id": "BACKLOG-FLEET-HUMANEVALPLUS-03",
+  "priority": 1,
+  "title": "Rescore full HumanEval+ after bounded regeneration of objectively truncated rows",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-03",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-02/raw/samples.jsonl",
+    "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-02/raw/official_scores.json",
+    "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-02/raw/receipt.json",
+    "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-02/raw/dataset_hashes.json",
+    "runs/research/BACKLOG-FLEET-HUMANEVALPLUS-02/PRE_REGISTRATION.md",
+    "tools/research/run_fleet_humanevalplus_r2.py",
+    "config/qualified_model_fleet.json",
+    "workloads/humaneval_plus.jsonl",
+    "tools/analysis/a2_score_humaneval.py",
+    "benchmark_harness_qa.py"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "raw_samples", "provenance", "receipt_fingerprint",
+    "effective_route", "service_identity", "paired_baseline", "recovery_state",
+    "hardware_metrics", "artifact_hashes", "dataset_hashes", "official_scores",
+    "independent_evaluation", "source_execution_receipt"
+  ],
+  "acceptance_gates": [
+    {"id": "source_integrity", "metric": "r2_sources_and_model_artifacts_verified", "operator": "eq", "threshold": true},
+    {"id": "objective_selection", "metric": "source_rows_selected_only_by_truncation", "operator": "eq", "threshold": 13},
+    {"id": "fresh_correction_coverage", "metric": "fresh_1536_token_regenerations", "operator": "eq", "threshold": 13},
+    {"id": "official_score_coverage", "metric": "models_rescored_by_evalplus", "operator": "eq", "threshold": 4},
+    {"id": "truncation_recovery", "metric": "remaining_truncated_target_rows", "operator": "le", "threshold": 2},
+    {"id": "coding_alias_absolute", "metric": "corrected_hauhaucs_humaneval_plus_pass_at_1", "operator": "ge", "threshold": 0.80},
+    {"id": "coding_alias_noninferiority", "metric": "corrected_paired_bootstrap_95ci_lower_hauhaucs_minus_qwen38", "operator": "gt", "threshold": -0.05},
+    {"id": "service_recovery", "metric": "initial_route_and_services_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "HAUHAUCS_HUMANEVALPLUS_CAP_CORRECTED_ALIAS_RETAINED_R3",
+    "HAUHAUCS_HUMANEVALPLUS_CAP_CORRECTED_ALIAS_NOT_RETAINED_R3"
+  ],
+  "forbidden_claims": [
+    "selecting rows by correctness", "regenerating non-truncated rows",
+    "additional cap extensions after R3", "latency ranking", "broad-default promotion"
+  ],
+  "next_action": "Regenerate exactly the thirteen source rows marked truncated with max_tokens 1536, merge them into the immutable 164-task matrices, officially rescore all models, and stop the HumanEval cap-correction family.",
+  "supersedes": "BACKLOG-FLEET-HUMANEVALPLUS-02"
+}

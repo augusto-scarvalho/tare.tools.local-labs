@@ -1,0 +1,16 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "APPROVED",
+  "receipt_sha256": "3ca20a2dbad797cc6ce1629d501802c6fa06ee8d67c8ab948f2959c62b298f40",
+  "implementation_digest": "0b2dd1709a6a2f80211ecda7342f4476819111f7deeb4246ddde5a24b9738224",
+  "findings": [
+    "Receipt fingerprint, implementation digest, 27 provenance inputs and all ten frozen artifacts independently match.",
+    "The continuation binds the exact R2 worker and imports exactly 256 math plus ten QA rows per arm, then adds the disjoint ordered 38-task QA suffix per arm.",
+    "Independent rescoring of all 608 rows reproduces base 66/256 versus adapter 88/256 math and base 7/48 versus adapter 9/48 QA with no scorer disagreement.",
+    "The 20000-replicate paired bootstrap independently reproduces math gain 0.0859375 and 95 percent interval [0.0234375, 0.1484375].",
+    "The protected-QA regression is zero on the complete actual 48-task panel; math and QA ID digests match the frozen values.",
+    "Service recovery uses normalized executable identity, preserves restart count, restores qwen38 gateway health and leaves embedding healthy.",
+    "Approval is limited to the immutable seed-20260827 384-step LoKr artifact on these frozen panels; it does not establish training repeatability, production readiness or universal LoKr superiority."
+  ]
+}

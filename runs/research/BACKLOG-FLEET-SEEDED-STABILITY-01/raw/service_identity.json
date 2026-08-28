@@ -1,0 +1,60 @@
+{
+  "initial": {
+    "command": {
+      "argv": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04",
+        "--",
+        "systemctl",
+        "show",
+        "llm-inference.service",
+        "-p",
+        "ActiveState",
+        "-p",
+        "MainPID",
+        "-p",
+        "NRestarts",
+        "-p",
+        "ExecStart",
+        "--no-pager"
+      ],
+      "returncode": 0,
+      "stdout": "MainPID=71476\nNRestarts=0\nExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/tools/serving/qualified_model_gateway.py --config /mnt/c/projects/tare.tools.local-labs/config/qualified_model_fleet.json --host 0.0.0.0 --port 8080 --backend-host 127.0.0.1 --backend-port 18080 --state-dir /home/augus/.local/state/tare-qualified-models --preload qwen38 ; ignore_errors=no ; start_time=[Wed 2026-08-26 19:11:14 -03] ; stop_time=[n/a] ; pid=71476 ; code=(null) ; status=0/0 }\nActiveState=active",
+      "stderr": ""
+    },
+    "active_state": "active",
+    "main_pid": 71476,
+    "n_restarts": 0,
+    "exec_start": "{ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/tools/serving/qualified_model_gateway.py --config /mnt/c/projects/tare.tools.local-labs/config/qualified_model_fleet.json --host 0.0.0.0 --port 8080 --backend-host 127.0.0.1 --backend-port 18080 --state-dir /home/augus/.local/state/tare-qualified-models --preload qwen38 ; ignore_errors=no ; start_time=[Wed 2026-08-26 19:11:14 -03] ; stop_time=[n/a] ; pid=71476 ; code=(null) ; status=0/0 }"
+  },
+  "final": {
+    "command": {
+      "argv": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04",
+        "--",
+        "systemctl",
+        "show",
+        "llm-inference.service",
+        "-p",
+        "ActiveState",
+        "-p",
+        "MainPID",
+        "-p",
+        "NRestarts",
+        "-p",
+        "ExecStart",
+        "--no-pager"
+      ],
+      "returncode": 0,
+      "stdout": "MainPID=71476\nNRestarts=0\nExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/tools/serving/qualified_model_gateway.py --config /mnt/c/projects/tare.tools.local-labs/config/qualified_model_fleet.json --host 0.0.0.0 --port 8080 --backend-host 127.0.0.1 --backend-port 18080 --state-dir /home/augus/.local/state/tare-qualified-models --preload qwen38 ; ignore_errors=no ; start_time=[Wed 2026-08-26 19:11:14 -03] ; stop_time=[n/a] ; pid=71476 ; code=(null) ; status=0/0 }\nActiveState=active",
+      "stderr": ""
+    },
+    "active_state": "active",
+    "main_pid": 71476,
+    "n_restarts": 0,
+    "exec_start": "{ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/tools/serving/qualified_model_gateway.py --config /mnt/c/projects/tare.tools.local-labs/config/qualified_model_fleet.json --host 0.0.0.0 --port 8080 --backend-host 127.0.0.1 --backend-port 18080 --state-dir /home/augus/.local/state/tare-qualified-models --preload qwen38 ; ignore_errors=no ; start_time=[Wed 2026-08-26 19:11:14 -03] ; stop_time=[n/a] ; pid=71476 ; code=(null) ; status=0/0 }"
+  }
+}

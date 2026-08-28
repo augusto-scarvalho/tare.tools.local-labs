@@ -1,0 +1,60 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-QWEN38-Q8-KV-UTILITY-02",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:09:25Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:10:30Z",
+      "reason": "Frozen paired physical rerun without mutable handoff identity"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:11:54Z",
+      "reason": "Clean-provenance wrapper verified against immutable host and WSL identities"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T10:32:21Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "BLOCKED",
+      "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
+      "at": "2026-08-28T11:07:38Z",
+      "reason": "HOLD_FAIL_CLOSED: q8 gsm8k/111 incidental last-number false positive and scorer dependency not provenance-bound; semantic rescore successor required"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-02/PRE_REGISTRATION.md",
+    "sha256": "7a743739bf5329a150bea4088c48788f9adc488f1d79c05bc5f7f651831879ad"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_qwen38_q8_kv_utility_r2.py",
+      "sha256": "c73df834baea14c1777fa3d211ce736c8bc1e9e80b07a05804b85f49fc855448"
+    }
+  ],
+  "implementation_digest": "5497daf2057394302378503f6c53fa8a11fcdf3021400e94f87affdc5964bcff",
+  "execution": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-02/raw/receipt.json",
+    "sha256": "c4653adbc30ba652ef64d60130f416b47667e14c97ca726d5b55e309e7af2b20"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

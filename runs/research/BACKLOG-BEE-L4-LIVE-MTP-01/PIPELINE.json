@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-BEE-L4-LIVE-MTP-01",
   "evidence_class": "serving_runtime",
   "executor": "Codex executor",
-  "stage": "EXECUTED",
+  "stage": "PROMOTED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,20 @@
       "to": "EXECUTED",
       "actor": "Codex executor",
       "at": "2026-08-26T00:54:59Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T02:46:08Z",
+      "reason": "Independent rescore verifies four physical slots, 100 live requests, 830 rejected drafts, byte-exact per-slot repeats, correct response slot IDs, zero cross-slot nonce leakage and clean service/slot recovery."
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-28T02:46:20Z",
+      "reason": "All frozen live slot-isolation gates pass under digest-bound independent review; claim remains limited to observable behavior."
     }
   ],
   "preregistration": {
@@ -53,7 +67,15 @@
     "path": "runs/research/BACKLOG-BEE-L4-LIVE-MTP-01/raw/receipt.json",
     "sha256": "53cc372683f4b8c53c9d67218e1b132feef7e86930066b219908eb77e9a5a85a"
   },
-  "result": {},
-  "review": {},
-  "claim_codes": []
+  "result": {
+    "path": "runs/research/BACKLOG-BEE-L4-LIVE-MTP-01/RESULT.md",
+    "sha256": "16be183a6cc112aaeee53c44d51474e864f949a2dd8f59b4f14c16594232902d"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-BEE-L4-LIVE-MTP-01/REVIEW.json",
+    "sha256": "daab3dd3933a0bca9328b6b5079cf745cfca6fa43d5e23873713d0faf7ebd4b6"
+  },
+  "claim_codes": [
+    "BEE_L4_LIVE_SLOT_ISOLATION_QUALIFIED_R1"
+  ]
 }

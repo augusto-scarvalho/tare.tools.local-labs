@@ -1,0 +1,15 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "REJECTED",
+  "receipt_sha256": "c64faac1231dcbba3b0c7e2ae9071ce6e503ebf62766e6c53b9b95b416ca4780",
+  "implementation_digest": "18b3df0b2390a77ab1354194b72125ac9c566c1a4b997459ab95fb17654ead9f",
+  "findings": [
+    "Receipt fingerprint, implementation digest, 23 provenance inputs and all eight frozen artifact hashes independently match.",
+    "The 256-prompt math panel is unique, teacher-disjoint and has the frozen canonical digest; independent rescoring reproduces base 66/256 and adapter 88/256.",
+    "The paired 20000-replicate bootstrap independently reproduces gain 0.0859375 and interval [0.0234375, 0.1484375].",
+    "Only QA IDs f01 through f10 were generated for each arm, producing 532 rather than 608 total rows; the preregistered complete 48-QA panel is absent.",
+    "The stored protected regression divides the observed 2-versus-2 QA counts by 48 despite only ten QA observations per arm, so it cannot establish the frozen protected-retention gate.",
+    "This is an inconclusive partial execution and supports only ADAPT01_384_ARTIFACT_BROAD_GAIN_NOT_CONFIRMED_R2; it does not falsify the math gain and does not permit a broad artifact-gain claim."
+  ]
+}

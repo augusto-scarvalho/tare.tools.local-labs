@@ -1,0 +1,75 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-AGY-SYSTEM-BLOCKERS-03",
+  "evidence_class": "mechanism_research",
+  "executor": "Codex",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:13:17Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:13:51Z",
+      "reason": "Frozen semantic whole-tree audit at immutable WSL commit"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex",
+      "at": "2026-08-28T10:15:27Z",
+      "reason": "Semantic whole-tree source audit implemented and self-checked"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T10:28:49Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
+      "at": "2026-08-28T11:13:40Z",
+      "reason": "Independent immutable-commit source audit confirms bounded SLX-03 materialization only"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
+      "at": "2026-08-28T11:13:47Z",
+      "reason": "Promoted solely as bounded source-materialization false-negative correction at immutable commit 87a416bd"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-03/PRE_REGISTRATION.md",
+    "sha256": "9bf48e61bacca9d17216b29a1ea6ed75323c6052a29efd4de3b4e900d9e174f9"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_agy_system_blockers_r3.py",
+      "sha256": "ac886031a68267eec57ac7860edde9748311de638bbccb7e121d8e2a4c7cf9b2"
+    }
+  ],
+  "implementation_digest": "994c6fe374b727c4a126d05529914063d3742671d27774ecc4e8583282bf94dc",
+  "execution": {
+    "path": "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-03/raw/receipt.json",
+    "sha256": "5ebe76094b02ed4557533fa6def8b64241a3b1ad4fc0124c7d10359df6e8589e"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-03/RESULT.md",
+    "sha256": "2d180ceb079ebfde5965dae3232ade3bd842f87191d0d0a55678ea97ded1f91d"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-03/REVIEW.json",
+    "sha256": "c865e2f08d9bf36f7366b8ed256999babc1356c97067f6f9ac42d1cfdbabdea8"
+  },
+  "claim_codes": [
+    "AGY_SYSTEM_BLOCKER_FALSE_NEGATIVE_CONFIRMED_R3"
+  ]
+}

@@ -1,0 +1,261 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-FLEET-REGRESSION-SCREEN-01",
+  "provenance": {
+    "schema": "local-labs-experiment-provenance-v1",
+    "started_at_utc": "2026-08-26T21:34:17Z",
+    "finished_at_utc": "2026-08-26T21:51:15Z",
+    "elapsed_seconds": 1017.937,
+    "command": [
+      "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "tools/research/run_fleet_regression_screen.py",
+      "--outdir",
+      "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-01"
+    ],
+    "cwd": "C:\\projects\\tare.tools.local-labs",
+    "repository": {
+      "head": "9d46725a5f9e58eff4172ec46ea4bd1eb0b84a02",
+      "dirty": true,
+      "status_entry_count": 35,
+      "status_sha256": "63e4a487a13f36a391cfebaca06535a26e49a88680829c0f01925879beb65c48",
+      "errors": []
+    },
+    "script": {
+      "path": "C:\\projects\\tare.tools.local-labs\\tools\\research\\run_fleet_regression_screen.py",
+      "sha256": "7cbf942375c120970ac78fb40f7f15050ebddb7ec5372cb40bd721009faf1de3"
+    },
+    "inputs": [
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\config\\research_backlog_admissions\\BACKLOG-FLEET-REGRESSION-SCREEN-01.json",
+        "status": "HASHED",
+        "bytes": 2609,
+        "sha256": "31a9ba96a9272a6301fa73454c134b9f16216502de31c36faec68ea9f71e0991"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\config\\qualified_model_fleet.json",
+        "status": "HASHED",
+        "bytes": 9783,
+        "sha256": "042fedf5907f031fb9993c03058f3cc9c8fe2c8d75a3235ea4b5e11c7412cd82"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\workloads\\gsm8k.jsonl",
+        "status": "HASHED",
+        "bytes": 389701,
+        "sha256": "68a72276898a45dacb893154477621ff3d05ae7e043a10820644b691d8b63d77"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\requalification\\QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23\\tasks.jsonl",
+        "status": "HASHED",
+        "bytes": 11016,
+        "sha256": "56434ebd53ff9f5adb477bd902566e28644fe9ea88619834f81417a06c66b84f"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\tools\\benchmarks\\agent_suite_v2.py",
+        "status": "HASHED",
+        "bytes": 13035,
+        "sha256": "14d0a1b76d4d729228678f215ecefa3254aef214eb65ac9d8d7061bccc0dc59e"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\docs\\HANDOFF_2026-08-26_CONSOLIDATED_RESEARCH_BACKLOG.md",
+        "status": "HASHED",
+        "bytes": 20043,
+        "sha256": "895fec3ac345bdf26350b4a97f513bf4f4b3bad9898d09701db07a985f8b7d55"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-FLEET-REGRESSION-SCREEN-01\\PRE_REGISTRATION.md",
+        "status": "HASHED",
+        "bytes": 4960,
+        "sha256": "0b428ea735b129f269616ba2dc3c5dc5fdb77d1567f13e90c39219e416b9fa44"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-FLEET-REGRESSION-SCREEN-01\\raw\\actual_scores.json",
+        "status": "HASHED",
+        "bytes": 2345,
+        "sha256": "ceac8de8ee476b455ff5e3601d566e4b03b5e40f5a88528ccafde0b44ee3aa32"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-FLEET-REGRESSION-SCREEN-01\\raw\\dataset_hashes.json",
+        "status": "HASHED",
+        "bytes": 411,
+        "sha256": "42a35a8bd9d2c320b22c1eefe31925654ce1a3bd757cd5cb15cd70e54e79bb6b"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-FLEET-REGRESSION-SCREEN-01\\raw\\effective_route.json",
+        "status": "HASHED",
+        "bytes": 6350,
+        "sha256": "165a60d8feefd090260a774e8ac38fbbe4e7a8622516e12a1dce96377a2293cd"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-FLEET-REGRESSION-SCREEN-01\\raw\\environment.json",
+        "status": "HASHED",
+        "bytes": 829,
+        "sha256": "1b845a1b4cb0c3699b4e483a8bb409549a7af892b3f7efc9e586b711e53eb241"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-FLEET-REGRESSION-SCREEN-01\\raw\\frozen_inputs.json",
+        "status": "HASHED",
+        "bytes": 4548,
+        "sha256": "42d2f89aa6ce0487c42bffa2d379fe950e6bf8ab17f8812c9db0018f493346e4"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-FLEET-REGRESSION-SCREEN-01\\raw\\hardware_metrics.json",
+        "status": "HASHED",
+        "bytes": 8271,
+        "sha256": "d2d960dd551fc722339a2b4cc1fc9ad9095a6545b4fb9dd3486405cdd5797316"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-FLEET-REGRESSION-SCREEN-01\\raw\\independent_evaluation.json",
+        "status": "HASHED",
+        "bytes": 2654,
+        "sha256": "f7380e6436fa21389b8ef4760bb7c826a687682ae3cadb37529423e97a94a6ca"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-FLEET-REGRESSION-SCREEN-01\\raw\\paired_baseline.json",
+        "status": "HASHED",
+        "bytes": 70,
+        "sha256": "1a09c3a8db56d17b04349a487074601e92469686aee7eb4a5e9c630367b4c7b7"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-FLEET-REGRESSION-SCREEN-01\\raw\\recovery_state.json",
+        "status": "HASHED",
+        "bytes": 4494,
+        "sha256": "47ee7ebcc294d316e6abb909323605fb4e37e775d8af67ff6f55224cc044074c"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-FLEET-REGRESSION-SCREEN-01\\raw\\route_snapshots.json",
+        "status": "HASHED",
+        "bytes": 5855,
+        "sha256": "4297c235b2bb1ef1d0dbf2beb8452ebcc061538ca3845476be204a475d9589a6"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-FLEET-REGRESSION-SCREEN-01\\raw\\runner_state.json",
+        "status": "HASHED",
+        "bytes": 3790,
+        "sha256": "100986bafac12f740e78a2e9f1bb104b7e2c7e755f3277f791f2b165f9c357f0"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-FLEET-REGRESSION-SCREEN-01\\raw\\samples.jsonl",
+        "status": "HASHED",
+        "bytes": 1222681,
+        "sha256": "b11aba96e339fff867c6ff1dbdc145bbdfb6ee4146772b8a552bf3bbd0cbf018"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-FLEET-REGRESSION-SCREEN-01\\raw\\service_identity.json",
+        "status": "HASHED",
+        "bytes": 4066,
+        "sha256": "506a3a4bf36a9e1f9ad52b31973df3b8fb628d9c8923c6c90b263abb7fd341d4"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-FLEET-REGRESSION-SCREEN-01\\raw\\service_maintenance.json",
+        "status": "HASHED",
+        "bytes": 111,
+        "sha256": "23953c17273149e9b2540b124dd0a593e81cbf4bab623dc0f605fd89f97c2818"
+      },
+      {
+        "path": "C:\\projects\\tare.tools.local-labs\\runs\\research\\BACKLOG-FLEET-REGRESSION-SCREEN-01\\raw\\treatment_controls.json",
+        "status": "HASHED",
+        "bytes": 255,
+        "sha256": "98234a697cff038e59f713dd9d9653bb53ca1b0d1fa238f08bb5b482eabb882c"
+      }
+    ],
+    "environment": {
+      "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+      "executable": "C:\\Users\\augus\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "packages": {},
+      "gpu": {
+        "available": true,
+        "query": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576",
+        "error": null
+      }
+    },
+    "runtime": {
+      "execution_mode": "qualified_gateway_large_fleet_screen",
+      "restartable": true,
+      "models": [
+        "qwen38",
+        "hauhaucs",
+        "fable-tc",
+        "qwen36-moe"
+      ],
+      "requests": 448
+    }
+  },
+  "provenance_complete": true,
+  "gates": {
+    "route_coverage": {
+      "metric": "route_models_completed",
+      "operator": "eq",
+      "threshold": 4,
+      "actual": 4,
+      "pass": true
+    },
+    "request_coverage": {
+      "metric": "recorded_requests",
+      "operator": "eq",
+      "threshold": 448,
+      "actual": 448,
+      "pass": true
+    },
+    "request_integrity": {
+      "metric": "successful_response_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": 1.0,
+      "pass": true
+    },
+    "route_identity": {
+      "metric": "route_identity_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": true,
+      "pass": true
+    },
+    "repeatability": {
+      "metric": "exact_repeat_rate",
+      "operator": "ge",
+      "threshold": 0.95,
+      "actual": 1.0,
+      "pass": true
+    },
+    "service_integrity": {
+      "metric": "service_restarts",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": 0,
+      "pass": true
+    },
+    "embedding_integrity": {
+      "metric": "embedding_health",
+      "operator": "eq",
+      "threshold": 200,
+      "actual": 200,
+      "pass": true
+    },
+    "service_recovery": {
+      "metric": "initial_model_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": true,
+      "pass": true
+    }
+  },
+  "evidence": {
+    "acceptance_gates": "raw/receipt.json",
+    "actual_scores": "raw/actual_scores.json",
+    "dataset_hashes": "raw/dataset_hashes.json",
+    "effective_route": "raw/effective_route.json",
+    "environment": "raw/environment.json",
+    "hardware_metrics": "raw/hardware_metrics.json",
+    "independent_evaluation": "raw/independent_evaluation.json",
+    "paired_baseline": "raw/paired_baseline.json",
+    "provenance": "raw/receipt.json",
+    "raw_samples": "raw/samples.jsonl",
+    "receipt_fingerprint": "raw/receipt.json",
+    "recovery_state": "raw/recovery_state.json",
+    "service_identity": "raw/service_identity.json",
+    "service_maintenance": "raw/service_maintenance.json",
+    "treatment_controls": "raw/treatment_controls.json"
+  },
+  "receipt_fingerprint": "3151d0dcbb7b4928b0390b83ab457665e702675a0fe8863cd3b1bb5c12d906c9"
+}
