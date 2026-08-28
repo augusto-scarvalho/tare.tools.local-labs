@@ -11,12 +11,16 @@ def test_r1_qwen_import_is_complete_ordered_and_immutable():
     assert all(row["model"] == "qwen38" for row in records)
 
 
-def test_score_command_bootstraps_repository_pythonpath():
+def test_score_command_bootstraps_repository_pythonpath(monkeypatch):
+    monkeypatch.setattr(
+        experiment.paths,
+        "windows_path_to_wsl",
+        lambda path: "/workspace" if path == experiment.ROOT else f"/fixture/{path.name}",
+    )
     command = experiment.score_command(
         experiment.ROOT / "input.jsonl", experiment.ROOT / "scores.json"
     )
     assert "env" in command
     assignment = next(value for value in command if value.startswith("PYTHONPATH="))
-    expected = experiment.paths.windows_path_to_wsl(experiment.ROOT)
-    assert assignment == f"PYTHONPATH={expected}"
+    assert assignment == "PYTHONPATH=/workspace"
     assert command[-4] == experiment.r1.EVALPLUS_PYTHON

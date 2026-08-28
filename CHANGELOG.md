@@ -141,6 +141,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
   exact physical-source assertions active locally while deselecting them from
   portable CI, where their multi-GB GGUF/checkpoint inputs are intentionally
   represented by committed external-source receipts.
+- Made the experiment watcher's PID liveness probe portable: Windows retains
+  the `GetExitCodeProcess` path, while POSIX runners use signal-zero probing;
+  the WSL-command unit test now mocks path translation instead of requiring a
+  Windows drive in GitHub's Linux checkout.
 - Detected and fail-closed the trace scorer's same-unit extraction defect. It
   failed 4/4 adversarial probes and produced observed false positives and
   false negatives despite reproducing all 512 stored labels and the reported
