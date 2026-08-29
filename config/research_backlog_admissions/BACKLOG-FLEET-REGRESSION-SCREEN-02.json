@@ -1,0 +1,43 @@
+{
+  "id": "BACKLOG-FLEET-REGRESSION-SCREEN-02",
+  "priority": 0,
+  "title": "Replicate the large fleet regression screen with immutable request and terminal-state evidence",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-02",
+  "depends_on": [],
+  "source_artifacts": [
+    "config/qualified_model_fleet.json",
+    "workloads/gsm8k.jsonl",
+    "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl",
+    "tools/benchmarks/agent_suite_v2.py",
+    "tools/research/run_fleet_regression_screen.py",
+    "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-01/raw/receipt.json",
+    "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "dataset_hashes", "effective_route",
+    "environment", "final_state_binding", "hardware_metrics", "independent_evaluation",
+    "paired_baseline", "provenance", "raw_samples", "receipt_fingerprint",
+    "recovery_state", "request_payloads", "service_identity", "service_maintenance",
+    "treatment_controls"
+  ],
+  "acceptance_gates": [
+    {"id":"route_coverage","metric":"route_models_completed","operator":"eq","threshold":4},
+    {"id":"request_coverage","metric":"recorded_requests","operator":"eq","threshold":448},
+    {"id":"request_integrity","metric":"successful_response_rate","operator":"eq","threshold":1.0},
+    {"id":"route_identity","metric":"route_identity_verified","operator":"eq","threshold":true},
+    {"id":"repeatability","metric":"exact_repeat_rate","operator":"ge","threshold":0.95},
+    {"id":"request_retention","metric":"retained_request_payloads","operator":"eq","threshold":448},
+    {"id":"terminal_binding","metric":"final_runner_state_bound","operator":"eq","threshold":true},
+    {"id":"service_integrity","metric":"service_restarts","operator":"eq","threshold":0},
+    {"id":"embedding_integrity","metric":"embedding_health","operator":"eq","threshold":200},
+    {"id":"service_recovery","metric":"initial_model_restored","operator":"eq","threshold":true}
+  ],
+  "allowed_claim_codes": ["QUALIFIED_TEXT_FLEET_SCREEN_COMPLETE_R2", "QUALIFIED_TEXT_FLEET_SCREEN_REJECTED_R2"],
+  "forbidden_claims": [
+    "cross-model superiority", "production promotion", "vision-model qualification",
+    "general capability from the frozen panels", "determinism beyond the frozen greedy request contract"
+  ],
+  "next_action": "Run two fresh complete passes over 32 GSM8K, 16 protected QA and eight agent-tool cases for each qualified text route while retaining all request payloads and binding the terminal runner state before receipt creation.",
+  "supersedes": "BACKLOG-FLEET-REGRESSION-SCREEN-01"
+}

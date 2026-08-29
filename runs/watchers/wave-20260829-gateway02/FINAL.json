@@ -1,0 +1,95 @@
+{
+  "schema": "local-labs-experiment-watch-final-v1",
+  "watch_id": "wave-20260829-gateway02",
+  "finished_at": "2026-08-29T13:38:51Z",
+  "status": "complete",
+  "experiment_mode": true,
+  "states": {
+    "BACKLOG-GATEWAY-ROUTE-STRESS-02": {
+      "status": "executed_valid",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-29T13:38:49Z",
+        "receipt_exists": true,
+        "result_exists": true,
+        "stage_before": "IMPLEMENTED",
+        "progress": 1,
+        "expected_progress": 1,
+        "harness_terminal": {
+          "present": true,
+          "valid": true,
+          "status": "SEALED",
+          "task_id": "BACKLOG-GATEWAY-ROUTE-STRESS-02",
+          "sample_count": 120,
+          "errors": []
+        },
+        "worker_exit": {
+          "present": true,
+          "valid": true,
+          "returncode": 0,
+          "timed_out": false,
+          "errors": []
+        },
+        "managed_backlog": true,
+        "advance": {
+          "returncode": 0,
+          "stdout": "BACKLOG-GATEWAY-ROUTE-STRESS-02: advanced to EXECUTED",
+          "stderr": ""
+        },
+        "stage_after": "EXECUTED",
+        "gate": {
+          "returncode": 0,
+          "stdout": "BACKLOG PIPELINE: PASS",
+          "stderr": ""
+        },
+        "status": "executed_valid"
+      }
+    }
+  },
+  "pipeline_gate": {
+    "returncode": 0,
+    "stdout": "BACKLOG PIPELINE: PASS",
+    "stderr": ""
+  },
+  "backlog_queue": {
+    "refreshed_at": "2026-08-29T13:38:51Z",
+    "status_returncode": 0,
+    "next_returncode": 0,
+    "valid": true,
+    "priority_rebalance": {
+      "requested": true,
+      "returncode": 0,
+      "valid": true,
+      "report": {
+        "mode": "apply",
+        "policy_sha256": "7d6b416c2fe75a0bf3be27a4700721a2988010591df4628136f8fdd1c34b3ac5",
+        "assessed_count": 4,
+        "change_count": 0,
+        "applied_ids": []
+      }
+    },
+    "state_counts": {
+      "BLOCKED": 40,
+      "EXECUTED": 21,
+      "IMPLEMENTED": 2,
+      "PROMOTED": 24,
+      "REJECTED": 21
+    },
+    "next_candidate": null
+  },
+  "completion_action": "notify_queue_empty",
+  "audit_ready_ids": [
+    "BACKLOG-GATEWAY-ROUTE-STRESS-02"
+  ],
+  "final_health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "final_gpu": {
+    "memory_used_mib": 19526,
+    "memory_free_mib": 4797,
+    "utilization_percent": 3,
+    "temperature_c": 32,
+    "power_w": 37.77
+  }
+}

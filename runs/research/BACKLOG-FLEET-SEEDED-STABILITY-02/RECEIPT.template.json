@@ -1,0 +1,81 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-FLEET-SEEDED-STABILITY-02",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "route_coverage": {
+      "metric": "routes_completed",
+      "operator": "eq",
+      "threshold": 4,
+      "actual": null,
+      "pass": null
+    },
+    "request_coverage": {
+      "metric": "recorded_requests",
+      "operator": "eq",
+      "threshold": 288,
+      "actual": null,
+      "pass": null
+    },
+    "request_integrity": {
+      "metric": "successful_response_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "seeded_stability": {
+      "metric": "exact_seeded_repeat_rate",
+      "operator": "ge",
+      "threshold": 0.9,
+      "actual": null,
+      "pass": null
+    },
+    "request_retention": {
+      "metric": "retained_request_payloads",
+      "operator": "eq",
+      "threshold": 288,
+      "actual": null,
+      "pass": null
+    },
+    "terminal_binding": {
+      "metric": "final_runner_state_bound",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "service_integrity": {
+      "metric": "service_restarts",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "service_recovery": {
+      "metric": "initial_model_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "effective_route": null,
+    "final_state_binding": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "recovery_state": null,
+    "request_payloads": null,
+    "service_identity": null,
+    "service_maintenance": null,
+    "treatment_controls": null
+  },
+  "receipt_fingerprint": null
+}

@@ -1,6 +1,6 @@
 {
   "schema": "local-labs-backlog-v1",
-  "updated_at": "2026-08-29T13:38:24Z",
+  "updated_at": "2026-08-29T13:43:47Z",
   "policy": {
     "executor": "Gemini",
     "independent_review_required": true,
@@ -13893,7 +13893,7 @@
       ],
       "next_action": "Recompute the retained 30-switch campaign from immutable final raws, separating HTTP transport and route identity from semantic content eligibility.",
       "supersedes": "BACKLOG-GATEWAY-ROUTE-STRESS-01",
-      "state": "IMPLEMENTED",
+      "state": "EXECUTED",
       "blocker": null,
       "state_history": [
         {
@@ -13913,6 +13913,12 @@
           "to": "IMPLEMENTED",
           "actor": "Codex executor",
           "at": "2026-08-29T13:38:24Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-29T13:38:49Z"
         }
       ],
       "priority_score": 93.0,
@@ -13926,6 +13932,244 @@
           "reason": "Separates transport, effective route identity and semantic eligibility across the retained 30-switch campaign.",
           "change_trigger": "The audit preserved all 120 responses and isolated semantic-success conflation as the repair target.",
           "policy_sha256": "7d6b416c2fe75a0bf3be27a4700721a2988010591df4628136f8fdd1c34b3ac5"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-REGRESSION-SCREEN-02",
+      "priority": 0,
+      "title": "Replicate the large fleet regression screen with immutable request and terminal-state evidence",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "config/qualified_model_fleet.json",
+        "workloads/gsm8k.jsonl",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl",
+        "tools/benchmarks/agent_suite_v2.py",
+        "tools/research/run_fleet_regression_screen.py",
+        "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-01/raw/receipt.json",
+        "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "dataset_hashes",
+        "effective_route",
+        "environment",
+        "final_state_binding",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "request_payloads",
+        "service_identity",
+        "service_maintenance",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "route_coverage",
+          "metric": "route_models_completed",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_coverage",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 448
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "route_identity",
+          "metric": "route_identity_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "repeatability",
+          "metric": "exact_repeat_rate",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "request_retention",
+          "metric": "retained_request_payloads",
+          "operator": "eq",
+          "threshold": 448
+        },
+        {
+          "id": "terminal_binding",
+          "metric": "final_runner_state_bound",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_integrity",
+          "metric": "service_restarts",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_model_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUALIFIED_TEXT_FLEET_SCREEN_COMPLETE_R2",
+        "QUALIFIED_TEXT_FLEET_SCREEN_REJECTED_R2"
+      ],
+      "forbidden_claims": [
+        "cross-model superiority",
+        "production promotion",
+        "vision-model qualification",
+        "general capability from the frozen panels",
+        "determinism beyond the frozen greedy request contract"
+      ],
+      "next_action": "Run two fresh complete passes over 32 GSM8K, 16 protected QA and eight agent-tool cases for each qualified text route while retaining all request payloads and binding the terminal runner state before receipt creation.",
+      "supersedes": "BACKLOG-FLEET-REGRESSION-SCREEN-01",
+      "state": "IMPLEMENTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:40:53Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:43:46Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:43:47Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-SEEDED-STABILITY-02",
+      "priority": 1,
+      "title": "Replicate seeded fleet stability with retained requests and immutable terminal state",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "config/qualified_model_fleet.json",
+        "workloads/gsm8k.jsonl",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl",
+        "tools/research/run_fleet_regression_screen.py",
+        "tools/research/run_fleet_seeded_stability.py",
+        "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-01/raw/receipt.json",
+        "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "effective_route",
+        "final_state_binding",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "request_payloads",
+        "service_identity",
+        "service_maintenance",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "route_coverage",
+          "metric": "routes_completed",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_coverage",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 288
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "seeded_stability",
+          "metric": "exact_seeded_repeat_rate",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "request_retention",
+          "metric": "retained_request_payloads",
+          "operator": "eq",
+          "threshold": 288
+        },
+        {
+          "id": "terminal_binding",
+          "metric": "final_runner_state_bound",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_integrity",
+          "metric": "service_restarts",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_model_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUALIFIED_TEXT_FLEET_SEEDED_STABLE_R2",
+        "QUALIFIED_TEXT_FLEET_SEEDED_UNSTABLE_R2"
+      ],
+      "forbidden_claims": [
+        "unseeded determinism",
+        "quality superiority",
+        "production promotion",
+        "generalization beyond temperature 0.2 and the frozen panel"
+      ],
+      "next_action": "Run three fresh fixed-seed temperature-0.2 passes over 16 GSM8K and eight protected QA cases for every text route, retaining exact requests and binding terminal state before receipt creation.",
+      "supersedes": "BACKLOG-FLEET-SEEDED-STABILITY-01",
+      "state": "PROPOSED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:40:54Z"
         }
       ]
     }

@@ -1,0 +1,27 @@
+{
+  "schema": "local-labs-experiment-watch-v1",
+  "watch_id": "wave-20260829-gateway02",
+  "experiment_mode": true,
+  "poll_seconds": 5,
+  "service_settle_seconds": 180,
+  "experiments": [
+    {
+      "task_id": "BACKLOG-GATEWAY-ROUTE-STRESS-02",
+      "pid": 15916,
+      "packet_dir": "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-02",
+      "progress_glob": "raw/run.terminal.json",
+      "expected_progress": 1,
+      "require_harness_terminal": true,
+      "managed_backlog": true,
+      "require_worker_exit": true,
+      "worker_exit_path": "C:\\projects\\tare.tools.local-labs\\runs\\watchers\\wave-20260829-gateway02\\WORKER_EXIT.json",
+      "run_id": "e37d72b4bb7f4e7c87ac0ba4c1b27e29",
+      "deadline_epoch": 1788011323.816515
+    }
+  ],
+  "final_health_urls": [
+    "http://127.0.0.1:8080/health",
+    "http://127.0.0.1:8081/health"
+  ],
+  "actor": "Codex executor watcher"
+}
