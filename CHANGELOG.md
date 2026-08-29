@@ -88,6 +88,9 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Changed
 
+- Tracked the previously ignored SLX-03 R1 configure-error receipt required by
+  the R2 frozen-input binding so backlog validation also passes in clean Linux
+  checkouts, not only on the originating Windows worktree.
 - Promoted the SLX-03 GDN fusion runtime route after a PID-bound OFF/ON audit,
   then measured a 1.051362x decode-rate ratio (95% hierarchical-bootstrap CI
   1.041026 to 1.062275) and 1.046993x wall-throughput ratio over 144 fixed-work
