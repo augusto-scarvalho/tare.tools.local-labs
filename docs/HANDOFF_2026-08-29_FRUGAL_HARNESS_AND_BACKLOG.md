@@ -77,7 +77,7 @@ Its recorded source and test hashes matched the final audited worktree.
 
 The backlog required no scientific state transition for this infrastructure
 change. Direct state edits remain forbidden. Live validation on 2026-08-29 found
-116 records:
+117 records:
 
 | State | Count |
 | --- | ---: |
@@ -86,6 +86,7 @@ change. Direct state edits remain forbidden. Live validation on 2026-08-29 found
 | `EXECUTED` | 22 |
 | `BLOCKED` | 40 |
 | `IMPLEMENTED` | 2 |
+| `VERIFIED` | 1 |
 
 The 22 `EXECUTED` records include preserved HOLD/superseded evidence from prior
 audit waves. Their presence is not authority to rerun or promote them. The two
@@ -215,6 +216,18 @@ successor may rescore the same retained bytes with a preregistered canonical
 reduction; it needs no GPU inference. The claim remains offline 12-cell
 fidelity only, never TTFT, runtime integration, production or quality.
 
+`BACKLOG-SLX08-REAL-FIDELITY-03` is the independently `VERIFIED`, retained-only
+successor. It binds the exact R2 receipt/review/bundle/samples, defines a
+row-major float64 `math.fsum` cosine and runs the scorer twice in separate WSL
+processes. Both canonical payloads hash to `b6f3124c...1ff0`; an auditor using
+an independent binary safetensors parser reproduced exactly 36 float32 tensors,
+zero nonfinite values, all tensor hashes, all 24 cosines, corrected median
+`0.9954494256753561` and legacy median `0.9918341527542236`. The service was
+observed but untouched and the full suite is 416 passing tests. Claim
+`SLX08_FIDELITY_FALSE_NEGATIVE_CANONICAL_RESCORE_R3` closes the numerical
+diagnosis only. It is not new inference or a fresh sample, so it cannot expand
+generalization and, as `proxy_realization`, can never become `PROMOTED`.
+
 ## Operational baseline at handoff
 
 - Gateway health on port 8080: HTTP 200.
@@ -224,8 +237,9 @@ fidelity only, never TTFT, runtime integration, production or quality.
   receipt rather than this prose handoff.
 - No Windows Python process matching the launcher or watcher was active.
 - Four closeout packets, seeded-stability R4 and SLX11 R2 are independently
-  promoted with bounded claims; the superseded seeded-stability R2/R3 packets
-  remain `EXECUTED` as immutable hold evidence.
+  promoted with bounded claims; SLX08 R3 is independently verified as an
+  offline proxy; the superseded seeded-stability R2/R3 packets remain
+  `EXECUTED` as immutable hold evidence.
 
 ## Non-negotiable boundaries
 

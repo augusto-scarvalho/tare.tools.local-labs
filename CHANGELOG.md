@@ -129,6 +129,12 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Changed
 
+- Canonically rescored the immutable SLX08 R2 context bundle twice with a
+  fixed-order `math.fsum` float64 metric. An independent binary parser matched
+  all 36 tensors and all 24 cosines exactly; both canonical payloads shared the
+  same digest and the corrected median remained `0.995449425675`. The R3
+  retained-evidence proxy is `VERIFIED`, explicitly as diagnosis/reproducibility
+  of R2 rather than new inference, broader validation or runtime qualification.
 - Reopened the SLX08 offline-fidelity false-negative candidate with a compact
   retained-context bundle. Independent review reproduced all 36 tensor hashes
   and the passing `0.995449` median, but confirmed that the frozen `1e-9`

@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-SLX08-REAL-FIDELITY-03",
   "evidence_class": "proxy_realization",
   "executor": "Codex continuous executor",
-  "stage": "EXECUTED",
+  "stage": "VERIFIED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,13 @@
       "to": "EXECUTED",
       "actor": "Codex executor watcher",
       "at": "2026-08-29T19:38:02Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T19:43:08Z",
+      "reason": "Independent binary parsing and fixed-order recomputation exactly reproduce all 24 canonical cosines; bounded retained-evidence false-negative claim approved."
     }
   ],
   "preregistration": {
@@ -53,7 +60,15 @@
     "path": "runs/research/BACKLOG-SLX08-REAL-FIDELITY-03/raw/receipt.json",
     "sha256": "d2f76165a548e08c1713d44f976f3a1d5aa30158e6745b90bce0d72aa688bddb"
   },
-  "result": {},
-  "review": {},
-  "claim_codes": []
+  "result": {
+    "path": "runs/research/BACKLOG-SLX08-REAL-FIDELITY-03/RESULT.md",
+    "sha256": "67b2799ce955399c0977bb9b9deae7436241ce271de932b03d105c58a0a3f535"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-SLX08-REAL-FIDELITY-03/REVIEW.json",
+    "sha256": "e07df1828f2a8f1f86f32138dcae53735273587683c29701a9ccddf46503a778"
+  },
+  "claim_codes": [
+    "SLX08_FIDELITY_FALSE_NEGATIVE_CANONICAL_RESCORE_R3"
+  ]
 }
