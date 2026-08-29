@@ -129,6 +129,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Changed
 
+- Executed SLX11 official-hybrid R2 without mutating the serving baseline. The
+  11.9 MiB retained bundle contains 24 full next-token logits vectors; a
+  separate scorer reproduced 24/24 shapes, argmax values and tensor hashes with
+  zero nonfinite values. The packet stops at `EXECUTED` pending review.
 - Executed seeded-stability R4 through the watcher. All 288 experimental calls
   have self-consistent request hashes and response-ID bindings, the capture
   queue drained to zero, all four executables and GGUFs matched frozen

@@ -1,0 +1,554 @@
+{
+  "schema": "slx11-official-hybrid-worker-v2",
+  "model": "/home/augus/models/adapt00/qwen3.5-0.8b-base-dc7cdfe",
+  "checkpoint": {
+    "config.json": {
+      "sha256": "b90b86f35c8e6925ef74ee04d0e758f0a845c83a42089ad82bbaa948de9b4204",
+      "bytes": 2907
+    },
+    "model.safetensors-00001-of-00001.safetensors": {
+      "sha256": "c2b1e5a17d9c1e27685d92ed9b382911ebb99955ecd89052d1721241adfbab6c",
+      "bytes": 1746942600
+    },
+    "model.safetensors.index.json": {
+      "sha256": "ce9a885efdf27d3664fdef5d512ad365216f1074051ef840c7cd8e5431495d0a",
+      "bytes": 50900
+    },
+    "tokenizer.json": {
+      "sha256": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+      "bytes": 12807196
+    },
+    "tokenizer_config.json": {
+      "sha256": "e611fbccc7c29ef3b1cafb1cb7ea548d189968632901d678fd62be68c47885de",
+      "bytes": 16712
+    }
+  },
+  "prompt_file_sha256": "68a72276898a45dacb893154477621ff3d05ae7e043a10820644b691d8b63d77",
+  "architectures": [
+    "Qwen3_5ForConditionalGeneration"
+  ],
+  "model_type": "qwen3_5",
+  "text_model_type": "qwen3_5_text",
+  "full_attention_interval": 4,
+  "physical_layers": [
+    {
+      "index": 0,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 1,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 2,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 3,
+      "declared": "full_attention",
+      "actual": "full_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5Attention"
+    },
+    {
+      "index": 4,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 5,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 6,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 7,
+      "declared": "full_attention",
+      "actual": "full_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5Attention"
+    },
+    {
+      "index": 8,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 9,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 10,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 11,
+      "declared": "full_attention",
+      "actual": "full_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5Attention"
+    },
+    {
+      "index": 12,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 13,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 14,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 15,
+      "declared": "full_attention",
+      "actual": "full_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5Attention"
+    },
+    {
+      "index": 16,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 17,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 18,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 19,
+      "declared": "full_attention",
+      "actual": "full_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5Attention"
+    },
+    {
+      "index": 20,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 21,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 22,
+      "declared": "linear_attention",
+      "actual": "linear_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5GatedDeltaNet"
+    },
+    {
+      "index": 23,
+      "declared": "full_attention",
+      "actual": "full_attention",
+      "match": true,
+      "layer_class": "Qwen3_5DecoderLayer",
+      "attention_class": "Qwen3_5Attention"
+    }
+  ],
+  "samples": [
+    {
+      "task_id": "gsm8k/0",
+      "prompt_tokens": 65,
+      "logits_key": "logits_000",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "78436c111ff5c78399cab9058cda6e13e02d44bfdcdb01424b85922c4893326a",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/1",
+      "prompt_tokens": 26,
+      "logits_key": "logits_001",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "0bba18a27e3a0cb27966df98272b689d38ff53fe9add191715e36c736980a346",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/2",
+      "prompt_tokens": 57,
+      "logits_key": "logits_002",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "cc803ed54732f817458edd7fc2c0c9966dc87754e9a64910627ae2a2923d33d3",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/3",
+      "prompt_tokens": 35,
+      "logits_key": "logits_003",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "5d79015efed035d7a767dde98b0eec7f3297d2ec9a07e2a72473f8f9e8dcd7ae",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/4",
+      "prompt_tokens": 111,
+      "logits_key": "logits_004",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "b279fcbb9f7838544fb8b4640446c1ff8b011528c10d33d09d7a32770d4ba2c6",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/5",
+      "prompt_tokens": 55,
+      "logits_key": "logits_005",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "280cf198b374b4365a75a8b0500a49e8bff62bfa957aadfc668a747f5f381582",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/6",
+      "prompt_tokens": 41,
+      "logits_key": "logits_006",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "e9e39b6eb1427debf7882ef54ee6013b05fa32fa81a3a6fc01b18c742fff5173",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/7",
+      "prompt_tokens": 70,
+      "logits_key": "logits_007",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "e6103816496fa235cc03393b3badb8e659de3df1d7504a5aa2b9155d90909d8a",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/8",
+      "prompt_tokens": 104,
+      "logits_key": "logits_008",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "cfc42d4eb42ca295986a96d2de06a6c7684d401324426354d908ce1954660eeb",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/9",
+      "prompt_tokens": 60,
+      "logits_key": "logits_009",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "c3302cdb91b0bfa790fc4d6880939fcdb5e5e27fb7106315d46e7d9ca41293e2",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/10",
+      "prompt_tokens": 60,
+      "logits_key": "logits_010",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "a2814cd7abc14425349809067c67748fc9ea527b0aef69248cf704d72bbdf867",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/11",
+      "prompt_tokens": 65,
+      "logits_key": "logits_011",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "e951081b6d611424a649703cdec08b40c7704ba251fc230b188481fe5fe42e03",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/12",
+      "prompt_tokens": 67,
+      "logits_key": "logits_012",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "6095b60feb0bfd6fb65e21bf7f64e05de42da91982def25a7f4a5dc56a0dc90a",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/13",
+      "prompt_tokens": 58,
+      "logits_key": "logits_013",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "d5b57c59da9a0c55c21b0d81b1ee3a053271b0c0d6fdd694f6d980e5bf1473ea",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/14",
+      "prompt_tokens": 52,
+      "logits_key": "logits_014",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "7aa5dd7975f8aea2592026493915e8515be681fee20521e2f8e4045a235b1745",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/15",
+      "prompt_tokens": 94,
+      "logits_key": "logits_015",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "25669cd24c75188d2df0cf23b2aeeb63f3658164d78f533bfbe3ed761e40e3f6",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/16",
+      "prompt_tokens": 53,
+      "logits_key": "logits_016",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "0b1e76a1347e81591a5d662556d7bdbc775d89aa65848af58ec4e7d4022fb4e2",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/17",
+      "prompt_tokens": 58,
+      "logits_key": "logits_017",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "ddc4ee4c299534fb819fd13869bdb5661cf0bad1c78c4bcac65ff9d01cd0c879",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/18",
+      "prompt_tokens": 29,
+      "logits_key": "logits_018",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "4c013f2e2532467db06b16486f3774a4dddcbbd28db0a9c5fd5066df8413c3b4",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/19",
+      "prompt_tokens": 65,
+      "logits_key": "logits_019",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "ccdc176d8a767f2915f1973ffbcd4ffa687be18718de76be00de541e4d72a3ca",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/20",
+      "prompt_tokens": 63,
+      "logits_key": "logits_020",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "a40ba47a12a6d59839a89e0eaa3b779cb74e8ed228aed77949f4747334b1142b",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/21",
+      "prompt_tokens": 46,
+      "logits_key": "logits_021",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "0e0a86f978fce3f171b51bc3dac56028129eacc93a050abd24603945aba3f749",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/22",
+      "prompt_tokens": 55,
+      "logits_key": "logits_022",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "00067fabbb5e2b99615288e9ccaacd5b4ea5141a83918c3b3afb2eb99399bea6",
+      "finite": true
+    },
+    {
+      "task_id": "gsm8k/23",
+      "prompt_tokens": 40,
+      "logits_key": "logits_023",
+      "logits_shape": [
+        1,
+        248320
+      ],
+      "logits_dtype": "torch.bfloat16",
+      "argmax_token": 271,
+      "logits_sha256": "87f89dcc23145da079752c847a439b0d014e3be2edf08b5c9ba19483e4594987",
+      "finite": true
+    }
+  ],
+  "logits_bundle": {
+    "path": "/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-SLX11-OFFICIAL-HYBRID-02/raw/logits.safetensors",
+    "sha256": "5addf0a28686e9d65321b279a8bc6480d37345d17f8a84961efde3dfbe1b3c81",
+    "bytes": 11921392,
+    "tensors": 24
+  },
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 3090",
+    "torch": "2.5.1+cu124",
+    "cuda": "12.4",
+    "peak_vram_gib": 1.4908027648925781,
+    "forward_elapsed_seconds": 2.0241605999763124
+  }
+}

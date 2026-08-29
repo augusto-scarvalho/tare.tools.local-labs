@@ -83,9 +83,9 @@ change. Direct state edits remain forbidden. Live validation on 2026-08-29 found
 | --- | ---: |
 | `PROMOTED` | 29 |
 | `REJECTED` | 21 |
-| `EXECUTED` | 22 |
+| `EXECUTED` | 23 |
 | `BLOCKED` | 40 |
-| `IMPLEMENTED` | 3 |
+| `IMPLEMENTED` | 2 |
 
 The 21 `EXECUTED` records include preserved HOLD/superseded evidence from prior
 audit waves. Their presence is not authority to rerun or promote them. The two
@@ -187,11 +187,14 @@ bindings, zero restarts and restored `qwen38`. The claim is limited to seeded
 stability on this frozen panel and artifact set; 126/192 math responses were
 truncated, so no quality or unseeded-determinism claim follows.
 
-`BACKLOG-SLX11-OFFICIAL-HYBRID-02` is the next `IMPLEMENTED` packet. It repairs
+`BACKLOG-SLX11-OFFICIAL-HYBRID-02` is now `EXECUTED` and audit-ready. It repairs
 the official-hybrid R1 audit hold by retaining all 24 next-token logits vectors
-and scoring them from a separate, frozen reader. The only eligible conclusion
-is bounded artifact/topology plus finite-forward qualification; historical
-4.49x speed, recall, quality and production claims remain forbidden.
+in an 11.9 MiB safetensors bundle and scoring them from a separate, frozen
+reader. Executor gates report 24/24 topology matches, 18 recurrent plus six
+full-attention layers, 24/24 finite tensor projections and unchanged serving.
+The only eligible conclusion is bounded artifact/topology plus finite-forward
+qualification; historical 4.49x speed, recall, quality and production claims
+remain forbidden until and after review.
 
 ## Operational baseline at handoff
 
