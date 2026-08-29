@@ -29,7 +29,7 @@ The retained 30-switch/120-request campaign demonstrates transport and effective
 ## Command
 
 ```powershell
-python tools/research/run_retained_fleet_rebind.py --task-id BACKLOG-GATEWAY-ROUTE-STRESS-02 --outdir runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-02
+python tools/research/run_retained_fleet_rebind_r2.py --task-id BACKLOG-GATEWAY-ROUTE-STRESS-02 --outdir runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-02
 ```
 
 ## Factors

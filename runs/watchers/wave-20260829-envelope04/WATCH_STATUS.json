@@ -1,0 +1,336 @@
+{
+  "schema": "local-labs-experiment-watch-status-v1",
+  "watch_id": "wave-20260829-envelope04",
+  "updated_at": "2026-08-29T13:34:07Z",
+  "experiments": [
+    {
+      "task_id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-04",
+      "pid": 3768,
+      "process_alive": false,
+      "progress": 1,
+      "expected_progress": 1,
+      "pipeline_stage": "EXECUTED",
+      "watch_status": "executed_valid",
+      "harness_terminal": {
+        "present": true,
+        "valid": true,
+        "status": "SEALED",
+        "task_id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-04",
+        "sample_count": 72,
+        "errors": []
+      },
+      "worker_exit": {
+        "present": true,
+        "valid": true,
+        "returncode": 0,
+        "timed_out": false,
+        "errors": []
+      },
+      "managed_backlog": true
+    }
+  ],
+  "gpu": {
+    "memory_used_mib": 19526,
+    "memory_free_mib": 4797,
+    "utilization_percent": 7,
+    "temperature_c": 32,
+    "power_w": 37.59
+  },
+  "health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "states": {
+    "BACKLOG-FLEET-CONTEXT-ENVELOPE-04": {
+      "status": "executed_valid",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-29T13:34:04Z",
+        "receipt_exists": true,
+        "result_exists": true,
+        "stage_before": "IMPLEMENTED",
+        "progress": 1,
+        "expected_progress": 1,
+        "harness_terminal": {
+          "present": true,
+          "valid": true,
+          "status": "SEALED",
+          "task_id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-04",
+          "sample_count": 72,
+          "errors": []
+        },
+        "worker_exit": {
+          "present": true,
+          "valid": true,
+          "returncode": 0,
+          "timed_out": false,
+          "errors": []
+        },
+        "managed_backlog": true,
+        "advance": {
+          "returncode": 0,
+          "stdout": "BACKLOG-FLEET-CONTEXT-ENVELOPE-04: advanced to EXECUTED",
+          "stderr": ""
+        },
+        "stage_after": "EXECUTED",
+        "gate": {
+          "returncode": 0,
+          "stdout": "BACKLOG PIPELINE: PASS",
+          "stderr": ""
+        },
+        "status": "executed_valid"
+      }
+    }
+  },
+  "final": {
+    "schema": "local-labs-experiment-watch-final-v1",
+    "watch_id": "wave-20260829-envelope04",
+    "finished_at": "2026-08-29T13:34:07Z",
+    "status": "complete",
+    "experiment_mode": true,
+    "states": {
+      "BACKLOG-FLEET-CONTEXT-ENVELOPE-04": {
+        "status": "executed_valid",
+        "was_seen_alive": true,
+        "finalization": {
+          "at": "2026-08-29T13:34:04Z",
+          "receipt_exists": true,
+          "result_exists": true,
+          "stage_before": "IMPLEMENTED",
+          "progress": 1,
+          "expected_progress": 1,
+          "harness_terminal": {
+            "present": true,
+            "valid": true,
+            "status": "SEALED",
+            "task_id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-04",
+            "sample_count": 72,
+            "errors": []
+          },
+          "worker_exit": {
+            "present": true,
+            "valid": true,
+            "returncode": 0,
+            "timed_out": false,
+            "errors": []
+          },
+          "managed_backlog": true,
+          "advance": {
+            "returncode": 0,
+            "stdout": "BACKLOG-FLEET-CONTEXT-ENVELOPE-04: advanced to EXECUTED",
+            "stderr": ""
+          },
+          "stage_after": "EXECUTED",
+          "gate": {
+            "returncode": 0,
+            "stdout": "BACKLOG PIPELINE: PASS",
+            "stderr": ""
+          },
+          "status": "executed_valid"
+        }
+      }
+    },
+    "pipeline_gate": {
+      "returncode": 0,
+      "stdout": "BACKLOG PIPELINE: PASS",
+      "stderr": ""
+    },
+    "backlog_queue": {
+      "refreshed_at": "2026-08-29T13:34:07Z",
+      "status_returncode": 0,
+      "next_returncode": 0,
+      "valid": true,
+      "priority_rebalance": {
+        "requested": true,
+        "returncode": 0,
+        "valid": true,
+        "report": {
+          "mode": "apply",
+          "policy_sha256": "7d6b416c2fe75a0bf3be27a4700721a2988010591df4628136f8fdd1c34b3ac5",
+          "assessed_count": 4,
+          "change_count": 0,
+          "applied_ids": []
+        }
+      },
+      "state_counts": {
+        "BLOCKED": 39,
+        "EXECUTED": 20,
+        "IMPLEMENTED": 2,
+        "PROMOTED": 24,
+        "PROPOSED": 2,
+        "REJECTED": 21
+      },
+      "next_candidate": {
+        "id": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-02",
+        "priority": 0,
+        "title": "Rebind and independently recompute retained fleet context interference",
+        "evidence_class": "serving_runtime",
+        "packet_dir": "runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-02",
+        "depends_on": [],
+        "source_artifacts": [
+          "runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-01/raw/receipt.json",
+          "runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-01/raw/samples.jsonl",
+          "runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-01/raw/case_manifest.json",
+          "runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-01/raw/artifact_hashes.json",
+          "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md",
+          "config/qualified_model_fleet.json"
+        ],
+        "required_evidence": [
+          "acceptance_gates",
+          "artifact_hashes",
+          "case_manifest",
+          "dataset_hashes",
+          "effective_route",
+          "hardware_metrics",
+          "independent_evaluation",
+          "paired_baseline",
+          "provenance",
+          "raw_samples",
+          "receipt_fingerprint",
+          "recovery_state",
+          "service_identity",
+          "source_execution_receipt",
+          "statistical_analysis"
+        ],
+        "acceptance_gates": [
+          {
+            "id": "source_receipt",
+            "metric": "source_receipt_digest_verified",
+            "operator": "eq",
+            "threshold": true
+          },
+          {
+            "id": "immutable_sources",
+            "metric": "final_source_set_immutable",
+            "operator": "eq",
+            "threshold": true
+          },
+          {
+            "id": "retained_rows",
+            "metric": "retained_rows_recomputed",
+            "operator": "eq",
+            "threshold": 72
+          },
+          {
+            "id": "prompt_reconstruction",
+            "metric": "prompt_hash_reconstruction_rate",
+            "operator": "eq",
+            "threshold": 1.0
+          },
+          {
+            "id": "decoy_construct",
+            "metric": "cases_with_exactly_31_verified_decoys",
+            "operator": "eq",
+            "threshold": 72
+          },
+          {
+            "id": "artifact_identity",
+            "metric": "verified_model_artifacts",
+            "operator": "eq",
+            "threshold": 4
+          },
+          {
+            "id": "route_identity",
+            "metric": "route_alias_match_rate",
+            "operator": "eq",
+            "threshold": 1.0
+          },
+          {
+            "id": "context_fit",
+            "metric": "requests_within_route_slot_context",
+            "operator": "eq",
+            "threshold": 72
+          },
+          {
+            "id": "request_integrity",
+            "metric": "successful_response_rate",
+            "operator": "eq",
+            "threshold": 1.0
+          },
+          {
+            "id": "qwen38_recall",
+            "metric": "qwen38_exact_recall",
+            "operator": "ge",
+            "threshold": 0.9
+          },
+          {
+            "id": "hauhaucs_recall",
+            "metric": "hauhaucs_exact_recall",
+            "operator": "ge",
+            "threshold": 0.9
+          },
+          {
+            "id": "fable_recall",
+            "metric": "fable_tc_exact_recall",
+            "operator": "ge",
+            "threshold": 0.9
+          },
+          {
+            "id": "qwen36_moe_recall",
+            "metric": "qwen36_moe_exact_recall",
+            "operator": "ge",
+            "threshold": 0.9
+          },
+          {
+            "id": "position_robustness",
+            "metric": "minimum_position_bucket_recall",
+            "operator": "ge",
+            "threshold": 0.8
+          }
+        ],
+        "allowed_claim_codes": [
+          "QUALIFIED_TEXT_FLEET_CONTEXT_INTERFERENCE_REBOUND_R2",
+          "QUALIFIED_TEXT_FLEET_CONTEXT_INTERFERENCE_NOT_CONFIRMED_R2"
+        ],
+        "forbidden_claims": [
+          "new inference",
+          "general long-context reasoning",
+          "production RAG quality",
+          "latency ranking",
+          "decoy families outside the retained construct",
+          "promotion without independent review"
+        ],
+        "next_action": "Reconstruct and recompute all 72 retained hard-decoy rows from an immutable final source set without rerunning model inference.",
+        "supersedes": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-01",
+        "state": "PROPOSED",
+        "blocker": null,
+        "state_history": [
+          {
+            "from": null,
+            "to": "PROPOSED",
+            "actor": "Codex",
+            "at": "2026-08-29T00:13:21Z"
+          }
+        ],
+        "priority_score": 98.0,
+        "priority_history": [
+          {
+            "from": 0,
+            "to": 0,
+            "score": 98.0,
+            "actor": "Codex portfolio review",
+            "at": "2026-08-29T13:10:37Z",
+            "reason": "Turns retained hard-decoy evidence into an auditable interference boundary for agent context routing.",
+            "change_trigger": "The predecessor retained 72 physical rows and requires source rebinding rather than new inference.",
+            "policy_sha256": "7d6b416c2fe75a0bf3be27a4700721a2988010591df4628136f8fdd1c34b3ac5"
+          }
+        ]
+      }
+    },
+    "completion_action": "dispatch_next_candidate",
+    "audit_ready_ids": [
+      "BACKLOG-FLEET-CONTEXT-ENVELOPE-04"
+    ],
+    "final_health": {
+      "http://127.0.0.1:8080/health": 200,
+      "http://127.0.0.1:8081/health": 200
+    },
+    "final_gpu": {
+      "memory_used_mib": 19526,
+      "memory_free_mib": 4797,
+      "utilization_percent": 7,
+      "temperature_c": 32,
+      "power_w": 37.59
+    }
+  }
+}

@@ -3,18 +3,94 @@
   "task_id": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-02",
   "evidence_class": "serving_runtime",
   "executor": "Codex executor",
-  "stage": "PROPOSED",
+  "stage": "IMPLEMENTED",
   "state_history": [
     {
       "from": null,
       "to": "PROPOSED",
       "actor": "Codex",
       "at": "2026-08-29T00:13:21Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T13:35:12Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T13:35:13Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T13:36:35Z",
+      "reason": "Versioned runner required after immutable R1 packet exposed prompt-digest bug"
+    },
+    {
+      "from": "BLOCKED",
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T13:36:46Z",
+      "reason": "R2 runner and regression fixture ready"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T13:36:46Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T13:36:47Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T13:36:58Z",
+      "reason": "Preregistered command still referenced immutable R1 runner"
+    },
+    {
+      "from": "BLOCKED",
+      "to": "PROPOSED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T13:36:59Z",
+      "reason": "Correct R2 command before refreeze"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T13:37:21Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T13:37:21Z"
     }
   ],
-  "preregistration": {},
-  "implementation": [],
-  "implementation_digest": null,
+  "preregistration": {
+    "path": "runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-02/PRE_REGISTRATION.md",
+    "sha256": "dfd0aa7ec790d2c941cb3b91b7de964cb709cc573288212f3c4e477cdabf5ad5"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_retained_fleet_rebind_r2.py",
+      "sha256": "5a697984750d9dc5a23f13ba51c2c842c5697fc284b2bfb1163360cda029b8b8"
+    },
+    {
+      "path": "tools/research/run_retained_fleet_rebind_r2.py",
+      "sha256": "9e0938c01f3ffa3358c2fb8114955ee360eacc5beea9d00e5627ffcc0b4bfd5b"
+    }
+  ],
+  "implementation_digest": "30178fb52f06a8f97db36faef62ca1a28dc6db35838b2b1697c80f2b004f7753",
   "execution": {},
   "result": {},
   "review": {},

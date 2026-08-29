@@ -28,7 +28,7 @@ The 72 physical hard-decoy responses retained by `BACKLOG-FLEET-CONTEXT-INTERFER
 ## Command
 
 ```powershell
-python tools/research/run_retained_fleet_rebind.py --task-id BACKLOG-FLEET-CONTEXT-INTERFERENCE-02 --outdir runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-02
+python tools/research/run_retained_fleet_rebind_r2.py --task-id BACKLOG-FLEET-CONTEXT-INTERFERENCE-02 --outdir runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-02
 ```
 
 ## Factors

@@ -1,6 +1,6 @@
 {
   "schema": "local-labs-backlog-v1",
-  "updated_at": "2026-08-29T13:33:27Z",
+  "updated_at": "2026-08-29T13:37:21Z",
   "policy": {
     "executor": "Gemini",
     "independent_review_required": true,
@@ -13504,7 +13504,7 @@
       ],
       "next_action": "Reconstruct and recompute all 72 retained rows from an immutable final source set without rerunning model inference.",
       "supersedes": "BACKLOG-FLEET-CONTEXT-ENVELOPE-03",
-      "state": "IMPLEMENTED",
+      "state": "EXECUTED",
       "blocker": null,
       "state_history": [
         {
@@ -13524,6 +13524,12 @@
           "to": "IMPLEMENTED",
           "actor": "Codex executor",
           "at": "2026-08-29T13:33:27Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-29T13:34:05Z"
         }
       ],
       "priority_score": 100.0,
@@ -13672,7 +13678,7 @@
       ],
       "next_action": "Reconstruct and recompute all 72 retained hard-decoy rows from an immutable final source set without rerunning model inference.",
       "supersedes": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-01",
-      "state": "PROPOSED",
+      "state": "IMPLEMENTED",
       "blocker": null,
       "state_history": [
         {
@@ -13680,6 +13686,70 @@
           "to": "PROPOSED",
           "actor": "Codex",
           "at": "2026-08-29T00:13:21Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:35:12Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:35:13Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:36:35Z",
+          "reason": "Versioned runner required after immutable R1 packet exposed prompt-digest bug"
+        },
+        {
+          "from": "BLOCKED",
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:36:46Z",
+          "reason": "R2 runner and regression fixture ready"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:36:46Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:36:47Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:36:58Z",
+          "reason": "Preregistered command still referenced immutable R1 runner"
+        },
+        {
+          "from": "BLOCKED",
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:36:59Z",
+          "reason": "Correct R2 command before refreeze"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:37:21Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:37:21Z"
         }
       ],
       "priority_score": 98.0,
