@@ -58,6 +58,29 @@ The 2026-08-21 migration performed the following operations:
 6. moved the Windows checkout and created the compatibility junction;
 7. preserved untracked `FABLE_BUILD_COMMIT.txt`, `a4_spec_metrics_probe.py`, and the cancelled-soak directory.
 
+### 2026-08-28 stale-probe reconciliation
+
+The preserved root-level `a4_spec_metrics_probe.py` was later proven to be a
+stale duplicate of the tracked canonical probe at
+`tools/probes/a4_spec_metrics_probe.py`. The only logical difference was its
+obsolete default binary path, `/home/augus/src/llama.cpp-master`; the canonical
+copy uses `/home/augus/src/slop.cpp-main`. The stale WSL copy (SHA-256
+`56ece83d830a9db7011de6a891593f3f67781eae360034b979722e9c05f6534d`) was
+removed after comparison. No unique experiment logic was discarded.
+
+The WSL primary checkout was then fast-forwarded from immutable experiment
+commit `87a416bd7` to `origin/main` commit `34b3dac7c`. Historical reproduction
+remains bound by tag `main-b10161-87a416b`; create a detached worktree from that
+tag instead of leaving `main` behind. The existing ignored SLX-03 builds were
+not rebuilt or moved. Their callable server hashes remained:
+
+- audit R3: `0267affe48ff9d49a13dbe0891b33598ead1179edd5db85ecb3b2c86c7e1fd0b`;
+- instrumented R1: `c00261d903f722214511f0f6b999de77ff98dedbf9b8da292501b7743bbaecac`.
+
+Gateway port 8080 and embedding port 8081 stayed healthy throughout the
+fast-forward. This reconciliation changed repository metadata and documentation
+only; it did not change, rebuild or redeploy the qualified engine binaries.
+
 The pre-migration Git worktree metadata, sanitized Git config, and systemd unit are copied under
 `/home/augus/src/.slop-path-migration-backup-2026-08-21/`. The backup remote URL deliberately contains no embedded
 credential.

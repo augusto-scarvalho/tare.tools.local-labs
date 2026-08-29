@@ -88,6 +88,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Changed
 
+- Reconciled the stale untracked A4 probe in the WSL `slop.cpp` worktree with
+  its canonical tracked `local-labs` copy, removed the obsolete duplicate, and
+  fast-forwarded the clean WSL `main` checkout while preserving the immutable
+  SLX-03 tag, build hashes and serving baseline.
 - Tracked the previously ignored SLX-03 R1 configure-error receipt required by
   the R2 frozen-input binding so backlog validation also passes in clean Linux
   checkouts, not only on the originating Windows worktree.
