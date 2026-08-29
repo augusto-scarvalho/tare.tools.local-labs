@@ -166,8 +166,12 @@ scientific repair candidate, `BACKLOG-FLEET-SEEDED-STABILITY-03`, is now
 seeded comparisons, and bound each route to the live backend PID, `/proc`
 command, executable SHA-256 and loaded GGUF SHA-256 before requests. All 12
 executor gates passed, the watcher terminal is complete, and `qwen38` plus the
-embedding service were restored. This is not a promotion; send R3 to a fresh
-independent reviewer. A future authorized multi-item queue
+embedding service were restored. Independent review placed R3 in
+`HOLD_FAIL_CLOSED`: all 288 row hashes were shifted by four route canaries, and
+the binary gate tested only digest presence because the registry froze no
+expected executable digest. Preserve R3. A successor must atomically bind only
+experimental request/response calls, require zero pending calls and freeze
+expected binary SHA-256 plus bytes. A future authorized multi-item queue
 must freeze every packet at `IMPLEMENTED` and run through the watched-wave
 supervisor. The executor and watcher stop at `EXECUTED`; only the independent
 auditor may promote, reject or place a bounded hold.

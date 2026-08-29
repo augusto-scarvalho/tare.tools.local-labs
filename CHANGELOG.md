@@ -126,8 +126,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 - Executed the physical-identity-bound seeded stability successor through the
   watched launcher: 288/288 HTTP-argument payloads were retained, 192/192
   seeded pairs matched, all four live routes matched process, executable and
-  GGUF identity, and the initial service route was restored. The packet stops
-  at `EXECUTED` pending independent review.
+  GGUF identity, and the initial service route was restored. Independent review
+  nevertheless held R3 after proving that route canaries shifted every stored
+  request hash and that the binary gate checked digest presence rather than a
+  frozen expected digest.
 - Closed the five-packet continuous-wave independent audit with four bounded
   promotions and one fail-closed hold. Review exposed a real artifact-identity
   false positive in seeded stability, confirmed R4 as a canonical-digest false
