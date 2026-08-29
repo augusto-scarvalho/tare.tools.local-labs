@@ -6,6 +6,11 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added a frugal, fail-closed backlog priority policy with explicit weighted
+  assessments, bounded anti-starvation, explained dry-runs, atomic apply,
+  score-aware ready-item selection and compact experiment-mode watcher
+  triggering. Scientific state, gates, dependencies and unassessed priorities
+  remain untouched.
 - Added a compact, non-blocking pre-push reminder to review documentation,
   handoff, backlog and changelog when applicable, then follow GitHub Actions to
   a terminal result after publication.

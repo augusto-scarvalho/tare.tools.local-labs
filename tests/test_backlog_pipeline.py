@@ -11,6 +11,7 @@ from tools.analysis.backlog_pipeline import (
     MANIFEST_SCHEMA,
     RECEIPT_SCHEMA,
     REVIEW_SCHEMA,
+    PRIORITY_POLICY_SCHEMA,
     admit_item,
     advance_item,
     canonical_json_sha256,
@@ -18,11 +19,14 @@ from tools.analysis.backlog_pipeline import (
     gate_repository,
     implementation_digest,
     load_json,
+    rank_backlog,
+    rebalance_priorities,
     scaffold_packet,
     select_next,
     sha256_file,
     _validate_receipt,
     validate_manifest,
+    validate_priority_policy,
 )
 
 
@@ -77,6 +81,42 @@ def _write_manifest(root: pathlib.Path, task: dict | None = None) -> pathlib.Pat
         encoding="utf-8",
     )
     return path
+
+
+def _priority_policy(item_id: str = "BACKLOG-TEST-01", *, score: int = 5) -> dict:
+    dimensions = {
+        "ecosystem_leverage": {"weight": 35, "description": "Cross-project gain."},
+        "community_innovation": {"weight": 25, "description": "Public novelty."},
+        "information_per_cost": {"weight": 20, "description": "Efficient evidence."},
+        "evidence_readiness": {"weight": 10, "description": "Ready inputs."},
+        "downstream_unlock": {"weight": 10, "description": "Unblocks decisions."},
+    }
+    return {
+        "schema": PRIORITY_POLICY_SCHEMA,
+        "updated_at": "2026-08-29T00:00:00Z",
+        "dimensions": dimensions,
+        "priority_bands": [
+            {"priority": 0, "min_score": 80},
+            {"priority": 1, "min_score": 60},
+            {"priority": 2, "min_score": 40},
+            {"priority": 3, "min_score": 0},
+        ],
+        "aging": {
+            "after_days": 30,
+            "period_days": 30,
+            "points_per_period": 2,
+            "max_bonus": 10,
+        },
+        "assessments": {
+            item_id: {
+                "scores": {name: score for name in dimensions},
+                "reason": "Fixture portfolio assessment.",
+                "change_trigger": "Fixture evidence changed.",
+                "actor": "Independent fixture reviewer",
+                "reviewed_at": "2026-08-29T00:00:00Z",
+            }
+        },
+    }
 
 
 def _complete_preregistration(path: pathlib.Path) -> None:
@@ -152,6 +192,137 @@ def test_current_backlog_is_valid_and_selects_adapter_requalification():
     next_item = select_next(manifest)
     if next_item is not None:
         assert next_item["state"] == "PROPOSED"
+
+
+def test_rank_uses_explicit_assessment_without_rewriting_unassessed_items():
+    assessed = _task()
+    assessed["priority"] = 2
+    fallback = copy.deepcopy(assessed)
+    fallback["id"] = "BACKLOG-TEST-02"
+    fallback["packet_dir"] = "runs/research/BACKLOG-TEST-02"
+    fallback["priority"] = 1
+    manifest = {"schema": MANIFEST_SCHEMA, "items": [fallback, assessed]}
+
+    report = rank_backlog(
+        manifest,
+        _priority_policy(),
+        generated_at="2026-08-29T00:00:00Z",
+    )
+
+    assert [row["id"] for row in report["items"]] == ["BACKLOG-TEST-01", "BACKLOG-TEST-02"]
+    first, second = report["items"]
+    assert (first["score"], first["recommended_priority"], first["score_source"]) == (
+        100.0,
+        0,
+        "explicit_assessment",
+    )
+    assert (second["score"], second["recommended_priority"], second["score_source"]) == (
+        None,
+        1,
+        "current_priority",
+    )
+    assert assessed["priority"] == 2
+
+
+def test_priority_policy_fails_closed_on_unknown_item_and_partial_scores():
+    manifest = {"schema": MANIFEST_SCHEMA, "items": [_task()]}
+    policy = _priority_policy("BACKLOG-UNKNOWN")
+    policy["assessments"]["BACKLOG-UNKNOWN"]["scores"].pop("downstream_unlock")
+
+    errors = validate_priority_policy(policy, manifest)
+
+    assert any("unknown backlog item" in error for error in errors)
+    assert any("scores must match" in error for error in errors)
+
+
+def test_rank_adds_bounded_aging_without_changing_manifest():
+    task = _task()
+    task["priority"] = 1
+    task["state_history"][0]["at"] = "2026-01-01T00:00:00Z"
+    manifest = {"schema": MANIFEST_SCHEMA, "items": [task]}
+    policy = _priority_policy(score=3)
+
+    row = rank_backlog(
+        manifest,
+        policy,
+        generated_at="2026-03-15T00:00:00Z",
+    )["items"][0]
+
+    assert (row["base_score"], row["waiting_days"], row["aging_bonus"], row["score"]) == (
+        60.0,
+        73,
+        4.0,
+        64.0,
+    )
+    assert task["priority"] == 1
+
+
+def test_rebalance_dry_run_is_read_only_and_apply_is_atomic(tmp_path: pathlib.Path):
+    task = _task()
+    task["priority"] = 0
+    manifest_path = _write_manifest(tmp_path, task)
+    policy_path = tmp_path / "config/backlog_priority_policy.json"
+    policy_path.write_text(json.dumps(_priority_policy(score=0)), encoding="utf-8")
+    before = manifest_path.read_bytes()
+
+    dry_run = rebalance_priorities(
+        manifest_path,
+        policy_path,
+        "",
+        apply=False,
+        root=tmp_path,
+        at="2026-08-29T01:00:00Z",
+    )
+
+    assert dry_run["mode"] == "dry_run"
+    assert dry_run["change_count"] == 1
+    assert manifest_path.read_bytes() == before
+
+    applied = rebalance_priorities(
+        manifest_path,
+        policy_path,
+        "Codex portfolio fixture",
+        apply=True,
+        root=tmp_path,
+        at="2026-08-29T01:00:00Z",
+    )
+    item = load_json(manifest_path)["items"][0]
+
+    assert applied["applied_ids"] == ["BACKLOG-TEST-01"]
+    assert (item["priority"], item["priority_score"], item["state"]) == (3, 0.0, "PROPOSED")
+    assert item["priority_history"][-1]["from"] == 0
+    assert item["priority_history"][-1]["to"] == 3
+    assert gate_repository(manifest_path, root=tmp_path) == []
+
+    revised_policy = load_json(policy_path)
+    revised_policy["updated_at"] = "2026-08-29T02:00:00Z"
+    revised_policy["assessments"]["BACKLOG-TEST-01"]["reason"] = "Revised fixture rationale."
+    policy_path.write_text(json.dumps(revised_policy), encoding="utf-8")
+    before_revision = manifest_path.read_bytes()
+    revised = rebalance_priorities(
+        manifest_path,
+        policy_path,
+        "",
+        apply=False,
+        root=tmp_path,
+        at="2026-08-29T02:00:00Z",
+    )
+    assert revised["change_count"] == 1
+    assert manifest_path.read_bytes() == before_revision
+
+
+def test_select_next_uses_persisted_score_only_inside_priority_band():
+    lower_score = _task()
+    lower_score["id"] = "BACKLOG-A"
+    lower_score["packet_dir"] = "runs/research/BACKLOG-A"
+    lower_score["priority_score"] = 81
+    higher_score = copy.deepcopy(lower_score)
+    higher_score["id"] = "BACKLOG-Z"
+    higher_score["packet_dir"] = "runs/research/BACKLOG-Z"
+    higher_score["priority_score"] = 99
+    manifest = {"schema": MANIFEST_SCHEMA, "items": [lower_score, higher_score]}
+
+    assert select_next(manifest)["id"] == "BACKLOG-Z"
 
 
 def test_admit_item_is_validated_and_atomic(tmp_path: pathlib.Path):

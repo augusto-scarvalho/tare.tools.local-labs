@@ -30,6 +30,8 @@ The canonical authority remains `config/research_backlog.json` plus
 | `tools/analysis/smoke_experiment_mode.py` | Temporary non-mutating end-to-end canary. |
 | `tools/analysis/mutation_test_experiment_harness.py` | Seeded semantic mutation gate with a persisted hash-bound report. |
 | `docs/research/EXPERIMENT_WATCHER.md` | Complete operator and failure-semantics reference. |
+| `config/backlog_priority_policy.json` | Sparse, explicit portfolio assessments and frugal scoring weights. |
+| `docs/research/BACKLOG_PRIORITY_POLICY.md` | Ranking, rebalance, anti-starvation and watcher-trigger contract. |
 
 The launcher rejects managed work unless the requested ID and packet path are
 canonical and both manifest state and `PIPELINE.json` stage are exactly
@@ -57,8 +59,9 @@ Final evidence at closeout:
 
 | Check | Result |
 | --- | --- |
-| Focused harness/watcher fixtures | 130 passed |
-| Full repository suite | 360 passed |
+| Focused harness/watcher fixtures | 131 passed |
+| Priority pipeline/watcher fixtures | 90 passed |
+| Full repository suite | 366 passed |
 | Live non-mutating smoke | PASS |
 | Canonical backlog gate | PASS |
 | Seeded semantic mutants | 76 killed, 0 survived, 0 invalid |
@@ -94,13 +97,20 @@ remains immutable and may be revisited only through a successor.
 
 ## Exact continuation queue
 
+The portfolio policy now ranks explicitly reviewed work by ecosystem leverage,
+community innovation, information per cost, evidence readiness and downstream
+unlock. It cannot change scientific state or make a blocked item executable.
+Items without a fresh assessment preserve their current priority. The watcher
+requests an atomic rebalance only when an `--experiment-mode` wave finishes and
+stores a compact result.
+
 `backlog_pipeline.py next` selects:
 
 1. `BACKLOG-FLEET-CONTEXT-ENVELOPE-04` (P0): reconstruct and recompute all 72
    retained rows from an immutable final source set, with no new inference.
 2. `BACKLOG-FLEET-CONTEXT-INTERFERENCE-02` (P0): reconstruct the 72 retained
    hard-decoy rows, including the frozen 31-decoy construct.
-3. `BACKLOG-GATEWAY-ROUTE-STRESS-02` (P1): recompute the retained 30-switch,
+3. `BACKLOG-GATEWAY-ROUTE-STRESS-02` (P0 after portfolio review): recompute the retained 30-switch,
    120-request campaign while separating transport, route identity and semantic
    content eligibility.
 
@@ -114,6 +124,7 @@ From the repository root:
 
 ```powershell
 python tools/analysis/backlog_pipeline.py gate
+python tools/analysis/backlog_pipeline.py rank --explain
 python tools/analysis/backlog_pipeline.py status
 python tools/analysis/backlog_pipeline.py next
 ```

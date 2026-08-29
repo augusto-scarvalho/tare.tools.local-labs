@@ -232,7 +232,28 @@ def parse_pipeline_json(result: dict[str, Any]) -> Any:
         return None
 
 
-def backlog_queue_snapshot() -> dict[str, Any]:
+def backlog_queue_snapshot(*, rebalance: bool = False, actor: str = "watcher") -> dict[str, Any]:
+    rebalance_result = None
+    rebalance_report = None
+    rebalance_valid = True
+    if rebalance:
+        rebalance_result = run_pipeline(
+            "rebalance", "--apply", "--actor", actor, "--json"
+        )
+        parsed = parse_pipeline_json(rebalance_result)
+        rebalance_valid = (
+            rebalance_result["returncode"] == 0
+            and isinstance(parsed, dict)
+            and parsed.get("schema") == "local-labs-backlog-priority-report-v1"
+        )
+        if isinstance(parsed, dict):
+            rebalance_report = {
+                "mode": parsed.get("mode"),
+                "policy_sha256": parsed.get("policy_sha256"),
+                "assessed_count": parsed.get("assessed_count"),
+                "change_count": parsed.get("change_count"),
+                "applied_ids": parsed.get("applied_ids", []),
+            }
     status_result = run_pipeline("status", "--json")
     next_result = run_pipeline("next", "--json")
     items = parse_pipeline_json(status_result)
@@ -250,7 +271,13 @@ def backlog_queue_snapshot() -> dict[str, Any]:
         "refreshed_at": utc_now(),
         "status_returncode": status_result["returncode"],
         "next_returncode": next_result["returncode"],
-        "valid": status_valid and next_valid,
+        "valid": rebalance_valid and status_valid and next_valid,
+        "priority_rebalance": {
+            "requested": rebalance,
+            "returncode": rebalance_result["returncode"] if rebalance_result else None,
+            "valid": rebalance_valid if rebalance else None,
+            "report": rebalance_report,
+        },
         "state_counts": dict(sorted(counts.items())),
         "next_candidate": next_candidate,
     }
@@ -460,8 +487,11 @@ def main() -> int:
         state["status"] in {"executed_valid", "completed_unmanaged"}
         for state in states.values()
     )
-    backlog_queue = backlog_queue_snapshot()
     experiment_mode = bool(config.get("experiment_mode", False))
+    backlog_queue = backlog_queue_snapshot(
+        rebalance=experiment_mode and all_valid,
+        actor=config.get("actor", "watcher"),
+    )
     final_status = (
         "complete"
         if all_valid

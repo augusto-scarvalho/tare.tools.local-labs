@@ -57,6 +57,13 @@ selected-block TTFT route remains absent.
 unmet dependency. This makes cheap, discriminating gates precede expensive
 training or hardware work.
 
+Portfolio priority can be reassessed independently of scientific state through
+the frugal policy documented in
+[`BACKLOG_PRIORITY_POLICY.md`](BACKLOG_PRIORITY_POLICY.md). `rank --explain` and
+`rebalance --dry-run` are read-only. `rebalance --apply --actor <identity>`
+atomically updates only explicitly assessed priority metadata; unassessed items
+keep their current P-band. The harness does not own this policy.
+
 These 15 items reconcile the Gemini-remediation queue with the residual trigger
 register from the 2026-08-24 closeout. Parked themes, cancelled soaks and closed
 `HOLD`/negative results are deliberately not executable manifest items.

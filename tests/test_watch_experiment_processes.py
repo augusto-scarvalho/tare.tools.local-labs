@@ -137,6 +137,9 @@ def pipeline_stub(watcher_repo, monkeypatch):
         gate_returncode=0,
         status_returncode=0,
         next_returncode=0,
+        rebalance_returncode=0,
+        rebalance_change_count=0,
+        rebalance_applied_ids=[],
         status_items=[{"id": "DONE", "state": "EXECUTED"}],
         next_candidate=None,
     )
@@ -172,6 +175,21 @@ def pipeline_stub(watcher_repo, monkeypatch):
                 "returncode": state.next_returncode,
                 "stdout": json.dumps(state.next_candidate),
                 "stderr": "" if state.next_returncode == 0 else "next failed",
+            }
+        if command == "rebalance":
+            payload = {
+                "schema": "local-labs-backlog-priority-report-v1",
+                "mode": "apply",
+                "policy_sha256": "a" * 64,
+                "assessed_count": 4,
+                "change_count": state.rebalance_change_count,
+                "applied_ids": state.rebalance_applied_ids,
+                "items": [],
+            }
+            return {
+                "returncode": state.rebalance_returncode,
+                "stdout": json.dumps(payload) if state.rebalance_returncode == 0 else "",
+                "stderr": "" if state.rebalance_returncode == 0 else "rebalance failed",
             }
         raise AssertionError(arguments)
 
@@ -517,6 +535,8 @@ def test_clean_completion_advances_packet_and_dispatches_candidate(
     assert result.final["completion_action"] == "dispatch_next_candidate"
     assert json.loads(packet.read_text(encoding="utf-8"))["stage"] == "EXECUTED"
     assert result.final["audit_ready_ids"] == ["BACKLOG-TEST-01"]
+    assert result.final["backlog_queue"]["priority_rebalance"]["requested"] is True
+    assert any(call[0] == "rebalance" for call in pipeline_stub.calls)
     assert any(event["event"] == "watcher_finished" for event in result.events)
 
 
@@ -530,6 +550,8 @@ def test_non_experiment_mode_only_notifies(packet_factory, pipeline_stub, run_wa
     pipeline_stub.next_candidate = {"id": "BACKLOG-NEXT"}
     result = run_watcher([packet_factory()], experiment_mode=False)
     assert result.final["completion_action"] == "notify_completion"
+    assert result.final["backlog_queue"]["priority_rebalance"]["requested"] is False
+    assert not any(call[0] == "rebalance" for call in pipeline_stub.calls)
 
 
 def test_missing_receipt_alerts_and_does_not_dispatch(packet_factory, run_watcher):
@@ -538,6 +560,7 @@ def test_missing_receipt_alerts_and_does_not_dispatch(packet_factory, run_watche
     assert result.returncode == 2
     assert state["status"] == "failed_no_receipt"
     assert result.final["completion_action"] == "inspect_alert_before_dispatch"
+    assert result.final["backlog_queue"]["priority_rebalance"]["requested"] is False
 
 
 def test_missing_result_alerts_and_does_not_advance(
@@ -906,6 +929,24 @@ def test_queue_snapshot_exposes_pipeline_failures(pipeline_stub):
     assert snapshot["valid"] is False
     assert snapshot["state_counts"] == {}
     assert snapshot["next_candidate"] is None
+
+
+def test_experiment_mode_rebalance_is_compact_and_fail_closed(
+    packet_factory, pipeline_stub, run_watcher
+):
+    pipeline_stub.rebalance_returncode = 1
+
+    result = run_watcher([packet_factory()])
+
+    priority = result.final["backlog_queue"]["priority_rebalance"]
+    assert result.returncode == 2
+    assert priority == {
+        "requested": True,
+        "returncode": 1,
+        "valid": False,
+        "report": None,
+    }
+    assert result.final["completion_action"] == "inspect_alert_before_dispatch"
 
 
 def test_queue_refresh_failure_is_an_alert_in_experiment_mode(

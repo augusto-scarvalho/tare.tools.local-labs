@@ -156,6 +156,11 @@ time.sleep(3)
             "final_complete": final.get("status") == "complete",
             "experiment_mode_preserved": final.get("experiment_mode") is True,
             "queue_refreshed": final.get("backlog_queue", {}).get("status_returncode") == 0,
+            "priority_rebalance_verified": (
+                final.get("backlog_queue", {})
+                .get("priority_rebalance", {})
+                .get("valid") is True
+            ),
             "next_candidate_selected": final.get("completion_action") == expected_action,
             "harness_terminal_verified": (
                 final.get("states", {})

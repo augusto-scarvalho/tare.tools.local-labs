@@ -1,0 +1,104 @@
+{
+  "schema": "local-labs-backlog-priority-policy-v1",
+  "updated_at": "2026-08-29T13:05:34Z",
+  "dimensions": {
+    "ecosystem_leverage": {
+      "weight": 35,
+      "description": "Reusable gain across tare.tools projects and qualified model consumers."
+    },
+    "community_innovation": {
+      "weight": 25,
+      "description": "Distinct public research or engineering value beyond generic harness and router work."
+    },
+    "information_per_cost": {
+      "weight": 20,
+      "description": "Decision-relevant information delivered per unit of compute and implementation effort."
+    },
+    "evidence_readiness": {
+      "weight": 10,
+      "description": "Availability of immutable inputs, executable treatment and independent scoring."
+    },
+    "downstream_unlock": {
+      "weight": 10,
+      "description": "Number and importance of later decisions enabled by the result."
+    }
+  },
+  "priority_bands": [
+    {
+      "priority": 0,
+      "min_score": 80
+    },
+    {
+      "priority": 1,
+      "min_score": 60
+    },
+    {
+      "priority": 2,
+      "min_score": 40
+    },
+    {
+      "priority": 3,
+      "min_score": 0
+    }
+  ],
+  "aging": {
+    "after_days": 30,
+    "period_days": 30,
+    "points_per_period": 2,
+    "max_bonus": 10
+  },
+  "assessments": {
+    "BACKLOG-FLEET-CONTEXT-ENVELOPE-04": {
+      "scores": {
+        "ecosystem_leverage": 5,
+        "community_innovation": 5,
+        "information_per_cost": 5,
+        "evidence_readiness": 5,
+        "downstream_unlock": 5
+      },
+      "reason": "Closes the qualified fleet capability envelope from 72 retained physical rows without new inference.",
+      "change_trigger": "Independent audit identified mutable final-source binding as the only remaining blocker.",
+      "actor": "Codex portfolio review",
+      "reviewed_at": "2026-08-29T13:05:34Z"
+    },
+    "BACKLOG-FLEET-CONTEXT-INTERFERENCE-02": {
+      "scores": {
+        "ecosystem_leverage": 5,
+        "community_innovation": 5,
+        "information_per_cost": 5,
+        "evidence_readiness": 4,
+        "downstream_unlock": 5
+      },
+      "reason": "Turns retained hard-decoy evidence into an auditable interference boundary for agent context routing.",
+      "change_trigger": "The predecessor retained 72 physical rows and requires source rebinding rather than new inference.",
+      "actor": "Codex portfolio review",
+      "reviewed_at": "2026-08-29T13:05:34Z"
+    },
+    "BACKLOG-GATEWAY-ROUTE-STRESS-02": {
+      "scores": {
+        "ecosystem_leverage": 5,
+        "community_innovation": 4,
+        "information_per_cost": 5,
+        "evidence_readiness": 5,
+        "downstream_unlock": 4
+      },
+      "reason": "Separates transport, effective route identity and semantic eligibility across the retained 30-switch campaign.",
+      "change_trigger": "The audit preserved all 120 responses and isolated semantic-success conflation as the repair target.",
+      "actor": "Codex portfolio review",
+      "reviewed_at": "2026-08-29T13:05:34Z"
+    },
+    "BACKLOG-HUMAN-JUDGE-CALIBRATION-01": {
+      "scores": {
+        "ecosystem_leverage": 5,
+        "community_innovation": 4,
+        "information_per_cost": 3,
+        "evidence_readiness": 1,
+        "downstream_unlock": 5
+      },
+      "reason": "Blind human labels calibrate scorers across experiment families, but the required label packet does not yet exist.",
+      "change_trigger": "Repeated independent audits recovered scorer-induced false negatives and exposed cross-cutting calibration risk.",
+      "actor": "Codex portfolio review",
+      "reviewed_at": "2026-08-29T13:05:34Z"
+    }
+  }
+}

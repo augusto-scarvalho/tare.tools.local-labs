@@ -1,6 +1,6 @@
 {
   "schema": "local-labs-backlog-v1",
-  "updated_at": "2026-08-29T00:13:22Z",
+  "updated_at": "2026-08-29T13:10:37Z",
   "policy": {
     "executor": "Gemini",
     "independent_review_required": true,
@@ -940,7 +940,7 @@
     },
     {
       "id": "BACKLOG-HUMAN-JUDGE-CALIBRATION-01",
-      "priority": 2,
+      "priority": 1,
       "title": "Calibrate model judges against genuine blind human labels",
       "state": "BLOCKED",
       "evidence_class": "human_calibration",
@@ -1004,6 +1004,19 @@
           "to": "BLOCKED",
           "actor": "Codex",
           "at": "2026-08-25T11:30:00Z"
+        }
+      ],
+      "priority_score": 79.0,
+      "priority_history": [
+        {
+          "from": 2,
+          "to": 1,
+          "score": 79.0,
+          "actor": "Codex portfolio review",
+          "at": "2026-08-29T13:10:37Z",
+          "reason": "Blind human labels calibrate scorers across experiment families, but the required label packet does not yet exist.",
+          "change_trigger": "Repeated independent audits recovered scorer-induced false negatives and exposed cross-cutting calibration risk.",
+          "policy_sha256": "7d6b416c2fe75a0bf3be27a4700721a2988010591df4628136f8fdd1c34b3ac5"
         }
       ]
     },
@@ -13500,6 +13513,19 @@
           "actor": "Codex",
           "at": "2026-08-29T00:13:20Z"
         }
+      ],
+      "priority_score": 100.0,
+      "priority_history": [
+        {
+          "from": 0,
+          "to": 0,
+          "score": 100.0,
+          "actor": "Codex portfolio review",
+          "at": "2026-08-29T13:10:37Z",
+          "reason": "Closes the qualified fleet capability envelope from 72 retained physical rows without new inference.",
+          "change_trigger": "Independent audit identified mutable final-source binding as the only remaining blocker.",
+          "policy_sha256": "7d6b416c2fe75a0bf3be27a4700721a2988010591df4628136f8fdd1c34b3ac5"
+        }
       ]
     },
     {
@@ -13643,11 +13669,24 @@
           "actor": "Codex",
           "at": "2026-08-29T00:13:21Z"
         }
+      ],
+      "priority_score": 98.0,
+      "priority_history": [
+        {
+          "from": 0,
+          "to": 0,
+          "score": 98.0,
+          "actor": "Codex portfolio review",
+          "at": "2026-08-29T13:10:37Z",
+          "reason": "Turns retained hard-decoy evidence into an auditable interference boundary for agent context routing.",
+          "change_trigger": "The predecessor retained 72 physical rows and requires source rebinding rather than new inference.",
+          "policy_sha256": "7d6b416c2fe75a0bf3be27a4700721a2988010591df4628136f8fdd1c34b3ac5"
+        }
       ]
     },
     {
       "id": "BACKLOG-GATEWAY-ROUTE-STRESS-02",
-      "priority": 1,
+      "priority": 0,
       "title": "Rebind retained gateway route stress with semantic success separation",
       "evidence_class": "serving_runtime",
       "packet_dir": "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-02",
@@ -13773,6 +13812,19 @@
           "to": "PROPOSED",
           "actor": "Codex",
           "at": "2026-08-29T00:13:22Z"
+        }
+      ],
+      "priority_score": 93.0,
+      "priority_history": [
+        {
+          "from": 1,
+          "to": 0,
+          "score": 93.0,
+          "actor": "Codex portfolio review",
+          "at": "2026-08-29T13:10:37Z",
+          "reason": "Separates transport, effective route identity and semantic eligibility across the retained 30-switch campaign.",
+          "change_trigger": "The audit preserved all 120 responses and isolated semantic-success conflation as the repair target.",
+          "policy_sha256": "7d6b416c2fe75a0bf3be27a4700721a2988010591df4628136f8fdd1c34b3ac5"
         }
       ]
     }

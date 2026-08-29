@@ -195,9 +195,17 @@ a identidade inicial/final, PIDs, argumentos, reinícios e saúde de 8081.
 O watcher roda:
 
 ```powershell
+python tools/analysis/backlog_pipeline.py rebalance --apply --actor <actor> --json
 python tools/analysis/backlog_pipeline.py status --json
 python tools/analysis/backlog_pipeline.py next --json
 ```
+
+The first command runs only in `--experiment-mode` and applies only strategic
+assessments already explicit in the canonical policy. The watcher does not
+score results or change scientific state. It persists only the policy digest,
+counts and affected IDs; the full explanation remains available through
+`backlog_pipeline.py rank --explain` and
+[`BACKLOG_PRIORITY_POLICY.md`](BACKLOG_PRIORITY_POLICY.md).
 
 No `--experiment-mode`, falha ao recalcular a fila transforma a conclusão em
 alerta. O snapshot final inclui contagens por estado e o objeto completo do

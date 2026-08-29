@@ -21,8 +21,11 @@ from typing import Any
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 DEFAULT_MANIFEST = ROOT / "config" / "research_backlog.json"
+DEFAULT_PRIORITY_POLICY = ROOT / "config" / "backlog_priority_policy.json"
 
 MANIFEST_SCHEMA = "local-labs-backlog-v1"
+PRIORITY_POLICY_SCHEMA = "local-labs-backlog-priority-policy-v1"
+PRIORITY_REPORT_SCHEMA = "local-labs-backlog-priority-report-v1"
 PACKET_SCHEMA = "local-labs-backlog-packet-v1"
 REVIEW_SCHEMA = "local-labs-independent-review-v1"
 RECEIPT_SCHEMA = "local-labs-backlog-receipt-v1"
@@ -285,6 +288,32 @@ def _validate_history(history: Any, expected_state: str, prefix: str) -> list[st
     return errors
 
 
+def _validate_priority_history(history: Any, prefix: str) -> list[str]:
+    if history is None:
+        return []
+    if not isinstance(history, list):
+        return [f"{prefix}: priority_history must be a list"]
+    errors: list[str] = []
+    for index, event in enumerate(history):
+        label = f"{prefix}: priority_history[{index}]"
+        if not isinstance(event, dict):
+            errors.append(f"{label} must be an object")
+            continue
+        if any(
+            isinstance(event.get(field), bool) or event.get(field) not in range(4)
+            for field in ("from", "to")
+        ):
+            errors.append(f"{label} requires from/to priorities from 0 to 3")
+        score = event.get("score")
+        if isinstance(score, bool) or not isinstance(score, (int, float)) or not 0 <= score <= 100:
+            errors.append(f"{label} requires score from 0 to 100")
+        if not all(event.get(field) for field in ("actor", "at", "reason", "change_trigger")):
+            errors.append(f"{label} requires actor, at, reason and change_trigger")
+        if not re.fullmatch(r"[0-9a-f]{64}", str(event.get("policy_sha256", ""))):
+            errors.append(f"{label} requires a policy SHA-256")
+    return errors
+
+
 def _find_cycles(items_by_id: dict[str, dict]) -> list[str]:
     errors: list[str] = []
     visiting: set[str] = set()
@@ -334,6 +363,14 @@ def validate_manifest(manifest: dict, root: pathlib.Path = ROOT) -> list[str]:
             errors.append(f"{item_id}: invalid state {item.get('state')!r}")
         if not isinstance(item.get("priority"), int) or item["priority"] not in range(4):
             errors.append(f"{item_id}: priority must be an integer from 0 to 3")
+        priority_score = item.get("priority_score")
+        if priority_score is not None and (
+            isinstance(priority_score, bool)
+            or not isinstance(priority_score, (int, float))
+            or not 0 <= priority_score <= 100
+        ):
+            errors.append(f"{item_id}: priority_score must be numeric from 0 to 100")
+        errors.extend(_validate_priority_history(item.get("priority_history"), item_id))
         evidence_class = item.get("evidence_class")
         if evidence_class not in CLASS_EVIDENCE:
             errors.append(f"{item_id}: unknown evidence_class {evidence_class!r}")
@@ -496,7 +533,274 @@ def select_next(manifest: dict) -> dict | None:
             candidates.append(item)
     if not candidates:
         return None
-    return min(candidates, key=lambda item: (item["priority"], item["id"]))
+    return min(
+        candidates,
+        key=lambda item: (
+            item["priority"],
+            -float(item.get("priority_score", 0)),
+            item["id"],
+        ),
+    )
+
+
+def validate_priority_policy(policy: dict, manifest: dict) -> list[str]:
+    """Validate the small, explicit portfolio policy used by rank/rebalance."""
+    errors: list[str] = []
+    if policy.get("schema") != PRIORITY_POLICY_SCHEMA:
+        errors.append(f"priority policy: schema must be {PRIORITY_POLICY_SCHEMA}")
+    if not policy.get("updated_at"):
+        errors.append("priority policy: updated_at is required")
+    dimensions = policy.get("dimensions")
+    if not isinstance(dimensions, dict) or not dimensions:
+        errors.append("priority policy: dimensions must be a non-empty object")
+        dimensions = {}
+    weights: list[float] = []
+    for name, definition in dimensions.items():
+        if not isinstance(name, str) or not name:
+            errors.append("priority policy: dimension names must be non-empty strings")
+            continue
+        if not isinstance(definition, dict):
+            errors.append(f"priority policy: dimension {name} must be an object")
+            continue
+        weight = definition.get("weight")
+        if isinstance(weight, bool) or not isinstance(weight, (int, float)) or weight <= 0:
+            errors.append(f"priority policy: dimension {name} requires a positive weight")
+        else:
+            weights.append(float(weight))
+        if not definition.get("description"):
+            errors.append(f"priority policy: dimension {name} requires a description")
+    if weights and abs(sum(weights) - 100.0) > 1e-9:
+        errors.append("priority policy: dimension weights must sum to 100")
+
+    bands = policy.get("priority_bands")
+    if not isinstance(bands, list) or len(bands) != 4:
+        errors.append("priority policy: priority_bands must contain P0 through P3")
+        bands = []
+    seen_priorities: set[int] = set()
+    previous_minimum = float("inf")
+    for index, band in enumerate(bands):
+        if not isinstance(band, dict):
+            errors.append(f"priority policy: band[{index}] must be an object")
+            continue
+        priority = band.get("priority")
+        minimum = band.get("min_score")
+        if isinstance(priority, bool) or priority not in range(4) or priority in seen_priorities:
+            errors.append(f"priority policy: band[{index}] has invalid/duplicate priority")
+        else:
+            seen_priorities.add(priority)
+            if priority != index:
+                errors.append("priority policy: priority bands must be ordered P0 through P3")
+        if isinstance(minimum, bool) or not isinstance(minimum, (int, float)) or not 0 <= minimum <= 100:
+            errors.append(f"priority policy: band[{index}] requires min_score from 0 to 100")
+        elif minimum >= previous_minimum:
+            errors.append("priority policy: priority band thresholds must strictly descend")
+        else:
+            previous_minimum = float(minimum)
+    if bands and seen_priorities != set(range(4)):
+        errors.append("priority policy: priority_bands must define each priority exactly once")
+    if bands and isinstance(bands[-1], dict) and bands[-1].get("min_score") != 0:
+        errors.append("priority policy: P3 band must start at score 0")
+
+    aging = policy.get("aging")
+    if not isinstance(aging, dict):
+        errors.append("priority policy: aging must be an object")
+    else:
+        for field in ("after_days", "period_days", "points_per_period", "max_bonus"):
+            value = aging.get(field)
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or value < 0:
+                errors.append(f"priority policy: aging {field} must be non-negative")
+        if aging.get("period_days") == 0:
+            errors.append("priority policy: aging period_days must be positive")
+
+    item_ids = {item.get("id") for item in manifest.get("items", []) if isinstance(item, dict)}
+    assessments = policy.get("assessments")
+    if not isinstance(assessments, dict):
+        errors.append("priority policy: assessments must be an object")
+        assessments = {}
+    dimension_names = set(dimensions)
+    for item_id, assessment in assessments.items():
+        label = f"priority policy: assessment {item_id}"
+        if item_id not in item_ids:
+            errors.append(f"{label} references an unknown backlog item")
+        if not isinstance(assessment, dict):
+            errors.append(f"{label} must be an object")
+            continue
+        scores = assessment.get("scores")
+        if not isinstance(scores, dict) or set(scores) != dimension_names:
+            errors.append(f"{label} scores must match the configured dimensions exactly")
+        else:
+            for name, score in scores.items():
+                if isinstance(score, bool) or not isinstance(score, (int, float)) or not 0 <= score <= 5:
+                    errors.append(f"{label} score {name} must be numeric from 0 to 5")
+        for field in ("reason", "actor", "reviewed_at", "change_trigger"):
+            if not assessment.get(field):
+                errors.append(f"{label} requires {field}")
+    return errors
+
+
+def _priority_from_score(score: float, policy: dict) -> int:
+    for band in policy["priority_bands"]:
+        if score >= float(band["min_score"]):
+            return int(band["priority"])
+    raise ValueError("priority policy has no matching score band")
+
+
+def _aging_bonus(item: dict, policy: dict, generated_at: str) -> tuple[int, float]:
+    history = item.get("state_history") or []
+    if not history or not isinstance(history[-1], dict) or not history[-1].get("at"):
+        return 0, 0.0
+    try:
+        start = dt.datetime.fromisoformat(str(history[-1]["at"]).replace("Z", "+00:00"))
+        end = dt.datetime.fromisoformat(generated_at.replace("Z", "+00:00"))
+    except ValueError:
+        return 0, 0.0
+    waiting_days = max(0, (end - start).days)
+    aging = policy["aging"]
+    after_days = float(aging["after_days"])
+    if waiting_days < after_days:
+        return waiting_days, 0.0
+    periods = 1 + int((waiting_days - after_days) // float(aging["period_days"]))
+    bonus = min(float(aging["max_bonus"]), periods * float(aging["points_per_period"]))
+    return waiting_days, round(bonus, 2)
+
+
+def rank_backlog(
+    manifest: dict,
+    policy: dict,
+    *,
+    include_terminal: bool = False,
+    generated_at: str | None = None,
+) -> dict:
+    """Return an explained ranking without mutating backlog state or priority."""
+    errors = validate_priority_policy(policy, manifest)
+    if errors:
+        raise ValueError("priority policy is invalid:\n" + "\n".join(errors))
+    timestamp = generated_at or utc_now()
+    policy_digest = canonical_json_sha256(policy)
+    weights = {name: float(value["weight"]) for name, value in policy["dimensions"].items()}
+    assessments = policy["assessments"]
+    rows: list[dict[str, Any]] = []
+    for item in manifest["items"]:
+        if not include_terminal and item["state"] in TERMINAL_STATES:
+            continue
+        assessment = assessments.get(item["id"])
+        if assessment is None:
+            base_score = None
+            score = None
+            waiting_days, _ = _aging_bonus(item, policy, timestamp)
+            aging_bonus = 0.0
+            source = "current_priority"
+            reason = "No new assessment; preserve the current priority."
+            recommended = item["priority"]
+        else:
+            base_score = sum(weights[name] * float(assessment["scores"][name]) / 5.0 for name in weights)
+            base_score = round(base_score, 2)
+            waiting_days, aging_bonus = _aging_bonus(item, policy, timestamp)
+            score = round(min(100.0, base_score + aging_bonus), 2)
+            source = "explicit_assessment"
+            reason = assessment["reason"]
+            recommended = _priority_from_score(score, policy)
+        ready, blockers = dependencies_satisfied(item, manifest)
+        priority_history = item.get("priority_history") or []
+        last_policy_digest = (
+            priority_history[-1].get("policy_sha256")
+            if priority_history and isinstance(priority_history[-1], dict)
+            else None
+        )
+        rows.append({
+            "id": item["id"],
+            "title": item["title"],
+            "state": item["state"],
+            "current_priority": item["priority"],
+            "recommended_priority": recommended,
+            "score": score,
+            "base_score": base_score,
+            "aging_bonus": aging_bonus,
+            "waiting_days": waiting_days,
+            "score_source": source,
+            "eligible_now": item["state"] == "PROPOSED" and ready,
+            "dependency_blockers": blockers,
+            "reason": reason,
+            "changed": assessment is not None and (
+                item["priority"] != recommended
+                or item.get("priority_score") != score
+                or last_policy_digest != policy_digest
+            ),
+        })
+    rows.sort(
+        key=lambda row: (
+            row["score_source"] != "explicit_assessment",
+            -float(row["score"] or 0),
+            row["current_priority"],
+            row["id"],
+        )
+    )
+    for index, row in enumerate(rows, start=1):
+        row["portfolio_rank"] = index
+    return {
+        "schema": PRIORITY_REPORT_SCHEMA,
+        "generated_at": timestamp,
+        "manifest_updated_at": manifest.get("updated_at"),
+        "policy_sha256": policy_digest,
+        "assessed_count": sum(row["score_source"] == "explicit_assessment" for row in rows),
+        "change_count": sum(row["changed"] for row in rows),
+        "items": rows,
+    }
+
+
+def rebalance_priorities(
+    manifest_path: pathlib.Path,
+    policy_path: pathlib.Path,
+    actor: str,
+    *,
+    apply: bool = False,
+    root: pathlib.Path = ROOT,
+    at: str | None = None,
+) -> dict:
+    """Dry-run or atomically apply explicit priority assessments only."""
+    manifest = load_json(manifest_path)
+    manifest_errors = validate_manifest(manifest, root)
+    if manifest_errors:
+        raise ValueError("manifest is invalid:\n" + "\n".join(manifest_errors))
+    policy = load_json(policy_path)
+    timestamp = at or utc_now()
+    report = rank_backlog(manifest, policy, generated_at=timestamp)
+    report["mode"] = "apply" if apply else "dry_run"
+    if not apply:
+        return report
+    if not actor.strip():
+        raise ValueError("--actor is required with --apply")
+    candidate = copy.deepcopy(manifest)
+    rows = {row["id"]: row for row in report["items"]}
+    changed_ids: list[str] = []
+    for item_id, assessment in policy["assessments"].items():
+        item = item_by_id(candidate, item_id)
+        row = rows.get(item_id)
+        if row is None or not row["changed"]:
+            continue
+        previous = item["priority"]
+        item["priority"] = row["recommended_priority"]
+        item["priority_score"] = row["score"]
+        item.setdefault("priority_history", []).append({
+            "from": previous,
+            "to": row["recommended_priority"],
+            "score": row["score"],
+            "actor": actor,
+            "at": timestamp,
+            "reason": assessment["reason"],
+            "change_trigger": assessment["change_trigger"],
+            "policy_sha256": report["policy_sha256"],
+        })
+        changed_ids.append(item_id)
+    report["applied_ids"] = changed_ids
+    if not changed_ids:
+        return report
+    candidate["updated_at"] = timestamp
+    candidate_errors = validate_manifest(candidate, root)
+    if candidate_errors:
+        raise ValueError("rebalance blocked:\n" + "\n".join(candidate_errors))
+    _write_json_atomic(manifest_path, candidate)
+    return report
 
 
 def _validate_preregistration(path: pathlib.Path) -> list[str]:
@@ -1104,6 +1408,22 @@ def build_parser() -> argparse.ArgumentParser:
     status_parser = subparsers.add_parser("status", help="show backlog state summary")
     status_parser.add_argument("--json", action="store_true", dest="json_output")
 
+    rank_parser = subparsers.add_parser("rank", help="explain the current portfolio ranking")
+    rank_parser.add_argument("--policy", type=pathlib.Path, default=DEFAULT_PRIORITY_POLICY)
+    rank_parser.add_argument("--json", action="store_true", dest="json_output")
+    rank_parser.add_argument("--explain", action="store_true", help="show score source and rationale")
+    rank_parser.add_argument("--include-terminal", action="store_true")
+
+    rebalance_parser = subparsers.add_parser(
+        "rebalance", help="dry-run or apply explicit policy assessments"
+    )
+    rebalance_parser.add_argument("--policy", type=pathlib.Path, default=DEFAULT_PRIORITY_POLICY)
+    mode = rebalance_parser.add_mutually_exclusive_group()
+    mode.add_argument("--dry-run", action="store_true", help="preview changes (default)")
+    mode.add_argument("--apply", action="store_true", help="atomically update assessed priorities")
+    rebalance_parser.add_argument("--actor")
+    rebalance_parser.add_argument("--json", action="store_true", dest="json_output")
+
     admit_parser = subparsers.add_parser("admit", help="admit one validated PROPOSED item from a JSON spec")
     admit_parser.add_argument("spec", type=pathlib.Path)
     admit_parser.add_argument("--actor", required=True)
@@ -1153,6 +1473,25 @@ def main(argv: list[str] | None = None) -> int:
             )
             print(json.dumps(receipt, indent=2, ensure_ascii=False))
             return 0
+        if args.command == "rebalance":
+            report = rebalance_priorities(
+                manifest_path,
+                args.policy.resolve(),
+                args.actor or "",
+                apply=args.apply,
+            )
+            if args.json_output:
+                print(json.dumps(report, indent=2, ensure_ascii=False))
+            else:
+                verb = "Applied" if args.apply else "Would apply"
+                changes = [row for row in report["items"] if row["changed"]]
+                print(f"{verb} {len(changes)} assessed priority update(s).")
+                for row in changes:
+                    print(
+                        f"{row['id']}: P{row['current_priority']} -> "
+                        f"P{row['recommended_priority']} score={row['score']:.2f}"
+                    )
+            return 0
         manifest = load_json(manifest_path)
         errors = validate_manifest(manifest)
         if errors:
@@ -1170,14 +1509,48 @@ def main(argv: list[str] | None = None) -> int:
             return 0
         if args.command == "status":
             summary = [
-                {"id": item["id"], "priority": item["priority"], "state": item["state"], "title": item["title"]}
-                for item in sorted(manifest["items"], key=lambda item: (item["priority"], item["id"]))
+                {
+                    "id": item["id"],
+                    "priority": item["priority"],
+                    "priority_score": item.get("priority_score"),
+                    "state": item["state"],
+                    "title": item["title"],
+                }
+                for item in sorted(
+                    manifest["items"],
+                    key=lambda item: (
+                        item["priority"],
+                        -float(item.get("priority_score", 0)),
+                        item["id"],
+                    ),
+                )
             ]
             if args.json_output:
                 print(json.dumps(summary, indent=2, ensure_ascii=False))
             else:
                 for item in summary:
                     print(f"P{item['priority']} {item['state']:<14} {item['id']}: {item['title']}")
+            return 0
+        if args.command == "rank":
+            policy = load_json(args.policy.resolve())
+            report = rank_backlog(
+                manifest,
+                policy,
+                include_terminal=args.include_terminal,
+            )
+            if args.json_output:
+                print(json.dumps(report, indent=2, ensure_ascii=False))
+            else:
+                for row in report["items"]:
+                    score_text = f"{row['score']:.2f}" if row["score"] is not None else "unassessed"
+                    line = (
+                        f"#{row['portfolio_rank']:03d} {row['id']} "
+                        f"score={score_text} P{row['current_priority']}"
+                        f"->P{row['recommended_priority']} {row['state']}"
+                    )
+                    print(line)
+                    if args.explain:
+                        print(f"  {row['score_source']}: {row['reason']}")
             return 0
         if args.command == "scaffold":
             packet_dir = scaffold_packet(manifest_path, args.item_id, args.actor)
