@@ -77,7 +77,7 @@ Its recorded source and test hashes matched the final audited worktree.
 
 The backlog required no scientific state transition for this infrastructure
 change. Direct state edits remain forbidden. Live validation on 2026-08-29 found
-112 records:
+113 records:
 
 | State | Count |
 | --- | ---: |
@@ -85,7 +85,7 @@ change. Direct state edits remain forbidden. Live validation on 2026-08-29 found
 | `REJECTED` | 21 |
 | `EXECUTED` | 21 |
 | `BLOCKED` | 40 |
-| `IMPLEMENTED` | 2 |
+| `IMPLEMENTED` | 3 |
 
 The 21 `EXECUTED` records include preserved HOLD/superseded evidence from prior
 audit waves. Their presence is not authority to rerun or promote them. The two
@@ -161,9 +161,11 @@ null
 ```
 
 Do not manufacture a next command from `EXECUTED` or `BLOCKED` items. The next
-scientific repair candidate is a new seeded-stability successor with physical
-GGUF, binary and runtime realization captured during inference; it requires
-explicit admission and preregistration. A future authorized multi-item queue
+scientific repair candidate, `BACKLOG-FLEET-SEEDED-STABILITY-03`, is now
+`IMPLEMENTED`. It captures the exact HTTP argument and binds each route to the
+live backend PID, `/proc` command, executable SHA-256 and loaded GGUF SHA-256
+before requests. Execute it only through the watcher and stop at `EXECUTED` for
+fresh independent review. A future authorized multi-item queue
 must freeze every packet at `IMPLEMENTED` and run through the watched-wave
 supervisor. The executor and watcher stop at `EXECUTED`; only the independent
 auditor may promote, reject or place a bounded hold.

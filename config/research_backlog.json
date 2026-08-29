@@ -1,6 +1,6 @@
 {
   "schema": "local-labs-backlog-v1",
-  "updated_at": "2026-08-29T17:40:08Z",
+  "updated_at": "2026-08-29T18:00:31Z",
   "policy": {
     "executor": "Gemini",
     "independent_review_required": true,
@@ -14561,6 +14561,150 @@
           "to": "PROMOTED",
           "actor": "GPT-5.6 Sol xhigh independent audit instance",
           "at": "2026-08-29T17:40:08Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-SEEDED-STABILITY-03",
+      "priority": 1,
+      "title": "Replicate seeded fleet stability with live physical route identity",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "config/qualified_model_fleet.json",
+        "workloads/gsm8k.jsonl",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl",
+        "tools/research/run_fleet_regression_screen.py",
+        "tools/research/run_fleet_seeded_stability.py",
+        "tools/research/run_fleet_seeded_stability_r2.py",
+        "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-02/raw/receipt.json",
+        "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-02/REVIEW.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "effective_route",
+        "final_state_binding",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "physical_artifact_identity",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "request_payloads",
+        "service_identity",
+        "service_maintenance",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "route_coverage",
+          "metric": "routes_completed",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_coverage",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 288
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "seeded_stability",
+          "metric": "exact_seeded_repeat_rate",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "request_retention",
+          "metric": "retained_request_payloads",
+          "operator": "eq",
+          "threshold": 288
+        },
+        {
+          "id": "terminal_binding",
+          "metric": "final_runner_state_bound",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "physical_route_coverage",
+          "metric": "physical_routes_bound",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "physical_model_identity",
+          "metric": "physical_model_hash_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "physical_binary_identity",
+          "metric": "physical_binary_hash_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "process_command_identity",
+          "metric": "process_command_identity_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_integrity",
+          "metric": "service_restarts",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_model_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUALIFIED_TEXT_FLEET_SEEDED_PHYSICALLY_BOUND_STABLE_R3",
+        "QUALIFIED_TEXT_FLEET_SEEDED_PHYSICALLY_BOUND_UNSTABLE_R3"
+      ],
+      "forbidden_claims": [
+        "unseeded determinism",
+        "quality superiority",
+        "production promotion",
+        "generalization beyond temperature 0.2 and the frozen panel",
+        "artifact identity inferred only from a gateway alias or registry declaration"
+      ],
+      "next_action": "Run three fresh fixed-seed passes for every qualified text route while capturing each live backend PID, /proc command line, executable hash and loaded GGUF hash before requests, then bind those records into provenance and the terminal receipt.",
+      "supersedes": "BACKLOG-FLEET-SEEDED-STABILITY-02",
+      "state": "IMPLEMENTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T17:56:53Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T17:57:35Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T18:00:31Z"
         }
       ]
     }

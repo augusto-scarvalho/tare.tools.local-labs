@@ -6,6 +6,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added a physical-identity-bound successor for fleet seeded stability. It
+  captures the actual HTTP request argument plus each live backend PID,
+  `/proc` command line, executable SHA-256 and loaded GGUF SHA-256 before
+  inference, directly addressing the independent audit hold on R2.
 - Added a five-packet independent-audit queue for the completed gateway,
   regression, seeded-stability and corrected context successors, with explicit
   false-positive/false-negative review targets and failed-predecessor ordering.
