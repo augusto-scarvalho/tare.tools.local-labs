@@ -1,0 +1,294 @@
+{
+  "schema": "local-labs-experiment-watch-status-v1",
+  "watch_id": "wave-20260829-interference02",
+  "updated_at": "2026-08-29T13:37:48Z",
+  "experiments": [
+    {
+      "task_id": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-02",
+      "pid": 52904,
+      "process_alive": false,
+      "progress": 1,
+      "expected_progress": 1,
+      "pipeline_stage": "IMPLEMENTED",
+      "watch_status": "failed_worker_exit",
+      "harness_terminal": {
+        "present": true,
+        "valid": true,
+        "status": "ABORTED",
+        "task_id": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-02",
+        "sample_count": 72,
+        "errors": []
+      },
+      "worker_exit": {
+        "present": true,
+        "valid": true,
+        "returncode": 1,
+        "timed_out": false,
+        "errors": []
+      },
+      "managed_backlog": true
+    }
+  ],
+  "gpu": {
+    "memory_used_mib": 19526,
+    "memory_free_mib": 4797,
+    "utilization_percent": 6,
+    "temperature_c": 32,
+    "power_w": 37.47
+  },
+  "health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "states": {
+    "BACKLOG-FLEET-CONTEXT-INTERFERENCE-02": {
+      "status": "failed_worker_exit",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-29T13:37:47Z",
+        "receipt_exists": false,
+        "result_exists": false,
+        "stage_before": "IMPLEMENTED",
+        "progress": 1,
+        "expected_progress": 1,
+        "harness_terminal": {
+          "present": true,
+          "valid": true,
+          "status": "ABORTED",
+          "task_id": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-02",
+          "sample_count": 72,
+          "errors": []
+        },
+        "worker_exit": {
+          "present": true,
+          "valid": true,
+          "returncode": 1,
+          "timed_out": false,
+          "errors": []
+        },
+        "managed_backlog": true,
+        "status": "failed_worker_exit"
+      }
+    }
+  },
+  "final": {
+    "schema": "local-labs-experiment-watch-final-v1",
+    "watch_id": "wave-20260829-interference02",
+    "finished_at": "2026-08-29T13:37:48Z",
+    "status": "complete_with_alert",
+    "experiment_mode": true,
+    "states": {
+      "BACKLOG-FLEET-CONTEXT-INTERFERENCE-02": {
+        "status": "failed_worker_exit",
+        "was_seen_alive": true,
+        "finalization": {
+          "at": "2026-08-29T13:37:47Z",
+          "receipt_exists": false,
+          "result_exists": false,
+          "stage_before": "IMPLEMENTED",
+          "progress": 1,
+          "expected_progress": 1,
+          "harness_terminal": {
+            "present": true,
+            "valid": true,
+            "status": "ABORTED",
+            "task_id": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-02",
+            "sample_count": 72,
+            "errors": []
+          },
+          "worker_exit": {
+            "present": true,
+            "valid": true,
+            "returncode": 1,
+            "timed_out": false,
+            "errors": []
+          },
+          "managed_backlog": true,
+          "status": "failed_worker_exit"
+        }
+      }
+    },
+    "pipeline_gate": {
+      "returncode": 0,
+      "stdout": "BACKLOG PIPELINE: PASS",
+      "stderr": ""
+    },
+    "backlog_queue": {
+      "refreshed_at": "2026-08-29T13:37:48Z",
+      "status_returncode": 0,
+      "next_returncode": 0,
+      "valid": true,
+      "priority_rebalance": {
+        "requested": false,
+        "returncode": null,
+        "valid": null,
+        "report": null
+      },
+      "state_counts": {
+        "BLOCKED": 39,
+        "EXECUTED": 20,
+        "IMPLEMENTED": 3,
+        "PROMOTED": 24,
+        "PROPOSED": 1,
+        "REJECTED": 21
+      },
+      "next_candidate": {
+        "id": "BACKLOG-GATEWAY-ROUTE-STRESS-02",
+        "priority": 0,
+        "title": "Rebind retained gateway route stress with semantic success separation",
+        "evidence_class": "serving_runtime",
+        "packet_dir": "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-02",
+        "depends_on": [],
+        "source_artifacts": [
+          "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-01/raw/receipt.json",
+          "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-01/raw/samples.jsonl",
+          "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-01/raw/switches.jsonl",
+          "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-01/raw/effective_route.json",
+          "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-01/raw/service_identity.json",
+          "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md",
+          "config/qualified_model_fleet.json"
+        ],
+        "required_evidence": [
+          "acceptance_gates",
+          "artifact_hashes",
+          "effective_route",
+          "hardware_metrics",
+          "independent_evaluation",
+          "paired_baseline",
+          "provenance",
+          "raw_samples",
+          "receipt_fingerprint",
+          "recovery_state",
+          "service_identity",
+          "source_execution_receipt",
+          "statistical_analysis"
+        ],
+        "acceptance_gates": [
+          {
+            "id": "source_receipt",
+            "metric": "source_receipt_digest_verified",
+            "operator": "eq",
+            "threshold": true
+          },
+          {
+            "id": "immutable_sources",
+            "metric": "final_source_set_immutable",
+            "operator": "eq",
+            "threshold": true
+          },
+          {
+            "id": "switch_coverage",
+            "metric": "recomputed_switches",
+            "operator": "eq",
+            "threshold": 30
+          },
+          {
+            "id": "request_coverage",
+            "metric": "recomputed_requests",
+            "operator": "eq",
+            "threshold": 120
+          },
+          {
+            "id": "transport_integrity",
+            "metric": "http_transport_success_rate",
+            "operator": "eq",
+            "threshold": 1.0
+          },
+          {
+            "id": "route_identity",
+            "metric": "route_alias_match_rate",
+            "operator": "eq",
+            "threshold": 1.0
+          },
+          {
+            "id": "text_content_integrity",
+            "metric": "eligible_text_nonempty_content_rate",
+            "operator": "eq",
+            "threshold": 1.0
+          },
+          {
+            "id": "cycle_repeatability",
+            "metric": "exact_cycle_repeat_rate",
+            "operator": "ge",
+            "threshold": 0.95
+          },
+          {
+            "id": "artifact_table",
+            "metric": "verified_distinct_model_artifacts",
+            "operator": "eq",
+            "threshold": 6
+          },
+          {
+            "id": "gateway_integrity",
+            "metric": "gateway_service_restarts",
+            "operator": "eq",
+            "threshold": 0
+          },
+          {
+            "id": "embedding_integrity",
+            "metric": "embedding_boundary_successes",
+            "operator": "eq",
+            "threshold": 30
+          },
+          {
+            "id": "service_recovery",
+            "metric": "initial_model_restored",
+            "operator": "eq",
+            "threshold": true
+          }
+        ],
+        "allowed_claim_codes": [
+          "QUALIFIED_GATEWAY_ROUTE_TRANSPORT_STRESS_REBOUND_R2",
+          "QUALIFIED_GATEWAY_ROUTE_TRANSPORT_STRESS_NOT_CONFIRMED_R2"
+        ],
+        "forbidden_claims": [
+          "new inference",
+          "vision task success from text-only probes",
+          "semantic success for reasoning-only empty-content responses",
+          "model quality superiority",
+          "multi-resident serving",
+          "reliability beyond the retained 30-switch campaign",
+          "promotion without independent review"
+        ],
+        "next_action": "Recompute the retained 30-switch campaign from immutable final raws, separating HTTP transport and route identity from semantic content eligibility.",
+        "supersedes": "BACKLOG-GATEWAY-ROUTE-STRESS-01",
+        "state": "PROPOSED",
+        "blocker": null,
+        "state_history": [
+          {
+            "from": null,
+            "to": "PROPOSED",
+            "actor": "Codex",
+            "at": "2026-08-29T00:13:22Z"
+          }
+        ],
+        "priority_score": 93.0,
+        "priority_history": [
+          {
+            "from": 1,
+            "to": 0,
+            "score": 93.0,
+            "actor": "Codex portfolio review",
+            "at": "2026-08-29T13:10:37Z",
+            "reason": "Separates transport, effective route identity and semantic eligibility across the retained 30-switch campaign.",
+            "change_trigger": "The audit preserved all 120 responses and isolated semantic-success conflation as the repair target.",
+            "policy_sha256": "7d6b416c2fe75a0bf3be27a4700721a2988010591df4628136f8fdd1c34b3ac5"
+          }
+        ]
+      }
+    },
+    "completion_action": "inspect_alert_before_dispatch",
+    "audit_ready_ids": [],
+    "final_health": {
+      "http://127.0.0.1:8080/health": 200,
+      "http://127.0.0.1:8081/health": 200
+    },
+    "final_gpu": {
+      "memory_used_mib": 19526,
+      "memory_free_mib": 4797,
+      "utilization_percent": 6,
+      "temperature_c": 32,
+      "power_w": 37.47
+    }
+  }
+}

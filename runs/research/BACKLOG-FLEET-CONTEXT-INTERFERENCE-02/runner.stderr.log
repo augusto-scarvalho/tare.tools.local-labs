@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "C:\projects\tare.tools.local-labs\tools\research\run_retained_fleet_rebind_r2.py", line 72, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_retained_fleet_rebind_r2.py", line 66, in main
+    receipt = execute(args.task_id, args.outdir.resolve())
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_retained_fleet_rebind_r2.py", line 54, in execute
+    return base.execute(task_id, outdir)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_retained_fleet_rebind.py", line 306, in execute
+    metrics, analysis = context_metrics(
+                        ^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_retained_fleet_rebind_r2.py", line 26, in context_metrics
+    metrics, analysis = base.context_metrics(rows, cases, registry, artifacts, generator)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_retained_fleet_rebind_r2.py", line 26, in context_metrics
+    metrics, analysis = base.context_metrics(rows, cases, registry, artifacts, generator)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_retained_fleet_rebind_r2.py", line 26, in context_metrics
+    metrics, analysis = base.context_metrics(rows, cases, registry, artifacts, generator)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  [Previous line repeated 993 more times]
+RecursionError: maximum recursion depth exceeded

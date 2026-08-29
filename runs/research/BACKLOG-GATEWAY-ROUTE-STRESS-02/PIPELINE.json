@@ -3,18 +3,42 @@
   "task_id": "BACKLOG-GATEWAY-ROUTE-STRESS-02",
   "evidence_class": "serving_runtime",
   "executor": "Codex executor",
-  "stage": "PROPOSED",
+  "stage": "IMPLEMENTED",
   "state_history": [
     {
       "from": null,
       "to": "PROPOSED",
       "actor": "Codex",
       "at": "2026-08-29T00:13:22Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T13:38:24Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T13:38:24Z"
     }
   ],
-  "preregistration": {},
-  "implementation": [],
-  "implementation_digest": null,
+  "preregistration": {
+    "path": "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-02/PRE_REGISTRATION.md",
+    "sha256": "aa11d4fd4d83811de87b14b91296d6804a8bb5ed4c0669e614a2f9c2c41df35e"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_retained_fleet_rebind_r2.py",
+      "sha256": "5a697984750d9dc5a23f13ba51c2c842c5697fc284b2bfb1163360cda029b8b8"
+    },
+    {
+      "path": "tools/research/run_retained_fleet_rebind_r2.py",
+      "sha256": "9e0938c01f3ffa3358c2fb8114955ee360eacc5beea9d00e5627ffcc0b4bfd5b"
+    }
+  ],
+  "implementation_digest": "30178fb52f06a8f97db36faef62ca1a28dc6db35838b2b1697c80f2b004f7753",
   "execution": {},
   "result": {},
   "review": {},

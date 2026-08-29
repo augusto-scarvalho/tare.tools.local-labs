@@ -1,6 +1,6 @@
 {
   "schema": "local-labs-backlog-v1",
-  "updated_at": "2026-08-29T13:37:21Z",
+  "updated_at": "2026-08-29T13:38:24Z",
   "policy": {
     "executor": "Gemini",
     "independent_review_required": true,
@@ -13678,8 +13678,8 @@
       ],
       "next_action": "Reconstruct and recompute all 72 retained hard-decoy rows from an immutable final source set without rerunning model inference.",
       "supersedes": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-01",
-      "state": "IMPLEMENTED",
-      "blocker": null,
+      "state": "BLOCKED",
+      "blocker": "R2 wrapper aborted before receipt due recursive context function substitution; preserve terminal evidence and replace with versioned successor",
       "state_history": [
         {
           "from": null,
@@ -13750,6 +13750,13 @@
           "to": "IMPLEMENTED",
           "actor": "Codex executor",
           "at": "2026-08-29T13:37:21Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:38:23Z",
+          "reason": "R2 wrapper aborted before receipt due recursive context function substitution; preserve terminal evidence and replace with versioned successor"
         }
       ],
       "priority_score": 98.0,
@@ -13886,7 +13893,7 @@
       ],
       "next_action": "Recompute the retained 30-switch campaign from immutable final raws, separating HTTP transport and route identity from semantic content eligibility.",
       "supersedes": "BACKLOG-GATEWAY-ROUTE-STRESS-01",
-      "state": "PROPOSED",
+      "state": "IMPLEMENTED",
       "blocker": null,
       "state_history": [
         {
@@ -13894,6 +13901,18 @@
           "to": "PROPOSED",
           "actor": "Codex",
           "at": "2026-08-29T00:13:22Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:38:24Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:38:24Z"
         }
       ],
       "priority_score": 93.0,

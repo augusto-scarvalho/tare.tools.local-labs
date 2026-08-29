@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-02",
   "evidence_class": "serving_runtime",
   "executor": "Codex executor",
-  "stage": "IMPLEMENTED",
+  "stage": "BLOCKED",
   "state_history": [
     {
       "from": null,
@@ -74,6 +74,13 @@
       "to": "IMPLEMENTED",
       "actor": "Codex executor",
       "at": "2026-08-29T13:37:21Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T13:38:23Z",
+      "reason": "R2 wrapper aborted before receipt due recursive context function substitution; preserve terminal evidence and replace with versioned successor"
     }
   ],
   "preregistration": {
