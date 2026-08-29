@@ -83,9 +83,9 @@ change. Direct state edits remain forbidden. Live validation on 2026-08-29 found
 | --- | ---: |
 | `PROMOTED` | 28 |
 | `REJECTED` | 21 |
-| `EXECUTED` | 22 |
+| `EXECUTED` | 23 |
 | `BLOCKED` | 40 |
-| `IMPLEMENTED` | 3 |
+| `IMPLEMENTED` | 2 |
 
 The 21 `EXECUTED` records include preserved HOLD/superseded evidence from prior
 audit waves. Their presence is not authority to rerun or promote them. The two
@@ -176,11 +176,14 @@ must freeze every packet at `IMPLEMENTED` and run through the watched-wave
 supervisor. The executor and watcher stop at `EXECUTED`; only the independent
 auditor may promote, reject or place a bounded hold.
 
-`BACKLOG-FLEET-SEEDED-STABILITY-04` is the admitted, preregistered and
-`IMPLEMENTED` successor for those two blockers. Its frozen binary ledger is
+`BACKLOG-FLEET-SEEDED-STABILITY-04` is the `EXECUTED`, audit-ready successor for
+those two blockers. Its frozen binary ledger is
 `config/fleet_runtime_binary_identities_2026-08-29.json`; its runner excludes
 route canaries, pairs the HTTP argument to the returned response ID, preserves
-that request without reconstruction and requires a drained capture queue.
+that request without reconstruction and requires a drained capture queue. The
+watched run recorded 288/288 request-hash and response-ID matches, 192/192 exact
+seeded comparisons, four exact binary/GGUF bindings, zero restarts and restored
+`qwen38`; these remain executor observations pending independent review.
 
 ## Operational baseline at handoff
 

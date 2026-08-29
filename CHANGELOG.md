@@ -126,6 +126,11 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Changed
 
+- Executed seeded-stability R4 through the watcher. All 288 experimental calls
+  have self-consistent request hashes and response-ID bindings, the capture
+  queue drained to zero, all four executables and GGUFs matched frozen
+  identities, 192/192 seeded pairs matched and the service baseline recovered;
+  the packet remains `EXECUTED` pending independent review.
 - Executed the physical-identity-bound seeded stability successor through the
   watched launcher: 288/288 HTTP-argument payloads were retained, 192/192
   seeded pairs matched, all four live routes matched process, executable and

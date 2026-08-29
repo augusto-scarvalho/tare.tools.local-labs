@@ -1,0 +1,402 @@
+{
+  "schema": "local-labs-physical-route-identity-v1",
+  "captured_before_requests": true,
+  "routes": [
+    {
+      "model": "qwen38",
+      "gateway": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "qwen38",
+        "requested_name": "qwen38",
+        "backend_healthy": true,
+        "backend_pid": 156655,
+        "backend_port": 18080,
+        "last_switch_seconds": 12.10467199300183,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "process": {
+        "pid": 156655,
+        "exe": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+        "argv": [
+          "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+          "-m",
+          "/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf",
+          "--alias",
+          "qwen38",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "18080",
+          "--ctx-size",
+          "32768",
+          "--flash-attn",
+          "on",
+          "--gpu-layers",
+          "all",
+          "--metrics",
+          "--jinja",
+          "--no-mmproj",
+          "--cache-type-k",
+          "q4_0",
+          "--cache-type-v",
+          "q4_0",
+          "--parallel",
+          "1",
+          "--batch-size",
+          "2048",
+          "--ubatch-size",
+          "512",
+          "--ctx-checkpoints",
+          "32",
+          "--spec-type",
+          "draft-mtp",
+          "--spec-draft-n-max",
+          "3"
+        ]
+      },
+      "binary": {
+        "declared_path": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+        "resolved_path": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+        "bytes": 17920,
+        "sha256": "efb2f06c19d26605a1934c0a9ed5b65dd69034e8765f2d29d0426b7a011cfbe2"
+      },
+      "artifact": {
+        "declared_path": "/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf",
+        "resolved_path": "/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf",
+        "bytes": 17923394624,
+        "sha256": "bee238bbeb3dc0a34bde4d0dedbaee1f98c009e8bb4226f03070054c12fb1372"
+      },
+      "expected": {
+        "binary": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+        "artifact_path": "/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf",
+        "artifact_sha256": "bee238bbeb3dc0a34bde4d0dedbaee1f98c009e8bb4226f03070054c12fb1372",
+        "artifact_bytes": 17923394624,
+        "binary_identity": {
+          "bytes": 17920,
+          "sha256": "efb2f06c19d26605a1934c0a9ed5b65dd69034e8765f2d29d0426b7a011cfbe2"
+        }
+      },
+      "checks": {
+        "gateway_alias_match": true,
+        "gateway_backend_healthy": true,
+        "backend_pid_match": true,
+        "command_alias_match": true,
+        "command_model_path_match": true,
+        "process_executable_path_match": true,
+        "model_hash_match": true,
+        "model_bytes_match": true,
+        "binary_hash_present": true,
+        "command_model_matches_hashed_path": true,
+        "process_executable_matches_hashed_path": true,
+        "binary_identity_frozen": true,
+        "binary_hash_match": true,
+        "binary_bytes_match": true
+      },
+      "pass": true
+    },
+    {
+      "model": "hauhaucs",
+      "gateway": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "hauhaucs",
+        "requested_name": "hauhaucs",
+        "backend_healthy": true,
+        "backend_pid": 157098,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.533248040010221,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "process": {
+        "pid": 157098,
+        "exe": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+        "argv": [
+          "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+          "-m",
+          "/home/augus/models/qwen38-27b/hauhaucs-aggressive-993a5971/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-Q4_K_P.gguf",
+          "--alias",
+          "hauhaucs",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "18080",
+          "--ctx-size",
+          "32768",
+          "--flash-attn",
+          "on",
+          "--gpu-layers",
+          "all",
+          "--metrics",
+          "--jinja",
+          "--no-mmproj",
+          "--cache-type-k",
+          "q4_0",
+          "--cache-type-v",
+          "q4_0",
+          "--parallel",
+          "1",
+          "--batch-size",
+          "2048",
+          "--ubatch-size",
+          "512",
+          "--ctx-checkpoints",
+          "32",
+          "--spec-type",
+          "draft-mtp",
+          "--spec-draft-n-max",
+          "3"
+        ]
+      },
+      "binary": {
+        "declared_path": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+        "resolved_path": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+        "bytes": 17920,
+        "sha256": "efb2f06c19d26605a1934c0a9ed5b65dd69034e8765f2d29d0426b7a011cfbe2"
+      },
+      "artifact": {
+        "declared_path": "/home/augus/models/qwen38-27b/hauhaucs-aggressive-993a5971/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-Q4_K_P.gguf",
+        "resolved_path": "/home/augus/models/qwen38-27b/hauhaucs-aggressive-993a5971/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-Q4_K_P.gguf",
+        "bytes": 17923393664,
+        "sha256": "ba36dc3c2b2ff5e0aa5d71092a8894546996a6a119ae391803dda07cdc08516d"
+      },
+      "expected": {
+        "binary": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+        "artifact_path": "/home/augus/models/qwen38-27b/hauhaucs-aggressive-993a5971/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-Q4_K_P.gguf",
+        "artifact_sha256": "ba36dc3c2b2ff5e0aa5d71092a8894546996a6a119ae391803dda07cdc08516d",
+        "artifact_bytes": 17923393664,
+        "binary_identity": {
+          "bytes": 17920,
+          "sha256": "efb2f06c19d26605a1934c0a9ed5b65dd69034e8765f2d29d0426b7a011cfbe2"
+        }
+      },
+      "checks": {
+        "gateway_alias_match": true,
+        "gateway_backend_healthy": true,
+        "backend_pid_match": true,
+        "command_alias_match": true,
+        "command_model_path_match": true,
+        "process_executable_path_match": true,
+        "model_hash_match": true,
+        "model_bytes_match": true,
+        "binary_hash_present": true,
+        "command_model_matches_hashed_path": true,
+        "process_executable_matches_hashed_path": true,
+        "binary_identity_frozen": true,
+        "binary_hash_match": true,
+        "binary_bytes_match": true
+      },
+      "pass": true
+    },
+    {
+      "model": "fable-tc",
+      "gateway": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "fable-tc",
+        "requested_name": "fable-tc",
+        "backend_healthy": true,
+        "backend_pid": 157251,
+        "backend_port": 18080,
+        "last_switch_seconds": 11.53868150501512,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "process": {
+        "pid": 157251,
+        "exe": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+        "argv": [
+          "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+          "-m",
+          "/home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf",
+          "--alias",
+          "fable-tc",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "18080",
+          "--ctx-size",
+          "8192",
+          "--flash-attn",
+          "on",
+          "--gpu-layers",
+          "all",
+          "--metrics",
+          "--jinja",
+          "--parallel",
+          "1",
+          "--spec-type",
+          "draft-mtp",
+          "--spec-draft-n-max",
+          "4"
+        ]
+      },
+      "binary": {
+        "declared_path": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+        "resolved_path": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+        "bytes": 17920,
+        "sha256": "5719c246ec3622ea1df3c3f498075879f12f1f70b969f8b591e87b3a1f3c8808"
+      },
+      "artifact": {
+        "declared_path": "/home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf",
+        "resolved_path": "/home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf",
+        "bytes": 16810714400,
+        "sha256": "052c08ca13d75d8d88c9cc3f201d7bfa9167e2a1e69ad3e1e1f26ff73c1b390b"
+      },
+      "expected": {
+        "binary": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+        "artifact_path": "/home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf",
+        "artifact_sha256": "052c08ca13d75d8d88c9cc3f201d7bfa9167e2a1e69ad3e1e1f26ff73c1b390b",
+        "artifact_bytes": 16810714400,
+        "binary_identity": {
+          "bytes": 17920,
+          "sha256": "5719c246ec3622ea1df3c3f498075879f12f1f70b969f8b591e87b3a1f3c8808"
+        }
+      },
+      "checks": {
+        "gateway_alias_match": true,
+        "gateway_backend_healthy": true,
+        "backend_pid_match": true,
+        "command_alias_match": true,
+        "command_model_path_match": true,
+        "process_executable_path_match": true,
+        "model_hash_match": true,
+        "model_bytes_match": true,
+        "binary_hash_present": true,
+        "command_model_matches_hashed_path": true,
+        "process_executable_matches_hashed_path": true,
+        "binary_identity_frozen": true,
+        "binary_hash_match": true,
+        "binary_bytes_match": true
+      },
+      "pass": true
+    },
+    {
+      "model": "qwen36-moe",
+      "gateway": {
+        "status": "ok",
+        "role": "qualified-model-gateway",
+        "current_model": "qwen36-moe",
+        "requested_name": "qwen36-moe",
+        "backend_healthy": true,
+        "backend_pid": 157430,
+        "backend_port": 18080,
+        "last_switch_seconds": 14.5389973790152,
+        "last_error": null,
+        "max_resident_models": 1,
+        "available_models": [
+          "fable-tc",
+          "gemma-vision",
+          "hauhaucs",
+          "muse-vision",
+          "qwen36-moe",
+          "qwen38"
+        ]
+      },
+      "process": {
+        "pid": 157430,
+        "exe": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+        "argv": [
+          "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+          "-m",
+          "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+          "--alias",
+          "qwen36-moe",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "18080",
+          "--ctx-size",
+          "73728",
+          "--flash-attn",
+          "on",
+          "--gpu-layers",
+          "all",
+          "--n-cpu-moe",
+          "8",
+          "--metrics",
+          "--jinja",
+          "--parallel",
+          "4",
+          "--cache-type-k",
+          "q8_0",
+          "--cache-type-v",
+          "q8_0",
+          "--batch-size",
+          "2048",
+          "--ubatch-size",
+          "2048",
+          "--spec-type",
+          "draft-mtp",
+          "--spec-draft-n-max",
+          "4"
+        ]
+      },
+      "binary": {
+        "declared_path": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+        "resolved_path": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+        "bytes": 17920,
+        "sha256": "5719c246ec3622ea1df3c3f498075879f12f1f70b969f8b591e87b3a1f3c8808"
+      },
+      "artifact": {
+        "declared_path": "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+        "resolved_path": "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+        "bytes": 22663387424,
+        "sha256": "0b21525e972670ed59e1812e170b27c26355381f0656ecc4e25617ece7dac58b"
+      },
+      "expected": {
+        "binary": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+        "artifact_path": "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+        "artifact_sha256": "0b21525e972670ed59e1812e170b27c26355381f0656ecc4e25617ece7dac58b",
+        "artifact_bytes": 22663387424,
+        "binary_identity": {
+          "bytes": 17920,
+          "sha256": "5719c246ec3622ea1df3c3f498075879f12f1f70b969f8b591e87b3a1f3c8808"
+        }
+      },
+      "checks": {
+        "gateway_alias_match": true,
+        "gateway_backend_healthy": true,
+        "backend_pid_match": true,
+        "command_alias_match": true,
+        "command_model_path_match": true,
+        "process_executable_path_match": true,
+        "model_hash_match": true,
+        "model_bytes_match": true,
+        "binary_hash_present": true,
+        "command_model_matches_hashed_path": true,
+        "process_executable_matches_hashed_path": true,
+        "binary_identity_frozen": true,
+        "binary_hash_match": true,
+        "binary_bytes_match": true
+      },
+      "pass": true
+    }
+  ]
+}

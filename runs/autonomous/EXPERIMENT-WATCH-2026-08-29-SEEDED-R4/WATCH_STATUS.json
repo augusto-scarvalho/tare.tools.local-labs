@@ -1,0 +1,177 @@
+{
+  "schema": "local-labs-experiment-watch-status-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-29-SEEDED-R4",
+  "updated_at": "2026-08-29T18:49:29Z",
+  "experiments": [
+    {
+      "task_id": "BACKLOG-FLEET-SEEDED-STABILITY-04",
+      "pid": 46792,
+      "process_alive": false,
+      "progress": 288,
+      "progress_mode": "jsonl_lines",
+      "expected_progress": 288,
+      "pipeline_stage": "EXECUTED",
+      "watch_status": "executed_valid",
+      "harness_terminal": {
+        "present": false,
+        "valid": null,
+        "status": null,
+        "errors": []
+      },
+      "worker_exit": {
+        "present": true,
+        "valid": true,
+        "returncode": 0,
+        "timed_out": false,
+        "errors": []
+      },
+      "managed_backlog": true
+    }
+  ],
+  "gpu": {
+    "memory_used_mib": 19539,
+    "memory_free_mib": 4784,
+    "utilization_percent": 8,
+    "temperature_c": 38,
+    "power_w": 39.18
+  },
+  "health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "states": {
+    "BACKLOG-FLEET-SEEDED-STABILITY-04": {
+      "status": "executed_valid",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-29T18:49:27Z",
+        "receipt_exists": true,
+        "result_exists": true,
+        "stage_before": "EXECUTED",
+        "progress": 288,
+        "progress_mode": "jsonl_lines",
+        "expected_progress": 288,
+        "harness_terminal": {
+          "present": false,
+          "valid": null,
+          "status": null,
+          "errors": []
+        },
+        "worker_exit": {
+          "present": true,
+          "valid": true,
+          "returncode": 0,
+          "timed_out": false,
+          "errors": []
+        },
+        "managed_backlog": true,
+        "advance": {
+          "returncode": 0,
+          "stdout": "already EXECUTED",
+          "stderr": ""
+        },
+        "stage_after": "EXECUTED",
+        "gate": {
+          "returncode": 0,
+          "stdout": "BACKLOG PIPELINE: PASS",
+          "stderr": ""
+        },
+        "status": "executed_valid"
+      }
+    }
+  },
+  "final": {
+    "schema": "local-labs-experiment-watch-final-v1",
+    "watch_id": "EXPERIMENT-WATCH-2026-08-29-SEEDED-R4",
+    "finished_at": "2026-08-29T18:49:29Z",
+    "status": "complete",
+    "experiment_mode": true,
+    "states": {
+      "BACKLOG-FLEET-SEEDED-STABILITY-04": {
+        "status": "executed_valid",
+        "was_seen_alive": true,
+        "finalization": {
+          "at": "2026-08-29T18:49:27Z",
+          "receipt_exists": true,
+          "result_exists": true,
+          "stage_before": "EXECUTED",
+          "progress": 288,
+          "progress_mode": "jsonl_lines",
+          "expected_progress": 288,
+          "harness_terminal": {
+            "present": false,
+            "valid": null,
+            "status": null,
+            "errors": []
+          },
+          "worker_exit": {
+            "present": true,
+            "valid": true,
+            "returncode": 0,
+            "timed_out": false,
+            "errors": []
+          },
+          "managed_backlog": true,
+          "advance": {
+            "returncode": 0,
+            "stdout": "already EXECUTED",
+            "stderr": ""
+          },
+          "stage_after": "EXECUTED",
+          "gate": {
+            "returncode": 0,
+            "stdout": "BACKLOG PIPELINE: PASS",
+            "stderr": ""
+          },
+          "status": "executed_valid"
+        }
+      }
+    },
+    "pipeline_gate": {
+      "returncode": 0,
+      "stdout": "BACKLOG PIPELINE: PASS",
+      "stderr": ""
+    },
+    "backlog_queue": {
+      "refreshed_at": "2026-08-29T18:49:29Z",
+      "status_returncode": 0,
+      "next_returncode": 0,
+      "valid": true,
+      "priority_rebalance": {
+        "requested": true,
+        "returncode": 0,
+        "valid": true,
+        "report": {
+          "mode": "apply",
+          "policy_sha256": "7d6b416c2fe75a0bf3be27a4700721a2988010591df4628136f8fdd1c34b3ac5",
+          "assessed_count": 3,
+          "change_count": 0,
+          "applied_ids": []
+        }
+      },
+      "state_counts": {
+        "BLOCKED": 40,
+        "EXECUTED": 23,
+        "IMPLEMENTED": 2,
+        "PROMOTED": 28,
+        "REJECTED": 21
+      },
+      "next_candidate": null
+    },
+    "completion_action": "notify_queue_empty",
+    "audit_ready_ids": [
+      "BACKLOG-FLEET-SEEDED-STABILITY-04"
+    ],
+    "final_health": {
+      "http://127.0.0.1:8080/health": 200,
+      "http://127.0.0.1:8081/health": 200
+    },
+    "final_gpu": {
+      "memory_used_mib": 19539,
+      "memory_free_mib": 4784,
+      "utilization_percent": 8,
+      "temperature_c": 38,
+      "power_w": 39.18
+    }
+  }
+}
