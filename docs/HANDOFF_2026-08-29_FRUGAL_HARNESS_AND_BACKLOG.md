@@ -81,13 +81,13 @@ change. Direct state edits remain forbidden. Live validation on 2026-08-29 found
 
 | State | Count |
 | --- | ---: |
-| `PROMOTED` | 29 |
+| `PROMOTED` | 30 |
 | `REJECTED` | 21 |
-| `EXECUTED` | 23 |
+| `EXECUTED` | 22 |
 | `BLOCKED` | 40 |
 | `IMPLEMENTED` | 2 |
 
-The 21 `EXECUTED` records include preserved HOLD/superseded evidence from prior
+The 22 `EXECUTED` records include preserved HOLD/superseded evidence from prior
 audit waves. Their presence is not authority to rerun or promote them. The two
 historical `IMPLEMENTED` SLX-03 build packets are displaced by reviewed
 successors and must not be relaunched merely because they are nonterminal.
@@ -187,14 +187,19 @@ bindings, zero restarts and restored `qwen38`. The claim is limited to seeded
 stability on this frozen panel and artifact set; 126/192 math responses were
 truncated, so no quality or unseeded-determinism claim follows.
 
-`BACKLOG-SLX11-OFFICIAL-HYBRID-02` is now `EXECUTED` and audit-ready. It repairs
-the official-hybrid R1 audit hold by retaining all 24 next-token logits vectors
-in an 11.9 MiB safetensors bundle and scoring them from a separate, frozen
-reader. Executor gates report 24/24 topology matches, 18 recurrent plus six
-full-attention layers, 24/24 finite tensor projections and unchanged serving.
-The only eligible conclusion is bounded artifact/topology plus finite-forward
-qualification; historical 4.49x speed, recall, quality and production claims
-remain forbidden until and after review.
+`BACKLOG-SLX11-OFFICIAL-HYBRID-02` is independently `PROMOTED`. It repairs the
+official-hybrid R1 audit hold by retaining all 24 next-token logits vectors in
+an 11.9 MiB safetensors bundle and scoring them from a separate, frozen reader.
+The auditor reopened that bundle directly and reproduced 24 exact BF16 tensors
+of shape `[1, 248320]`, zero nonfinite values, every min/max/argmax/SHA
+projection, 24 distinct tensor hashes, the official five-file checkpoint and
+the physical 18 recurrent plus six full-attention topology. The constant
+argmax token 271 in all 24 forwards reinforces the narrow boundary: claim
+`SLX11_OFFICIAL_HYBRID_ARTIFACT_QUALIFIED_WITH_LOGITS_R2` establishes artifact
+identity, topology and finite next-token smoke only. Historical 4.49x speed,
+recall, generation quality, dense superiority and production claims remain
+forbidden. Receipt SHA is `97a761d5...7196f`; review SHA is
+`ad4a3979...44de1`; the full repository suite is 400 passing tests.
 
 ## Operational baseline at handoff
 
@@ -204,8 +209,9 @@ remain forbidden until and after review.
   route without service restart; exact hardware identity remains in each raw
   receipt rather than this prose handoff.
 - No Windows Python process matching the launcher or watcher was active.
-- Four closeout packets are independently promoted with bounded claims; seeded
-  stability remains `EXECUTED` under a physical-identity hold.
+- Four closeout packets, seeded-stability R4 and SLX11 R2 are independently
+  promoted with bounded claims; the superseded seeded-stability R2/R3 packets
+  remain `EXECUTED` as immutable hold evidence.
 
 ## Non-negotiable boundaries
 

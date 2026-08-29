@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-SLX11-OFFICIAL-HYBRID-02",
   "evidence_class": "artifact_requalification",
   "executor": "Codex continuous executor",
-  "stage": "EXECUTED",
+  "stage": "PROMOTED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,18 @@
       "to": "EXECUTED",
       "actor": "Codex executor watcher",
       "at": "2026-08-29T19:09:30Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T19:15:17Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T19:15:21Z"
     }
   ],
   "preregistration": {
@@ -57,7 +69,15 @@
     "path": "runs/research/BACKLOG-SLX11-OFFICIAL-HYBRID-02/raw/receipt.json",
     "sha256": "97a761d5b28fa24f1423e129c02d1b1f6366462cbe521d33b3dc9829ef37196f"
   },
-  "result": {},
-  "review": {},
-  "claim_codes": []
+  "result": {
+    "path": "runs/research/BACKLOG-SLX11-OFFICIAL-HYBRID-02/RESULT.md",
+    "sha256": "6afab9cad3c8cf1a06ab1a15b8ca514244494b531d82e37ba486022a05904ba4"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-SLX11-OFFICIAL-HYBRID-02/REVIEW.json",
+    "sha256": "ad4a3979f9e0d1673a903b82a404009c56731c1c26a10c43e2e1acb59ea44de1"
+  },
+  "claim_codes": [
+    "SLX11_OFFICIAL_HYBRID_ARTIFACT_QUALIFIED_WITH_LOGITS_R2"
+  ]
 }

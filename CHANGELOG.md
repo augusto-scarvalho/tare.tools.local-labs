@@ -129,10 +129,18 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Changed
 
+- Independently audited and promoted SLX11 official-hybrid R2. Direct reopening
+  of the retained 11.9 MiB bundle reproduced all 24 BF16 `[1, 248320]` tensors,
+  zero nonfinite values, 24 distinct tensor hashes, exact projections, the
+  official checkpoint and the physical 18 recurrent/6 attention topology. The
+  claim remains limited to artifact identity, topology and finite next-token
+  forwards; constant argmax 271/24 explicitly excludes quality, speed and
+  recall conclusions.
 - Executed SLX11 official-hybrid R2 without mutating the serving baseline. The
   11.9 MiB retained bundle contains 24 full next-token logits vectors; a
   separate scorer reproduced 24/24 shapes, argmax values and tensor hashes with
-  zero nonfinite values. The packet stops at `EXECUTED` pending review.
+  zero nonfinite values. The immutable execution packet subsequently passed
+  independent review.
 - Executed seeded-stability R4 through the watcher. All 288 experimental calls
   have self-consistent request hashes and response-ID bindings, the capture
   queue drained to zero, all four executables and GGUFs matched frozen
