@@ -1,0 +1,78 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-SLX08-REAL-FIDELITY-02",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "actual_qkv_coverage": {
+      "metric": "actual_qkv_cells",
+      "operator": "ge",
+      "threshold": 12,
+      "actual": null,
+      "pass": null
+    },
+    "no_synthetic_decisive_tensors": {
+      "metric": "all_decisive_tensors_from_frozen_model",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "computed_indices_used": {
+      "metric": "computed_top_block_indices_materially_used",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "context_bundle_coverage": {
+      "metric": "retained_context_cells",
+      "operator": "eq",
+      "threshold": 12,
+      "actual": null,
+      "pass": null
+    },
+    "context_projection_match": {
+      "metric": "recomputed_projection_match_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "fidelity": {
+      "metric": "recomputed_median_selected_block_context_cosine",
+      "operator": "ge",
+      "threshold": 0.95,
+      "actual": null,
+      "pass": null
+    },
+    "service_recovery": {
+      "metric": "service_and_embedding_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "context_bundle": null,
+    "context_evaluation": null,
+    "dataset_hashes": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "model_hash": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "real_implementation": null,
+    "receipt_fingerprint": null,
+    "scorer_hashes": null,
+    "semantic_parity": null,
+    "service_maintenance": null,
+    "tensor_identity": null,
+    "treatment_materiality": null
+  },
+  "receipt_fingerprint": null
+}

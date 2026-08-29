@@ -1,6 +1,6 @@
 {
   "schema": "local-labs-backlog-v1",
-  "updated_at": "2026-08-29T19:15:21Z",
+  "updated_at": "2026-08-29T19:22:49Z",
   "policy": {
     "executor": "Gemini",
     "independent_review_required": true,
@@ -15037,6 +15037,121 @@
           "to": "PROMOTED",
           "actor": "GPT-5.6 Sol xhigh independent audit instance",
           "at": "2026-08-29T19:15:21Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX08-REAL-FIDELITY-02",
+      "priority": 0,
+      "title": "Requalify corrected SLX-08 fidelity with retained context vectors",
+      "evidence_class": "proxy_realization",
+      "packet_dir": "runs/research/BACKLOG-SLX08-REAL-FIDELITY-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-SLX08-REAL-FIDELITY-01/raw/receipt.json",
+        "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md",
+        "tools/research/run_slx08_real_fidelity.py",
+        "tools/research/slx08_real_fidelity_worker.py",
+        "workloads/gsm8k.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "context_bundle",
+        "context_evaluation",
+        "dataset_hashes",
+        "hardware_metrics",
+        "independent_evaluation",
+        "model_hash",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "semantic_parity",
+        "service_maintenance",
+        "tensor_identity",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "actual_qkv_coverage",
+          "metric": "actual_qkv_cells",
+          "operator": "ge",
+          "threshold": 12
+        },
+        {
+          "id": "no_synthetic_decisive_tensors",
+          "metric": "all_decisive_tensors_from_frozen_model",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "computed_indices_used",
+          "metric": "computed_top_block_indices_materially_used",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "context_bundle_coverage",
+          "metric": "retained_context_cells",
+          "operator": "eq",
+          "threshold": 12
+        },
+        {
+          "id": "context_projection_match",
+          "metric": "recomputed_projection_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "fidelity",
+          "metric": "recomputed_median_selected_block_context_cosine",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX08_FIDELITY_FALSE_NEGATIVE_WITH_RETAINED_CONTEXTS_R2",
+        "SLX08_FIDELITY_NEGATIVE_WITH_RETAINED_CONTEXTS_R2"
+      ],
+      "forbidden_claims": [
+        "TTFT acceleration",
+        "serving-runtime integration",
+        "production qualification",
+        "causal attribution solely to computed indices",
+        "generalization beyond the frozen 12 cells",
+        "language-model quality"
+      ],
+      "next_action": "Repeat the frozen 12 real-Qwen cells, retain dense, corrected and legacy attention-context vectors plus selected indices in a digest-bound bundle, independently reopen the bundle and recompute every fidelity projection, while preserving the serving baseline.",
+      "supersedes": "BACKLOG-SLX08-REAL-FIDELITY-01",
+      "state": "IMPLEMENTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T19:18:26Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T19:19:09Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T19:22:49Z"
         }
       ]
     }

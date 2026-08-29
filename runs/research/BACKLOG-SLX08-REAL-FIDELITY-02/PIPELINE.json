@@ -1,0 +1,54 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX08-REAL-FIDELITY-02",
+  "evidence_class": "proxy_realization",
+  "executor": "Codex continuous executor",
+  "stage": "IMPLEMENTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T19:18:26Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T19:19:09Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T19:22:49Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX08-REAL-FIDELITY-02/PRE_REGISTRATION.md",
+    "sha256": "ec0e1024a0a8995e5d977b1d72ebd97804dc62503089d3db58a562d4608cd117"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_slx08_real_fidelity_r2.py",
+      "sha256": "80e7e969e1a58354ba984419cc55516ea50f5efffc1518f21abce6ce0af011db"
+    },
+    {
+      "path": "tools/research/run_slx08_real_fidelity_r2.py",
+      "sha256": "e794d6db2cb07391bed1300546e837bc4ad91791219df2d61ae6737b37d46f49"
+    },
+    {
+      "path": "tools/research/slx08_context_scorer.py",
+      "sha256": "37d5d808e317494293bcbb3933ec25107a72526dcb238d8f280ac9bf2ca8e995"
+    },
+    {
+      "path": "tools/research/slx08_real_fidelity_worker_r2.py",
+      "sha256": "5c4f966e95baf572e4e1942098b80a6be0a3d9c53de636ca43df37da41fd91ed"
+    }
+  ],
+  "implementation_digest": "3a2a36a5d1145117a45e6cbf630fc90613c4f9aa6677580ba5646ed3410f95a9",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}
