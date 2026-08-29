@@ -1,0 +1,46 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-04",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex executor",
+  "stage": "IMPLEMENTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex",
+      "at": "2026-08-29T00:13:20Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T13:33:26Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T13:33:27Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-04/PRE_REGISTRATION.md",
+    "sha256": "8519ba3c875407511a65c6ca87a61e2ea21c8efb220837ee38aea4d38f19d09d"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_retained_fleet_rebind.py",
+      "sha256": "280ebf2c8eeda8e10c7970fb77d843ddad0a9fa7666c079396572e6ed26aa827"
+    },
+    {
+      "path": "tools/research/run_retained_fleet_rebind.py",
+      "sha256": "d71107d55876cd3e9f0e9d8602c6ec5e42f513577af56a34e0cd64c2ec0acc68"
+    }
+  ],
+  "implementation_digest": "7006e3bfe4878be1497e9701db14e9cf1ef4f834599ac4b6a57075b58afb8a1b",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

@@ -1,0 +1,108 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-GATEWAY-ROUTE-STRESS-02",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "source_receipt": {
+      "metric": "source_receipt_digest_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "immutable_sources": {
+      "metric": "final_source_set_immutable",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "switch_coverage": {
+      "metric": "recomputed_switches",
+      "operator": "eq",
+      "threshold": 30,
+      "actual": null,
+      "pass": null
+    },
+    "request_coverage": {
+      "metric": "recomputed_requests",
+      "operator": "eq",
+      "threshold": 120,
+      "actual": null,
+      "pass": null
+    },
+    "transport_integrity": {
+      "metric": "http_transport_success_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "route_identity": {
+      "metric": "route_alias_match_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "text_content_integrity": {
+      "metric": "eligible_text_nonempty_content_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "cycle_repeatability": {
+      "metric": "exact_cycle_repeat_rate",
+      "operator": "ge",
+      "threshold": 0.95,
+      "actual": null,
+      "pass": null
+    },
+    "artifact_table": {
+      "metric": "verified_distinct_model_artifacts",
+      "operator": "eq",
+      "threshold": 6,
+      "actual": null,
+      "pass": null
+    },
+    "gateway_integrity": {
+      "metric": "gateway_service_restarts",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "embedding_integrity": {
+      "metric": "embedding_boundary_successes",
+      "operator": "eq",
+      "threshold": 30,
+      "actual": null,
+      "pass": null
+    },
+    "service_recovery": {
+      "metric": "initial_model_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "artifact_hashes": null,
+    "effective_route": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "recovery_state": null,
+    "service_identity": null,
+    "source_execution_receipt": null,
+    "statistical_analysis": null
+  },
+  "receipt_fingerprint": null
+}
