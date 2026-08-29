@@ -1,0 +1,28 @@
+{
+  "schema": "local-labs-experiment-watch-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-29-SEEDED-R3",
+  "experiment_mode": true,
+  "poll_seconds": 300,
+  "service_settle_seconds": 180,
+  "experiments": [
+    {
+      "task_id": "BACKLOG-FLEET-SEEDED-STABILITY-03",
+      "pid": 28708,
+      "packet_dir": "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-03",
+      "progress_glob": "raw/samples.jsonl",
+      "progress_mode": "jsonl_lines",
+      "expected_progress": 288,
+      "require_harness_terminal": false,
+      "managed_backlog": true,
+      "require_worker_exit": true,
+      "worker_exit_path": "C:\\projects\\tare.tools.local-labs\\runs\\autonomous\\EXPERIMENT-WATCH-2026-08-29-SEEDED-R3\\WORKER_EXIT.json",
+      "run_id": "409bbde79ab14e878758b62e80eb3bde",
+      "deadline_epoch": 1788069680.744381
+    }
+  ],
+  "final_health_urls": [
+    "http://127.0.0.1:8080/health",
+    "http://127.0.0.1:8081/health"
+  ],
+  "actor": "Codex executor watcher"
+}

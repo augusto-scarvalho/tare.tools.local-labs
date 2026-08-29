@@ -83,9 +83,9 @@ change. Direct state edits remain forbidden. Live validation on 2026-08-29 found
 | --- | ---: |
 | `PROMOTED` | 28 |
 | `REJECTED` | 21 |
-| `EXECUTED` | 21 |
+| `EXECUTED` | 22 |
 | `BLOCKED` | 40 |
-| `IMPLEMENTED` | 3 |
+| `IMPLEMENTED` | 2 |
 
 The 21 `EXECUTED` records include preserved HOLD/superseded evidence from prior
 audit waves. Their presence is not authority to rerun or promote them. The two
@@ -162,10 +162,12 @@ null
 
 Do not manufacture a next command from `EXECUTED` or `BLOCKED` items. The next
 scientific repair candidate, `BACKLOG-FLEET-SEEDED-STABILITY-03`, is now
-`IMPLEMENTED`. It captures the exact HTTP argument and binds each route to the
-live backend PID, `/proc` command, executable SHA-256 and loaded GGUF SHA-256
-before requests. Execute it only through the watcher and stop at `EXECUTED` for
-fresh independent review. A future authorized multi-item queue
+`EXECUTED` and audit-ready. It captured 288 exact HTTP arguments, 192/192 exact
+seeded comparisons, and bound each route to the live backend PID, `/proc`
+command, executable SHA-256 and loaded GGUF SHA-256 before requests. All 12
+executor gates passed, the watcher terminal is complete, and `qwen38` plus the
+embedding service were restored. This is not a promotion; send R3 to a fresh
+independent reviewer. A future authorized multi-item queue
 must freeze every packet at `IMPLEMENTED` and run through the watched-wave
 supervisor. The executor and watcher stop at `EXECUTED`; only the independent
 auditor may promote, reject or place a bounded hold.
