@@ -1,6 +1,6 @@
 {
   "schema": "local-labs-backlog-v1",
-  "updated_at": "2026-08-29T18:13:51Z",
+  "updated_at": "2026-08-29T18:33:30Z",
   "policy": {
     "executor": "Gemini",
     "independent_review_required": true,
@@ -14711,6 +14711,171 @@
           "to": "EXECUTED",
           "actor": "Codex continuous executor",
           "at": "2026-08-29T18:13:51Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-SEEDED-STABILITY-04",
+      "priority": 1,
+      "title": "Replicate seeded fleet stability with atomic request and frozen binary identity",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-04",
+      "depends_on": [],
+      "source_artifacts": [
+        "config/qualified_model_fleet.json",
+        "config/fleet_runtime_binary_identities_2026-08-29.json",
+        "workloads/gsm8k.jsonl",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl",
+        "tools/research/run_fleet_regression_screen.py",
+        "tools/research/run_fleet_seeded_stability.py",
+        "tools/research/run_fleet_seeded_stability_r2.py",
+        "tools/research/run_fleet_seeded_stability_r3.py",
+        "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-03/raw/receipt.json",
+        "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-03/REVIEW.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "effective_route",
+        "final_state_binding",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "physical_artifact_identity",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "request_payloads",
+        "service_identity",
+        "service_maintenance",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "route_coverage",
+          "metric": "routes_completed",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_coverage",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 288
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "seeded_stability",
+          "metric": "exact_seeded_repeat_rate",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "request_retention",
+          "metric": "retained_request_payloads",
+          "operator": "eq",
+          "threshold": 288
+        },
+        {
+          "id": "request_hash_integrity",
+          "metric": "captured_request_hash_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "response_binding",
+          "metric": "captured_response_id_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "capture_queue_drained",
+          "metric": "pending_captured_calls",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "terminal_binding",
+          "metric": "final_runner_state_bound",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "physical_route_coverage",
+          "metric": "physical_routes_bound",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "physical_model_identity",
+          "metric": "physical_model_hash_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "physical_binary_identity",
+          "metric": "physical_binary_hash_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "process_command_identity",
+          "metric": "process_command_identity_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_integrity",
+          "metric": "service_restarts",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_model_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUALIFIED_TEXT_FLEET_SEEDED_ATOMIC_PHYSICAL_STABLE_R4",
+        "QUALIFIED_TEXT_FLEET_SEEDED_ATOMIC_PHYSICAL_UNSTABLE_R4"
+      ],
+      "forbidden_claims": [
+        "unseeded determinism",
+        "quality superiority",
+        "production promotion",
+        "generalization beyond temperature 0.2 and the frozen panel",
+        "request binding inferred from reconstruction",
+        "binary identity inferred from digest presence"
+      ],
+      "next_action": "Run the fresh seeded matrix while excluding route canaries from capture, atomically pairing each experimental HTTP argument with its response ID, preserving captured requests, draining the call queue, and comparing live executable SHA-256/bytes to the frozen binary identity ledger.",
+      "supersedes": "BACKLOG-FLEET-SEEDED-STABILITY-03",
+      "state": "IMPLEMENTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T18:30:13Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T18:30:47Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T18:33:30Z"
         }
       ]
     }

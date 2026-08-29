@@ -6,6 +6,9 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added the R4 seeded-stability successor with atomic request/response-ID
+  capture, canary exclusion, zero-pending-call enforcement and a versioned
+  executable hash/byte ledger, directly targeting both independent R3 holds.
 - Added a physical-identity-bound successor for fleet seeded stability. It
   captures the actual HTTP request argument plus each live backend PID,
   `/proc` command line, executable SHA-256 and loaded GGUF SHA-256 before
