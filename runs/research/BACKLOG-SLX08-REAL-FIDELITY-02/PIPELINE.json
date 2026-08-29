@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-SLX08-REAL-FIDELITY-02",
   "evidence_class": "proxy_realization",
   "executor": "Codex continuous executor",
-  "stage": "IMPLEMENTED",
+  "stage": "REJECTED",
   "state_history": [
     {
       "from": null,
@@ -22,6 +22,19 @@
       "to": "IMPLEMENTED",
       "actor": "Codex continuous executor",
       "at": "2026-08-29T19:22:49Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-29T19:25:43Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T19:30:20Z",
+      "reason": "Frozen projection_match tolerance failed at 1/12; independent tensor audit confirms a cross-device false negative bounded to four float32 ULPs."
     }
   ],
   "preregistration": {
@@ -47,8 +60,16 @@
     }
   ],
   "implementation_digest": "3a2a36a5d1145117a45e6cbf630fc90613c4f9aa6677580ba5646ed3410f95a9",
-  "execution": {},
-  "result": {},
+  "execution": {
+    "path": "runs/research/BACKLOG-SLX08-REAL-FIDELITY-02/raw/receipt.json",
+    "sha256": "9715c2fc0c82d7be475268eb3470127ad058e063a3041db34dc195935c1b9143"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-SLX08-REAL-FIDELITY-02/RESULT.md",
+    "sha256": "61bea117d84c65f0ed85e39943d172ac9908527649cb356a9245c6cf6db9df8e"
+  },
   "review": {},
-  "claim_codes": []
+  "claim_codes": [
+    "SLX08_FIDELITY_FALSE_NEGATIVE_WITH_RETAINED_CONTEXTS_R2"
+  ]
 }

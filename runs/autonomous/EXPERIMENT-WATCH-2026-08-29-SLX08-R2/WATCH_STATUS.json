@@ -1,0 +1,147 @@
+{
+  "schema": "local-labs-experiment-watch-status-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-29-SLX08-R2",
+  "updated_at": "2026-08-29T19:24:25Z",
+  "experiments": [
+    {
+      "task_id": "BACKLOG-SLX08-REAL-FIDELITY-02",
+      "pid": 39624,
+      "process_alive": false,
+      "progress": 12,
+      "progress_mode": "jsonl_lines",
+      "expected_progress": 12,
+      "pipeline_stage": "IMPLEMENTED",
+      "watch_status": "failed_no_result",
+      "harness_terminal": {
+        "present": false,
+        "valid": null,
+        "status": null,
+        "errors": []
+      },
+      "worker_exit": {
+        "present": true,
+        "valid": true,
+        "returncode": 0,
+        "timed_out": false,
+        "errors": []
+      },
+      "managed_backlog": true
+    }
+  ],
+  "gpu": {
+    "memory_used_mib": 19531,
+    "memory_free_mib": 4792,
+    "utilization_percent": 5,
+    "temperature_c": 34,
+    "power_w": 38.07
+  },
+  "health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "states": {
+    "BACKLOG-SLX08-REAL-FIDELITY-02": {
+      "status": "failed_no_result",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-29T19:24:24Z",
+        "receipt_exists": true,
+        "result_exists": false,
+        "stage_before": "IMPLEMENTED",
+        "progress": 12,
+        "progress_mode": "jsonl_lines",
+        "expected_progress": 12,
+        "harness_terminal": {
+          "present": false,
+          "valid": null,
+          "status": null,
+          "errors": []
+        },
+        "worker_exit": {
+          "present": true,
+          "valid": true,
+          "returncode": 0,
+          "timed_out": false,
+          "errors": []
+        },
+        "managed_backlog": true,
+        "status": "failed_no_result"
+      }
+    }
+  },
+  "final": {
+    "schema": "local-labs-experiment-watch-final-v1",
+    "watch_id": "EXPERIMENT-WATCH-2026-08-29-SLX08-R2",
+    "finished_at": "2026-08-29T19:24:25Z",
+    "status": "complete_with_alert",
+    "experiment_mode": true,
+    "states": {
+      "BACKLOG-SLX08-REAL-FIDELITY-02": {
+        "status": "failed_no_result",
+        "was_seen_alive": true,
+        "finalization": {
+          "at": "2026-08-29T19:24:24Z",
+          "receipt_exists": true,
+          "result_exists": false,
+          "stage_before": "IMPLEMENTED",
+          "progress": 12,
+          "progress_mode": "jsonl_lines",
+          "expected_progress": 12,
+          "harness_terminal": {
+            "present": false,
+            "valid": null,
+            "status": null,
+            "errors": []
+          },
+          "worker_exit": {
+            "present": true,
+            "valid": true,
+            "returncode": 0,
+            "timed_out": false,
+            "errors": []
+          },
+          "managed_backlog": true,
+          "status": "failed_no_result"
+        }
+      }
+    },
+    "pipeline_gate": {
+      "returncode": 0,
+      "stdout": "BACKLOG PIPELINE: PASS",
+      "stderr": ""
+    },
+    "backlog_queue": {
+      "refreshed_at": "2026-08-29T19:24:25Z",
+      "status_returncode": 0,
+      "next_returncode": 0,
+      "valid": true,
+      "priority_rebalance": {
+        "requested": false,
+        "returncode": null,
+        "valid": null,
+        "report": null
+      },
+      "state_counts": {
+        "BLOCKED": 40,
+        "EXECUTED": 22,
+        "IMPLEMENTED": 3,
+        "PROMOTED": 30,
+        "REJECTED": 21
+      },
+      "next_candidate": null
+    },
+    "completion_action": "inspect_alert_before_dispatch",
+    "audit_ready_ids": [],
+    "final_health": {
+      "http://127.0.0.1:8080/health": 200,
+      "http://127.0.0.1:8081/health": 200
+    },
+    "final_gpu": {
+      "memory_used_mib": 19531,
+      "memory_free_mib": 4792,
+      "utilization_percent": 5,
+      "temperature_c": 34,
+      "power_w": 38.07
+    }
+  }
+}

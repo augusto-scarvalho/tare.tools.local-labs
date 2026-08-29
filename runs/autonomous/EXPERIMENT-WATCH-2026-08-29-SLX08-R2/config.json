@@ -1,0 +1,28 @@
+{
+  "schema": "local-labs-experiment-watch-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-29-SLX08-R2",
+  "experiment_mode": true,
+  "poll_seconds": 60,
+  "service_settle_seconds": 180,
+  "experiments": [
+    {
+      "task_id": "BACKLOG-SLX08-REAL-FIDELITY-02",
+      "pid": 39624,
+      "packet_dir": "runs/research/BACKLOG-SLX08-REAL-FIDELITY-02",
+      "progress_glob": "raw/samples.jsonl",
+      "progress_mode": "jsonl_lines",
+      "expected_progress": 12,
+      "require_harness_terminal": false,
+      "managed_backlog": true,
+      "require_worker_exit": true,
+      "worker_exit_path": "C:\\projects\\tare.tools.local-labs\\runs\\autonomous\\EXPERIMENT-WATCH-2026-08-29-SLX08-R2\\WORKER_EXIT.json",
+      "run_id": "5777c8ba13dc4379997975208018863b",
+      "deadline_epoch": 1788035004.1955328
+    }
+  ],
+  "final_health_urls": [
+    "http://127.0.0.1:8080/health",
+    "http://127.0.0.1:8081/health"
+  ],
+  "actor": "Codex executor watcher"
+}

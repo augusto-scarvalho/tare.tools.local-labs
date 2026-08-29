@@ -1,6 +1,6 @@
 {
   "schema": "local-labs-backlog-v1",
-  "updated_at": "2026-08-29T19:22:49Z",
+  "updated_at": "2026-08-29T19:30:20Z",
   "policy": {
     "executor": "Gemini",
     "independent_review_required": true,
@@ -15132,7 +15132,7 @@
       ],
       "next_action": "Repeat the frozen 12 real-Qwen cells, retain dense, corrected and legacy attention-context vectors plus selected indices in a digest-bound bundle, independently reopen the bundle and recompute every fidelity projection, while preserving the serving baseline.",
       "supersedes": "BACKLOG-SLX08-REAL-FIDELITY-01",
-      "state": "IMPLEMENTED",
+      "state": "REJECTED",
       "blocker": null,
       "state_history": [
         {
@@ -15152,6 +15152,19 @@
           "to": "IMPLEMENTED",
           "actor": "Codex continuous executor",
           "at": "2026-08-29T19:22:49Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-29T19:25:43Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-29T19:30:20Z",
+          "reason": "Frozen projection_match tolerance failed at 1/12; independent tensor audit confirms a cross-device false negative bounded to four float32 ULPs."
         }
       ]
     }

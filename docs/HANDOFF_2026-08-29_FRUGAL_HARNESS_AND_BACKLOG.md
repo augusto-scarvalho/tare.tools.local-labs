@@ -77,12 +77,12 @@ Its recorded source and test hashes matched the final audited worktree.
 
 The backlog required no scientific state transition for this infrastructure
 change. Direct state edits remain forbidden. Live validation on 2026-08-29 found
-115 records:
+116 records:
 
 | State | Count |
 | --- | ---: |
 | `PROMOTED` | 30 |
-| `REJECTED` | 21 |
+| `REJECTED` | 22 |
 | `EXECUTED` | 22 |
 | `BLOCKED` | 40 |
 | `IMPLEMENTED` | 2 |
@@ -200,6 +200,20 @@ identity, topology and finite next-token smoke only. Historical 4.49x speed,
 recall, generation quality, dense superiority and production claims remain
 forbidden. Receipt SHA is `97a761d5...7196f`; review SHA is
 `ad4a3979...44de1`; the full repository suite is 400 passing tests.
+
+`BACKLOG-SLX08-REAL-FIDELITY-02` is contractually `REJECTED` with a confirmed
+numerical false negative. Its physical run repeated the frozen two contexts by
+six layers, retained 36 dense/corrected/legacy context tensors in a 298,304-byte
+safetensors bundle and restored the serving baseline. Independent reopening
+matched every tensor byte/hash/shape and recomputed corrected median fidelity
+`0.9954493344`, but the frozen cross-device projection gate used absolute
+tolerance `1e-9`. CUDA-versus-CPU cosine deltas were only zero to four FP32
+ULPs (maximum `2.3841858e-7`), so the gate reported 1/12 despite identical
+inputs. The gate was not relaxed after the result: R2 preserves that failure
+and claim `SLX08_FIDELITY_FALSE_NEGATIVE_WITH_RETAINED_CONTEXTS_R2`. A frugal
+successor may rescore the same retained bytes with a preregistered canonical
+reduction; it needs no GPU inference. The claim remains offline 12-cell
+fidelity only, never TTFT, runtime integration, production or quality.
 
 ## Operational baseline at handoff
 

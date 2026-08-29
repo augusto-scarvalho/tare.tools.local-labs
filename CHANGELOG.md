@@ -129,6 +129,13 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Changed
 
+- Reopened the SLX08 offline-fidelity false-negative candidate with a compact
+  retained-context bundle. Independent review reproduced all 36 tensor hashes
+  and the passing `0.995449` median, but confirmed that the frozen `1e-9`
+  CUDA-to-CPU projection tolerance was below one FP32 ULP: deltas were bounded
+  to four ULPs. The R2 all-gates packet remains `REJECTED` without retroactive
+  relaxation while the scientific finding is recorded as a numerical false
+  negative; no TTFT or integrated-runtime claim follows.
 - Independently audited and promoted SLX11 official-hybrid R2. Direct reopening
   of the retained 11.9 MiB bundle reproduced all 24 BF16 `[1, 248320]` tensors,
   zero nonfinite values, 24 distinct tensor hashes, exact projections, the
