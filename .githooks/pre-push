@@ -38,4 +38,8 @@ while read -r local_ref local_sha remote_ref remote_sha; do
     "$python_bin" "$checker" "$base_sha" "$local_sha" --repo "$repo_root" || result=1
 done
 
+if [ "$result" -eq 0 ]; then
+    echo "PUSH_REMINDER=review docs, handoff, backlog, and changelog when applicable; after push, watch GitHub Actions to a terminal result" >&2
+fi
+
 exit "$result"

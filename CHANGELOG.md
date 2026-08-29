@@ -6,6 +6,9 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added a compact, non-blocking pre-push reminder to review documentation,
+  handoff, backlog and changelog when applicable, then follow GitHub Actions to
+  a terminal result after publication.
 - Added the frugal experiment lifecycle harness with atomic terminal evidence,
   semantic journal verification, worker exit-code/deadline binding, POSIX zombie
   handling, canonical backlog packet binding, journal FSM, concurrent watcher

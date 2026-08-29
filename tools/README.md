@@ -81,7 +81,7 @@ tools/
 | Analysis Tool | Focus | Methodology & Capabilities |
 |---|---|---|
 | [`analyze_ab.py`](analysis/analyze_ab.py) | A/B Testing | Core distribution-free A/B analyzer: exact sign tests, bootstrap CIs, Cliff's $\delta$. |
-| [`changelog_guard.py`](analysis/changelog_guard.py) | Repository Policy | Enforces meaningful `Unreleased` entries for material commits and append-only changelog history in local pre-push and CI. |
+| [`changelog_guard.py`](analysis/changelog_guard.py) | Repository Policy | Enforces meaningful `Unreleased` entries and append-only changelog history in local pre-push and CI; the hook also prints a non-blocking publication/CI reminder. |
 | [`launch_watched_experiment.py`](analysis/launch_watched_experiment.py) | Experiment Lifecycle | Starts one experiment and its persistent watcher, records launch provenance, and keeps the controller bound to compact completion delivery by default. |
 | [`watch_experiment_processes.py`](analysis/watch_experiment_processes.py) | Experiment Lifecycle | Watches Windows/WSL process state, worker exits, physical progress, GPU and service health; fail-closed advances valid packets only to `EXECUTED` and refreshes the backlog queue. |
 | [`smoke_experiment_mode.py`](analysis/smoke_experiment_mode.py) | Experiment Lifecycle | Runs a temporary, non-mutating live canary through foreground completion delivery and backlog refresh. |
