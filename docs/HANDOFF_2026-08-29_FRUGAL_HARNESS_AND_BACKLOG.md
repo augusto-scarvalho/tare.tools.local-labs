@@ -77,7 +77,7 @@ Its recorded source and test hashes matched the final audited worktree.
 
 The backlog required no scientific state transition for this infrastructure
 change. Direct state edits remain forbidden. Live validation on 2026-08-29 found
-114 records:
+115 records:
 
 | State | Count |
 | --- | ---: |
@@ -85,7 +85,7 @@ change. Direct state edits remain forbidden. Live validation on 2026-08-29 found
 | `REJECTED` | 21 |
 | `EXECUTED` | 22 |
 | `BLOCKED` | 40 |
-| `IMPLEMENTED` | 2 |
+| `IMPLEMENTED` | 3 |
 
 The 21 `EXECUTED` records include preserved HOLD/superseded evidence from prior
 audit waves. Their presence is not authority to rerun or promote them. The two
@@ -186,6 +186,12 @@ response-ID matches, 192/192 exact seeded comparisons, four exact binary/GGUF
 bindings, zero restarts and restored `qwen38`. The claim is limited to seeded
 stability on this frozen panel and artifact set; 126/192 math responses were
 truncated, so no quality or unseeded-determinism claim follows.
+
+`BACKLOG-SLX11-OFFICIAL-HYBRID-02` is the next `IMPLEMENTED` packet. It repairs
+the official-hybrid R1 audit hold by retaining all 24 next-token logits vectors
+and scoring them from a separate, frozen reader. The only eligible conclusion
+is bounded artifact/topology plus finite-forward qualification; historical
+4.49x speed, recall, quality and production claims remain forbidden.
 
 ## Operational baseline at handoff
 

@@ -1,0 +1,90 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-SLX11-OFFICIAL-HYBRID-02",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "official_artifact": {
+      "metric": "official_checkpoint_identified",
+      "operator": "eq",
+      "threshold": 1,
+      "actual": null,
+      "pass": null
+    },
+    "hybrid_topology": {
+      "metric": "hybrid_layer_types_verified",
+      "operator": "eq",
+      "threshold": 24,
+      "actual": null,
+      "pass": null
+    },
+    "recurrent_layers": {
+      "metric": "physical_recurrent_layers",
+      "operator": "eq",
+      "threshold": 18,
+      "actual": null,
+      "pass": null
+    },
+    "attention_layers": {
+      "metric": "physical_full_attention_layers",
+      "operator": "eq",
+      "threshold": 6,
+      "actual": null,
+      "pass": null
+    },
+    "live_forward": {
+      "metric": "successful_live_forwards",
+      "operator": "eq",
+      "threshold": 24,
+      "actual": null,
+      "pass": null
+    },
+    "logits_bundle_coverage": {
+      "metric": "retained_logits_tensors",
+      "operator": "eq",
+      "threshold": 24,
+      "actual": null,
+      "pass": null
+    },
+    "finite_outputs": {
+      "metric": "recomputed_finite_output_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "logits_projection_match": {
+      "metric": "recomputed_projection_match_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "runtime_unchanged": {
+      "metric": "serving_process_unchanged",
+      "operator": "eq",
+      "threshold": 1,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "effective_route": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "logits_bundle": null,
+    "logits_evaluation": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "scorer_hashes": null,
+    "service_maintenance": null,
+    "treatment_controls": null
+  },
+  "receipt_fingerprint": null
+}

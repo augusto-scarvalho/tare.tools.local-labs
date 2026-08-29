@@ -1,0 +1,58 @@
+{
+  "id": "BACKLOG-SLX11-OFFICIAL-HYBRID-02",
+  "priority": 0,
+  "title": "Qualify official Qwen3.5 hybrid topology with retained logits",
+  "evidence_class": "artifact_requalification",
+  "packet_dir": "runs/research/BACKLOG-SLX11-OFFICIAL-HYBRID-02",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-SLX11-OFFICIAL-HYBRID-01/raw/receipt.json",
+    "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md",
+    "tools/research/run_slx11_official_hybrid.py",
+    "tools/research/slx11_official_hybrid_worker.py",
+    "workloads/gsm8k.jsonl"
+  ],
+  "required_evidence": [
+    "acceptance_gates",
+    "actual_scores",
+    "artifact_hashes",
+    "dataset_hashes",
+    "effective_route",
+    "hardware_metrics",
+    "independent_evaluation",
+    "logits_bundle",
+    "logits_evaluation",
+    "paired_baseline",
+    "provenance",
+    "raw_samples",
+    "receipt_fingerprint",
+    "scorer_hashes",
+    "service_maintenance",
+    "treatment_controls"
+  ],
+  "acceptance_gates": [
+    {"id": "official_artifact", "metric": "official_checkpoint_identified", "operator": "eq", "threshold": 1},
+    {"id": "hybrid_topology", "metric": "hybrid_layer_types_verified", "operator": "eq", "threshold": 24},
+    {"id": "recurrent_layers", "metric": "physical_recurrent_layers", "operator": "eq", "threshold": 18},
+    {"id": "attention_layers", "metric": "physical_full_attention_layers", "operator": "eq", "threshold": 6},
+    {"id": "live_forward", "metric": "successful_live_forwards", "operator": "eq", "threshold": 24},
+    {"id": "logits_bundle_coverage", "metric": "retained_logits_tensors", "operator": "eq", "threshold": 24},
+    {"id": "finite_outputs", "metric": "recomputed_finite_output_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "logits_projection_match", "metric": "recomputed_projection_match_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "runtime_unchanged", "metric": "serving_process_unchanged", "operator": "eq", "threshold": 1}
+  ],
+  "allowed_claim_codes": [
+    "SLX11_OFFICIAL_HYBRID_ARTIFACT_QUALIFIED_WITH_LOGITS_R2",
+    "SLX11_OFFICIAL_HYBRID_ARTIFACT_REJECTED_WITH_LOGITS_R2"
+  ],
+  "forbidden_claims": [
+    "historical 4.49x speedup",
+    "100 percent recall",
+    "dense-transformer superiority",
+    "production promotion",
+    "generalization beyond frozen next-token panel",
+    "language-model quality"
+  ],
+  "next_action": "Repeat the 24 official-checkpoint forwards, retain every next-token logits tensor in a digest-bound safetensors bundle, independently rescore finiteness and projections from that bundle, and preserve the serving baseline.",
+  "supersedes": "BACKLOG-SLX11-OFFICIAL-HYBRID-01"
+}

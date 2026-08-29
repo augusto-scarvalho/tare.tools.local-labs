@@ -6,6 +6,9 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added an SLX11 official-hybrid successor that retains all 24 next-token
+  logits vectors in a provenance-bound safetensors bundle and independently
+  reopens them to rescore finiteness, argmax, shape and tensor hashes.
 - Added the R4 seeded-stability successor with atomic request/response-ID
   capture, canary exclusion, zero-pending-call enforcement and a versioned
   executable hash/byte ledger, directly targeting both independent R3 holds.
