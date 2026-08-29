@@ -1,9 +1,13 @@
-> **CURRENT RESEARCH HANDOFF (2026-08-28):** Read
+> **CURRENT RESEARCH HANDOFF (2026-08-29):** Read
+> [`HANDOFF_2026-08-29_FRUGAL_HARNESS_AND_BACKLOG.md`](HANDOFF_2026-08-29_FRUGAL_HARNESS_AND_BACKLOG.md)
+> first. It records the independently approved experiment harness, current
+> canonical backlog snapshot, and exact continuation boundary. Then read the
+> preserved campaign closeout
 > [`HANDOFF_2026-08-28_CONTINUOUS_RECOVERY_CLOSEOUT.md`](HANDOFF_2026-08-28_CONTINUOUS_RECOVERY_CLOSEOUT.md)
-> first, then the preserved predecessor
+> and its predecessor
 > [`HANDOFF_2026-08-28_REJECTED_HOLD_RECOVERY_WAVE.md`](HANDOFF_2026-08-28_REJECTED_HOLD_RECOVERY_WAVE.md).
-> The current handoff closes the scorer, SLX-03 and Q8 physical follow-up wave
-> and admits three dependency-ready retained-evidence successors. The
+> The preserved 2026-08-28 closeout closes the scorer, SLX-03 and Q8 physical
+> follow-up wave and admits three dependency-ready retained-evidence successors. The
 > 2026-08-25 remediation handoff and former
 > `FINAL_CLOSEOUT` remain historical; the latter's 46/46 validation claim is
 > `SUPERSEDED`. For the hypothesis and literature map, see

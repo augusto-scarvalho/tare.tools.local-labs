@@ -1,19 +1,27 @@
 import json
 import os
+import pathlib
+import shutil
 import subprocess
 import sys
+import time
 from types import SimpleNamespace
 
 import pytest
 
 import tools.analysis.launch_watched_experiment as launcher
 import tools.analysis.watch_experiment_processes as watcher
+from src.model_lifecycle.experiment_harness import ExperimentRun
 
 
 @pytest.fixture
 def watcher_repo(tmp_path, monkeypatch):
     root = tmp_path / "repo"
     root.mkdir()
+    (root / "config").mkdir()
+    (root / "config/research_backlog.json").write_text(
+        json.dumps({"items": []}), encoding="utf-8"
+    )
     monkeypatch.setattr(watcher, "ROOT", root)
     monkeypatch.setattr(watcher, "PIPELINE", root / "tools/analysis/backlog_pipeline.py")
     monkeypatch.setattr(watcher, "gpu_state", lambda: {"utilization_percent": 0})
@@ -34,8 +42,19 @@ def packet_factory(watcher_repo):
         packet = watcher_repo / "runs/research" / task_id
         (packet / "raw/finalized").mkdir(parents=True)
         (packet / "PIPELINE.json").write_text(
-            json.dumps({"stage": stage}) + "\n", encoding="utf-8"
+            json.dumps({"task_id": task_id, "stage": stage}) + "\n", encoding="utf-8"
         )
+        backlog_path = watcher_repo / "config/research_backlog.json"
+        backlog = json.loads(backlog_path.read_text(encoding="utf-8"))
+        backlog["items"] = [item for item in backlog["items"] if item.get("id") != task_id]
+        backlog["items"].append(
+            {
+                "id": task_id,
+                "state": stage,
+                "packet_dir": f"runs/research/{task_id}",
+            }
+        )
+        backlog_path.write_text(json.dumps(backlog), encoding="utf-8")
         if receipt:
             (packet / "raw/receipt.json").write_text("{}\n", encoding="utf-8")
         if result:
@@ -49,6 +68,63 @@ def packet_factory(watcher_repo):
             "progress_glob": "raw/finalized/*.json",
             "expected_progress": 1,
         }
+
+    return create
+
+
+@pytest.fixture
+def worker_exit_factory(watcher_repo):
+    def create(item, *, returncode=0, timed_out=False, **overrides):
+        path = watcher_repo / f"worker-exit-{item['task_id']}.json"
+        item.update(
+            {
+                "require_worker_exit": True,
+                "worker_exit_path": str(path),
+                "run_id": f"run-{item['task_id']}",
+                "deadline_epoch": 4_102_444_800,
+            }
+        )
+        payload = {
+            "schema": "local-labs-worker-exit-v1",
+            "task_id": item["task_id"],
+            "pid": item["pid"],
+            "run_id": item["run_id"],
+            "returncode": returncode,
+            "timed_out": timed_out,
+        }
+        payload.update(overrides)
+        path.write_text(json.dumps(payload), encoding="utf-8")
+        return item
+
+    return create
+
+
+@pytest.fixture
+def harness_packet(packet_factory, watcher_repo):
+    def create(task_id="BACKLOG-HARNESS-WATCH", *, status="SEALED", mutate=False):
+        item = packet_factory(task_id, receipt=False, progress=0)
+        raw = watcher_repo / item["packet_dir"] / "raw"
+        receipt = {
+            "schema": "local-labs-backlog-receipt-v1",
+            "task_id": task_id,
+            "provenance": {"fixture": True},
+            "provenance_complete": True,
+            "gates": {},
+            "evidence": {"raw_samples": "raw/samples.jsonl"},
+        }
+        if status == "SEALED":
+            with ExperimentRun(raw, task_id, {"fixture": True}) as run:
+                run.record({"fixture": 1})
+                run.seal(receipt)
+        else:
+            with pytest.raises(RuntimeError):
+                with ExperimentRun(raw, task_id, {"fixture": True}) as run:
+                    run.record({"partial": True})
+                    raise RuntimeError("fixture abort")
+        if mutate:
+            (raw / "samples.jsonl").write_text('{"fixture":2}\n', encoding="utf-8")
+        item["require_harness_terminal"] = True
+        return item
 
     return create
 
@@ -175,7 +251,7 @@ def run_watcher(watcher_repo, pipeline_stub, monkeypatch):
 
 
 class FakeProcess:
-    def __init__(self, pid, returncode=0, on_wait=None):
+    def __init__(self, pid, returncode=0, on_wait=None, finish_on_poll=False):
         self.pid = pid
         self.returncode = returncode
         self.on_wait = on_wait
@@ -183,8 +259,11 @@ class FakeProcess:
         self.terminated = False
         self.killed = False
         self.running = True
+        self.finish_on_poll = finish_on_poll
 
     def poll(self):
+        if self.running and self.finish_on_poll:
+            self.running = False
         return None if self.running else self.returncode
 
     def wait(self, timeout=None):
@@ -214,13 +293,42 @@ def launcher_harness(tmp_path, monkeypatch):
         *,
         detach=False,
         experiment_mode=True,
+        require_terminal=False,
+        omit_progress=False,
         spawn_error_at=None,
         final_payload="default",
         watcher_returncode=0,
+        worker_returncode=0,
+        watcher_exits_early=False,
+        unmanaged_canary=False,
+        existing_logs=False,
+        task_state="IMPLEMENTED",
     ):
         packet = root / "packet"
         watch_outdir = root / "watch"
         packet.mkdir(exist_ok=True)
+        (packet / "PIPELINE.json").write_text(
+            json.dumps({"task_id": "BACKLOG-TEST", "stage": task_state}),
+            encoding="utf-8",
+        )
+        (root / "config").mkdir(exist_ok=True)
+        (root / "config/research_backlog.json").write_text(
+            json.dumps(
+                {
+                    "items": [
+                        {
+                            "id": "BACKLOG-TEST",
+                            "state": task_state,
+                            "packet_dir": "packet",
+                        }
+                    ]
+                }
+            ),
+            encoding="utf-8",
+        )
+        if existing_logs:
+            (packet / "runner.stdout.log").write_text("preserved stdout", encoding="utf-8")
+            (packet / "runner.stderr.log").write_text("preserved stderr", encoding="utf-8")
         processes = []
         popen_calls = []
 
@@ -233,10 +341,13 @@ def launcher_harness(tmp_path, monkeypatch):
                 path.write_text("{invalid", encoding="utf-8")
                 return
             payload = {
+                "schema": "local-labs-experiment-watch-final-v1",
+                "watch_id": "WATCH-TEST",
                 "status": "complete",
                 "experiment_mode": experiment_mode,
                 "completion_action": "dispatch_next_candidate",
                 "backlog_queue": {"next_candidate": {"id": "BACKLOG-NEXT"}},
+                "audit_ready_ids": ["BACKLOG-TEST"],
             } if final_payload == "default" else final_payload
             path.write_text(json.dumps(payload), encoding="utf-8")
 
@@ -247,9 +358,16 @@ def launcher_harness(tmp_path, monkeypatch):
                 raise OSError(f"spawn {index} failed")
             process = FakeProcess(
                 1000 + index,
-                returncode=watcher_returncode if index == 2 else 0,
+                returncode=watcher_returncode if index == 2 else worker_returncode,
                 on_wait=write_final if index == 2 and not detach else None,
+                finish_on_poll=(
+                    index == 1
+                    and spawn_error_at != 2
+                    and not watcher_exits_early
+                ),
             )
+            if index == 2 and watcher_exits_early:
+                process.running = False
             processes.append(process)
             return process
 
@@ -258,13 +376,17 @@ def launcher_harness(tmp_path, monkeypatch):
             "launch_watched_experiment.py",
             "--task-id", "BACKLOG-TEST",
             "--packet-dir", "packet",
-            "--progress-glob", "raw/*.json",
-            "--expected-progress", "1",
             "--watch-id", "WATCH-TEST",
             "--watch-outdir", "watch",
         ]
+        if not omit_progress:
+            argv.extend(["--progress-glob", "raw/*.json", "--expected-progress", "1"])
         if experiment_mode:
             argv.append("--experiment-mode")
+        if require_terminal:
+            argv.append("--require-harness-terminal")
+        if unmanaged_canary:
+            argv.append("--unmanaged-canary")
         if detach:
             argv.append("--detach-watcher")
         argv.extend(["--", sys.executable, "-c", "pass"])
@@ -274,10 +396,12 @@ def launcher_harness(tmp_path, monkeypatch):
         failure_path = watch_outdir / "LAUNCH_FAILED.json"
         return SimpleNamespace(
             returncode=returncode,
+            packet=packet,
             processes=processes,
             popen_calls=popen_calls,
             launch=json.loads(launch_path.read_text(encoding="utf-8")) if launch_path.exists() else None,
             failure=json.loads(failure_path.read_text(encoding="utf-8")) if failure_path.exists() else None,
+            config=json.loads((watch_outdir / "config.json").read_text(encoding="utf-8")) if (watch_outdir / "config.json").exists() else None,
         )
 
     return run
@@ -289,6 +413,18 @@ def test_process_alive_detects_current_process():
 
 def test_process_alive_rejects_impossible_pid():
     assert not watcher.process_alive(2_000_000_000)
+
+
+def test_process_alive_treats_posix_zombie_as_finished(monkeypatch):
+    monkeypatch.setattr(watcher.os, "name", "posix")
+    monkeypatch.setattr(watcher.os, "kill", lambda _pid, _signal: None)
+
+    class ZombieStat:
+        def read_text(self, **_kwargs):
+            return "123 (fixture worker) Z 1 2 3"
+
+    monkeypatch.setattr(watcher.pathlib, "Path", lambda _path: ZombieStat())
+    assert watcher.process_alive(123) is False
 
 
 def test_http_status_returns_response_status(monkeypatch):
@@ -380,6 +516,7 @@ def test_clean_completion_advances_packet_and_dispatches_candidate(
     assert result.final["status"] == "complete"
     assert result.final["completion_action"] == "dispatch_next_candidate"
     assert json.loads(packet.read_text(encoding="utf-8"))["stage"] == "EXECUTED"
+    assert result.final["audit_ready_ids"] == ["BACKLOG-TEST-01"]
     assert any(event["event"] == "watcher_finished" for event in result.events)
 
 
@@ -403,6 +540,181 @@ def test_missing_receipt_alerts_and_does_not_dispatch(packet_factory, run_watche
     assert result.final["completion_action"] == "inspect_alert_before_dispatch"
 
 
+def test_missing_result_alerts_and_does_not_advance(
+    packet_factory, pipeline_stub, run_watcher
+):
+    item = packet_factory(result=False)
+    result = run_watcher([item])
+    state = result.final["states"][item["task_id"]]
+    assert state["status"] == "failed_no_result"
+    assert not any(call[0] == "advance" for call in pipeline_stub.calls)
+
+
+def test_packet_task_identity_mismatch_never_reuses_other_evidence(
+    packet_factory, pipeline_stub, run_watcher
+):
+    item = packet_factory("BACKLOG-TASK-B", stage="EXECUTED")
+    item["task_id"] = "BACKLOG-TASK-A"
+    result = run_watcher([item])
+    state = result.final["states"]["BACKLOG-TASK-A"]
+    assert state["status"] == "failed_noncanonical_packet"
+    assert result.final["audit_ready_ids"] == []
+    assert not any(call[0] == "advance" for call in pipeline_stub.calls)
+
+
+def test_pipeline_internal_task_id_must_match_canonical_task(
+    packet_factory, watcher_repo, pipeline_stub, run_watcher
+):
+    item = packet_factory("BACKLOG-CANONICAL-TASK")
+    pipeline = watcher_repo / item["packet_dir"] / "PIPELINE.json"
+    pipeline.write_text(
+        json.dumps({"task_id": "BACKLOG-OTHER-TASK", "stage": "IMPLEMENTED"}),
+        encoding="utf-8",
+    )
+    result = run_watcher([item])
+    state = result.final["states"][item["task_id"]]
+    assert state["status"] == "failed_identity_mismatch"
+    assert result.final["audit_ready_ids"] == []
+    assert not any(call[0] == "advance" for call in pipeline_stub.calls)
+
+
+def test_terminal_task_identity_mismatch_never_reuses_other_evidence(
+    harness_packet, watcher_repo, pipeline_stub, run_watcher
+):
+    item = harness_packet("BACKLOG-TASK-B")
+    item["task_id"] = "BACKLOG-TASK-A"
+    pipeline = watcher_repo / item["packet_dir"] / "PIPELINE.json"
+    pipeline.write_text(
+        json.dumps({"task_id": "BACKLOG-TASK-A", "stage": "IMPLEMENTED"}),
+        encoding="utf-8",
+    )
+    backlog_path = watcher_repo / "config/research_backlog.json"
+    backlog = json.loads(backlog_path.read_text(encoding="utf-8"))
+    backlog["items"] = [
+        {
+            "id": "BACKLOG-TASK-A",
+            "state": "IMPLEMENTED",
+            "packet_dir": item["packet_dir"],
+        }
+    ]
+    backlog_path.write_text(json.dumps(backlog), encoding="utf-8")
+    result = run_watcher([item], alive="never_observed")
+    state = result.final["states"]["BACKLOG-TASK-A"]
+    assert state["status"] == "failed_identity_mismatch"
+    assert result.final["audit_ready_ids"] == []
+    assert not any(call[0] == "advance" for call in pipeline_stub.calls)
+
+
+def test_shadow_packet_outside_canonical_backlog_path_is_rejected(
+    packet_factory, watcher_repo, pipeline_stub, run_watcher
+):
+    item = packet_factory("BACKLOG-SHADOW-TARGET", stage="EXECUTED")
+    canonical = watcher_repo / item["packet_dir"]
+    shadow = watcher_repo / "shadow/BACKLOG-SHADOW-TARGET"
+    shadow.parent.mkdir()
+    shutil.copytree(canonical, shadow)
+    item["packet_dir"] = "shadow/BACKLOG-SHADOW-TARGET"
+    result = run_watcher([item])
+    state = result.final["states"][item["task_id"]]
+    assert state["status"] == "failed_noncanonical_packet"
+    assert result.final["audit_ready_ids"] == []
+    assert not any(call[0] == "advance" for call in pipeline_stub.calls)
+
+
+def test_explicit_unmanaged_canary_completes_without_audit_or_transition(
+    packet_factory, pipeline_stub, run_watcher
+):
+    item = packet_factory("UNMANAGED-CANARY", stage="EXECUTED")
+    item["managed_backlog"] = False
+    result = run_watcher([item])
+    state = result.final["states"][item["task_id"]]
+    assert result.returncode == 0
+    assert state["status"] == "completed_unmanaged"
+    assert result.final["audit_ready_ids"] == []
+    assert not any(call[0] == "advance" for call in pipeline_stub.calls)
+
+
+@pytest.mark.parametrize(
+    ("returncode", "timed_out", "expected"),
+    [(7, False, "failed_worker_exit"), (1, True, "failed_worker_timeout")],
+)
+def test_worker_failure_after_evidence_never_becomes_audit_ready(
+    packet_factory,
+    worker_exit_factory,
+    pipeline_stub,
+    run_watcher,
+    returncode,
+    timed_out,
+    expected,
+):
+    item = worker_exit_factory(
+        packet_factory(stage="EXECUTED"),
+        returncode=returncode,
+        timed_out=timed_out,
+    )
+    result = run_watcher([item])
+    state = result.final["states"][item["task_id"]]
+    assert state["status"] == expected
+    assert result.final["audit_ready_ids"] == []
+    assert not any(call[0] == "advance" for call in pipeline_stub.calls)
+
+
+def test_missing_worker_exit_receipt_stops_at_deadline(
+    packet_factory, pipeline_stub, run_watcher
+):
+    item = packet_factory()
+    item.update(
+        {
+            "require_worker_exit": True,
+            "worker_exit_path": "missing-worker-exit.json",
+            "run_id": "missing-exit",
+            "deadline_epoch": 0,
+        }
+    )
+    result = run_watcher([item])
+    state = result.final["states"][item["task_id"]]
+    assert state["status"] == "failed_worker_timeout"
+    assert not any(call[0] == "advance" for call in pipeline_stub.calls)
+
+
+def test_finalize_requires_configured_worker_exit_receipt(
+    packet_factory, pipeline_stub
+):
+    item = packet_factory()
+    item.update(
+        {
+            "require_worker_exit": True,
+            "worker_exit_path": "missing-worker-exit.json",
+            "run_id": "missing-exit",
+        }
+    )
+    outcome = watcher.finalize_experiment(item, "pytest fixture")
+    assert outcome["status"] == "failed_no_worker_exit"
+    assert not any(call[0] == "advance" for call in pipeline_stub.calls)
+
+
+def test_invalid_worker_exit_receipt_is_fail_closed(
+    packet_factory, worker_exit_factory, pipeline_stub, run_watcher
+):
+    item = worker_exit_factory(
+        packet_factory(), schema="wrong-worker-exit-schema"
+    )
+    result = run_watcher([item])
+    state = result.final["states"][item["task_id"]]
+    assert state["status"] == "failed_invalid_worker_exit"
+    assert not any(call[0] == "advance" for call in pipeline_stub.calls)
+
+
+def test_boolean_worker_returncode_is_not_integer_zero(
+    packet_factory, worker_exit_factory, pipeline_stub, run_watcher
+):
+    item = worker_exit_factory(packet_factory(), returncode=False)
+    result = run_watcher([item])
+    state = result.final["states"][item["task_id"]]
+    assert state["status"] == "failed_invalid_worker_exit"
+    assert not any(call[0] == "advance" for call in pipeline_stub.calls)
+
+
 def test_incomplete_progress_alerts_and_does_not_advance(
     packet_factory, pipeline_stub, run_watcher
 ):
@@ -418,6 +730,81 @@ def test_pid_never_observed_alerts(packet_factory, run_watcher):
     state = result.final["states"]["BACKLOG-TEST-01"]
     assert result.returncode == 2
     assert state["status"] == "failed_pid_never_observed"
+
+
+def test_sealed_harness_terminal_handles_short_process_without_progress_marker(
+    harness_packet, run_watcher
+):
+    result = run_watcher([harness_packet()], alive="never_observed")
+    state = result.final["states"]["BACKLOG-HARNESS-WATCH"]
+    assert result.returncode == 0
+    assert state["status"] == "executed_valid"
+    assert state["finalization"]["harness_terminal"]["status"] == "SEALED"
+
+
+def test_aborted_harness_terminal_never_advances_pipeline(
+    harness_packet, pipeline_stub, run_watcher
+):
+    result = run_watcher([harness_packet(status="ABORTED")], alive="never_observed")
+    state = result.final["states"]["BACKLOG-HARNESS-WATCH"]
+    assert result.returncode == 2
+    assert state["status"] == "failed_harness_aborted"
+    assert not any(call[0] == "advance" for call in pipeline_stub.calls)
+
+
+def test_mutated_harness_terminal_never_advances_pipeline(
+    harness_packet, pipeline_stub, run_watcher
+):
+    result = run_watcher([harness_packet(mutate=True)], alive="never_observed")
+    state = result.final["states"]["BACKLOG-HARNESS-WATCH"]
+    assert result.returncode == 2
+    assert state["status"] == "failed_invalid_harness_terminal"
+    assert not any(call[0] == "advance" for call in pipeline_stub.calls)
+
+
+def test_required_missing_harness_terminal_is_fail_closed(
+    packet_factory, pipeline_stub, run_watcher
+):
+    item = packet_factory()
+    item["require_harness_terminal"] = True
+    result = run_watcher([item])
+    assert result.returncode == 2
+    assert result.final["states"]["BACKLOG-TEST-01"]["status"] == "failed_no_harness_terminal"
+    assert not any(call[0] == "advance" for call in pipeline_stub.calls)
+
+
+def test_malformed_harness_terminal_is_fail_closed(
+    packet_factory, watcher_repo, pipeline_stub, run_watcher
+):
+    item = packet_factory(receipt=False, progress=0)
+    item["require_harness_terminal"] = True
+    terminal = watcher_repo / item["packet_dir"] / "raw/run.terminal.json"
+    terminal.write_text("{invalid", encoding="utf-8")
+    result = run_watcher([item], alive="never_observed")
+    assert result.returncode == 2
+    assert result.final["states"]["BACKLOG-TEST-01"]["status"] == "failed_invalid_harness_terminal"
+
+
+def test_unknown_but_parseable_harness_terminal_status_is_fail_closed(
+    watcher_repo, packet_factory, pipeline_stub, run_watcher, monkeypatch
+):
+    item = packet_factory(receipt=True, progress=0)
+    item["require_harness_terminal"] = True
+    monkeypatch.setattr(
+        watcher,
+        "harness_terminal",
+        lambda _packet: {
+            "present": True,
+            "valid": True,
+            "status": "UNKNOWN",
+            "sample_count": 0,
+            "errors": [],
+        },
+    )
+    result = run_watcher([item])
+    assert result.final["states"]["BACKLOG-TEST-01"]["status"] == "failed_invalid_harness_terminal"
+    assert not any(call[0] == "advance" for call in pipeline_stub.calls)
+    assert not any(call[0] == "advance" for call in pipeline_stub.calls)
 
 
 def test_unexpected_packet_stage_fails_validation(packet_factory, run_watcher):
@@ -557,8 +944,153 @@ def test_foreground_launcher_delivers_completion_payload(launcher_harness, capsy
     assert result.processes[1].wait_calls == 1
     assert '"event":"watcher_completed"' in captured.out
     assert '"next_id":"BACKLOG-NEXT"' in captured.out
+    assert '"audit_ready_ids":["BACKLOG-TEST"]' in captured.out
     assert '"next_candidate"' not in captured.out
     assert '"poll_seconds":300' in captured.out
+
+
+def test_launcher_persists_real_worker_exit_code(launcher_harness):
+    result = launcher_harness(worker_returncode=7, watcher_returncode=2)
+    exit_path = pathlib.Path(result.config["experiments"][0]["worker_exit_path"])
+    receipt = json.loads(exit_path.read_text(encoding="utf-8"))
+    assert result.returncode == 2
+    assert result.config["experiments"][0]["require_worker_exit"] is True
+    assert result.processes[0].wait_calls == 1
+    assert receipt["task_id"] == "BACKLOG-TEST"
+    assert receipt["pid"] == result.processes[0].pid
+    assert receipt["returncode"] == 7
+    assert receipt["run_id"] == result.config["experiments"][0]["run_id"]
+
+
+def test_launcher_stops_worker_when_watcher_exits_early(launcher_harness, capsys):
+    result = launcher_harness(
+        watcher_exits_early=True,
+        watcher_returncode=9,
+        final_payload=None,
+    )
+    captured = capsys.readouterr()
+    receipt_path = pathlib.Path(result.config["experiments"][0]["worker_exit_path"])
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    assert result.returncode == 9
+    assert result.processes[0].terminated is True
+    assert receipt["watcher_failed_early"] is True
+    assert "watcher exited before worker completion" in captured.err
+
+
+def test_supervisor_requests_tree_termination_when_watcher_exits(monkeypatch):
+    worker = FakeProcess(1001)
+    dead_watcher = FakeProcess(1002, returncode=9)
+    dead_watcher.running = False
+    requested_tree_modes = []
+
+    def terminate(process, *, tree=False):
+        requested_tree_modes.append(tree)
+        process.terminate()
+
+    monkeypatch.setattr(launcher, "terminate_if_running", terminate)
+    result = launcher.supervise_worker(worker, dead_watcher, 10)
+
+    assert result["watcher_failed_early"] is True
+    assert requested_tree_modes == [True]
+
+
+def test_supervisor_stops_real_worker_when_real_watcher_exits_early():
+    worker = subprocess.Popen(
+        [sys.executable, "-c", "import time; time.sleep(30)"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    dead_watcher = subprocess.Popen(
+        [sys.executable, "-c", "raise SystemExit(9)"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    try:
+        started = time.monotonic()
+        result = launcher.supervise_worker(worker, dead_watcher, 10)
+        elapsed = time.monotonic() - started
+    finally:
+        launcher.terminate_if_running(worker)
+        launcher.terminate_if_running(dead_watcher)
+    assert result["watcher_failed_early"] is True
+    assert result["watcher_returncode"] == 9
+    assert worker.poll() is not None
+    assert elapsed < 5
+
+
+def test_tree_termination_stops_real_child_process(tmp_path):
+    child_pid_path = tmp_path / "child.pid"
+    parent_code = (
+        "import pathlib,subprocess,sys,time; "
+        "child=subprocess.Popen([sys.executable,'-c','import time; time.sleep(30)']); "
+        "pathlib.Path(sys.argv[1]).write_text(str(child.pid)); "
+        "time.sleep(30)"
+    )
+    creationflags = 0
+    if os.name == "nt":
+        creationflags = subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.CREATE_NO_WINDOW
+    parent = subprocess.Popen(
+        [sys.executable, "-c", parent_code, str(child_pid_path)],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        creationflags=creationflags,
+        start_new_session=os.name != "nt",
+    )
+    child_pid = None
+    try:
+        deadline = time.monotonic() + 5
+        while not child_pid_path.is_file() and time.monotonic() < deadline:
+            time.sleep(0.05)
+        assert child_pid_path.is_file()
+        child_pid = int(child_pid_path.read_text(encoding="utf-8"))
+        assert watcher.process_alive(child_pid)
+        launcher.terminate_if_running(parent, tree=True)
+        deadline = time.monotonic() + 5
+        while watcher.process_alive(child_pid) and time.monotonic() < deadline:
+            time.sleep(0.05)
+        assert parent.poll() is not None
+        assert watcher.process_alive(child_pid) is False
+    finally:
+        launcher.terminate_if_running(parent, tree=True)
+        if child_pid is not None and watcher.process_alive(child_pid):
+            if os.name == "nt":
+                subprocess.run(
+                    ["taskkill", "/PID", str(child_pid), "/T", "/F"],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    check=False,
+                )
+            else:
+                os.kill(child_pid, 9)
+
+
+def test_launcher_marks_explicit_unmanaged_canary(launcher_harness):
+    result = launcher_harness(unmanaged_canary=True)
+    assert result.config["experiments"][0]["managed_backlog"] is False
+
+
+def test_harness_launcher_rejects_detached_mode(launcher_harness, capsys):
+    with pytest.raises(SystemExit) as raised:
+        launcher_harness(detach=True, require_terminal=True)
+    assert raised.value.code == 2
+    assert "require foreground control" in capsys.readouterr().err
+
+
+def test_launcher_can_require_the_new_harness_terminal(launcher_harness):
+    result = launcher_harness(require_terminal=True, omit_progress=True)
+    assert result.returncode == 0
+    assert result.config["experiments"][0]["require_harness_terminal"] is True
+    assert result.config["experiments"][0]["progress_glob"] == "raw/run.terminal.json"
+    assert result.config["experiments"][0]["expected_progress"] == 1
+
+
+def test_legacy_launcher_still_requires_explicit_progress_contract(
+    launcher_harness, capsys
+):
+    with pytest.raises(SystemExit) as raised:
+        launcher_harness(omit_progress=True)
+    assert raised.value.code == 2
+    assert "legacy runs require" in capsys.readouterr().err
 
 
 def test_experiment_spawn_failure_is_recorded(launcher_harness, capsys):
@@ -567,6 +1099,30 @@ def test_experiment_spawn_failure_is_recorded(launcher_harness, capsys):
     assert result.returncode == 2
     assert result.failure["phase"] == "experiment_spawn"
     assert "experiment launch failed" in captured.err
+
+
+def test_existing_runner_logs_are_never_truncated(launcher_harness, capsys):
+    result = launcher_harness(existing_logs=True, spawn_error_at=1)
+    captured = capsys.readouterr()
+    assert result.returncode == 2
+    assert result.failure["phase"] == "log_initialization"
+    assert result.popen_calls == []
+    assert (result.packet / "runner.stdout.log").read_text(encoding="utf-8") == "preserved stdout"
+    assert (result.packet / "runner.stderr.log").read_text(encoding="utf-8") == "preserved stderr"
+    assert "runner logs already exist" in captured.err
+
+
+def test_launcher_rejects_nonimplemented_packet_before_creating_logs(
+    launcher_harness, capsys
+):
+    result = launcher_harness(task_state="PROPOSED", spawn_error_at=1)
+    captured = capsys.readouterr()
+    assert result.returncode == 2
+    assert result.failure["phase"] == "packet_validation"
+    assert result.popen_calls == []
+    assert not (result.packet / "runner.stdout.log").exists()
+    assert not (result.packet / "runner.stderr.log").exists()
+    assert "requires manifest and packet stage IMPLEMENTED" in captured.err
 
 
 def test_watcher_spawn_failure_terminates_unwatched_experiment(

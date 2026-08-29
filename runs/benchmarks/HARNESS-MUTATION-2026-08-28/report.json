@@ -1,0 +1,561 @@
+{
+  "schema": "local-labs-seeded-mutation-report-v1",
+  "generated_at": "2026-08-29T12:21:19Z",
+  "command": "python tools/analysis/mutation_test_experiment_harness.py",
+  "test_files": [
+    "tests/test_experiment_harness.py",
+    "tests/test_watch_experiment_processes.py"
+  ],
+  "baseline": "PASS",
+  "python": "3.12.10",
+  "source_sha256": {
+    "src/model_lifecycle/experiment_harness.py": "fee8f3251cdbfc1b1543cbb65697bd51dfd19012a1e6b6007b25e1120e2a49c3",
+    "tools/analysis/watch_experiment_processes.py": "bbc5542c718b17d0b514f726a68cf5ff321f3ff2212799c9eb9e88c9a7925d74",
+    "tools/analysis/launch_watched_experiment.py": "c9da0a95c98f4da36a8530d6c5277ec0e33f3a1f32f6d9f2d5c7debdc5dd83be",
+    "tests/test_experiment_harness.py": "6d15782a84502cf6ac12971bed9f07c5f941994cbb3792f0cb1460e88f5af9c3",
+    "tests/test_watch_experiment_processes.py": "cb724ab679a3b242f6322a09bb3b5519225864ad9ca492c70994562c3bc80b36",
+    "tools/analysis/mutation_test_experiment_harness.py": "ea298be9821e973cef072ab261bbe45fbfa3812ebfe6e82804bc68b08b5b5929"
+  },
+  "counts": {
+    "killed": 76,
+    "survived": 0,
+    "invalid": 0,
+    "total": 76
+  },
+  "mutants": [
+    {
+      "name": "receipt_schema",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 112,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "receipt_task",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 114,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "receipt_fingerprint",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 118,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "nested_reserved_files",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 127,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "temporary_files",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 132,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "fresh_attempt",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 167,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "exclusive_lock",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 179,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "preflight_transport",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 244,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "preflight_answered",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 246,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "preflight_text",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 248,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "preflight_tokens",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 250,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "preflight_timings",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 252,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "sample_counter",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 278,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "restoration_result",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 290,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "seal_restoration",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 320,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "seal_status",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 329,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "journal_object",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 355,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "journal_schema",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 359,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "journal_sequence",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 361,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "journal_task",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 363,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "journal_chain",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 365,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "journal_digest",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 367,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "terminal_object",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 391,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "terminal_schema",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 400,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "terminal_fingerprint",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 403,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "terminal_lock",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 407,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "manifest_missing",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 425,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "manifest_extra",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 427,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "manifest_changed",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 429,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "journal_tail",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 435,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "terminal_status",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 438,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "terminal_journal_agreement",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 440,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "terminal_restoration",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 443,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "verify_receipt_fingerprint",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 457,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "verify_receipt_task",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 459,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "verify_receipt_schema",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 461,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "verify_sample_count",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 484,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "journal_known_events",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 492,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "journal_single_started",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 494,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "journal_terminal_position",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 500,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "journal_failed_transition",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 504,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "started_inputs",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 513,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "started_contract",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 519,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "final_event_sample_count",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 526,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "restoration_event",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 535,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "sealed_receipt_sha",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 540,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "sealed_receipt_fingerprint",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 542,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "verify_replay",
+      "file": "src/model_lifecycle/experiment_harness.py",
+      "line": 552,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "zombie_detection",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 51,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "strict_exit_type",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 198,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "canonical_packet",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 297,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "packet_identity",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 300,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "worker_exit_required",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 303,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "worker_exit_valid",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 306,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "worker_timeout",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 309,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "worker_returncode",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 312,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "harness_required",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 315,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "harness_valid",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 318,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "harness_aborted",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 321,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "harness_status",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 324,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "harness_identity",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 327,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "result_required",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 333,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "sealed_progress_bypass",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 336,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "watch_deadline",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 434,
+      "status": "KILLED",
+      "returncode": null,
+      "timeout": true
+    },
+    {
+      "name": "audit_ready",
+      "file": "tools/analysis/watch_experiment_processes.py",
+      "line": 490,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "legacy_contract",
+      "file": "tools/analysis/launch_watched_experiment.py",
+      "line": 201,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "detach_harness",
+      "file": "tools/analysis/launch_watched_experiment.py",
+      "line": 199,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "unmanaged_canary_forwarding",
+      "file": "tools/analysis/launch_watched_experiment.py",
+      "line": 288,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "watcher_early_exit",
+      "file": "tools/analysis/launch_watched_experiment.py",
+      "line": 115,
+      "status": "KILLED",
+      "returncode": null,
+      "timeout": true
+    },
+    {
+      "name": "watcher_early_tree_termination",
+      "file": "tools/analysis/launch_watched_experiment.py",
+      "line": 115,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "preserve_existing_runner_logs",
+      "file": "tools/analysis/launch_watched_experiment.py",
+      "line": 234,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "launcher_stage_authority",
+      "file": "tools/analysis/launch_watched_experiment.py",
+      "line": 101,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "terminal_forwarding",
+      "file": "tools/analysis/launch_watched_experiment.py",
+      "line": 287,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "exit_forwarding",
+      "file": "tools/analysis/launch_watched_experiment.py",
+      "line": 289,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "exit_returncode",
+      "file": "tools/analysis/launch_watched_experiment.py",
+      "line": 127,
+      "status": "KILLED",
+      "returncode": 1
+    },
+    {
+      "name": "audit_handoff",
+      "file": "tools/analysis/launch_watched_experiment.py",
+      "line": 416,
+      "status": "KILLED",
+      "returncode": 1
+    }
+  ]
+}

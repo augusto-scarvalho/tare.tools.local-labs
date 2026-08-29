@@ -3,6 +3,41 @@
   "trail_id": "CONTINUOUS-RECOVERY-2026-08-28",
   "mode": "executor_watcher_independent_audit",
   "authority": "Run dependency-ready experiments for the next several hours; preserve services and stop fail-closed.",
+  "updated_at": "2026-08-29T12:34:54Z",
+  "canonical_backlog_snapshot": {
+    "manifest_updated_at": "2026-08-29T00:13:22Z",
+    "total": 108,
+    "states": {
+      "PROMOTED": 24,
+      "REJECTED": 21,
+      "EXECUTED": 19,
+      "BLOCKED": 39,
+      "IMPLEMENTED": 2,
+      "PROPOSED": 3
+    },
+    "next_id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-04",
+    "gate": "PASS"
+  },
+  "controller_contract": {
+    "status": "INDEPENDENTLY_APPROVED",
+    "launcher": "tools/analysis/launch_watched_experiment.py",
+    "watcher": "tools/analysis/watch_experiment_processes.py",
+    "harness": "src/model_lifecycle/experiment_harness.py",
+    "documentation": "docs/research/EXPERIMENT_WATCHER.md",
+    "handoff": "docs/HANDOFF_2026-08-29_FRUGAL_HARNESS_AND_BACKLOG.md",
+    "managed_launch_authority": "manifest state and PIPELINE stage must both be IMPLEMENTED",
+    "fresh_attempt_policy": "existing runner logs are immutable; use a fresh packet attempt",
+    "worker_cleanup": "terminate the process tree or POSIX process group on timeout or watcher failure",
+    "verification": {
+      "focused_tests": "130 passed",
+      "full_tests": "360 passed",
+      "live_smoke": "PASS",
+      "mutation_gate": "76 killed, 0 survived, 0 invalid",
+      "mutation_report": "runs/benchmarks/HARNESS-MUTATION-2026-08-28/report.json",
+      "mutation_report_sha256": "91cff8f9722d7094426bd9226ec6c94d073944c79c23b8d603c5b71088394434",
+      "independent_audit": "APPROVE"
+    }
+  },
   "polling_policy": {
     "watcher_poll_seconds": 300,
     "active_delivery": "completion_failure_or_audit_barrier_only",

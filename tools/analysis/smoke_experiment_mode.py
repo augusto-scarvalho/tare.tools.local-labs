@@ -31,24 +31,39 @@ def main() -> int:
         root = pathlib.Path(temporary)
         packet = root / "packet"
         watch = root / "watch"
-        write_json(packet / "PIPELINE.json", {"stage": "EXECUTED"})
-        write_json(packet / "raw/receipt.json", {"schema": "canary"})
-        (packet / "RESULT.md").write_text("# Canary result\n", encoding="utf-8")
-
-        worker = (
-            "import pathlib,sys,time; "
-            "p=pathlib.Path(sys.argv[1])/'raw/finalized'; "
-            "p.mkdir(parents=True,exist_ok=True); "
-            "(p/'done.json').write_text('{}',encoding='utf-8'); "
-            "time.sleep(3)"
+        write_json(
+            packet / "PIPELINE.json",
+            {"task_id": "EXPERIMENT-MODE-CANARY", "stage": "EXECUTED"},
         )
+        worker = """
+import pathlib
+import sys
+import time
+from src.model_lifecycle.experiment_harness import ExperimentRun
+
+packet = pathlib.Path(sys.argv[1])
+task_id = "EXPERIMENT-MODE-CANARY"
+receipt = {
+    "schema": "local-labs-backlog-receipt-v1",
+    "task_id": task_id,
+    "provenance": {"fixture": True},
+    "provenance_complete": True,
+    "gates": {},
+    "evidence": {"raw_samples": "raw/samples.jsonl"},
+}
+with ExperimentRun(packet / "raw", task_id, {"fixture": True}) as run:
+    run.record({"fixture": "live-subprocess"})
+    run.seal(receipt)
+(packet / "RESULT.md").write_text("# Canary result\\n", encoding="utf-8")
+time.sleep(3)
+"""
         command = [
             sys.executable,
             str(LAUNCHER),
             "--task-id", "EXPERIMENT-MODE-CANARY",
             "--packet-dir", str(packet),
-            "--progress-glob", "raw/finalized/*.json",
-            "--expected-progress", "1",
+            "--require-harness-terminal",
+            "--unmanaged-canary",
             "--watch-id", "EXPERIMENT-MODE-CANARY",
             "--watch-outdir", str(watch),
             "--poll-seconds", "5",
@@ -79,6 +94,46 @@ def main() -> int:
         if not final_path.is_file():
             raise RuntimeError("watcher did not produce FINAL.json")
         final = json.loads(final_path.read_text(encoding="utf-8"))
+        failed_packet = root / "failed-packet"
+        failed_watch = root / "failed-watch"
+        write_json(
+            failed_packet / "PIPELINE.json",
+            {"task_id": "EXPERIMENT-MODE-FAILED-CANARY", "stage": "EXECUTED"},
+        )
+        failed_worker = worker.replace(
+            'task_id = "EXPERIMENT-MODE-CANARY"',
+            'task_id = "EXPERIMENT-MODE-FAILED-CANARY"',
+        ).replace(
+            '(packet / "RESULT.md").write_text("# Canary result\\n", encoding="utf-8")\ntime.sleep(3)',
+            'raise SystemExit(7)',
+        )
+        failed_completed = subprocess.run(
+            [
+                sys.executable,
+                str(LAUNCHER),
+                "--task-id", "EXPERIMENT-MODE-FAILED-CANARY",
+                "--packet-dir", str(failed_packet),
+                "--require-harness-terminal",
+                "--unmanaged-canary",
+                "--watch-id", "EXPERIMENT-MODE-FAILED-CANARY",
+                "--watch-outdir", str(failed_watch),
+                "--poll-seconds", "5",
+                "--",
+                sys.executable,
+                "-c",
+                failed_worker,
+                str(failed_packet),
+            ],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            timeout=30,
+            check=False,
+        )
+        failed_final = json.loads(
+            (failed_watch / "FINAL.json").read_text(encoding="utf-8")
+        )
+        failed_state = failed_final["states"]["EXPERIMENT-MODE-FAILED-CANARY"]
         controller_events = []
         for line in completed.stdout.splitlines():
             try:
@@ -102,6 +157,26 @@ def main() -> int:
             "experiment_mode_preserved": final.get("experiment_mode") is True,
             "queue_refreshed": final.get("backlog_queue", {}).get("status_returncode") == 0,
             "next_candidate_selected": final.get("completion_action") == expected_action,
+            "harness_terminal_verified": (
+                final.get("states", {})
+                .get("EXPERIMENT-MODE-CANARY", {})
+                .get("finalization", {})
+                .get("harness_terminal", {})
+                .get("valid") is True
+            ),
+            "unmanaged_canary_not_audit_ready": final.get("audit_ready_ids") == [],
+            "worker_exit_verified": (
+                final.get("states", {})
+                .get("EXPERIMENT-MODE-CANARY", {})
+                .get("finalization", {})
+                .get("worker_exit", {})
+                .get("returncode") == 0
+            ),
+            "nonzero_worker_rejected": (
+                failed_completed.returncode == 2
+                and failed_state.get("status") == "failed_worker_exit"
+                and failed_final.get("audit_ready_ids") == []
+            ),
             "backlog_unchanged": sha256(BACKLOG) == backlog_before,
         }
         report = {

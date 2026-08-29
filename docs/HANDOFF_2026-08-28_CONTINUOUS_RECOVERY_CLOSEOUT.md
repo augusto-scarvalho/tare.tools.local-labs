@@ -1,8 +1,13 @@
 # Continuous recovery closeout and next-agent handoff — 2026-08-28
 
-Read this document first after a context reset. It supersedes the operational
-queue in `HANDOFF_2026-08-28_REJECTED_HOLD_RECOVERY_WAVE.md`; the older handoff
-remains the evidence-preserving account of the preceding six-packet audit.
+> Superseded as the first operational read by
+> [`HANDOFF_2026-08-29_FRUGAL_HARNESS_AND_BACKLOG.md`](HANDOFF_2026-08-29_FRUGAL_HARNESS_AND_BACKLOG.md).
+> This document remains the authoritative scientific closeout for its campaign.
+
+For the scientific context of this campaign, this document supersedes the
+operational queue in `HANDOFF_2026-08-28_REJECTED_HOLD_RECOVERY_WAVE.md`; the
+older handoff remains the evidence-preserving account of the preceding
+six-packet audit.
 
 ## Current state
 

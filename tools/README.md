@@ -83,8 +83,9 @@ tools/
 | [`analyze_ab.py`](analysis/analyze_ab.py) | A/B Testing | Core distribution-free A/B analyzer: exact sign tests, bootstrap CIs, Cliff's $\delta$. |
 | [`changelog_guard.py`](analysis/changelog_guard.py) | Repository Policy | Enforces meaningful `Unreleased` entries for material commits and append-only changelog history in local pre-push and CI. |
 | [`launch_watched_experiment.py`](analysis/launch_watched_experiment.py) | Experiment Lifecycle | Starts one experiment and its persistent watcher, records launch provenance, and keeps the controller bound to compact completion delivery by default. |
-| [`watch_experiment_processes.py`](analysis/watch_experiment_processes.py) | Experiment Lifecycle | Watches Windows PIDs, physical progress markers, GPU and service health; fail-closed advances valid packets only to `EXECUTED` and refreshes the backlog queue. |
+| [`watch_experiment_processes.py`](analysis/watch_experiment_processes.py) | Experiment Lifecycle | Watches Windows/WSL process state, worker exits, physical progress, GPU and service health; fail-closed advances valid packets only to `EXECUTED` and refreshes the backlog queue. |
 | [`smoke_experiment_mode.py`](analysis/smoke_experiment_mode.py) | Experiment Lifecycle | Runs a temporary, non-mutating live canary through foreground completion delivery and backlog refresh. |
+| [`mutation_test_experiment_harness.py`](analysis/mutation_test_experiment_harness.py) | Experiment Lifecycle | Runs the frozen seeded mutation gate in isolated copies and persists an independently reproducible JSON report. |
 | [`ab_compare.py`](analysis/ab_compare.py) | Comparative | Direct paired round comparator across memory, latency, and throughput. |
 | [`ab_isolate.py`](analysis/ab_isolate.py) | Isolation | Environment isolation harness ensuring identical GPU thermals between arms. |
 | [`a2_stats.py`](analysis/a2_stats.py) | Concision | Statistical Wilcoxon signed-rank and non-inferiority test calculator. |

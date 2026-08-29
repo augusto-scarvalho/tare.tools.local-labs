@@ -6,6 +6,15 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added the frugal experiment lifecycle harness with atomic terminal evidence,
+  semantic journal verification, worker exit-code/deadline binding, POSIX zombie
+  handling, canonical backlog packet binding, journal FSM, concurrent watcher
+  supervision, process-tree cleanup, non-destructive runner-log initialization,
+  130 focused fixtures, a live smoke path, and a reproducible 76-mutant
+  fail-closed report.
+- Updated the canonical continuation trail and next-agent handoff with the live
+  108-item backlog snapshot, independently approved harness contract, immutable
+  mutation receipt, and exact retained-evidence queue boundary.
 - Added the continuous executor, low-noise watcher and independent-audit trail
   for scorer recovery, SLX-03 runtime/performance qualification, and Qwen3.8 Q8
   KV long-context/concurrency successors, with preserved failed predecessors,

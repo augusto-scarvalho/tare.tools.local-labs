@@ -48,6 +48,28 @@ O watcher não pode:
 O executor continua responsável por produzir evidência e restaurar o ambiente.
 O auditor independente continua responsável por conferir a ciência.
 
+### Terminal frugal do harness (opt-in)
+
+Runners novos podem usar `src/model_lifecycle/experiment_harness.py` e produzir
+`raw/run.terminal.json`. Um terminal `SEALED` verificado substitui a inferência
+legada baseada em `progress_glob`; `ABORTED`, hash divergente ou terminal
+malformado param o fluxo sem transição científica. O modo legado permanece
+aceito durante a migração, salvo quando o launcher recebe
+`--require-harness-terminal`.
+
+O terminal não transforma o watcher em auditor. Ele prova autoconsistência, não
+autenticidade contra um executor malicioso: a âncora externa continua sendo a
+revisão independente. O watcher exige também `RESULT.md`, identidade concordante
+entre configuração, `PIPELINE.json`, receipt e terminal, e um recibo atômico com
+o exit code real do worker. Quando exigida, a restauração precisa aparecer como
+evento bem-sucedido antes do seal. A saída compacta final inclui
+`audit_ready_ids` para que o controlador entregue os pacotes `EXECUTED` ao
+auditor independente.
+
+Nesse modo, `--progress-glob` e `--expected-progress` são opcionais: o launcher
+usa o próprio terminal como marcador visual. Runners legados continuam obrigados
+a declarar ambos os argumentos.
+
 ## Componentes
 
 | Componente | Responsabilidade |
@@ -94,13 +116,19 @@ O watcher não prepara nem preregistra o pacote.
 
 ### 2. Lançamento do experimento
 
-O launcher abre, em modo de sobrescrita:
+O launcher primeiro confirma que a tarefa e o diretório correspondem ao pacote
+canônico do backlog e que manifesto e `PIPELINE.json` concordam em
+`IMPLEMENTED`. Depois cria, em modo exclusivo:
 
 - `runs/research/<ID>/runner.stdout.log`;
 - `runs/research/<ID>/runner.stderr.log`.
 
+Se qualquer log já existir, o launcher preserva ambos, grava
+`LAUNCH_FAILED.json` com `phase=log_initialization` e exige uma nova tentativa.
 Depois inicia o comando com o repositório como diretório de trabalho. No
-Windows, usa `CREATE_NEW_PROCESS_GROUP | CREATE_NO_WINDOW`.
+Windows, usa `CREATE_NEW_PROCESS_GROUP | CREATE_NO_WINDOW`; em POSIX, cria uma
+nova sessão. Assim, falha precoce do watcher ou timeout encerra a árvore do
+worker, não apenas seu processo pai.
 
 Se o experimento não puder ser iniciado, o launcher grava
 `LAUNCH_FAILED.json` com `phase=experiment_spawn` e retorna código 2.
@@ -137,22 +165,20 @@ tokens.
 
 ### 5. Detecção do término
 
-Quando o PID deixa de existir:
+Quando o worker termina, o launcher reaproveita o processo e grava
+`WORKER_EXIT.json` atomicamente. O watcher então:
 
-1. o watcher exige que o PID tenha sido observado vivo pelo menos uma vez;
-2. exige `raw/receipt.json`;
-3. exige `progress >= expected_progress`;
-4. aceita estágio `IMPLEMENTED` ou, idempotentemente, `EXECUTED`;
-5. em `IMPLEMENTED`, chama `backlog_pipeline.py advance <ID> --to EXECUTED`;
-6. confirma que o estágio final é `EXECUTED`;
-7. executa `backlog_pipeline.py gate`.
+1. exige exit code inteiro zero, sem timeout ou falha prévia do watcher;
+2. exige `raw/receipt.json`, `RESULT.md` e terminal válido;
+3. vincula `task_id`, PID e `run_id` ao recibo de saída;
+4. vincula tarefa, `PIPELINE.json`, receipt e terminal;
+5. confirma que o pacote é o `packet_dir` canônico do backlog e que os estados concordam;
+6. aceita estágio `IMPLEMENTED` ou, idempotentemente, `EXECUTED`;
+7. em `IMPLEMENTED`, chama `backlog_pipeline.py advance <ID> --to EXECUTED`;
+8. confirma o estágio final e executa `backlog_pipeline.py gate`.
 
-O watcher não recebe o exit code do experimento. O término do PID não é prova
-de sucesso; recibo, progresso, transição e gate formam a prova operacional.
-
-`result_exists` é registrado na finalização para diagnóstico, mas não é um gate
-direto do watcher no estágio `EXECUTED`. O runner deve sempre escrever
-`RESULT.md` antes de terminar.
+Canários temporários precisam de `--unmanaged-canary`: são validados, mas não
+mudam o backlog nem aparecem em `audit_ready_ids`.
 
 ### 6. Recuperação final
 
@@ -221,14 +247,16 @@ O separador `--` marca o começo do comando do experimento.
 |---|---:|---|
 | `--task-id` | sim | ID exato no backlog. |
 | `--packet-dir` | sim | Pacote do experimento, relativo ao repositório ou absoluto. |
-| `--progress-glob` | sim | Glob relativo ao pacote usado para contar unidades finalizadas. |
-| `--expected-progress` | sim | Limite mínimo de marcadores exigido no término. |
+| `--progress-glob` | legado | Glob relativo ao pacote; opcional com terminal obrigatório. |
+| `--expected-progress` | legado | Limite mínimo de marcadores; opcional com terminal obrigatório. |
 | `--watch-id` | sim | Identidade única desta observação. |
 | `--watch-outdir` | sim | Diretório persistente do watcher. Deve ser único por tentativa. |
 | `--poll-seconds` | não | Cadência; padrão 300, mínimo efetivo 5. |
+| `--max-runtime-seconds` | não | Deadline duro do worker; padrão 86400 (24 horas). |
+| `--require-harness-terminal` | não | Exige terminal, receipt, `RESULT.md`, identidade e exit code verificados. |
 | `--experiment-mode` | não | Torna a validade da fila parte da conclusão e calcula a ação de continuidade. |
 | `--verbose-controller-output` | não | Expõe metadados completos no stdout do controlador. |
-| `--detach-watcher` | não | Retorna imediatamente e perde a entrega ativa da conclusão. |
+| `--detach-watcher` | não | Somente legado; é rejeitado quando o terminal do harness é obrigatório. |
 
 ## Contrato dos marcadores de progresso
 
@@ -353,7 +381,10 @@ launcher imprime um aviso explícito:
 WARNING: watcher detached; completion will only be persisted on disk and will not wake the controlling session.
 ```
 
-Use apenas quando outro supervisor externo estiver lendo `FINAL.json`.
+Use apenas para runners legados quando outro supervisor externo estiver lendo
+`FINAL.json`. O modo `--require-harness-terminal` exige foreground para que o
+launcher reaproveite o processo filho e persista seu exit code sem a ambiguidade
+de processos zombie no WSL.
 
 ## Economia de tokens e ruído
 
@@ -423,10 +454,10 @@ watcher falhar ao iniciar. O launcher é mais seguro para o caso comum.
 ### Fixtures isoladas
 
 ```powershell
-python -m pytest tests/test_watch_experiment_processes.py -q
+python -m pytest tests/test_experiment_harness.py tests/test_watch_experiment_processes.py -q
 ```
 
-A suíte possui 44 casos coletados e cobre:
+A bateria possui 130 casos coletados: 56 do harness e 74 do watcher/launcher. Ela cobre:
 
 - detecção de PID vivo e inexistente;
 - HTTP saudável e erro de transporte;
@@ -444,7 +475,15 @@ A suíte possui 44 casos coletados e cobre:
 - launcher foreground e detached;
 - falha de spawn em cada fase;
 - `FINAL.json` ausente ou inválido;
-- encerramento escalonado `terminate` e `kill` do job órfão.
+- encerramento escalonado do grupo/árvore do job órfão, inclusive processo-filho real;
+- recusa sem truncamento de logs preexistentes e exigência explícita do modo árvore;
+- recusa de pacote fora de `IMPLEMENTED` antes da criação dos logs;
+- terminal `SEALED`, `ABORTED`, ausente, malformado e alterado após o seal;
+- processo curto concluído pelo terminal, sem depender de observação prévia do PID;
+- entrega compacta de `audit_ready_ids` e launcher opt-in sem marcadores redundantes.
+- exit code não zero após o seal, timeout, zombie POSIX e recibo de saída inválido;
+- vínculo de identidade entre tarefa, pacote, receipt, terminal e worker;
+- adulteração semântica re-hash do journal e nomes reservados em subdiretórios.
 
 As fixtures usam repositório temporário, pipeline stubado, PIDs controlados e
 sleep removido. Elas não executam modelos nem alteram o backlog real.
@@ -467,6 +506,17 @@ O canário:
 - confirma que o backlog não mudou.
 
 Ele testa integração e entrega, não validade científica nem trabalho de GPU.
+
+### Mutação reproduzível
+
+```powershell
+python tools/analysis/mutation_test_experiment_harness.py
+```
+
+O gate executa 76 mutantes semânticos em cópias temporárias, falha se algum
+sobreviver ou se uma substituição deixar de localizar exatamente um operador e
+grava o relatório completo em
+`runs/benchmarks/HARNESS-MUTATION-2026-08-28/report.json`.
 
 ## Diagnóstico operacional
 
@@ -507,14 +557,14 @@ nvidia-smi
 
 ## Limitações conhecidas
 
-- A detecção de processo usa `ctypes.WinDLL("kernel32")`; o watcher atual é um
-  controlador de host Windows, embora o experimento possa executar trabalho em
-  WSL.
-- O watcher sabe que um PID existe, mas não captura seu exit code.
-- Um processo muito curto que termine antes da primeira observação gera
-  `failed_pid_never_observed`, mesmo se deixou arquivos.
-- Existe risco teórico de reutilização de PID entre pollings longos; o contrato
-  de recibo/progresso reduz, mas não elimina, essa ambiguidade.
+- O watcher trata processos Windows e POSIX/WSL, inclusive zombies, mas runners
+  detached legados não possuem o vínculo forte de exit code do modo foreground.
+- Um watcher manual sem `worker_exit_path` conserva o contrato legado de PID e
+  progresso; ele não deve ser usado para novos runners do harness.
+- Hashes locais provam autoconsistência, não autenticidade contra um executor
+  malicioso; essa autoridade permanece com a auditoria independente.
+- Existe risco residual de reutilização de PID em configurações legadas; no modo
+  novo, `run_id`, PID, task e recibo de saída precisam concordar.
 - O parser de GPU pressupõe a saída de uma única GPU com cinco campos. Em host
   multi-GPU, a saída pode ser preservada apenas como `raw`.
 - Saúde final significa HTTP 200. Conteúdo semântico e identidade do serviço
