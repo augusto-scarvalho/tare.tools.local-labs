@@ -146,6 +146,12 @@ def main() -> int:
     parser.add_argument("--task-id", required=True)
     parser.add_argument("--packet-dir", required=True)
     parser.add_argument("--progress-glob")
+    parser.add_argument(
+        "--progress-mode",
+        choices=("files", "jsonl_lines"),
+        default="files",
+        help="interpret progress as matched files or non-empty JSONL records",
+    )
     parser.add_argument("--expected-progress", type=int)
     parser.add_argument(
         "--require-harness-terminal",
@@ -196,6 +202,8 @@ def main() -> int:
     args = parser.parse_args()
     if args.max_runtime_seconds <= 0:
         parser.error("--max-runtime-seconds must be positive")
+    if args.expected_progress is not None and args.expected_progress <= 0:
+        parser.error("--expected-progress must be positive")
     if args.detach_watcher and args.require_harness_terminal:
         parser.error("harness-terminal runs require foreground control to preserve worker exit status")
     if not args.require_harness_terminal and (
@@ -283,6 +291,7 @@ def main() -> int:
             "pid": experiment.pid,
             "packet_dir": pathlib.Path(args.packet_dir).as_posix(),
             "progress_glob": progress_glob,
+            "progress_mode": args.progress_mode,
             "expected_progress": expected_progress,
             "require_harness_terminal": args.require_harness_terminal,
             "managed_backlog": not args.unmanaged_canary,

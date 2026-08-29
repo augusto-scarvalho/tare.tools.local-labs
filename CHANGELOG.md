@@ -6,6 +6,14 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added a persistent watched-wave supervisor for long AFK experiment chains.
+  It binds an ordered argv manifest, launches only canonical `IMPLEMENTED`
+  packets, validates watcher audit-readiness and `EXECUTED` state before the
+  next dispatch, resumes completed work, recovers the post-watcher state-write
+  crash window, and stops fail-closed without promoting, committing or pushing.
+- Added typed watcher progress (`files` or `jsonl_lines`) and regression fixtures
+  covering the 448-record/single-file false alert encountered in the 2026-08-29
+  fleet wave.
 - Added a frugal, fail-closed backlog priority policy with explicit weighted
   assessments, bounded anti-starvation, explained dry-runs, atomic apply,
   score-aware ready-item selection and compact experiment-mode watcher

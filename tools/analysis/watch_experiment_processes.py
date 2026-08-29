@@ -295,6 +295,22 @@ def completion_action(experiment_mode: bool, final_status: str, next_candidate: 
     return "dispatch_next_candidate"
 
 
+def progress_value(packet_dir: pathlib.Path, item: dict[str, Any]) -> int:
+    """Measure progress using an explicit contract instead of guessing from a path."""
+    mode = item.get("progress_mode", "files")
+    matches = sorted(packet_dir.glob(item["progress_glob"]))
+    if mode == "files":
+        return len(matches)
+    if mode == "jsonl_lines":
+        return sum(
+            1
+            for path in matches
+            for line in path.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        )
+    raise ValueError(f"unsupported progress_mode: {mode!r}")
+
+
 def finalize_experiment(item: dict[str, Any], actor: str) -> dict[str, Any]:
     packet_dir = (ROOT / item["packet_dir"]).resolve()
     receipt = packet_dir / "raw/receipt.json"
@@ -308,7 +324,8 @@ def finalize_experiment(item: dict[str, Any], actor: str) -> dict[str, Any]:
         "receipt_exists": receipt.is_file(),
         "result_exists": result.is_file(),
         "stage_before": stage_before,
-        "progress": len(list(packet_dir.glob(item["progress_glob"]))),
+        "progress": progress_value(packet_dir, item),
+        "progress_mode": item.get("progress_mode", "files"),
         "expected_progress": item["expected_progress"],
         "harness_terminal": terminal,
         "worker_exit": worker_exit,
@@ -397,7 +414,7 @@ def snapshot(config: dict[str, Any], states: dict[str, dict[str, Any]]) -> dict[
     experiments = []
     for item in config["experiments"]:
         packet_dir = ROOT / item["packet_dir"]
-        progress = len(list(packet_dir.glob(item["progress_glob"])))
+        progress = progress_value(packet_dir, item)
         terminal = harness_terminal(packet_dir)
         worker_exit = worker_exit_status(item)
         experiments.append({
@@ -405,6 +422,7 @@ def snapshot(config: dict[str, Any], states: dict[str, dict[str, Any]]) -> dict[
             "pid": item["pid"],
             "process_alive": process_alive(int(item["pid"])),
             "progress": progress,
+            "progress_mode": item.get("progress_mode", "files"),
             "expected_progress": item["expected_progress"],
             "pipeline_stage": pipeline_stage(packet_dir),
             "watch_status": states[item["task_id"]]["status"],

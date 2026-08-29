@@ -145,12 +145,17 @@ experimento para que não exista um job órfão sem monitoramento, grava
 O watcher verifica, por experimento:
 
 - existência do PID;
-- quantidade de arquivos que casam com `progress_glob`;
+- progresso conforme o contrato explícito `progress_mode` + `progress_glob`;
 - estágio em `PIPELINE.json`;
 - GPU por `nvidia-smi`;
 - status HTTP dos endpoints configurados.
 
 O padrão é 300 segundos. O mínimo aceito é 5 segundos.
+
+`progress_mode=files` conta arquivos correspondentes. `progress_mode=jsonl_lines`
+conta linhas não vazias nos JSONL correspondentes. Nunca use a contagem de
+arquivos para representar amostras: um `samples.jsonl` com 448 linhas vale 1 em
+`files` e 448 em `jsonl_lines`.
 
 `WATCH_STATUS.json` é atualizado a cada ciclo. Um evento `progress` só é
 adicionado a `events.jsonl` quando muda pelo menos um destes campos:
@@ -238,6 +243,7 @@ python tools/analysis/launch_watched_experiment.py `
   --task-id BACKLOG-EXAMPLE-01 `
   --packet-dir runs/research/BACKLOG-EXAMPLE-01 `
   --progress-glob "raw/finalized/*.json" `
+  --progress-mode files `
   --expected-progress 4 `
   --watch-id EXPERIMENT-WATCH-2026-08-27-EXAMPLE-R1 `
   --watch-outdir runs/autonomous/EXPERIMENT-WATCH-2026-08-27-EXAMPLE-R1 `
@@ -248,6 +254,55 @@ python tools/analysis/launch_watched_experiment.py `
 ```
 
 O separador `--` marca o começo do comando do experimento.
+
+Para progresso armazenado como registros em um único JSONL, use
+`--progress-mode jsonl_lines` e mantenha `--expected-progress` na mesma unidade.
+
+## Ondas autônomas congeladas
+
+Uma cadeia longa autorizada não deve depender de o agente interpretar
+`dispatch_next_candidate` no instante exato da conclusão. Prepare todos os
+pacotes em `IMPLEMENTED`, congele os argv e os contratos de progresso em um
+manifesto `local-labs-watched-wave-v1` e entregue a sequência a
+`tools/analysis/run_watched_experiment_wave.py`.
+
+```json
+{
+  "schema": "local-labs-watched-wave-v1",
+  "wave_id": "WAVE-2026-08-29-A",
+  "poll_seconds": 300,
+  "items": [
+    {
+      "task_id": "BACKLOG-A",
+      "command": ["python", "tools/research/run_a.py"],
+      "progress": {
+        "mode": "jsonl_lines",
+        "glob": "raw/samples.jsonl",
+        "expected": 448
+      }
+    },
+    {
+      "task_id": "BACKLOG-B",
+      "command": ["python", "tools/research/run_b.py"],
+      "require_harness_terminal": true
+    }
+  ]
+}
+```
+
+```powershell
+python tools/analysis/run_watched_experiment_wave.py `
+  --manifest config/research_trails/WAVE-2026-08-29-A.json `
+  --outdir runs/autonomous/WAVE-2026-08-29-A
+```
+
+O supervisor executa somente os argv congelados, em ordem. O próximo item parte
+apenas após `FINAL.json.status=complete`, presença em `audit_ready_ids` e
+concordância `EXECUTED` entre backlog e pacote. Estado e digest do manifesto são
+persistidos. A retomada pula itens já validados e recupera a janela de crash
+entre o watcher gravar `EXECUTED` e o supervisor registrar a conclusão. Qualquer
+alerta para a onda. O supervisor não cria hipóteses, não promove, não faz commit
+e não faz push.
 
 ### Argumentos do launcher
 

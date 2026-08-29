@@ -321,6 +321,8 @@ def launcher_harness(tmp_path, monkeypatch):
         unmanaged_canary=False,
         existing_logs=False,
         task_state="IMPLEMENTED",
+        progress_mode="files",
+        expected_progress=1,
     ):
         packet = root / "packet"
         watch_outdir = root / "watch"
@@ -398,7 +400,11 @@ def launcher_harness(tmp_path, monkeypatch):
             "--watch-outdir", "watch",
         ]
         if not omit_progress:
-            argv.extend(["--progress-glob", "raw/*.json", "--expected-progress", "1"])
+            argv.extend([
+                "--progress-glob", "raw/*.json",
+                "--progress-mode", progress_mode,
+                "--expected-progress", str(expected_progress),
+            ])
         if experiment_mode:
             argv.append("--experiment-mode")
         if require_terminal:
@@ -1122,7 +1128,36 @@ def test_launcher_can_require_the_new_harness_terminal(launcher_harness):
     assert result.returncode == 0
     assert result.config["experiments"][0]["require_harness_terminal"] is True
     assert result.config["experiments"][0]["progress_glob"] == "raw/run.terminal.json"
+    assert result.config["experiments"][0]["progress_mode"] == "files"
     assert result.config["experiments"][0]["expected_progress"] == 1
+
+
+def test_jsonl_progress_counts_records_not_the_single_file(
+    packet_factory, watcher_repo, pipeline_stub
+):
+    item = packet_factory(progress=0)
+    samples = watcher_repo / item["packet_dir"] / "raw/samples.jsonl"
+    samples.write_text("".join('{\"row\":%d}\n' % index for index in range(448)), encoding="utf-8")
+    item.update({
+        "progress_glob": "raw/samples.jsonl",
+        "progress_mode": "jsonl_lines",
+        "expected_progress": 448,
+    })
+
+    assert watcher.progress_value(watcher_repo / item["packet_dir"], item) == 448
+    assert watcher.finalize_experiment(item, "fixture")["status"] == "executed_valid"
+
+
+def test_launcher_persists_jsonl_progress_mode(launcher_harness):
+    result = launcher_harness(progress_mode="jsonl_lines")
+    assert result.config["experiments"][0]["progress_mode"] == "jsonl_lines"
+
+
+def test_launcher_rejects_nonpositive_expected_progress(launcher_harness, capsys):
+    with pytest.raises(SystemExit) as raised:
+        launcher_harness(expected_progress=0)
+    assert raised.value.code == 2
+    assert "expected-progress must be positive" in capsys.readouterr().err
 
 
 def test_legacy_launcher_still_requires_explicit_progress_contract(

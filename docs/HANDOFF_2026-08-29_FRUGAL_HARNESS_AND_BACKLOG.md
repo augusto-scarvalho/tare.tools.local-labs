@@ -104,19 +104,28 @@ Items without a fresh assessment preserve their current priority. The watcher
 requests an atomic rebalance only when an `--experiment-mode` wave finishes and
 stores a compact result.
 
-`backlog_pipeline.py next` selects:
+The 2026-08-29 execution wave consumed the dependency-ready queue. Current
+outcomes, still pending independent review, are:
 
-1. `BACKLOG-FLEET-CONTEXT-ENVELOPE-04` (P0): reconstruct and recompute all 72
-   retained rows from an immutable final source set, with no new inference.
-2. `BACKLOG-FLEET-CONTEXT-INTERFERENCE-02` (P0): reconstruct the 72 retained
-   hard-decoy rows, including the frozen 31-decoy construct.
-3. `BACKLOG-GATEWAY-ROUTE-STRESS-02` (P0 after portfolio review): recompute the retained 30-switch,
-   120-request campaign while separating transport, route identity and semantic
-   content eligibility.
+1. `BACKLOG-FLEET-CONTEXT-ENVELOPE-04` is `EXECUTED` with a preserved negative
+   result caused by the executor using raw UTF-8 SHA-256 instead of the
+   predecessor's canonical JSON prompt digest. Do not rewrite it; a correction
+   requires a successor.
+2. `BACKLOG-FLEET-CONTEXT-INTERFERENCE-02` is `BLOCKED` after its versioned
+   wrapper aborted before receipt due recursive function substitution. Its
+   aborted terminal is preserved and a retry requires a successor.
+3. `BACKLOG-GATEWAY-ROUTE-STRESS-02` is `EXECUTED` and audit-ready after all 12
+   gates passed over the retained 30-switch/120-request campaign.
+4. `BACKLOG-FLEET-REGRESSION-SCREEN-02` is `EXECUTED` and audit-ready: 448/448
+   requests, 100% HTTP success, exact repeat rate 1.0, all request payloads
+   retained and terminal runner state bound before receipt.
+5. `BACKLOG-FLEET-SEEDED-STABILITY-02` is `EXECUTED` and audit-ready: 288/288
+   requests, 100% HTTP success, exact seeded repeat rate 1.0, all request
+   payloads retained and terminal runner state bound before receipt.
 
-The first item is the only default next launch. The second and third remain
-dependency-ready successors, not permission to run out of order. These three
-are retained-evidence recomputations and should consume no GPU.
+`backlog_pipeline.py next --json` currently returns `null`. This means no
+dependency-ready `PROPOSED` item, not that blocked, executed or audit-pending
+research disappeared.
 
 ## Restart procedure
 
@@ -129,27 +138,29 @@ python tools/analysis/backlog_pipeline.py status
 python tools/analysis/backlog_pipeline.py next
 ```
 
-Expected next ID:
+Expected next value:
 
 ```text
-BACKLOG-FLEET-CONTEXT-ENVELOPE-04
+null
 ```
 
-Scaffold and preregister only the selected item, advance legally to
-`IMPLEMENTED`, then launch it through the foreground launcher. The executor and
-watcher stop at `EXECUTED`. A fresh independent auditor must recompute evidence,
-look for false positives and false negatives, and alone decide promotion,
-rejection or a bounded hold.
+Do not manufacture a next command from `EXECUTED` or `BLOCKED` items. First send
+the audit-ready packets to a fresh independent auditor. Any corrected context
+retry must be admitted as a successor. A future authorized multi-item queue
+must freeze every packet at `IMPLEMENTED` and run through the watched-wave
+supervisor. The executor and watcher stop at `EXECUTED`; only the independent
+auditor may promote, reject or place a bounded hold.
 
 ## Operational baseline at handoff
 
 - Gateway health on port 8080: HTTP 200.
 - Embedding health on port 8081: HTTP 200.
-- RTX 3090 memory at the observation point: 19,526 MiB of 24,576 MiB used;
-  this is a point observation, not a model-identity receipt.
+- The physical wave completed and restored the initially resident qualified
+  route without service restart; exact hardware identity remains in each raw
+  receipt rather than this prose handoff.
 - No Windows Python process matching the launcher or watcher was active.
-- This work changed infrastructure and documentation only; it produced no new
-  scientific result and authorizes no model or runtime promotion.
+- The new physical results remain `EXECUTED` and authorize no model or runtime
+  promotion before independent review.
 
 ## Non-negotiable boundaries
 
@@ -162,5 +173,10 @@ rejection or a bounded hold.
 - The watcher may advance only `IMPLEMENTED -> EXECUTED` after complete
   evidence; it never self-reviews.
 - `dispatch_next_candidate` is a compact instruction to the controlling agent,
-  not an autonomous queue mutation or permission to bypass dependencies.
+  not an autonomous queue mutation or permission to bypass dependencies. Long
+  AFK chains must use a frozen `local-labs-watched-wave-v1` manifest through
+  `tools/analysis/run_watched_experiment_wave.py`; it dispatches only canonical
+  `IMPLEMENTED` packets and stops on any alert.
+- Legacy progress is typed: `files` counts marker files and `jsonl_lines` counts
+  non-empty sample records. Never equate one JSONL file with its row count.
 - Commit and push remain separate maintainer actions.
