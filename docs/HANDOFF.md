@@ -49,7 +49,9 @@
   - Host RAM: 64 GB DDR4 (page-locked DMA enabled via `cudaHostRegister`).
   - Storage: High-speed NVMe PCIe 4.0 SSD.
 - **Inference Runtime Engine**:
-  - Primary: `/home/augus/src/slop.cpp-main/build/bin/llama-server` (branch **`lifecycle`**, base `720d7fa40`).
+  - Primary checkout: `/home/augus/src/slop.cpp-main` (`main` at `34b3dac7c` after the 2026-08-28 clean fast-forward).
+  - Historical SLX-03 source identity: tag `main-b10161-87a416b` at immutable commit `87a416bd7`; use a detached worktree for reproduction.
+  - Runtime binary: `/home/augus/src/slop.cpp-main/build/bin/llama-server`; route-specific receipts remain authoritative for the binary's build identity.
   - Runner script: `ops/wsl/wslx.sh` (detached execution in WSL with background logging).
 
 ---

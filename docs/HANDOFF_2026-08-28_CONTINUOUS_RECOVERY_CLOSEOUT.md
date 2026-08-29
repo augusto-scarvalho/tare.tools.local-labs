@@ -17,6 +17,12 @@ remains the evidence-preserving account of the preceding six-packet audit.
   `qwen38` resident; embeddings healthy on port 8081.
 - No experiment watcher or research job is active. The only GPU workload is
   the qualified Qwen3.8 serving backend.
+- Both Windows and WSL `slop.cpp` `main` checkouts are clean and synchronized
+  at `34b3dac7c`. The source revision used by the SLX-03 experiments remains
+  reproducible through tag `main-b10161-87a416b` at `87a416bd7`.
+- The stale root-level WSL `a4_spec_metrics_probe.py` duplicate was reconciled
+  with `tools/probes/a4_spec_metrics_probe.py` and removed. Its only logical
+  difference was an obsolete default binary path; no unique work was lost.
 
 ## What this wave established
 
@@ -57,6 +63,19 @@ They deliberately reuse retained physical outputs and should not consume GPU:
 
 The first two may run in either order, but complete and independently review
 each packet before signing a claim. Gateway R2 follows them by priority.
+
+## Post-closeout worktree reconciliation
+
+The WSL primary checkout was fast-forwarded from `87a416bd7` to `34b3dac7c`
+without rebuilding or moving the ignored SLX-03 artifacts. Audit R3 and
+instrumented R1 server binaries retained SHA-256 values
+`0267affe48ff9d49a13dbe0891b33598ead1179edd5db85ecb3b2c86c7e1fd0b` and
+`c00261d903f722214511f0f6b999de77ff98dedbf9b8da292501b7743bbaecac`,
+respectively. Gateway 8080 and embedding 8081 stayed healthy.
+
+This was an operational repository reconciliation, not a new experiment. It
+therefore changes no backlog state, review decision, receipt or scientific
+claim. The durable path-level record is `docs/PATH_CONTRACT.md`.
 
 ## Restart procedure
 
