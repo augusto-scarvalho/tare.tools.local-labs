@@ -81,9 +81,9 @@ change. Direct state edits remain forbidden. Live validation on 2026-08-29 found
 
 | State | Count |
 | --- | ---: |
-| `PROMOTED` | 28 |
+| `PROMOTED` | 29 |
 | `REJECTED` | 21 |
-| `EXECUTED` | 23 |
+| `EXECUTED` | 22 |
 | `BLOCKED` | 40 |
 | `IMPLEMENTED` | 2 |
 
@@ -176,14 +176,16 @@ must freeze every packet at `IMPLEMENTED` and run through the watched-wave
 supervisor. The executor and watcher stop at `EXECUTED`; only the independent
 auditor may promote, reject or place a bounded hold.
 
-`BACKLOG-FLEET-SEEDED-STABILITY-04` is the `EXECUTED`, audit-ready successor for
+`BACKLOG-FLEET-SEEDED-STABILITY-04` is the independently `PROMOTED` successor for
 those two blockers. Its frozen binary ledger is
 `config/fleet_runtime_binary_identities_2026-08-29.json`; its runner excludes
 route canaries, pairs the HTTP argument to the returned response ID, preserves
 that request without reconstruction and requires a drained capture queue. The
-watched run recorded 288/288 request-hash and response-ID matches, 192/192 exact
-seeded comparisons, four exact binary/GGUF bindings, zero restarts and restored
-`qwen38`; these remain executor observations pending independent review.
+watched run and independent review both found 288/288 request-hash and
+response-ID matches, 192/192 exact seeded comparisons, four exact binary/GGUF
+bindings, zero restarts and restored `qwen38`. The claim is limited to seeded
+stability on this frozen panel and artifact set; 126/192 math responses were
+truncated, so no quality or unseeded-determinism claim follows.
 
 ## Operational baseline at handoff
 

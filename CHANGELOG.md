@@ -130,7 +130,8 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
   have self-consistent request hashes and response-ID bindings, the capture
   queue drained to zero, all four executables and GGUFs matched frozen
   identities, 192/192 seeded pairs matched and the service baseline recovered;
-  the packet remains `EXECUTED` pending independent review.
+  independent review recomputed the evidence and promoted only the bounded
+  seeded-stability claim, explicitly excluding quality and unseeded determinism.
 - Executed the physical-identity-bound seeded stability successor through the
   watched launcher: 288/288 HTTP-argument payloads were retained, 192/192
   seeded pairs matched, all four live routes matched process, executable and

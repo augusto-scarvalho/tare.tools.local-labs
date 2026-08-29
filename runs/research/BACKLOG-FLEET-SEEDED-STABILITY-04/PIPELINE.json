@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-FLEET-SEEDED-STABILITY-04",
   "evidence_class": "serving_runtime",
   "executor": "Codex continuous executor",
-  "stage": "EXECUTED",
+  "stage": "PROMOTED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,18 @@
       "to": "EXECUTED",
       "actor": "Codex continuous executor",
       "at": "2026-08-29T18:46:51Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T18:54:15Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T18:54:19Z"
     }
   ],
   "preregistration": {
@@ -49,7 +61,15 @@
     "path": "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-04/raw/receipt.json",
     "sha256": "371e63087bec66c0c344c613b9ccd8431f7d98ef74bb7334742b792549594f50"
   },
-  "result": {},
-  "review": {},
-  "claim_codes": []
+  "result": {
+    "path": "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-04/RESULT.md",
+    "sha256": "09d0e784958b83bbe9ae8a8359d464e674f58163ad5ffd377f99c9f152c618ab"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-04/REVIEW.json",
+    "sha256": "947c415bd0a0040f0c48a30a9ce7476303f98ace3c519023d2087dac9a428ae6"
+  },
+  "claim_codes": [
+    "QUALIFIED_TEXT_FLEET_SEEDED_ATOMIC_PHYSICAL_STABLE_R4"
+  ]
 }
