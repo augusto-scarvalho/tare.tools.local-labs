@@ -1,0 +1,62 @@
+{
+  "id": "BACKLOG-SLX08-REAL-FIDELITY-03",
+  "priority": 0,
+  "title": "Canonically rescore retained SLX-08 fidelity contexts",
+  "evidence_class": "proxy_realization",
+  "packet_dir": "runs/research/BACKLOG-SLX08-REAL-FIDELITY-03",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-SLX08-REAL-FIDELITY-02/raw/receipt.json",
+    "runs/research/BACKLOG-SLX08-REAL-FIDELITY-02/REVIEW.json",
+    "runs/research/BACKLOG-SLX08-REAL-FIDELITY-02/raw/context_vectors.safetensors",
+    "runs/research/BACKLOG-SLX08-REAL-FIDELITY-02/raw/samples.jsonl",
+    "tools/research/slx08_real_fidelity_worker_r2.py",
+    "tools/research/slx08_context_scorer.py"
+  ],
+  "required_evidence": [
+    "acceptance_gates",
+    "actual_scores",
+    "bundle_identity",
+    "canonical_evaluation",
+    "dataset_hashes",
+    "hardware_metrics",
+    "independent_evaluation",
+    "paired_baseline",
+    "provenance",
+    "raw_samples",
+    "real_implementation",
+    "receipt_fingerprint",
+    "repeat_evaluation",
+    "scorer_hashes",
+    "semantic_parity",
+    "service_maintenance",
+    "source_receipt_binding",
+    "treatment_controls"
+  ],
+  "acceptance_gates": [
+    {"id": "source_receipt_binding", "metric": "source_receipt_bound", "operator": "eq", "threshold": true},
+    {"id": "bundle_identity", "metric": "bundle_sha256_match", "operator": "eq", "threshold": true},
+    {"id": "bundle_key_contract", "metric": "retained_context_tensors", "operator": "eq", "threshold": 36},
+    {"id": "cell_coverage", "metric": "retained_context_cells", "operator": "eq", "threshold": 12},
+    {"id": "tensor_identity", "metric": "tensor_hash_match_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "finite_contexts", "metric": "nonfinite_values", "operator": "eq", "threshold": 0},
+    {"id": "canonical_repeat", "metric": "canonical_repeat_match", "operator": "eq", "threshold": true},
+    {"id": "fidelity", "metric": "canonical_median_selected_block_context_cosine", "operator": "ge", "threshold": 0.95},
+    {"id": "service_untouched", "metric": "serving_process_unchanged", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "SLX08_FIDELITY_FALSE_NEGATIVE_CANONICAL_RESCORE_R3",
+    "SLX08_FIDELITY_CANONICAL_RESCORE_NEGATIVE_R3"
+  ],
+  "forbidden_claims": [
+    "TTFT acceleration",
+    "serving-runtime integration",
+    "production qualification",
+    "causal attribution solely to computed indices",
+    "new physical inference",
+    "generalization beyond the retained 12 cells",
+    "language-model quality"
+  ],
+  "next_action": "Rescore the immutable R2 context bundle twice with a fixed-order math.fsum float64 cosine, require exact tensor hashes and identical canonical evaluations, and leave the serving process untouched.",
+  "supersedes": "BACKLOG-SLX08-REAL-FIDELITY-02"
+}
