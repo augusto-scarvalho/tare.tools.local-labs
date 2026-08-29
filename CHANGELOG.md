@@ -6,6 +6,9 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Admitted and frozen a two-packet continuous context-repair wave correcting the
+  canonical-prompt-digest false negative and recursive-wrapper abort while
+  preserving both failed predecessors as immutable evidence.
 - Added a persistent watched-wave supervisor for long AFK experiment chains.
   It binds an ordered argv manifest, launches only canonical `IMPLEMENTED`
   packets, validates watcher audit-readiness and `EXECUTED` state before the

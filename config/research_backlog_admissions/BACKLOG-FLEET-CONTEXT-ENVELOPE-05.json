@@ -1,0 +1,49 @@
+{
+  "id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-05",
+  "priority": 0,
+  "title": "Correct retained context-envelope recomputation with the historical canonical prompt digest",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-05",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-03/raw/receipt.json",
+    "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-03/raw/samples.jsonl",
+    "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-03/raw/case_manifest.json",
+    "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-03/raw/artifact_hashes.json",
+    "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-04/raw/receipt.json",
+    "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md",
+    "config/qualified_model_fleet.json"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "artifact_hashes", "case_manifest", "dataset_hashes",
+    "effective_route", "hardware_metrics", "independent_evaluation", "paired_baseline",
+    "provenance", "raw_samples", "receipt_fingerprint", "recovery_state",
+    "service_identity", "source_execution_receipt", "statistical_analysis"
+  ],
+  "acceptance_gates": [
+    {"id":"source_receipt","metric":"source_receipt_digest_verified","operator":"eq","threshold":true},
+    {"id":"immutable_sources","metric":"final_source_set_immutable","operator":"eq","threshold":true},
+    {"id":"retained_rows","metric":"retained_rows_recomputed","operator":"eq","threshold":72},
+    {"id":"prompt_reconstruction","metric":"prompt_hash_reconstruction_rate","operator":"eq","threshold":1.0},
+    {"id":"artifact_identity","metric":"verified_model_artifacts","operator":"eq","threshold":4},
+    {"id":"route_identity","metric":"route_alias_match_rate","operator":"eq","threshold":1.0},
+    {"id":"context_fit","metric":"requests_within_route_slot_context","operator":"eq","threshold":72},
+    {"id":"request_integrity","metric":"successful_response_rate","operator":"eq","threshold":1.0},
+    {"id":"qwen38_recall","metric":"qwen38_exact_recall","operator":"ge","threshold":0.9},
+    {"id":"hauhaucs_recall","metric":"hauhaucs_exact_recall","operator":"ge","threshold":0.9},
+    {"id":"fable_recall","metric":"fable_tc_exact_recall","operator":"ge","threshold":0.9},
+    {"id":"qwen36_moe_recall","metric":"qwen36_moe_exact_recall","operator":"ge","threshold":0.9},
+    {"id":"position_robustness","metric":"minimum_position_bucket_recall","operator":"ge","threshold":0.8}
+  ],
+  "allowed_claim_codes": [
+    "QUALIFIED_TEXT_FLEET_SLOT_CONTEXT_ENVELOPES_REBOUND_R5",
+    "QUALIFIED_TEXT_FLEET_SLOT_CONTEXT_ENVELOPES_NOT_CONFIRMED_R5"
+  ],
+  "forbidden_claims": [
+    "new inference", "general long-context reasoning", "production RAG quality",
+    "latency ranking", "contexts beyond the retained per-slot limits",
+    "promotion without independent review"
+  ],
+  "next_action": "Recompute all 72 retained rows with canonical JSON prompt digests, preserving the R4 false negative and freezing every final source.",
+  "supersedes": "BACKLOG-FLEET-CONTEXT-ENVELOPE-04"
+}

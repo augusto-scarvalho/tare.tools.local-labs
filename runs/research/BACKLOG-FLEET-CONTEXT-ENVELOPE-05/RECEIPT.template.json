@@ -1,0 +1,117 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-05",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "source_receipt": {
+      "metric": "source_receipt_digest_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "immutable_sources": {
+      "metric": "final_source_set_immutable",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "retained_rows": {
+      "metric": "retained_rows_recomputed",
+      "operator": "eq",
+      "threshold": 72,
+      "actual": null,
+      "pass": null
+    },
+    "prompt_reconstruction": {
+      "metric": "prompt_hash_reconstruction_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "artifact_identity": {
+      "metric": "verified_model_artifacts",
+      "operator": "eq",
+      "threshold": 4,
+      "actual": null,
+      "pass": null
+    },
+    "route_identity": {
+      "metric": "route_alias_match_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "context_fit": {
+      "metric": "requests_within_route_slot_context",
+      "operator": "eq",
+      "threshold": 72,
+      "actual": null,
+      "pass": null
+    },
+    "request_integrity": {
+      "metric": "successful_response_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "qwen38_recall": {
+      "metric": "qwen38_exact_recall",
+      "operator": "ge",
+      "threshold": 0.9,
+      "actual": null,
+      "pass": null
+    },
+    "hauhaucs_recall": {
+      "metric": "hauhaucs_exact_recall",
+      "operator": "ge",
+      "threshold": 0.9,
+      "actual": null,
+      "pass": null
+    },
+    "fable_recall": {
+      "metric": "fable_tc_exact_recall",
+      "operator": "ge",
+      "threshold": 0.9,
+      "actual": null,
+      "pass": null
+    },
+    "qwen36_moe_recall": {
+      "metric": "qwen36_moe_exact_recall",
+      "operator": "ge",
+      "threshold": 0.9,
+      "actual": null,
+      "pass": null
+    },
+    "position_robustness": {
+      "metric": "minimum_position_bucket_recall",
+      "operator": "ge",
+      "threshold": 0.8,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "artifact_hashes": null,
+    "case_manifest": null,
+    "dataset_hashes": null,
+    "effective_route": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "recovery_state": null,
+    "service_identity": null,
+    "source_execution_receipt": null,
+    "statistical_analysis": null
+  },
+  "receipt_fingerprint": null
+}

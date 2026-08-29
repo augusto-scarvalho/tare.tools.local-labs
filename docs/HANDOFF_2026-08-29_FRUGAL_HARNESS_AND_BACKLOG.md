@@ -127,6 +127,16 @@ outcomes, still pending independent review, are:
 dependency-ready `PROPOSED` item, not that blocked, executed or audit-pending
 research disappeared.
 
+Two corrected successors are now frozen at `IMPLEMENTED` for the first real
+watched-wave dispatch:
+
+- `BACKLOG-FLEET-CONTEXT-ENVELOPE-05` fixes only the canonical prompt digest;
+- `BACKLOG-FLEET-CONTEXT-INTERFERENCE-03` fixes the recursive wrapper while
+  preserving the 31-decoy construct.
+
+Their ordered manifest is
+`config/research_trails/continuous_context_repair_2026-08-29.json`.
+
 ## Restart procedure
 
 From the repository root:

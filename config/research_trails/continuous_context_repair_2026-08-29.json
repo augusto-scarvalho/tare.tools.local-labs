@@ -1,0 +1,33 @@
+{
+  "schema": "local-labs-watched-wave-v1",
+  "wave_id": "CONTINUOUS-CONTEXT-REPAIR-2026-08-29",
+  "poll_seconds": 5,
+  "items": [
+    {
+      "task_id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-05",
+      "command": [
+        "python",
+        "tools/research/run_retained_fleet_rebind_r3.py",
+        "--task-id",
+        "BACKLOG-FLEET-CONTEXT-ENVELOPE-05",
+        "--outdir",
+        "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-05"
+      ],
+      "require_harness_terminal": true,
+      "max_runtime_seconds": 600
+    },
+    {
+      "task_id": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-03",
+      "command": [
+        "python",
+        "tools/research/run_retained_fleet_rebind_r3.py",
+        "--task-id",
+        "BACKLOG-FLEET-CONTEXT-INTERFERENCE-03",
+        "--outdir",
+        "runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-03"
+      ],
+      "require_harness_terminal": true,
+      "max_runtime_seconds": 600
+    }
+  ]
+}
