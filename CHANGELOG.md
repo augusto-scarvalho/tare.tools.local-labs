@@ -6,6 +6,9 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added a five-packet independent-audit queue for the completed gateway,
+  regression, seeded-stability and corrected context successors, with explicit
+  false-positive/false-negative review targets and failed-predecessor ordering.
 - Admitted and frozen a two-packet continuous context-repair wave correcting the
   canonical-prompt-digest false negative and recursive-wrapper abort while
   preserving both failed predecessors as immutable evidence.

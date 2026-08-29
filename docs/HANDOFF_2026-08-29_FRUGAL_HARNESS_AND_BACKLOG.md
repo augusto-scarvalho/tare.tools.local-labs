@@ -127,15 +127,19 @@ outcomes, still pending independent review, are:
 dependency-ready `PROPOSED` item, not that blocked, executed or audit-pending
 research disappeared.
 
-Two corrected successors are now frozen at `IMPLEMENTED` for the first real
-watched-wave dispatch:
+Two corrected successors completed the first real watched-wave dispatch and
+are now `EXECUTED`, audit-ready:
 
 - `BACKLOG-FLEET-CONTEXT-ENVELOPE-05` fixes only the canonical prompt digest;
 - `BACKLOG-FLEET-CONTEXT-INTERFERENCE-03` fixes the recursive wrapper while
   preserving the 31-decoy construct.
 
 Their ordered manifest is
-`config/research_trails/continuous_context_repair_2026-08-29.json`.
+`config/research_trails/continuous_context_repair_2026-08-29.json`. The
+supervisor launched both without conversational dispatch and wrote a terminal
+wave receipt under `runs/autonomous/CONTINUOUS-CONTEXT-REPAIR-2026-08-29/`.
+Independent review order is frozen in
+`config/research_audit_queue_2026-08-29_continuous_wave.json`.
 
 ## Restart procedure
 

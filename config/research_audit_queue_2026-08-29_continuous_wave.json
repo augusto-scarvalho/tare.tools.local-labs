@@ -1,0 +1,58 @@
+{
+  "schema": "local-labs-continuous-wave-audit-queue-v1",
+  "snapshot_date": "2026-08-29",
+  "manifest": "config/research_backlog.json",
+  "handoff": "docs/research/INDEPENDENT_AUDIT_QUEUE_2026-08-29_CONTINUOUS_WAVE.md",
+  "required_reviewer": "A genuinely independent actor that did not execute these packets",
+  "policy": {
+    "review_one_packet_at_a_time": true,
+    "recompute_from_raw_evidence": true,
+    "search_for_false_positives_and_false_negatives": true,
+    "inspect_failed_predecessor_before_successor": true,
+    "raw_receipts_immutable": true,
+    "direct_manifest_edits_forbidden": true,
+    "executor_must_not_self_review": true
+  },
+  "items": [
+    {
+      "order": 1,
+      "id": "BACKLOG-GATEWAY-ROUTE-STRESS-02",
+      "state": "EXECUTED",
+      "receipt_sha256": "bc3591359f65ddc04dd5b661e35a1e80cd020ba4ea9518afe3a443d04b113bb4",
+      "receipt_fingerprint": "d5e8541a13421799f908c6068c3a070bf16c38b7e1e0c17ec78764047382c5d7",
+      "expected_focus": "Recompute all 120 retained responses and 30 switches; challenge transport versus semantic-content separation and initial-route restoration."
+    },
+    {
+      "order": 2,
+      "id": "BACKLOG-FLEET-REGRESSION-SCREEN-02",
+      "state": "EXECUTED",
+      "receipt_sha256": "23f3f94634e3e9be5451bd0daafcb7e28dd7d338ddf9bddbe6b81b15a267e598",
+      "receipt_fingerprint": "e3bb8af1ac49f81a9f7d2f0cabae2b4c6d65832f9c9907ab02f11047603bd477",
+      "expected_focus": "Recompute 448 request rows, paired repeatability, retained request payloads, live route identity, service restoration and pre-receipt terminal-state binding."
+    },
+    {
+      "order": 3,
+      "id": "BACKLOG-FLEET-SEEDED-STABILITY-02",
+      "state": "EXECUTED",
+      "receipt_sha256": "efbd36ba4d8178dcddf9554953d553d2aea6168c04bad11b2f6d9ccff29d5311",
+      "receipt_fingerprint": "19ac0b7e4143b945c36726b0cddae746d25e946b62e06c03e301aa81933bea80",
+      "expected_focus": "Recompute 288 request rows and 192 repeat pairs; challenge reconstructed request fidelity, route/artifact binding, exact seeded stability and terminal state."
+    },
+    {
+      "order": 4,
+      "id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-05",
+      "state": "EXECUTED",
+      "receipt_sha256": "5254cbb02ce547c6d4e5ecd4eb1c9d4a8cbc1c636f0d7cd9512c5c288277ebd1",
+      "receipt_fingerprint": "b7ccbeeb8a80aa8744cf10a9ca29df8170053af967a5b4cf87df808dfe4fa121",
+      "expected_focus": "Inspect R4 first, then verify that R5 corrects only raw SHA-256 versus canonical JSON prompt digest and recomputes all 72 retained rows without new inference."
+    },
+    {
+      "order": 5,
+      "id": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-03",
+      "state": "EXECUTED",
+      "receipt_sha256": "d4dbe3e6b8b0bfc7e0d5ba393afc59ed7f6eb92dda64edc2fe272c0c1129a096",
+      "receipt_fingerprint": "3b9ff43c6b928298e009d86c7be91898bfc23e55d9c3bffba47a1087b0899ba4",
+      "expected_focus": "Inspect the R2 recursive abort first, then verify non-recursive canonical digest recomputation, exactly 31 decoys per case and all 72 retained rows."
+    }
+  ]
+}
