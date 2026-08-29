@@ -1,6 +1,6 @@
 {
   "schema": "local-labs-backlog-v1",
-  "updated_at": "2026-08-29T13:43:47Z",
+  "updated_at": "2026-08-29T15:57:58Z",
   "policy": {
     "executor": "Gemini",
     "independent_review_required": true,
@@ -14045,7 +14045,7 @@
       ],
       "next_action": "Run two fresh complete passes over 32 GSM8K, 16 protected QA and eight agent-tool cases for each qualified text route while retaining all request payloads and binding the terminal runner state before receipt creation.",
       "supersedes": "BACKLOG-FLEET-REGRESSION-SCREEN-01",
-      "state": "IMPLEMENTED",
+      "state": "EXECUTED",
       "blocker": null,
       "state_history": [
         {
@@ -14065,6 +14065,12 @@
           "to": "IMPLEMENTED",
           "actor": "Codex executor",
           "at": "2026-08-29T13:43:47Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T14:01:00Z"
         }
       ]
     },
@@ -14162,7 +14168,7 @@
       ],
       "next_action": "Run three fresh fixed-seed temperature-0.2 passes over 16 GSM8K and eight protected QA cases for every text route, retaining exact requests and binding terminal state before receipt creation.",
       "supersedes": "BACKLOG-FLEET-SEEDED-STABILITY-01",
-      "state": "PROPOSED",
+      "state": "IMPLEMENTED",
       "blocker": null,
       "state_history": [
         {
@@ -14170,6 +14176,18 @@
           "to": "PROPOSED",
           "actor": "Codex executor",
           "at": "2026-08-29T13:40:54Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T15:57:57Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T15:57:58Z"
         }
       ]
     }

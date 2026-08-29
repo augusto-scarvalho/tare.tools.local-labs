@@ -1,0 +1,162 @@
+{
+  "host": {
+    "config/research_backlog_admissions/BACKLOG-FLEET-REGRESSION-SCREEN-02.json": {
+      "bytes": 2709,
+      "sha256": "04d4d41a6aca177eebd5cff44adf0892f6675b07eb665531f2da4d745fbaee03"
+    },
+    "config/qualified_model_fleet.json": {
+      "bytes": 9783,
+      "sha256": "042fedf5907f031fb9993c03058f3cc9c8fe2c8d75a3235ea4b5e11c7412cd82"
+    },
+    "workloads/gsm8k.jsonl": {
+      "bytes": 389701,
+      "sha256": "68a72276898a45dacb893154477621ff3d05ae7e043a10820644b691d8b63d77"
+    },
+    "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl": {
+      "bytes": 11016,
+      "sha256": "56434ebd53ff9f5adb477bd902566e28644fe9ea88619834f81417a06c66b84f"
+    },
+    "tools/benchmarks/agent_suite_v2.py": {
+      "bytes": 13035,
+      "sha256": "14d0a1b76d4d729228678f215ecefa3254aef214eb65ac9d8d7061bccc0dc59e"
+    },
+    "tools/research/run_fleet_regression_screen.py": {
+      "bytes": 30602,
+      "sha256": "7cbf942375c120970ac78fb40f7f15050ebddb7ec5372cb40bd721009faf1de3"
+    },
+    "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-01/raw/receipt.json": {
+      "bytes": 10366,
+      "sha256": "d303490b152babcc8f590b0b840fb14c4da02c865430f8398bdca7023a0eeb94"
+    },
+    "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md": {
+      "bytes": 68324,
+      "sha256": "a74cb982e14585b5282cb18b2187b4cf435d96789bab4d80c14a22f6ec7cab04"
+    },
+    "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-02/PRE_REGISTRATION.md": {
+      "bytes": 3366,
+      "sha256": "0035c4899aaa3036a9b9bb500205c6c134a46fe6bbedebc8549e94be03d78694"
+    }
+  },
+  "wsl_artifacts": {
+    "qwen38": {
+      "path": "/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf",
+      "bytes": 17923394624,
+      "sha256": "bee238bbeb3dc0a34bde4d0dedbaee1f98c009e8bb4226f03070054c12fb1372",
+      "binary": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+      "runtime_args": [
+        "--ctx-size",
+        "32768",
+        "--flash-attn",
+        "on",
+        "--gpu-layers",
+        "all",
+        "--metrics",
+        "--jinja",
+        "--no-mmproj",
+        "--cache-type-k",
+        "q4_0",
+        "--cache-type-v",
+        "q4_0",
+        "--parallel",
+        "1",
+        "--batch-size",
+        "2048",
+        "--ubatch-size",
+        "512",
+        "--ctx-checkpoints",
+        "32",
+        "--spec-type",
+        "draft-mtp",
+        "--spec-draft-n-max",
+        "3"
+      ]
+    },
+    "hauhaucs": {
+      "path": "/home/augus/models/qwen38-27b/hauhaucs-aggressive-993a5971/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-Q4_K_P.gguf",
+      "bytes": 17923393664,
+      "sha256": "ba36dc3c2b2ff5e0aa5d71092a8894546996a6a119ae391803dda07cdc08516d",
+      "binary": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+      "runtime_args": [
+        "--ctx-size",
+        "32768",
+        "--flash-attn",
+        "on",
+        "--gpu-layers",
+        "all",
+        "--metrics",
+        "--jinja",
+        "--no-mmproj",
+        "--cache-type-k",
+        "q4_0",
+        "--cache-type-v",
+        "q4_0",
+        "--parallel",
+        "1",
+        "--batch-size",
+        "2048",
+        "--ubatch-size",
+        "512",
+        "--ctx-checkpoints",
+        "32",
+        "--spec-type",
+        "draft-mtp",
+        "--spec-draft-n-max",
+        "3"
+      ]
+    },
+    "fable-tc": {
+      "path": "/home/augus/models/merges/fable-tc-l1.0-Q4_K_M.gguf",
+      "bytes": 16810714400,
+      "sha256": "052c08ca13d75d8d88c9cc3f201d7bfa9167e2a1e69ad3e1e1f26ff73c1b390b",
+      "binary": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+      "runtime_args": [
+        "--ctx-size",
+        "8192",
+        "--flash-attn",
+        "on",
+        "--gpu-layers",
+        "all",
+        "--metrics",
+        "--jinja",
+        "--parallel",
+        "1",
+        "--spec-type",
+        "draft-mtp",
+        "--spec-draft-n-max",
+        "4"
+      ]
+    },
+    "qwen36-moe": {
+      "path": "/home/augus/models/qwen36-35b-a3b-mtp/Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+      "bytes": 22663387424,
+      "sha256": "0b21525e972670ed59e1812e170b27c26355381f0656ecc4e25617ece7dac58b",
+      "binary": "/home/augus/opt/slop.cpp/b10159-068764d92-fable-tc/bin/llama-server",
+      "runtime_args": [
+        "--ctx-size",
+        "73728",
+        "--flash-attn",
+        "on",
+        "--gpu-layers",
+        "all",
+        "--n-cpu-moe",
+        "8",
+        "--metrics",
+        "--jinja",
+        "--parallel",
+        "4",
+        "--cache-type-k",
+        "q8_0",
+        "--cache-type-v",
+        "q8_0",
+        "--batch-size",
+        "2048",
+        "--ubatch-size",
+        "2048",
+        "--spec-type",
+        "draft-mtp",
+        "--spec-draft-n-max",
+        "4"
+      ]
+    }
+  }
+}

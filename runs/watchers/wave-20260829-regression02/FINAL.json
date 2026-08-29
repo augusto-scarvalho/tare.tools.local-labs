@@ -1,0 +1,179 @@
+{
+  "schema": "local-labs-experiment-watch-final-v1",
+  "watch_id": "wave-20260829-regression02",
+  "finished_at": "2026-08-29T14:04:10Z",
+  "status": "complete_with_alert",
+  "experiment_mode": true,
+  "states": {
+    "BACKLOG-FLEET-REGRESSION-SCREEN-02": {
+      "status": "failed_incomplete_progress",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-29T14:04:09Z",
+        "receipt_exists": true,
+        "result_exists": true,
+        "stage_before": "EXECUTED",
+        "progress": 1,
+        "expected_progress": 448,
+        "harness_terminal": {
+          "present": false,
+          "valid": null,
+          "status": null,
+          "errors": []
+        },
+        "worker_exit": {
+          "present": true,
+          "valid": true,
+          "returncode": 0,
+          "timed_out": false,
+          "errors": []
+        },
+        "managed_backlog": true,
+        "status": "failed_incomplete_progress"
+      }
+    }
+  },
+  "pipeline_gate": {
+    "returncode": 0,
+    "stdout": "BACKLOG PIPELINE: PASS",
+    "stderr": ""
+  },
+  "backlog_queue": {
+    "refreshed_at": "2026-08-29T14:04:10Z",
+    "status_returncode": 0,
+    "next_returncode": 0,
+    "valid": true,
+    "priority_rebalance": {
+      "requested": false,
+      "returncode": null,
+      "valid": null,
+      "report": null
+    },
+    "state_counts": {
+      "BLOCKED": 40,
+      "EXECUTED": 22,
+      "IMPLEMENTED": 2,
+      "PROMOTED": 24,
+      "PROPOSED": 1,
+      "REJECTED": 21
+    },
+    "next_candidate": {
+      "id": "BACKLOG-FLEET-SEEDED-STABILITY-02",
+      "priority": 1,
+      "title": "Replicate seeded fleet stability with retained requests and immutable terminal state",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "config/qualified_model_fleet.json",
+        "workloads/gsm8k.jsonl",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl",
+        "tools/research/run_fleet_regression_screen.py",
+        "tools/research/run_fleet_seeded_stability.py",
+        "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-01/raw/receipt.json",
+        "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "effective_route",
+        "final_state_binding",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "request_payloads",
+        "service_identity",
+        "service_maintenance",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "route_coverage",
+          "metric": "routes_completed",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_coverage",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 288
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "seeded_stability",
+          "metric": "exact_seeded_repeat_rate",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "request_retention",
+          "metric": "retained_request_payloads",
+          "operator": "eq",
+          "threshold": 288
+        },
+        {
+          "id": "terminal_binding",
+          "metric": "final_runner_state_bound",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_integrity",
+          "metric": "service_restarts",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_model_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUALIFIED_TEXT_FLEET_SEEDED_STABLE_R2",
+        "QUALIFIED_TEXT_FLEET_SEEDED_UNSTABLE_R2"
+      ],
+      "forbidden_claims": [
+        "unseeded determinism",
+        "quality superiority",
+        "production promotion",
+        "generalization beyond temperature 0.2 and the frozen panel"
+      ],
+      "next_action": "Run three fresh fixed-seed temperature-0.2 passes over 16 GSM8K and eight protected QA cases for every text route, retaining exact requests and binding terminal state before receipt creation.",
+      "supersedes": "BACKLOG-FLEET-SEEDED-STABILITY-01",
+      "state": "PROPOSED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex executor",
+          "at": "2026-08-29T13:40:54Z"
+        }
+      ]
+    }
+  },
+  "completion_action": "inspect_alert_before_dispatch",
+  "audit_ready_ids": [],
+  "final_health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "final_gpu": {
+    "memory_used_mib": 19530,
+    "memory_free_mib": 4793,
+    "utilization_percent": 0,
+    "temperature_c": 36,
+    "power_w": 33.42
+  }
+}

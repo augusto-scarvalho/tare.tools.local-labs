@@ -3,18 +3,42 @@
   "task_id": "BACKLOG-FLEET-SEEDED-STABILITY-02",
   "evidence_class": "serving_runtime",
   "executor": "Codex executor",
-  "stage": "PROPOSED",
+  "stage": "IMPLEMENTED",
   "state_history": [
     {
       "from": null,
       "to": "PROPOSED",
       "actor": "Codex executor",
       "at": "2026-08-29T13:40:54Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T15:57:57Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex executor",
+      "at": "2026-08-29T15:57:58Z"
     }
   ],
-  "preregistration": {},
-  "implementation": [],
-  "implementation_digest": null,
+  "preregistration": {
+    "path": "runs/research/BACKLOG-FLEET-SEEDED-STABILITY-02/PRE_REGISTRATION.md",
+    "sha256": "520f7036961ff3d17934cec417b2b0a7775539ee816b538dd54ede6444ac88a6"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_fleet_successor_binding.py",
+      "sha256": "85924aa4af2cae79c936a8f627b2ebaff46ac76af1c463c456d502ac228c7b90"
+    },
+    {
+      "path": "tools/research/run_fleet_seeded_stability_r2.py",
+      "sha256": "1c6e0f1123acfef0a5756017b8f18e59cb7c626d72fdfa02b71093220e37f3c3"
+    }
+  ],
+  "implementation_digest": "c9a94a376066b7d3ad10d8cc1f725a413294cdbd84fab230413c59d66122f0ff",
   "execution": {},
   "result": {},
   "review": {},
