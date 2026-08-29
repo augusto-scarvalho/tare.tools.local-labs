@@ -1,0 +1,17 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "HOLD_FAIL_CLOSED",
+  "receipt_sha256": "efbd36ba4d8178dcddf9554953d553d2aea6168c04bad11b2f6d9ccff29d5311",
+  "implementation_digest": "c9a94a376066b7d3ad10d8cc1f725a413294cdbd84fab230413c59d66122f0ff",
+  "findings": [
+    "Independent raw recomputation found exactly 288 unique expected model-repeat-suite-case cells, 96 complete triplets and 192 repeat-zero comparisons. All 288 responses are HTTP 200/error-free, report the requested alias, and reproduce their stored semantic projections, semantic SHA-256 values and descriptive scores; all 192 seeded comparisons are exact.",
+    "All 288 post-run request objects reconstruct exactly from the frozen 16-math/eight-QA panel and frozen payload builder, with temperature 0.2, top_p 0.95, seed 20260826, streaming disabled and prompt caching disabled. The frozen execution code constructs and sends that same deterministic request contract, but does not retain the object at send time; the R2 wrapper inserts the reconstructed request into samples.jsonl only during pre-receipt provenance construction. No divergence is visible, but this is reconstructive evidence rather than a wire-captured request ledger.",
+    "All 288 response IDs are unique, and every one of the 192 baseline-repeat pairs differs in response ID, creation metadata, timings or wall time. The exact semantic stability is therefore not explained by duplicated sample rows.",
+    "All four route snapshots report matching current_model and requested_name, healthy backends, distinct positive backend PIDs and embedding HTTP 200. These prove four operational gateway aliases, but neither route status nor any other raw file records the loaded model or runtime SHA-256.",
+    "BLOCKING: frozen_inputs.json contains only nine host-file records. It has no execution-time physical GGUF hashes, binary hashes or runtime realization records, and route status exposes no artifact SHA-256. The fleet registry declares four expected artifacts but cannot prove which physical weights produced this run. This repeats the predecessor audit's explicit treatment-identity blocker, so QUALIFIED_TEXT_FLEET_SEEDED_STABLE_R2 cannot be approved or rejected as an artifact-bound fleet claim.",
+    "Receipt SHA-256/fingerprint, both implementation files and implementation digest, all nine frozen host inputs, all 21 provenance inputs and the final runner-state hash match. MainPID 145666 is preserved with zero restarts; qwen38 and embedding HTTP 200 are restored; the completed R2 runner state is bound before receipt creation.",
+    "The 192/192 exact semantic comparisons support a narrower observation about these four gateway aliases under the recorded fixed-seed contract, but no allowed claim code expresses that artifact-unbound observation. A successor must record execution-time model and runtime identities before requests; raw evidence in this packet must remain unchanged.",
+    "Quality is outside the claim and cannot rescue or falsify it: 126/192 math rows end at the token cap, including nine descriptively scored passes. Last-number extraction and truncation can create quality false positives or false negatives, while deterministic truncation can still count as exact seeded stability. No superiority or general capability conclusion is supported."
+  ]
+}

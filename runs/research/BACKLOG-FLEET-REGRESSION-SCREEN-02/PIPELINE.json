@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-FLEET-REGRESSION-SCREEN-02",
   "evidence_class": "serving_runtime",
   "executor": "Codex executor",
-  "stage": "EXECUTED",
+  "stage": "PROMOTED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,18 @@
       "to": "EXECUTED",
       "actor": "Codex executor",
       "at": "2026-08-29T14:01:00Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T17:23:03Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T17:23:03Z"
     }
   ],
   "preregistration": {
@@ -49,7 +61,15 @@
     "path": "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-02/raw/receipt.json",
     "sha256": "23f3f94634e3e9be5451bd0daafcb7e28dd7d338ddf9bddbe6b81b15a267e598"
   },
-  "result": {},
-  "review": {},
-  "claim_codes": []
+  "result": {
+    "path": "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-02/RESULT.md",
+    "sha256": "8580c1923117a30e0810556c57a32ef602266d7f4895ed7d04ca4f2b93a8ecd0"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-02/REVIEW.json",
+    "sha256": "e0fd0c20f510bb70b50694a828450b6e47bd9fd86ae798059e34a3ae5836be27"
+  },
+  "claim_codes": [
+    "QUALIFIED_TEXT_FLEET_SCREEN_COMPLETE_R2"
+  ]
 }

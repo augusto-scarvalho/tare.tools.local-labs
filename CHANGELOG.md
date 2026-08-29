@@ -119,6 +119,11 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Changed
 
+- Closed the five-packet continuous-wave independent audit with four bounded
+  promotions and one fail-closed hold. Review exposed a real artifact-identity
+  false positive in seeded stability, confirmed R4 as a canonical-digest false
+  negative, excluded empty vision output from semantic evidence, and limited
+  the interference result to its frozen synthetic 31-decoy construct.
 - Reconciled the stale untracked A4 probe in the WSL `slop.cpp` worktree with
   its canonical tracked `local-labs` copy, removed the obsolete duplicate, and
   fast-forwarded the clean WSL `main` checkout while preserving the immutable

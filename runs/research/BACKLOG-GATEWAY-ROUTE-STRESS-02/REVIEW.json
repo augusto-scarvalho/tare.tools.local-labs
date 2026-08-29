@@ -1,0 +1,15 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "APPROVED",
+  "receipt_sha256": "bc3591359f65ddc04dd5b661e35a1e80cd020ba4ea9518afe3a443d04b113bb4",
+  "implementation_digest": "30178fb52f06a8f97db36faef62ca1a28dc6db35838b2b1697c80f2b004f7753",
+  "findings": [
+    "Independent raw recomputation reproduced 120/120 unique cycle-model-probe rows and 30/30 unique cycle-model switches. All 120 retained successor rows are exact source-row projections after removing only source_task_id and retained labels; all 120 stored semantic projections and SHA-256 values recompute from the physical responses.",
+    "Transport and route identity pass independently: 120/120 responses are HTTP 200/error-free with the requested response alias; 30/30 switches report matching current_model and requested_name, healthy backends, positive and distinct backend PIDs, and embedding HTTP 200. Exact cycle repeatability is 96/96.",
+    "Semantic-content separation is necessary and correctly bounded. The four preregistered text aliases have 80/80 non-empty, natural-stop content rows. gemma-vision is conservatively excluded despite 20 non-empty text-chat rows; muse-vision has 0/20 non-empty content, 20/20 finish_reason=length and reasoning-only output. These 40 vision-chat rows prove transport/routing only, never vision-task or global semantic success.",
+    "Initial fable-tc routing is restored with a healthy backend and embedding HTTP 200; the gateway service MainPID is unchanged and restart delta is zero. The six registry artifact identities agree with the predecessor physical-verification ledger and the successor artifact table, with six distinct SHA-256 values.",
+    "Receipt SHA-256/fingerprint, source receipt SHA-256/fingerprint, all eight selected immutable source files, all nine provenance inputs, the terminal fingerprint and every terminal-bound output hash match. The predecessor still has its three disclosed materialized-provenance mismatches in the handoff, runner stdout and runner state; approval therefore relies only on the successor's separately bound final source set and does not rehabilitate the predecessor's broad claim.",
+    "The recorded implementation wrapper imports run_retained_fleet_rebind.py without listing that helper in implementation_digest. The execution repository HEAD contains the same helper bytes now inspected (SHA-256 d71107d55876cd3e9f0e9d8602c6ec5e42f513577af56a34e0cd64c2ec0acc68), and independent raw recomputation makes this non-blocking for the bounded retained-evidence claim; no broader reproducibility claim is approved."
+  ]
+}

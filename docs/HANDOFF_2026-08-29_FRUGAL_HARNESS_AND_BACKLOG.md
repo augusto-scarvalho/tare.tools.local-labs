@@ -77,18 +77,17 @@ Its recorded source and test hashes matched the final audited worktree.
 
 The backlog required no scientific state transition for this infrastructure
 change. Direct state edits remain forbidden. Live validation on 2026-08-29 found
-108 records:
+112 records:
 
 | State | Count |
 | --- | ---: |
-| `PROMOTED` | 24 |
+| `PROMOTED` | 28 |
 | `REJECTED` | 21 |
-| `EXECUTED` | 19 |
-| `BLOCKED` | 39 |
+| `EXECUTED` | 21 |
+| `BLOCKED` | 40 |
 | `IMPLEMENTED` | 2 |
-| `PROPOSED` | 3 |
 
-The 19 `EXECUTED` records include preserved HOLD/superseded evidence from prior
+The 21 `EXECUTED` records include preserved HOLD/superseded evidence from prior
 audit waves. Their presence is not authority to rerun or promote them. The two
 historical `IMPLEMENTED` SLX-03 build packets are displaced by reviewed
 successors and must not be relaunched merely because they are nonterminal.
@@ -104,8 +103,8 @@ Items without a fresh assessment preserve their current priority. The watcher
 requests an atomic rebalance only when an `--experiment-mode` wave finishes and
 stores a compact result.
 
-The 2026-08-29 execution wave consumed the dependency-ready queue. Current
-outcomes, still pending independent review, are:
+The 2026-08-29 execution wave consumed the dependency-ready queue. Independent
+review of the five-packet closeout queue is complete:
 
 1. `BACKLOG-FLEET-CONTEXT-ENVELOPE-04` is `EXECUTED` with a preserved negative
    result caused by the executor using raw UTF-8 SHA-256 instead of the
@@ -114,25 +113,28 @@ outcomes, still pending independent review, are:
 2. `BACKLOG-FLEET-CONTEXT-INTERFERENCE-02` is `BLOCKED` after its versioned
    wrapper aborted before receipt due recursive function substitution. Its
    aborted terminal is preserved and a retry requires a successor.
-3. `BACKLOG-GATEWAY-ROUTE-STRESS-02` is `EXECUTED` and audit-ready after all 12
-   gates passed over the retained 30-switch/120-request campaign.
-4. `BACKLOG-FLEET-REGRESSION-SCREEN-02` is `EXECUTED` and audit-ready: 448/448
-   requests, 100% HTTP success, exact repeat rate 1.0, all request payloads
-   retained and terminal runner state bound before receipt.
-5. `BACKLOG-FLEET-SEEDED-STABILITY-02` is `EXECUTED` and audit-ready: 288/288
-   requests, 100% HTTP success, exact seeded repeat rate 1.0, all request
-   payloads retained and terminal runner state bound before receipt.
+3. `BACKLOG-GATEWAY-ROUTE-STRESS-02` is `PROMOTED` for bounded transport and
+   route stress. Empty `muse-vision` outputs remain excluded from semantic or
+   visual claims.
+4. `BACKLOG-FLEET-REGRESSION-SCREEN-02` is `PROMOTED` for request integrity and
+   exact greedy repeatability. Its last-number math scores are descriptive and
+   authorize no quality claim.
+5. `BACKLOG-FLEET-SEEDED-STABILITY-02` remains `EXECUTED` under
+   `HOLD_FAIL_CLOSED`: 192/192 seeded comparisons were exact, but the run did
+   not bind the physical GGUF and runtime artifact used by each route.
 
 `backlog_pipeline.py next --json` currently returns `null`. This means no
 dependency-ready `PROPOSED` item, not that blocked, executed or audit-pending
 research disappeared.
 
 Two corrected successors completed the first real watched-wave dispatch and
-are now `EXECUTED`, audit-ready:
+were independently promoted:
 
-- `BACKLOG-FLEET-CONTEXT-ENVELOPE-05` fixes only the canonical prompt digest;
-- `BACKLOG-FLEET-CONTEXT-INTERFERENCE-03` fixes the recursive wrapper while
-  preserving the 31-decoy construct.
+- `BACKLOG-FLEET-CONTEXT-ENVELOPE-05` established that R4 was a digest-contract
+  false negative and recovered all 72 unchanged physical responses;
+- `BACKLOG-FLEET-CONTEXT-INTERFERENCE-03` fixed the recursive wrapper and
+  reconstructed all 72 prompts with exactly 31 decoys, while limiting the claim
+  to that synthetic construct.
 
 Their ordered manifest is
 `config/research_trails/continuous_context_repair_2026-08-29.json`. The
@@ -158,9 +160,10 @@ Expected next value:
 null
 ```
 
-Do not manufacture a next command from `EXECUTED` or `BLOCKED` items. First send
-the audit-ready packets to a fresh independent auditor. Any corrected context
-retry must be admitted as a successor. A future authorized multi-item queue
+Do not manufacture a next command from `EXECUTED` or `BLOCKED` items. The next
+scientific repair candidate is a new seeded-stability successor with physical
+GGUF, binary and runtime realization captured during inference; it requires
+explicit admission and preregistration. A future authorized multi-item queue
 must freeze every packet at `IMPLEMENTED` and run through the watched-wave
 supervisor. The executor and watcher stop at `EXECUTED`; only the independent
 auditor may promote, reject or place a bounded hold.
@@ -173,8 +176,8 @@ auditor may promote, reject or place a bounded hold.
   route without service restart; exact hardware identity remains in each raw
   receipt rather than this prose handoff.
 - No Windows Python process matching the launcher or watcher was active.
-- The new physical results remain `EXECUTED` and authorize no model or runtime
-  promotion before independent review.
+- Four closeout packets are independently promoted with bounded claims; seeded
+  stability remains `EXECUTED` under a physical-identity hold.
 
 ## Non-negotiable boundaries
 

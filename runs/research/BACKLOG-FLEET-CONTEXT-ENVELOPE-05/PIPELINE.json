@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-05",
   "evidence_class": "serving_runtime",
   "executor": "Codex continuous executor",
-  "stage": "EXECUTED",
+  "stage": "PROMOTED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,18 @@
       "to": "EXECUTED",
       "actor": "Codex executor watcher",
       "at": "2026-08-29T16:46:47Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T17:34:30Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T17:34:36Z"
     }
   ],
   "preregistration": {
@@ -49,7 +61,15 @@
     "path": "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-05/raw/receipt.json",
     "sha256": "5254cbb02ce547c6d4e5ecd4eb1c9d4a8cbc1c636f0d7cd9512c5c288277ebd1"
   },
-  "result": {},
-  "review": {},
-  "claim_codes": []
+  "result": {
+    "path": "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-05/RESULT.md",
+    "sha256": "c55164845583861103fec7063d7cc9bb63073896a1924c5724a16eb2edd7cab3"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-05/REVIEW.json",
+    "sha256": "8818c6325175a4eb853f02c3ebce7af6ca3d68eb1ecc92bd92bf70d8b7847201"
+  },
+  "claim_codes": [
+    "QUALIFIED_TEXT_FLEET_SLOT_CONTEXT_ENVELOPES_REBOUND_R5"
+  ]
 }

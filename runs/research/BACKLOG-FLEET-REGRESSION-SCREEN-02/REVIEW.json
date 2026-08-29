@@ -1,0 +1,16 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent audit instance",
+  "verdict": "APPROVED",
+  "receipt_sha256": "23f3f94634e3e9be5451bd0daafcb7e28dd7d338ddf9bddbe6b81b15a267e598",
+  "implementation_digest": "6c2da722c8508fbb82099850736243f5694a3ac6a2128d23c4a9fdc400c3666f",
+  "findings": [
+    "Independent recomputation found exactly 448 unique expected model-repeat-suite-case cells: four text routes times two repeats times 32 math, 16 protected-QA and eight agent cases. All 448 retained request objects exactly reconstruct from the frozen panels and payload builder, and all satisfy the frozen temperature-zero, seed-20260826, non-streaming and prompt-cache-disabled contract.",
+    "The frozen runner passes the same payload object to the HTTP client and then retains it in the row. All 448 responses have unique non-empty response IDs, and every one of the 224 repeat pairs differs in response ID, creation metadata, timings or measured wall time. No reconstructed-versus-retained payload divergence or duplicated-call false positive was found.",
+    "All 448 responses are HTTP 200/error-free and report the requested alias. All 448 semantic projections, semantic SHA-256 values and descriptive scores recompute from the raw responses. The 224 complete greedy pairs have identical requests and 224/224 exact semantic repeats.",
+    "All four route snapshots report matching current_model and requested_name, healthy backends, distinct positive backend PIDs and embedding HTTP 200. The four physically verified model artifact identities, runtime binary paths and argv sets agree with the frozen fleet registry and are bound through frozen_inputs.json.",
+    "The gateway service retains MainPID 145666 with zero restart delta; the initial qwen38 route is restored with a healthy backend and embedding HTTP 200. runner_state.json is completed with the R2 claim and final_state_bound_before_receipt=true, and its exact 3,850-byte SHA-256 is a current matching provenance input. The wrapper writes this state before provenance construction and blocks the predecessor's post-receipt state mutation.",
+    "Receipt SHA-256/fingerprint, both implementation files and implementation digest, all nine frozen host inputs, all 24 provenance inputs, both panel digests and agent-case names match. This corrects the predecessor's terminal-state/source-version binding defect with a fresh execution rather than reinterpreting its receipt.",
+    "False-positive and false-negative audit found 150 capped math rows: 24 are descriptively scored pass and 126 fail. The scorer's last-number and truncation sensitivity can bias those quality counts in either direction, but quality, cross-model superiority and general capability are explicitly outside every frozen acceptance gate and the approved claim. Request integrity here means HTTP/route completion, not semantic correctness or production qualification."
+  ]
+}

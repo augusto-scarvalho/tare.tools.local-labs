@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-GATEWAY-ROUTE-STRESS-02",
   "evidence_class": "serving_runtime",
   "executor": "Codex executor",
-  "stage": "EXECUTED",
+  "stage": "PROMOTED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,18 @@
       "to": "EXECUTED",
       "actor": "Codex executor watcher",
       "at": "2026-08-29T13:38:49Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T17:17:48Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T17:17:49Z"
     }
   ],
   "preregistration": {
@@ -49,7 +61,15 @@
     "path": "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-02/raw/receipt.json",
     "sha256": "bc3591359f65ddc04dd5b661e35a1e80cd020ba4ea9518afe3a443d04b113bb4"
   },
-  "result": {},
-  "review": {},
-  "claim_codes": []
+  "result": {
+    "path": "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-02/RESULT.md",
+    "sha256": "f6c5495d409cc109cbdf8f50357d0835f71848f21e50716d139d578aa1fe4c31"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-02/REVIEW.json",
+    "sha256": "d6df9bb98892f9f1234fe66c9c3126a6cf02eaab868cee5c5bec8830016ae354"
+  },
+  "claim_codes": [
+    "QUALIFIED_GATEWAY_ROUTE_TRANSPORT_STRESS_REBOUND_R2"
+  ]
 }
