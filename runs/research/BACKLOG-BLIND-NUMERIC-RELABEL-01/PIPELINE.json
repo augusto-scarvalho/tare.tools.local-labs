@@ -1,0 +1,58 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-BLIND-NUMERIC-RELABEL-01",
+  "evidence_class": "human_calibration",
+  "executor": "codex",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-28T16:38:42Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-28T16:41:36Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-28T16:41:37Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T16:58:04Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "BLOCKED",
+      "actor": "GPT-5.6 Sol xhigh independent scientific auditor R3",
+      "at": "2026-08-28T17:07:58Z",
+      "reason": "Directed semantic audit found inconsistent target-versus-intermediate labeling at gsm8k/608, /656, /774 and /865 plus an unfrozen mixed-number recoding at /633; complete blind relabel is not validated."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-01/PRE_REGISTRATION.md",
+    "sha256": "2c947edd868f9160cddceeeb37a934a6e14f56d3346a264ce219327c7a782737"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_blind_numeric_relabel.py",
+      "sha256": "8899984707d767d2650a0f1bfff7035079a5a4aa419079d845778d65caf1aaa0"
+    }
+  ],
+  "implementation_digest": "aba0f3236defa395b73249a576fe4b5095478d574017e5d663effe6ee1c78c30",
+  "execution": {
+    "path": "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-01/raw/receipt.json",
+    "sha256": "a5b79f6733e60864c7ea9d962376575b28bd36b2d2a2a56e19a23e25fd57e0e5"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

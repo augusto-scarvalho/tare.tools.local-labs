@@ -1,0 +1,26 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent scientific auditor R4",
+  "verdict": "APPROVED",
+  "receipt_sha256": "5dd7e75ab26860d8177652108da11f0d53941f14741a1eba46fc7f5e985b8b59",
+  "implementation_digest": "7961cf3abd8fb425e8d2b95576c5d7425c2902d278b7c0e8d5217552cde41700",
+  "decision": "PROMOTED",
+  "claim_codes_permitted": [
+    "TRACE_DISTILLATION_DEPLOYMENT_FINALIST_CONFIRMED_R4"
+  ],
+  "limitations": [
+    "This is an offline aggregation of frozen generations and the promoted procedural blind-label artifact. It is not fresh generation, human annotation, a fourth-panel confirmation, teacher-equivalence evidence or production deployment.",
+    "The accuracy and paired interval apply only to the frozen 256-task third panel and the frozen answer-only/full-trace artifacts. They do not establish generalization to other panels, seeds, teachers or serving regimes.",
+    "Protected retention is imported by hash from the original finalist packet rather than freshly measured in this rescore."
+  ],
+  "findings": [
+    "The admission equals the live manifest on every admitted static field. The preregistration SHA-256, runner SHA-256, implementation digest, execution-receipt SHA-256 and canonical receipt fingerprint independently recompute exactly. All 15 provenance entries match current bytes and hashes, every raw JSON/JSONL parses, and runner.stderr.log is empty.",
+    "The dependency BACKLOG-BLIND-NUMERIC-RELABEL-03 is currently PROMOTED. Its bound review is APPROVED and permits only BLIND_NUMERIC_RELABEL_COMPLETED_R3. The imported label receipt, review and sealed-scored-label hashes exactly match the promoted artifacts.",
+    "All 512 stored scored_labels rows are byte-for-byte equal to the trace-source projection of the promoted R3 sealed_scored_labels artifact. They contain 512 unique arm/task pairs, exactly 256 answer_only and 256 full_trace tasks with identical task sets. No concluded_value, correctness flag, gold join or other label field changed.",
+    "Independent numeric replay reproduces answer_only 85/256 (0.33203125), full_trace 114/256 (0.4453125), trace-minus-answer 0.11328125, 53 trace-only correct pairs and 24 answer-only correct pairs.",
+    "An independent 20,000-replicate paired bootstrap using the frozen sorted task order and seed 2026082814 exactly reproduces point 0.11328125 and the frozen percentile interval [0.046875, 0.1796875]. The lower bound is strictly positive and the full-trace accuracy exceeds the preregistered 0.40 threshold by 0.0453125.",
+    "The protected-retention import independently matches the hash-bound original finalist actual_scores value 0.0 and satisfies the <=0.05 gate. No inference, label mutation, GPU-dependent computation or service mutation is recorded or required by R4.",
+    "Directed false-positive/false-negative regression rechecked every trace case named by the R3 scorer audit and every target/subquantity case resolved in the R1-R3 label sequence. In particular, full_trace gsm8k/857 remains the wrong explicit 26000 rather than the incidental gold-matching 14000; the named explicit-conclusion false negatives retain their semantic labels; full_trace gsm8k/865 remains 75; and both gsm8k/774 arms remain null. Structural searches over correct, incorrect and null scored rows found no new unambiguous label error beyond the limitations already recorded by the promoted label review.",
+    "All five receipt gates independently pass: source integrity, 512-row coverage, strictly positive paired lower bound, full-trace accuracy >=0.40 and protected regression <=0.05. TRACE_DISTILLATION_DEPLOYMENT_FINALIST_CONFIRMED_R4 is authorized only for this frozen third-panel finalist comparison; all forbidden broader claims remain forbidden."
+  ]
+}

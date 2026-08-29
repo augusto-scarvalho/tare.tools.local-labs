@@ -1,0 +1,117 @@
+{
+  "schema": "local-labs-experiment-watch-status-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-28-Q8-LONG-R2",
+  "updated_at": "2026-08-28T23:40:33Z",
+  "experiments": [
+    {
+      "task_id": "BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02",
+      "pid": 39132,
+      "process_alive": false,
+      "progress": 4,
+      "expected_progress": 4,
+      "pipeline_stage": "EXECUTED",
+      "watch_status": "executed_valid"
+    }
+  ],
+  "gpu": {
+    "memory_used_mib": 20245,
+    "memory_free_mib": 4078,
+    "utilization_percent": 17,
+    "temperature_c": 44,
+    "power_w": 52.47
+  },
+  "health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "states": {
+    "BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02": {
+      "status": "executed_valid",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-28T23:40:31Z",
+        "receipt_exists": true,
+        "result_exists": true,
+        "stage_before": "IMPLEMENTED",
+        "progress": 4,
+        "expected_progress": 4,
+        "advance": {
+          "returncode": 0,
+          "stdout": "BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02: advanced to EXECUTED",
+          "stderr": ""
+        },
+        "stage_after": "EXECUTED",
+        "gate": {
+          "returncode": 0,
+          "stdout": "BACKLOG PIPELINE: PASS",
+          "stderr": ""
+        },
+        "status": "executed_valid"
+      }
+    }
+  },
+  "final": {
+    "schema": "local-labs-experiment-watch-final-v1",
+    "watch_id": "EXPERIMENT-WATCH-2026-08-28-Q8-LONG-R2",
+    "finished_at": "2026-08-28T23:40:33Z",
+    "status": "complete",
+    "experiment_mode": true,
+    "states": {
+      "BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02": {
+        "status": "executed_valid",
+        "was_seen_alive": true,
+        "finalization": {
+          "at": "2026-08-28T23:40:31Z",
+          "receipt_exists": true,
+          "result_exists": true,
+          "stage_before": "IMPLEMENTED",
+          "progress": 4,
+          "expected_progress": 4,
+          "advance": {
+            "returncode": 0,
+            "stdout": "BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02: advanced to EXECUTED",
+            "stderr": ""
+          },
+          "stage_after": "EXECUTED",
+          "gate": {
+            "returncode": 0,
+            "stdout": "BACKLOG PIPELINE: PASS",
+            "stderr": ""
+          },
+          "status": "executed_valid"
+        }
+      }
+    },
+    "pipeline_gate": {
+      "returncode": 0,
+      "stdout": "BACKLOG PIPELINE: PASS",
+      "stderr": ""
+    },
+    "backlog_queue": {
+      "refreshed_at": "2026-08-28T23:40:33Z",
+      "status_returncode": 0,
+      "next_returncode": 0,
+      "valid": true,
+      "state_counts": {
+        "BLOCKED": 39,
+        "EXECUTED": 20,
+        "IMPLEMENTED": 2,
+        "PROMOTED": 22,
+        "REJECTED": 21
+      },
+      "next_candidate": null
+    },
+    "completion_action": "notify_queue_empty",
+    "final_health": {
+      "http://127.0.0.1:8080/health": 200,
+      "http://127.0.0.1:8081/health": 200
+    },
+    "final_gpu": {
+      "memory_used_mib": 20245,
+      "memory_free_mib": 4078,
+      "utilization_percent": 17,
+      "temperature_c": 44,
+      "power_w": 52.47
+    }
+  }
+}

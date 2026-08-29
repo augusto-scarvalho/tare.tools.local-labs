@@ -1,0 +1,61 @@
+{
+  "id": "BACKLOG-SLX03-GDN-FUSION-PERF-01",
+  "priority": 1,
+  "title": "Measure causal SLX-03 GDN fusion decode performance on the qualified Release build",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-SLX03-GDN-FUSION-PERF-01",
+  "depends_on": [
+    "BACKLOG-SLX03-GDN-FUSION-BUILD-04",
+    "BACKLOG-SLX03-GDN-FUSION-RUNTIME-03"
+  ],
+  "source_artifacts": [
+    "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-04/raw/receipt.json",
+    "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-04/REVIEW.json",
+    "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-03/raw/receipt.json",
+    "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-03/REVIEW.json",
+    "config/qualified_model_fleet.json"
+  ],
+  "required_evidence": [
+    "acceptance_gates",
+    "binary_identity",
+    "dependency_hashes",
+    "effective_route",
+    "end_to_end_artifact",
+    "environment",
+    "hardware_metrics",
+    "independent_evaluation",
+    "paired_baseline",
+    "provenance",
+    "raw_samples",
+    "receipt_fingerprint",
+    "recovery_state",
+    "service_identity",
+    "service_maintenance",
+    "statistical_analysis",
+    "treatment_controls"
+  ],
+  "acceptance_gates": [
+    {"id": "binary_model_identity", "metric": "binary_and_model_identity_verified", "operator": "eq", "threshold": true},
+    {"id": "treatment_identity", "metric": "explicit_fusion_controls_verified", "operator": "eq", "threshold": true},
+    {"id": "balanced_crossover", "metric": "valid_crossover_blocks", "operator": "eq", "threshold": 12},
+    {"id": "sample_size", "metric": "recorded_requests", "operator": "eq", "threshold": 144},
+    {"id": "request_integrity", "metric": "successful_response_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "fixed_decode_work", "metric": "fixed_decode_token_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "semantic_parity", "metric": "exact_output_parity_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "decode_speedup", "metric": "cluster_bootstrap_ratio_ci95_low", "operator": "gt", "threshold": 1.0},
+    {"id": "wall_non_regression", "metric": "cluster_bootstrap_wall_ratio_ci95_low", "operator": "ge", "threshold": 0.98},
+    {"id": "service_recovery", "metric": "service_gateway_embedding_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "SLX03_GDN_FUSION_DECODE_SPEEDUP_CONFIRMED_R1",
+    "SLX03_GDN_FUSION_DECODE_SPEEDUP_NOT_DEMONSTRATED_R1"
+  ],
+  "forbidden_claims": [
+    "write reduction without hardware counters",
+    "production deployment",
+    "non-Qwen3.8 generalization",
+    "throughput outside the frozen single-slot request shape",
+    "promotion without independent review"
+  ],
+  "next_action": "Run the frozen 12-block paired crossover on the non-instrumented Release artifact and independently audit the cluster-bootstrap performance claim."
+}

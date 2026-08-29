@@ -1,0 +1,17 @@
+{
+  "task": "Extract only a numeric value explicitly concluded for the exact quantity asked by the question.",
+  "frozen_policy": [
+    "Do not solve the problem and do not inspect gold, arm, mapping, sources, R1 labels or reviews.",
+    "If the response concludes only a different intermediate or subquantity and never concludes the requested quantity, return null.",
+    "A wrong value explicitly concluded for the requested quantity remains that wrong value.",
+    "Preserve mixed numbers as written, normalizing whitespace only; do not convert them to improper fractions."
+  ],
+  "output_schema": {
+    "record_id": "opaque ID",
+    "concluded_value": "numeric string, mixed number, or null",
+    "confidence": "high|medium|low",
+    "rationale": "short target-policy explanation"
+  },
+  "records": 7,
+  "gold_or_arm_fields_exposed": false
+}

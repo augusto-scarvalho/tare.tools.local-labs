@@ -1,0 +1,15 @@
+{
+  "task": "Extract only the numeric value the response itself ultimately concludes for the question.",
+  "rules": [
+    "Do not solve the question and do not inspect gold, arm, mapping, source packets or other raters.",
+    "Use null when the response does not conclude an answer; a wrong concluded value remains that wrong value.",
+    "Canonicalize commas, currency and percent signs away; preserve decimals and fractions.",
+    "Return record_id, concluded_value, confidence high/medium/low, and a short rationale."
+  ],
+  "output_schema": {
+    "record_id": "opaque input ID",
+    "concluded_value": "numeric string or null",
+    "confidence": "high|medium|low",
+    "rationale": "short gold-blind explanation"
+  }
+}

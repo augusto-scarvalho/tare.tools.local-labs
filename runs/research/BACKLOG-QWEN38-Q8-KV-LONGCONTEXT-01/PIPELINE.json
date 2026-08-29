@@ -1,0 +1,63 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-01",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "REJECTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-28T23:08:08Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-28T23:12:37Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-28T23:12:37Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T23:22:51Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent long-context audit instance",
+      "at": "2026-08-28T23:26:34Z",
+      "reason": "Bounded operational rejection: both absolute recall gates fail at 4/24, while 40/48 raw /completion responses in both arms are empty immediate EOS with predicted_n=1 and predicted_ms=0.001. This makes the 1,000,000 t/s medians and ratio 1.0 harness artifacts; equal F16/Q8 casewise failure does not establish Q8-specific inferiority or valid noninferiority. A chat-template R2 with fresh inference is required; concurrency remains unauthorized."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-01/PRE_REGISTRATION.md",
+    "sha256": "10ad52207f939821d497e8db1c31ed68a163d810f79292a67e0fb9331f0a4c6a"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_qwen38_q8_kv_longcontext.py",
+      "sha256": "4197afacf8c2bd9c4f3a96802612afcd41a4ca47ed4f1190284d170cf13419c8"
+    }
+  ],
+  "implementation_digest": "a4d9dc6caa2886c717a771fe1a426273a30230996e0bdfbc46ee4f4454db2166",
+  "execution": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-01/raw/receipt.json",
+    "sha256": "289b17a34e4bb1c298f9e34f8d914c47ffec7641850cc29a58d1992f5a8f2093"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-01/RESULT.md",
+    "sha256": "c7736399723deced077e8d18e7373296ab3b25363eb7bfd9367339d60283f3fe"
+  },
+  "review": {},
+  "claim_codes": [
+    "QWEN38_Q8_KV_LONGCONTEXT_NOT_NONINFERIOR_R1"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent scientific auditor R3",
+  "verdict": "HOLD_FAIL_CLOSED",
+  "receipt_sha256": "55bc5facdbb4936c580c357c39c2bc6133362396d8bcca4b5ea0f09bad1d6524",
+  "implementation_digest": "5512a41f975cd9b2e0c7c9e05074083c0b53cd119ceba16da83ef140bffa898b",
+  "decision": "BLOCKED",
+  "claim_codes_permitted": [],
+  "limitations": [
+    "The semantic checks were directed at every changed label, every extraction-None row, all five receipt discordances, all non-hash rows credited correct, the retained regressions and fresh adversarial probes; they are not a blinded human relabel of all 256 responses.",
+    "VRAM is the hash-bound same-host global snapshot from the fixed-order R2 execution rather than per-process attribution. R3 performs no new inference or service mutation and cannot generalize beyond this Qwen3.8 panel, cache pair, host or context regime."
+  ],
+  "findings": [
+    "The execution receipt SHA-256 and canonical fingerprint independently recompute to 55bc5facdbb4936c580c357c39c2bc6133362396d8bcca4b5ea0f09bad1d6524 and 13f3b5703cfd452dd7378a73334b7e7ae552601b54fc0ee3f93b6b4ea3d001b5. The preregistration, implementation file, implementation digest, admission-to-manifest static policy, every provenance input, all five physical-evidence imports and the R2 receipt fingerprint match their materialized bytes. Every R3 raw file parses completely.",
+    "Independent replay of all 256 unique arm/task rows reproduces every stored extraction, method, label and copied request field. The mechanical aggregate is F16 33/128, Q8 32/128, point delta -0.0078125, Q8-only/F16-only discordance 2/3, and the exact 20,000-replicate seed-2026082812 interval [-0.0390625, 0.0234375].",
+    "The imported physical gates independently reproduce from the hash-bound R2 bytes: median throughput 87.2271475 versus 85.245499 tokens/s, ratio 0.9772817459151693, and global GPU-memory snapshots 21,263 versus 20,391 MiB, saving 872 MiB. Treatment identity and recovery artifacts are byte-bound to R2 and record the F16-then-Q8_0 order, both K/V controls, restored qwen38 gateway and embedding HTTP 200.",
+    "The retained scorer regression is exact: both f16 and q8 gsm8k/111 yield extraction None, so the previously observed q8 incidental-16 false positive is removed. This narrow 2/2 regression does not validate the remaining 254 rows.",
+    "The same scorer introduces receipt-level false negatives. Both arms of gsm8k/36 explicitly calculate total cost 75, gsm8k/49 explicitly calculates 30 unoccupied units, and gsm8k/109 explicitly calculates net cost 28, yet all six rows are scored None. F16 gsm8k/68 concludes 36 but is scored 5, f16 gsm8k/81 concludes 17 but is scored 54, and both gsm8k/126 arms explicitly compute 82 but are scored 38. Q8 gsm8k/82 explicitly computes 623 but is scored 4.",
+    "Applying only those explicitly inspected corrections changes the descriptive counts to F16 39/128 and Q8 37/128, point delta -0.015625, discordance 1/3, and the same preregistered bootstrap procedure gives [-0.046875, 0.015625]. The known-correction interval still passes the strict -0.05 gate, but its lower bound is only 0.003125 above the threshold; the unvalidated scorer therefore remains decisive rather than incidental.",
+    "No additional receipt-level false positive was found among the ten non-hash rows currently credited correct, while hash-answer rows carry explicit terminal answers. However, the identical bound scorer produces an observed receipt-level false positive in the companion TRACE packet and fails fresh gold-blind probes: it chooses a later cued 9-hour incidental value over the requested concluded 7 hours, and a cued 0-ounce intermediate over a later explicit 30-ounce total. False-positive control is therefore not established by the 15/15 fixtures.",
+    "The packet is held BLOCKED fail-closed. A successor must freeze a blind human-label or equivalently validated conclusion-aware scoring protocol over all 256 retained rows, include the observed receipt failures and later same-unit cue collisions, and then recompute the paired estimand without new inference. No R3 claim code is authorized from this packet."
+  ]
+}

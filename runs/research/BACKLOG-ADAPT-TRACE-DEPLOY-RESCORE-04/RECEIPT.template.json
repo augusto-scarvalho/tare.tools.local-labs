@@ -1,0 +1,57 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-04",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "source_integrity": {
+      "metric": "promoted_blind_labels_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "evaluation_coverage": {
+      "metric": "trace_labeled_rows",
+      "operator": "eq",
+      "threshold": 512,
+      "actual": null,
+      "pass": null
+    },
+    "finalist_gain": {
+      "metric": "paired_bootstrap_95ci_lower_trace_minus_answer",
+      "operator": "gt",
+      "threshold": 0.0,
+      "actual": null,
+      "pass": null
+    },
+    "finalist_absolute": {
+      "metric": "trace_accuracy",
+      "operator": "ge",
+      "threshold": 0.4,
+      "actual": null,
+      "pass": null
+    },
+    "protected_retention": {
+      "metric": "imported_selected_seed_qa_regression",
+      "operator": "le",
+      "threshold": 0.05,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "dataset_hashes": null,
+    "independent_evaluation": null,
+    "model_hash": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "student_samples": null,
+    "teacher_samples": null
+  },
+  "receipt_fingerprint": null
+}

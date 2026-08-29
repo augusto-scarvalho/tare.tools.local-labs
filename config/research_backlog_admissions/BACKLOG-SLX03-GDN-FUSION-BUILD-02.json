@@ -1,0 +1,26 @@
+{
+  "id":"BACKLOG-SLX03-GDN-FUSION-BUILD-02","priority":1,
+  "title":"Build and callable-binary qualification of SLX-03 GDN cache fusion (explicit CUDA compiler)","evidence_class":"external_reproduction",
+  "packet_dir":"runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-02","depends_on":["BACKLOG-AGY-SYSTEM-BLOCKERS-03"],
+  "source_artifacts":[
+    "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-03/raw/receipt.json",
+    "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-03/REVIEW.json",
+    "runs/autonomous/EXPERIMENT-WATCH-2026-08-28-SLX03-BUILD-R1/FINAL.json",
+    "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-01/raw/configure.stderr.log"
+  ],
+  "required_evidence":["acceptance_gates","build_receipts","correctness_receipts","dependency_hashes","end_to_end_artifact","independent_evaluation","provenance","raw_samples","receipt_fingerprint","source_revision"],
+  "acceptance_gates":[
+    {"id":"source_revision","metric":"exact_source_commit","operator":"eq","threshold":true},
+    {"id":"tracked_clean","metric":"tracked_source_clean","operator":"eq","threshold":true},
+    {"id":"configure","metric":"cmake_configure_exit","operator":"eq","threshold":0},
+    {"id":"build","metric":"llama_server_build_exit","operator":"eq","threshold":0},
+    {"id":"fusion_marker","metric":"gdn_fusion_marker_present","operator":"eq","threshold":true},
+    {"id":"self_linkage","metric":"project_libraries_resolve_to_new_build","operator":"eq","threshold":true},
+    {"id":"callability","metric":"server_version_exit","operator":"eq","threshold":0},
+    {"id":"service_invariance","metric":"gateway_and_embedding_unchanged","operator":"eq","threshold":true}
+  ],
+  "allowed_claim_codes":["SLX03_GDN_FUSION_BUILD_CALLABLE_R2","SLX03_GDN_FUSION_BUILD_NOT_CONFIRMED_R2"],
+  "forbidden_claims":["runtime fusion observed","semantic parity","write reduction","speedup","production deployment","promotion without independent review"],
+  "next_action":"Repeat the isolated build in a fresh directory with the installed CUDA compiler made explicit; preserve R1 as an environment-discovery failure.",
+  "supersedes":"BACKLOG-SLX03-GDN-FUSION-BUILD-01"
+}

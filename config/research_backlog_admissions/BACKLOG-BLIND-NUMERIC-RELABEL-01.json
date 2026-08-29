@@ -1,0 +1,42 @@
+{
+  "id": "BACKLOG-BLIND-NUMERIC-RELABEL-01",
+  "priority": 0,
+  "title": "Blind complete semantic relabel of retained trace and Q8 numeric outputs",
+  "evidence_class": "human_calibration",
+  "packet_dir": "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-01",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/receipt.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/student_samples.json",
+    "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-02/raw/receipt.json",
+    "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-02/raw/samples.jsonl",
+    "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-03/REVIEW.json",
+    "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-03/REVIEW.json",
+    "workloads/gsm8k.jsonl"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "blind_label_packet", "independent_evaluation",
+    "inter_rater_agreement", "provenance", "rater_provenance", "raw_samples",
+    "receipt_fingerprint", "scorer_hashes"
+  ],
+  "acceptance_gates": [
+    {"id":"source_integrity","metric":"frozen_sources_verified","operator":"eq","threshold":true},
+    {"id":"bundle_coverage","metric":"blind_records","operator":"eq","threshold":768},
+    {"id":"gold_blinding","metric":"gold_or_arm_fields_exposed","operator":"eq","threshold":false},
+    {"id":"primary_coverage","metric":"primary_labels","operator":"eq","threshold":768},
+    {"id":"overlap_coverage","metric":"double_labeled_records","operator":"ge","threshold":96},
+    {"id":"rater_independence","metric":"independent_raters","operator":"ge","threshold":3},
+    {"id":"agreement","metric":"exact_inter_rater_agreement","operator":"ge","threshold":0.85},
+    {"id":"adjudication","metric":"unresolved_disagreements","operator":"eq","threshold":0}
+  ],
+  "allowed_claim_codes": [
+    "BLIND_NUMERIC_RELABEL_COMPLETED_R1",
+    "BLIND_NUMERIC_RELABEL_NOT_VALIDATED_R1"
+  ],
+  "forbidden_claims": [
+    "human labels", "model quality promotion", "trace finalist promotion",
+    "Q8 utility promotion", "new inference", "promotion without independent review"
+  ],
+  "next_action": "Blind and shuffle all 768 outputs, collect complete semantic labels from three independent raters with overlap, and adjudicate every conflict without exposing gold or arm.",
+  "supersedes": null
+}

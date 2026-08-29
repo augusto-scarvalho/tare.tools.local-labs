@@ -1,0 +1,63 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX03-GDN-FUSION-RUNTIME-01",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "REJECTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-28T18:16:59Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-28T18:19:35Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-28T18:19:36Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T18:25:06Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent runtime-route audit instance",
+      "at": "2026-08-28T18:31:51Z",
+      "reason": "Operational rejection: frozen route gate failed 0/2; default verbosity 3 suppresses GGML INFO mapped to trace 4, so route is unobserved rather than scientifically falsified. Exact labeled-arm output parity does not prove fused-vs-unfused parity; semantic summary hashes also require correction in a verbosity-controlled successor."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-01/PRE_REGISTRATION.md",
+    "sha256": "eaebd52fba1dff1c091415271664045b62a3b91b288f8acd02f4702a65b47246"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_slx03_gdn_fusion_runtime.py",
+      "sha256": "64e0be7cfe873ee20f6b491b14b1a8a001b562fbe1a515b488fa872e3ffa3959"
+    }
+  ],
+  "implementation_digest": "5fffc2a441ce27c828c8054c0c16109bf4c1d740ece04f26a3634719d5bd1556",
+  "execution": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-01/raw/receipt.json",
+    "sha256": "8261893e08281f190bd84d18970de46c52a8ddeb2ebefa8a7880a06784feb933"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-01/RESULT.md",
+    "sha256": "3066ef90dd631210c72cd2b052b8c1def4cb6efd4ef3e8515f1d5077a3632d25"
+  },
+  "review": {},
+  "claim_codes": [
+    "SLX03_GDN_FUSION_RUNTIME_ROUTE_NOT_CONFIRMED_R1"
+  ]
+}

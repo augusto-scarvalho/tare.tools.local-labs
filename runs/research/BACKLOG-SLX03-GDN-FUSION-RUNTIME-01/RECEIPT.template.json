@@ -1,0 +1,84 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-SLX03-GDN-FUSION-RUNTIME-01",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "binary_model_identity": {
+      "metric": "binary_and_model_identity_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "treatment_identity": {
+      "metric": "explicit_fusion_controls_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "balanced_crossover": {
+      "metric": "valid_abba_blocks",
+      "operator": "eq",
+      "threshold": 4,
+      "actual": null,
+      "pass": null
+    },
+    "request_integrity": {
+      "metric": "successful_response_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "runtime_route": {
+      "metric": "on_blocks_with_marker",
+      "operator": "eq",
+      "threshold": 2,
+      "actual": null,
+      "pass": null
+    },
+    "negative_control": {
+      "metric": "off_blocks_without_marker",
+      "operator": "eq",
+      "threshold": 2,
+      "actual": null,
+      "pass": null
+    },
+    "semantic_parity": {
+      "metric": "exact_output_parity_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "service_recovery": {
+      "metric": "service_gateway_embedding_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "binary_identity": null,
+    "block_logs": null,
+    "dependency_hashes": null,
+    "effective_route": null,
+    "end_to_end_artifact": null,
+    "environment": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "recovery_state": null,
+    "service_identity": null,
+    "service_maintenance": null,
+    "treatment_controls": null
+  },
+  "receipt_fingerprint": null
+}

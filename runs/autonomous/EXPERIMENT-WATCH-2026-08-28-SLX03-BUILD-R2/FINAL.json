@@ -1,0 +1,48 @@
+{
+  "schema": "local-labs-experiment-watch-final-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-28-SLX03-BUILD-R2",
+  "finished_at": "2026-08-28T17:44:30Z",
+  "status": "complete_with_alert",
+  "experiment_mode": true,
+  "states": {
+    "BACKLOG-SLX03-GDN-FUSION-BUILD-02": {
+      "status": "failed_pid_never_observed",
+      "was_seen_alive": false,
+      "finalization": {
+        "at": "2026-08-28T17:44:29Z",
+        "status": "failed_pid_never_observed"
+      }
+    }
+  },
+  "pipeline_gate": {
+    "returncode": 0,
+    "stdout": "BACKLOG PIPELINE: PASS",
+    "stderr": ""
+  },
+  "backlog_queue": {
+    "refreshed_at": "2026-08-28T17:44:30Z",
+    "status_returncode": 0,
+    "next_returncode": 0,
+    "valid": true,
+    "state_counts": {
+      "BLOCKED": 38,
+      "EXECUTED": 19,
+      "IMPLEMENTED": 2,
+      "PROMOTED": 18,
+      "REJECTED": 18
+    },
+    "next_candidate": null
+  },
+  "completion_action": "inspect_alert_before_dispatch",
+  "final_health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "final_gpu": {
+    "memory_used_mib": 20106,
+    "memory_free_mib": 4217,
+    "utilization_percent": 5,
+    "temperature_c": 32,
+    "power_w": 48.15
+  }
+}

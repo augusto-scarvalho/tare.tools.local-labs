@@ -1,0 +1,18 @@
+{
+  "schema": "local-labs-watched-launch-v1",
+  "launched_at": "2026-08-28T18:24:55Z",
+  "task_id": "BACKLOG-SLX03-GDN-FUSION-RUNTIME-01",
+  "experiment_pid": 48424,
+  "watcher_pid": 23556,
+  "command": [
+    "python",
+    "-c",
+    "import pathlib,time; p=pathlib.Path('runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-01'); assert (p/'raw/receipt.json').is_file(); assert len(list((p/'raw/logs').glob('*.log')))==4; time.sleep(8)"
+  ],
+  "config": "C:\\projects\\tare.tools.local-labs\\runs\\autonomous\\EXPERIMENT-WATCH-2026-08-28-SLX03-RUNTIME-R1-FINALIZE\\config.json",
+  "status": "C:\\projects\\tare.tools.local-labs\\runs\\autonomous\\EXPERIMENT-WATCH-2026-08-28-SLX03-RUNTIME-R1-FINALIZE\\WATCH_STATUS.json",
+  "events": "C:\\projects\\tare.tools.local-labs\\runs\\autonomous\\EXPERIMENT-WATCH-2026-08-28-SLX03-RUNTIME-R1-FINALIZE\\events.jsonl",
+  "final": "C:\\projects\\tare.tools.local-labs\\runs\\autonomous\\EXPERIMENT-WATCH-2026-08-28-SLX03-RUNTIME-R1-FINALIZE\\FINAL.json",
+  "controller_binding": "foreground_until_watcher_completion",
+  "experiment_mode": true
+}

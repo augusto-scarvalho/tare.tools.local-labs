@@ -6,6 +6,14 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added the continuous executor, low-noise watcher and independent-audit trail
+  for scorer recovery, SLX-03 runtime/performance qualification, and Qwen3.8 Q8
+  KV long-context/concurrency successors, with preserved failed predecessors,
+  fixture coverage, immutable receipts and bounded handoff state.
+- Admitted three dependency-ready retained-evidence successors for fleet
+  context envelope, hard-decoy interference and gateway route stress. Their
+  frozen gates repair provenance and semantic-success definitions without new
+  inference or broader claims.
 - Added a six-packet rejected/HOLD recovery wave with independent-audit queue:
   corrected trace deployment scoring, clean-provenance Q8 KV utility,
   semantic AGY blocker classification, functional MTP reuse falsification,
@@ -80,6 +88,15 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Changed
 
+- Promoted the SLX-03 GDN fusion runtime route after a PID-bound OFF/ON audit,
+  then measured a 1.051362x decode-rate ratio (95% hierarchical-bootstrap CI
+  1.041026 to 1.062275) and 1.046993x wall-throughput ratio over 144 fixed-work
+  requests on the qualified Qwen3.8 Release binary.
+- Rejected the first Q8 long-context run as a raw-completion harness failure,
+  not a model-quality result; its corrected chat-contract successor produced
+  48/48 correct paired responses at 8k/16k, while the two-slot successor
+  produced 24/24 overlapping batches, 48/48 correct responses and 1,698.5 MiB
+  observed KV-memory saving.
 - Closed the six-packet GPT-5.6 Sol xhigh recovery audit with two promotions,
   three fail-closed holds and one bounded rejection. The review independently
   recomputed receipt bindings, raw projections, frozen gates and operational

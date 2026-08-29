@@ -1,0 +1,73 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX03-GDN-FUSION-PERF-01",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-28T22:46:34Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-28T22:52:30Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-28T22:52:30Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T23:02:49Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent performance audit instance",
+      "at": "2026-08-28T23:06:45Z",
+      "reason": "Independent raw reconstruction validates 12 fresh-process blocks, 144 fixed-64-token requests, 72 exact pairs, treatment identity, timing integrity and restoration. Clean-room 6-pair/12-prompt hierarchical bootstrap with seed 2026082821 and 20000 replicates exactly reproduces decode CI95 [1.0410264326881937,1.0622751507356005] and wall CI95 [1.0383360970638293,1.0553075302750063]."
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent performance audit instance",
+      "at": "2026-08-28T23:06:46Z",
+      "reason": "Promoted after legal VERIFIED stage. Claim is limited to server-reported decode speedup for the frozen Release Qwen3.8 single-slot 64-token panel with exact parity and wall non-regression; no write-reduction, deployment, concurrency, long-context or generalization claim."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-PERF-01/PRE_REGISTRATION.md",
+    "sha256": "fc1899a312beb67d3672431a593ecfe551bf8397d54248d0cab1ddb06d042ede"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_slx03_gdn_fusion_perf.py",
+      "sha256": "e63e5ed5172a6abe191880130cc4555e15826e6eac73fd3187464d2064577fe9"
+    }
+  ],
+  "implementation_digest": "fe3fe3f17cab665aa4ce730f9c5b728ccf2f49a7c6ccdd776486270a69a936a0",
+  "execution": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-PERF-01/raw/receipt.json",
+    "sha256": "a8024d16ed0d43691c383c66bb60efe0e0a8b8af612ca420dd6a92cc6e9d07e6"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-PERF-01/RESULT.md",
+    "sha256": "aba17325775af5ff116e8b7b5374a7f467a69450df7a46d609e6c1617bae0bc3"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-PERF-01/REVIEW.json",
+    "sha256": "4803fa60bae51d2dc2706a3f7787675d05578813c4c94615a0fa17a8e7635393"
+  },
+  "claim_codes": [
+    "SLX03_GDN_FUSION_DECODE_SPEEDUP_CONFIRMED_R1"
+  ]
+}

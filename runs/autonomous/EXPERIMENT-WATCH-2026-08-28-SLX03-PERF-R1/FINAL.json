@@ -1,0 +1,64 @@
+{
+  "schema": "local-labs-experiment-watch-final-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-28-SLX03-PERF-R1",
+  "finished_at": "2026-08-28T23:02:50Z",
+  "status": "complete",
+  "experiment_mode": true,
+  "states": {
+    "BACKLOG-SLX03-GDN-FUSION-PERF-01": {
+      "status": "executed_valid",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-28T23:02:48Z",
+        "receipt_exists": true,
+        "result_exists": true,
+        "stage_before": "IMPLEMENTED",
+        "progress": 1,
+        "expected_progress": 1,
+        "advance": {
+          "returncode": 0,
+          "stdout": "BACKLOG-SLX03-GDN-FUSION-PERF-01: advanced to EXECUTED",
+          "stderr": ""
+        },
+        "stage_after": "EXECUTED",
+        "gate": {
+          "returncode": 0,
+          "stdout": "BACKLOG PIPELINE: PASS",
+          "stderr": ""
+        },
+        "status": "executed_valid"
+      }
+    }
+  },
+  "pipeline_gate": {
+    "returncode": 0,
+    "stdout": "BACKLOG PIPELINE: PASS",
+    "stderr": ""
+  },
+  "backlog_queue": {
+    "refreshed_at": "2026-08-28T23:02:50Z",
+    "status_returncode": 0,
+    "next_returncode": 0,
+    "valid": true,
+    "state_counts": {
+      "BLOCKED": 39,
+      "EXECUTED": 20,
+      "IMPLEMENTED": 2,
+      "PROMOTED": 21,
+      "REJECTED": 20
+    },
+    "next_candidate": null
+  },
+  "completion_action": "notify_queue_empty",
+  "final_health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "final_gpu": {
+    "memory_used_mib": 20245,
+    "memory_free_mib": 4078,
+    "utilization_percent": 4,
+    "temperature_c": 35,
+    "power_w": 50.17
+  }
+}

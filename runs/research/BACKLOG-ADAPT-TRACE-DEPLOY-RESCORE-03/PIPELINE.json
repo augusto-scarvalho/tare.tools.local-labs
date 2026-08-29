@@ -1,0 +1,58 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-03",
+  "evidence_class": "distillation",
+  "executor": "codex",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-28T16:19:43Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-28T16:23:49Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-28T16:23:50Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T16:24:24Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "BLOCKED",
+      "actor": "GPT-5.6 Sol xhigh independent scientific auditor R3",
+      "at": "2026-08-28T16:33:19Z",
+      "reason": "HOLD_FAIL_CLOSED: observed scorer false positive and widespread false negatives can flip finalist_absolute; complete blind semantic relabel successor required"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-03/PRE_REGISTRATION.md",
+    "sha256": "b6f424169219780f13a2983ab328400b403553ffc043c058a4815d9a3f45816d"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_trace_deploy_rescore_r3.py",
+      "sha256": "ab4e286424d66fc08ff252b03a55f95f1a41ad47d9dd8d4fe5c89b422deda6e6"
+    }
+  ],
+  "implementation_digest": "cf1f8b16beb3e84f7ca0b3432df4590f536846fa886be25af19a3d4b75087835",
+  "execution": {
+    "path": "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-03/raw/receipt.json",
+    "sha256": "077ffe3adfa998bdc60effa8856ce2d4b62135b8a3e70f7a7d1f6369b2533f91"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

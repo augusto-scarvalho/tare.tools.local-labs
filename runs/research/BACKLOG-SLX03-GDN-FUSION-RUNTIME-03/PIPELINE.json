@@ -1,0 +1,81 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX03-GDN-FUSION-RUNTIME-03",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-28T22:32:11Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-28T22:34:43Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-28T22:34:44Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T22:39:51Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent runtime-route audit instance",
+      "at": "2026-08-28T22:44:05Z",
+      "reason": "Independent review recomputed all frozen hashes, PID-bound startup controls, uncapped current-PID journals, treatment assignment, 32/32 responses, 16/16 exact pairs, marker separation and service restoration; all preregistered gates pass within the bounded route/parity/restoration claim."
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent runtime-route audit instance",
+      "at": "2026-08-28T22:44:06Z",
+      "reason": "Promoted after legal VERIFIED stage; claim remains limited to observed GDN fused-cache route under the frozen Qwen3.8 crossover, exact frozen-panel parity, and service restoration, excluding performance, write-reduction, deployment and generalization."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-03/PRE_REGISTRATION.md",
+    "sha256": "92e7c6c32d15651f740da79a5f2607413f6e1b589b5f31eb9a877c8da8ef5364"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_slx03_gdn_fusion_runtime.py",
+      "sha256": "64e0be7cfe873ee20f6b491b14b1a8a001b562fbe1a515b488fa872e3ffa3959"
+    },
+    {
+      "path": "tools/research/run_slx03_gdn_fusion_runtime_r2.py",
+      "sha256": "ee4ac18bc205ffeda7fbd82e196ab8a8d2be096ce95078b15d17dab370f098c3"
+    },
+    {
+      "path": "tools/research/run_slx03_gdn_fusion_runtime_r3.py",
+      "sha256": "7c6d47576f3c7e782ac4cccbc9174e6ef69a2c2b50a2201eb85c47b4281cbaf9"
+    }
+  ],
+  "implementation_digest": "6710364380acd35bf1c006b33cf57d74ac3d9b8dd55cf1b047d5ccefd70fe23a",
+  "execution": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-03/raw/receipt.json",
+    "sha256": "bb1391f3fb13792b0c71a658da4eb55eeeb64ac277cde00f93ee37bd78a9a256"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-03/RESULT.md",
+    "sha256": "de6b0e9a638e88f656abfb98d344a38a32dabeed8c93f4b8648af7d6501f5676"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-03/REVIEW.json",
+    "sha256": "4ef6e60706cf87ef74052eebffdeafb7d3901a644cc0af6e6a3ef3a32925ceb0"
+  },
+  "claim_codes": [
+    "SLX03_GDN_FUSION_RUNTIME_ROUTE_CONFIRMED_R3"
+  ]
+}

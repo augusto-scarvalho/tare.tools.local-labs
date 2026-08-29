@@ -1,0 +1,71 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-BLIND-NUMERIC-RELABEL-03",
+  "evidence_class": "human_calibration",
+  "executor": "codex",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-28T17:18:09Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-28T17:19:37Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-28T17:19:38Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T17:21:27Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent scientific auditor R3",
+      "at": "2026-08-28T17:24:04Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent scientific auditor R3",
+      "at": "2026-08-28T17:24:05Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03/PRE_REGISTRATION.md",
+    "sha256": "659c06166b13d413d0ff1eb358176bdcc97641bb67ce925b32afc395e3269e31"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_blind_numeric_relabel_r3.py",
+      "sha256": "2622a5ef251323abaa43a7e4546fb0e9e1b6304fe4b9ac2c1bc7d5670f711ba8"
+    }
+  ],
+  "implementation_digest": "9001d943de36375bc2d7b54a947532aa00ecd0743d9b4b7ad8d3c92de048a483",
+  "execution": {
+    "path": "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03/raw/receipt.json",
+    "sha256": "68015109f79a92e2054e21b1bad6a9b33fdf55f0de067b0e776cca59d1c103f7"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03/RESULT.md",
+    "sha256": "cbfd3b053f8d0481d46777b5b9081cb19f22e78a81f835b35aa5e0557b1ff26a"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03/REVIEW.json",
+    "sha256": "dc2d0be45586d247133f876383866802dcb1698237f17c39fb50b2c1805c73d1"
+  },
+  "claim_codes": [
+    "BLIND_NUMERIC_RELABEL_COMPLETED_R3"
+  ]
+}

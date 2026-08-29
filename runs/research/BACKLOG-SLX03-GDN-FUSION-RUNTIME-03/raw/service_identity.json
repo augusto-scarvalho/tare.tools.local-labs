@@ -1,0 +1,71 @@
+{
+  "initial_service": {
+    "returncode": 0,
+    "load_state": "loaded",
+    "active_state": "active",
+    "sub_state": "running",
+    "main_pid": 140533,
+    "n_restarts": 0,
+    "exec_start": "{ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/tools/serving/qualified_model_gateway.py --config /mnt/c/projects/tare.tools.local-labs/config/qualified_model_fleet.json --host 0.0.0.0 --port 8080 --backend-host 127.0.0.1 --backend-port 18080 --state-dir /home/augus/.local/state/tare-qualified-models --preload qwen38 ; ignore_errors=no ; start_time=[Fri 2026-08-28 19:24:12 -03] ; stop_time=[n/a] ; pid=140533 ; code=(null) ; status=0/0 }",
+    "stderr": ""
+  },
+  "initial_gateway": {
+    "status": "ok",
+    "role": "qualified-model-gateway",
+    "current_model": "qwen38",
+    "requested_name": "qwen38",
+    "backend_healthy": true,
+    "backend_pid": 140534,
+    "backend_port": 18080,
+    "last_switch_seconds": 3.730064598028548,
+    "last_error": null,
+    "max_resident_models": 1,
+    "available_models": [
+      "fable-tc",
+      "gemma-vision",
+      "hauhaucs",
+      "muse-vision",
+      "qwen36-moe",
+      "qwen38"
+    ]
+  },
+  "restoration": {
+    "gateway": {
+      "status": "ok",
+      "role": "qualified-model-gateway",
+      "current_model": "qwen38",
+      "requested_name": "qwen38",
+      "backend_healthy": true,
+      "backend_pid": 141319,
+      "backend_port": 18080,
+      "last_switch_seconds": 3.80949547997443,
+      "last_error": null,
+      "max_resident_models": 1,
+      "available_models": [
+        "fable-tc",
+        "gemma-vision",
+        "hauhaucs",
+        "muse-vision",
+        "qwen36-moe",
+        "qwen38"
+      ]
+    },
+    "service": {
+      "returncode": 0,
+      "load_state": "loaded",
+      "active_state": "active",
+      "sub_state": "running",
+      "main_pid": 141318,
+      "n_restarts": 0,
+      "exec_start": "{ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/tools/serving/qualified_model_gateway.py --config /mnt/c/projects/tare.tools.local-labs/config/qualified_model_fleet.json --host 0.0.0.0 --port 8080 --backend-host 127.0.0.1 --backend-port 18080 --state-dir /home/augus/.local/state/tare-qualified-models --preload qwen38 ; ignore_errors=no ; start_time=[Fri 2026-08-28 19:35:57 -03] ; stop_time=[n/a] ; pid=141318 ; code=(null) ; status=0/0 }",
+      "stderr": ""
+    },
+    "embedding": {
+      "http_status": 200,
+      "body": {
+        "status": "ok"
+      }
+    },
+    "initial_model_restored": true
+  }
+}

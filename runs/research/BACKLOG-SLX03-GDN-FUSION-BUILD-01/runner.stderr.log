@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx03_gdn_fusion_build.py", line 58, in <module>
+    if __name__=="__main__":raise SystemExit(main())
+                                             ^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx03_gdn_fusion_build.py", line 57, in main
+    p=argparse.ArgumentParser();p.add_argument("--outdir",type=pathlib.Path,default=ROOT/"runs/research"/TASK_ID);a=p.parse_args();run(a.outdir.resolve());return 0
+                                                                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx03_gdn_fusion_build.py", line 50, in run
+    wj(raw/"actual_scores.json",metrics);wj(raw/"source_revision.json",{"repository":SOURCE,"commit":head["stdout"].strip(),"expected":COMMIT,"tracked_status":clean["stdout"]});wj(raw/"dependency_hashes.json",{"host_inputs":INPUTS});wj(raw/"build_receipts.json",{"configure":configure["returncode"],"build":build["returncode"],"command_configure":configure["argv"],"command_build":build["argv"]});wj(raw/"correctness_receipts.json",{"fusion_marker":fusion,"linkage":linkage,"project_lines":project,"server_version":version});wj(raw/"end_to_end_artifact.json",hashes);wj(raw/"independent_evaluation.json",{"build_only":True,"runtime_fusion_not_observed":True,"metrics":metrics});wj(raw/"service_after.json",after)
+                                                                                                                                                                                                                                                                                                                                                                                             ~~~~~^^^^^^^^
+KeyError: 'argv'

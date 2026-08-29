@@ -1,0 +1,92 @@
+{
+  "schema": "local-labs-autonomous-research-trail-v1",
+  "trail_id": "CONTINUOUS-RECOVERY-2026-08-28",
+  "mode": "executor_watcher_independent_audit",
+  "authority": "Run dependency-ready experiments for the next several hours; preserve services and stop fail-closed.",
+  "polling_policy": {
+    "watcher_poll_seconds": 300,
+    "active_delivery": "completion_failure_or_audit_barrier_only",
+    "token_policy": "persist full state on disk and send compact milestone notifications"
+  },
+  "invariants": [
+    "executor stops at EXECUTED",
+    "watcher may advance only IMPLEMENTED to EXECUTED after complete evidence",
+    "only an independent auditor may decide PROMOTED REJECTED or BLOCKED",
+    "raw evidence is immutable after execution",
+    "no dependent phase starts before its named review barrier",
+    "serving experiments capture and restore ports 8080 and 8081",
+    "no commit or push is implied by experiment authority"
+  ],
+  "phases": [
+    {
+      "id": "P0-SCORER-RECOVERY",
+      "status": "COMPLETE",
+      "items": [
+        "BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-03",
+        "BACKLOG-QWEN38-Q8-KV-UTILITY-03",
+        "BACKLOG-BLIND-NUMERIC-RELABEL-03",
+        "BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-04",
+        "BACKLOG-QWEN38-Q8-KV-UTILITY-04"
+      ],
+      "execution": "COMPLETE",
+      "review_required": true,
+      "review_task": "/root/r3_independent_audit",
+      "stop_condition": "Any receipt, provenance, scorer or retained-output mismatch"
+    },
+    {
+      "id": "P1-Q8-PHYSICAL-FOLLOWUP",
+      "status": "COMPLETE",
+      "requires": ["BACKLOG-QWEN38-Q8-KV-UTILITY-04:PROMOTED"],
+      "items": [
+        "BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-01",
+        "BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02",
+        "BACKLOG-QWEN38-Q8-KV-CONCURRENCY-01"
+      ],
+      "scope": "Fresh long-context and concurrency confirmation of the qualified Q8 KV route",
+      "claim_limit": "Qwen3.8 Q8 KV only; no all-model generalization",
+      "stop_condition": "Quality margin, throughput, route identity, memory or service restoration failure"
+    },
+    {
+      "id": "P2-SLX03-FUNCTIONAL",
+      "status": "COMPLETE",
+      "requires": ["BACKLOG-AGY-SYSTEM-BLOCKERS-03:PROMOTED"],
+      "items": [
+        "BACKLOG-SLX03-GDN-FUSION-BUILD-01",
+        "BACKLOG-SLX03-GDN-FUSION-BUILD-02",
+        "BACKLOG-SLX03-GDN-FUSION-BUILD-03",
+        "BACKLOG-SLX03-GDN-FUSION-BUILD-04",
+        "BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01",
+        "BACKLOG-SLX03-GDN-FUSION-RUNTIME-01",
+        "BACKLOG-SLX03-GDN-FUSION-RUNTIME-02",
+        "BACKLOG-SLX03-GDN-FUSION-RUNTIME-03",
+        "BACKLOG-SLX03-GDN-FUSION-PERF-01"
+      ],
+      "scope": "Build immutable slop.cpp commit 87a416bd and prove GDN cache fusion callability, parity and physical A/B behavior",
+      "claim_limit": "Functional source mechanism on the tested Qwen3.8 artifact and binary only",
+      "stop_condition": "Dirty tracked source, build identity mismatch, fusion not observed, output mismatch or baseline restoration failure"
+    },
+    {
+      "id": "P3-PROVENANCE-HOLD-RECOVERY",
+      "status": "READY",
+      "items": [
+        "BACKLOG-FLEET-CONTEXT-ENVELOPE-04",
+        "BACKLOG-FLEET-CONTEXT-INTERFERENCE-02",
+        "BACKLOG-GATEWAY-ROUTE-STRESS-02"
+      ],
+      "superseded_sources": [
+        "BACKLOG-FLEET-CONTEXT-ENVELOPE-03",
+        "BACKLOG-FLEET-CONTEXT-INTERFERENCE-01",
+        "BACKLOG-GATEWAY-ROUTE-STRESS-01"
+      ],
+      "scope": "Admitted successor packets over immutable retained evidence, repairing only final-source binding and semantic success definitions without new inference",
+      "claim_limit": "Previously measured bounded routing or exact-retrieval constructs only",
+      "stop_condition": "Any scientific input change, missing retained row, provenance mismatch or semantic-success failure"
+    },
+    {
+      "id": "P4-REMAINING-HOLDS",
+      "status": "QUEUED_AFTER_P3",
+      "scope": "Rank remaining HOLD and REJECTED items by false-negative likelihood and expected information per GPU-hour",
+      "policy": "CPU rescoring and immutable reanalysis before new inference; one independent review per resulting packet"
+    }
+  ]
+}

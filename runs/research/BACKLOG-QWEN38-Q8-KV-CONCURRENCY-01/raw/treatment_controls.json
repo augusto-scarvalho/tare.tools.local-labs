@@ -1,0 +1,50 @@
+{
+  "order": [
+    "f16",
+    "q8",
+    "q8",
+    "f16"
+  ],
+  "parallel": 2,
+  "ctx_size": 65536,
+  "explicit_slots": [
+    0,
+    1
+  ],
+  "server_common": [
+    "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+    "-m",
+    "/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf",
+    "--alias",
+    "qwen38-q8-concurrency",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "18080",
+    "--ctx-size",
+    "65536",
+    "--flash-attn",
+    "on",
+    "--gpu-layers",
+    "all",
+    "--metrics",
+    "--jinja",
+    "--no-mmproj",
+    "--parallel",
+    "2",
+    "--batch-size",
+    "2048",
+    "--ubatch-size",
+    "512",
+    "--ctx-checkpoints",
+    "32",
+    "--spec-type",
+    "draft-mtp",
+    "--spec-draft-n-max",
+    "3"
+  ],
+  "request_contract": "/v1/chat/completions",
+  "thinking": false,
+  "bootstrap_seed": 2026082823,
+  "bootstrap_replicates": 20000
+}

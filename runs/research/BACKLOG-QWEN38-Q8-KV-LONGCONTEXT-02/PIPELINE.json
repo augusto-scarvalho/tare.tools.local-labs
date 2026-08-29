@@ -1,0 +1,77 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-28T23:27:50Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-28T23:30:18Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-28T23:30:19Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T23:40:32Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent long-context R2 auditor",
+      "at": "2026-08-28T23:45:49Z",
+      "reason": "Independent fail-closed audit reproduced receipt/fingerprint/provenance, fresh four-PID chat run, 48/48 integrity and exact recall, 24-pair bootstrap, valid timing/VRAM observations, and restoration; bounded claim only."
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent long-context R2 auditor",
+      "at": "2026-08-28T23:45:50Z",
+      "reason": "All fourteen preregistered gates independently pass; claim restricted to frozen Qwen3.8 single-slot associative retrieval at measured 8k/16k depths."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02/PRE_REGISTRATION.md",
+    "sha256": "b63baf39d7bd194cd1a96b2684a5f47f53c4ffdc06feee5aa3cf8fa624d1add5"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_qwen38_q8_kv_longcontext.py",
+      "sha256": "4197afacf8c2bd9c4f3a96802612afcd41a4ca47ed4f1190284d170cf13419c8"
+    },
+    {
+      "path": "tools/research/run_qwen38_q8_kv_longcontext_r2.py",
+      "sha256": "4c5facc502b25aa1de4465328b18473be6ae74147f932b6e09d1cbfb6487e89a"
+    }
+  ],
+  "implementation_digest": "f0ca560414b5cae0937ff6463754d81a02a2c7b4610302e8a019da80e0cd44df",
+  "execution": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02/raw/receipt.json",
+    "sha256": "b5f2c691d270754857290fd43aa74c248698b3ad767026bd6dcc116aad0c8575"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02/RESULT.md",
+    "sha256": "c93945edad597be7fa044bfe2b9827820882445258e77221ce5f84eb9da8c5da"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02/REVIEW.json",
+    "sha256": "3f759898e5e58e1f5a7d305724be869974a4d75ca71e92274084c703df08a15a"
+  },
+  "claim_codes": [
+    "QWEN38_Q8_KV_LONGCONTEXT_NONINFERIOR_R2"
+  ]
+}

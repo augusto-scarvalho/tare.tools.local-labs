@@ -1,0 +1,46 @@
+{
+  "id": "BACKLOG-QWEN38-Q8-KV-UTILITY-03",
+  "priority": 0,
+  "title": "Semantic rescore of frozen Qwen3.8 F16 versus Q8 KV utility outputs",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-03",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-02/raw/receipt.json",
+    "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-02/raw/samples.jsonl",
+    "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-02/raw/actual_scores.json",
+    "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-02/REVIEW.json",
+    "workloads/gsm8k.jsonl",
+    "tools/analysis/final_numeric_answer_v2.py",
+    "tests/fixtures/final_numeric_answer_v2_cases.json",
+    "tests/test_final_numeric_answer_v2.py"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "external_fixture_validation",
+    "effective_route", "hardware_metrics", "independent_evaluation", "paired_baseline", "provenance",
+    "raw_samples", "receipt_fingerprint", "recovery_state", "scorer_hashes",
+    "service_identity", "source_execution_receipt", "treatment_controls"
+  ],
+  "acceptance_gates": [
+    {"id":"source_integrity","metric":"q8_r2_sources_verified","operator":"eq","threshold":true},
+    {"id":"fixture_validation","metric":"external_fixture_pass_rate","operator":"eq","threshold":1.0},
+    {"id":"retained_regressions","metric":"retained_regression_pass_rate","operator":"eq","threshold":1.0},
+    {"id":"request_coverage","metric":"rescored_requests","operator":"eq","threshold":256},
+    {"id":"utility_noninferiority","metric":"paired_bootstrap_95ci_lower_q8_minus_f16_accuracy","operator":"gt","threshold":-0.05},
+    {"id":"quality_regression","metric":"f16_minus_q8_accuracy","operator":"le","threshold":0.03},
+    {"id":"physical_memory_saving","metric":"vram_saving_mib","operator":"ge","threshold":500},
+    {"id":"throughput_non_regression","metric":"q8_vs_f16_throughput_ratio","operator":"ge","threshold":0.95},
+    {"id":"service_recovery","metric":"service_and_embedding_restored","operator":"eq","threshold":true},
+    {"id":"scorer_blinding","metric":"scorer_does_not_receive_gold","operator":"eq","threshold":true}
+  ],
+  "allowed_claim_codes": [
+    "QWEN38_Q8_KV_UTILITY_NONINFERIOR_R3",
+    "QWEN38_Q8_KV_UTILITY_NOT_NONINFERIOR_R3"
+  ],
+  "forbidden_claims": [
+    "new inference", "exact semantic equivalence", "Q4_0 qualification",
+    "all-model generalization", "long-context quality", "promotion without independent review"
+  ],
+  "next_action": "Rescore all 256 retained F16/Q8 outputs without rerunning inference, preserving physical measurements by hash.",
+  "supersedes": "BACKLOG-QWEN38-Q8-KV-UTILITY-02"
+}

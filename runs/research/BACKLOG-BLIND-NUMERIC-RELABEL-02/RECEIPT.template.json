@@ -1,0 +1,76 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-BLIND-NUMERIC-RELABEL-02",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "source_integrity": {
+      "metric": "r1_sources_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "label_coverage": {
+      "metric": "final_labels",
+      "operator": "eq",
+      "threshold": 768,
+      "actual": null,
+      "pass": null
+    },
+    "amendment_blinding": {
+      "metric": "gold_or_arm_fields_exposed",
+      "operator": "eq",
+      "threshold": false,
+      "actual": null,
+      "pass": null
+    },
+    "amendment_coverage": {
+      "metric": "amended_policy_cases",
+      "operator": "eq",
+      "threshold": 5,
+      "actual": null,
+      "pass": null
+    },
+    "inherited_agreement": {
+      "metric": "inherited_exact_inter_rater_agreement",
+      "operator": "ge",
+      "threshold": 0.85,
+      "actual": null,
+      "pass": null
+    },
+    "target_policy": {
+      "metric": "unresolved_target_policy_cases",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "representation_policy": {
+      "metric": "unregistered_numeric_recodings",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "adjudication": {
+      "metric": "unresolved_amendments",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "blind_label_packet": null,
+    "independent_evaluation": null,
+    "inter_rater_agreement": null,
+    "provenance": null,
+    "rater_provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "scorer_hashes": null
+  },
+  "receipt_fingerprint": null
+}

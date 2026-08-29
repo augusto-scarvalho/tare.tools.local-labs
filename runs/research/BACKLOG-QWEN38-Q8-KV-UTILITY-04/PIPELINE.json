@@ -1,0 +1,71 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-QWEN38-Q8-KV-UTILITY-04",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-28T17:25:21Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-28T17:27:36Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-28T17:27:36Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T17:28:06Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent scientific auditor R4",
+      "at": "2026-08-28T17:31:51Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent scientific auditor R4",
+      "at": "2026-08-28T17:31:52Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-04/PRE_REGISTRATION.md",
+    "sha256": "a7568b244994efcfe6d0b083a3e7e92eb9281046886acca4779edcb0e5efb5df"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_qwen38_q8_kv_utility_r4.py",
+      "sha256": "afb7847e4194a0be9f94cb8f21ce728cbf814d93481407a64c93e76729cf45f6"
+    }
+  ],
+  "implementation_digest": "244d01845909f028fc958d2a1bb26e66fe14ebd2d5ea63a555be6e4425003f8c",
+  "execution": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-04/raw/receipt.json",
+    "sha256": "f94153b21ab3196000b321d06fb79b0b59c3862146de519f05d69cb47d2fa9fe"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-04/RESULT.md",
+    "sha256": "fb1964a99a74b40518827d0d430609407c573caec3cb407daf7bec2c6f6409da"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-04/REVIEW.json",
+    "sha256": "d3d230ca8fe27b198ce2170d54f1c95feae6cb53b22d15e14ccce98e727d3e54"
+  },
+  "claim_codes": [
+    "QWEN38_Q8_KV_UTILITY_NONINFERIOR_R4"
+  ]
+}

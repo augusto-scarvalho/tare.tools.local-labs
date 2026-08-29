@@ -1,0 +1,116 @@
+{
+  "order": [
+    "f16",
+    "q8",
+    "q8",
+    "f16"
+  ],
+  "blocks": [
+    {
+      "id": "b1_f16",
+      "arm": "f16",
+      "cache": "f16",
+      "pair": 0,
+      "replicates": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "b2_q8",
+      "arm": "q8",
+      "cache": "q8_0",
+      "pair": 0,
+      "replicates": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "b3_q8",
+      "arm": "q8",
+      "cache": "q8_0",
+      "pair": 1,
+      "replicates": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "b4_f16",
+      "arm": "f16",
+      "cache": "f16",
+      "pair": 1,
+      "replicates": [
+        2,
+        3
+      ]
+    }
+  ],
+  "targets": {
+    "8000": {
+      "filler": 320,
+      "band": [
+        7800,
+        8200
+      ]
+    },
+    "16000": {
+      "filler": 684,
+      "band": [
+        15800,
+        16200
+      ]
+    }
+  },
+  "positions": [
+    "start",
+    "middle",
+    "end"
+  ],
+  "seed": 2026082822,
+  "bootstrap_seed": 2026082823,
+  "bootstrap_replicates": 20000,
+  "server_common": [
+    "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+    "-m",
+    "/home/augus/models/qwen38-27b/unsloth/Qwen3.8-27B-UD-Q4_K_XL.gguf",
+    "--alias",
+    "qwen38-q8-longcontext",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "18080",
+    "--ctx-size",
+    "32768",
+    "--flash-attn",
+    "on",
+    "--gpu-layers",
+    "all",
+    "--metrics",
+    "--jinja",
+    "--no-mmproj",
+    "--parallel",
+    "1",
+    "--batch-size",
+    "2048",
+    "--ubatch-size",
+    "512",
+    "--ctx-checkpoints",
+    "32",
+    "--spec-type",
+    "draft-mtp",
+    "--spec-draft-n-max",
+    "3"
+  ],
+  "request_contract": {
+    "endpoint": "/v1/chat/completions",
+    "message_role": "user",
+    "max_tokens": 32,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "content_path": "choices[0].message.content",
+    "prompt_token_path": "usage.prompt_tokens"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-QWEN38-Q8-KV-CONCURRENCY-01",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-28T23:47:03Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-28T23:50:23Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-28T23:50:24Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-29T00:00:37Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent two-slot concurrency auditor",
+      "at": "2026-08-29T00:04:22Z",
+      "reason": "Independent fail-closed audit reproduced all frozen identities, 4 process controls, 48 unique chat rows, 24 exact two-slot overlapping batches, scorer/bootstrap, within-run batch rate, global VRAM observation, and restoration; bounded claim only."
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent two-slot concurrency auditor",
+      "at": "2026-08-29T00:04:22Z",
+      "reason": "All seventeen preregistered gates independently pass. Promotion is limited to the frozen two-slot Qwen3.8 F16-vs-Q8 concurrent retrieval construct and excludes single-slot scaling or broader capacity claims."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-CONCURRENCY-01/PRE_REGISTRATION.md",
+    "sha256": "9eaec53e511131548aa41dc56626dee47fdb8d9e23d06be3d549116e360afdb5"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_qwen38_q8_kv_concurrency.py",
+      "sha256": "efbe5ac1faf430f80ed481586d3d8942662588d610aced21bcade330f80b72c7"
+    },
+    {
+      "path": "tools/research/run_qwen38_q8_kv_longcontext.py",
+      "sha256": "4197afacf8c2bd9c4f3a96802612afcd41a4ca47ed4f1190284d170cf13419c8"
+    },
+    {
+      "path": "tools/research/run_qwen38_q8_kv_longcontext_r2.py",
+      "sha256": "4c5facc502b25aa1de4465328b18473be6ae74147f932b6e09d1cbfb6487e89a"
+    }
+  ],
+  "implementation_digest": "ea337be78f3cdf94515c848a067305470911e287088744ba6a4025e30d46afc8",
+  "execution": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-CONCURRENCY-01/raw/receipt.json",
+    "sha256": "77e2723f238d997a6a10aa3a9a13749028a64d334a9b7cdb27cbbb0b38f9eb9f"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-CONCURRENCY-01/RESULT.md",
+    "sha256": "089c4cacde4163dc0dcb02eedd14fbae6f3aa2654037e6d2eb0a376e83b990b5"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-CONCURRENCY-01/REVIEW.json",
+    "sha256": "5fe459c39176049a25126e89bbf51c224107acbd0d569a02facf408404297fbc"
+  },
+  "claim_codes": [
+    "QWEN38_Q8_KV_CONCURRENT_LONGCONTEXT_NONINFERIOR_R1"
+  ]
+}

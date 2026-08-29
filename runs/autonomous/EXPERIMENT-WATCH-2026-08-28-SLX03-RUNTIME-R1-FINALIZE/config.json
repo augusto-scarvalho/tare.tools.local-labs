@@ -1,0 +1,21 @@
+{
+  "schema": "local-labs-experiment-watch-v1",
+  "watch_id": "EXPERIMENT-WATCH-2026-08-28-SLX03-RUNTIME-R1-FINALIZE",
+  "experiment_mode": true,
+  "poll_seconds": 5,
+  "service_settle_seconds": 180,
+  "experiments": [
+    {
+      "task_id": "BACKLOG-SLX03-GDN-FUSION-RUNTIME-01",
+      "pid": 48424,
+      "packet_dir": "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-01",
+      "progress_glob": "raw/logs/*.log",
+      "expected_progress": 4
+    }
+  ],
+  "final_health_urls": [
+    "http://127.0.0.1:8080/health",
+    "http://127.0.0.1:8081/health"
+  ],
+  "actor": "Codex executor watcher"
+}

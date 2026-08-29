@@ -1,0 +1,29 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent scientific auditor R3",
+  "verdict": "APPROVED",
+  "receipt_sha256": "68015109f79a92e2054e21b1bad6a9b33fdf55f0de067b0e776cca59d1c103f7",
+  "implementation_digest": "9001d943de36375bc2d7b54a947532aa00ecd0743d9b4b7ad8d3c92de048a483",
+  "decision": "PROMOTED",
+  "claim_codes_permitted": [
+    "BLIND_NUMERIC_RELABEL_COMPLETED_R3"
+  ],
+  "limitations": [
+    "The two blind labels are evidenced as separate rater input/output paths with distinct output hashes and separate attestation files, but both attestations have identical payloads and name the same model. This establishes two procedural artifact streams, not cryptographically authenticated session independence and not human annotation.",
+    "R3 freshly judges only two records. The remaining 766 labels inherit the R2/R1 evidence, agreement and directed-audit limitations rather than receiving a new complete relabel.",
+    "The mixed number 1 5/7 is preserved as the rendered numeric value of the response's LaTeX mixed-number notation. This is a representation normalization, not an arithmetic conversion to 12/7.",
+    "The sealed gold join and arm aggregates remain descriptive post-label artifacts. This review authorizes no trace or Q8 quality estimate, arm comparison, finalist decision, runtime claim or downstream scientific promotion."
+  ],
+  "findings": [
+    "The admission equals the live manifest on every admitted static field. The preregistration SHA-256, runner SHA-256, implementation digest, execution-receipt SHA-256 and canonical receipt fingerprint independently recompute exactly. All 25 provenance entries (21 unique paths because outputs and attestations are listed twice) match current bytes, every raw JSON/JSONL parses, the recorded runner hash matches, and runner.stderr.log is empty.",
+    "Independent selection from the frozen R1 sealed mapping reproduces exactly full_trace gsm8k/865 and full_trace gsm8k/774. Both rater inputs contain exactly record_id, question and response, are byte-identical public projections, and expose no gold, arm, source, task ID, original labels, correctness or assignment metadata. Both output streams cover both opaque IDs exactly once and contain only record_id, concluded_value, confidence and rationale.",
+    "The two separate output streams have distinct SHA-256 hashes and agree 2/2: both assign 75 to full_trace gsm8k/865 and null to full_trace gsm8k/774, with high confidence and target-policy rationales. Both separate attestation paths record blind=true, forbidden_sources_read=false and two records; no adjudicator is required. The recorded exact agreement 1.0, zero disagreements and zero unresolved policy records reproduce.",
+    "Gold-blind semantic review confirms both labels. At gsm8k/865, '75 (yellow)' explicitly assigns a value to the exact requested yellow-car quantity; the later incoherent total 127 does not erase that wrong target conclusion. At gsm8k/774, the response explicitly scopes 4 hours to the two driving legs and omits the six museum hours, so 4 is a travel-only subquantity rather than total time gone from home and null is required.",
+    "The final 768-row label join independently reproduces. Relative to R2, only full_trace gsm8k/774 changes from 4 to null; full_trace gsm8k/865 remains 75; every one of the other 766 labels is byte-preserved. The final artifact contains 438 non-null and 330 null labels.",
+    "Independent scoring reproduces every sealed_scored_labels row and the descriptive aggregates exactly: trace answer_only 85/256, trace full_trace 114/256, Q8 f16 40/128 and Q8 q8 39/128. The /774 correction does not change counts because neither 4 nor null matches gold; semantic correctness of the label remains independently required.",
+    "Directed regression covers all seven R1/R2 policy rows: answer_only gsm8k/608 null, gsm8k/633 1 5/7, gsm8k/656 null, gsm8k/774 null, gsm8k/865 null, full_trace gsm8k/774 null and gsm8k/865 75. The target/subquantity distinctions and mixed-number representation now follow the frozen policy consistently.",
+    "All 28 arm/task rows explicitly named by the earlier scorer audits were rechecked in the final artifact. The trace false positive at full_trace gsm8k/857 remains 26000 rather than the incidental gold-matching 14000; every named trace/Q8 false negative retains its explicit conclusion; and both Q8 gsm8k/111 arms remain null. Directed searches across all current non-null labels for later-number/incidental risks and across null labels for conclusion cues found no new unambiguous systematic false positive or false negative.",
+    "The residual boundary cases noted in R2 remain conservative and non-blocking: full_trace gsm8k/680's -60 is the response's signed target calculation before its equivalent statement of 60 below capacity, and answer_only gsm8k/753 gives two component counts that the one-number schema cannot encode, so null does not invent a total. Neither conflicts with the frozen R3 policy.",
+    "All seven frozen receipt gates independently pass. The packet is approved and may be promoted only under BLIND_NUMERIC_RELABEL_COMPLETED_R3, meaning completion of this bounded relabel artifact. The claim does not authorize human-label language, arm quality, trace/Q8 promotion, new inference or any downstream scientific conclusion."
+  ]
+}

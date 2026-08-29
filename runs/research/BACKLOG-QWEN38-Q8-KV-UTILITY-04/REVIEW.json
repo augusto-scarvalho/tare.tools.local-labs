@@ -1,0 +1,26 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent scientific auditor R4",
+  "verdict": "APPROVED",
+  "receipt_sha256": "f94153b21ab3196000b321d06fb79b0b59c3862146de519f05d69cb47d2fa9fe",
+  "implementation_digest": "244d01845909f028fc958d2a1bb26e66fe14ebd2d5ea63a555be6e4425003f8c",
+  "decision": "PROMOTED",
+  "claim_codes_permitted": [
+    "QWEN38_Q8_KV_UTILITY_NONINFERIOR_R4"
+  ],
+  "limitations": [
+    "R4 performs no new inference or physical service run. Semantic labels come from the promoted procedural blind-label artifact; physical measurements are hash-bound imports from the fixed-order F16-then-Q8_0 R2 execution through the audited R3 receipt.",
+    "The 872 MiB values are same-host global GPU-memory snapshots rather than per-process attribution. Throughput and recovery apply only to the recorded Qwen3.8 model, Q8_0 versus F16 KV controls, host, fixed order and context regime.",
+    "The result does not establish exact semantic equivalence, human labels, all-model generalization, long-context quality or future production behavior."
+  ],
+  "findings": [
+    "The admission equals the live manifest on every admitted static field. The preregistration SHA-256, runner SHA-256, implementation digest, execution-receipt SHA-256 and canonical receipt fingerprint independently recompute exactly. All 16 provenance entries match current bytes and hashes, every raw JSON/JSONL parses, and runner.stderr.log is empty.",
+    "The semantic dependency BACKLOG-BLIND-NUMERIC-RELABEL-03 is currently PROMOTED, its bound review is APPROVED, and its only permitted claim is BLIND_NUMERIC_RELABEL_COMPLETED_R3. All 256 R4 scored_labels rows are byte-for-byte equal to the Q8-source projection of that promoted sealed labelset: 128 F16 and 128 Q8 rows, 128 identical task IDs, with no label, correctness or gold-join mutation.",
+    "Independent replay gives F16 40/128 (0.3125), Q8 39/128 (0.3046875), F16-minus-Q8 0.0078125, one Q8-only correct pair and two F16-only correct pairs. An independent 20,000-replicate paired bootstrap using seed 2026082815 exactly reproduces Q8-minus-F16 -0.0078125 and interval [-0.0390625, 0.015625]. The lower bound exceeds the frozen -0.05 margin by 0.0109375 and quality regression remains below 0.03.",
+    "Directed semantic regression rechecked every Q8 arm/task row named by the predecessor scorer audit. The promoted labels retain 75 for both gsm8k/36 arms, 30 for both /49 arms, 28 and 28.00 for /109, 36 for F16 /68, 17 for F16 /81, 623 for Q8 /82, 82 for both /126 arms, and null for both /111 arms. Structural searches over correct, incorrect and null rows find no new unambiguous systematic false positive or false negative beyond the promoted-label limitations.",
+    "The predecessor BACKLOG-QWEN38-Q8-KV-UTILITY-03 is BLOCKED for its scorer semantics, but its independent review separately and explicitly validates the physical evidence. R4 does not reuse that blocked scorer: semantic correctness comes from the promoted labelset, while only the separately validated physical observations are imported from the hash-bound R3 receipt.",
+    "The physical chain independently verifies all five R3 wrappers against the underlying R2 bytes and sizes: hardware_metrics, effective_route, recovery_state, service_identity and treatment_controls. The underlying measurements recompute 21,263 minus 20,391 = 872 MiB and 85.245499 / 87.2271475 = 0.9772817459151693. These exact values match R3 actual_scores, all four R4 physical wrappers and R4 actual_scores.",
+    "Recovery evidence independently records qwen38 before and after the run, a healthy restored gateway backend, system service active/running with zero reported restarts, embedding HTTP 200 and initial_model_restored=true. The R4 wrappers are each bound to the exact R3 receipt SHA-256 55bc5facdbb4936c580c357c39c2bc6133362396d8bcca4b5ea0f09bad1d6524.",
+    "All seven receipt gates independently pass: source integrity, 256-row coverage, paired noninferiority, bounded quality regression, >=500 MiB saving, >=0.95 throughput ratio and restored services. QWEN38_Q8_KV_UTILITY_NONINFERIOR_R4 is authorized only for this frozen Qwen3.8 panel and hash-bound physical execution; all forbidden broader claims remain forbidden."
+  ]
+}

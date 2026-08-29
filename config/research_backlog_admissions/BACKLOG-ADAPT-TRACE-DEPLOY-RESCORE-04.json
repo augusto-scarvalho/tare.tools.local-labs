@@ -1,0 +1,24 @@
+{
+  "id":"BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-04","priority":0,
+  "title":"Final trace finalist aggregation from promoted blind labels","evidence_class":"distillation",
+  "packet_dir":"runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-04","depends_on":["BACKLOG-BLIND-NUMERIC-RELABEL-03"],
+  "source_artifacts":[
+    "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03/raw/receipt.json",
+    "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03/raw/sealed_scored_labels.jsonl",
+    "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03/REVIEW.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/receipt.json",
+    "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/actual_scores.json"
+  ],
+  "required_evidence":["acceptance_gates","actual_scores","dataset_hashes","independent_evaluation","model_hash","paired_baseline","provenance","raw_samples","receipt_fingerprint","student_samples","teacher_samples"],
+  "acceptance_gates":[
+    {"id":"source_integrity","metric":"promoted_blind_labels_verified","operator":"eq","threshold":true},
+    {"id":"evaluation_coverage","metric":"trace_labeled_rows","operator":"eq","threshold":512},
+    {"id":"finalist_gain","metric":"paired_bootstrap_95ci_lower_trace_minus_answer","operator":"gt","threshold":0.0},
+    {"id":"finalist_absolute","metric":"trace_accuracy","operator":"ge","threshold":0.40},
+    {"id":"protected_retention","metric":"imported_selected_seed_qa_regression","operator":"le","threshold":0.05}
+  ],
+  "allowed_claim_codes":["TRACE_DISTILLATION_DEPLOYMENT_FINALIST_CONFIRMED_R4","TRACE_DISTILLATION_DEPLOYMENT_FINALIST_NOT_CONFIRMED_R4"],
+  "forbidden_claims":["fresh generation","human labels","fourth-panel confirmation","teacher-equivalent performance","production deployment","promotion without independent review"],
+  "next_action":"Aggregate the promoted blind labels with the frozen paired bootstrap and stop this trace-rescore family after independent review.",
+  "supersedes":"BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-03"
+}

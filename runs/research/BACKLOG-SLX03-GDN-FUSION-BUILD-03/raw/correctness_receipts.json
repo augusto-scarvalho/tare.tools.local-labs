@@ -1,0 +1,41 @@
+{
+  "fusion_marker": false,
+  "linkage": {
+    "argv": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "env",
+      "LD_LIBRARY_PATH=/home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin",
+      "ldd",
+      "/home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/llama-server"
+    ],
+    "returncode": 0,
+    "stdout": "\tlinux-vdso.so.1 (0x00007ffc558b9000)\n\tlibllama-server-impl.so => /home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/libllama-server-impl.so (0x0000718140400000)\n\tlibstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x0000718140000000)\n\tlibgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x0000718140bda000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000071813fc00000)\n\tlibllama-common.so.0 => /home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/libllama-common.so.0 (0x000071813f600000)\n\tlibmtmd.so.0 => /home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/libmtmd.so.0 (0x0000718140a99000)\n\tlibllama.so.0 => /home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/libllama.so.0 (0x000071813f200000)\n\tlibggml.so.0 => /home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/libggml.so.0 (0x0000718140a8d000)\n\tlibggml-base.so.0 => /home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/libggml-base.so.0 (0x0000718140331000)\n\tlibssl.so.3 => /lib/x86_64-linux-gnu/libssl.so.3 (0x0000718140287000)\n\tlibcrypto.so.3 => /lib/x86_64-linux-gnu/libcrypto.so.3 (0x000071813ec00000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x000071813ff17000)\n\t/lib64/ld-linux-x86-64.so.2 (0x0000718140c18000)\n\tlibggml-cpu.so.0 => /home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/libggml-cpu.so.0 (0x000071813ea73000)\n\tlibggml-cuda.so.0 => /home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/libggml-cuda.so.0 (0x000071813b200000)\n\tlibgomp.so.1 => /lib/x86_64-linux-gnu/libgomp.so.1 (0x000071813fec1000)\n\tlibcudart.so.13 => /usr/local/cuda/targets/x86_64-linux/lib/libcudart.so.13 (0x000071813ae00000)\n\tlibcublas.so.13 => /usr/local/cuda/targets/x86_64-linux/lib/libcublas.so.13 (0x0000718137600000)\n\tlibcuda.so.1 => /usr/lib/wsl/lib/libcuda.so.1 (0x0000718137200000)\n\tlibdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x0000718140a84000)\n\tlibpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x0000718140a7f000)\n\tlibrt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x0000718140a78000)\n\tlibcublasLt.so.13 => /usr/local/cuda/targets/x86_64-linux/lib/libcublasLt.so.13 (0x0000718111c00000)\n",
+    "stderr": ""
+  },
+  "project_lines": [
+    "libllama-server-impl.so => /home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/libllama-server-impl.so (0x0000718140400000)",
+    "libllama-common.so.0 => /home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/libllama-common.so.0 (0x000071813f600000)",
+    "libmtmd.so.0 => /home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/libmtmd.so.0 (0x0000718140a99000)",
+    "libllama.so.0 => /home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/libllama.so.0 (0x000071813f200000)",
+    "libggml.so.0 => /home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/libggml.so.0 (0x0000718140a8d000)",
+    "libggml-base.so.0 => /home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/libggml-base.so.0 (0x0000718140331000)",
+    "libggml-cpu.so.0 => /home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/libggml-cpu.so.0 (0x000071813ea73000)",
+    "libggml-cuda.so.0 => /home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/libggml-cuda.so.0 (0x000071813b200000)"
+  ],
+  "server_version": {
+    "argv": [
+      "wsl.exe",
+      "-d",
+      "Ubuntu-24.04",
+      "env",
+      "LD_LIBRARY_PATH=/home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin",
+      "/home/augus/src/slop.cpp-main/build-slx03-gdn-audit-03/bin/llama-server",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": "version: 10161 (87a416bd7)\nbuilt with GNU 13.3.0 for Linux x86_64\n"
+  }
+}

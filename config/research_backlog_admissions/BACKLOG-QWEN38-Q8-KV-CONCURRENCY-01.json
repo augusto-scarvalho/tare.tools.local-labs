@@ -1,0 +1,35 @@
+{
+  "id":"BACKLOG-QWEN38-Q8-KV-CONCURRENCY-01","priority":1,
+  "title":"Confirm Qwen3.8 Q8 KV long-context utility under two-slot concurrency",
+  "evidence_class":"serving_runtime",
+  "packet_dir":"runs/research/BACKLOG-QWEN38-Q8-KV-CONCURRENCY-01",
+  "depends_on":["BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02"],
+  "source_artifacts":[
+    "runs/research/BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02/raw/receipt.json",
+    "runs/research/BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02/REVIEW.json",
+    "config/qualified_model_fleet.json"
+  ],
+  "required_evidence":["acceptance_gates","binary_identity","dependency_hashes","effective_route","end_to_end_artifact","environment","hardware_metrics","independent_evaluation","paired_baseline","provenance","raw_samples","receipt_fingerprint","recovery_state","service_identity","service_maintenance","treatment_controls"],
+  "acceptance_gates":[
+    {"id":"binary_model_identity","metric":"binary_and_model_identity_verified","operator":"eq","threshold":true},
+    {"id":"cache_treatment_identity","metric":"explicit_cache_controls_verified","operator":"eq","threshold":true},
+    {"id":"concurrency_identity","metric":"explicit_two_slot_controls_verified","operator":"eq","threshold":true},
+    {"id":"balanced_crossover","metric":"valid_crossover_blocks","operator":"eq","threshold":4},
+    {"id":"sample_size","metric":"recorded_requests","operator":"eq","threshold":48},
+    {"id":"concurrent_batches","metric":"recorded_concurrent_batches","operator":"eq","threshold":24},
+    {"id":"physical_overlap","metric":"overlapping_batch_rate","operator":"eq","threshold":1.0},
+    {"id":"physical_context","metric":"requests_within_target_token_bands","operator":"eq","threshold":48},
+    {"id":"request_integrity","metric":"successful_response_rate","operator":"eq","threshold":1.0},
+    {"id":"chat_content","metric":"nonempty_content_rate","operator":"eq","threshold":1.0},
+    {"id":"timing_integrity","metric":"nondegenerate_timing_rate","operator":"eq","threshold":1.0},
+    {"id":"f16_retrieval","metric":"f16_exact_recall","operator":"ge","threshold":0.95},
+    {"id":"q8_retrieval","metric":"q8_exact_recall","operator":"ge","threshold":0.95},
+    {"id":"paired_noninferiority","metric":"paired_bootstrap_ci95_low_q8_minus_f16","operator":"ge","threshold":-0.05},
+    {"id":"batch_throughput_nonregression","metric":"q8_vs_f16_median_batch_rate_ratio","operator":"ge","threshold":0.9},
+    {"id":"memory_saving","metric":"median_vram_saving_mib","operator":"ge","threshold":1000.0},
+    {"id":"service_recovery","metric":"service_gateway_embedding_restored","operator":"eq","threshold":true}
+  ],
+  "allowed_claim_codes":["QWEN38_Q8_KV_CONCURRENT_LONGCONTEXT_NONINFERIOR_R1","QWEN38_Q8_KV_CONCURRENT_LONGCONTEXT_NOT_NONINFERIOR_R1"],
+  "forbidden_claims":["concurrency scaling versus single-slot","contexts beyond 16k per slot","more than two slots","general reasoning","all-model generalization","production deployment","promotion without independent review"],
+  "next_action":"Run two simultaneous explicit slots per batch with 65536 total context, preserving the promoted chat/scorer crossover and proving physical client-interval overlap."
+}

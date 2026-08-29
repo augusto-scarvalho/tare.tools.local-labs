@@ -1,9 +1,10 @@
 > **CURRENT RESEARCH HANDOFF (2026-08-28):** Read
-> [`HANDOFF_2026-08-28_REJECTED_HOLD_RECOVERY_WAVE.md`](HANDOFF_2026-08-28_REJECTED_HOLD_RECOVERY_WAVE.md)
-> first, then the completed
-> [`HANDOFF_2026-08-27_INDEPENDENT_AUDIT_QUEUE.md`](HANDOFF_2026-08-27_INDEPENDENT_AUDIT_QUEUE.md).
-> The current handoff binds the six-packet rejected/HOLD recovery wave and its
-> independent-review queue. The 2026-08-25 remediation handoff and former
+> [`HANDOFF_2026-08-28_CONTINUOUS_RECOVERY_CLOSEOUT.md`](HANDOFF_2026-08-28_CONTINUOUS_RECOVERY_CLOSEOUT.md)
+> first, then the preserved predecessor
+> [`HANDOFF_2026-08-28_REJECTED_HOLD_RECOVERY_WAVE.md`](HANDOFF_2026-08-28_REJECTED_HOLD_RECOVERY_WAVE.md).
+> The current handoff closes the scorer, SLX-03 and Q8 physical follow-up wave
+> and admits three dependency-ready retained-evidence successors. The
+> 2026-08-25 remediation handoff and former
 > `FINAL_CLOSEOUT` remain historical; the latter's 46/46 validation claim is
 > `SUPERSEDED`. For the hypothesis and literature map, see
 > [`research/COMPREHENSIVE_SCIENTIFIC_SYNTHESIS_2026.md`](research/COMPREHENSIVE_SCIENTIFIC_SYNTHESIS_2026.md) and

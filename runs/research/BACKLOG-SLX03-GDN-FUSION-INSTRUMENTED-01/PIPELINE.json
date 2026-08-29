@@ -1,0 +1,77 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01",
+  "evidence_class": "external_reproduction",
+  "executor": "codex",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-28T18:06:25Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-28T18:07:46Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-28T18:07:47Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T18:12:56Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent instrumented-build audit instance",
+      "at": "2026-08-28T18:15:58Z",
+      "reason": "Independent audit confirms frozen R4 dependencies, exact clean source, effective GGML_CUDA_DEBUG compilation, exact final-library marker, new-build linkage/version callability, stat -L size and service invariance; claim limited to instrumented build."
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent instrumented-build audit instance",
+      "at": "2026-08-28T18:15:58Z",
+      "reason": "Promoted only as instrumented build callability; no model-loaded runtime, parity, write-reduction, performance or deployment claim."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01/PRE_REGISTRATION.md",
+    "sha256": "063bb8fbe11c34887678ac8505c09b05dc8694ced24716a860feb3261239fb57"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_slx03_gdn_fusion_build.py",
+      "sha256": "dd6d242c01ef3139e4c24ca5920af2346828b3bc7d89abcf1270fa1584afdb36"
+    },
+    {
+      "path": "tools/research/run_slx03_gdn_fusion_instrumented.py",
+      "sha256": "590c52f6f4927c9ceaff7c60ffc21b20c1fc5bb8783bfb3348fc3b96327794fd"
+    }
+  ],
+  "implementation_digest": "26860065e0d84b35228f68ab3a6e2ca33fbcf5d20923225249204ade35ee4277",
+  "execution": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01/raw/receipt.json",
+    "sha256": "1d8fbaeac548e83e5df3360338e3e6dedb4143fc55ee72f9902b645ee784b80b"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01/RESULT.md",
+    "sha256": "737cb0145fa982e815a951ade5c6c5ceb0de5784f53eda6e477355eab7e90455"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01/REVIEW.json",
+    "sha256": "008b1321b2b01f9ddd05f5807e4e7edfec308ca68c0dcae32b0178d6f64680bf"
+  },
+  "claim_codes": [
+    "SLX03_GDN_INSTRUMENTED_BUILD_CALLABLE_R1"
+  ]
+}

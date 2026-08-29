@@ -1,0 +1,38 @@
+{
+  "id": "BACKLOG-BLIND-NUMERIC-RELABEL-03",
+  "priority": 0,
+  "title": "Two-rater blind resolution of the final numeric-label policy conflict",
+  "evidence_class": "human_calibration",
+  "packet_dir": "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-02/raw/receipt.json",
+    "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-02/raw/final_blind_labels.jsonl",
+    "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-01/raw/sealed_mapping.json",
+    "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-02/REVIEW.json"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "blind_label_packet", "independent_evaluation",
+    "inter_rater_agreement", "provenance", "rater_provenance", "raw_samples",
+    "receipt_fingerprint", "scorer_hashes"
+  ],
+  "acceptance_gates": [
+    {"id":"source_integrity","metric":"r2_sources_verified","operator":"eq","threshold":true},
+    {"id":"label_coverage","metric":"final_labels","operator":"eq","threshold":768},
+    {"id":"blinding","metric":"gold_or_arm_fields_exposed","operator":"eq","threshold":false},
+    {"id":"double_coverage","metric":"double_labeled_records","operator":"eq","threshold":2},
+    {"id":"rater_independence","metric":"independent_raters","operator":"ge","threshold":2},
+    {"id":"policy_resolution","metric":"unresolved_policy_records","operator":"eq","threshold":0},
+    {"id":"preservation","metric":"other_label_mutations","operator":"eq","threshold":0}
+  ],
+  "allowed_claim_codes": [
+    "BLIND_NUMERIC_RELABEL_COMPLETED_R3",
+    "BLIND_NUMERIC_RELABEL_NOT_VALIDATED_R3"
+  ],
+  "forbidden_claims": [
+    "human labels", "model quality promotion", "trace finalist promotion",
+    "Q8 utility promotion", "new inference", "promotion without independent review"
+  ],
+  "next_action": "Double-label only the two R2 policy conflicts, adjudicate any disagreement, and preserve all other labels.",
+  "supersedes": "BACKLOG-BLIND-NUMERIC-RELABEL-02"
+}

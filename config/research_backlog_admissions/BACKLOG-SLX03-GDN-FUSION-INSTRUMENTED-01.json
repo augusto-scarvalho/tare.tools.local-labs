@@ -1,0 +1,14 @@
+{
+  "id":"BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01","priority":1,
+  "title":"Build an instrumented Release SLX-03 binary for runtime route observation","evidence_class":"external_reproduction",
+  "packet_dir":"runs/research/BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01","depends_on":["BACKLOG-SLX03-GDN-FUSION-BUILD-04"],
+  "source_artifacts":["runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-04/raw/receipt.json","runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-04/REVIEW.json"],
+  "required_evidence":["acceptance_gates","build_receipts","correctness_receipts","dependency_hashes","end_to_end_artifact","independent_evaluation","provenance","raw_samples","receipt_fingerprint","source_revision"],
+  "acceptance_gates":[
+    {"id":"source_revision","metric":"exact_source_commit","operator":"eq","threshold":true},{"id":"tracked_clean","metric":"tracked_source_clean","operator":"eq","threshold":true},{"id":"configure","metric":"cmake_configure_exit","operator":"eq","threshold":0},{"id":"build","metric":"llama_server_build_exit","operator":"eq","threshold":0},{"id":"debug_define","metric":"debug_define_recorded","operator":"eq","threshold":true},{"id":"fusion_marker","metric":"gdn_fusion_marker_present","operator":"eq","threshold":true},{"id":"self_linkage","metric":"project_libraries_resolve_to_new_build","operator":"eq","threshold":true},{"id":"callability","metric":"server_version_exit","operator":"eq","threshold":0},{"id":"dereferenced_size","metric":"cuda_library_referent_bytes","operator":"ge","threshold":60000000},{"id":"service_invariance","metric":"gateway_and_embedding_unchanged","operator":"eq","threshold":true}
+  ],
+  "allowed_claim_codes":["SLX03_GDN_INSTRUMENTED_BUILD_CALLABLE_R1","SLX03_GDN_INSTRUMENTED_BUILD_NOT_CONFIRMED_R1"],
+  "forbidden_claims":["runtime fusion observed","semantic parity","write reduction","speedup","production deployment","promotion without independent review"],
+  "next_action":"Build a fresh Release/SM86 binary with GGML_CUDA_DEBUG so the GDN fusion branch can be observed in a later model-loaded packet.",
+  "supersedes":null
+}

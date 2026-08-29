@@ -1,0 +1,40 @@
+{
+  "id": "BACKLOG-BLIND-NUMERIC-RELABEL-02",
+  "priority": 0,
+  "title": "Blind policy-consistent amendment of the complete numeric relabel",
+  "evidence_class": "human_calibration",
+  "packet_dir": "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-02",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-01/raw/receipt.json",
+    "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-01/raw/final_blind_labels.jsonl",
+    "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-01/raw/sealed_mapping.json",
+    "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-01/raw/inter_rater_agreement.json",
+    "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-01/REVIEW.json"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "blind_label_packet", "independent_evaluation",
+    "inter_rater_agreement", "provenance", "rater_provenance", "raw_samples",
+    "receipt_fingerprint", "scorer_hashes"
+  ],
+  "acceptance_gates": [
+    {"id":"source_integrity","metric":"r1_sources_verified","operator":"eq","threshold":true},
+    {"id":"label_coverage","metric":"final_labels","operator":"eq","threshold":768},
+    {"id":"amendment_blinding","metric":"gold_or_arm_fields_exposed","operator":"eq","threshold":false},
+    {"id":"amendment_coverage","metric":"amended_policy_cases","operator":"eq","threshold":5},
+    {"id":"inherited_agreement","metric":"inherited_exact_inter_rater_agreement","operator":"ge","threshold":0.85},
+    {"id":"target_policy","metric":"unresolved_target_policy_cases","operator":"eq","threshold":0},
+    {"id":"representation_policy","metric":"unregistered_numeric_recodings","operator":"eq","threshold":0},
+    {"id":"adjudication","metric":"unresolved_amendments","operator":"eq","threshold":0}
+  ],
+  "allowed_claim_codes": [
+    "BLIND_NUMERIC_RELABEL_COMPLETED_R2",
+    "BLIND_NUMERIC_RELABEL_NOT_VALIDATED_R2"
+  ],
+  "forbidden_claims": [
+    "human labels", "model quality promotion", "trace finalist promotion",
+    "Q8 utility promotion", "new inference", "promotion without independent review"
+  ],
+  "next_action": "Apply one frozen target-specific rule to the five independently identified ambiguous records, preserving mixed numbers verbatim, then rebuild the sealed join.",
+  "supersedes": "BACKLOG-BLIND-NUMERIC-RELABEL-01"
+}

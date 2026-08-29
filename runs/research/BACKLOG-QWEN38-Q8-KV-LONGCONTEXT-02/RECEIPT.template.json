@@ -1,0 +1,125 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "binary_model_identity": {
+      "metric": "binary_and_model_identity_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "cache_treatment_identity": {
+      "metric": "explicit_cache_controls_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "balanced_crossover": {
+      "metric": "valid_crossover_blocks",
+      "operator": "eq",
+      "threshold": 4,
+      "actual": null,
+      "pass": null
+    },
+    "sample_size": {
+      "metric": "recorded_requests",
+      "operator": "eq",
+      "threshold": 48,
+      "actual": null,
+      "pass": null
+    },
+    "physical_context": {
+      "metric": "requests_within_target_token_bands",
+      "operator": "eq",
+      "threshold": 48,
+      "actual": null,
+      "pass": null
+    },
+    "request_integrity": {
+      "metric": "successful_response_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "chat_content": {
+      "metric": "nonempty_content_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "timing_integrity": {
+      "metric": "nondegenerate_timing_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "f16_retrieval": {
+      "metric": "f16_exact_recall",
+      "operator": "ge",
+      "threshold": 0.95,
+      "actual": null,
+      "pass": null
+    },
+    "q8_retrieval": {
+      "metric": "q8_exact_recall",
+      "operator": "ge",
+      "threshold": 0.95,
+      "actual": null,
+      "pass": null
+    },
+    "paired_noninferiority": {
+      "metric": "paired_bootstrap_ci95_low_q8_minus_f16",
+      "operator": "ge",
+      "threshold": -0.05,
+      "actual": null,
+      "pass": null
+    },
+    "throughput_nonregression": {
+      "metric": "q8_vs_f16_median_tps_ratio",
+      "operator": "ge",
+      "threshold": 0.9,
+      "actual": null,
+      "pass": null
+    },
+    "memory_saving": {
+      "metric": "median_vram_saving_mib",
+      "operator": "ge",
+      "threshold": 500.0,
+      "actual": null,
+      "pass": null
+    },
+    "service_recovery": {
+      "metric": "service_gateway_embedding_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "binary_identity": null,
+    "dependency_hashes": null,
+    "effective_route": null,
+    "end_to_end_artifact": null,
+    "environment": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "recovery_state": null,
+    "service_identity": null,
+    "service_maintenance": null,
+    "treatment_controls": null
+  },
+  "receipt_fingerprint": null
+}

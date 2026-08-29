@@ -1,0 +1,67 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX03-GDN-FUSION-RUNTIME-02",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "REJECTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-28T22:19:57Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-28T22:21:12Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-28T22:21:13Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T22:26:24Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent runtime-route audit instance",
+      "at": "2026-08-28T22:31:03Z",
+      "reason": "Fail-closed rejection: the preregistered trace_logging gate required the startup declaration in every journal and failed in 2/4 because the capped ON journals lost startup; the wrapper also checked the abort condition only after requests. Current-PID markers still separate 2/2 ON from 2/2 OFF and parity is 16/16, but those facts cannot replace the frozen logging control or authorize performance/write/deployment claims."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-02/PRE_REGISTRATION.md",
+    "sha256": "c1a5fefee51ca787a8b6358838be645967e6900a3878500bddc6c95845479357"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_slx03_gdn_fusion_runtime.py",
+      "sha256": "64e0be7cfe873ee20f6b491b14b1a8a001b562fbe1a515b488fa872e3ffa3959"
+    },
+    {
+      "path": "tools/research/run_slx03_gdn_fusion_runtime_r2.py",
+      "sha256": "ee4ac18bc205ffeda7fbd82e196ab8a8d2be096ce95078b15d17dab370f098c3"
+    }
+  ],
+  "implementation_digest": "28b9bb64c36f0a98a351242b2cecacca811e6ef3a5751679622e64f27a9b3895",
+  "execution": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-02/raw/receipt.json",
+    "sha256": "d9c409805a4dc09f1c437a4452004f01f2bb28a4934b28d8a18aec09d2d29716"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-02/RESULT.md",
+    "sha256": "072ed68fa5bfb6f0e6e3575973673d78afb4f22c678c0c803db5f8429eb71ee5"
+  },
+  "review": {},
+  "claim_codes": [
+    "SLX03_GDN_FUSION_RUNTIME_ROUTE_NOT_CONFIRMED_R2"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id":"BACKLOG-SLX03-GDN-FUSION-RUNTIME-02","priority":1,
+  "title":"Repeat SLX-03 runtime route observation at trace verbosity","evidence_class":"serving_runtime",
+  "packet_dir":"runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-02","depends_on":["BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01"],
+  "source_artifacts":["runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-01/raw/receipt.json","runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-01/REVIEW.json","runs/research/BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01/raw/receipt.json","runs/research/BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01/REVIEW.json","config/qualified_model_fleet.json"],
+  "required_evidence":["acceptance_gates","binary_identity","block_logs","dependency_hashes","effective_route","end_to_end_artifact","environment","hardware_metrics","independent_evaluation","paired_baseline","provenance","raw_samples","receipt_fingerprint","recovery_state","service_identity","service_maintenance","treatment_controls"],
+  "acceptance_gates":[
+    {"id":"binary_model_identity","metric":"binary_and_model_identity_verified","operator":"eq","threshold":true},{"id":"trace_logging","metric":"trace_verbosity_verified","operator":"eq","threshold":true},{"id":"treatment_identity","metric":"explicit_fusion_controls_verified","operator":"eq","threshold":true},{"id":"balanced_crossover","metric":"valid_abba_blocks","operator":"eq","threshold":4},{"id":"request_integrity","metric":"successful_response_rate","operator":"eq","threshold":1.0},{"id":"runtime_route","metric":"on_blocks_with_marker","operator":"eq","threshold":2},{"id":"negative_control","metric":"off_blocks_without_marker","operator":"eq","threshold":2},{"id":"semantic_parity","metric":"exact_output_parity_rate","operator":"eq","threshold":1.0},{"id":"service_recovery","metric":"service_gateway_embedding_restored","operator":"eq","threshold":true}
+  ],
+  "allowed_claim_codes":["SLX03_GDN_FUSION_RUNTIME_ROUTE_CONFIRMED_R2","SLX03_GDN_FUSION_RUNTIME_ROUTE_NOT_CONFIRMED_R2"],
+  "forbidden_claims":["speedup","write reduction","production deployment","non-Qwen3.8 generalization","promotion without independent review"],
+  "next_action":"Repeat the identical frozen crossover with -lv 4, require positive trace-verbosity evidence, marker separation and exact output parity.",
+  "supersedes":"BACKLOG-SLX03-GDN-FUSION-RUNTIME-01"
+}

@@ -1,0 +1,77 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-SLX03-GDN-FUSION-BUILD-02",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "source_revision": {
+      "metric": "exact_source_commit",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "tracked_clean": {
+      "metric": "tracked_source_clean",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "configure": {
+      "metric": "cmake_configure_exit",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "build": {
+      "metric": "llama_server_build_exit",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "fusion_marker": {
+      "metric": "gdn_fusion_marker_present",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "self_linkage": {
+      "metric": "project_libraries_resolve_to_new_build",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "callability": {
+      "metric": "server_version_exit",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "service_invariance": {
+      "metric": "gateway_and_embedding_unchanged",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "build_receipts": null,
+    "correctness_receipts": null,
+    "dependency_hashes": null,
+    "end_to_end_artifact": null,
+    "independent_evaluation": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "source_revision": null
+  },
+  "receipt_fingerprint": null
+}

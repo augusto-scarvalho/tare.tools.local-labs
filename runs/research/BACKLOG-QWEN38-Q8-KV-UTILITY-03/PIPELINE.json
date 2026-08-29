@@ -1,0 +1,58 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-QWEN38-Q8-KV-UTILITY-03",
+  "evidence_class": "serving_runtime",
+  "executor": "codex",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-28T16:19:44Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-28T16:23:50Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-28T16:23:51Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T16:24:51Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "BLOCKED",
+      "actor": "GPT-5.6 Sol xhigh independent scientific auditor R3",
+      "at": "2026-08-28T16:35:50Z",
+      "reason": "HOLD_FAIL_CLOSED: asymmetric scorer false negatives and demonstrated false-positive modes leave the -0.05 semantic utility margin unvalidated; complete blind relabel successor required"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-03/PRE_REGISTRATION.md",
+    "sha256": "fcc94b5aaf1d1b2e7f99fea0b9edc5ca0fa8dd0afa4ad604a64579d361a18adc"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_qwen38_q8_kv_utility_r3.py",
+      "sha256": "532a4bc1e9e2465f0eabf7339e8252894cdaddcdd81c13b9d7b318fe0ef86910"
+    }
+  ],
+  "implementation_digest": "5512a41f975cd9b2e0c7c9e05074083c0b53cd119ceba16da83ef140bffa898b",
+  "execution": {
+    "path": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-03/raw/receipt.json",
+    "sha256": "55bc5facdbb4936c580c357c39c2bc6133362396d8bcca4b5ea0f09bad1d6524"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

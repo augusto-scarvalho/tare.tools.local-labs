@@ -1,0 +1,10 @@
+{
+  "task": "Label only an explicit conclusion for the exact requested quantity.",
+  "rules": [
+    "Do not solve or inspect gold, arm, mapping, sources, prior labels or reviews.",
+    "An explicit assertion of the requested quantity is retained even if the response later concludes another wrong total.",
+    "A value covering only a different duration component is null.",
+    "Return record_id, concluded_value, confidence and rationale."
+  ],
+  "gold_or_arm_fields_exposed": false
+}

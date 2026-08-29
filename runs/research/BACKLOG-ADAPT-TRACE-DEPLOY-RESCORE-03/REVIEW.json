@@ -1,0 +1,22 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent scientific auditor R3",
+  "verdict": "HOLD_FAIL_CLOSED",
+  "receipt_sha256": "077ffe3adfa998bdc60effa8856ce2d4b62135b8a3e70f7a7d1f6369b2533f91",
+  "implementation_digest": "cf1f8b16beb3e84f7ca0b3432df4590f536846fa886be25af19a3d4b75087835",
+  "decision": "BLOCKED",
+  "claim_codes_permitted": [],
+  "limitations": [
+    "The directed semantic audit establishes concrete scorer errors but is not a blinded human relabel of all 512 generations; therefore neither the receipt labels nor the directed corrected aggregate is treated as a final accuracy estimate.",
+    "This packet is an offline rescore of frozen outputs. It provides no fresh generation, fourth-panel, teacher-equivalence, production-deployment, or cross-seed evidence."
+  ],
+  "findings": [
+    "The execution receipt SHA-256 and canonical fingerprint independently recompute to 077ffe3adfa998bdc60effa8856ce2d4b62135b8a3e70f7a7d1f6369b2533f91 and 697f31f9925ba279d839a7b9e941c8e62bbbdb678cbb8985b5733f81728d863a. The preregistration, implementation file, implementation digest, admission-to-manifest static policy, every provenance input and the predecessor receipt fingerprint match their materialized bytes.",
+    "Independent replay over all 512 unique arm/task rows reproduces every stored extraction, method and label. The mechanical aggregate is answer-only 67/256, full-trace 96/256, point delta 0.11328125, trace-only/answer-only discordance 53/24, and the exact 20,000-replicate seed-2026082811 interval [0.05078125, 0.1796875]. The six retained regression rows are exactly the preregistered arm/task cases and replay 6/6.",
+    "The scorer remains semantically invalid despite the 15/15 frozen fixtures. A receipt-level false positive occurs at full_trace gsm8k/857: the model explicitly concludes 26,000 gallons, but the scorer selects the earlier 14,000-gallon third-day subtotal and credits it against gold 14,000.",
+    "Receipt-level false negatives are widespread. Examples include answer_only gsm8k/654 (explicit 2 dozens scored as 24), gsm8k/716 (explicit total 770 scored as 80), gsm8k/792 (terminal equation 75 scored as no answer), full_trace gsm8k/612 (explicit total 30 scored as 0), gsm8k/712 (explicit final 14 scored as 42), gsm8k/824 (explicit final 52 scored as 36), gsm8k/856 (explicit rounded-up 7 scored as 6.75), gsm8k/888 (explicit Answer: 10 scored as 10.8), and gsm8k/893 (terminal 480 scored as 82). Additional explicit correct conclusions with extraction None include full_trace gsm8k/616, gsm8k/757, gsm8k/772, gsm8k/833 and gsm8k/840.",
+    "Fresh gold-blind adversarial probes expose the same structural defects outside the frozen fixtures. Given a concluded 7-hour outbound trip followed by 'So the return trip takes 9 hours', the scorer chooses 9; given a 0-ounce incidental sub-conclusion followed by an explicit 30-ounce total, it chooses 0. Thus the fixture gate does not cover later same-unit cue collisions or an uncued final total after a cued intermediate.",
+    "Applying only the explicitly inspected corrections listed in this review changes the descriptive counts to answer-only 80/256 and full-trace 111/256, with trace accuracy 0.43359375 and a seed-2026082811 interval [0.0546875, 0.1875]. This is not a final relabel, but it is sufficient to show that the receipt's failed finalist_absolute gate at 0.375 may itself be a scorer false negative; REJECTED would therefore overclaim a negative result.",
+    "The packet is held BLOCKED fail-closed. A successor must freeze a scorer or blind human-label protocol that correctly prioritizes the actual target conclusion, add all observed receipt failures plus later same-unit cue collisions to the external fixtures, and rescore all 512 rows. No R3 claim code is authorized from this packet."
+  ]
+}

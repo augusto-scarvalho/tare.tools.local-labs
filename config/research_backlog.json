@@ -1,6 +1,6 @@
 {
   "schema": "local-labs-backlog-v1",
-  "updated_at": "2026-08-28T11:17:14Z",
+  "updated_at": "2026-08-29T00:13:22Z",
   "policy": {
     "executor": "Gemini",
     "independent_review_required": true,
@@ -10718,6 +10718,3061 @@
           "to": "PROMOTED",
           "actor": "GPT-5.6 Sol xhigh recovery independent audit instance",
           "at": "2026-08-28T10:58:17Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-03",
+      "priority": 0,
+      "title": "Conservative rescore of all frozen trace finalist outputs after independent scorer audit",
+      "evidence_class": "distillation",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/student_samples.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/actual_scores.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-02/REVIEW.json",
+        "tools/analysis/final_numeric_answer_v2.py",
+        "tests/fixtures/final_numeric_answer_v2_cases.json",
+        "tests/test_final_numeric_answer_v2.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "external_fixture_validation",
+        "dataset_hashes",
+        "independent_evaluation",
+        "model_hash",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "source_execution_receipt",
+        "student_samples",
+        "teacher_samples"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "frozen_deployment_sources_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "fixture_validation",
+          "metric": "external_fixture_pass_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "fixture_coverage",
+          "metric": "external_fixture_cases",
+          "operator": "ge",
+          "threshold": 15
+        },
+        {
+          "id": "retained_regressions",
+          "metric": "retained_regression_pass_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "evaluation_coverage",
+          "metric": "rescored_generations",
+          "operator": "eq",
+          "threshold": 512
+        },
+        {
+          "id": "finalist_gain",
+          "metric": "paired_bootstrap_95ci_lower_trace_minus_answer",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "finalist_absolute",
+          "metric": "trace_third_panel_accuracy",
+          "operator": "ge",
+          "threshold": 0.4
+        },
+        {
+          "id": "protected_retention",
+          "metric": "imported_selected_seed_qa_regression",
+          "operator": "le",
+          "threshold": 0.05
+        },
+        {
+          "id": "scorer_blinding",
+          "metric": "scorer_does_not_receive_gold",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "TRACE_DISTILLATION_DEPLOYMENT_FINALIST_RESCORED_R3",
+        "TRACE_DISTILLATION_DEPLOYMENT_FINALIST_NOT_CONFIRMED_R3"
+      ],
+      "forbidden_claims": [
+        "fresh generation",
+        "fourth-panel confirmation",
+        "seed reselection",
+        "teacher-equivalent performance",
+        "production deployment",
+        "promotion without independent review"
+      ],
+      "next_action": "Rescore every retained output with the audited gold-blind scorer and require independent review.",
+      "supersedes": "BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-02",
+      "state": "BLOCKED",
+      "blocker": "HOLD_FAIL_CLOSED: observed scorer false positive and widespread false negatives can flip finalist_absolute; complete blind semantic relabel successor required",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T16:19:43Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T16:23:49Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T16:23:50Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T16:24:24Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "BLOCKED",
+          "actor": "GPT-5.6 Sol xhigh independent scientific auditor R3",
+          "at": "2026-08-28T16:33:19Z",
+          "reason": "HOLD_FAIL_CLOSED: observed scorer false positive and widespread false negatives can flip finalist_absolute; complete blind semantic relabel successor required"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-QWEN38-Q8-KV-UTILITY-03",
+      "priority": 0,
+      "title": "Semantic rescore of frozen Qwen3.8 F16 versus Q8 KV utility outputs",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-02/raw/receipt.json",
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-02/raw/samples.jsonl",
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-02/raw/actual_scores.json",
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-02/REVIEW.json",
+        "workloads/gsm8k.jsonl",
+        "tools/analysis/final_numeric_answer_v2.py",
+        "tests/fixtures/final_numeric_answer_v2_cases.json",
+        "tests/test_final_numeric_answer_v2.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "external_fixture_validation",
+        "effective_route",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "scorer_hashes",
+        "service_identity",
+        "source_execution_receipt",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "q8_r2_sources_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "fixture_validation",
+          "metric": "external_fixture_pass_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "retained_regressions",
+          "metric": "retained_regression_pass_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "request_coverage",
+          "metric": "rescored_requests",
+          "operator": "eq",
+          "threshold": 256
+        },
+        {
+          "id": "utility_noninferiority",
+          "metric": "paired_bootstrap_95ci_lower_q8_minus_f16_accuracy",
+          "operator": "gt",
+          "threshold": -0.05
+        },
+        {
+          "id": "quality_regression",
+          "metric": "f16_minus_q8_accuracy",
+          "operator": "le",
+          "threshold": 0.03
+        },
+        {
+          "id": "physical_memory_saving",
+          "metric": "vram_saving_mib",
+          "operator": "ge",
+          "threshold": 500
+        },
+        {
+          "id": "throughput_non_regression",
+          "metric": "q8_vs_f16_throughput_ratio",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "scorer_blinding",
+          "metric": "scorer_does_not_receive_gold",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QWEN38_Q8_KV_UTILITY_NONINFERIOR_R3",
+        "QWEN38_Q8_KV_UTILITY_NOT_NONINFERIOR_R3"
+      ],
+      "forbidden_claims": [
+        "new inference",
+        "exact semantic equivalence",
+        "Q4_0 qualification",
+        "all-model generalization",
+        "long-context quality",
+        "promotion without independent review"
+      ],
+      "next_action": "Rescore all 256 retained F16/Q8 outputs without rerunning inference, preserving physical measurements by hash.",
+      "supersedes": "BACKLOG-QWEN38-Q8-KV-UTILITY-02",
+      "state": "BLOCKED",
+      "blocker": "HOLD_FAIL_CLOSED: asymmetric scorer false negatives and demonstrated false-positive modes leave the -0.05 semantic utility margin unvalidated; complete blind relabel successor required",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T16:19:44Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T16:23:50Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T16:23:51Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T16:24:51Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "BLOCKED",
+          "actor": "GPT-5.6 Sol xhigh independent scientific auditor R3",
+          "at": "2026-08-28T16:35:50Z",
+          "reason": "HOLD_FAIL_CLOSED: asymmetric scorer false negatives and demonstrated false-positive modes leave the -0.05 semantic utility margin unvalidated; complete blind relabel successor required"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-BLIND-NUMERIC-RELABEL-01",
+      "priority": 0,
+      "title": "Blind complete semantic relabel of retained trace and Q8 numeric outputs",
+      "evidence_class": "human_calibration",
+      "packet_dir": "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-01",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/student_samples.json",
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-02/raw/receipt.json",
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-02/raw/samples.jsonl",
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-03/REVIEW.json",
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-03/REVIEW.json",
+        "workloads/gsm8k.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "blind_label_packet",
+        "independent_evaluation",
+        "inter_rater_agreement",
+        "provenance",
+        "rater_provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "frozen_sources_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "bundle_coverage",
+          "metric": "blind_records",
+          "operator": "eq",
+          "threshold": 768
+        },
+        {
+          "id": "gold_blinding",
+          "metric": "gold_or_arm_fields_exposed",
+          "operator": "eq",
+          "threshold": false
+        },
+        {
+          "id": "primary_coverage",
+          "metric": "primary_labels",
+          "operator": "eq",
+          "threshold": 768
+        },
+        {
+          "id": "overlap_coverage",
+          "metric": "double_labeled_records",
+          "operator": "ge",
+          "threshold": 96
+        },
+        {
+          "id": "rater_independence",
+          "metric": "independent_raters",
+          "operator": "ge",
+          "threshold": 3
+        },
+        {
+          "id": "agreement",
+          "metric": "exact_inter_rater_agreement",
+          "operator": "ge",
+          "threshold": 0.85
+        },
+        {
+          "id": "adjudication",
+          "metric": "unresolved_disagreements",
+          "operator": "eq",
+          "threshold": 0
+        }
+      ],
+      "allowed_claim_codes": [
+        "BLIND_NUMERIC_RELABEL_COMPLETED_R1",
+        "BLIND_NUMERIC_RELABEL_NOT_VALIDATED_R1"
+      ],
+      "forbidden_claims": [
+        "human labels",
+        "model quality promotion",
+        "trace finalist promotion",
+        "Q8 utility promotion",
+        "new inference",
+        "promotion without independent review"
+      ],
+      "next_action": "Blind and shuffle all 768 outputs, collect complete semantic labels from three independent raters with overlap, and adjudicate every conflict without exposing gold or arm.",
+      "supersedes": null,
+      "state": "BLOCKED",
+      "blocker": "Directed semantic audit found inconsistent target-versus-intermediate labeling at gsm8k/608, /656, /774 and /865 plus an unfrozen mixed-number recoding at /633; complete blind relabel is not validated.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T16:38:42Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T16:41:36Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T16:41:37Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T16:58:04Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "BLOCKED",
+          "actor": "GPT-5.6 Sol xhigh independent scientific auditor R3",
+          "at": "2026-08-28T17:07:58Z",
+          "reason": "Directed semantic audit found inconsistent target-versus-intermediate labeling at gsm8k/608, /656, /774 and /865 plus an unfrozen mixed-number recoding at /633; complete blind relabel is not validated."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-BLIND-NUMERIC-RELABEL-02",
+      "priority": 0,
+      "title": "Blind policy-consistent amendment of the complete numeric relabel",
+      "evidence_class": "human_calibration",
+      "packet_dir": "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-01/raw/receipt.json",
+        "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-01/raw/final_blind_labels.jsonl",
+        "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-01/raw/sealed_mapping.json",
+        "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-01/raw/inter_rater_agreement.json",
+        "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-01/REVIEW.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "blind_label_packet",
+        "independent_evaluation",
+        "inter_rater_agreement",
+        "provenance",
+        "rater_provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "r1_sources_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "label_coverage",
+          "metric": "final_labels",
+          "operator": "eq",
+          "threshold": 768
+        },
+        {
+          "id": "amendment_blinding",
+          "metric": "gold_or_arm_fields_exposed",
+          "operator": "eq",
+          "threshold": false
+        },
+        {
+          "id": "amendment_coverage",
+          "metric": "amended_policy_cases",
+          "operator": "eq",
+          "threshold": 5
+        },
+        {
+          "id": "inherited_agreement",
+          "metric": "inherited_exact_inter_rater_agreement",
+          "operator": "ge",
+          "threshold": 0.85
+        },
+        {
+          "id": "target_policy",
+          "metric": "unresolved_target_policy_cases",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "representation_policy",
+          "metric": "unregistered_numeric_recodings",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "adjudication",
+          "metric": "unresolved_amendments",
+          "operator": "eq",
+          "threshold": 0
+        }
+      ],
+      "allowed_claim_codes": [
+        "BLIND_NUMERIC_RELABEL_COMPLETED_R2",
+        "BLIND_NUMERIC_RELABEL_NOT_VALIDATED_R2"
+      ],
+      "forbidden_claims": [
+        "human labels",
+        "model quality promotion",
+        "trace finalist promotion",
+        "Q8 utility promotion",
+        "new inference",
+        "promotion without independent review"
+      ],
+      "next_action": "Apply one frozen target-specific rule to the five independently identified ambiguous records, preserving mixed numbers verbatim, then rebuild the sealed join.",
+      "supersedes": "BACKLOG-BLIND-NUMERIC-RELABEL-01",
+      "state": "REJECTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T17:09:10Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T17:11:56Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T17:11:57Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T17:13:11Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent scientific auditor R3",
+          "at": "2026-08-28T17:17:24Z",
+          "reason": "Frozen target-policy and adjudication gates fail: full_trace gsm8k/865 legitimately concludes target value 75 contrary to preregistered null, while full_trace gsm8k/774 retains subquantity 4 instead of null."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-BLIND-NUMERIC-RELABEL-03",
+      "priority": 0,
+      "title": "Two-rater blind resolution of the final numeric-label policy conflict",
+      "evidence_class": "human_calibration",
+      "packet_dir": "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-02/raw/receipt.json",
+        "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-02/raw/final_blind_labels.jsonl",
+        "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-01/raw/sealed_mapping.json",
+        "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-02/REVIEW.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "blind_label_packet",
+        "independent_evaluation",
+        "inter_rater_agreement",
+        "provenance",
+        "rater_provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "r2_sources_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "label_coverage",
+          "metric": "final_labels",
+          "operator": "eq",
+          "threshold": 768
+        },
+        {
+          "id": "blinding",
+          "metric": "gold_or_arm_fields_exposed",
+          "operator": "eq",
+          "threshold": false
+        },
+        {
+          "id": "double_coverage",
+          "metric": "double_labeled_records",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "rater_independence",
+          "metric": "independent_raters",
+          "operator": "ge",
+          "threshold": 2
+        },
+        {
+          "id": "policy_resolution",
+          "metric": "unresolved_policy_records",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "preservation",
+          "metric": "other_label_mutations",
+          "operator": "eq",
+          "threshold": 0
+        }
+      ],
+      "allowed_claim_codes": [
+        "BLIND_NUMERIC_RELABEL_COMPLETED_R3",
+        "BLIND_NUMERIC_RELABEL_NOT_VALIDATED_R3"
+      ],
+      "forbidden_claims": [
+        "human labels",
+        "model quality promotion",
+        "trace finalist promotion",
+        "Q8 utility promotion",
+        "new inference",
+        "promotion without independent review"
+      ],
+      "next_action": "Double-label only the two R2 policy conflicts, adjudicate any disagreement, and preserve all other labels.",
+      "supersedes": "BACKLOG-BLIND-NUMERIC-RELABEL-02",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T17:18:09Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T17:19:37Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T17:19:38Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T17:21:27Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent scientific auditor R3",
+          "at": "2026-08-28T17:24:04Z"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent scientific auditor R3",
+          "at": "2026-08-28T17:24:05Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-04",
+      "priority": 0,
+      "title": "Final trace finalist aggregation from promoted blind labels",
+      "evidence_class": "distillation",
+      "packet_dir": "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-04",
+      "depends_on": [
+        "BACKLOG-BLIND-NUMERIC-RELABEL-03"
+      ],
+      "source_artifacts": [
+        "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03/raw/receipt.json",
+        "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03/raw/sealed_scored_labels.jsonl",
+        "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03/REVIEW.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DEPLOY-FINALIST-01/raw/actual_scores.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "dataset_hashes",
+        "independent_evaluation",
+        "model_hash",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "student_samples",
+        "teacher_samples"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "promoted_blind_labels_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "evaluation_coverage",
+          "metric": "trace_labeled_rows",
+          "operator": "eq",
+          "threshold": 512
+        },
+        {
+          "id": "finalist_gain",
+          "metric": "paired_bootstrap_95ci_lower_trace_minus_answer",
+          "operator": "gt",
+          "threshold": 0.0
+        },
+        {
+          "id": "finalist_absolute",
+          "metric": "trace_accuracy",
+          "operator": "ge",
+          "threshold": 0.4
+        },
+        {
+          "id": "protected_retention",
+          "metric": "imported_selected_seed_qa_regression",
+          "operator": "le",
+          "threshold": 0.05
+        }
+      ],
+      "allowed_claim_codes": [
+        "TRACE_DISTILLATION_DEPLOYMENT_FINALIST_CONFIRMED_R4",
+        "TRACE_DISTILLATION_DEPLOYMENT_FINALIST_NOT_CONFIRMED_R4"
+      ],
+      "forbidden_claims": [
+        "fresh generation",
+        "human labels",
+        "fourth-panel confirmation",
+        "teacher-equivalent performance",
+        "production deployment",
+        "promotion without independent review"
+      ],
+      "next_action": "Aggregate the promoted blind labels with the frozen paired bootstrap and stop this trace-rescore family after independent review.",
+      "supersedes": "BACKLOG-ADAPT-TRACE-DEPLOY-RESCORE-03",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T17:25:20Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T17:27:35Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T17:27:35Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T17:27:48Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent scientific auditor R4",
+          "at": "2026-08-28T17:29:52Z"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent scientific auditor R4",
+          "at": "2026-08-28T17:29:52Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-QWEN38-Q8-KV-UTILITY-04",
+      "priority": 0,
+      "title": "Final Qwen3.8 Q8 KV utility aggregation from promoted blind labels",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-04",
+      "depends_on": [
+        "BACKLOG-BLIND-NUMERIC-RELABEL-03"
+      ],
+      "source_artifacts": [
+        "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03/raw/receipt.json",
+        "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03/raw/sealed_scored_labels.jsonl",
+        "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03/REVIEW.json",
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-03/raw/receipt.json",
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-03/raw/actual_scores.json",
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-03/REVIEW.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "effective_route",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_integrity",
+          "metric": "promoted_blind_labels_and_physical_sources_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "request_coverage",
+          "metric": "q8_labeled_rows",
+          "operator": "eq",
+          "threshold": 256
+        },
+        {
+          "id": "utility_noninferiority",
+          "metric": "paired_bootstrap_95ci_lower_q8_minus_f16_accuracy",
+          "operator": "gt",
+          "threshold": -0.05
+        },
+        {
+          "id": "quality_regression",
+          "metric": "f16_minus_q8_accuracy",
+          "operator": "le",
+          "threshold": 0.03
+        },
+        {
+          "id": "physical_memory_saving",
+          "metric": "vram_saving_mib",
+          "operator": "ge",
+          "threshold": 500
+        },
+        {
+          "id": "throughput_non_regression",
+          "metric": "q8_vs_f16_throughput_ratio",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QWEN38_Q8_KV_UTILITY_NONINFERIOR_R4",
+        "QWEN38_Q8_KV_UTILITY_NOT_NONINFERIOR_R4"
+      ],
+      "forbidden_claims": [
+        "new inference",
+        "human labels",
+        "exact semantic equivalence",
+        "all-model generalization",
+        "long-context quality",
+        "promotion without independent review"
+      ],
+      "next_action": "Aggregate the promoted blind labels with hash-bound physical R3 observations and stop this rescore family after independent review.",
+      "supersedes": "BACKLOG-QWEN38-Q8-KV-UTILITY-03",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T17:25:21Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T17:27:36Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T17:27:36Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T17:28:06Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent scientific auditor R4",
+          "at": "2026-08-28T17:31:51Z"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent scientific auditor R4",
+          "at": "2026-08-28T17:31:52Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX03-GDN-FUSION-BUILD-01",
+      "priority": 1,
+      "title": "Build and callable-binary qualification of SLX-03 GDN cache fusion",
+      "evidence_class": "external_reproduction",
+      "packet_dir": "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-01",
+      "depends_on": [
+        "BACKLOG-AGY-SYSTEM-BLOCKERS-03"
+      ],
+      "source_artifacts": [
+        "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-03/raw/receipt.json",
+        "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-03/REVIEW.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "build_receipts",
+        "correctness_receipts",
+        "dependency_hashes",
+        "end_to_end_artifact",
+        "independent_evaluation",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "source_revision"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_revision",
+          "metric": "exact_source_commit",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "tracked_clean",
+          "metric": "tracked_source_clean",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "configure",
+          "metric": "cmake_configure_exit",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "build",
+          "metric": "llama_server_build_exit",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "fusion_marker",
+          "metric": "gdn_fusion_marker_present",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "self_linkage",
+          "metric": "project_libraries_resolve_to_new_build",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "callability",
+          "metric": "server_version_exit",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "service_invariance",
+          "metric": "gateway_and_embedding_unchanged",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX03_GDN_FUSION_BUILD_CALLABLE_R1",
+        "SLX03_GDN_FUSION_BUILD_NOT_CONFIRMED_R1"
+      ],
+      "forbidden_claims": [
+        "runtime fusion observed",
+        "semantic parity",
+        "write reduction",
+        "speedup",
+        "production deployment",
+        "promotion without independent review"
+      ],
+      "next_action": "Build the immutable WSL commit in a new directory, prove its CUDA library contains the fusion path and its server resolves its own project libraries.",
+      "supersedes": null,
+      "state": "IMPLEMENTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T17:33:30Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T17:35:59Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T17:36:00Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX03-GDN-FUSION-BUILD-02",
+      "priority": 1,
+      "title": "Build and callable-binary qualification of SLX-03 GDN cache fusion (explicit CUDA compiler)",
+      "evidence_class": "external_reproduction",
+      "packet_dir": "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-02",
+      "depends_on": [
+        "BACKLOG-AGY-SYSTEM-BLOCKERS-03"
+      ],
+      "source_artifacts": [
+        "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-03/raw/receipt.json",
+        "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-03/REVIEW.json",
+        "runs/autonomous/EXPERIMENT-WATCH-2026-08-28-SLX03-BUILD-R1/FINAL.json",
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-01/raw/configure.stderr.log"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "build_receipts",
+        "correctness_receipts",
+        "dependency_hashes",
+        "end_to_end_artifact",
+        "independent_evaluation",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "source_revision"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_revision",
+          "metric": "exact_source_commit",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "tracked_clean",
+          "metric": "tracked_source_clean",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "configure",
+          "metric": "cmake_configure_exit",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "build",
+          "metric": "llama_server_build_exit",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "fusion_marker",
+          "metric": "gdn_fusion_marker_present",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "self_linkage",
+          "metric": "project_libraries_resolve_to_new_build",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "callability",
+          "metric": "server_version_exit",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "service_invariance",
+          "metric": "gateway_and_embedding_unchanged",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX03_GDN_FUSION_BUILD_CALLABLE_R2",
+        "SLX03_GDN_FUSION_BUILD_NOT_CONFIRMED_R2"
+      ],
+      "forbidden_claims": [
+        "runtime fusion observed",
+        "semantic parity",
+        "write reduction",
+        "speedup",
+        "production deployment",
+        "promotion without independent review"
+      ],
+      "next_action": "Repeat the isolated build in a fresh directory with the installed CUDA compiler made explicit; preserve R1 as an environment-discovery failure.",
+      "supersedes": "BACKLOG-SLX03-GDN-FUSION-BUILD-01",
+      "state": "IMPLEMENTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T17:43:23Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T17:44:14Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T17:44:14Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX03-GDN-FUSION-BUILD-03",
+      "priority": 1,
+      "title": "Build and callable-binary qualification of SLX-03 GDN cache fusion (harness-corrected)",
+      "evidence_class": "external_reproduction",
+      "packet_dir": "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-03",
+      "depends_on": [
+        "BACKLOG-AGY-SYSTEM-BLOCKERS-03"
+      ],
+      "source_artifacts": [
+        "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-03/raw/receipt.json",
+        "runs/research/BACKLOG-AGY-SYSTEM-BLOCKERS-03/REVIEW.json",
+        "runs/autonomous/EXPERIMENT-WATCH-2026-08-28-SLX03-BUILD-R1/FINAL.json",
+        "runs/autonomous/EXPERIMENT-WATCH-2026-08-28-SLX03-BUILD-R2/FINAL.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "build_receipts",
+        "correctness_receipts",
+        "dependency_hashes",
+        "end_to_end_artifact",
+        "independent_evaluation",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "source_revision"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_revision",
+          "metric": "exact_source_commit",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "tracked_clean",
+          "metric": "tracked_source_clean",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "configure",
+          "metric": "cmake_configure_exit",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "build",
+          "metric": "llama_server_build_exit",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "fusion_marker",
+          "metric": "gdn_fusion_marker_present",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "self_linkage",
+          "metric": "project_libraries_resolve_to_new_build",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "callability",
+          "metric": "server_version_exit",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "service_invariance",
+          "metric": "gateway_and_embedding_unchanged",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX03_GDN_FUSION_BUILD_CALLABLE_R3",
+        "SLX03_GDN_FUSION_BUILD_NOT_CONFIRMED_R3"
+      ],
+      "forbidden_claims": [
+        "runtime fusion observed",
+        "semantic parity",
+        "write reduction",
+        "speedup",
+        "production deployment",
+        "promotion without independent review"
+      ],
+      "next_action": "Run the preflighted harness in a fresh build directory with explicit CUDA compiler discovery.",
+      "supersedes": "BACKLOG-SLX03-GDN-FUSION-BUILD-02",
+      "state": "BLOCKED",
+      "blocker": "HOLD_FAIL_CLOSED: exact-string gate is a confirmed Release-build false negative, but immutable receipt still fails a preregistered abort gate; commanded wrapper is not receipt-bound as provenance.script, two declared frozen watcher finals are omitted, artifact size follows lstat symlink semantics, and RESULT emits unauthorized R1 code. Require R4 preregistered ELF call-edge/symbol/SM86 forensic gates; no runtime or performance claim.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T17:45:12Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T17:45:48Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T17:45:49Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T17:50:57Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "BLOCKED",
+          "actor": "GPT-5.6 Sol xhigh independent forensic audit instance",
+          "at": "2026-08-28T17:56:21Z",
+          "reason": "HOLD_FAIL_CLOSED: exact-string gate is a confirmed Release-build false negative, but immutable receipt still fails a preregistered abort gate; commanded wrapper is not receipt-bound as provenance.script, two declared frozen watcher finals are omitted, artifact size follows lstat symlink semantics, and RESULT emits unauthorized R1 code. Require R4 preregistered ELF call-edge/symbol/SM86 forensic gates; no runtime or performance claim."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX03-GDN-FUSION-BUILD-04",
+      "priority": 1,
+      "title": "Forensic qualification of the retained SLX-03 GDN fusion build",
+      "evidence_class": "external_reproduction",
+      "packet_dir": "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-04",
+      "depends_on": [
+        "BACKLOG-AGY-SYSTEM-BLOCKERS-03"
+      ],
+      "source_artifacts": [
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-03/raw/receipt.json",
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-03/raw/build_receipts.json",
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-03/raw/end_to_end_artifact.json",
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-03/raw/source_revision.json",
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-03/REVIEW.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "build_receipts",
+        "correctness_receipts",
+        "dependency_hashes",
+        "end_to_end_artifact",
+        "independent_evaluation",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "source_revision"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_revision",
+          "metric": "exact_source_commit",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "artifact_identity",
+          "metric": "retained_artifact_hashes_match",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "linked_objects",
+          "metric": "required_cuda_objects_linked",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "elf_symbols",
+          "metric": "required_gdn_symbols_defined",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "dispatcher_edge",
+          "metric": "dispatcher_calls_fused_cache",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "sm86_code",
+          "metric": "only_sm86_cubins_observed",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "dereferenced_size",
+          "metric": "cuda_library_referent_bytes",
+          "operator": "ge",
+          "threshold": 60000000
+        },
+        {
+          "id": "self_linkage",
+          "metric": "project_libraries_resolve_to_retained_build",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "callability",
+          "metric": "server_version_exit",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "service_invariance",
+          "metric": "gateway_and_embedding_unchanged",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX03_GDN_FUSION_BUILD_CALLABLE_R4",
+        "SLX03_GDN_FUSION_BUILD_NOT_CONFIRMED_R4"
+      ],
+      "forbidden_claims": [
+        "runtime fusion observed",
+        "semantic parity",
+        "write reduction",
+        "speedup",
+        "production deployment",
+        "promotion without independent review"
+      ],
+      "next_action": "Forensically rescore the retained immutable build with ELF, call-edge, linked-object and SM86 evidence, without rebuilding or loading a model.",
+      "supersedes": "BACKLOG-SLX03-GDN-FUSION-BUILD-03",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T17:58:03Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T18:00:07Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T18:00:07Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T18:00:35Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent forensic audit instance",
+          "at": "2026-08-28T18:04:23Z",
+          "reason": "Independent hash-bound ELF audit confirms retained-artifact identity, exact linked objects and T symbols, unique dynamically ranged dispatcher call edge, 140/140 SM86 cubins, retained linkage/version callability and service invariance; claim limited to build inclusion/internal callability."
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent forensic audit instance",
+          "at": "2026-08-28T18:04:23Z",
+          "reason": "Promoted only for SLX03_GDN_FUSION_BUILD_CALLABLE_R4; no runtime branch, parity, write-reduction, performance or deployment claim."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01",
+      "priority": 1,
+      "title": "Build an instrumented Release SLX-03 binary for runtime route observation",
+      "evidence_class": "external_reproduction",
+      "packet_dir": "runs/research/BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01",
+      "depends_on": [
+        "BACKLOG-SLX03-GDN-FUSION-BUILD-04"
+      ],
+      "source_artifacts": [
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-04/raw/receipt.json",
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-04/REVIEW.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "build_receipts",
+        "correctness_receipts",
+        "dependency_hashes",
+        "end_to_end_artifact",
+        "independent_evaluation",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "source_revision"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_revision",
+          "metric": "exact_source_commit",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "tracked_clean",
+          "metric": "tracked_source_clean",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "configure",
+          "metric": "cmake_configure_exit",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "build",
+          "metric": "llama_server_build_exit",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "debug_define",
+          "metric": "debug_define_recorded",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "fusion_marker",
+          "metric": "gdn_fusion_marker_present",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "self_linkage",
+          "metric": "project_libraries_resolve_to_new_build",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "callability",
+          "metric": "server_version_exit",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "dereferenced_size",
+          "metric": "cuda_library_referent_bytes",
+          "operator": "ge",
+          "threshold": 60000000
+        },
+        {
+          "id": "service_invariance",
+          "metric": "gateway_and_embedding_unchanged",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX03_GDN_INSTRUMENTED_BUILD_CALLABLE_R1",
+        "SLX03_GDN_INSTRUMENTED_BUILD_NOT_CONFIRMED_R1"
+      ],
+      "forbidden_claims": [
+        "runtime fusion observed",
+        "semantic parity",
+        "write reduction",
+        "speedup",
+        "production deployment",
+        "promotion without independent review"
+      ],
+      "next_action": "Build a fresh Release/SM86 binary with GGML_CUDA_DEBUG so the GDN fusion branch can be observed in a later model-loaded packet.",
+      "supersedes": null,
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T18:06:25Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T18:07:46Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T18:07:47Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T18:12:56Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent instrumented-build audit instance",
+          "at": "2026-08-28T18:15:58Z",
+          "reason": "Independent audit confirms frozen R4 dependencies, exact clean source, effective GGML_CUDA_DEBUG compilation, exact final-library marker, new-build linkage/version callability, stat -L size and service invariance; claim limited to instrumented build."
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent instrumented-build audit instance",
+          "at": "2026-08-28T18:15:58Z",
+          "reason": "Promoted only as instrumented build callability; no model-loaded runtime, parity, write-reduction, performance or deployment claim."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX03-GDN-FUSION-RUNTIME-01",
+      "priority": 1,
+      "title": "Observe SLX-03 GDN fusion in live Qwen3.8 runtime with an explicit OFF control",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-01",
+      "depends_on": [
+        "BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01"
+      ],
+      "source_artifacts": [
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01/raw/receipt.json",
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01/REVIEW.json",
+        "config/qualified_model_fleet.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "binary_identity",
+        "block_logs",
+        "dependency_hashes",
+        "effective_route",
+        "end_to_end_artifact",
+        "environment",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "service_maintenance",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "binary_model_identity",
+          "metric": "binary_and_model_identity_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "treatment_identity",
+          "metric": "explicit_fusion_controls_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "balanced_crossover",
+          "metric": "valid_abba_blocks",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "runtime_route",
+          "metric": "on_blocks_with_marker",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "negative_control",
+          "metric": "off_blocks_without_marker",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "semantic_parity",
+          "metric": "exact_output_parity_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_gateway_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX03_GDN_FUSION_RUNTIME_ROUTE_CONFIRMED_R1",
+        "SLX03_GDN_FUSION_RUNTIME_ROUTE_NOT_CONFIRMED_R1"
+      ],
+      "forbidden_claims": [
+        "speedup",
+        "write reduction",
+        "production deployment",
+        "non-Qwen3.8 generalization",
+        "promotion without independent review"
+      ],
+      "next_action": "Run an instrumented OFF-ON-ON-OFF crossover on the frozen Qwen3.8 artifact, require marker separation and exact output parity, then restore the qualified gateway.",
+      "supersedes": null,
+      "state": "REJECTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T18:16:59Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T18:19:35Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T18:19:36Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T18:25:06Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent runtime-route audit instance",
+          "at": "2026-08-28T18:31:51Z",
+          "reason": "Operational rejection: frozen route gate failed 0/2; default verbosity 3 suppresses GGML INFO mapped to trace 4, so route is unobserved rather than scientifically falsified. Exact labeled-arm output parity does not prove fused-vs-unfused parity; semantic summary hashes also require correction in a verbosity-controlled successor."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX03-GDN-FUSION-RUNTIME-02",
+      "priority": 1,
+      "title": "Repeat SLX-03 runtime route observation at trace verbosity",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-02",
+      "depends_on": [
+        "BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01"
+      ],
+      "source_artifacts": [
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-01/raw/receipt.json",
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-01/REVIEW.json",
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01/raw/receipt.json",
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01/REVIEW.json",
+        "config/qualified_model_fleet.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "binary_identity",
+        "block_logs",
+        "dependency_hashes",
+        "effective_route",
+        "end_to_end_artifact",
+        "environment",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "service_maintenance",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "binary_model_identity",
+          "metric": "binary_and_model_identity_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "trace_logging",
+          "metric": "trace_verbosity_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "treatment_identity",
+          "metric": "explicit_fusion_controls_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "balanced_crossover",
+          "metric": "valid_abba_blocks",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "runtime_route",
+          "metric": "on_blocks_with_marker",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "negative_control",
+          "metric": "off_blocks_without_marker",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "semantic_parity",
+          "metric": "exact_output_parity_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_gateway_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX03_GDN_FUSION_RUNTIME_ROUTE_CONFIRMED_R2",
+        "SLX03_GDN_FUSION_RUNTIME_ROUTE_NOT_CONFIRMED_R2"
+      ],
+      "forbidden_claims": [
+        "speedup",
+        "write reduction",
+        "production deployment",
+        "non-Qwen3.8 generalization",
+        "promotion without independent review"
+      ],
+      "next_action": "Repeat the identical frozen crossover with -lv 4, require positive trace-verbosity evidence, marker separation and exact output parity.",
+      "supersedes": "BACKLOG-SLX03-GDN-FUSION-RUNTIME-01",
+      "state": "REJECTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T22:19:57Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T22:21:12Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T22:21:13Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T22:26:24Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent runtime-route audit instance",
+          "at": "2026-08-28T22:31:03Z",
+          "reason": "Fail-closed rejection: the preregistered trace_logging gate required the startup declaration in every journal and failed in 2/4 because the capped ON journals lost startup; the wrapper also checked the abort condition only after requests. Current-PID markers still separate 2/2 ON from 2/2 OFF and parity is 16/16, but those facts cannot replace the frozen logging control or authorize performance/write/deployment claims."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX03-GDN-FUSION-RUNTIME-03",
+      "priority": 1,
+      "title": "Finalize SLX-03 runtime route observation with PID-bound startup capture",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-03",
+      "depends_on": [
+        "BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01"
+      ],
+      "source_artifacts": [
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-02/raw/receipt.json",
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-02/REVIEW.json",
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01/raw/receipt.json",
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-INSTRUMENTED-01/REVIEW.json",
+        "config/qualified_model_fleet.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "binary_identity",
+        "block_logs",
+        "dependency_hashes",
+        "effective_route",
+        "end_to_end_artifact",
+        "environment",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "service_maintenance",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "binary_model_identity",
+          "metric": "binary_and_model_identity_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "trace_logging",
+          "metric": "pid_bound_startup_verbosity_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "treatment_identity",
+          "metric": "explicit_fusion_controls_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "balanced_crossover",
+          "metric": "valid_abba_blocks",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "runtime_route",
+          "metric": "on_blocks_with_marker",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "negative_control",
+          "metric": "off_blocks_without_marker",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "semantic_parity",
+          "metric": "exact_output_parity_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_gateway_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX03_GDN_FUSION_RUNTIME_ROUTE_CONFIRMED_R3",
+        "SLX03_GDN_FUSION_RUNTIME_ROUTE_NOT_CONFIRMED_R3"
+      ],
+      "forbidden_claims": [
+        "speedup",
+        "write reduction",
+        "production deployment",
+        "non-Qwen3.8 generalization",
+        "promotion without independent review"
+      ],
+      "next_action": "Capture PID-bound startup evidence before warmups, collect request journals separately without tail truncation, and repeat the frozen crossover.",
+      "supersedes": "BACKLOG-SLX03-GDN-FUSION-RUNTIME-02",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T22:32:11Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T22:34:43Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T22:34:44Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T22:39:51Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent runtime-route audit instance",
+          "at": "2026-08-28T22:44:05Z",
+          "reason": "Independent review recomputed all frozen hashes, PID-bound startup controls, uncapped current-PID journals, treatment assignment, 32/32 responses, 16/16 exact pairs, marker separation and service restoration; all preregistered gates pass within the bounded route/parity/restoration claim."
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent runtime-route audit instance",
+          "at": "2026-08-28T22:44:06Z",
+          "reason": "Promoted after legal VERIFIED stage; claim remains limited to observed GDN fused-cache route under the frozen Qwen3.8 crossover, exact frozen-panel parity, and service restoration, excluding performance, write-reduction, deployment and generalization."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX03-GDN-FUSION-PERF-01",
+      "priority": 1,
+      "title": "Measure causal SLX-03 GDN fusion decode performance on the qualified Release build",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-SLX03-GDN-FUSION-PERF-01",
+      "depends_on": [
+        "BACKLOG-SLX03-GDN-FUSION-BUILD-04",
+        "BACKLOG-SLX03-GDN-FUSION-RUNTIME-03"
+      ],
+      "source_artifacts": [
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-04/raw/receipt.json",
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-04/REVIEW.json",
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-03/raw/receipt.json",
+        "runs/research/BACKLOG-SLX03-GDN-FUSION-RUNTIME-03/REVIEW.json",
+        "config/qualified_model_fleet.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "binary_identity",
+        "dependency_hashes",
+        "effective_route",
+        "end_to_end_artifact",
+        "environment",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "service_maintenance",
+        "statistical_analysis",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "binary_model_identity",
+          "metric": "binary_and_model_identity_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "treatment_identity",
+          "metric": "explicit_fusion_controls_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "balanced_crossover",
+          "metric": "valid_crossover_blocks",
+          "operator": "eq",
+          "threshold": 12
+        },
+        {
+          "id": "sample_size",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 144
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "fixed_decode_work",
+          "metric": "fixed_decode_token_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "semantic_parity",
+          "metric": "exact_output_parity_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "decode_speedup",
+          "metric": "cluster_bootstrap_ratio_ci95_low",
+          "operator": "gt",
+          "threshold": 1.0
+        },
+        {
+          "id": "wall_non_regression",
+          "metric": "cluster_bootstrap_wall_ratio_ci95_low",
+          "operator": "ge",
+          "threshold": 0.98
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_gateway_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX03_GDN_FUSION_DECODE_SPEEDUP_CONFIRMED_R1",
+        "SLX03_GDN_FUSION_DECODE_SPEEDUP_NOT_DEMONSTRATED_R1"
+      ],
+      "forbidden_claims": [
+        "write reduction without hardware counters",
+        "production deployment",
+        "non-Qwen3.8 generalization",
+        "throughput outside the frozen single-slot request shape",
+        "promotion without independent review"
+      ],
+      "next_action": "Run the frozen 12-block paired crossover on the non-instrumented Release artifact and independently audit the cluster-bootstrap performance claim.",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T22:46:34Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T22:52:30Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T22:52:30Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T23:02:49Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent performance audit instance",
+          "at": "2026-08-28T23:06:45Z",
+          "reason": "Independent raw reconstruction validates 12 fresh-process blocks, 144 fixed-64-token requests, 72 exact pairs, treatment identity, timing integrity and restoration. Clean-room 6-pair/12-prompt hierarchical bootstrap with seed 2026082821 and 20000 replicates exactly reproduces decode CI95 [1.0410264326881937,1.0622751507356005] and wall CI95 [1.0383360970638293,1.0553075302750063]."
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent performance audit instance",
+          "at": "2026-08-28T23:06:46Z",
+          "reason": "Promoted after legal VERIFIED stage. Claim is limited to server-reported decode speedup for the frozen Release Qwen3.8 single-slot 64-token panel with exact parity and wall non-regression; no write-reduction, deployment, concurrency, long-context or generalization claim."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-01",
+      "priority": 1,
+      "title": "Confirm Qwen3.8 Q8 KV utility at 8k and 16k context with associative decoys",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-01",
+      "depends_on": [
+        "BACKLOG-QWEN38-Q8-KV-UTILITY-04"
+      ],
+      "source_artifacts": [
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-04/raw/receipt.json",
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-04/REVIEW.json",
+        "config/qualified_model_fleet.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "binary_identity",
+        "dependency_hashes",
+        "effective_route",
+        "end_to_end_artifact",
+        "environment",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "service_maintenance",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "binary_model_identity",
+          "metric": "binary_and_model_identity_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "cache_treatment_identity",
+          "metric": "explicit_cache_controls_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "balanced_crossover",
+          "metric": "valid_crossover_blocks",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "sample_size",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 48
+        },
+        {
+          "id": "physical_context",
+          "metric": "requests_within_target_token_bands",
+          "operator": "eq",
+          "threshold": 48
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "f16_retrieval",
+          "metric": "f16_exact_recall",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "q8_retrieval",
+          "metric": "q8_exact_recall",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "paired_noninferiority",
+          "metric": "paired_bootstrap_ci95_low_q8_minus_f16",
+          "operator": "ge",
+          "threshold": -0.05
+        },
+        {
+          "id": "throughput_nonregression",
+          "metric": "q8_vs_f16_median_tps_ratio",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "memory_saving",
+          "metric": "median_vram_saving_mib",
+          "operator": "ge",
+          "threshold": 500.0
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_gateway_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QWEN38_Q8_KV_LONGCONTEXT_NONINFERIOR_R1",
+        "QWEN38_Q8_KV_LONGCONTEXT_NOT_NONINFERIOR_R1"
+      ],
+      "forbidden_claims": [
+        "concurrency qualification",
+        "contexts beyond 16k",
+        "general long-context reasoning",
+        "all-model generalization",
+        "production deployment",
+        "promotion without independent review"
+      ],
+      "next_action": "Run the frozen fresh-process F16/Q8 crossover at physical 8k and 16k prompt depth; open concurrency only after independent review.",
+      "state": "REJECTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T23:08:08Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T23:12:37Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T23:12:37Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T23:22:51Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent long-context audit instance",
+          "at": "2026-08-28T23:26:34Z",
+          "reason": "Bounded operational rejection: both absolute recall gates fail at 4/24, while 40/48 raw /completion responses in both arms are empty immediate EOS with predicted_n=1 and predicted_ms=0.001. This makes the 1,000,000 t/s medians and ratio 1.0 harness artifacts; equal F16/Q8 casewise failure does not establish Q8-specific inferiority or valid noninferiority. A chat-template R2 with fresh inference is required; concurrency remains unauthorized."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02",
+      "priority": 1,
+      "title": "Repeat Qwen3.8 Q8 KV long-context utility through the serving chat contract",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02",
+      "depends_on": [
+        "BACKLOG-QWEN38-Q8-KV-UTILITY-04"
+      ],
+      "source_artifacts": [
+        "runs/research/BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-01/raw/receipt.json",
+        "runs/research/BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-01/REVIEW.json",
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-04/raw/receipt.json",
+        "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-04/REVIEW.json",
+        "config/qualified_model_fleet.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "binary_identity",
+        "dependency_hashes",
+        "effective_route",
+        "end_to_end_artifact",
+        "environment",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "service_maintenance",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "binary_model_identity",
+          "metric": "binary_and_model_identity_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "cache_treatment_identity",
+          "metric": "explicit_cache_controls_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "balanced_crossover",
+          "metric": "valid_crossover_blocks",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "sample_size",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 48
+        },
+        {
+          "id": "physical_context",
+          "metric": "requests_within_target_token_bands",
+          "operator": "eq",
+          "threshold": 48
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "chat_content",
+          "metric": "nonempty_content_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "timing_integrity",
+          "metric": "nondegenerate_timing_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "f16_retrieval",
+          "metric": "f16_exact_recall",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "q8_retrieval",
+          "metric": "q8_exact_recall",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "paired_noninferiority",
+          "metric": "paired_bootstrap_ci95_low_q8_minus_f16",
+          "operator": "ge",
+          "threshold": -0.05
+        },
+        {
+          "id": "throughput_nonregression",
+          "metric": "q8_vs_f16_median_tps_ratio",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "memory_saving",
+          "metric": "median_vram_saving_mib",
+          "operator": "ge",
+          "threshold": 500.0
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_gateway_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QWEN38_Q8_KV_LONGCONTEXT_NONINFERIOR_R2",
+        "QWEN38_Q8_KV_LONGCONTEXT_NOT_NONINFERIOR_R2"
+      ],
+      "forbidden_claims": [
+        "concurrency qualification",
+        "contexts beyond 16k",
+        "general long-context reasoning",
+        "all-model generalization",
+        "production deployment",
+        "promotion without independent review"
+      ],
+      "next_action": "Repeat all 48 physical requests through /v1/chat/completions with thinking disabled and reject empty or degenerate responses before opening concurrency.",
+      "supersedes": "BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-01",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T23:27:50Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T23:30:18Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T23:30:19Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-28T23:40:32Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent long-context R2 auditor",
+          "at": "2026-08-28T23:45:49Z",
+          "reason": "Independent fail-closed audit reproduced receipt/fingerprint/provenance, fresh four-PID chat run, 48/48 integrity and exact recall, 24-pair bootstrap, valid timing/VRAM observations, and restoration; bounded claim only."
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent long-context R2 auditor",
+          "at": "2026-08-28T23:45:50Z",
+          "reason": "All fourteen preregistered gates independently pass; claim restricted to frozen Qwen3.8 single-slot associative retrieval at measured 8k/16k depths."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-QWEN38-Q8-KV-CONCURRENCY-01",
+      "priority": 1,
+      "title": "Confirm Qwen3.8 Q8 KV long-context utility under two-slot concurrency",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-QWEN38-Q8-KV-CONCURRENCY-01",
+      "depends_on": [
+        "BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02"
+      ],
+      "source_artifacts": [
+        "runs/research/BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02/raw/receipt.json",
+        "runs/research/BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02/REVIEW.json",
+        "config/qualified_model_fleet.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "binary_identity",
+        "dependency_hashes",
+        "effective_route",
+        "end_to_end_artifact",
+        "environment",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "service_maintenance",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "binary_model_identity",
+          "metric": "binary_and_model_identity_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "cache_treatment_identity",
+          "metric": "explicit_cache_controls_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "concurrency_identity",
+          "metric": "explicit_two_slot_controls_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "balanced_crossover",
+          "metric": "valid_crossover_blocks",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "sample_size",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 48
+        },
+        {
+          "id": "concurrent_batches",
+          "metric": "recorded_concurrent_batches",
+          "operator": "eq",
+          "threshold": 24
+        },
+        {
+          "id": "physical_overlap",
+          "metric": "overlapping_batch_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "physical_context",
+          "metric": "requests_within_target_token_bands",
+          "operator": "eq",
+          "threshold": 48
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "chat_content",
+          "metric": "nonempty_content_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "timing_integrity",
+          "metric": "nondegenerate_timing_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "f16_retrieval",
+          "metric": "f16_exact_recall",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "q8_retrieval",
+          "metric": "q8_exact_recall",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "paired_noninferiority",
+          "metric": "paired_bootstrap_ci95_low_q8_minus_f16",
+          "operator": "ge",
+          "threshold": -0.05
+        },
+        {
+          "id": "batch_throughput_nonregression",
+          "metric": "q8_vs_f16_median_batch_rate_ratio",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "memory_saving",
+          "metric": "median_vram_saving_mib",
+          "operator": "ge",
+          "threshold": 1000.0
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_gateway_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QWEN38_Q8_KV_CONCURRENT_LONGCONTEXT_NONINFERIOR_R1",
+        "QWEN38_Q8_KV_CONCURRENT_LONGCONTEXT_NOT_NONINFERIOR_R1"
+      ],
+      "forbidden_claims": [
+        "concurrency scaling versus single-slot",
+        "contexts beyond 16k per slot",
+        "more than two slots",
+        "general reasoning",
+        "all-model generalization",
+        "production deployment",
+        "promotion without independent review"
+      ],
+      "next_action": "Run two simultaneous explicit slots per batch with 65536 total context, preserving the promoted chat/scorer crossover and proving physical client-interval overlap.",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "codex",
+          "at": "2026-08-28T23:47:03Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "codex",
+          "at": "2026-08-28T23:50:23Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "codex",
+          "at": "2026-08-28T23:50:24Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-29T00:00:37Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent two-slot concurrency auditor",
+          "at": "2026-08-29T00:04:22Z",
+          "reason": "Independent fail-closed audit reproduced all frozen identities, 4 process controls, 48 unique chat rows, 24 exact two-slot overlapping batches, scorer/bootstrap, within-run batch rate, global VRAM observation, and restoration; bounded claim only."
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent two-slot concurrency auditor",
+          "at": "2026-08-29T00:04:22Z",
+          "reason": "All seventeen preregistered gates independently pass. Promotion is limited to the frozen two-slot Qwen3.8 F16-vs-Q8 concurrent retrieval construct and excludes single-slot scaling or broader capacity claims."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-04",
+      "priority": 0,
+      "title": "Rebind and independently recompute the retained fleet context envelope",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-04",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-03/raw/receipt.json",
+        "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-03/raw/samples.jsonl",
+        "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-03/raw/case_manifest.json",
+        "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-03/raw/artifact_hashes.json",
+        "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md",
+        "config/qualified_model_fleet.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "artifact_hashes",
+        "case_manifest",
+        "dataset_hashes",
+        "effective_route",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "source_execution_receipt",
+        "statistical_analysis"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_receipt",
+          "metric": "source_receipt_digest_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "immutable_sources",
+          "metric": "final_source_set_immutable",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "retained_rows",
+          "metric": "retained_rows_recomputed",
+          "operator": "eq",
+          "threshold": 72
+        },
+        {
+          "id": "prompt_reconstruction",
+          "metric": "prompt_hash_reconstruction_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "artifact_identity",
+          "metric": "verified_model_artifacts",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "route_identity",
+          "metric": "route_alias_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "context_fit",
+          "metric": "requests_within_route_slot_context",
+          "operator": "eq",
+          "threshold": 72
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "qwen38_recall",
+          "metric": "qwen38_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "hauhaucs_recall",
+          "metric": "hauhaucs_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "fable_recall",
+          "metric": "fable_tc_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "qwen36_moe_recall",
+          "metric": "qwen36_moe_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "position_robustness",
+          "metric": "minimum_position_bucket_recall",
+          "operator": "ge",
+          "threshold": 0.8
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUALIFIED_TEXT_FLEET_SLOT_CONTEXT_ENVELOPES_REBOUND_R4",
+        "QUALIFIED_TEXT_FLEET_SLOT_CONTEXT_ENVELOPES_NOT_CONFIRMED_R4"
+      ],
+      "forbidden_claims": [
+        "new inference",
+        "general long-context reasoning",
+        "production RAG quality",
+        "latency ranking",
+        "contexts beyond the retained per-slot limits",
+        "promotion without independent review"
+      ],
+      "next_action": "Reconstruct and recompute all 72 retained rows from an immutable final source set without rerunning model inference.",
+      "supersedes": "BACKLOG-FLEET-CONTEXT-ENVELOPE-03",
+      "state": "PROPOSED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-29T00:13:20Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-02",
+      "priority": 0,
+      "title": "Rebind and independently recompute retained fleet context interference",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-01/raw/receipt.json",
+        "runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-01/raw/samples.jsonl",
+        "runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-01/raw/case_manifest.json",
+        "runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-01/raw/artifact_hashes.json",
+        "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md",
+        "config/qualified_model_fleet.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "artifact_hashes",
+        "case_manifest",
+        "dataset_hashes",
+        "effective_route",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "source_execution_receipt",
+        "statistical_analysis"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_receipt",
+          "metric": "source_receipt_digest_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "immutable_sources",
+          "metric": "final_source_set_immutable",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "retained_rows",
+          "metric": "retained_rows_recomputed",
+          "operator": "eq",
+          "threshold": 72
+        },
+        {
+          "id": "prompt_reconstruction",
+          "metric": "prompt_hash_reconstruction_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "decoy_construct",
+          "metric": "cases_with_exactly_31_verified_decoys",
+          "operator": "eq",
+          "threshold": 72
+        },
+        {
+          "id": "artifact_identity",
+          "metric": "verified_model_artifacts",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "route_identity",
+          "metric": "route_alias_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "context_fit",
+          "metric": "requests_within_route_slot_context",
+          "operator": "eq",
+          "threshold": 72
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "qwen38_recall",
+          "metric": "qwen38_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "hauhaucs_recall",
+          "metric": "hauhaucs_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "fable_recall",
+          "metric": "fable_tc_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "qwen36_moe_recall",
+          "metric": "qwen36_moe_exact_recall",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "position_robustness",
+          "metric": "minimum_position_bucket_recall",
+          "operator": "ge",
+          "threshold": 0.8
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUALIFIED_TEXT_FLEET_CONTEXT_INTERFERENCE_REBOUND_R2",
+        "QUALIFIED_TEXT_FLEET_CONTEXT_INTERFERENCE_NOT_CONFIRMED_R2"
+      ],
+      "forbidden_claims": [
+        "new inference",
+        "general long-context reasoning",
+        "production RAG quality",
+        "latency ranking",
+        "decoy families outside the retained construct",
+        "promotion without independent review"
+      ],
+      "next_action": "Reconstruct and recompute all 72 retained hard-decoy rows from an immutable final source set without rerunning model inference.",
+      "supersedes": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-01",
+      "state": "PROPOSED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-29T00:13:21Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-GATEWAY-ROUTE-STRESS-02",
+      "priority": 1,
+      "title": "Rebind retained gateway route stress with semantic success separation",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-01/raw/receipt.json",
+        "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-01/raw/samples.jsonl",
+        "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-01/raw/switches.jsonl",
+        "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-01/raw/effective_route.json",
+        "runs/research/BACKLOG-GATEWAY-ROUTE-STRESS-01/raw/service_identity.json",
+        "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md",
+        "config/qualified_model_fleet.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "artifact_hashes",
+        "effective_route",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "source_execution_receipt",
+        "statistical_analysis"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "source_receipt",
+          "metric": "source_receipt_digest_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "immutable_sources",
+          "metric": "final_source_set_immutable",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "switch_coverage",
+          "metric": "recomputed_switches",
+          "operator": "eq",
+          "threshold": 30
+        },
+        {
+          "id": "request_coverage",
+          "metric": "recomputed_requests",
+          "operator": "eq",
+          "threshold": 120
+        },
+        {
+          "id": "transport_integrity",
+          "metric": "http_transport_success_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "route_identity",
+          "metric": "route_alias_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "text_content_integrity",
+          "metric": "eligible_text_nonempty_content_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "cycle_repeatability",
+          "metric": "exact_cycle_repeat_rate",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "artifact_table",
+          "metric": "verified_distinct_model_artifacts",
+          "operator": "eq",
+          "threshold": 6
+        },
+        {
+          "id": "gateway_integrity",
+          "metric": "gateway_service_restarts",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_boundary_successes",
+          "operator": "eq",
+          "threshold": 30
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_model_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUALIFIED_GATEWAY_ROUTE_TRANSPORT_STRESS_REBOUND_R2",
+        "QUALIFIED_GATEWAY_ROUTE_TRANSPORT_STRESS_NOT_CONFIRMED_R2"
+      ],
+      "forbidden_claims": [
+        "new inference",
+        "vision task success from text-only probes",
+        "semantic success for reasoning-only empty-content responses",
+        "model quality superiority",
+        "multi-resident serving",
+        "reliability beyond the retained 30-switch campaign",
+        "promotion without independent review"
+      ],
+      "next_action": "Recompute the retained 30-switch campaign from immutable final raws, separating HTTP transport and route identity from semantic content eligibility.",
+      "supersedes": "BACKLOG-GATEWAY-ROUTE-STRESS-01",
+      "state": "PROPOSED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex",
+          "at": "2026-08-29T00:13:22Z"
         }
       ]
     }

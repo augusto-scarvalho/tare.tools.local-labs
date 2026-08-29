@@ -1,0 +1,27 @@
+{
+  "id":"BACKLOG-QWEN38-Q8-KV-UTILITY-04","priority":0,
+  "title":"Final Qwen3.8 Q8 KV utility aggregation from promoted blind labels","evidence_class":"serving_runtime",
+  "packet_dir":"runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-04","depends_on":["BACKLOG-BLIND-NUMERIC-RELABEL-03"],
+  "source_artifacts":[
+    "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03/raw/receipt.json",
+    "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03/raw/sealed_scored_labels.jsonl",
+    "runs/research/BACKLOG-BLIND-NUMERIC-RELABEL-03/REVIEW.json",
+    "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-03/raw/receipt.json",
+    "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-03/raw/actual_scores.json",
+    "runs/research/BACKLOG-QWEN38-Q8-KV-UTILITY-03/REVIEW.json"
+  ],
+  "required_evidence":["acceptance_gates","effective_route","hardware_metrics","independent_evaluation","paired_baseline","provenance","raw_samples","receipt_fingerprint","recovery_state","service_identity"],
+  "acceptance_gates":[
+    {"id":"source_integrity","metric":"promoted_blind_labels_and_physical_sources_verified","operator":"eq","threshold":true},
+    {"id":"request_coverage","metric":"q8_labeled_rows","operator":"eq","threshold":256},
+    {"id":"utility_noninferiority","metric":"paired_bootstrap_95ci_lower_q8_minus_f16_accuracy","operator":"gt","threshold":-0.05},
+    {"id":"quality_regression","metric":"f16_minus_q8_accuracy","operator":"le","threshold":0.03},
+    {"id":"physical_memory_saving","metric":"vram_saving_mib","operator":"ge","threshold":500},
+    {"id":"throughput_non_regression","metric":"q8_vs_f16_throughput_ratio","operator":"ge","threshold":0.95},
+    {"id":"service_recovery","metric":"service_and_embedding_restored","operator":"eq","threshold":true}
+  ],
+  "allowed_claim_codes":["QWEN38_Q8_KV_UTILITY_NONINFERIOR_R4","QWEN38_Q8_KV_UTILITY_NOT_NONINFERIOR_R4"],
+  "forbidden_claims":["new inference","human labels","exact semantic equivalence","all-model generalization","long-context quality","promotion without independent review"],
+  "next_action":"Aggregate the promoted blind labels with hash-bound physical R3 observations and stop this rescore family after independent review.",
+  "supersedes":"BACKLOG-QWEN38-Q8-KV-UTILITY-03"
+}

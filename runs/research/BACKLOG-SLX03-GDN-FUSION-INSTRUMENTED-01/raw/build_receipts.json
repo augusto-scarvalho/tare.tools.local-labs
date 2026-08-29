@@ -1,0 +1,41 @@
+{
+  "configure": 0,
+  "build": 0,
+  "command_configure": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu-24.04",
+    "--cd",
+    "/home/augus/src/slop.cpp-main",
+    "env",
+    "PATH=/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "CUDACXX=/usr/local/cuda/bin/nvcc",
+    "cmake",
+    "-S",
+    ".",
+    "-B",
+    "build-slx03-gdn-instrumented-01",
+    "-DCMAKE_BUILD_TYPE=Release",
+    "-DGGML_CUDA=ON",
+    "-DGGML_NATIVE=OFF",
+    "-DCMAKE_CUDA_ARCHITECTURES=86",
+    "-DCMAKE_CUDA_FLAGS=-DGGML_CUDA_DEBUG"
+  ],
+  "command_build": [
+    "wsl.exe",
+    "-d",
+    "Ubuntu-24.04",
+    "--cd",
+    "/home/augus/src/slop.cpp-main",
+    "env",
+    "PATH=/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+    "CUDACXX=/usr/local/cuda/bin/nvcc",
+    "cmake",
+    "--build",
+    "build-slx03-gdn-instrumented-01",
+    "--target",
+    "llama-server",
+    "-j",
+    "8"
+  ]
+}

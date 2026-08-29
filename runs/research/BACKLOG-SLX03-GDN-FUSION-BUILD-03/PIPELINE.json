@@ -1,0 +1,62 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX03-GDN-FUSION-BUILD-03",
+  "evidence_class": "external_reproduction",
+  "executor": "codex",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "codex",
+      "at": "2026-08-28T17:45:12Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "codex",
+      "at": "2026-08-28T17:45:48Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "codex",
+      "at": "2026-08-28T17:45:49Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-28T17:50:57Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "BLOCKED",
+      "actor": "GPT-5.6 Sol xhigh independent forensic audit instance",
+      "at": "2026-08-28T17:56:21Z",
+      "reason": "HOLD_FAIL_CLOSED: exact-string gate is a confirmed Release-build false negative, but immutable receipt still fails a preregistered abort gate; commanded wrapper is not receipt-bound as provenance.script, two declared frozen watcher finals are omitted, artifact size follows lstat symlink semantics, and RESULT emits unauthorized R1 code. Require R4 preregistered ELF call-edge/symbol/SM86 forensic gates; no runtime or performance claim."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-03/PRE_REGISTRATION.md",
+    "sha256": "5c1eb4eccedb6537a54e9e07a0cea15e4ea113e6ded5b337bb8194dd68e4f1b4"
+  },
+  "implementation": [
+    {
+      "path": "tools/research/run_slx03_gdn_fusion_build.py",
+      "sha256": "dd6d242c01ef3139e4c24ca5920af2346828b3bc7d89abcf1270fa1584afdb36"
+    },
+    {
+      "path": "tools/research/run_slx03_gdn_fusion_build_r3.py",
+      "sha256": "0c3cdbd89d1606e1659f9792032996775eb1e1c9058d8bc5902775ccada9430a"
+    }
+  ],
+  "implementation_digest": "22199ba76b4c74f9693fe77faef7237d688bb2c0f5e9bc41adb965bb91e47057",
+  "execution": {
+    "path": "runs/research/BACKLOG-SLX03-GDN-FUSION-BUILD-03/raw/receipt.json",
+    "sha256": "8e8ac1dc2451643861754a3aaa603d0fb11e6489230d4e5199b5b63de4af4219"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}
