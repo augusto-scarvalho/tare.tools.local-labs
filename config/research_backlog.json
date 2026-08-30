@@ -1,8 +1,7 @@
 {
   "schema": "local-labs-backlog-v1",
-  "updated_at": "2026-08-30T14:34:24Z",
+  "updated_at": "2026-08-30T15:40:53Z",
   "policy": {
-    "executor": "Gemini",
     "independent_review_required": true,
     "simulation_promotion_forbidden": true,
     "raw_receipts_immutable": true,
@@ -18729,6 +18728,171 @@
           "actor": "GPT-5.6 Sol xhigh independent audit instance",
           "at": "2026-08-30T14:34:24Z",
           "reason": "All frozen gates and serving-runtime identities independently verified; promotion limited to exact-key client selection plus server token compaction on the frozen R11 tuple."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX08-SEMANTIC-PREFILL-12",
+      "priority": 0,
+      "priority_score": 94,
+      "title": "Qualify selector-inclusive semantic prefill on natural long documents",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-SLX08-SEMANTIC-PREFILL-12",
+      "depends_on": [
+        "BACKLOG-SLX08-RELEVANCE-PREFILL-11"
+      ],
+      "source_artifacts": [
+        "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-11/raw/receipt.json",
+        "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-11/REVIEW.json",
+        "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-11/raw/samples.jsonl",
+        "docs/research/SLX08_RELEVANCE_PREFILL_2026-08-30.md"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "effective_route",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "natural_document_corpus",
+        "paired_baseline",
+        "physical_route_telemetry",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "selector_timing",
+        "semantic_parity",
+        "service_identity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "dense_control",
+          "metric": "dense_requests",
+          "operator": "ge",
+          "threshold": 128
+        },
+        {
+          "id": "position_control",
+          "metric": "position_control_requests",
+          "operator": "ge",
+          "threshold": 128
+        },
+        {
+          "id": "semantic_treatment",
+          "metric": "semantic_requests",
+          "operator": "ge",
+          "threshold": 128
+        },
+        {
+          "id": "natural_documents",
+          "metric": "natural_document_fixture_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "route_observation",
+          "metric": "semantic_route_observation_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "selector_accounting",
+          "metric": "selector_latency_accounting_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "evidence_retention",
+          "metric": "semantic_evidence_retention_rate",
+          "operator": "ge",
+          "threshold": 0.98
+        },
+        {
+          "id": "retained_fraction",
+          "metric": "semantic_median_retained_fraction",
+          "operator": "le",
+          "threshold": 0.5
+        },
+        {
+          "id": "dense_semantic_floor",
+          "metric": "dense_accuracy",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "semantic_floor",
+          "metric": "semantic_accuracy",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "semantic_noninferiority",
+          "metric": "semantic_vs_dense_exact_delta_ci95_low",
+          "operator": "ge",
+          "threshold": -0.05
+        },
+        {
+          "id": "selector_value",
+          "metric": "semantic_vs_position_accuracy_delta",
+          "operator": "ge",
+          "threshold": 0.1
+        },
+        {
+          "id": "end_to_end_gain",
+          "metric": "semantic_vs_dense_p50_total_latency_speedup",
+          "operator": "ge",
+          "threshold": 1.1
+        },
+        {
+          "id": "tail_safety",
+          "metric": "semantic_vs_dense_p95_total_latency_speedup",
+          "operator": "ge",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX08_SEMANTIC_SELECTED_PREFILL_QUALIFIED_R12",
+        "SLX08_SEMANTIC_SELECTED_PREFILL_REJECTED_R12"
+      ],
+      "forbidden_claims": [
+        "production deployment",
+        "generic RAG superiority",
+        "generic sparse attention",
+        "server-side learned routing",
+        "quality beyond the frozen natural-document panel",
+        "generalization to other models or context lengths",
+        "latency benefit excluding selector cost",
+        "synthetic exact-key retrieval qualification"
+      ],
+      "next_action": "Freeze 128 fresh natural-document questions and run paired dense, fixed-position and embedding-selected arms through the physical SLX08 route, charging document embedding, block ranking and serving time to the semantic arm and using an exact one-sided noninferiority bound.",
+      "supersedes": "BACKLOG-SLX08-RELEVANCE-PREFILL-11",
+      "state": "PROPOSED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex SLX08 closeout consolidation",
+          "at": "2026-08-30T15:40:53Z"
         }
       ]
     }

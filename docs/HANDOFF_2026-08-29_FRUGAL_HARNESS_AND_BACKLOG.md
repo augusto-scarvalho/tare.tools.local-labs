@@ -1,5 +1,10 @@
 # Frugal experiment harness and canonical backlog handoff — 2026-08-29
 
+> **Historical rolling handoff.** For the current 137-record snapshot, final
+> published `slop.cpp` implementation, lineage-aware ranking and next queue
+> head, use
+> [`HANDOFF_2026-08-30_SLX08_CLOSEOUT_AND_CURRENT_BACKLOG.md`](HANDOFF_2026-08-30_SLX08_CLOSEOUT_AND_CURRENT_BACKLOG.md).
+
 Read this document first after a context reset. It supersedes the operational
 instructions in `HANDOFF_2026-08-28_CONTINUOUS_RECOVERY_CLOSEOUT.md` while
 preserving that file as the scientific closeout of the preceding campaign.

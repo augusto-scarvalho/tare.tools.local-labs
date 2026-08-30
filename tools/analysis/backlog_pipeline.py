@@ -3,8 +3,8 @@
 
 The pipeline turns the current research backlog into an executable state
 machine. It freezes preregistration before implementation, implementation before
-execution, execution before review, and review before promotion. Gemini may
-execute work, but it cannot independently approve its own packet.
+execution, execution before review, and review before promotion. An executor
+cannot independently approve its own packet.
 """
 from __future__ import annotations
 
@@ -27,8 +27,20 @@ MANIFEST_SCHEMA = "local-labs-backlog-v1"
 PRIORITY_POLICY_SCHEMA = "local-labs-backlog-priority-policy-v1"
 PRIORITY_REPORT_SCHEMA = "local-labs-backlog-priority-report-v1"
 PACKET_SCHEMA = "local-labs-backlog-packet-v1"
-REVIEW_SCHEMA = "local-labs-independent-review-v1"
+LEGACY_REVIEW_SCHEMA = "local-labs-independent-review-v1"
+REVIEW_SCHEMA = "local-labs-independent-review-v2"
 RECEIPT_SCHEMA = "local-labs-backlog-receipt-v1"
+
+REVIEW_VERDICTS = {"APPROVED", "REJECTED", "BLOCKED"}
+REVIEW_MATERIALITY = {"RESULT_REVERSING", "CLAIM_NARROWING", "NON_BLOCKING"}
+REVIEW_REMEDIES = {
+    "ACCEPT",
+    "NARROW_CLAIM",
+    "RESCORE_RETAINED",
+    "PATCH_AND_RECHECK",
+    "RERUN_MINIMAL",
+    "RERUN_FULL",
+}
 
 STATES = {
     "PROPOSED",
@@ -669,9 +681,10 @@ def rank_backlog(
     policy: dict,
     *,
     include_terminal: bool = False,
+    include_superseded: bool = False,
     generated_at: str | None = None,
 ) -> dict:
-    """Return an explained ranking without mutating backlog state or priority."""
+    """Return an explained current-lineage ranking without mutating backlog state."""
     errors = validate_priority_policy(policy, manifest)
     if errors:
         raise ValueError("priority policy is invalid:\n" + "\n".join(errors))
@@ -679,12 +692,20 @@ def rank_backlog(
     policy_digest = canonical_json_sha256(policy)
     weights = {name: float(value["weight"]) for name, value in policy["dimensions"].items()}
     assessments = policy["assessments"]
+    superseded_ids = {
+        item["supersedes"]
+        for item in manifest["items"]
+        if isinstance(item.get("supersedes"), str)
+    }
     rows: list[dict[str, Any]] = []
     for item in manifest["items"]:
         if not include_terminal and item["state"] in TERMINAL_STATES:
             continue
+        if not include_superseded and item["id"] in superseded_ids:
+            continue
         assessment = assessments.get(item["id"])
         if assessment is None:
+            assessment_digest = None
             base_score = None
             score = None
             waiting_days, _ = _aging_bonus(item, policy, timestamp)
@@ -693,6 +714,7 @@ def rank_backlog(
             reason = "No new assessment; preserve the current priority."
             recommended = item["priority"]
         else:
+            assessment_digest = canonical_json_sha256(assessment)
             base_score = sum(weights[name] * float(assessment["scores"][name]) / 5.0 for name in weights)
             base_score = round(base_score, 2)
             waiting_days, aging_bonus = _aging_bonus(item, policy, timestamp)
@@ -702,8 +724,8 @@ def rank_backlog(
             recommended = _priority_from_score(score, policy)
         ready, blockers = dependencies_satisfied(item, manifest)
         priority_history = item.get("priority_history") or []
-        last_policy_digest = (
-            priority_history[-1].get("policy_sha256")
+        last_assessment_digest = (
+            priority_history[-1].get("assessment_sha256")
             if priority_history and isinstance(priority_history[-1], dict)
             else None
         )
@@ -718,13 +740,17 @@ def rank_backlog(
             "aging_bonus": aging_bonus,
             "waiting_days": waiting_days,
             "score_source": source,
+            "assessment_sha256": assessment_digest,
             "eligible_now": item["state"] == "PROPOSED" and ready,
             "dependency_blockers": blockers,
             "reason": reason,
             "changed": assessment is not None and (
                 item["priority"] != recommended
                 or item.get("priority_score") != score
-                or last_policy_digest != policy_digest
+                or (
+                    last_assessment_digest is not None
+                    and last_assessment_digest != assessment_digest
+                )
             ),
         })
     rows.sort(
@@ -742,6 +768,7 @@ def rank_backlog(
         "generated_at": timestamp,
         "manifest_updated_at": manifest.get("updated_at"),
         "policy_sha256": policy_digest,
+        "superseded_history_count": len(superseded_ids),
         "assessed_count": sum(row["score_source"] == "explicit_assessment" for row in rows),
         "change_count": sum(row["changed"] for row in rows),
         "items": rows,
@@ -790,6 +817,7 @@ def rebalance_priorities(
             "reason": assessment["reason"],
             "change_trigger": assessment["change_trigger"],
             "policy_sha256": report["policy_sha256"],
+            "assessment_sha256": row["assessment_sha256"],
         })
         changed_ids.append(item_id)
     report["applied_ids"] = changed_ids
@@ -954,6 +982,89 @@ def _validate_receipt(receipt: dict, task: dict, *, require_passing_gates: bool)
     return errors
 
 
+def validate_independent_review(
+    review: dict,
+    *,
+    executor: str,
+    receipt_sha256: str | None,
+    implementation_digest_value: str | None,
+    expected_verdict: str,
+    require_frugal_contract: bool,
+) -> list[str]:
+    """Validate legacy identity binding plus the frugal v2 decision contract."""
+    errors: list[str] = []
+    schema = review.get("schema")
+    if schema not in {LEGACY_REVIEW_SCHEMA, REVIEW_SCHEMA}:
+        errors.append("invalid review schema")
+        return errors
+    if require_frugal_contract and schema != REVIEW_SCHEMA:
+        errors.append("frugal audit contract requires review schema v2")
+
+    reviewer = str(review.get("reviewer", ""))
+    if not reviewer or reviewer.casefold() == executor.casefold():
+        errors.append("review must be independent of the executor")
+    if review.get("verdict") != expected_verdict:
+        errors.append(f"independent review verdict must be {expected_verdict}")
+    if receipt_sha256 and review.get("receipt_sha256") != receipt_sha256:
+        errors.append("review is not bound to the current receipt")
+    if review.get("implementation_digest") != implementation_digest_value:
+        errors.append("review is not bound to the current implementation")
+    if not isinstance(review.get("findings"), list):
+        errors.append("review findings must be a list")
+
+    if schema != REVIEW_SCHEMA:
+        return errors
+
+    verdict = review.get("verdict")
+    if verdict not in REVIEW_VERDICTS:
+        errors.append("review verdict is unsupported")
+
+    text_fields = (
+        "promise",
+        "value",
+        "falsification_attempt",
+        "falsification_evidence",
+        "falsification_outcome",
+        "decision_impact",
+        "false_negative_check",
+        "smallest_remedy",
+    )
+    for field in text_fields:
+        if not isinstance(review.get(field), str) or not review[field].strip():
+            errors.append(f"review requires {field}")
+    if not isinstance(review.get("promise_met"), bool):
+        errors.append("review requires boolean promise_met")
+    if not isinstance(review.get("result_reversing"), bool):
+        errors.append("review requires boolean result_reversing")
+    if review.get("materiality") not in REVIEW_MATERIALITY:
+        errors.append("review materiality level is unsupported")
+    action = review.get("remedy")
+    if action not in REVIEW_REMEDIES:
+        errors.append("review remedy action is unsupported")
+    if not isinstance(review.get("retained_evidence_reusable"), bool):
+        errors.append("review requires boolean retained_evidence_reusable")
+
+    negative = verdict in {"REJECTED", "BLOCKED"}
+    if negative:
+        if review.get("promise_met") is not False:
+            errors.append("negative review must show that the promised outcome was not met")
+        if review.get("result_reversing") is not True:
+            errors.append("negative review requires a proved result-reversing failure")
+        if review.get("materiality") != "RESULT_REVERSING":
+            errors.append("negative review requires RESULT_REVERSING materiality")
+    elif verdict == "APPROVED":
+        if review.get("promise_met") is not True:
+            errors.append("approved review must show that the bounded promise was met")
+        if review.get("result_reversing") is not False:
+            errors.append("approved review cannot retain a result-reversing failure")
+        if action == "RERUN_FULL":
+            errors.append("approved review cannot require a full rerun")
+
+    if action == "RERUN_FULL" and review.get("retained_evidence_reusable") is not False:
+        errors.append("full rerun is forbidden while retained evidence is reusable")
+    return errors
+
+
 def validate_packet(
     packet_dir: pathlib.Path,
     task: dict,
@@ -987,16 +1098,35 @@ def validate_packet(
     if packet.get("state_history") != task.get("state_history"):
         errors.append(f"{prefix}: packet and manifest histories differ")
     executor = str(packet.get("executor", ""))
+    frugal_contract = packet.get("audit_contract") == REVIEW_SCHEMA
+    was_executed = any(
+        isinstance(event, dict) and event.get("to") == "EXECUTED"
+        for event in packet.get("state_history", [])
+    )
     for event in packet.get("state_history", []):
         actor = str(event.get("actor", "")) if isinstance(event, dict) else ""
-        if isinstance(event, dict) and event.get("to") in {"VERIFIED", "PROMOTED"}:
-            if not actor or actor.casefold() == executor.casefold() or "gemini" in actor.casefold():
+        independent_transition = isinstance(event, dict) and (
+            event.get("to") in {"VERIFIED", "PROMOTED"}
+            or (
+                frugal_contract
+                and event.get("from") == "EXECUTED"
+                and event.get("to") in {"REJECTED", "BLOCKED"}
+            )
+        )
+        if independent_transition:
+            if not actor or actor.casefold() == executor.casefold():
                 errors.append(f"{prefix}: {event.get('to')} transition requires an independent actor")
 
     preregistered_states = STATES - {"PROPOSED", "BLOCKED"}
     implemented_states = {"IMPLEMENTED", "EXECUTED", "VERIFIED", "PROMOTED", "REJECTED"}
     executed_states = {"EXECUTED", "VERIFIED", "PROMOTED", "REJECTED"}
     result_states = {"VERIFIED", "PROMOTED", "REJECTED"}
+    post_execution_block = frugal_contract and stage == "BLOCKED" and was_executed
+    if post_execution_block:
+        preregistered_states.add("BLOCKED")
+        implemented_states.add("BLOCKED")
+        executed_states.add("BLOCKED")
+        result_states.add("BLOCKED")
 
     if stage in preregistered_states:
         prereg_path, prereg_errors = _verify_recorded_file(root, packet.get("preregistration"), "preregistration")
@@ -1048,25 +1178,27 @@ def validate_packet(
         if stage in {"VERIFIED", "PROMOTED"} and not claim_codes:
             errors.append(f"{prefix}: verified/promoted packet requires at least one claim code")
 
-    if stage in {"VERIFIED", "PROMOTED"}:
+    review_required = stage in {"VERIFIED", "PROMOTED"} or (
+        frugal_contract and stage in {"REJECTED", "BLOCKED"} and was_executed
+    )
+    if review_required:
         review_path, review_errors = _verify_recorded_file(root, packet.get("review"), "independent review")
         errors.extend(f"{prefix}: {error}" for error in review_errors)
         if review_path:
             try:
                 review = load_json(review_path)
-                if review.get("schema") != REVIEW_SCHEMA:
-                    errors.append(f"{prefix}: invalid review schema")
-                reviewer = str(review.get("reviewer", ""))
-                if not reviewer or reviewer.casefold() == executor.casefold() or "gemini" in reviewer.casefold():
-                    errors.append(f"{prefix}: review must be independent of Gemini/executor")
-                if review.get("verdict") != "APPROVED":
-                    errors.append(f"{prefix}: independent review verdict must be APPROVED")
-                if receipt_path and review.get("receipt_sha256") != sha256_file(receipt_path):
-                    errors.append(f"{prefix}: review is not bound to the current receipt")
-                if review.get("implementation_digest") != packet.get("implementation_digest"):
-                    errors.append(f"{prefix}: review is not bound to the current implementation")
-                if not isinstance(review.get("findings"), list):
-                    errors.append(f"{prefix}: review findings must be a list")
+                expected_verdict = "APPROVED" if stage in {"VERIFIED", "PROMOTED"} else stage
+                errors.extend(
+                    f"{prefix}: {error}"
+                    for error in validate_independent_review(
+                        review,
+                        executor=executor,
+                        receipt_sha256=sha256_file(receipt_path) if receipt_path else None,
+                        implementation_digest_value=packet.get("implementation_digest"),
+                        expected_verdict=expected_verdict,
+                        require_frugal_contract=frugal_contract,
+                    )
+                )
             except Exception as exc:
                 errors.append(f"{prefix}: invalid review: {exc}")
 
@@ -1181,6 +1313,19 @@ def _review_template() -> dict:
         "verdict": "PENDING",
         "receipt_sha256": None,
         "implementation_digest": None,
+        "promise": None,
+        "value": None,
+        "promise_met": None,
+        "falsification_attempt": None,
+        "falsification_evidence": None,
+        "falsification_outcome": None,
+        "decision_impact": None,
+        "false_negative_check": None,
+        "result_reversing": None,
+        "materiality": None,
+        "remedy": None,
+        "smallest_remedy": None,
+        "retained_evidence_reusable": None,
         "findings": [],
     }
 
@@ -1267,6 +1412,7 @@ def scaffold_packet(manifest_path: pathlib.Path, item_id: str, actor: str, root:
         "task_id": task["id"],
         "evidence_class": task["evidence_class"],
         "executor": actor,
+        "audit_contract": REVIEW_SCHEMA,
         "stage": "PROPOSED",
         "state_history": copy.deepcopy(task["state_history"]),
         "preregistration": {},
@@ -1330,6 +1476,11 @@ def advance_item(
 
     candidate_packet: dict | None = copy.deepcopy(packet) if packet is not None else None
     if candidate_packet is not None:
+        frugal_audit_transition = (
+            candidate_packet.get("audit_contract") == REVIEW_SCHEMA
+            and source == "EXECUTED"
+            and target in {"REJECTED", "BLOCKED"}
+        )
         candidate_packet["stage"] = target
         candidate_packet["state_history"].append(event)
         if target == "PREREGISTERED":
@@ -1354,14 +1505,14 @@ def advance_item(
             if not receipt.is_file():
                 raise ValueError(f"missing execution receipt: {receipt}")
             candidate_packet["execution"] = _file_record(root, receipt)
-        if target in {"VERIFIED", "REJECTED"}:
+        if target in {"VERIFIED", "REJECTED"} or frugal_audit_transition:
             result = packet_dir / "RESULT.md"
             if not result.is_file():
                 raise ValueError(f"missing result: {result}")
             candidate_packet["result"] = _file_record(root, result)
             if claim_codes:
                 candidate_packet["claim_codes"] = sorted(set(claim_codes))
-            if target == "VERIFIED":
+            if target == "VERIFIED" or frugal_audit_transition:
                 review = packet_dir / "REVIEW.json"
                 if not review.is_file():
                     raise ValueError(f"missing independent review: {review}")
@@ -1413,6 +1564,11 @@ def build_parser() -> argparse.ArgumentParser:
     rank_parser.add_argument("--json", action="store_true", dest="json_output")
     rank_parser.add_argument("--explain", action="store_true", help="show score source and rationale")
     rank_parser.add_argument("--include-terminal", action="store_true")
+    rank_parser.add_argument(
+        "--include-superseded",
+        action="store_true",
+        help="include historical predecessors displaced by successor packets",
+    )
 
     rebalance_parser = subparsers.add_parser(
         "rebalance", help="dry-run or apply explicit policy assessments"
@@ -1539,6 +1695,7 @@ def main(argv: list[str] | None = None) -> int:
                 manifest,
                 policy,
                 include_terminal=args.include_terminal,
+                include_superseded=args.include_superseded,
             )
             if args.json_output:
                 print(json.dumps(report, indent=2, ensure_ascii=False))

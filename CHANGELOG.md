@@ -6,6 +6,15 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added a single current-state handoff for the 137-record research ledger,
+  published repository SHAs and CI, SLX08 R11 closeout, 62 lineage tips and the
+  exact restart boundary for the next agent.
+- Admitted `BACKLOG-SLX08-SEMANTIC-PREFILL-12`, a 128-case natural-document
+  successor that charges embedding selection time and compares dense,
+  fixed-position and semantic half-context arms end to end.
+- Added the provider-neutral frugal independent-audit v2 contract: decision-first review,
+  evidence-backed falsification, mandatory false-negative search, materiality
+  classification and a smallest-sufficient-remedy ladder.
 - Materialized SLX08 selected-block prefill in the physical `slop.cpp` serving
   path behind `SLOP_EXPERIMENTAL_SLX08=1`, including fail-closed explicit block
   indices and response telemetry for route, selection mode and retained blocks.
@@ -148,6 +157,14 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Changed
 
+- Made portfolio ranking lineage-aware by default: displaced predecessors stay
+  immutable and inspectable through `--include-superseded`, but no longer look
+  like current executable work. Per-assessment digests also prevent unrelated
+  policy additions from generating priority-history churn. Added fixtures for
+  both views.
+- New packets now require an independent v2 review before an executed result
+  can be blocked or rejected. Non-material technical findings cannot force a
+  rerun, and full reruns fail closed while retained evidence is reusable.
 - Preserved the receipt-bound bytes of the R6, R8 and R9 autonomous SLX08
   terminal states across Windows and Linux checkouts. Portable CI now excludes
   only the cross-repository C++ source assertion; the backlog gate and all

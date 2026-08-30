@@ -45,6 +45,15 @@ counts, original and retained block counts, retained fraction and the exact
 selected indices. The implementation compacts tokens before the existing dense
 prefill path; it adds no CUDA kernel and makes no attention sparsity claim.
 
+Published implementation and checks:
+
+- `slop.cpp` commit
+  [`d2c6ce6d`](https://github.com/augusto-scarvalho/slop.cpp/commit/d2c6ce6d0e96f1d9951c6cdd40d6cae353cd371d), including the fork changelog;
+- [fork changelog CI](https://github.com/augusto-scarvalho/slop.cpp/actions/runs/33319602148), passed;
+- `tare.tools.local-labs` research closeout
+  [`8ed792c`](https://github.com/augusto-scarvalho/tare.tools.local-labs/commit/8ed792cd682b3c4db77a03c242cd44ba0c07a979);
+- [local-labs CI](https://github.com/augusto-scarvalho/tare.tools.local-labs/actions/runs/33318669712), passed.
+
 ## Experiment lineage
 
 | Packet | Outcome | Meaning |
@@ -134,11 +143,12 @@ prefill only. Four-digit codes are synthetic, although R11 uses prompt hashes
 disjoint from R10 and the naive arm demonstrates that missing evidence is not
 recovered by the code pattern.
 
-The next high-value step is a separate preregistered packet that includes
-selector time and uses natural long documents with a semantic or embedding
-selector. It should compare total end-to-end latency and answer quality against
-dense prefill and a position-only control. Until then, keep this route
-experimental and off by default.
+That next step is now admitted as
+`BACKLOG-SLX08-SEMANTIC-PREFILL-12`. It includes selector time and uses natural
+long documents with an embedding selector, comparing total end-to-end latency
+and answer quality against dense prefill and a position-only control. It remains
+`PROPOSED`; until independently qualified, keep the route experimental and off
+by default.
 
 ## Primary evidence
 

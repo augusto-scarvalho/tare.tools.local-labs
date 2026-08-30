@@ -3,7 +3,7 @@
 ## Purpose
 
 The current remediation backlog is executable policy, not a prose checklist.
-The pipeline prevents the failure modes found in the Gemini wave: fabricated or
+The pipeline prevents the failure modes found in the historical execution wave: fabricated or
 random decisive fields, proxy results promoted as hardware evidence, missing
 provenance, mutable receipts, unregistered work, changed thresholds after a
 run, dependency bypass and self-review.
@@ -62,9 +62,11 @@ the frugal policy documented in
 [`BACKLOG_PRIORITY_POLICY.md`](BACKLOG_PRIORITY_POLICY.md). `rank --explain` and
 `rebalance --dry-run` are read-only. `rebalance --apply --actor <identity>`
 atomically updates only explicitly assessed priority metadata; unassessed items
-keep their current P-band. The harness does not own this policy.
+keep their current P-band. Operational ranking excludes displaced predecessors
+by default; `rank --include-superseded` restores the complete lineage view. The
+harness does not own this policy.
 
-These 15 items reconcile the Gemini-remediation queue with the residual trigger
+These 15 items reconcile the historical remediation queue with the residual trigger
 register from the 2026-08-24 closeout. Parked themes, cancelled soaks and closed
 `HOLD`/negative results are deliberately not executable manifest items.
 
@@ -78,13 +80,15 @@ PROPOSED -> PREREGISTERED -> IMPLEMENTED -> EXECUTED -> VERIFIED -> PROMOTED
 BLOCKED -> PROPOSED
 ```
 
-- Gemini may preregister, implement and execute.
+- The designated executor may preregister, implement and execute.
 - The preregistration and implementation are SHA-256-bound before execution.
 - The receipt is bound to command, Git state, script, inputs and environment.
 - The gate engine compares every receipt metric/operator/threshold with the
   frozen manifest and recomputes `pass` from `actual`.
 - `VERIFIED` and `PROMOTED` require a reviewer and transition actor independent
-  of Gemini and the executor.
+  of the executor.
+- New v2 packets also require that independence for an executed result to become
+  `REJECTED` or `BLOCKED`, with a proved result-reversing decision impact.
 - `proxy_realization` is deliberately non-promotable. A proxy must become an
   eligible real evidence class in a separately reviewed backlog change.
 - Original raw receipts are immutable. A correction gets a successor packet.
@@ -97,21 +101,21 @@ Start with a clean gate and select the task:
 python tools/analysis/backlog_pipeline.py gate
 python tools/analysis/backlog_pipeline.py status
 python tools/analysis/backlog_pipeline.py next
-python tools/analysis/backlog_pipeline.py scaffold BACKLOG-ADAPT-REQUAL-01 --actor "Gemini 3.7"
+python tools/analysis/backlog_pipeline.py scaffold BACKLOG-ADAPT-REQUAL-01 --actor "Experiment Executor"
 ```
 
 Complete the generated `PRE_REGISTRATION.md`, including the exact executable
 command and no placeholders, then freeze it:
 
 ```powershell
-python tools/analysis/backlog_pipeline.py advance BACKLOG-ADAPT-REQUAL-01 --to PREREGISTERED --actor "Gemini 3.7"
+python tools/analysis/backlog_pipeline.py advance BACKLOG-ADAPT-REQUAL-01 --to PREREGISTERED --actor "Experiment Executor"
 ```
 
 After implementation and its deterministic tests pass, bind every relevant
 file. Repeat `--implementation` for each script, module or test:
 
 ```powershell
-python tools/analysis/backlog_pipeline.py advance BACKLOG-ADAPT-REQUAL-01 --to IMPLEMENTED --actor "Gemini 3.7" `
+python tools/analysis/backlog_pipeline.py advance BACKLOG-ADAPT-REQUAL-01 --to IMPLEMENTED --actor "Experiment Executor" `
   --implementation tools/research/run_adapter_requalification.py `
   --implementation tests/test_adapter_requalification.py
 ```
@@ -120,10 +124,10 @@ Run only the preregistered command. It must write
 `runs/research/<ID>/raw/receipt.json`, then:
 
 ```powershell
-python tools/analysis/backlog_pipeline.py advance BACKLOG-ADAPT-REQUAL-01 --to EXECUTED --actor "Gemini 3.7"
+python tools/analysis/backlog_pipeline.py advance BACKLOG-ADAPT-REQUAL-01 --to EXECUTED --actor "Experiment Executor"
 ```
 
-At this point Gemini writes `RESULT.md` but does not approve the work. It hands
+At this point the executor writes `RESULT.md` but does not approve the work. It hands
 the packet to an independent reviewer.
 
 ## Receipt contract
@@ -204,20 +208,19 @@ handoff, failure matrix, fixtures and live-canary runbook are documented in
 
 ## Independent review and closeout
 
-The reviewer inspects implementation, raw evidence, recomputed gates and scope
-of claims. `REVIEW.json` uses `local-labs-independent-review-v1` and binds the
-exact receipt SHA-256 plus the packet's `implementation_digest`:
+The reviewer audits the bounded promise and its decision value, not technical
+perfection. Newly scaffolded packets use
+`local-labs-independent-review-v2`, which binds the exact receipt and
+implementation while requiring an evidence-backed falsification attempt, a
+false-negative search, materiality classification and the smallest sufficient
+remedy. The complete contract and compact reviewer prompt are in
+[`FRUGAL_INDEPENDENT_AUDIT.md`](FRUGAL_INDEPENDENT_AUDIT.md).
 
-```json
-{
-  "schema": "local-labs-independent-review-v1",
-  "reviewer": "Codex",
-  "verdict": "APPROVED",
-  "receipt_sha256": "<sha256>",
-  "implementation_digest": "<digest from PIPELINE.json>",
-  "findings": []
-}
-```
+A negative review must prove a result-reversing defect that changes the stated
+business or research decision. Claim limits and non-blocking technical debt do
+not justify a rerun. Full reruns are invalid while retained evidence can support
+a rescore, targeted patch or minimal missing-cell run. Historical v1 reviews
+remain valid and immutable.
 
 An approved independent actor may then run:
 
@@ -226,23 +229,21 @@ python tools/analysis/backlog_pipeline.py advance BACKLOG-ADAPT-REQUAL-01 --to V
 python tools/analysis/backlog_pipeline.py advance BACKLOG-ADAPT-REQUAL-01 --to PROMOTED --actor Codex
 ```
 
-If a frozen gate fails, use `REJECTED` with the appropriate rejection claim.
-If an external prerequisite is absent, use `BLOCKED --reason "exact unblock
-condition"`. Never weaken a gate after seeing the result; create a reviewed
-successor task when the scientific question genuinely changes.
+If a decisive frozen gate fails under independent reconstruction, use
+`REJECTED` with the appropriate rejection claim. If an executed packet has a
+proved result-reversing evidence defect, use `BLOCKED --reason "smallest exact
+unblock condition"`. V2 packets require the independent `REVIEW.json` for both
+transitions. Never weaken a gate after seeing the result; create a reviewed
+successor only when the scientific question or treatment genuinely changes.
 
 ## CI enforcement
 
 `gate` validates manifest schema, evidence classes, full required-evidence
 sets, source paths, packet registration, dependency cycles, legal state
 history, file hashes, receipt fingerprint/provenance, frozen gate calculations,
-claim codes and reviewer independence. The unit suite also exercises a complete
-happy path and confirms that placeholders, malformed receipts, self-review and
-proxy promotion fail closed.
-
-The GitHub job runs 139 portable tests. It deselects exactly two local
-materialization assertions: the 1.56 GB frozen F16 GGUF and four predecessor
-PEFT checkpoints. Their absence is not silently accepted: the preceding
-repository-wide `gate` requires an exact committed path/SHA-256/byte receipt.
-On the research host, where those inputs remain materialized, the complete
-141-test suite still runs and passes.
+claim codes, reviewer independence and the frugal v2 burden of proof. The unit
+suite also exercises a complete happy path and confirms that placeholders,
+malformed receipts, self-review, proxy promotion, non-material blocking and
+unjustified full reruns fail closed. CI runs the portable suite while the
+repository-wide gate continues to enforce committed path/SHA-256/byte receipts
+for locally materialized research evidence.

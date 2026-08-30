@@ -26,6 +26,14 @@ Explain the current portfolio view without changing a file:
 python tools/analysis/backlog_pipeline.py rank --explain
 ```
 
+The default ranking contains only current lineage tips. A predecessor named by
+another item's `supersedes` field remains immutable in the manifest but is not
+shown as current work. Restore the historical view explicitly:
+
+```powershell
+python tools/analysis/backlog_pipeline.py rank --include-superseded --include-terminal
+```
+
 Preview only explicit assessment updates:
 
 ```powershell
@@ -43,6 +51,8 @@ python tools/analysis/backlog_pipeline.py rebalance --apply `
 and policy before mutation, changes only priority metadata, appends a bounded
 history event and validates the candidate manifest before its atomic replace.
 It never edits scientific state, dependencies, gates, claims or raw evidence.
+Each applied history row binds its own assessment digest. Adding an unrelated
+assessment therefore does not manufacture priority churn for unchanged items.
 
 ## Scoring contract
 

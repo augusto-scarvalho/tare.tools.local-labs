@@ -25,6 +25,7 @@ from tools.analysis.backlog_pipeline import (
     select_next,
     sha256_file,
     _validate_receipt,
+    validate_independent_review,
     validate_manifest,
     validate_priority_policy,
 )
@@ -185,6 +186,31 @@ def _valid_receipt(task: dict) -> dict:
     return receipt
 
 
+def _valid_review(receipt_sha256: str, implementation: str, verdict: str = "APPROVED") -> dict:
+    negative = verdict in {"REJECTED", "BLOCKED"}
+    return {
+        "schema": REVIEW_SCHEMA,
+        "reviewer": "Codex independent fixture",
+        "verdict": verdict,
+        "receipt_sha256": receipt_sha256,
+        "implementation_digest": implementation,
+        "promise": "The bounded experiment changes the target product decision.",
+        "value": "Avoids investing in a treatment that does not deliver its promised gain.",
+        "promise_met": not negative,
+        "falsification_attempt": "Attack the decisive frozen quality gate.",
+        "falsification_evidence": "Recomputed retained sample and receipt rows.",
+        "falsification_outcome": "Failure reproduced." if negative else "No reversing failure found.",
+        "decision_impact": "Reverse the target decision." if negative else "No decision change.",
+        "false_negative_check": "Recompute with a stricter scorer and inspect retained controls.",
+        "result_reversing": negative,
+        "materiality": "RESULT_REVERSING" if negative else "NON_BLOCKING",
+        "remedy": "RESCORE_RETAINED" if negative else "ACCEPT",
+        "smallest_remedy": "Reuse retained evidence; do not rerun the full experiment.",
+        "retained_evidence_reusable": True,
+        "findings": [],
+    }
+
+
 def test_current_backlog_is_valid_and_selects_adapter_requalification():
     assert gate_repository(DEFAULT_MANIFEST) == []
     manifest = load_json(DEFAULT_MANIFEST)
@@ -222,6 +248,52 @@ def test_rank_uses_explicit_assessment_without_rewriting_unassessed_items():
         "current_priority",
     )
     assert assessed["priority"] == 2
+
+
+def test_rank_hides_superseded_history_by_default_but_can_restore_it():
+    predecessor = _task()
+    successor = copy.deepcopy(predecessor)
+    successor["id"] = "BACKLOG-TEST-02"
+    successor["packet_dir"] = "runs/research/BACKLOG-TEST-02"
+    successor["supersedes"] = predecessor["id"]
+    manifest = {"schema": MANIFEST_SCHEMA, "items": [predecessor, successor]}
+    policy = _priority_policy()
+
+    current = rank_backlog(manifest, policy, generated_at="2026-08-30T00:00:00Z")
+    historical = rank_backlog(
+        manifest,
+        policy,
+        include_superseded=True,
+        generated_at="2026-08-30T00:00:00Z",
+    )
+
+    assert [row["id"] for row in current["items"]] == [successor["id"]]
+    assert current["superseded_history_count"] == 1
+    assert {row["id"] for row in historical["items"]} == {predecessor["id"], successor["id"]}
+
+
+def test_rank_does_not_churn_legacy_history_for_an_unrelated_policy_digest():
+    task = _task()
+    task["priority"] = 0
+    task["priority_score"] = 100.0
+    task["priority_history"] = [{
+        "from": 1,
+        "to": 0,
+        "score": 100.0,
+        "actor": "legacy fixture",
+        "at": "2026-08-29T00:00:00Z",
+        "reason": "Same assessment, older global policy digest.",
+        "change_trigger": "Unrelated assessment was added.",
+        "policy_sha256": "0" * 64,
+    }]
+
+    row = rank_backlog(
+        {"schema": MANIFEST_SCHEMA, "items": [task]},
+        _priority_policy(),
+        generated_at="2026-08-30T00:00:00Z",
+    )["items"][0]
+
+    assert row["changed"] is False
 
 
 def test_priority_policy_fails_closed_on_unknown_item_and_partial_scores():
@@ -292,6 +364,7 @@ def test_rebalance_dry_run_is_read_only_and_apply_is_atomic(tmp_path: pathlib.Pa
     assert (item["priority"], item["priority_score"], item["state"]) == (3, 0.0, "PROPOSED")
     assert item["priority_history"][-1]["from"] == 0
     assert item["priority_history"][-1]["to"] == 3
+    assert item["priority_history"][-1]["assessment_sha256"]
     assert gate_repository(manifest_path, root=tmp_path) == []
 
     revised_policy = load_json(policy_path)
@@ -412,19 +485,24 @@ def test_missing_source_without_external_receipt_is_rejected(tmp_path: pathlib.P
 
 def test_scaffold_is_draft_only_and_placeholders_block_preregistration(tmp_path: pathlib.Path):
     manifest_path = _write_manifest(tmp_path)
-    packet_dir = scaffold_packet(manifest_path, "BACKLOG-TEST-01", "Gemini 3.7", root=tmp_path)
+    packet_dir = scaffold_packet(manifest_path, "BACKLOG-TEST-01", "Executor", root=tmp_path)
 
     receipt_template = load_json(packet_dir / "RECEIPT.template.json")
     assert receipt_template["gates"]["quality"]["threshold"] is True
     assert set(receipt_template["evidence"]) == set(_task()["required_evidence"])
-    assert load_json(packet_dir / "REVIEW.template.json")["verdict"] == "PENDING"
+    review_template = load_json(packet_dir / "REVIEW.template.json")
+    assert review_template["schema"] == REVIEW_SCHEMA
+    assert review_template["verdict"] == "PENDING"
+    assert set(review_template) >= {
+        "promise", "value", "falsification_attempt", "false_negative_check", "materiality", "remedy"
+    }
 
     with pytest.raises(ValueError, match="placeholders"):
         advance_item(
             manifest_path,
             "BACKLOG-TEST-01",
             "PREREGISTERED",
-            "Gemini 3.7",
+            "Executor",
             root=tmp_path,
         )
 
@@ -434,9 +512,9 @@ def test_scaffold_is_draft_only_and_placeholders_block_preregistration(tmp_path:
 
 def test_full_happy_path_requires_valid_receipt_and_independent_review(tmp_path: pathlib.Path):
     manifest_path = _write_manifest(tmp_path)
-    packet_dir = scaffold_packet(manifest_path, "BACKLOG-TEST-01", "Gemini 3.7", root=tmp_path)
+    packet_dir = scaffold_packet(manifest_path, "BACKLOG-TEST-01", "Executor", root=tmp_path)
     _complete_preregistration(packet_dir / "PRE_REGISTRATION.md")
-    advance_item(manifest_path, "BACKLOG-TEST-01", "PREREGISTERED", "Gemini 3.7", root=tmp_path)
+    advance_item(manifest_path, "BACKLOG-TEST-01", "PREREGISTERED", "Executor", root=tmp_path)
 
     implementation = tmp_path / "tools" / "run_test.py"
     implementation.parent.mkdir(parents=True)
@@ -445,7 +523,7 @@ def test_full_happy_path_requires_valid_receipt_and_independent_review(tmp_path:
         manifest_path,
         "BACKLOG-TEST-01",
         "IMPLEMENTED",
-        "Gemini 3.7",
+        "Executor",
         root=tmp_path,
         implementation_paths=["tools/run_test.py"],
     )
@@ -455,27 +533,24 @@ def test_full_happy_path_requires_valid_receipt_and_independent_review(tmp_path:
         json.dumps(_valid_receipt(load_json(manifest_path)["items"][0]), indent=2) + "\n",
         encoding="utf-8",
     )
-    advance_item(manifest_path, "BACKLOG-TEST-01", "EXECUTED", "Gemini 3.7", root=tmp_path)
+    advance_item(manifest_path, "BACKLOG-TEST-01", "EXECUTED", "Executor", root=tmp_path)
 
     (packet_dir / "RESULT.md").write_text("# Result\n\nAll frozen gates passed.\n", encoding="utf-8")
     packet = load_json(packet_dir / "PIPELINE.json")
-    review = {
-        "schema": REVIEW_SCHEMA,
-        "reviewer": "Gemini independent",
-        "verdict": "APPROVED",
-        "receipt_sha256": sha256_file(receipt_path),
-        "implementation_digest": implementation_digest(packet["implementation"]),
-        "findings": [],
-    }
+    review = _valid_review(
+        sha256_file(receipt_path),
+        implementation_digest(packet["implementation"]),
+    )
+    review["reviewer"] = "Executor"
     review_path = packet_dir / "REVIEW.json"
     review_path.write_text(json.dumps(review, indent=2) + "\n", encoding="utf-8")
 
-    with pytest.raises(ValueError, match="independent of Gemini"):
+    with pytest.raises(ValueError, match="independent of the executor"):
         advance_item(
             manifest_path,
             "BACKLOG-TEST-01",
             "VERIFIED",
-            "Gemini 3.7",
+            "Executor",
             root=tmp_path,
             claim_codes=["TEST_QUALIFIED"],
         )
@@ -496,11 +571,64 @@ def test_full_happy_path_requires_valid_receipt_and_independent_review(tmp_path:
     assert load_json(manifest_path)["items"][0]["state"] == "PROMOTED"
 
 
-def test_invalid_receipt_cannot_advance_and_keeps_state_implemented(tmp_path: pathlib.Path):
+def test_frugal_review_requires_falsification_and_false_negative_search():
+    review = _valid_review("a" * 64, "b" * 64)
+    review["falsification_attempt"] = ""
+    review["false_negative_check"] = ""
+
+    errors = validate_independent_review(
+        review,
+        executor="Executor",
+        receipt_sha256="a" * 64,
+        implementation_digest_value="b" * 64,
+        expected_verdict="APPROVED",
+        require_frugal_contract=True,
+    )
+
+    assert "review requires falsification_attempt" in errors
+    assert "review requires false_negative_check" in errors
+
+
+def test_frugal_review_cannot_block_on_a_non_material_technical_finding():
+    review = _valid_review("a" * 64, "b" * 64, "BLOCKED")
+    review["result_reversing"] = False
+    review["materiality"] = "NON_BLOCKING"
+
+    errors = validate_independent_review(
+        review,
+        executor="Executor",
+        receipt_sha256="a" * 64,
+        implementation_digest_value="b" * 64,
+        expected_verdict="BLOCKED",
+        require_frugal_contract=True,
+    )
+
+    assert "negative review requires a proved result-reversing failure" in errors
+    assert "negative review requires RESULT_REVERSING materiality" in errors
+
+
+def test_frugal_review_forbids_full_rerun_while_retained_evidence_is_reusable():
+    review = _valid_review("a" * 64, "b" * 64, "REJECTED")
+    review["remedy"] = "RERUN_FULL"
+    review["retained_evidence_reusable"] = True
+
+    errors = validate_independent_review(
+        review,
+        executor="Executor",
+        receipt_sha256="a" * 64,
+        implementation_digest_value="b" * 64,
+        expected_verdict="REJECTED",
+        require_frugal_contract=True,
+    )
+
+    assert "full rerun is forbidden while retained evidence is reusable" in errors
+
+
+def test_executed_to_blocked_requires_independent_frugal_review(tmp_path: pathlib.Path):
     manifest_path = _write_manifest(tmp_path)
-    packet_dir = scaffold_packet(manifest_path, "BACKLOG-TEST-01", "Gemini 3.7", root=tmp_path)
+    packet_dir = scaffold_packet(manifest_path, "BACKLOG-TEST-01", "Executor", root=tmp_path)
     _complete_preregistration(packet_dir / "PRE_REGISTRATION.md")
-    advance_item(manifest_path, "BACKLOG-TEST-01", "PREREGISTERED", "Gemini 3.7", root=tmp_path)
+    advance_item(manifest_path, "BACKLOG-TEST-01", "PREREGISTERED", "Executor", root=tmp_path)
     implementation = tmp_path / "tools" / "run_test.py"
     implementation.parent.mkdir(parents=True)
     implementation.write_text("print('measured')\n", encoding="utf-8")
@@ -508,14 +636,66 @@ def test_invalid_receipt_cannot_advance_and_keeps_state_implemented(tmp_path: pa
         manifest_path,
         "BACKLOG-TEST-01",
         "IMPLEMENTED",
-        "Gemini 3.7",
+        "Executor",
+        root=tmp_path,
+        implementation_paths=["tools/run_test.py"],
+    )
+    receipt_path = packet_dir / "raw" / "receipt.json"
+    receipt_path.write_text(
+        json.dumps(_valid_receipt(load_json(manifest_path)["items"][0]), indent=2) + "\n",
+        encoding="utf-8",
+    )
+    advance_item(manifest_path, "BACKLOG-TEST-01", "EXECUTED", "Executor", root=tmp_path)
+    (packet_dir / "RESULT.md").write_text("# Result\n\nAudit found a material defect.\n", encoding="utf-8")
+    packet = load_json(packet_dir / "PIPELINE.json")
+    review = _valid_review(
+        sha256_file(receipt_path),
+        implementation_digest(packet["implementation"]),
+        "BLOCKED",
+    )
+    (packet_dir / "REVIEW.json").write_text(json.dumps(review, indent=2) + "\n", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="requires an independent actor"):
+        advance_item(
+            manifest_path,
+            "BACKLOG-TEST-01",
+            "BLOCKED",
+            "Executor",
+            root=tmp_path,
+            reason="Result-reversing audit defect.",
+        )
+
+    advance_item(
+        manifest_path,
+        "BACKLOG-TEST-01",
+        "BLOCKED",
+        "Codex independent fixture",
+        root=tmp_path,
+        reason="Result-reversing audit defect.",
+    )
+    assert gate_repository(manifest_path, root=tmp_path) == []
+
+
+def test_invalid_receipt_cannot_advance_and_keeps_state_implemented(tmp_path: pathlib.Path):
+    manifest_path = _write_manifest(tmp_path)
+    packet_dir = scaffold_packet(manifest_path, "BACKLOG-TEST-01", "Executor", root=tmp_path)
+    _complete_preregistration(packet_dir / "PRE_REGISTRATION.md")
+    advance_item(manifest_path, "BACKLOG-TEST-01", "PREREGISTERED", "Executor", root=tmp_path)
+    implementation = tmp_path / "tools" / "run_test.py"
+    implementation.parent.mkdir(parents=True)
+    implementation.write_text("print('measured')\n", encoding="utf-8")
+    advance_item(
+        manifest_path,
+        "BACKLOG-TEST-01",
+        "IMPLEMENTED",
+        "Executor",
         root=tmp_path,
         implementation_paths=["tools/run_test.py"],
     )
     (packet_dir / "raw" / "receipt.json").write_text('{"gates":{"quality":true}}\n', encoding="utf-8")
 
     with pytest.raises(ValueError, match="missing provenance"):
-        advance_item(manifest_path, "BACKLOG-TEST-01", "EXECUTED", "Gemini 3.7", root=tmp_path)
+        advance_item(manifest_path, "BACKLOG-TEST-01", "EXECUTED", "Executor", root=tmp_path)
 
     assert load_json(manifest_path)["items"][0]["state"] == "IMPLEMENTED"
     assert load_json(packet_dir / "PIPELINE.json")["stage"] == "IMPLEMENTED"
