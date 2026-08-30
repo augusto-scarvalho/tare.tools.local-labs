@@ -1,4 +1,4 @@
-# Current research handoff: SLX08 closeout and backlog — 2026-08-30
+# Current research and documentation handoff — 2026-08-30
 
 This is the current restart document for `tare.tools.local-labs`. Older
 handoffs remain valuable chronological evidence, but their embedded counts,
@@ -15,15 +15,35 @@ queue heads and service observations must not be treated as current state.
 - The next dependency-ready item is
   `BACKLOG-SLX08-SEMANTIC-PREFILL-12` (`P0`, score `94`).
 
+## Documentation authority
+
+Start at the [`documentation map`](README.md). It separates current state,
+machine-readable controls, operating methods, scientific results and historical
+evidence. This file is the only handoff labeled current.
+
+If prose disagrees with repository state, use this order:
+
+1. `config/research_backlog.json`, `config/qualified_model_fleet.json` and
+   registered packet receipts;
+2. this handoff for restart context and interpretation;
+3. the pipeline, watcher, priority and audit method documents;
+4. result reports and scientific catalogs;
+5. older dated handoffs as preserved history.
+
+`docs/HANDOFF.md` is a historical ledger. Its old “living backlog” title and
+embedded status labels do not control current execution.
+
 ## Published repository baseline
 
 | Repository | Published commit | Check |
 | --- | --- | --- |
-| `tare.tools.local-labs` research closeout | [`8ed792c`](https://github.com/augusto-scarvalho/tare.tools.local-labs/commit/8ed792cd682b3c4db77a03c242cd44ba0c07a979) | [local-labs CI passed](https://github.com/augusto-scarvalho/tare.tools.local-labs/actions/runs/33318669712) |
+| `tare.tools.local-labs` backlog and audit baseline | [`eb5b83a`](https://github.com/augusto-scarvalho/tare.tools.local-labs/commit/eb5b83ac116712c7e4b501b3c73b5d34f1292ba7) | [local-labs CI passed](https://github.com/augusto-scarvalho/tare.tools.local-labs/actions/runs/33321637697) |
 | `slop.cpp` physical implementation | [`d2c6ce6d`](https://github.com/augusto-scarvalho/slop.cpp/commit/d2c6ce6d0e96f1d9951c6cdd40d6cae353cd371d) | [fork changelog policy passed](https://github.com/augusto-scarvalho/slop.cpp/actions/runs/33319602148) |
 
-The commit containing this handoff is the authority for the newer 137-record
-backlog snapshot and lineage-aware ranking behavior described below.
+The local-labs baseline above published the 137-record backlog, lineage-aware
+ranking and provider-neutral frugal audit contract. At this documentation
+refresh, `backlog_pipeline.py gate` passes and the complete repository suite is
+`500 passed`.
 
 ## What SLX08 established
 
@@ -140,8 +160,18 @@ BACKLOG-SLX08-SEMANTIC-PREFILL-12 P0
 - Do not relaunch old nonterminal predecessors merely because `status` retains
   their historical state.
 
-## Last verified service closeout
+The independent audit is decision-first. A v2 auditor must identify the bounded
+promise and ecosystem value, attempt evidence-backed falsification and check for
+a false negative. It may send executed work back only for a proved
+result-reversing defect; non-material technical debt cannot force a rerun, and a
+full rerun is invalid while retained evidence supports a narrower remedy.
 
-At the end of R11, Qwen3.8 was restored on port 8080 and embeddings remained
-healthy on port 8081. This is a closeout receipt, not a permanent health claim;
-recheck live services before the next experiment.
+## Last verified service state
+
+Read-only recheck at `2026-08-30T13:12:22-03:00` reported the
+`qualified-model-gateway` healthy with `qwen38` resident, backend PID `365587`
+on private port `18080`, one-model residency and all six qualified routes
+advertised. The R11 closeout separately recorded embeddings healthy on port
+8081. These are timestamped observations, not permanent health claims; run
+`python tools/agents/modelctl.py status --json` and recheck embeddings before
+the next experiment.

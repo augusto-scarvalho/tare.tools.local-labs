@@ -12,6 +12,7 @@ and do not give an incumbent preference merely because it was qualified first.
 
 ## Key Files & Artifacts
 
+- [`../README.md`](../README.md): repository-wide documentation map and authority order; use it when deciding whether a document is current state, method, result or historical evidence.
 - [`../HANDOFF_2026-08-30_SLX08_CLOSEOUT_AND_CURRENT_BACKLOG.md`](../HANDOFF_2026-08-30_SLX08_CLOSEOUT_AND_CURRENT_BACKLOG.md): current restart point, published repository baseline, 137-record ledger, 62 current lineage tips, SLX08 R11 closeout and semantic R12 queue head.
 - [`FRUGAL_INDEPENDENT_AUDIT.md`](FRUGAL_INDEPENDENT_AUDIT.md): decision-first audit contract, result-reversing burden of proof, mandatory false-negative search, materiality classes and minimal-remedy ladder.
 - [`SLX08_RELEVANCE_PREFILL_2026-08-30.md`](SLX08_RELEVANCE_PREFILL_2026-08-30.md): physical selected-block prefill implementation, R5 rejection, R10 audit hold, exact-bound R11 confirmation, serving impact and bounded next steps.

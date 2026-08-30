@@ -1,24 +1,13 @@
-> **CURRENT RESEARCH HANDOFF (2026-08-29):** Read
-> [`HANDOFF_2026-08-29_FRUGAL_HARNESS_AND_BACKLOG.md`](HANDOFF_2026-08-29_FRUGAL_HARNESS_AND_BACKLOG.md)
-> first. It records the independently approved experiment harness, current
-> canonical backlog snapshot, and exact continuation boundary. Then read the
-> preserved campaign closeout
-> [`HANDOFF_2026-08-28_CONTINUOUS_RECOVERY_CLOSEOUT.md`](HANDOFF_2026-08-28_CONTINUOUS_RECOVERY_CLOSEOUT.md)
-> and its predecessor
-> [`HANDOFF_2026-08-28_REJECTED_HOLD_RECOVERY_WAVE.md`](HANDOFF_2026-08-28_REJECTED_HOLD_RECOVERY_WAVE.md).
-> The preserved 2026-08-28 closeout closes the scorer, SLX-03 and Q8 physical
-> follow-up wave and admits three dependency-ready retained-evidence successors. The
-> 2026-08-25 remediation handoff and former
-> `FINAL_CLOSEOUT` remain historical; the latter's 46/46 validation claim is
-> `SUPERSEDED`. For the hypothesis and literature map, see
-> [`research/COMPREHENSIVE_SCIENTIFIC_SYNTHESIS_2026.md`](research/COMPREHENSIVE_SCIENTIFIC_SYNTHESIS_2026.md) and
-> [`research/MASTER_RESEARCH_BACKLOG_2026.md`](research/MASTER_RESEARCH_BACKLOG_2026.md).
-> Their Gemini-era result labels require the evidence classification in the
-> remediation handoff; they are not all validated experiments.
+> **HISTORICAL LEDGER — NOT THE CURRENT HANDOFF.** Start with the
+> [`documentation map`](README.md) and the
+> [`2026-08-30 current handoff`](HANDOFF_2026-08-30_SLX08_CLOSEOUT_AND_CURRENT_BACKLOG.md).
+> The content below is preserved because it records earlier findings and
+> falsifications. Its queue order, service state and “in progress” labels are
+> historical snapshots and must not override the canonical backlog.
 
 <div align="center">
 
-# 📋 tare.tools.local-labs — Master Handoff & Living Backlog
+# 📋 tare.tools.local-labs — Historical Research Ledger
 
 **Canonical State Ledger: Settled Milestones (Realizado), Active Engineering Backlog (Em Andamento), and Falsified Epistemic Bounds (Encerrado).**
 

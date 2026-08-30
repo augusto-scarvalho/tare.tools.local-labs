@@ -27,6 +27,23 @@
 
 ---
 
+## Current state and documentation
+
+Start with the [`documentation map`](docs/README.md) and the
+[`current research handoff`](docs/HANDOFF_2026-08-30_SLX08_CLOSEOUT_AND_CURRENT_BACKLOG.md).
+Machine-readable backlog and model-fleet state remain authoritative over prose.
+
+```powershell
+python tools/analysis/backlog_pipeline.py next
+python tools/analysis/backlog_pipeline.py rank --explain
+python tools/agents/modelctl.py status
+```
+
+The dated reports under `docs/` are preserved experimental evidence; they are
+not competing live runbooks.
+
+---
+
 ## 🔬 Why tare.tools.local-labs?
 
 Running cutting-edge generative AI models (Qwen 3.8 / 3.6, Llama 3.3, Mamba-2, Gemma-4 VLM) on **constrained consumer hardware (1x 24GB GPU + 64GB Host RAM)** requires rigorous systems engineering and uncompromising scientific validation.
@@ -183,7 +200,8 @@ tare.tools.local-labs/
 │   └── gpu-stability/          # NVIDIA driver profiles & reboot prevention
 │
 ├── docs/                       # 📚 Curated Scientific Documentation
-│   ├── HANDOFF.md              # Living master handoff (Realizado / Em Andamento / Encerrado)
+│   ├── README.md               # Current documentation map and authority order
+│   ├── HANDOFF.md              # Preserved historical research ledger
 │   ├── RESEARCH_CATALOG.md     # Master scientific catalog & empirical taxonomy
 │   ├── campaigns/              # Focused empirical campaign deep-dives (a1 to vlm)
 │   └── architecture/           # System design & relay protocol specifications
@@ -200,8 +218,9 @@ tare.tools.local-labs/
 
 | Resource | Scope | Description |
 |---|---|---|
-| 📋 **[`2026-08-24 handoff`](docs/HANDOFF_2026-08-24_FABLE_HAUHAUCS_SERVING.md)** | **Current State** | Authoritative Fable-TC/HauhauCS serving, qualification, locale-control, and recovery state. |
-| 📚 **[`docs/HANDOFF.md`](docs/HANDOFF.md)** | **Historical Ledger** | Earlier Realizado / Em Andamento / Encerrado research ledger; dated handoffs supersede its live-state claims. |
+| 🧭 **[`docs/README.md`](docs/README.md)** | **Documentation Map** | Authority order and shortest route to current state, operations, methods and evidence. |
+| 📋 **[`2026-08-30 handoff`](docs/HANDOFF_2026-08-30_SLX08_CLOSEOUT_AND_CURRENT_BACKLOG.md)** | **Current State** | Current restart boundary, backlog interpretation, SLX08 closeout and next experiment. |
+| 📚 **[`docs/HANDOFF.md`](docs/HANDOFF.md)** | **Historical Ledger** | Earlier Realizado / Em Andamento / Encerrado research ledger; it no longer owns live-state claims. |
 | 📖 **[`docs/RESEARCH_CATALOG.md`](docs/RESEARCH_CATALOG.md)** | **Scientific Catalog** | Canonical research index covering all 7 pillars, methodologies, Pareto curves, and statistical deltas. |
 | 🛠️ **[`tools/README.md`](tools/README.md)** | **Tooling Index** | Comprehensive catalog of 60+ benchmarks, latency probes, promotion gates, and analysis scripts. |
 | 🚀 **[`ops/README.md`](ops/README.md)** | **Playbooks** | Operational guide for active bring-ups, recurrence suites, and serving campaigns. |
@@ -277,4 +296,4 @@ print(f"Promotion verdict: {result.verdict} (p-value: {result.p_value})")
 
 ## 📄 License
 
-Licensed under the **Apache License, Version 2.0**. See the [LICENSE](LICENSE) file for terms.
+Licensed under the [Apache License, Version 2.0](https://opensource.org/licenses/Apache-2.0).

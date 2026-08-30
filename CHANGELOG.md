@@ -157,6 +157,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Changed
 
+- Consolidated documentation navigation around one repository-wide map and one
+  current handoff. The root README now points to the 2026-08-30 restart state,
+  while the former living handoff is explicitly preserved as a historical
+  ledger rather than a competing source of live queue or service claims.
 - Made portfolio ranking lineage-aware by default: displaced predecessors stay
   immutable and inspectable through `--include-superseded`, but no longer look
   like current executable work. Per-assessment digests also prevent unrelated
