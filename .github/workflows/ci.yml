@@ -52,6 +52,7 @@ jobs:
         run: >-
           python -m pytest -q
           --deselect=tests/test_slx10_packed_runtime.py::test_frozen_f16_source_exists
+          --deselect=tests/test_slx08_relevance_prefill_r6.py::test_cpp_contract_exposes_mode_indices_and_fail_closed_validation
           --deselect=tests/test_trace_distillation_training_r3.py::test_frozen_continuation_sources_match
           --deselect=tests/test_trace_distillation_confirmation_r6.py::test_continuation_sources_bind_nine_complete_workers
           --deselect=tests/test_trace_distillation_replication_r8.py::test_second_panel_is_frozen_disjoint_and_source_bound

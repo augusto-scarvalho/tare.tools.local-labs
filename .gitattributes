@@ -24,6 +24,16 @@ runs/research/**/REVIEW.json -text
 runs/research/**/RESULT.md -text -eol -diff
 runs/research/**/runner.stderr.log -text -eol -diff
 
+# Autonomous SLX08 terminal states are frozen inputs to successor packets.
+# Preserve their Windows-authored bytes so their declared SHA-256 values are
+# identical on Windows and Linux checkouts.
+runs/autonomous/SLX08-RELEVANCE-R6-2026-08-30/FINAL.json -text -eol -diff
+runs/autonomous/SLX08-RELEVANCE-R6-2026-08-30/WORKER_EXIT.json -text -eol -diff
+runs/autonomous/SLX08-RELEVANCE-R8-2026-08-30/FINAL.json -text -eol -diff
+runs/autonomous/SLX08-RELEVANCE-R8-2026-08-30/WORKER_EXIT.json -text -eol -diff
+runs/autonomous/SLX08-RELEVANCE-R9-2026-08-30/FINAL.json -text -eol -diff
+runs/autonomous/SLX08-RELEVANCE-R9-2026-08-30/WORKER_EXIT.json -text -eol -diff
+
 # Binary — never diff or convert.
 *.db binary
 *.gguf binary

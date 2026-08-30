@@ -148,6 +148,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Changed
 
+- Preserved the receipt-bound bytes of the R6, R8 and R9 autonomous SLX08
+  terminal states across Windows and Linux checkouts. Portable CI now excludes
+  only the cross-repository C++ source assertion; the backlog gate and all
+  repository-contained SLX08 hash checks still run normally.
 - Promoted `BACKLOG-SLX08-RELEVANCE-PREFILL-11` after independent reconstruction
   of 378/378 rows. Exact-key relevance selection preserved 126/126 answers while
   halving evaluated prompt tokens, versus 54/126 for the position-only control;
