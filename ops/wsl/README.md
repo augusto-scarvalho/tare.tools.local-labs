@@ -66,3 +66,49 @@ wsl -d Ubuntu-24.04 -- bash -lc 'while true; do grep -q "=== DONE" ~/.cache/wslx
 ```
 
 Related memory: `wsl-from-bashtool-gotchas`, `wsl-disk-and-compaction`.
+
+## CPU policy: 24 for official serving, 20 for experiments
+
+The WSL VM exposes all 24 host logical processors. The systemd manager defaults
+new WSL work to CPUs `0-19`; this limit is inherited by experiment processes and
+their subprocesses, including WSL calls opened by Windows-side orchestrators.
+`llm-inference.service` alone overrides the default with CPUs `0-23`, so the
+qualified-model gateway and its private backend may use the full machine.
+
+Canonical files:
+
+- `cpu-policy/90-local-labs-experiment-cpu.conf` installs to
+  `/etc/systemd/system.conf.d/90-local-labs-experiment-cpu.conf`;
+- `cpu-policy/llm-inference-cpu.conf` installs to
+  `/etc/systemd/system/llm-inference.service.d/cpu-affinity.conf`;
+- `cpu-policy/local-labs-wsl-interop-affinity.service` limits PID 2 (`/init`),
+  whose descendants are commands opened directly by `wsl.exe`;
+- `%USERPROFILE%/.wslconfig` contains `processors=24`.
+
+Install the tracked policy files as root, enable the interop unit, then perform
+the guarded WSL restart described below:
+
+```powershell
+wsl -d Ubuntu-24.04 -u root -- install -D -m 0644 /mnt/c/projects/tare.tools.local-labs/ops/wsl/cpu-policy/90-local-labs-experiment-cpu.conf /etc/systemd/system.conf.d/90-local-labs-experiment-cpu.conf
+wsl -d Ubuntu-24.04 -u root -- install -D -m 0644 /mnt/c/projects/tare.tools.local-labs/ops/wsl/cpu-policy/llm-inference-cpu.conf /etc/systemd/system/llm-inference.service.d/cpu-affinity.conf
+wsl -d Ubuntu-24.04 -u root -- install -D -m 0644 /mnt/c/projects/tare.tools.local-labs/ops/wsl/cpu-policy/local-labs-wsl-interop-affinity.service /etc/systemd/system/local-labs-wsl-interop-affinity.service
+wsl -d Ubuntu-24.04 -u root -- systemctl enable local-labs-wsl-interop-affinity.service
+```
+
+The manager policy deliberately covers all ordinary WSL work rather than
+wrapping only the Windows watcher PID. The real experiment commands are Windows
+Python orchestrators that create independent WSL subprocesses, so parent-only
+affinity would not constrain the measured workload.
+
+After changing any of these files, verify the effective kernel and process
+affinities:
+
+```powershell
+python tools/analysis/wsl_cpu_policy.py --json
+```
+
+Expected result: `kernel_online_vcpus=24`, `experiment_vcpus=20`, and
+`serving_vcpus=24`. Treat a mismatch as a preflight failure for CPU-sensitive
+experiments. Changing the policy requires a full `wsl --shutdown`; first ensure
+no experiment is active, stop `llm-inference.service` through systemd, and
+restore the gateway, embedding service, runners and `WSL-KeepAlive` afterward.

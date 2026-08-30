@@ -48,6 +48,18 @@ O watcher não pode:
 O executor continua responsável por produzir evidência e restaurar o ambiente.
 O auditor independente continua responsável por conferir a ciência.
 
+### Limite de CPU herdado no WSL
+
+O WSL expõe 24 vCPUs, mas a política padrão do systemd limita processos comuns
+e seus descendentes a 20. `llm-inference.service` é a única exceção e recebe as
+24. A restrição fica no WSL, não apenas no PID Python lançado pelo watcher,
+porque os runners reais abrem subprocessos WSL independentes.
+
+Antes de um experimento sensível a CPU, execute
+`python tools/analysis/wsl_cpu_policy.py --json` e exija `ok=true`. O contrato,
+arquivos instaláveis e procedimento de reinício estão em
+[`ops/wsl/README.md`](../../ops/wsl/README.md).
+
 ### Terminal frugal do harness (opt-in)
 
 Runners novos podem usar `src/model_lifecycle/experiment_harness.py` e produzir

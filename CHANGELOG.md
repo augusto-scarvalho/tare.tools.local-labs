@@ -6,6 +6,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added and activated a reproducible WSL CPU policy: 24 vCPUs online, a
+  20-vCPU inherited ceiling for experiments and ordinary WSL work, and a
+  24-vCPU exception only for the official inference gateway/backend. Added a
+  live verifier and fixture coverage for each scope and failure mode.
 - Added a single current-state handoff for the 137-record research ledger,
   published repository SHAs and CI, SLX08 R11 closeout, 62 lineage tips and the
   exact restart boundary for the next agent.

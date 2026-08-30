@@ -168,10 +168,23 @@ full rerun is invalid while retained evidence supports a narrower remedy.
 
 ## Last verified service state
 
-Read-only recheck at `2026-08-30T13:12:22-03:00` reported the
-`qualified-model-gateway` healthy with `qwen38` resident, backend PID `365587`
-on private port `18080`, one-model residency and all six qualified routes
-advertised. The R11 closeout separately recorded embeddings healthy on port
-8081. These are timestamped observations, not permanent health claims; run
-`python tools/agents/modelctl.py status --json` and recheck embeddings before
-the next experiment.
+Verified recheck after two controlled WSL restarts at
+`2026-08-30T15:30:17-03:00` reported:
+
+- WSL kernel: 24 online vCPUs;
+- ordinary commands, experiments, embedding and all five GitHub runners:
+  CPUs `0-19`;
+- `llm-inference.service` gateway and Qwen3.8 backend: CPUs `0-23`;
+- gateway PID `162`, backend PID `336`, embedding PID `161`;
+- public gateway on 8080 and embeddings on 8081: HTTP 200;
+- `qwen38` resident, six qualified routes advertised and one-model residency;
+- `WSL-KeepAlive`: `Running`.
+
+The split is enforced inside WSL so subprocesses opened by Windows experiment
+orchestrators inherit the 20-vCPU ceiling. The official inference service is the
+only 24-vCPU exception. Verify it before CPU-sensitive work with
+`python tools/analysis/wsl_cpu_policy.py --json`; the expected result is
+`kernel=24`, `experiments=20`, `serving=24` and `ok=true`.
+
+These are timestamped observations, not permanent health claims. Recheck model
+status, embeddings and CPU policy before the next experiment.

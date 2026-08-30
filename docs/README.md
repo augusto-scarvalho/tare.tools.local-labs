@@ -34,6 +34,7 @@ health evidence.
 | Understand backlog state and receipts | [Backlog implementation pipeline](research/BACKLOG_IMPLEMENTATION_PIPELINE.md) |
 | Understand prioritization | [Backlog priority policy](research/BACKLOG_PRIORITY_POLICY.md) |
 | Run long experiment chains | [Experiment watcher](research/EXPERIMENT_WATCHER.md) |
+| Verify WSL CPU allocation | [WSL operations and CPU policy](../ops/wsl/README.md) |
 | Perform independent review | [Frugal independent audit](research/FRUGAL_INDEPENDENT_AUDIT.md) |
 | Discover qualified models | [Qualified model fleet](QUALIFIED_MODEL_FLEET.md) |
 | Browse scientific findings | [Research knowledge base](research/README.md) |
@@ -48,6 +49,8 @@ health evidence.
 - `tools/analysis/backlog_pipeline.py` validates and advances backlog packets.
 - `tools/analysis/watch_experiment_processes.py` observes authorized runs and
   may close execution, but cannot audit or promote them.
+- `tools/analysis/wsl_cpu_policy.py` verifies 24 online vCPUs, a 20-vCPU
+  experiment default and the 24-vCPU official-serving exception.
 - `config/qualified_model_fleet.json` defines the models agents may route
   through the OpenAI-compatible gateway.
 - `CHANGELOG.md` records material repository changes.

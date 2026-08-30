@@ -1,0 +1,13 @@
+[Unit]
+Description=Limit WSL interop experiment processes to 20 vCPUs
+After=systemd-remount-fs.service
+Before=multi-user.target
+
+[Service]
+Type=oneshot
+ExecCondition=/usr/bin/test /init -ef /proc/2/exe
+ExecStart=/usr/bin/taskset --pid --cpu-list 0-19 2
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
