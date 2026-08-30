@@ -1,0 +1,83 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-GDN02-LEARNED-STATE-03",
+  "evidence_class": "mechanism_research",
+  "executor": "Codex continuous executor",
+  "stage": "REJECTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex watcher recovery",
+      "at": "2026-08-29T20:26:41Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T20:27:09Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T20:27:46Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-29T20:29:37Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent GDN02 R3 closing auditor",
+      "at": "2026-08-29T21:02:29Z",
+      "reason": "Independent safetensors parsing and scorer-free vector arithmetic reproduce median leakage 12.2424% > 5% and update fidelity 86.6229% < 95% in the correctly identified literal-WSL run. Rejection is representation-level only; model path identity itself passed."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-GDN02-LEARNED-STATE-03/PRE_REGISTRATION.md",
+    "sha256": "3f72a3d0f978dda17ce6ffbf290f10bf82f74e0fa7e6545eb1ff25fdbd5ecc9d"
+  },
+  "implementation": [
+    {
+      "path": "src/model_lifecycle/experiment_harness.py",
+      "sha256": "fee8f3251cdbfc1b1543cbb65697bd51dfd19012a1e6b6007b25e1120e2a49c3"
+    },
+    {
+      "path": "tests/test_gdn02_learned_state_r3.py",
+      "sha256": "98b91e75271c0db2a8f4c587cd64b4f4ae4734d7b81788a2b9b42d4d3be50de3"
+    },
+    {
+      "path": "tools/research/gdn02_learned_state_worker_r2.py",
+      "sha256": "c89d21fa26c26197e6facac92cc13f175502e898c3eceffcb6313f839521f9e1"
+    },
+    {
+      "path": "tools/research/gdn02_retained_scorer.py",
+      "sha256": "a488bcd69196a3186a5ef2aeedb1427e80b409c77e8a9d753942c740f934f91e"
+    },
+    {
+      "path": "tools/research/run_gdn02_learned_state_r2.py",
+      "sha256": "da6520358d880ac8b4fd94265face19e0324a28dd538051d7f5a16fc9c378dc9"
+    },
+    {
+      "path": "tools/research/run_gdn02_learned_state_r3.py",
+      "sha256": "0850400ff93baa3c4d19f69bf52cefa2bf77d4bbc68a324d4f0dfc981fa64514"
+    }
+  ],
+  "implementation_digest": "233a0a1b8ef6df1df3c7ea8cae93b8dd716e8ba6875dc5c7e81533201d447a3e",
+  "execution": {
+    "path": "runs/research/BACKLOG-GDN02-LEARNED-STATE-03/raw/receipt.json",
+    "sha256": "4a863e712b6f389c61e5b2beb8cd5ac4a7bd30ac8c75c702534d390816eb69d2"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-GDN02-LEARNED-STATE-03/RESULT.md",
+    "sha256": "0fa12eb6d4de1faab42db70b40b94effbbd16d2846dbe981486ad74d09943a6d"
+  },
+  "review": {},
+  "claim_codes": [
+    "GDN02_RETAINED_WSL_IDENTITY_REJECTED_R3"
+  ]
+}

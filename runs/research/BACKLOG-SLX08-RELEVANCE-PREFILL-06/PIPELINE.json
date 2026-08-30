@@ -1,0 +1,52 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX08-RELEVANCE-PREFILL-06",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex R6 executor",
+  "stage": "IMPLEMENTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex R6 executor",
+      "at": "2026-08-30T13:31:44Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex R6 executor",
+      "at": "2026-08-30T13:32:25Z",
+      "reason": "Three-arm causal protocol frozen before measured requests."
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex R6 executor",
+      "at": "2026-08-30T13:35:45Z",
+      "reason": "Explicit-index route, three-arm runner, fail-closed fixtures and 26 focused tests implemented before measurement."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-06/PRE_REGISTRATION.md",
+    "sha256": "12e81ac83987c353331796e0fbccb95fa6790387e1ca93df3e15a1e08278625c"
+  },
+  "implementation": [
+    {
+      "path": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-06/IMPLEMENTATION.md",
+      "sha256": "ae9fc7d558f48820d4c391dbc64550da4904d037b126d94f6203511bed2aa525"
+    },
+    {
+      "path": "tests/test_slx08_relevance_prefill_r6.py",
+      "sha256": "90c94ada98db4cb6e975546f58e9d4aa0b24afd01ed115b563e2a7b6b2e32667"
+    },
+    {
+      "path": "tools/research/run_slx08_relevance_prefill_r6.py",
+      "sha256": "fccac2347d78c3307448fe30c4cdc25363863e01a935286263a86df034f847e2"
+    }
+  ],
+  "implementation_digest": "f60ac728ed8a835a4b6458b18567e36b1c4109241f0db9fcbfbc29923c32ca0a",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

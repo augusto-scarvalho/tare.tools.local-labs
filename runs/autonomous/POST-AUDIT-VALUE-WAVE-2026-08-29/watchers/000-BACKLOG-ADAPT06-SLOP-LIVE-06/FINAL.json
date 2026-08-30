@@ -1,0 +1,79 @@
+{
+  "schema": "local-labs-experiment-watch-final-v1",
+  "watch_id": "POST-AUDIT-VALUE-WAVE-2026-08-29-ADAPT06-R6",
+  "finished_at": "2026-08-29T20:19:34Z",
+  "status": "complete_with_alert",
+  "experiment_mode": true,
+  "states": {
+    "BACKLOG-ADAPT06-SLOP-LIVE-06": {
+      "status": "failed_worker_exit",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-29T20:19:33Z",
+        "receipt_exists": false,
+        "result_exists": false,
+        "stage_before": "IMPLEMENTED",
+        "progress": 1,
+        "progress_mode": "files",
+        "expected_progress": 1,
+        "harness_terminal": {
+          "present": true,
+          "valid": true,
+          "status": "ABORTED",
+          "task_id": "BACKLOG-ADAPT06-SLOP-LIVE-06",
+          "sample_count": 0,
+          "errors": []
+        },
+        "worker_exit": {
+          "present": true,
+          "valid": true,
+          "returncode": 1,
+          "timed_out": false,
+          "errors": []
+        },
+        "managed_backlog": true,
+        "status": "failed_worker_exit"
+      }
+    }
+  },
+  "pipeline_gate": {
+    "returncode": 0,
+    "stdout": "BACKLOG PIPELINE: PASS",
+    "stderr": ""
+  },
+  "backlog_queue": {
+    "refreshed_at": "2026-08-29T20:19:34Z",
+    "status_returncode": 0,
+    "next_returncode": 0,
+    "valid": true,
+    "priority_rebalance": {
+      "requested": false,
+      "returncode": null,
+      "valid": null,
+      "report": null
+    },
+    "state_counts": {
+      "BLOCKED": 40,
+      "EXECUTED": 22,
+      "IMPLEMENTED": 3,
+      "PREREGISTERED": 2,
+      "PROMOTED": 30,
+      "REJECTED": 22,
+      "VERIFIED": 1
+    },
+    "next_candidate": null
+  },
+  "completion_action": "inspect_alert_before_dispatch",
+  "audit_ready_ids": [],
+  "final_health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "final_gpu": {
+    "memory_used_mib": 19506,
+    "memory_free_mib": 4817,
+    "utilization_percent": 11,
+    "temperature_c": 33,
+    "power_w": 37.94
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-HYPER01-FACTORIZED-03",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "physical_targets": {
+      "metric": "physical_adapter_targets",
+      "operator": "eq",
+      "threshold": 4,
+      "actual": null,
+      "pass": null
+    },
+    "target_distinctness": {
+      "metric": "distinct_target_deltas",
+      "operator": "eq",
+      "threshold": 4,
+      "actual": null,
+      "pass": null
+    },
+    "completed_seeds": {
+      "metric": "completed_seeds",
+      "operator": "eq",
+      "threshold": 5,
+      "actual": null,
+      "pass": null
+    },
+    "latency": {
+      "metric": "median_synthesis_latency_ms",
+      "operator": "le",
+      "threshold": 5.0,
+      "actual": null,
+      "pass": null
+    },
+    "worst_seed_fidelity": {
+      "metric": "worst_seed_mean_cosine",
+      "operator": "ge",
+      "threshold": 0.95,
+      "actual": null,
+      "pass": null
+    },
+    "overhead": {
+      "metric": "generator_fp32_storage_mb",
+      "operator": "le",
+      "threshold": 20.0,
+      "actual": null,
+      "pass": null
+    },
+    "retained_states": {
+      "metric": "retained_seed_states",
+      "operator": "eq",
+      "threshold": 5,
+      "actual": null,
+      "pass": null
+    },
+    "independent_rows": {
+      "metric": "independently_recomputed_cosines",
+      "operator": "eq",
+      "threshold": 20,
+      "actual": null,
+      "pass": null
+    },
+    "service_recovery": {
+      "metric": "service_and_embedding_unchanged",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "real_implementation": null,
+    "receipt_fingerprint": null,
+    "repeatability": null,
+    "retained_tensors": null,
+    "semantic_parity": null,
+    "service_maintenance": null,
+    "target_materiality": null
+  },
+  "receipt_fingerprint": null
+}

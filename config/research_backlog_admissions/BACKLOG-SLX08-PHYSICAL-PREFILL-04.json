@@ -1,0 +1,45 @@
+{
+  "id": "BACKLOG-SLX08-PHYSICAL-PREFILL-04",
+  "priority": 1,
+  "title": "Materialize selected-block prefill in the physical serving runtime",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-04",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-SLX08-REAL-FIDELITY-03/raw/receipt.json",
+    "runs/research/BACKLOG-SLX08-REAL-FIDELITY-03/REVIEW.json",
+    "runs/research/BACKLOG-SLX08-REAL-FIDELITY-02/raw/context_vectors.safetensors",
+    "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md",
+    "tools/probes/slx08_speculative_prefill_oracle.py"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "dataset_hashes",
+    "effective_route", "failure_reproduction", "falsifiable_hypothesis",
+    "hardware_metrics", "independent_evaluation", "invalidation_rules",
+    "invariant_controls", "paired_baseline", "physical_route_telemetry",
+    "provenance", "raw_samples", "real_implementation", "receipt_fingerprint",
+    "recovery_state", "semantic_parity", "service_identity", "service_maintenance", "source_execution_receipt",
+    "treatment_materiality"
+  ],
+  "acceptance_gates": [
+    {"id": "physical_treatment", "metric": "physical_selected_block_prefill_requests", "operator": "ge", "threshold": 64},
+    {"id": "dense_control", "metric": "physical_dense_prefill_requests", "operator": "ge", "threshold": 64},
+    {"id": "route_observation", "metric": "selected_block_route_observation_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "retained_fraction", "metric": "median_retained_attention_fraction", "operator": "eq", "threshold": 0.5},
+    {"id": "semantic_noninferiority", "metric": "paired_accuracy_delta_ci95_low", "operator": "ge", "threshold": -0.03},
+    {"id": "ttft_gain", "metric": "paired_p50_ttft_speedup", "operator": "ge", "threshold": 1.10},
+    {"id": "tail_safety", "metric": "paired_p95_ttft_speedup", "operator": "ge", "threshold": 1.0},
+    {"id": "service_restore", "metric": "original_service_restored", "operator": "eq", "threshold": 1},
+    {"id": "embedding_integrity", "metric": "embedding_health", "operator": "eq", "threshold": 200}
+  ],
+  "allowed_claim_codes": [
+    "SLX08_PHYSICAL_SELECTED_BLOCK_PREFILL_QUALIFIED_R4",
+    "SLX08_PHYSICAL_SELECTED_BLOCK_PREFILL_REJECTED_R4"
+  ],
+  "forbidden_claims": [
+    "historical 1.40x gate inheritance", "production deployment", "quality beyond the frozen panel",
+    "unobserved kernel or route execution", "generalization to other models or context lengths"
+  ],
+  "next_action": "Implement an explicit OFF/ON selected-block prefill route in slop.cpp, instrument route use, and run 64 paired long-context requests per arm with frozen quality and TTFT gates.",
+  "supersedes": "BACKLOG-PROXY-REALIZATION-01"
+}

@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-BEE-L5-LIVE-GUARD-04",
   "evidence_class": "serving_runtime",
   "executor": "codex",
-  "stage": "EXECUTED",
+  "stage": "REJECTED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,13 @@
       "to": "EXECUTED",
       "actor": "codex",
       "at": "2026-08-26T01:05:52Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol independent fail-closed audit",
+      "at": "2026-08-29T21:11:28Z",
+      "reason": "Independent 16,811-timing recomputation confirms preregistered overhead p95 7.8 us/token exceeds 2.0; negative claim bounded to conjunctive R4 qualification"
     }
   ],
   "preregistration": {
@@ -53,7 +60,12 @@
     "path": "runs/research/BACKLOG-BEE-L5-LIVE-GUARD-04/raw/receipt.json",
     "sha256": "4c6b16dd0b3dd6efe85cd3abfa9301a6188d7f887288753610faec97d69fd4c3"
   },
-  "result": {},
+  "result": {
+    "path": "runs/research/BACKLOG-BEE-L5-LIVE-GUARD-04/RESULT.md",
+    "sha256": "1a6f00dac9ab51d20b9eeebd35355b97bace25b234c8864128f34b00da7146a4"
+  },
   "review": {},
-  "claim_codes": []
+  "claim_codes": [
+    "BEE_L5_FALSE_POSITIVE_CONFIRMED_R4"
+  ]
 }

@@ -12,6 +12,7 @@ and do not give an incumbent preference merely because it was qualified first.
 
 ## Key Files & Artifacts
 
+- [`SLX08_RELEVANCE_PREFILL_2026-08-30.md`](SLX08_RELEVANCE_PREFILL_2026-08-30.md): physical selected-block prefill implementation, R5 rejection, R10 audit hold, exact-bound R11 confirmation, serving impact and bounded next steps.
 - [`../HANDOFF_2026-08-27_INDEPENDENT_AUDIT_QUEUE.md`](../HANDOFF_2026-08-27_INDEPENDENT_AUDIT_QUEUE.md): current restart-safe handoff for the 80-record manifest and ordered 43-packet independent-audit queue, including successor-chain interpretation, review boundaries, operational baseline and stop conditions.
 - [`../../config/research_audit_queue.json`](../../config/research_audit_queue.json): machine-readable audit dispatch order; the manifest remains authoritative for live state.
 - [`../HANDOFF_2026-08-26_CONSOLIDATED_RESEARCH_BACKLOG.md`](../HANDOFF_2026-08-26_CONSOLIDATED_RESEARCH_BACKLOG.md): historical 52-record consolidation and detailed context for the first 20 executed review packets.

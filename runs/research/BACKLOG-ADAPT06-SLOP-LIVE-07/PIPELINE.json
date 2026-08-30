@@ -1,0 +1,74 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT06-SLOP-LIVE-07",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex continuous executor",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex watcher recovery",
+      "at": "2026-08-29T20:23:45Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T20:24:21Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T20:25:33Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-29T20:28:09Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "BLOCKED",
+      "actor": "GPT-5.6 Sol xhigh independent ADAPT06 R7 closing auditor",
+      "at": "2026-08-29T20:58:22Z",
+      "reason": "HOLD_FAIL_CLOSED: R7 is the commanded wrapper but receipt.provenance.script binds only R6 and omits R7 from provenance inputs; additionally 4/72 routed content hashes and 2/36 baseline hashes do not replay from sealed Unicode live rows. Physical results remain plausible, so no negative scientific claim is authorized."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/PRE_REGISTRATION.md",
+    "sha256": "e8865301663195eac4082db90af6c623e4f3261e72d0487223d11ffc4524f59f"
+  },
+  "implementation": [
+    {
+      "path": "src/model_lifecycle/experiment_harness.py",
+      "sha256": "fee8f3251cdbfc1b1543cbb65697bd51dfd19012a1e6b6007b25e1120e2a49c3"
+    },
+    {
+      "path": "tests/test_adapt06_slop_live_r7.py",
+      "sha256": "7bb0e1cd7b29e381f1bdfafe3f487b6beb67f1c98683469ed51283cdc9bc904f"
+    },
+    {
+      "path": "tools/research/run_adapt06_slop_live_r5.py",
+      "sha256": "7fc57290cf59fb826f18306e3e861a1019680206027b771203fb5e5441269922"
+    },
+    {
+      "path": "tools/research/run_adapt06_slop_live_r6.py",
+      "sha256": "4f1c94b180366123e65e94e2ccd395e29108bbf92813417d6a02f4ad39d80e20"
+    },
+    {
+      "path": "tools/research/run_adapt06_slop_live_r7.py",
+      "sha256": "a443b1bb7df3f42dafafd45b67c01605a5515297264a587a01463fa20d9b27c8"
+    }
+  ],
+  "implementation_digest": "db64f637ae76a08bfd3e6fef54b8ecfa0186045702cb852c0e40d7d803f81cfb",
+  "execution": {
+    "path": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/raw/receipt.json",
+    "sha256": "161ffd9b970fcb41791c70e876a75fb301db2c5fdf1aba6de345ec8fcf020552"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

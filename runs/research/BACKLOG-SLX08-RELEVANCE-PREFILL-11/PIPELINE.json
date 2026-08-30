@@ -1,0 +1,95 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX08-RELEVANCE-PREFILL-11",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex R11 executor",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex R11 executor",
+      "at": "2026-08-30T14:10:59Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex R11 executor",
+      "at": "2026-08-30T14:11:30Z",
+      "reason": "Balanced 126-case exact-bound protocol frozen after independent R10 hold."
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex R11 executor",
+      "at": "2026-08-30T14:13:05Z",
+      "reason": "Exact bound, 126-case balance and complete active engine chain verified; 27 focused tests pass."
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-30T14:30:19Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-30T14:34:24Z",
+      "reason": "Independent reconstruction confirmed 378 physical rows, fresh balanced 126-case panel, exact one-sided NI lower bound -0.023495238866670043, complete active-code binding and bounded claim."
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-30T14:34:24Z",
+      "reason": "All frozen gates and serving-runtime identities independently verified; promotion limited to exact-key client selection plus server token compaction on the frozen R11 tuple."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-11/PRE_REGISTRATION.md",
+    "sha256": "149324cba2066e19ee11c939e20af64b36ffb5377221d00fa3b31e16adde19d5"
+  },
+  "implementation": [
+    {
+      "path": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-11/IMPLEMENTATION.md",
+      "sha256": "ed1fdf15a2aef7cbf74e9b7ca3e2ab6e2f30f8c967c3c631f51757d314cdd606"
+    },
+    {
+      "path": "tests/test_slx08_relevance_prefill_r11.py",
+      "sha256": "3da3d65a53b030652b484f625977513d5174fb163ddca7b927d623d5fa01e627"
+    },
+    {
+      "path": "tools/research/run_slx08_physical_prefill_r4.py",
+      "sha256": "42141bffd6c51635f1b0ec6e1ff3b531f4c7ee2b8eca933ee3371b673b86bf6d"
+    },
+    {
+      "path": "tools/research/run_slx08_physical_prefill_r5.py",
+      "sha256": "42a0c405bedd7003a6d28b17152261ea690bf1fb5cd6ca6f3e18f6451fd94848"
+    },
+    {
+      "path": "tools/research/run_slx08_relevance_prefill_r11.py",
+      "sha256": "80d49d6637e22ccc409e6c520842f6c27ddd12171a88e1b3faec9db96e8eedf2"
+    },
+    {
+      "path": "tools/research/run_slx08_relevance_prefill_r6.py",
+      "sha256": "fccac2347d78c3307448fe30c4cdc25363863e01a935286263a86df034f847e2"
+    }
+  ],
+  "implementation_digest": "0ef12a2b0dc0a3d940ad7a8d5b40417023bae7117e5451d49238fc6b676d13b3",
+  "execution": {
+    "path": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-11/raw/receipt.json",
+    "sha256": "2d32c1fce9149d9cee46eeea725a0065c009e1287ec51f45c098bd846af8071f"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-11/RESULT.md",
+    "sha256": "b1e19e0cf9144011ceb4f3502dbb7ca5056eabc91a20ffedde4eab458012d610"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-11/REVIEW.json",
+    "sha256": "5088bbfc14919b09d0cf3d035cefc0fb6a77810aa3d9c4015d38dadba5d7f1d5"
+  },
+  "claim_codes": [
+    "SLX08_RELEVANCE_SELECTED_PREFILL_QUALIFIED_R11"
+  ]
+}

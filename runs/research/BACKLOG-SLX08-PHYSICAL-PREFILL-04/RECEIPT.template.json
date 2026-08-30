@@ -1,0 +1,97 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-SLX08-PHYSICAL-PREFILL-04",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "physical_treatment": {
+      "metric": "physical_selected_block_prefill_requests",
+      "operator": "ge",
+      "threshold": 64,
+      "actual": null,
+      "pass": null
+    },
+    "dense_control": {
+      "metric": "physical_dense_prefill_requests",
+      "operator": "ge",
+      "threshold": 64,
+      "actual": null,
+      "pass": null
+    },
+    "route_observation": {
+      "metric": "selected_block_route_observation_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "retained_fraction": {
+      "metric": "median_retained_attention_fraction",
+      "operator": "eq",
+      "threshold": 0.5,
+      "actual": null,
+      "pass": null
+    },
+    "semantic_noninferiority": {
+      "metric": "paired_accuracy_delta_ci95_low",
+      "operator": "ge",
+      "threshold": -0.03,
+      "actual": null,
+      "pass": null
+    },
+    "ttft_gain": {
+      "metric": "paired_p50_ttft_speedup",
+      "operator": "ge",
+      "threshold": 1.1,
+      "actual": null,
+      "pass": null
+    },
+    "tail_safety": {
+      "metric": "paired_p95_ttft_speedup",
+      "operator": "ge",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "service_restore": {
+      "metric": "original_service_restored",
+      "operator": "eq",
+      "threshold": 1,
+      "actual": null,
+      "pass": null
+    },
+    "embedding_integrity": {
+      "metric": "embedding_health",
+      "operator": "eq",
+      "threshold": 200,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "effective_route": null,
+    "failure_reproduction": null,
+    "falsifiable_hypothesis": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "invariant_controls": null,
+    "paired_baseline": null,
+    "physical_route_telemetry": null,
+    "provenance": null,
+    "raw_samples": null,
+    "real_implementation": null,
+    "receipt_fingerprint": null,
+    "recovery_state": null,
+    "semantic_parity": null,
+    "service_identity": null,
+    "service_maintenance": null,
+    "source_execution_receipt": null,
+    "treatment_materiality": null
+  },
+  "receipt_fingerprint": null
+}

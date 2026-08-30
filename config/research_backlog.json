@@ -1,6 +1,6 @@
 {
   "schema": "local-labs-backlog-v1",
-  "updated_at": "2026-08-29T19:43:08Z",
+  "updated_at": "2026-08-30T14:34:24Z",
   "policy": {
     "executor": "Gemini",
     "independent_review_required": true,
@@ -419,7 +419,7 @@
     },
     {
       "id": "BACKLOG-PROXY-REALIZATION-01",
-      "priority": 2,
+      "priority": 3,
       "title": "Materialize one proxy-only systems candidate",
       "state": "BLOCKED",
       "evidence_class": "proxy_realization",
@@ -476,11 +476,34 @@
           "actor": "Codex",
           "at": "2026-08-25T11:00:00Z"
         }
+      ],
+      "priority_score": 0.0,
+      "priority_history": [
+        {
+          "from": 2,
+          "to": 3,
+          "score": 0.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "Generic candidate-selection placeholder superseded by the concrete SLX08 physical-prefill entry.",
+          "change_trigger": "SLX08 R3 verified the offline fidelity mechanism and made it the selected physical systems candidate.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 3,
+          "to": 3,
+          "score": 0.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Generic candidate-selection placeholder superseded by the concrete SLX08 physical-prefill entry.",
+          "change_trigger": "SLX08 R3 verified the offline fidelity mechanism and made it the selected physical systems candidate.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
+        }
       ]
     },
     {
       "id": "BACKLOG-PACKED-HARDWARE-01",
-      "priority": 3,
+      "priority": 2,
       "title": "Validate packed compression or sparsity on hardware",
       "state": "BLOCKED",
       "evidence_class": "packed_artifact",
@@ -544,6 +567,29 @@
           "to": "BLOCKED",
           "actor": "Codex",
           "at": "2026-08-25T11:00:00Z"
+        }
+      ],
+      "priority_score": 56.0,
+      "priority_history": [
+        {
+          "from": 3,
+          "to": 2,
+          "score": 56.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "Packed hardware remains potentially valuable but generic; the concrete SLX08 physical route now offers a better-defined systems target.",
+          "change_trigger": "The audit converted SLX08 from proxy uncertainty into a concrete physical-integration candidate, reducing the value of an unselected generic packed experiment.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 2,
+          "to": 2,
+          "score": 56.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Packed hardware remains potentially valuable but generic; the concrete SLX08 physical route now offers a better-defined systems target.",
+          "change_trigger": "The audit converted SLX08 from proxy uncertainty into a concrete physical-integration candidate, reducing the value of an unselected generic packed experiment.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
         }
       ]
     },
@@ -652,9 +698,9 @@
     },
     {
       "id": "BACKLOG-MTP-PERSISTENCE-01",
-      "priority": 1,
+      "priority": 3,
       "title": "Root-cause intermittent MTP cache persistence failure",
-      "state": "EXECUTED",
+      "state": "BLOCKED",
       "evidence_class": "mechanism_research",
       "packet_dir": "runs/research/BACKLOG-MTP-PERSISTENCE-01",
       "depends_on": [],
@@ -710,7 +756,7 @@
         "cache promotion with intermittent mismatch"
       ],
       "next_action": "Form a new falsifiable cache-lifecycle hypothesis with invariant controls and explicit invalidation rules.",
-      "blocker": null,
+      "blocker": "Fail closed: legacy runner_state changed after receipt sealing, so no R1 claim is signed; terminal functional successor BACKLOG-MTP-PERSISTENCE-FUNCTIONAL-03 already resolves bounded reuse negatively.",
       "state_history": [
         {
           "from": null,
@@ -742,6 +788,36 @@
           "to": "EXECUTED",
           "actor": "Codex executor",
           "at": "2026-08-26T22:02:56Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "BLOCKED",
+          "actor": "GPT-5.6 Sol xhigh independent backlog-closure auditor",
+          "at": "2026-08-29T21:50:57Z",
+          "reason": "Fail closed: legacy runner_state changed after receipt sealing, so no R1 claim is signed; terminal functional successor BACKLOG-MTP-PERSISTENCE-FUNCTIONAL-03 already resolves bounded reuse negatively."
+        }
+      ],
+      "priority_score": 14.0,
+      "priority_history": [
+        {
+          "from": 1,
+          "to": 3,
+          "score": 14.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "Historical persistence attempt is displaced by the functional successor, whose frozen construct was rejected; no further retry is justified without a new runtime signal.",
+          "change_trigger": "Independent review separated deterministic save/restore file round-trip from actual restored-prefix reuse.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 3,
+          "to": 3,
+          "score": 14.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Historical persistence attempt is displaced by the functional successor, whose frozen construct was rejected; no further retry is justified without a new runtime signal.",
+          "change_trigger": "Independent review separated deterministic save/restore file round-trip from actual restored-prefix reuse.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
         }
       ]
     },
@@ -811,6 +887,29 @@
           "to": "BLOCKED",
           "actor": "Codex",
           "at": "2026-08-25T11:30:00Z"
+        }
+      ],
+      "priority_score": 53.0,
+      "priority_history": [
+        {
+          "from": 2,
+          "to": 2,
+          "score": 53.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "An official 3090-fit ThinkingCap Qwen3.8 artifact could improve the qualified fleet, but no such weights currently exist.",
+          "change_trigger": "Post-audit fleet coverage is strong enough that this remains an external artifact watch rather than an active experiment.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 2,
+          "to": 2,
+          "score": 53.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "An official 3090-fit ThinkingCap Qwen3.8 artifact could improve the qualified fleet, but no such weights currently exist.",
+          "change_trigger": "Post-audit fleet coverage is strong enough that this remains an external artifact watch rather than an active experiment.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
         }
       ]
     },
@@ -1017,6 +1116,26 @@
           "reason": "Blind human labels calibrate scorers across experiment families, but the required label packet does not yet exist.",
           "change_trigger": "Repeated independent audits recovered scorer-induced false negatives and exposed cross-cutting calibration risk.",
           "policy_sha256": "7d6b416c2fe75a0bf3be27a4700721a2988010591df4628136f8fdd1c34b3ac5"
+        },
+        {
+          "from": 1,
+          "to": 1,
+          "score": 79.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "Blind human labels calibrate scorers across experiment families, but the required label packet does not yet exist.",
+          "change_trigger": "The SLX08 audit added another concrete scorer-induced false negative to the existing cross-cutting calibration risk.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 1,
+          "to": 1,
+          "score": 79.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Blind human labels calibrate scorers across experiment families, but the required label packet does not yet exist.",
+          "change_trigger": "The SLX08 audit added another concrete scorer-induced false negative to the existing cross-cutting calibration risk.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
         }
       ]
     },
@@ -1092,7 +1211,7 @@
     },
     {
       "id": "BACKLOG-BEE-L2-KV-CODEC-01",
-      "priority": 3,
+      "priority": 2,
       "title": "Execute BEE-L2 qualification on a physical immutable KV codec",
       "state": "BLOCKED",
       "evidence_class": "kv_codec",
@@ -1156,6 +1275,29 @@
           "to": "BLOCKED",
           "actor": "Codex",
           "at": "2026-08-25T11:30:00Z"
+        }
+      ],
+      "priority_score": 58.0,
+      "priority_history": [
+        {
+          "from": 3,
+          "to": 2,
+          "score": 58.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "A physical immutable KV codec would benefit constrained serving, but no executable format or route receipt exists yet.",
+          "change_trigger": "The audit closed Q8 utility/concurrency positively while leaving codec-level physical realization as a distinct longer-term opportunity.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 2,
+          "to": 2,
+          "score": 58.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "A physical immutable KV codec would benefit constrained serving, but no executable format or route receipt exists yet.",
+          "change_trigger": "The audit closed Q8 utility/concurrency positively while leaving codec-level physical realization as a distinct longer-term opportunity.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
         }
       ]
     },
@@ -2004,7 +2146,7 @@
     },
     {
       "id": "BACKLOG-NEGATIVE-KV-REAL-SCREEN-02",
-      "priority": 0,
+      "priority": 2,
       "title": "Repeat the frozen five-candidate real Qwen KV screen after pre-measurement model-binding abort",
       "evidence_class": "proxy_realization",
       "packet_dir": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-02",
@@ -2177,8 +2319,8 @@
       ],
       "next_action": "Verify the frozen failed predecessor, change only model.model.language_model to model.model, and rerun the identical screen.",
       "supersedes": "BACKLOG-NEGATIVE-KV-REAL-SCREEN-01",
-      "state": "EXECUTED",
-      "blocker": null,
+      "state": "BLOCKED",
+      "blocker": "Aggregate metrics reproduce and no candidate is near reversal, but decisive tensors are not retained so mechanism metrics cannot be independently recomputed; receipt also names base script rather than R2 entrypoint",
       "state_history": [
         {
           "from": null,
@@ -2203,6 +2345,13 @@
           "to": "EXECUTED",
           "actor": "Codex executor",
           "at": "2026-08-26T00:14:30Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "BLOCKED",
+          "actor": "GPT-5.6 Sol independent fail-closed audit",
+          "at": "2026-08-29T21:13:45Z",
+          "reason": "Aggregate metrics reproduce and no candidate is near reversal, but decisive tensors are not retained so mechanism metrics cannot be independently recomputed; receipt also names base script rather than R2 entrypoint"
         }
       ],
       "external_source_receipts": {
@@ -2218,6 +2367,29 @@
           "at": "2026-08-26T10:34:17Z",
           "source": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-01/raw/worker.stderr.log",
           "evidence": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-02/raw/continuation_ledger.json"
+        }
+      ],
+      "priority_score": 57.0,
+      "priority_history": [
+        {
+          "from": 0,
+          "to": 2,
+          "score": 57.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "The five real-KV candidates remain scientifically interesting, but none is near its gate and retaining decisive tensors would be costly relative to expected reversal value.",
+          "change_trigger": "Independent audit preserved all negative indications but could not recompute them because activation and weight tensors were not retained.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 2,
+          "to": 2,
+          "score": 57.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "The five real-KV candidates remain scientifically interesting, but none is near its gate and retaining decisive tensors would be costly relative to expected reversal value.",
+          "change_trigger": "Independent audit preserved all negative indications but could not recompute them because activation and weight tensors were not retained.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
         }
       ]
     },
@@ -2334,7 +2506,7 @@
     },
     {
       "id": "BACKLOG-HYPER01-REAL-ADAPTER-01",
-      "priority": 0,
+      "priority": 2,
       "title": "Retest HYPER-01 rejection against four physical LoRA checkpoints",
       "evidence_class": "proxy_realization",
       "packet_dir": "runs/research/BACKLOG-HYPER01-REAL-ADAPTER-01",
@@ -2417,7 +2589,7 @@
       ],
       "next_action": "Replace random target LoRA matrices with one matched physical module from four frozen checkpoints and rerun the original gates.",
       "supersedes": null,
-      "state": "EXECUTED",
+      "state": "REJECTED",
       "blocker": null,
       "state_history": [
         {
@@ -2443,6 +2615,36 @@
           "to": "EXECUTED",
           "actor": "Codex executor",
           "at": "2026-08-26T00:21:48Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-29T20:57:33Z",
+          "reason": "Exact 19,059,456-parameter FP32 generator occupies 72.7060546875 MiB and decisively fails the frozen <=20 MiB conjunction; positive fidelity/latency scalars remain non-recomputable."
+        }
+      ],
+      "priority_score": 57.0,
+      "priority_history": [
+        {
+          "from": 0,
+          "to": 2,
+          "score": 57.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "Physical targets show strong fidelity potential, but the frozen FP32 resource gate fails decisively and a useful successor requires a distinct compressed-generator treatment.",
+          "change_trigger": "Independent audit proved the 72.7 MiB resource failure and found the trained generator and generated tensors absent from retained evidence.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 2,
+          "to": 2,
+          "score": 57.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Physical targets show strong fidelity potential, but the frozen FP32 resource gate fails decisively and a useful successor requires a distinct compressed-generator treatment.",
+          "change_trigger": "Independent audit proved the 72.7 MiB resource failure and found the trained generator and generated tensors absent from retained evidence.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
         }
       ]
     },
@@ -3482,7 +3684,7 @@
     },
     {
       "id": "BACKLOG-GDN02-LEARNED-STATE-01",
-      "priority": 0,
+      "priority": 3,
       "title": "Requalify GDN-02 on learned Qwen3.5 GatedDeltaNet states",
       "evidence_class": "mechanism_research",
       "packet_dir": "runs/research/BACKLOG-GDN02-LEARNED-STATE-01",
@@ -3586,6 +3788,29 @@
           "to": "EXECUTED",
           "actor": "Codex executor",
           "at": "2026-08-26T00:51:41Z"
+        }
+      ],
+      "priority_score": 0.0,
+      "priority_history": [
+        {
+          "from": 0,
+          "to": 3,
+          "score": 0.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "Preserved audit hold superseded by the retained-tensor R2 successor.",
+          "change_trigger": "R2 freezes the exact missing vectors and collateral projections.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 3,
+          "to": 3,
+          "score": 0.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Preserved audit hold superseded by the retained-tensor R2 successor.",
+          "change_trigger": "R2 freezes the exact missing vectors and collateral projections.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
         }
       ]
     },
@@ -4152,7 +4377,7 @@
     },
     {
       "id": "BACKLOG-BEE-L5-LIVE-GUARD-04",
-      "priority": 0,
+      "priority": 2,
       "title": "Rerun BEE-L5 live guard with byte-piece normalization",
       "evidence_class": "serving_runtime",
       "packet_dir": "runs/research/BACKLOG-BEE-L5-LIVE-GUARD-04",
@@ -4258,7 +4483,7 @@
       ],
       "next_action": "Repeat R3, normalizing only integer byte-array token pieces.",
       "supersedes": null,
-      "state": "EXECUTED",
+      "state": "REJECTED",
       "blocker": null,
       "state_history": [
         {
@@ -4284,12 +4509,42 @@
           "to": "EXECUTED",
           "actor": "codex",
           "at": "2026-08-26T01:05:52Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol independent fail-closed audit",
+          "at": "2026-08-29T21:11:28Z",
+          "reason": "Independent 16,811-timing recomputation confirms preregistered overhead p95 7.8 us/token exceeds 2.0; negative claim bounded to conjunctive R4 qualification"
+        }
+      ],
+      "priority_score": 58.0,
+      "priority_history": [
+        {
+          "from": 0,
+          "to": 2,
+          "score": 58.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "Early stream termination could reduce agent serving waste, but the current Python guard misses its overhead budget and lacks server-side cancellation evidence; redesign is needed before another run.",
+          "change_trigger": "Independent audit confirmed the strict overhead failure and showed that trigger presence was incorrectly used as proof of physical abort and token savings.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 2,
+          "to": 2,
+          "score": 58.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Early stream termination could reduce agent serving waste, but the current Python guard misses its overhead budget and lacks server-side cancellation evidence; redesign is needed before another run.",
+          "change_trigger": "Independent audit confirmed the strict overhead failure and showed that trigger presence was incorrectly used as proof of physical abort and token savings.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
         }
       ]
     },
     {
       "id": "BACKLOG-ADAPT06-SLOP-LIVE-01",
-      "priority": 0,
+      "priority": 3,
       "title": "Materialize ADAPT-06 and SLOP multi-adapter routing in live serving",
       "evidence_class": "serving_runtime",
       "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-01",
@@ -4434,11 +4689,34 @@
           "at": "2026-08-26T01:11:32Z",
           "reason": "Frozen artifacts are LoKr and cannot be materialized by active LoRA converter; successor freezes actual LoRA checkpoints."
         }
+      ],
+      "priority_score": 0.0,
+      "priority_history": [
+        {
+          "from": 0,
+          "to": 3,
+          "score": 0.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "Archived failed predecessor; R6 is the only current two-adapter qualification question.",
+          "change_trigger": "R6 admission consolidates the five prior failure modes.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 3,
+          "to": 3,
+          "score": 0.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Archived failed predecessor; R6 is the only current two-adapter qualification question.",
+          "change_trigger": "R6 admission consolidates the five prior failure modes.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
+        }
       ]
     },
     {
       "id": "BACKLOG-ADAPT06-SLOP-LIVE-02",
-      "priority": 0,
+      "priority": 3,
       "title": "Materialize live multi-adapter routing with two real LoRA checkpoints",
       "evidence_class": "serving_runtime",
       "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-02",
@@ -4578,11 +4856,34 @@
           "at": "2026-08-26T01:13:39Z",
           "reason": "Unprivileged systemd stop left original daemon active; successor uses root and asserts port-down handoff."
         }
+      ],
+      "priority_score": 0.0,
+      "priority_history": [
+        {
+          "from": 0,
+          "to": 3,
+          "score": 0.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "Archived failed predecessor; R6 is the only current two-adapter qualification question.",
+          "change_trigger": "R6 admission consolidates the five prior failure modes.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 3,
+          "to": 3,
+          "score": 0.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Archived failed predecessor; R6 is the only current two-adapter qualification question.",
+          "change_trigger": "R6 admission consolidates the five prior failure modes.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
+        }
       ]
     },
     {
       "id": "BACKLOG-ADAPT06-SLOP-LIVE-03",
-      "priority": 0,
+      "priority": 3,
       "title": "Run live multi-adapter audit with privileged verified service handoff",
       "evidence_class": "serving_runtime",
       "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-03",
@@ -4722,11 +5023,34 @@
           "at": "2026-08-26T01:19:42Z",
           "reason": "LoRAs are Qwen3.5-0.8B but active Fable GGUF has incompatible tensor shapes; successor converts matching frozen base."
         }
+      ],
+      "priority_score": 0.0,
+      "priority_history": [
+        {
+          "from": 0,
+          "to": 3,
+          "score": 0.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "Archived failed predecessor; R6 is the only current two-adapter qualification question.",
+          "change_trigger": "R6 admission consolidates the five prior failure modes.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 3,
+          "to": 3,
+          "score": 0.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Archived failed predecessor; R6 is the only current two-adapter qualification question.",
+          "change_trigger": "R6 admission consolidates the five prior failure modes.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
+        }
       ]
     },
     {
       "id": "BACKLOG-ADAPT06-SLOP-LIVE-04",
-      "priority": 0,
+      "priority": 3,
       "title": "Run multi-adapter audit on matching physical Qwen3.5 base",
       "evidence_class": "serving_runtime",
       "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-04",
@@ -4866,11 +5190,34 @@
           "at": "2026-08-26T01:23:06Z",
           "reason": "Restoration comparator included volatile systemd PID/start_time fields; successor compares immutable path+argv only."
         }
+      ],
+      "priority_score": 0.0,
+      "priority_history": [
+        {
+          "from": 0,
+          "to": 3,
+          "score": 0.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "Archived failed predecessor; R6 is the only current two-adapter qualification question.",
+          "change_trigger": "R6 admission consolidates the five prior failure modes.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 3,
+          "to": 3,
+          "score": 0.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Archived failed predecessor; R6 is the only current two-adapter qualification question.",
+          "change_trigger": "R6 admission consolidates the five prior failure modes.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
+        }
       ]
     },
     {
       "id": "BACKLOG-ADAPT06-SLOP-LIVE-05",
-      "priority": 0,
+      "priority": 3,
       "title": "Rerun live multi-adapter audit with normalized restoration identity",
       "evidence_class": "serving_runtime",
       "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-05",
@@ -5008,6 +5355,29 @@
           "to": "EXECUTED",
           "actor": "codex",
           "at": "2026-08-26T01:25:01Z"
+        }
+      ],
+      "priority_score": 0.0,
+      "priority_history": [
+        {
+          "from": 0,
+          "to": 3,
+          "score": 0.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "Preserved audit hold superseded by R6; do not rerun or treat its unbound auxiliary rows as qualification evidence.",
+          "change_trigger": "R6 directly binds the missing schedules and route-correct counterfactuals.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 3,
+          "to": 3,
+          "score": 0.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Preserved audit hold superseded by R6; do not rerun or treat its unbound auxiliary rows as qualification evidence.",
+          "change_trigger": "R6 directly binds the missing schedules and route-correct counterfactuals.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
         }
       ]
     },
@@ -5355,7 +5725,7 @@
     },
     {
       "id": "BACKLOG-SLX10-PACKED-RUNTIME-01",
-      "priority": 0,
+      "priority": 3,
       "title": "Materialize SLX-10 IQ2_XXS as immutable GGUF and live runtime",
       "evidence_class": "serving_runtime",
       "packet_dir": "runs/research/BACKLOG-SLX10-PACKED-RUNTIME-01",
@@ -5494,6 +5864,29 @@
           "at": "2026-08-26T10:28:50Z",
           "source": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-05/raw/qwen3.5-0.8b-base-f16.gguf",
           "evidence": "runs/research/BACKLOG-SLX10-PACKED-RUNTIME-02/raw/artifact_hashes.json"
+        }
+      ],
+      "priority_score": 12.0,
+      "priority_history": [
+        {
+          "from": 0,
+          "to": 3,
+          "score": 12.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "Historical IQ2 attempt is displaced by a supported Q2_K successor that failed its physical size and semantic gates.",
+          "change_trigger": "Independent R2 audit showed the standard mixed Q2_K artifact is not a qualifying substitute and no immutable importance matrix exists for IQ2.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 3,
+          "to": 3,
+          "score": 12.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Historical IQ2 attempt is displaced by a supported Q2_K successor that failed its physical size and semantic gates.",
+          "change_trigger": "Independent R2 audit showed the standard mixed Q2_K artifact is not a qualifying substitute and no immutable importance matrix exists for IQ2.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
         }
       ]
     },
@@ -5872,8 +6265,8 @@
       ],
       "next_action": "Inspect and execute the official local Qwen3.5 hybrid checkpoint, verifying every declared layer type and fresh physical forwards.",
       "supersedes": null,
-      "state": "EXECUTED",
-      "blocker": null,
+      "state": "BLOCKED",
+      "blocker": "R1 finite-output gate is not independently recomputable from retained evidence; terminal promoted R2 supersedes and resolves the blocker",
       "state_history": [
         {
           "from": null,
@@ -5898,6 +6291,13 @@
           "to": "EXECUTED",
           "actor": "Codex executor",
           "at": "2026-08-26T01:52:49Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "BLOCKED",
+          "actor": "GPT-5.6 Sol independent fail-closed audit",
+          "at": "2026-08-29T21:07:37Z",
+          "reason": "R1 finite-output gate is not independently recomputable from retained evidence; terminal promoted R2 supersedes and resolves the blocker"
         }
       ]
     },
@@ -6252,8 +6652,8 @@
         "determinism beyond the frozen greedy request contract"
       ],
       "next_action": "Run two complete frozen passes over 32 GSM8K, 16 protected QA and eight agent-tool cases for qwen38, hauhaucs, fable-tc and qwen36-moe through the qualified gateway, then restore the initially resident route.",
-      "state": "EXECUTED",
-      "blocker": null,
+      "state": "BLOCKED",
+      "blocker": "R1 terminal runner state and inherited source are not receipt-stable; promoted R2 successor binds final state and supersedes R1",
       "state_history": [
         {
           "from": null,
@@ -6278,6 +6678,13 @@
           "to": "EXECUTED",
           "actor": "Codex executor",
           "at": "2026-08-26T21:51:15Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "BLOCKED",
+          "actor": "GPT-5.6 Sol independent fail-closed audit",
+          "at": "2026-08-29T21:08:29Z",
+          "reason": "R1 terminal runner state and inherited source are not receipt-stable; promoted R2 successor binds final state and supersedes R1"
         }
       ]
     },
@@ -6479,8 +6886,8 @@
         "causal benefit from priming"
       ],
       "next_action": "Rescore all 44 immutable observations using successful save/restore counts, tokens_cached, exact output and oracle evidence; retain timings.cache_n only as the reproduced stale-field defect.",
-      "state": "EXECUTED",
-      "blocker": null,
+      "state": "BLOCKED",
+      "blocker": "Independent review rejects the functional-persistence interpretation, but the frozen receipt has no failed syntactic gate; fail closed because the proxy cannot establish restored-prefix reuse.",
       "state_history": [
         {
           "from": null,
@@ -6505,6 +6912,13 @@
           "to": "EXECUTED",
           "actor": "Codex executor",
           "at": "2026-08-26T23:42:12Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "BLOCKED",
+          "actor": "Codex backlog reconciler",
+          "at": "2026-08-29T21:06:43Z",
+          "reason": "Independent review rejects the functional-persistence interpretation, but the frozen receipt has no failed syntactic gate; fail closed because the proxy cannot establish restored-prefix reuse."
         }
       ]
     },
@@ -6596,8 +7010,8 @@
         "reliability beyond the frozen 30-switch campaign"
       ],
       "next_action": "Run five rotated cycles over all six registered aliases, verifying route identity, four deterministic text probes, embedding health, service PID/restarts and restoration after every cold switch.",
-      "state": "EXECUTED",
-      "blocker": null,
+      "state": "BLOCKED",
+      "blocker": "R1 has three materialized provenance mismatches and conflates HTTP transport with semantic success; promoted R2 supersedes with bounded rebind",
       "state_history": [
         {
           "from": null,
@@ -6622,6 +7036,13 @@
           "to": "EXECUTED",
           "actor": "Codex executor",
           "at": "2026-08-26T23:53:30Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "BLOCKED",
+          "actor": "GPT-5.6 Sol independent fail-closed audit",
+          "at": "2026-08-29T21:09:32Z",
+          "reason": "R1 has three materialized provenance mismatches and conflates HTTP transport with semantic success; promoted R2 supersedes with bounded rebind"
         }
       ]
     },
@@ -8765,7 +9186,7 @@
     },
     {
       "id": "BACKLOG-QWEN38-KV-PRECISION-02",
-      "priority": 0,
+      "priority": 3,
       "title": "Qualify Qwen3.8 Q8_0 KV cache as the bounded compromise after Q4_0 divergence",
       "evidence_class": "serving_runtime",
       "packet_dir": "runs/research/BACKLOG-QWEN38-KV-PRECISION-02",
@@ -8872,8 +9293,8 @@
       ],
       "next_action": "Run a fresh-process F16-Q8_0-Q8_0-F16 crossover on the same frozen panel and stop after R2 regardless of outcome.",
       "supersedes": "BACKLOG-QWEN38-KV-PRECISION-01",
-      "state": "EXECUTED",
-      "blocker": null,
+      "state": "BLOCKED",
+      "blocker": "Fail closed: legacy runner_state changed after receipt sealing, so no R2 claim is signed; retained exact-parity rejection is non-reversing and later promoted successors resolve bounded Q8 utility, long-context, and concurrency.",
       "state_history": [
         {
           "from": null,
@@ -8898,6 +9319,36 @@
           "to": "EXECUTED",
           "actor": "Codex executor watcher",
           "at": "2026-08-27T20:11:32Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "BLOCKED",
+          "actor": "GPT-5.6 Sol xhigh independent backlog-closure auditor",
+          "at": "2026-08-29T21:50:58Z",
+          "reason": "Fail closed: legacy runner_state changed after receipt sealing, so no R2 claim is signed; retained exact-parity rejection is non-reversing and later promoted successors resolve bounded Q8 utility, long-context, and concurrency."
+        }
+      ],
+      "priority_score": 14.0,
+      "priority_history": [
+        {
+          "from": 0,
+          "to": 3,
+          "score": 14.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "Frozen family stop after R2; corrected formatting still misses exact-parity qualification and utility/concurrency successors already answer the practical question.",
+          "change_trigger": "Independent audits promoted bounded Q8 utility and two-slot concurrency while preserving R2 exact-parity failure.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 3,
+          "to": 3,
+          "score": 14.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Frozen family stop after R2; corrected formatting still misses exact-parity qualification and utility/concurrency successors already answer the practical question.",
+          "change_trigger": "Independent audits promoted bounded Q8 utility and two-slot concurrency while preserving R2 exact-parity failure.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
         }
       ]
     },
@@ -13380,7 +13831,7 @@
     },
     {
       "id": "BACKLOG-FLEET-CONTEXT-ENVELOPE-04",
-      "priority": 0,
+      "priority": 3,
       "title": "Rebind and independently recompute the retained fleet context envelope",
       "evidence_class": "serving_runtime",
       "packet_dir": "runs/research/BACKLOG-FLEET-CONTEXT-ENVELOPE-04",
@@ -13532,7 +13983,7 @@
           "at": "2026-08-29T13:34:05Z"
         }
       ],
-      "priority_score": 100.0,
+      "priority_score": 0.0,
       "priority_history": [
         {
           "from": 0,
@@ -13543,12 +13994,22 @@
           "reason": "Closes the qualified fleet capability envelope from 72 retained physical rows without new inference.",
           "change_trigger": "Independent audit identified mutable final-source binding as the only remaining blocker.",
           "policy_sha256": "7d6b416c2fe75a0bf3be27a4700721a2988010591df4628136f8fdd1c34b3ac5"
+        },
+        {
+          "from": 0,
+          "to": 3,
+          "score": 0.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Preserved digest-contract false-negative predecessor superseded by promoted R5.",
+          "change_trigger": "Independent review closed the canonical-digest correction in BACKLOG-FLEET-CONTEXT-ENVELOPE-05.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
         }
       ]
     },
     {
       "id": "BACKLOG-FLEET-CONTEXT-INTERFERENCE-02",
-      "priority": 0,
+      "priority": 3,
       "title": "Rebind and independently recompute retained fleet context interference",
       "evidence_class": "serving_runtime",
       "packet_dir": "runs/research/BACKLOG-FLEET-CONTEXT-INTERFERENCE-02",
@@ -13759,7 +14220,7 @@
           "reason": "R2 wrapper aborted before receipt due recursive context function substitution; preserve terminal evidence and replace with versioned successor"
         }
       ],
-      "priority_score": 98.0,
+      "priority_score": 0.0,
       "priority_history": [
         {
           "from": 0,
@@ -13770,6 +14231,16 @@
           "reason": "Turns retained hard-decoy evidence into an auditable interference boundary for agent context routing.",
           "change_trigger": "The predecessor retained 72 physical rows and requires source rebinding rather than new inference.",
           "policy_sha256": "7d6b416c2fe75a0bf3be27a4700721a2988010591df4628136f8fdd1c34b3ac5"
+        },
+        {
+          "from": 0,
+          "to": 3,
+          "score": 0.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Preserved wrapper-abort predecessor superseded by promoted R3.",
+          "change_trigger": "Independent review closed the corrected retained interference experiment in BACKLOG-FLEET-CONTEXT-INTERFERENCE-03.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
         }
       ]
     },
@@ -15307,6 +15778,2957 @@
           "actor": "GPT-5.6 Sol xhigh independent audit instance",
           "at": "2026-08-29T19:43:08Z",
           "reason": "Independent binary parsing and fixed-order recomputation exactly reproduce all 24 canonical cosines; bounded retained-evidence false-negative claim approved."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-GDN02-LEARNED-STATE-02",
+      "priority": 1,
+      "title": "Requalify learned GDN state editing with retained decisive tensors",
+      "evidence_class": "mechanism_research",
+      "packet_dir": "runs/research/BACKLOG-GDN02-LEARNED-STATE-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-GDN02-LEARNED-STATE-01/raw/receipt.json",
+        "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md",
+        "tools/research/run_gdn02_learned_state.py",
+        "tools/research/gdn02_learned_state_worker.py",
+        "workloads/gsm8k.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "retained_state_bundle",
+        "semantic_parity",
+        "source_execution_receipt",
+        "target_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "learned_states",
+          "metric": "learned_gdn_layer_cells",
+          "operator": "ge",
+          "threshold": 3
+        },
+        {
+          "id": "retained_cells",
+          "metric": "retained_decisive_layer_cells",
+          "operator": "eq",
+          "threshold": 3
+        },
+        {
+          "id": "retained_collateral",
+          "metric": "retained_collateral_cosines",
+          "operator": "eq",
+          "threshold": 147
+        },
+        {
+          "id": "independent_recompute",
+          "metric": "recomputed_metric_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "target_leakage",
+          "metric": "median_old_fact_leakage_pct",
+          "operator": "le",
+          "threshold": 5.0
+        },
+        {
+          "id": "collateral_retention",
+          "metric": "median_collateral_retention_pct",
+          "operator": "ge",
+          "threshold": 90.0
+        },
+        {
+          "id": "update_fidelity",
+          "metric": "median_updated_fact_fidelity_pct",
+          "operator": "ge",
+          "threshold": 95.0
+        },
+        {
+          "id": "state_materiality",
+          "metric": "distinct_recurrent_state_conditions",
+          "operator": "ge",
+          "threshold": 3
+        }
+      ],
+      "allowed_claim_codes": [
+        "GDN02_LEARNED_STATE_WITH_RETAINED_TENSORS_QUALIFIED_R2",
+        "GDN02_LEARNED_STATE_WITH_RETAINED_TENSORS_REJECTED_R2"
+      ],
+      "forbidden_claims": [
+        "full-model behavioral editing",
+        "serving integration",
+        "permanent knowledge erasure",
+        "generalization beyond frozen records/layers",
+        "causal claims without retained vector recomputation"
+      ],
+      "next_action": "Repeat the frozen three learned-state cells while retaining output/state vectors and all 49 collateral cosines per layer in a digest-bound bundle for independent recomputation.",
+      "supersedes": "BACKLOG-GDN02-LEARNED-STATE-01",
+      "state": "BLOCKED",
+      "blocker": "Attempt sealed ABORTED before model load: the Windows runner represented the absolute WSL model path as pathlib.Path, converting it to backslashes before argv handoff. Successor must freeze and pass the model path as a literal POSIX string.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:01:44Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T20:15:57Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T20:22:33Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex watcher closeout",
+          "at": "2026-08-29T20:26:02Z",
+          "reason": "Attempt sealed ABORTED before model load: the Windows runner represented the absolute WSL model path as pathlib.Path, converting it to backslashes before argv handoff. Successor must freeze and pass the model path as a literal POSIX string."
+        }
+      ],
+      "priority_score": 76.0,
+      "priority_history": [
+        {
+          "from": 1,
+          "to": 1,
+          "score": 76.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "Retaining three decisive state cells and 147 collateral cosines can cheaply close a novel learned-state editing question with independently recomputable evidence.",
+          "change_trigger": "Independent audit found the R1 negative indication scientifically unsigned only because decisive vectors and per-record collateral values were not retained.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 1,
+          "to": 1,
+          "score": 76.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Retaining three decisive state cells and 147 collateral cosines can cheaply close a novel learned-state editing question with independently recomputable evidence.",
+          "change_trigger": "Independent audit found the R1 negative indication scientifically unsigned only because decisive vectors and per-record collateral values were not retained.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT06-SLOP-LIVE-06",
+      "priority": 0,
+      "title": "Qualify two-adapter client affinity with bound schedules and route counterfactuals",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-06",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-05/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-05/raw/live_rows.json",
+        "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md",
+        "tools/research/run_adapt06_slop_live_r5.py",
+        "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/checkpoint_seed_20260824/adapter_model.safetensors",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/checkpoints/seed_20260824_full_trace/adapter_model.safetensors"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "cache_schedule_rows",
+        "counterfactual_baselines",
+        "dataset_hashes",
+        "effective_route",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "recovery_state",
+        "route_logs",
+        "semantic_parity",
+        "service_identity",
+        "service_maintenance",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "adapter_conversion",
+          "metric": "converted_adapters",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "adapter_loading",
+          "metric": "loaded_adapters",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "behavioral_materiality",
+          "metric": "prompts_with_distinct_route_outputs",
+          "operator": "ge",
+          "threshold": 4
+        },
+        {
+          "id": "bound_live_rows",
+          "metric": "digest_bound_live_rows",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "isolated_counterfactuals",
+          "metric": "route_correct_counterfactual_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "route_isolation",
+          "metric": "routed_exact_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "cross_route_isolation",
+          "metric": "cross_route_contamination_count",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "affinity_switch_reduction",
+          "metric": "requested_route_switch_reduction",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "affinity_parity",
+          "metric": "schedule_semantic_parity",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT06_TWO_ADAPTER_CLIENT_AFFINITY_QUALIFIED_R6",
+        "ADAPT06_TWO_ADAPTER_CLIENT_AFFINITY_REJECTED_R6"
+      ],
+      "forbidden_claims": [
+        "server-native affinity scheduler",
+        "fused multi-adapter GEMM",
+        "production deployment",
+        "cache correctness without route-correct counterfactuals",
+        "generalization beyond two frozen adapters"
+      ],
+      "next_action": "Repeat the bounded two-adapter live route with final cache/schedule rows and logs receipt-bound before finalization, and compare every switched output to an isolated route-correct baseline.",
+      "supersedes": "BACKLOG-ADAPT06-SLOP-LIVE-05",
+      "state": "BLOCKED",
+      "blocker": "Attempt sealed ABORTED before service mutation: R5 helper assumed systemd ExecStart was llama-server with -m, but port 8080 is now the qualified-model gateway. Successor must resolve a frozen physical llama-server binary independently of gateway ExecStart and restore the gateway identity.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:02:04Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T20:15:56Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T20:18:21Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex watcher closeout",
+          "at": "2026-08-29T20:22:27Z",
+          "reason": "Attempt sealed ABORTED before service mutation: R5 helper assumed systemd ExecStart was llama-server with -m, but port 8080 is now the qualified-model gateway. Successor must resolve a frozen physical llama-server binary independently of gateway ExecStart and restore the gateway identity."
+        }
+      ],
+      "priority_score": 89.0,
+      "priority_history": [
+        {
+          "from": 0,
+          "to": 0,
+          "score": 89.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "Two real adapters already route successfully; binding schedules and isolated route counterfactuals can qualify a reusable specialization primitive for tare.tools agents with little new machinery.",
+          "change_trigger": "Independent audit found a bounded live positive but held R5 because cache and schedule rows were outside the receipt and lacked route-correct counterfactuals.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 0,
+          "to": 0,
+          "score": 89.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "Two real adapters already route successfully; binding schedules and isolated route counterfactuals can qualify a reusable specialization primitive for tare.tools agents with little new machinery.",
+          "change_trigger": "Independent audit found a bounded live positive but held R5 because cache and schedule rows were outside the receipt and lacked route-correct counterfactuals.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX08-PHYSICAL-PREFILL-04",
+      "priority": 0,
+      "title": "Materialize selected-block prefill in the physical serving runtime",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-04",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-SLX08-REAL-FIDELITY-03/raw/receipt.json",
+        "runs/research/BACKLOG-SLX08-REAL-FIDELITY-03/REVIEW.json",
+        "runs/research/BACKLOG-SLX08-REAL-FIDELITY-02/raw/context_vectors.safetensors",
+        "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md",
+        "tools/probes/slx08_speculative_prefill_oracle.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "effective_route",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "physical_route_telemetry",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "recovery_state",
+        "semantic_parity",
+        "service_identity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "physical_treatment",
+          "metric": "physical_selected_block_prefill_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "dense_control",
+          "metric": "physical_dense_prefill_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "route_observation",
+          "metric": "selected_block_route_observation_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "retained_fraction",
+          "metric": "median_retained_attention_fraction",
+          "operator": "eq",
+          "threshold": 0.5
+        },
+        {
+          "id": "semantic_noninferiority",
+          "metric": "paired_accuracy_delta_ci95_low",
+          "operator": "ge",
+          "threshold": -0.03
+        },
+        {
+          "id": "ttft_gain",
+          "metric": "paired_p50_ttft_speedup",
+          "operator": "ge",
+          "threshold": 1.1
+        },
+        {
+          "id": "tail_safety",
+          "metric": "paired_p95_ttft_speedup",
+          "operator": "ge",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX08_PHYSICAL_SELECTED_BLOCK_PREFILL_QUALIFIED_R4",
+        "SLX08_PHYSICAL_SELECTED_BLOCK_PREFILL_REJECTED_R4"
+      ],
+      "forbidden_claims": [
+        "historical 1.40x gate inheritance",
+        "production deployment",
+        "quality beyond the frozen panel",
+        "unobserved kernel or route execution",
+        "generalization to other models or context lengths"
+      ],
+      "next_action": "Implement an explicit OFF/ON selected-block prefill route in slop.cpp, instrument route use, and run 64 paired long-context requests per arm with frozen quality and TTFT gates.",
+      "supersedes": "BACKLOG-PROXY-REALIZATION-01",
+      "state": "IMPLEMENTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:02:04Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T20:15:57Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "BLOCKED",
+          "actor": "Codex physical implementation preflight",
+          "at": "2026-08-29T20:29:12Z",
+          "reason": "Clean slop.cpp commit 34b3dac7c has DFlash and dense prefill but no callable selected-block prefill control or per-request route telemetry. No treatment can be launched without fabricating ON. Unblock after a separately reviewed physical implementation and fixture/build evidence exist; see packet IMPLEMENTATION_BLOCKER.md."
+        },
+        {
+          "from": "BLOCKED",
+          "to": "PROPOSED",
+          "actor": "Codex SLX08 executor",
+          "at": "2026-08-30T00:52:36Z",
+          "reason": "User authorized the bounded private-fork server implementation and the immutable CUDA build is available."
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex SLX08 executor",
+          "at": "2026-08-30T00:52:36Z",
+          "reason": "Existing preregistration hash revalidated before physical execution."
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex SLX08 executor",
+          "at": "2026-08-30T00:52:37Z",
+          "reason": "Experimental OFF/ON route compiled successfully and fixture tests passed 8/8."
+        }
+      ],
+      "priority_score": 80.0,
+      "priority_history": [
+        {
+          "from": 1,
+          "to": 0,
+          "score": 80.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:22Z",
+          "reason": "A physical selected-block prefill route could improve long-context latency across serving consumers and turn the verified offline mechanism into a community-relevant systems result.",
+          "change_trigger": "R3 independently verified the retained-context fidelity false negative, removing the offline-mechanism uncertainty while leaving runtime integration as the decisive gap.",
+          "policy_sha256": "c2858f5057ee49857b8b5c987d0e6345a0b014fb187e1947aece123d9286ae1e"
+        },
+        {
+          "from": 0,
+          "to": 0,
+          "score": 80.0,
+          "actor": "Codex post-audit portfolio review",
+          "at": "2026-08-29T20:04:53Z",
+          "reason": "A physical selected-block prefill route could improve long-context latency across serving consumers and turn the verified offline mechanism into a community-relevant systems result.",
+          "change_trigger": "R3 independently verified the retained-context fidelity false negative, removing the offline-mechanism uncertainty while leaving runtime integration as the decisive gap.",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT06-SLOP-LIVE-07",
+      "priority": 0,
+      "title": "Qualify two-adapter client affinity behind the qualified-model gateway",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-06/raw/run.terminal.json",
+        "tools/research/run_adapt06_slop_live_r6.py",
+        "tools/research/run_adapt06_slop_live_r5.py",
+        "config/qualified_model_fleet.json",
+        "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/checkpoint_seed_20260824/adapter_model.safetensors",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/checkpoints/seed_20260824_full_trace/adapter_model.safetensors"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "cache_schedule_rows",
+        "counterfactual_baselines",
+        "dataset_hashes",
+        "effective_route",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "recovery_state",
+        "route_logs",
+        "semantic_parity",
+        "service_identity",
+        "service_maintenance",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "adapter_conversion",
+          "metric": "converted_adapters",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "adapter_loading",
+          "metric": "loaded_adapters",
+          "operator": "eq",
+          "threshold": 2
+        },
+        {
+          "id": "behavioral_materiality",
+          "metric": "prompts_with_distinct_route_outputs",
+          "operator": "ge",
+          "threshold": 4
+        },
+        {
+          "id": "bound_live_rows",
+          "metric": "digest_bound_live_rows",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "isolated_counterfactuals",
+          "metric": "route_correct_counterfactual_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "route_isolation",
+          "metric": "routed_exact_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "cross_route_isolation",
+          "metric": "cross_route_contamination_count",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "affinity_switch_reduction",
+          "metric": "requested_route_switch_reduction",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "affinity_parity",
+          "metric": "schedule_semantic_parity",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT06_GATEWAY_BOUND_CLIENT_AFFINITY_QUALIFIED_R7",
+        "ADAPT06_GATEWAY_BOUND_CLIENT_AFFINITY_REJECTED_R7"
+      ],
+      "forbidden_claims": [
+        "server-native affinity scheduler",
+        "fused multi-adapter GEMM",
+        "production deployment",
+        "cache correctness without route-correct counterfactuals",
+        "generalization beyond two frozen adapters"
+      ],
+      "next_action": "Resolve the temporary llama-server binary from the frozen qualified fleet rather than gateway ExecStart, bind the actual gateway before/after identity, and repeat the R6 harness treatment.",
+      "supersedes": "BACKLOG-ADAPT06-SLOP-LIVE-06",
+      "state": "BLOCKED",
+      "blocker": "HOLD_FAIL_CLOSED: R7 is the commanded wrapper but receipt.provenance.script binds only R6 and omits R7 from provenance inputs; additionally 4/72 routed content hashes and 2/36 baseline hashes do not replay from sealed Unicode live rows. Physical results remain plausible, so no negative scientific claim is authorized.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex watcher recovery",
+          "at": "2026-08-29T20:23:45Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T20:24:21Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T20:25:33Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-29T20:28:09Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "BLOCKED",
+          "actor": "GPT-5.6 Sol xhigh independent ADAPT06 R7 closing auditor",
+          "at": "2026-08-29T20:58:22Z",
+          "reason": "HOLD_FAIL_CLOSED: R7 is the commanded wrapper but receipt.provenance.script binds only R6 and omits R7 from provenance inputs; additionally 4/72 routed content hashes and 2/36 baseline hashes do not replay from sealed Unicode live rows. Physical results remain plausible, so no negative scientific claim is authorized."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-GDN02-LEARNED-STATE-03",
+      "priority": 1,
+      "title": "Requalify retained GDN state with literal WSL model identity",
+      "evidence_class": "mechanism_research",
+      "packet_dir": "runs/research/BACKLOG-GDN02-LEARNED-STATE-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-GDN02-LEARNED-STATE-02/raw/run.terminal.json",
+        "tools/research/run_gdn02_learned_state_r2.py",
+        "tools/research/gdn02_learned_state_worker_r2.py",
+        "tools/research/gdn02_retained_scorer.py",
+        "workloads/gsm8k.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "retained_state_bundle",
+        "semantic_parity",
+        "source_execution_receipt",
+        "target_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "learned_states",
+          "metric": "learned_gdn_layer_cells",
+          "operator": "ge",
+          "threshold": 3
+        },
+        {
+          "id": "retained_cells",
+          "metric": "retained_decisive_layer_cells",
+          "operator": "eq",
+          "threshold": 3
+        },
+        {
+          "id": "retained_collateral",
+          "metric": "retained_collateral_cosines",
+          "operator": "eq",
+          "threshold": 147
+        },
+        {
+          "id": "independent_recompute",
+          "metric": "recomputed_metric_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "target_leakage",
+          "metric": "median_old_fact_leakage_pct",
+          "operator": "le",
+          "threshold": 5.0
+        },
+        {
+          "id": "collateral_retention",
+          "metric": "median_collateral_retention_pct",
+          "operator": "ge",
+          "threshold": 90.0
+        },
+        {
+          "id": "update_fidelity",
+          "metric": "median_updated_fact_fidelity_pct",
+          "operator": "ge",
+          "threshold": 95.0
+        },
+        {
+          "id": "state_materiality",
+          "metric": "distinct_recurrent_state_conditions",
+          "operator": "ge",
+          "threshold": 3
+        }
+      ],
+      "allowed_claim_codes": [
+        "GDN02_RETAINED_WSL_IDENTITY_QUALIFIED_R3",
+        "GDN02_RETAINED_WSL_IDENTITY_REJECTED_R3"
+      ],
+      "forbidden_claims": [
+        "full-model behavioral editing",
+        "serving integration",
+        "permanent knowledge erasure",
+        "generalization beyond frozen records/layers",
+        "causal claims without retained vector recomputation"
+      ],
+      "next_action": "Pass the frozen model directory as a literal POSIX string and repeat the otherwise unchanged harness-bound R2 worker and scorer.",
+      "supersedes": "BACKLOG-GDN02-LEARNED-STATE-02",
+      "state": "REJECTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex watcher recovery",
+          "at": "2026-08-29T20:26:41Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T20:27:09Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T20:27:46Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-29T20:29:37Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent GDN02 R3 closing auditor",
+          "at": "2026-08-29T21:02:29Z",
+          "reason": "Independent safetensors parsing and scorer-free vector arithmetic reproduce median leakage 12.2424% > 5% and update fidelity 86.6229% < 95% in the correctly identified literal-WSL run. Rejection is representation-level only; model path identity itself passed."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-HYPER01-FACTORIZED-02",
+      "priority": 1,
+      "title": "Retest HYPER-01 resource failure with a frozen factorized output head",
+      "evidence_class": "proxy_realization",
+      "packet_dir": "runs/research/BACKLOG-HYPER01-FACTORIZED-02",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-HYPER01-REAL-ADAPTER-01/PRE_REGISTRATION.md",
+        "runs/research/BACKLOG-HYPER01-REAL-ADAPTER-01/RESULT.md",
+        "runs/research/BACKLOG-HYPER01-REAL-ADAPTER-01/raw/receipt.json",
+        "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/checkpoints"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "repeatability",
+        "retained_tensors",
+        "semantic_parity",
+        "service_maintenance",
+        "target_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "physical_targets",
+          "metric": "physical_adapter_targets",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "target_distinctness",
+          "metric": "distinct_target_deltas",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "completed_seeds",
+          "metric": "completed_seeds",
+          "operator": "eq",
+          "threshold": 5
+        },
+        {
+          "id": "latency",
+          "metric": "median_synthesis_latency_ms",
+          "operator": "le",
+          "threshold": 5.0
+        },
+        {
+          "id": "worst_seed_fidelity",
+          "metric": "worst_seed_mean_cosine",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "overhead",
+          "metric": "generator_fp32_storage_mb",
+          "operator": "le",
+          "threshold": 20.0
+        },
+        {
+          "id": "retained_states",
+          "metric": "retained_seed_states",
+          "operator": "eq",
+          "threshold": 5
+        },
+        {
+          "id": "independent_recompute",
+          "metric": "independent_metric_recompute_match",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_unchanged",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "HYPER01_COMPACT_PHYSICAL_FIT_R2",
+        "HYPER01_COMPACT_NEGATIVE_R2"
+      ],
+      "forbidden_claims": [
+        "whole-adapter generation",
+        "unseen-task generalization",
+        "production adapter synthesis",
+        "compression of target checkpoints"
+      ],
+      "next_action": "Train the frozen rank-32 factorized generator for five seeds, retain every state and generated tensor, and independently recompute all physical target cosines.",
+      "supersedes": "BACKLOG-HYPER01-REAL-ADAPTER-01",
+      "state": "REJECTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T20:57:17Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T20:59:35Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:02:20Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-29T21:04:39Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-29T21:09:12Z",
+          "reason": "Retained-state replay confirms the scorer mismatch is cross-device numerical error, but canonical worst-seed fidelity 0.479803936 decisively fails the frozen >=0.95 conjunction."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-HYPER01-FACTORIZED-03",
+      "priority": 1,
+      "title": "Close the HYPER-01 resource-fidelity frontier at the maximum admissible factor rank",
+      "evidence_class": "proxy_realization",
+      "packet_dir": "runs/research/BACKLOG-HYPER01-FACTORIZED-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-HYPER01-FACTORIZED-02/raw/receipt.json",
+        "runs/research/BACKLOG-HYPER01-FACTORIZED-02/REVIEW.json",
+        "runs/research/BACKLOG-HYPER01-FACTORIZED-02/raw/generator_states.safetensors",
+        "runs/research/BACKLOG-HYPER01-FACTORIZED-02/raw/generated_tensors.safetensors"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "repeatability",
+        "retained_tensors",
+        "semantic_parity",
+        "service_maintenance",
+        "target_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "physical_targets",
+          "metric": "physical_adapter_targets",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "target_distinctness",
+          "metric": "distinct_target_deltas",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "completed_seeds",
+          "metric": "completed_seeds",
+          "operator": "eq",
+          "threshold": 5
+        },
+        {
+          "id": "latency",
+          "metric": "median_synthesis_latency_ms",
+          "operator": "le",
+          "threshold": 5.0
+        },
+        {
+          "id": "worst_seed_fidelity",
+          "metric": "worst_seed_mean_cosine",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "overhead",
+          "metric": "generator_fp32_storage_mb",
+          "operator": "le",
+          "threshold": 20.0
+        },
+        {
+          "id": "retained_states",
+          "metric": "retained_seed_states",
+          "operator": "eq",
+          "threshold": 5
+        },
+        {
+          "id": "independent_rows",
+          "metric": "independently_recomputed_cosines",
+          "operator": "eq",
+          "threshold": 20
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_unchanged",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "HYPER01_MAX_RANK_PHYSICAL_FIT_R3",
+        "HYPER01_RESOURCE_FIDELITY_FRONTIER_CLOSED_R3"
+      ],
+      "forbidden_claims": [
+        "whole-adapter generation",
+        "unseen-task generalization",
+        "production adapter synthesis",
+        "compression of target checkpoints"
+      ],
+      "next_action": "Train rank 135, the largest integer factor rank below the frozen 20 MiB FP32 ceiling, for five seeds and stop this family after independent review.",
+      "supersedes": "BACKLOG-HYPER01-FACTORIZED-02",
+      "state": "REJECTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:10:45Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:11:21Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:13:19Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-29T21:14:28Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-29T21:20:18Z",
+          "reason": "Maximum admissible rank fits the frozen parameter ceiling, but retained-byte independent recomputation confirms material worst-seed fidelity 0.092928277 < 0.95 and severe seed instability; negative closure is limited to the exact frozen rank/step/optimizer/target family."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT06-SLOP-LIVE-08",
+      "priority": 0,
+      "title": "Forensically rebind the retained two-adapter gateway affinity evidence",
+      "evidence_class": "artifact_requalification",
+      "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-08",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/raw/run.terminal.json",
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/REVIEW.json",
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/raw/physical_r5/raw/live_rows.json",
+        "runs/autonomous/POST-AUDIT-VALUE-WAVE-2026-08-29/watchers/002-BACKLOG-ADAPT06-SLOP-LIVE-07/FINAL.json",
+        "tools/research/run_adapt06_slop_live_r7.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "independent_evaluation",
+        "invalidation_rules",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "sealed_source",
+          "metric": "sealed_r7_source",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "baseline_hashes",
+          "metric": "recomputed_baseline_hashes",
+          "operator": "eq",
+          "threshold": 36
+        },
+        {
+          "id": "routed_hashes",
+          "metric": "recomputed_routed_hashes",
+          "operator": "eq",
+          "threshold": 72
+        },
+        {
+          "id": "route_counterfactual",
+          "metric": "route_correct_counterfactual_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "route_controls",
+          "metric": "physical_route_control_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "materiality",
+          "metric": "prompts_with_distinct_route_outputs",
+          "operator": "ge",
+          "threshold": 4
+        },
+        {
+          "id": "schedule_parity",
+          "metric": "schedule_semantic_parity",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "switch_reduction",
+          "metric": "requested_route_switch_reduction",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "wrapper_binding",
+          "metric": "r8_and_r7_wrappers_provenance_bound",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_health",
+          "metric": "gateway_and_embedding_healthy",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT06_CLIENT_AFFINITY_FORENSIC_REBOUND_R8",
+        "ADAPT06_CLIENT_AFFINITY_REJECTED_R8"
+      ],
+      "forbidden_claims": [
+        "server-native scheduler",
+        "cache isolation",
+        "latency speedup",
+        "fused multi-adapter GEMM",
+        "production deployment"
+      ],
+      "next_action": "Recompute all UTF-8 row hashes, route controls, counterfactual matches and schedule facts from the immutable R7 source while binding both R7 and R8 wrappers.",
+      "supersedes": "BACKLOG-ADAPT06-SLOP-LIVE-07",
+      "state": "BLOCKED",
+      "blocker": "Pre-execution fixture check found verify_run does not expose a manifest key; successor changes only terminal-manifest counting and binds the corrected wrapper.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:16:07Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:16:35Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:18:28Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:19:07Z",
+          "reason": "Pre-execution fixture check found verify_run does not expose a manifest key; successor changes only terminal-manifest counting and binds the corrected wrapper."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT06-SLOP-LIVE-09",
+      "priority": 0,
+      "title": "Complete the retained two-adapter forensic rebind with verified terminal manifest access",
+      "evidence_class": "artifact_requalification",
+      "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-09",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-08/PIPELINE.json",
+        "tools/research/run_adapt06_forensic_rebind_r8.py",
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/raw/run.terminal.json",
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/REVIEW.json",
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/raw/physical_r5/raw/live_rows.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "independent_evaluation",
+        "invalidation_rules",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "sealed_source",
+          "metric": "sealed_r7_source",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "baseline_hashes",
+          "metric": "recomputed_baseline_hashes",
+          "operator": "eq",
+          "threshold": 36
+        },
+        {
+          "id": "routed_hashes",
+          "metric": "recomputed_routed_hashes",
+          "operator": "eq",
+          "threshold": 72
+        },
+        {
+          "id": "route_counterfactual",
+          "metric": "route_correct_counterfactual_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "route_controls",
+          "metric": "physical_route_control_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "materiality",
+          "metric": "prompts_with_distinct_route_outputs",
+          "operator": "ge",
+          "threshold": 4
+        },
+        {
+          "id": "schedule_parity",
+          "metric": "schedule_semantic_parity",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "switch_reduction",
+          "metric": "requested_route_switch_reduction",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "wrapper_binding",
+          "metric": "r8_and_r7_wrappers_provenance_bound",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_health",
+          "metric": "gateway_and_embedding_healthy",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT06_CLIENT_AFFINITY_FORENSIC_REBOUND_R9",
+        "ADAPT06_CLIENT_AFFINITY_REJECTED_R9"
+      ],
+      "forbidden_claims": [
+        "server-native scheduler",
+        "cache isolation",
+        "latency speedup",
+        "fused multi-adapter GEMM",
+        "production deployment"
+      ],
+      "next_action": "Repeat only the R8 retained-evidence scorer with the verified terminal manifest read from run.terminal.json.",
+      "supersedes": "BACKLOG-ADAPT06-SLOP-LIVE-08",
+      "state": "BLOCKED",
+      "blocker": "R9 worker failed before evidence: file-path invocation could not resolve the tools namespace (ModuleNotFoundError); immutable launch logs retained; successor must use module invocation or seed repository root before import.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:19:50Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:20:16Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:22:23Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "BLOCKED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:24:23Z",
+          "reason": "R9 worker failed before evidence: file-path invocation could not resolve the tools namespace (ModuleNotFoundError); immutable launch logs retained; successor must use module invocation or seed repository root before import."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-ADAPT06-SLOP-LIVE-10",
+      "priority": 0,
+      "title": "Complete the retained two-adapter forensic rebind with import-safe execution",
+      "evidence_class": "artifact_requalification",
+      "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-10",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-09/PIPELINE.json",
+        "tools/research/run_adapt06_forensic_rebind_r9.py",
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-09/runner.stderr.log",
+        "runs/autonomous/FULL-BACKLOG-2026-08-29/watchers/002-BACKLOG-ADAPT06-SLOP-LIVE-09/WORKER_EXIT.json",
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/raw/run.terminal.json",
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/REVIEW.json",
+        "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/raw/physical_r5/raw/live_rows.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "independent_evaluation",
+        "invalidation_rules",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "semantic_parity",
+        "service_maintenance",
+        "source_execution_receipt"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "sealed_source",
+          "metric": "sealed_r7_source",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "baseline_hashes",
+          "metric": "recomputed_baseline_hashes",
+          "operator": "eq",
+          "threshold": 36
+        },
+        {
+          "id": "routed_hashes",
+          "metric": "recomputed_routed_hashes",
+          "operator": "eq",
+          "threshold": 72
+        },
+        {
+          "id": "route_counterfactual",
+          "metric": "route_correct_counterfactual_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "route_controls",
+          "metric": "physical_route_control_match_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "materiality",
+          "metric": "prompts_with_distinct_route_outputs",
+          "operator": "ge",
+          "threshold": 4
+        },
+        {
+          "id": "schedule_parity",
+          "metric": "schedule_semantic_parity",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "switch_reduction",
+          "metric": "requested_route_switch_reduction",
+          "operator": "ge",
+          "threshold": 0.8
+        },
+        {
+          "id": "wrapper_binding",
+          "metric": "r8_and_r7_wrappers_provenance_bound",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_health",
+          "metric": "gateway_and_embedding_healthy",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "ADAPT06_CLIENT_AFFINITY_FORENSIC_REBOUND_R10",
+        "ADAPT06_CLIENT_AFFINITY_REJECTED_R10"
+      ],
+      "forbidden_claims": [
+        "server-native scheduler",
+        "cache isolation",
+        "latency speedup",
+        "fused multi-adapter GEMM",
+        "production deployment"
+      ],
+      "next_action": "Repeat only the R9 retained-evidence scorer with repository-root import resolution fixed before importing the frozen delegate.",
+      "supersedes": "BACKLOG-ADAPT06-SLOP-LIVE-09",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:25:00Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:26:12Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:26:58Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-29T21:28:07Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-29T21:32:35Z",
+          "reason": "Immutable R7 rows independently recompute 72/72 route-correct outputs and controls, exact 30/30 schedule parity, and 29-to-2 requested route-label transitions; R10 changes only import/packet binding and supports a client-ordering claim with no speed, cache or server-scheduler interpretation."
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-29T21:32:36Z",
+          "reason": "Artifact-requalification evidence is independently verified and promotable only within the frozen retained-evidence client-ordering boundary."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-NEGATIVE-KV-REAL-SCREEN-03",
+      "priority": 1,
+      "title": "Repeat the five-candidate real Qwen KV screen with decisive tensor retention",
+      "evidence_class": "artifact_requalification",
+      "packet_dir": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-02/raw/receipt.json",
+        "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-02/REVIEW.json",
+        "tools/research/run_negative_kv_real_screen_r2.py",
+        "tools/research/run_negative_kv_real_screen.py",
+        "tools/research/negative_kv_real_worker.py",
+        "workloads/gsm8k.jsonl"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "model_hash",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "scorer_hashes",
+        "service_maintenance",
+        "tensor_identity",
+        "retained_tensors"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "r2_audit_bound",
+          "metric": "blocked_r2_review_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "activation_coverage",
+          "metric": "actual_model_activation_cells",
+          "operator": "ge",
+          "threshold": 18
+        },
+        {
+          "id": "weight_coverage",
+          "metric": "actual_model_weight_matrices",
+          "operator": "ge",
+          "threshold": 12
+        },
+        {
+          "id": "candidate_coverage",
+          "metric": "candidate_hypotheses_evaluated",
+          "operator": "eq",
+          "threshold": 5
+        },
+        {
+          "id": "sample_retention",
+          "metric": "retained_candidate_cells",
+          "operator": "eq",
+          "threshold": 78
+        },
+        {
+          "id": "tensor_retention",
+          "metric": "retained_decisive_tensor_files",
+          "operator": "eq",
+          "threshold": 39
+        },
+        {
+          "id": "tensor_hashes",
+          "metric": "retained_tensor_hashes_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "service_recovery",
+          "metric": "service_and_embedding_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "NEGATIVE_KV_REAL_SCREEN_VERIFIED_R3",
+        "RSH01_FALSE_NEGATIVE_CANDIDATE_R3",
+        "REP03_FALSE_NEGATIVE_CANDIDATE_R3",
+        "RSH03_FALSE_NEGATIVE_CANDIDATE_R3",
+        "RSH04_FALSE_NEGATIVE_CANDIDATE_R3",
+        "REP06_FALSE_NEGATIVE_CANDIDATE_R3"
+      ],
+      "forbidden_claims": [
+        "packed bytes",
+        "realized VRAM savings",
+        "native kernel latency",
+        "serving throughput",
+        "production deployment",
+        "out-of-panel generalization"
+      ],
+      "next_action": "Repeat the frozen R2 physical screen and retain every decisive activation, entropy vector, weight slice and input matrix for independent replay.",
+      "supersedes": "BACKLOG-NEGATIVE-KV-REAL-SCREEN-02",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:31:53Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:32:41Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-29T21:35:19Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-29T21:37:27Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-29T21:42:01Z",
+          "reason": "Independent direct replay of all 39 retained tensors regenerates all 78 cells exactly and confirms that none of the five frozen conjunctive candidate decisions reverses; claim remains limited to this offline physical-tensor panel."
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-29T21:42:01Z",
+          "reason": "Artifact requalification is independently verified from decisive retained tensors; promotion excludes packed bytes, VRAM, native kernels, throughput, deployment and out-of-panel claims."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-FLEET-REGRESSION-SCREEN-03",
+      "priority": 1,
+      "title": "Longitudinal replication of the qualified text-fleet regression screen",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-03",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-02/raw/receipt.json",
+        "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-02/REVIEW.json",
+        "tools/research/run_fleet_regression_screen_r2.py",
+        "tools/research/run_fleet_regression_screen.py",
+        "config/qualified_model_fleet.json",
+        "workloads/gsm8k.jsonl",
+        "runs/requalification/QWEN38-HAUHAUCS-NORMAL-QA-2026-08-23/tasks.jsonl",
+        "tools/benchmarks/agent_suite_v2.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "effective_route",
+        "environment",
+        "hardware_metrics",
+        "independent_evaluation",
+        "paired_baseline",
+        "provenance",
+        "raw_samples",
+        "receipt_fingerprint",
+        "recovery_state",
+        "service_identity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "treatment_controls"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "r2_binding",
+          "metric": "promoted_r2_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "route_coverage",
+          "metric": "route_models_completed",
+          "operator": "eq",
+          "threshold": 4
+        },
+        {
+          "id": "request_coverage",
+          "metric": "recorded_requests",
+          "operator": "eq",
+          "threshold": 448
+        },
+        {
+          "id": "request_integrity",
+          "metric": "successful_response_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "route_identity",
+          "metric": "route_identity_verified",
+          "operator": "eq",
+          "threshold": true
+        },
+        {
+          "id": "repeatability",
+          "metric": "exact_repeat_rate",
+          "operator": "ge",
+          "threshold": 0.95
+        },
+        {
+          "id": "request_retention",
+          "metric": "retained_request_payloads",
+          "operator": "eq",
+          "threshold": 448
+        },
+        {
+          "id": "service_integrity",
+          "metric": "service_restarts",
+          "operator": "eq",
+          "threshold": 0
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        },
+        {
+          "id": "service_recovery",
+          "metric": "initial_model_restored",
+          "operator": "eq",
+          "threshold": true
+        }
+      ],
+      "allowed_claim_codes": [
+        "QUALIFIED_TEXT_FLEET_LONGITUDINAL_REPLICATION_R3",
+        "QUALIFIED_TEXT_FLEET_LONGITUDINAL_REJECTED_R3"
+      ],
+      "forbidden_claims": [
+        "model quality promotion",
+        "cross-model superiority",
+        "production SLO",
+        "semantic correctness from HTTP success",
+        "unbounded reliability"
+      ],
+      "next_action": "Run one fresh harness-bound 448-request replication over the four qualified routes and restore the initial resident model.",
+      "supersedes": "BACKLOG-FLEET-REGRESSION-SCREEN-02",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-30T00:06:48Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-30T00:07:19Z"
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex continuous executor",
+          "at": "2026-08-30T00:08:50Z"
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-30T00:29:00Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent longitudinal-fleet auditor",
+          "at": "2026-08-30T00:33:57Z"
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent longitudinal-fleet auditor",
+          "at": "2026-08-30T00:33:58Z"
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX08-PHYSICAL-PREFILL-05",
+      "priority": 0,
+      "priority_score": 90,
+      "title": "Repeat physical selected-block prefill with real TTFT and absolute semantic floors",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-05",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-04/raw/run.terminal.json",
+        "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-04/raw/samples.jsonl",
+        "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-04/raw/service_identity.json",
+        "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-04/raw/actual_scores.json",
+        "tools/research/run_slx08_physical_prefill_r4.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "effective_route",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "physical_route_telemetry",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "recovery_state",
+        "semantic_parity",
+        "service_identity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "physical_treatment",
+          "metric": "physical_selected_block_prefill_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "dense_control",
+          "metric": "physical_dense_prefill_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "route_observation",
+          "metric": "selected_block_route_observation_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "retained_fraction",
+          "metric": "median_retained_attention_fraction",
+          "operator": "eq",
+          "threshold": 0.5
+        },
+        {
+          "id": "dense_semantic_floor",
+          "metric": "dense_accuracy",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "treatment_semantic_floor",
+          "metric": "selected_block_accuracy",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "semantic_noninferiority",
+          "metric": "paired_accuracy_delta_ci95_low",
+          "operator": "ge",
+          "threshold": -0.03
+        },
+        {
+          "id": "ttft_gain",
+          "metric": "paired_p50_ttft_speedup",
+          "operator": "ge",
+          "threshold": 1.1
+        },
+        {
+          "id": "tail_safety",
+          "metric": "paired_p95_ttft_speedup",
+          "operator": "ge",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX08_PHYSICAL_SELECTED_BLOCK_PREFILL_QUALIFIED_R5",
+        "SLX08_PHYSICAL_SELECTED_BLOCK_PREFILL_REJECTED_R5"
+      ],
+      "forbidden_claims": [
+        "generic block-sparse attention",
+        "historical 1.40x inheritance",
+        "production deployment",
+        "quality beyond the frozen panel",
+        "generalization to other models or context lengths"
+      ],
+      "next_action": "Repeat 64 streamed OFF/ON pairs with n_predict=8, real first-content TTFT, absolute semantic floors and stable service-command restoration identity.",
+      "supersedes": "BACKLOG-SLX08-PHYSICAL-PREFILL-04",
+      "state": "REJECTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex SLX08 recovery",
+          "at": "2026-08-30T01:03:59Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex SLX08 recovery",
+          "at": "2026-08-30T01:05:09Z",
+          "reason": "R5 protocol frozen after R4 false-negative diagnosis."
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex SLX08 recovery",
+          "at": "2026-08-30T01:05:09Z",
+          "reason": "Streamed TTFT, absolute semantic floors and stable restoration identity implemented; 11 focused tests pass."
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-30T01:15:22Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "REJECTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-30T01:22:06Z",
+          "reason": "Independent reconstruction confirmed 128 physical streamed requests and the frozen conjunctive semantic failures; claim bounded to 64-pair 4096-token n_predict=8 token-block compaction campaign."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX08-RELEVANCE-PREFILL-06",
+      "priority": 0,
+      "priority_score": 94,
+      "title": "Test relevance-selected half-context prefill against dense and naive controls",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-06",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-05/raw/receipt.json",
+        "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-05/REVIEW.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "effective_route",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "physical_route_telemetry",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "recovery_state",
+        "semantic_parity",
+        "service_identity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "dense_control",
+          "metric": "dense_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "naive_control",
+          "metric": "naive_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "relevance_treatment",
+          "metric": "relevance_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "route_observation",
+          "metric": "relevance_route_observation_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "evidence_retention",
+          "metric": "relevance_evidence_retention_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "retained_fraction",
+          "metric": "relevance_median_retained_fraction",
+          "operator": "eq",
+          "threshold": 0.5
+        },
+        {
+          "id": "dense_semantic_floor",
+          "metric": "dense_accuracy",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "relevance_semantic_floor",
+          "metric": "relevance_accuracy",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "semantic_noninferiority",
+          "metric": "relevance_vs_dense_accuracy_delta_ci95_low",
+          "operator": "ge",
+          "threshold": -0.03
+        },
+        {
+          "id": "selector_value",
+          "metric": "relevance_vs_naive_accuracy_delta",
+          "operator": "ge",
+          "threshold": 0.2
+        },
+        {
+          "id": "ttft_gain",
+          "metric": "relevance_vs_dense_p50_ttft_speedup",
+          "operator": "ge",
+          "threshold": 1.1
+        },
+        {
+          "id": "tail_safety",
+          "metric": "relevance_vs_dense_p95_ttft_speedup",
+          "operator": "ge",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX08_RELEVANCE_SELECTED_PREFILL_QUALIFIED_R6",
+        "SLX08_RELEVANCE_SELECTED_PREFILL_REJECTED_R6"
+      ],
+      "forbidden_claims": [
+        "generic sparse attention",
+        "production deployment",
+        "server-side semantic selector",
+        "quality beyond the frozen retrieval panel",
+        "generalization to other models or context lengths"
+      ],
+      "next_action": "Run 64 three-arm streamed retrieval fixtures comparing dense, naive alternating half-context and explicit relevance-selected half-context prefill.",
+      "supersedes": "BACKLOG-SLX08-PHYSICAL-PREFILL-05",
+      "state": "IMPLEMENTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex R6 executor",
+          "at": "2026-08-30T13:31:44Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex R6 executor",
+          "at": "2026-08-30T13:32:25Z",
+          "reason": "Three-arm causal protocol frozen before measured requests."
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex R6 executor",
+          "at": "2026-08-30T13:35:45Z",
+          "reason": "Explicit-index route, three-arm runner, fail-closed fixtures and 26 focused tests implemented before measurement."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX08-RELEVANCE-PREFILL-07",
+      "priority": 0,
+      "priority_score": 94,
+      "title": "Resume relevance-selected prefill after pre-measurement tokenizer ordering failure",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-07",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-05/raw/receipt.json",
+        "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-05/REVIEW.json",
+        "runs/autonomous/SLX08-RELEVANCE-R6-2026-08-30/FINAL.json",
+        "runs/autonomous/SLX08-RELEVANCE-R6-2026-08-30/WORKER_EXIT.json",
+        "tools/research/run_slx08_relevance_prefill_r6.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "effective_route",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "physical_route_telemetry",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "recovery_state",
+        "semantic_parity",
+        "service_identity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "dense_control",
+          "metric": "dense_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "naive_control",
+          "metric": "naive_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "relevance_treatment",
+          "metric": "relevance_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "route_observation",
+          "metric": "relevance_route_observation_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "evidence_retention",
+          "metric": "relevance_evidence_retention_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "retained_fraction",
+          "metric": "relevance_median_retained_fraction",
+          "operator": "eq",
+          "threshold": 0.5
+        },
+        {
+          "id": "dense_semantic_floor",
+          "metric": "dense_accuracy",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "relevance_semantic_floor",
+          "metric": "relevance_accuracy",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "semantic_noninferiority",
+          "metric": "relevance_vs_dense_accuracy_delta_ci95_low",
+          "operator": "ge",
+          "threshold": -0.03
+        },
+        {
+          "id": "selector_value",
+          "metric": "relevance_vs_naive_accuracy_delta",
+          "operator": "ge",
+          "threshold": 0.2
+        },
+        {
+          "id": "ttft_gain",
+          "metric": "relevance_vs_dense_p50_ttft_speedup",
+          "operator": "ge",
+          "threshold": 1.1
+        },
+        {
+          "id": "tail_safety",
+          "metric": "relevance_vs_dense_p95_ttft_speedup",
+          "operator": "ge",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX08_RELEVANCE_SELECTED_PREFILL_QUALIFIED_R7",
+        "SLX08_RELEVANCE_SELECTED_PREFILL_REJECTED_R7"
+      ],
+      "forbidden_claims": [
+        "generic sparse attention",
+        "production deployment",
+        "server-side semantic selector",
+        "quality beyond the frozen retrieval panel",
+        "generalization to other models or context lengths"
+      ],
+      "next_action": "Pre-tokenize the frozen fixtures against the healthy qwen38 backend, then run the unchanged 64-fixture three-arm R6 measurement.",
+      "supersedes": "BACKLOG-SLX08-RELEVANCE-PREFILL-06",
+      "state": "IMPLEMENTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex R7 recovery",
+          "at": "2026-08-30T13:39:53Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex R7 recovery",
+          "at": "2026-08-30T13:40:19Z",
+          "reason": "Unchanged R6 scientific protocol frozen with only pre-measurement tokenizer ordering corrected."
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex R7 recovery",
+          "at": "2026-08-30T13:41:25Z",
+          "reason": "Only tokenizer ordering changed; 25 focused R6/R7 fixtures pass."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX08-RELEVANCE-PREFILL-08",
+      "priority": 0,
+      "priority_score": 94,
+      "title": "Resume relevance-selected prefill with direct-file import bootstrap",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-08",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/autonomous/SLX08-RELEVANCE-R7-2026-08-30/FINAL.json",
+        "runs/autonomous/SLX08-RELEVANCE-R7-2026-08-30/WORKER_EXIT.json",
+        "tools/research/run_slx08_relevance_prefill_r7.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "effective_route",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "physical_route_telemetry",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "recovery_state",
+        "semantic_parity",
+        "service_identity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "dense_control",
+          "metric": "dense_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "naive_control",
+          "metric": "naive_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "relevance_treatment",
+          "metric": "relevance_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "route_observation",
+          "metric": "relevance_route_observation_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "evidence_retention",
+          "metric": "relevance_evidence_retention_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "retained_fraction",
+          "metric": "relevance_median_retained_fraction",
+          "operator": "eq",
+          "threshold": 0.5
+        },
+        {
+          "id": "dense_semantic_floor",
+          "metric": "dense_accuracy",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "relevance_semantic_floor",
+          "metric": "relevance_accuracy",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "semantic_noninferiority",
+          "metric": "relevance_vs_dense_accuracy_delta_ci95_low",
+          "operator": "ge",
+          "threshold": -0.03
+        },
+        {
+          "id": "selector_value",
+          "metric": "relevance_vs_naive_accuracy_delta",
+          "operator": "ge",
+          "threshold": 0.2
+        },
+        {
+          "id": "ttft_gain",
+          "metric": "relevance_vs_dense_p50_ttft_speedup",
+          "operator": "ge",
+          "threshold": 1.1
+        },
+        {
+          "id": "tail_safety",
+          "metric": "relevance_vs_dense_p95_ttft_speedup",
+          "operator": "ge",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX08_RELEVANCE_SELECTED_PREFILL_QUALIFIED_R8",
+        "SLX08_RELEVANCE_SELECTED_PREFILL_REJECTED_R8"
+      ],
+      "forbidden_claims": [
+        "generic sparse attention",
+        "production deployment",
+        "server-side semantic selector",
+        "quality beyond the frozen retrieval panel",
+        "generalization to other models or context lengths"
+      ],
+      "next_action": "Repeat the unchanged R7 continuation after adding repository-root import resolution to its direct-file wrapper.",
+      "supersedes": "BACKLOG-SLX08-RELEVANCE-PREFILL-07",
+      "state": "IMPLEMENTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex R8 recovery",
+          "at": "2026-08-30T13:44:21Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex R8 recovery",
+          "at": "2026-08-30T13:44:45Z",
+          "reason": "Unchanged R7 protocol frozen with import bootstrap correction only."
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex R8 recovery",
+          "at": "2026-08-30T13:45:38Z",
+          "reason": "Direct-file import bootstrap added; 26 focused fixtures and literal --help invocation pass."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX08-RELEVANCE-PREFILL-09",
+      "priority": 0,
+      "priority_score": 94,
+      "title": "Resume relevance-selected prefill with corrected source digest",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-09",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/autonomous/SLX08-RELEVANCE-R8-2026-08-30/FINAL.json",
+        "runs/autonomous/SLX08-RELEVANCE-R8-2026-08-30/WORKER_EXIT.json",
+        "tools/research/run_slx08_relevance_prefill_r8.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "effective_route",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "physical_route_telemetry",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "recovery_state",
+        "semantic_parity",
+        "service_identity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "dense_control",
+          "metric": "dense_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "naive_control",
+          "metric": "naive_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "relevance_treatment",
+          "metric": "relevance_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "route_observation",
+          "metric": "relevance_route_observation_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "evidence_retention",
+          "metric": "relevance_evidence_retention_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "retained_fraction",
+          "metric": "relevance_median_retained_fraction",
+          "operator": "eq",
+          "threshold": 0.5
+        },
+        {
+          "id": "dense_semantic_floor",
+          "metric": "dense_accuracy",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "relevance_semantic_floor",
+          "metric": "relevance_accuracy",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "semantic_noninferiority",
+          "metric": "relevance_vs_dense_accuracy_delta_ci95_low",
+          "operator": "ge",
+          "threshold": -0.03
+        },
+        {
+          "id": "selector_value",
+          "metric": "relevance_vs_naive_accuracy_delta",
+          "operator": "ge",
+          "threshold": 0.2
+        },
+        {
+          "id": "ttft_gain",
+          "metric": "relevance_vs_dense_p50_ttft_speedup",
+          "operator": "ge",
+          "threshold": 1.1
+        },
+        {
+          "id": "tail_safety",
+          "metric": "relevance_vs_dense_p95_ttft_speedup",
+          "operator": "ge",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX08_RELEVANCE_SELECTED_PREFILL_QUALIFIED_R9",
+        "SLX08_RELEVANCE_SELECTED_PREFILL_REJECTED_R9"
+      ],
+      "forbidden_claims": [
+        "generic sparse attention",
+        "production deployment",
+        "server-side semantic selector",
+        "quality beyond the frozen retrieval panel",
+        "generalization to other models or context lengths"
+      ],
+      "next_action": "Repeat the unchanged R8 continuation with the exact programmatically copied R7 source digest.",
+      "supersedes": "BACKLOG-SLX08-RELEVANCE-PREFILL-08",
+      "state": "IMPLEMENTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex R9 recovery",
+          "at": "2026-08-30T13:48:22Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex R9 recovery",
+          "at": "2026-08-30T13:48:46Z",
+          "reason": "Unchanged R8 protocol with exact source digest correction only."
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex R9 recovery",
+          "at": "2026-08-30T13:49:33Z",
+          "reason": "Exact source digests recomputed in tests; 28 focused fixtures pass."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX08-RELEVANCE-PREFILL-10",
+      "priority": 0,
+      "priority_score": 94,
+      "title": "Resume relevance-selected prefill with complete abort receipt ledger",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-10",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/autonomous/SLX08-RELEVANCE-R9-2026-08-30/FINAL.json",
+        "runs/autonomous/SLX08-RELEVANCE-R9-2026-08-30/WORKER_EXIT.json",
+        "tools/research/run_slx08_relevance_prefill_r9.py",
+        "runs/autonomous/SLX08-RELEVANCE-R6-2026-08-30/FINAL.json",
+        "runs/autonomous/SLX08-RELEVANCE-R6-2026-08-30/WORKER_EXIT.json"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "effective_route",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "physical_route_telemetry",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "recovery_state",
+        "semantic_parity",
+        "service_identity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "dense_control",
+          "metric": "dense_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "naive_control",
+          "metric": "naive_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "relevance_treatment",
+          "metric": "relevance_requests",
+          "operator": "ge",
+          "threshold": 64
+        },
+        {
+          "id": "route_observation",
+          "metric": "relevance_route_observation_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "evidence_retention",
+          "metric": "relevance_evidence_retention_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "retained_fraction",
+          "metric": "relevance_median_retained_fraction",
+          "operator": "eq",
+          "threshold": 0.5
+        },
+        {
+          "id": "dense_semantic_floor",
+          "metric": "dense_accuracy",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "relevance_semantic_floor",
+          "metric": "relevance_accuracy",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "semantic_noninferiority",
+          "metric": "relevance_vs_dense_accuracy_delta_ci95_low",
+          "operator": "ge",
+          "threshold": -0.03
+        },
+        {
+          "id": "selector_value",
+          "metric": "relevance_vs_naive_accuracy_delta",
+          "operator": "ge",
+          "threshold": 0.2
+        },
+        {
+          "id": "ttft_gain",
+          "metric": "relevance_vs_dense_p50_ttft_speedup",
+          "operator": "ge",
+          "threshold": 1.1
+        },
+        {
+          "id": "tail_safety",
+          "metric": "relevance_vs_dense_p95_ttft_speedup",
+          "operator": "ge",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX08_RELEVANCE_SELECTED_PREFILL_QUALIFIED_R10",
+        "SLX08_RELEVANCE_SELECTED_PREFILL_REJECTED_R10"
+      ],
+      "forbidden_claims": [
+        "generic sparse attention",
+        "production deployment",
+        "server-side semantic selector",
+        "quality beyond the frozen retrieval panel",
+        "generalization to other models or context lengths"
+      ],
+      "next_action": "Repeat unchanged R9 with the R6 abort receipts required by the delegated failure-evidence writer.",
+      "supersedes": "BACKLOG-SLX08-RELEVANCE-PREFILL-09",
+      "state": "BLOCKED",
+      "blocker": "Fail-closed independent audit: degenerate zero-variance CI does not establish the frozen -3% noninferiority margin at n=64 (exact one-sided zero-event bound 4.57297%), and active R7/R8 delegate wrappers are not receipt-bound. No claim authorized; successor must bind full code path and preregister valid NI inference/sample size.",
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex R10 recovery",
+          "at": "2026-08-30T13:51:05Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex R10 recovery",
+          "at": "2026-08-30T13:51:27Z",
+          "reason": "Unchanged R9 protocol with complete abort-source ledger."
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex R10 recovery",
+          "at": "2026-08-30T13:52:13Z",
+          "reason": "Complete delegated ledger verified; 30 focused tests pass."
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-30T14:00:52Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "BLOCKED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-30T14:09:24Z",
+          "reason": "Fail-closed independent audit: degenerate zero-variance CI does not establish the frozen -3% noninferiority margin at n=64 (exact one-sided zero-event bound 4.57297%), and active R7/R8 delegate wrappers are not receipt-bound. No claim authorized; successor must bind full code path and preregister valid NI inference/sample size."
+        }
+      ]
+    },
+    {
+      "id": "BACKLOG-SLX08-RELEVANCE-PREFILL-11",
+      "priority": 0,
+      "priority_score": 96,
+      "title": "Confirm relevance-selected prefill with exact noninferiority and balanced sample",
+      "evidence_class": "serving_runtime",
+      "packet_dir": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-11",
+      "depends_on": [],
+      "source_artifacts": [
+        "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-10/raw/receipt.json",
+        "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-10/REVIEW.json",
+        "tools/research/run_slx08_physical_prefill_r4.py",
+        "tools/research/run_slx08_physical_prefill_r5.py",
+        "tools/research/run_slx08_relevance_prefill_r6.py"
+      ],
+      "required_evidence": [
+        "acceptance_gates",
+        "actual_scores",
+        "artifact_hashes",
+        "dataset_hashes",
+        "effective_route",
+        "failure_reproduction",
+        "falsifiable_hypothesis",
+        "hardware_metrics",
+        "independent_evaluation",
+        "invalidation_rules",
+        "invariant_controls",
+        "paired_baseline",
+        "physical_route_telemetry",
+        "provenance",
+        "raw_samples",
+        "real_implementation",
+        "receipt_fingerprint",
+        "recovery_state",
+        "semantic_parity",
+        "service_identity",
+        "service_maintenance",
+        "source_execution_receipt",
+        "treatment_materiality"
+      ],
+      "acceptance_gates": [
+        {
+          "id": "dense_control",
+          "metric": "dense_requests",
+          "operator": "ge",
+          "threshold": 126
+        },
+        {
+          "id": "naive_control",
+          "metric": "naive_requests",
+          "operator": "ge",
+          "threshold": 126
+        },
+        {
+          "id": "relevance_treatment",
+          "metric": "relevance_requests",
+          "operator": "ge",
+          "threshold": 126
+        },
+        {
+          "id": "route_observation",
+          "metric": "relevance_route_observation_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "evidence_retention",
+          "metric": "relevance_evidence_retention_rate",
+          "operator": "eq",
+          "threshold": 1.0
+        },
+        {
+          "id": "retained_fraction",
+          "metric": "relevance_median_retained_fraction",
+          "operator": "eq",
+          "threshold": 0.5
+        },
+        {
+          "id": "dense_semantic_floor",
+          "metric": "dense_accuracy",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "relevance_semantic_floor",
+          "metric": "relevance_accuracy",
+          "operator": "ge",
+          "threshold": 0.9
+        },
+        {
+          "id": "semantic_noninferiority",
+          "metric": "relevance_vs_dense_exact_delta_ci95_low",
+          "operator": "ge",
+          "threshold": -0.03
+        },
+        {
+          "id": "selector_value",
+          "metric": "relevance_vs_naive_accuracy_delta",
+          "operator": "ge",
+          "threshold": 0.2
+        },
+        {
+          "id": "ttft_gain",
+          "metric": "relevance_vs_dense_p50_ttft_speedup",
+          "operator": "ge",
+          "threshold": 1.1
+        },
+        {
+          "id": "tail_safety",
+          "metric": "relevance_vs_dense_p95_ttft_speedup",
+          "operator": "ge",
+          "threshold": 1.0
+        },
+        {
+          "id": "service_restore",
+          "metric": "original_service_restored",
+          "operator": "eq",
+          "threshold": 1
+        },
+        {
+          "id": "embedding_integrity",
+          "metric": "embedding_health",
+          "operator": "eq",
+          "threshold": 200
+        }
+      ],
+      "allowed_claim_codes": [
+        "SLX08_RELEVANCE_SELECTED_PREFILL_QUALIFIED_R11",
+        "SLX08_RELEVANCE_SELECTED_PREFILL_REJECTED_R11"
+      ],
+      "forbidden_claims": [
+        "generic sparse attention",
+        "production deployment",
+        "server-side semantic selector",
+        "quality beyond the frozen retrieval panel",
+        "generalization to other models or context lengths",
+        "learned selector superiority"
+      ],
+      "next_action": "Run 126 fresh balanced three-arm fixtures with a one-sided exact binomial noninferiority bound and a fully bound R11-to-R6 code path.",
+      "supersedes": "BACKLOG-SLX08-RELEVANCE-PREFILL-10",
+      "state": "PROMOTED",
+      "blocker": null,
+      "state_history": [
+        {
+          "from": null,
+          "to": "PROPOSED",
+          "actor": "Codex R11 executor",
+          "at": "2026-08-30T14:10:59Z"
+        },
+        {
+          "from": "PROPOSED",
+          "to": "PREREGISTERED",
+          "actor": "Codex R11 executor",
+          "at": "2026-08-30T14:11:30Z",
+          "reason": "Balanced 126-case exact-bound protocol frozen after independent R10 hold."
+        },
+        {
+          "from": "PREREGISTERED",
+          "to": "IMPLEMENTED",
+          "actor": "Codex R11 executor",
+          "at": "2026-08-30T14:13:05Z",
+          "reason": "Exact bound, 126-case balance and complete active engine chain verified; 27 focused tests pass."
+        },
+        {
+          "from": "IMPLEMENTED",
+          "to": "EXECUTED",
+          "actor": "Codex executor watcher",
+          "at": "2026-08-30T14:30:19Z"
+        },
+        {
+          "from": "EXECUTED",
+          "to": "VERIFIED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-30T14:34:24Z",
+          "reason": "Independent reconstruction confirmed 378 physical rows, fresh balanced 126-case panel, exact one-sided NI lower bound -0.023495238866670043, complete active-code binding and bounded claim."
+        },
+        {
+          "from": "VERIFIED",
+          "to": "PROMOTED",
+          "actor": "GPT-5.6 Sol xhigh independent audit instance",
+          "at": "2026-08-30T14:34:24Z",
+          "reason": "All frozen gates and serving-runtime identities independently verified; promotion limited to exact-key client selection plus server token compaction on the frozen R11 tuple."
         }
       ]
     }

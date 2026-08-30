@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-FLEET-REGRESSION-SCREEN-01",
   "evidence_class": "serving_runtime",
   "executor": "Codex executor",
-  "stage": "EXECUTED",
+  "stage": "BLOCKED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,13 @@
       "to": "EXECUTED",
       "actor": "Codex executor",
       "at": "2026-08-26T21:51:15Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "BLOCKED",
+      "actor": "GPT-5.6 Sol independent fail-closed audit",
+      "at": "2026-08-29T21:08:29Z",
+      "reason": "R1 terminal runner state and inherited source are not receipt-stable; promoted R2 successor binds final state and supersedes R1"
     }
   ],
   "preregistration": {

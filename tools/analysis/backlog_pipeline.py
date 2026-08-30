@@ -1515,6 +1515,8 @@ def main(argv: list[str] | None = None) -> int:
                     "priority_score": item.get("priority_score"),
                     "state": item["state"],
                     "title": item["title"],
+                    "next_action": item.get("next_action"),
+                    "supersedes": item.get("supersedes"),
                 }
                 for item in sorted(
                     manifest["items"],

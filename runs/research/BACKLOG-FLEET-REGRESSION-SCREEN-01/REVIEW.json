@@ -1,0 +1,21 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol independent fail-closed audit",
+  "verdict": "HOLD_FAIL_CLOSED",
+  "decision": "BLOCKED",
+  "receipt_sha256": "d303490b152babcc8f590b0b840fb14c4da02c865430f8398bdca7023a0eeb94",
+  "receipt_fingerprint": "3151d0dcbb7b4928b0390b83ab457665e702675a0fe8863cd3b1bb5c12d906c9",
+  "implementation_digest": "59666c2180c90fd5855bde2dbf2a6c6b8decedcd254d5126b97a0f9d09177d68",
+  "allowed_claim_code": null,
+  "findings": [
+    "Receipt SHA-256, canonical fingerprint and implementation digest reproduce. Direct parsing finds exactly 448 unique model-repeat-suite-case rows, 448 HTTP-200/error-free responses, 224 complete repeat pairs and 224 byte-identical semantic-hash pairs. The recorded route, service and restoration evidence is internally consistent with the narrow repeatability result.",
+    "Two of 22 receipt provenance inputs no longer match their bound records. The consolidated handoff is currently SHA-256 4702f71cc7dde4ae5e51bfe909cc27312afedbb2c5a5542425a99f73c12bb300 rather than 895fec3ac345bdf26350b4a97f513bf4f4b3bad9898d09701db07a985f8b7d55, and runner_state.json is e7f9be79c85adc4bc615dbd3643f179f3a795ea8e887436aaa6abe3924712e1e rather than 100986bafac12f740e78a2e9f1bb104b7e2c7e755f3277f791f2b165f9c357f0. Source inspection and the successor record identify the state mismatch as a post-receipt terminal-state mutation.",
+    "Directed false-positive review finds that HTTP success and exact repeatability do not imply answer correctness. The raw panel contains many capped math responses and the descriptive last-number scorer can mark incidental/truncated numbers correct or miss an intended answer; those quality fields are outside the acceptance gates and cannot broaden the claim.",
+    "Directed false-negative review finds no evidence that the observed transport/repeatability result itself failed: all recomputed narrow metrics pass. However, fail-closed source and terminal-state binding prevents signing the R1 packet. The already-PROMOTED R2 successor performed a fresh 448-request run, retained exact request payloads and bound final state before receipt, so R1 is superseded and must not be duplicated or retroactively repaired."
+  ],
+  "limitations": [
+    "The retained R1 rows do not bind complete request payloads, so request-control identity is weaker than in R2.",
+    "Descriptive math, QA and agent scores are cap- and extractor-sensitive and are not independently promotable quality claims."
+  ],
+  "claim_boundary": "No R1 claim code is authorized. At most the packet indicates bounded HTTP/route completion and greedy semantic repeatability for its frozen matrix; it does not qualify fleet quality, cross-model ranking, production readiness or behavior outside the panel. BACKLOG-FLEET-REGRESSION-SCREEN-02 is the terminal qualification artifact."
+}

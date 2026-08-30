@@ -1,0 +1,52 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX08-RELEVANCE-PREFILL-08",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex R8 recovery",
+  "stage": "IMPLEMENTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex R8 recovery",
+      "at": "2026-08-30T13:44:21Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex R8 recovery",
+      "at": "2026-08-30T13:44:45Z",
+      "reason": "Unchanged R7 protocol frozen with import bootstrap correction only."
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex R8 recovery",
+      "at": "2026-08-30T13:45:38Z",
+      "reason": "Direct-file import bootstrap added; 26 focused fixtures and literal --help invocation pass."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-08/PRE_REGISTRATION.md",
+    "sha256": "faa604fce631958f8b01a78fd5f4eb093c09b6d1e1daca737e35e3d56c9e4efa"
+  },
+  "implementation": [
+    {
+      "path": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-08/IMPLEMENTATION.md",
+      "sha256": "0ebda47b438c7aca47d35c95688b80b2be92274fb92bd5ec642e87df4af792d2"
+    },
+    {
+      "path": "tests/test_slx08_relevance_prefill_r8.py",
+      "sha256": "1bc2db0efbc6bb20183e52b50b75c523807d45aed39392c26206b99a2a71c42a"
+    },
+    {
+      "path": "tools/research/run_slx08_relevance_prefill_r8.py",
+      "sha256": "4ec2628c52d182c11d796295e44fdfdcb5be4415cde29d79812e60243e8e216d"
+    }
+  ],
+  "implementation_digest": "698d5e5292be03c815cd64dc0d46070a32c1431ddf4484d78d75c0151dcbc9e1",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

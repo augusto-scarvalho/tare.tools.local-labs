@@ -1,0 +1,156 @@
+{
+  "schema": "local-labs-experiment-watch-status-v1",
+  "watch_id": "SLX08-RELEVANCE-R6-2026-08-30",
+  "updated_at": "2026-08-30T13:38:25Z",
+  "experiments": [
+    {
+      "task_id": "BACKLOG-SLX08-RELEVANCE-PREFILL-06",
+      "pid": 43664,
+      "process_alive": false,
+      "progress": 0,
+      "progress_mode": "jsonl_lines",
+      "expected_progress": 192,
+      "pipeline_stage": "IMPLEMENTED",
+      "watch_status": "failed_worker_exit",
+      "harness_terminal": {
+        "present": false,
+        "valid": null,
+        "status": null,
+        "errors": []
+      },
+      "worker_exit": {
+        "present": true,
+        "valid": true,
+        "returncode": 1,
+        "timed_out": false,
+        "errors": []
+      },
+      "managed_backlog": true
+    }
+  ],
+  "gpu": {
+    "memory_used_mib": 19562,
+    "memory_free_mib": 4761,
+    "utilization_percent": 4,
+    "temperature_c": 33,
+    "power_w": 37.95
+  },
+  "health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "states": {
+    "BACKLOG-SLX08-RELEVANCE-PREFILL-06": {
+      "status": "failed_worker_exit",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-30T13:38:24Z",
+        "receipt_exists": false,
+        "result_exists": false,
+        "stage_before": "IMPLEMENTED",
+        "progress": 0,
+        "progress_mode": "jsonl_lines",
+        "expected_progress": 192,
+        "harness_terminal": {
+          "present": false,
+          "valid": null,
+          "status": null,
+          "errors": []
+        },
+        "worker_exit": {
+          "present": true,
+          "valid": true,
+          "returncode": 1,
+          "timed_out": false,
+          "errors": []
+        },
+        "managed_backlog": true,
+        "status": "failed_worker_exit"
+      }
+    }
+  },
+  "final": {
+    "schema": "local-labs-experiment-watch-final-v1",
+    "watch_id": "SLX08-RELEVANCE-R6-2026-08-30",
+    "finished_at": "2026-08-30T13:38:25Z",
+    "status": "complete_with_alert",
+    "experiment_mode": true,
+    "states": {
+      "BACKLOG-SLX08-RELEVANCE-PREFILL-06": {
+        "status": "failed_worker_exit",
+        "was_seen_alive": true,
+        "finalization": {
+          "at": "2026-08-30T13:38:24Z",
+          "receipt_exists": false,
+          "result_exists": false,
+          "stage_before": "IMPLEMENTED",
+          "progress": 0,
+          "progress_mode": "jsonl_lines",
+          "expected_progress": 192,
+          "harness_terminal": {
+            "present": false,
+            "valid": null,
+            "status": null,
+            "errors": []
+          },
+          "worker_exit": {
+            "present": true,
+            "valid": true,
+            "returncode": 1,
+            "timed_out": false,
+            "errors": []
+          },
+          "managed_backlog": true,
+          "status": "failed_worker_exit"
+        }
+      }
+    },
+    "pipeline_gate": {
+      "returncode": 0,
+      "stdout": "BACKLOG PIPELINE: PASS",
+      "stderr": ""
+    },
+    "backlog_queue": {
+      "refreshed_at": "2026-08-30T13:38:25Z",
+      "status_returncode": 0,
+      "next_returncode": 0,
+      "valid": true,
+      "priority_rebalance": {
+        "requested": false,
+        "returncode": null,
+        "valid": null,
+        "report": null
+      },
+      "state_counts": {
+        "BLOCKED": 52,
+        "EXECUTED": 13,
+        "IMPLEMENTED": 4,
+        "PROMOTED": 33,
+        "REJECTED": 28,
+        "VERIFIED": 1
+      },
+      "next_candidate": null,
+      "continuation_candidate": {
+        "id": "BACKLOG-SLX08-RELEVANCE-PREFILL-06",
+        "state": "IMPLEMENTED",
+        "priority": 0,
+        "priority_score": 94,
+        "title": "Test relevance-selected half-context prefill against dense and naive controls",
+        "next_action": "Run 64 three-arm streamed retrieval fixtures comparing dense, naive alternating half-context and explicit relevance-selected half-context prefill."
+      }
+    },
+    "completion_action": "inspect_alert_before_dispatch",
+    "audit_ready_ids": [],
+    "final_health": {
+      "http://127.0.0.1:8080/health": 200,
+      "http://127.0.0.1:8081/health": 200
+    },
+    "final_gpu": {
+      "memory_used_mib": 19562,
+      "memory_free_mib": 4761,
+      "utilization_percent": 4,
+      "temperature_c": 33,
+      "power_w": 37.95
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-GDN02-LEARNED-STATE-03",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "learned_states": {
+      "metric": "learned_gdn_layer_cells",
+      "operator": "ge",
+      "threshold": 3,
+      "actual": null,
+      "pass": null
+    },
+    "retained_cells": {
+      "metric": "retained_decisive_layer_cells",
+      "operator": "eq",
+      "threshold": 3,
+      "actual": null,
+      "pass": null
+    },
+    "retained_collateral": {
+      "metric": "retained_collateral_cosines",
+      "operator": "eq",
+      "threshold": 147,
+      "actual": null,
+      "pass": null
+    },
+    "independent_recompute": {
+      "metric": "recomputed_metric_match_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "target_leakage": {
+      "metric": "median_old_fact_leakage_pct",
+      "operator": "le",
+      "threshold": 5.0,
+      "actual": null,
+      "pass": null
+    },
+    "collateral_retention": {
+      "metric": "median_collateral_retention_pct",
+      "operator": "ge",
+      "threshold": 90.0,
+      "actual": null,
+      "pass": null
+    },
+    "update_fidelity": {
+      "metric": "median_updated_fact_fidelity_pct",
+      "operator": "ge",
+      "threshold": 95.0,
+      "actual": null,
+      "pass": null
+    },
+    "state_materiality": {
+      "metric": "distinct_recurrent_state_conditions",
+      "operator": "ge",
+      "threshold": 3,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "failure_reproduction": null,
+    "falsifiable_hypothesis": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "invariant_controls": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "real_implementation": null,
+    "receipt_fingerprint": null,
+    "retained_state_bundle": null,
+    "semantic_parity": null,
+    "source_execution_receipt": null,
+    "target_materiality": null
+  },
+  "receipt_fingerprint": null
+}

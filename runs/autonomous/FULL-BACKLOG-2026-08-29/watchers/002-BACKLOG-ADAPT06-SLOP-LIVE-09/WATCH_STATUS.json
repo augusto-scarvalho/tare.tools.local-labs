@@ -1,0 +1,148 @@
+{
+  "schema": "local-labs-experiment-watch-status-v1",
+  "watch_id": "FULL-BACKLOG-2026-08-29-ADAPT06-R9",
+  "updated_at": "2026-08-29T21:23:31Z",
+  "experiments": [
+    {
+      "task_id": "BACKLOG-ADAPT06-SLOP-LIVE-09",
+      "pid": 25412,
+      "process_alive": false,
+      "progress": 0,
+      "progress_mode": "files",
+      "expected_progress": 1,
+      "pipeline_stage": "IMPLEMENTED",
+      "watch_status": "failed_worker_exit",
+      "harness_terminal": {
+        "present": false,
+        "valid": null,
+        "status": null,
+        "errors": []
+      },
+      "worker_exit": {
+        "present": true,
+        "valid": true,
+        "returncode": 1,
+        "timed_out": false,
+        "errors": []
+      },
+      "managed_backlog": true
+    }
+  ],
+  "gpu": {
+    "memory_used_mib": 19506,
+    "memory_free_mib": 4817,
+    "utilization_percent": 7,
+    "temperature_c": 33,
+    "power_w": 37.88
+  },
+  "health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "states": {
+    "BACKLOG-ADAPT06-SLOP-LIVE-09": {
+      "status": "failed_worker_exit",
+      "was_seen_alive": false,
+      "finalization": {
+        "at": "2026-08-29T21:23:30Z",
+        "receipt_exists": false,
+        "result_exists": false,
+        "stage_before": "IMPLEMENTED",
+        "progress": 0,
+        "progress_mode": "files",
+        "expected_progress": 1,
+        "harness_terminal": {
+          "present": false,
+          "valid": null,
+          "status": null,
+          "errors": []
+        },
+        "worker_exit": {
+          "present": true,
+          "valid": true,
+          "returncode": 1,
+          "timed_out": false,
+          "errors": []
+        },
+        "managed_backlog": true,
+        "status": "failed_worker_exit"
+      }
+    }
+  },
+  "final": {
+    "schema": "local-labs-experiment-watch-final-v1",
+    "watch_id": "FULL-BACKLOG-2026-08-29-ADAPT06-R9",
+    "finished_at": "2026-08-29T21:23:31Z",
+    "status": "complete_with_alert",
+    "experiment_mode": true,
+    "states": {
+      "BACKLOG-ADAPT06-SLOP-LIVE-09": {
+        "status": "failed_worker_exit",
+        "was_seen_alive": false,
+        "finalization": {
+          "at": "2026-08-29T21:23:30Z",
+          "receipt_exists": false,
+          "result_exists": false,
+          "stage_before": "IMPLEMENTED",
+          "progress": 0,
+          "progress_mode": "files",
+          "expected_progress": 1,
+          "harness_terminal": {
+            "present": false,
+            "valid": null,
+            "status": null,
+            "errors": []
+          },
+          "worker_exit": {
+            "present": true,
+            "valid": true,
+            "returncode": 1,
+            "timed_out": false,
+            "errors": []
+          },
+          "managed_backlog": true,
+          "status": "failed_worker_exit"
+        }
+      }
+    },
+    "pipeline_gate": {
+      "returncode": 0,
+      "stdout": "BACKLOG PIPELINE: PASS",
+      "stderr": ""
+    },
+    "backlog_queue": {
+      "refreshed_at": "2026-08-29T21:23:31Z",
+      "status_returncode": 0,
+      "next_returncode": 0,
+      "valid": true,
+      "priority_rebalance": {
+        "requested": false,
+        "returncode": null,
+        "valid": null,
+        "report": null
+      },
+      "state_counts": {
+        "BLOCKED": 50,
+        "EXECUTED": 15,
+        "IMPLEMENTED": 3,
+        "PROMOTED": 30,
+        "REJECTED": 27,
+        "VERIFIED": 1
+      },
+      "next_candidate": null
+    },
+    "completion_action": "inspect_alert_before_dispatch",
+    "audit_ready_ids": [],
+    "final_health": {
+      "http://127.0.0.1:8080/health": 200,
+      "http://127.0.0.1:8081/health": 200
+    },
+    "final_gpu": {
+      "memory_used_mib": 19506,
+      "memory_free_mib": 4817,
+      "utilization_percent": 8,
+      "temperature_c": 33,
+      "power_w": 37.78
+    }
+  }
+}

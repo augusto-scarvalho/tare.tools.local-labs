@@ -1,0 +1,68 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX08-RELEVANCE-PREFILL-10",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex R10 recovery",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex R10 recovery",
+      "at": "2026-08-30T13:51:05Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex R10 recovery",
+      "at": "2026-08-30T13:51:27Z",
+      "reason": "Unchanged R9 protocol with complete abort-source ledger."
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex R10 recovery",
+      "at": "2026-08-30T13:52:13Z",
+      "reason": "Complete delegated ledger verified; 30 focused tests pass."
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-30T14:00:52Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "BLOCKED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-30T14:09:24Z",
+      "reason": "Fail-closed independent audit: degenerate zero-variance CI does not establish the frozen -3% noninferiority margin at n=64 (exact one-sided zero-event bound 4.57297%), and active R7/R8 delegate wrappers are not receipt-bound. No claim authorized; successor must bind full code path and preregister valid NI inference/sample size."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-10/PRE_REGISTRATION.md",
+    "sha256": "ade2a996154f13fcfbe74a6c5e201ea837c6fc815da3fced948dc70efc844070"
+  },
+  "implementation": [
+    {
+      "path": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-10/IMPLEMENTATION.md",
+      "sha256": "b82230f6b95e4117a2d459504890d7bb8b341c9c81b215c79191afe12f8a708a"
+    },
+    {
+      "path": "tests/test_slx08_relevance_prefill_r10.py",
+      "sha256": "99e20355878106aa060c3348eb42512f54c200ee5d970d5b231fcadaf282ff66"
+    },
+    {
+      "path": "tools/research/run_slx08_relevance_prefill_r10.py",
+      "sha256": "ff18345aedcafb18685c1d5f95a2066275b99ff600787c8b60ccecc795c05935"
+    }
+  ],
+  "implementation_digest": "f01bff6b00ba6e71b500e524c3dcf8932a510fdfc553d6aee8c0d2adbd602955",
+  "execution": {
+    "path": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-10/raw/receipt.json",
+    "sha256": "7f573c2ae762772aadf2368a1945adfcf29f45feef0f35153453538e3c87324a"
+  },
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

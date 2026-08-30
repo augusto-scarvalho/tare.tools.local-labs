@@ -1,0 +1,73 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX08-PHYSICAL-PREFILL-05",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex SLX08 recovery",
+  "stage": "REJECTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex SLX08 recovery",
+      "at": "2026-08-30T01:03:59Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex SLX08 recovery",
+      "at": "2026-08-30T01:05:09Z",
+      "reason": "R5 protocol frozen after R4 false-negative diagnosis."
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex SLX08 recovery",
+      "at": "2026-08-30T01:05:09Z",
+      "reason": "Streamed TTFT, absolute semantic floors and stable restoration identity implemented; 11 focused tests pass."
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-30T01:15:22Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-30T01:22:06Z",
+      "reason": "Independent reconstruction confirmed 128 physical streamed requests and the frozen conjunctive semantic failures; claim bounded to 64-pair 4096-token n_predict=8 token-block compaction campaign."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-05/PRE_REGISTRATION.md",
+    "sha256": "c5eb12fc80c6b7c8bdc3ed62e28c7c3fcaede86435114f9695c72bd9fb02c1a3"
+  },
+  "implementation": [
+    {
+      "path": "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-05/IMPLEMENTATION.md",
+      "sha256": "921d34a51f639dbf99c4cbed5ae48fc9fd81a950224f9ba332f810a581e7347e"
+    },
+    {
+      "path": "tests/test_slx08_physical_prefill_r5.py",
+      "sha256": "9716f437e1eb65a48382461bbd2d517837b303eeacf65d7b6ac811946d0984d6"
+    },
+    {
+      "path": "tools/research/run_slx08_physical_prefill_r5.py",
+      "sha256": "42a0c405bedd7003a6d28b17152261ea690bf1fb5cd6ca6f3e18f6451fd94848"
+    }
+  ],
+  "implementation_digest": "69be611a9a63a20524a90063ac0978496075621760a416ec048ea84b7437530c",
+  "execution": {
+    "path": "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-05/raw/receipt.json",
+    "sha256": "ed54519837bf23f174fcf4fdeef451a5d8e776fc8d3857b91b5e61b5190eb4eb"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-05/RESULT.md",
+    "sha256": "d735198dee2328d8f87c7a9ead66af2889f81ccebb908d5e4f06cd6089248f8a"
+  },
+  "review": {},
+  "claim_codes": [
+    "SLX08_PHYSICAL_SELECTED_BLOCK_PREFILL_REJECTED_R5"
+  ]
+}

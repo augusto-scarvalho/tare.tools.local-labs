@@ -232,6 +232,41 @@ def parse_pipeline_json(result: dict[str, Any]) -> Any:
         return None
 
 
+def unresolved_leaf_candidate(items: Any) -> dict[str, Any] | None:
+    if not isinstance(items, list):
+        return None
+    valid = [item for item in items if isinstance(item, dict) and isinstance(item.get("id"), str)]
+    superseded_ids = {
+        item["supersedes"]
+        for item in valid
+        if isinstance(item.get("supersedes"), str)
+    }
+    candidates = [
+        item for item in valid
+        if item.get("state") in {"IMPLEMENTED", "EXECUTED", "BLOCKED"}
+        and item["id"] not in superseded_ids
+    ]
+    if not candidates:
+        return None
+
+    def sort_key(item: dict[str, Any]) -> tuple[Any, ...]:
+        priority = item.get("priority")
+        score = item.get("priority_score")
+        return (
+            priority if isinstance(priority, (int, float)) else 99,
+            0 if isinstance(score, (int, float)) else 1,
+            -score if isinstance(score, (int, float)) else 0,
+            item["id"],
+        )
+
+    item = min(candidates, key=sort_key)
+    return {
+        key: item.get(key)
+        for key in ("id", "state", "priority", "priority_score", "title", "next_action")
+        if item.get(key) is not None
+    }
+
+
 def backlog_queue_snapshot(*, rebalance: bool = False, actor: str = "watcher") -> dict[str, Any]:
     rebalance_result = None
     rebalance_report = None
@@ -280,19 +315,31 @@ def backlog_queue_snapshot(*, rebalance: bool = False, actor: str = "watcher") -
         },
         "state_counts": dict(sorted(counts.items())),
         "next_candidate": next_candidate,
+        "continuation_candidate": unresolved_leaf_candidate(items),
     }
 
 
-def completion_action(experiment_mode: bool, final_status: str, next_candidate: Any) -> str:
+def completion_action(
+    experiment_mode: bool,
+    final_status: str,
+    next_candidate: Any,
+    continuation_candidate: Any = None,
+) -> str:
     if final_status not in {"complete", "complete_with_alert"}:
         return "stop_fail_closed"
     if final_status == "complete_with_alert":
         return "inspect_alert_before_dispatch"
     if not experiment_mode:
         return "notify_completion"
-    if not isinstance(next_candidate, dict):
-        return "notify_queue_empty"
-    return "dispatch_next_candidate"
+    if isinstance(next_candidate, dict):
+        return "dispatch_next_candidate"
+    if isinstance(continuation_candidate, dict):
+        return {
+            "IMPLEMENTED": "dispatch_implemented_candidate",
+            "EXECUTED": "dispatch_audit_candidate",
+            "BLOCKED": "resolve_blocked_candidate",
+        }.get(continuation_candidate.get("state"), "inspect_unresolved_candidate")
+    return "notify_queue_empty"
 
 
 def progress_value(packet_dir: pathlib.Path, item: dict[str, Any]) -> int:
@@ -531,6 +578,7 @@ def main() -> int:
             experiment_mode,
             final_status,
             backlog_queue["next_candidate"],
+            backlog_queue["continuation_candidate"],
         ),
         "audit_ready_ids": sorted(
             task_id

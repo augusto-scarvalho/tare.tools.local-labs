@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx08_relevance_prefill_r8.py", line 53, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx08_relevance_prefill_r8.py", line 37, in main
+    receipt, metrics = execute(args.outdir.resolve())
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx08_relevance_prefill_r8.py", line 30, in execute
+    return r7.execute(outdir)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx08_relevance_prefill_r7.py", line 76, in execute
+    return r6.execute(outdir)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx08_relevance_prefill_r6.py", line 170, in execute
+    raise ValueError(f"frozen input mismatch: {relative}: {actual} != {expected}")
+ValueError: frozen input mismatch: runs/autonomous/SLX08-RELEVANCE-R7-2026-08-30/FINAL.json: 7e339315aa0feeef47cc5b6971a4892494f170802d5b944b3be9cc0461fa4ba0 != 7e339315aa0feef47cc5b6971a4892494f170802d5b944b3be9cc0461fa4ba0

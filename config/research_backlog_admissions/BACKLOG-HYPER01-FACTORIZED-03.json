@@ -1,0 +1,35 @@
+{
+  "id": "BACKLOG-HYPER01-FACTORIZED-03",
+  "priority": 1,
+  "title": "Close the HYPER-01 resource-fidelity frontier at the maximum admissible factor rank",
+  "evidence_class": "proxy_realization",
+  "packet_dir": "runs/research/BACKLOG-HYPER01-FACTORIZED-03",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-HYPER01-FACTORIZED-02/raw/receipt.json",
+    "runs/research/BACKLOG-HYPER01-FACTORIZED-02/REVIEW.json",
+    "runs/research/BACKLOG-HYPER01-FACTORIZED-02/raw/generator_states.safetensors",
+    "runs/research/BACKLOG-HYPER01-FACTORIZED-02/raw/generated_tensors.safetensors"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "hardware_metrics",
+    "independent_evaluation", "invalidation_rules", "paired_baseline", "provenance",
+    "raw_samples", "real_implementation", "receipt_fingerprint", "repeatability",
+    "retained_tensors", "semantic_parity", "service_maintenance", "target_materiality"
+  ],
+  "acceptance_gates": [
+    {"id": "physical_targets", "metric": "physical_adapter_targets", "operator": "eq", "threshold": 4},
+    {"id": "target_distinctness", "metric": "distinct_target_deltas", "operator": "eq", "threshold": 4},
+    {"id": "completed_seeds", "metric": "completed_seeds", "operator": "eq", "threshold": 5},
+    {"id": "latency", "metric": "median_synthesis_latency_ms", "operator": "le", "threshold": 5.0},
+    {"id": "worst_seed_fidelity", "metric": "worst_seed_mean_cosine", "operator": "ge", "threshold": 0.95},
+    {"id": "overhead", "metric": "generator_fp32_storage_mb", "operator": "le", "threshold": 20.0},
+    {"id": "retained_states", "metric": "retained_seed_states", "operator": "eq", "threshold": 5},
+    {"id": "independent_rows", "metric": "independently_recomputed_cosines", "operator": "eq", "threshold": 20},
+    {"id": "service_recovery", "metric": "service_and_embedding_unchanged", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": ["HYPER01_MAX_RANK_PHYSICAL_FIT_R3", "HYPER01_RESOURCE_FIDELITY_FRONTIER_CLOSED_R3"],
+  "forbidden_claims": ["whole-adapter generation", "unseen-task generalization", "production adapter synthesis", "compression of target checkpoints"],
+  "next_action": "Train rank 135, the largest integer factor rank below the frozen 20 MiB FP32 ceiling, for five seeds and stop this family after independent review.",
+  "supersedes": "BACKLOG-HYPER01-FACTORIZED-02"
+}

@@ -1,0 +1,28 @@
+{
+  "schema": "local-labs-experiment-watch-v1",
+  "watch_id": "SLX08-PHYSICAL-R5-2026-08-29",
+  "experiment_mode": true,
+  "poll_seconds": 300,
+  "service_settle_seconds": 180,
+  "experiments": [
+    {
+      "task_id": "BACKLOG-SLX08-PHYSICAL-PREFILL-05",
+      "pid": 5720,
+      "packet_dir": "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-05",
+      "progress_glob": "raw/samples.jsonl",
+      "progress_mode": "jsonl_lines",
+      "expected_progress": 128,
+      "require_harness_terminal": true,
+      "managed_backlog": true,
+      "require_worker_exit": true,
+      "worker_exit_path": "C:\\projects\\tare.tools.local-labs\\runs\\autonomous\\FULL-BACKLOG-2026-08-29\\watchers\\007-BACKLOG-SLX08-PHYSICAL-PREFILL-05\\WORKER_EXIT.json",
+      "run_id": "2c3583c9f4cd48e6ad697665b481024f",
+      "deadline_epoch": 1788095117.8149092
+    }
+  ],
+  "final_health_urls": [
+    "http://127.0.0.1:8080/health",
+    "http://127.0.0.1:8081/health"
+  ],
+  "actor": "Codex executor watcher"
+}

@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx08_physical_prefill_r4.py", line 433, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx08_physical_prefill_r4.py", line 416, in main
+    receipt, metrics = execute(args.outdir.resolve())
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx08_physical_prefill_r4.py", line 408, in execute
+    receipt = run.seal({"schema": "local-labs-backlog-receipt-v1", "task_id": TASK_ID, "provenance": provenance, "provenance_complete": True, "gates": gates, "evidence": evidence})
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\src\model_lifecycle\experiment_harness.py", line 321, in seal
+    raise HarnessStateError("successful restoration is required before seal")
+src.model_lifecycle.experiment_harness.HarnessStateError: successful restoration is required before seal

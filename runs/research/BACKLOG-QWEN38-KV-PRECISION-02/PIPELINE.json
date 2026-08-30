@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-QWEN38-KV-PRECISION-02",
   "evidence_class": "serving_runtime",
   "executor": "Codex",
-  "stage": "EXECUTED",
+  "stage": "BLOCKED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,13 @@
       "to": "EXECUTED",
       "actor": "Codex executor watcher",
       "at": "2026-08-27T20:11:32Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "BLOCKED",
+      "actor": "GPT-5.6 Sol xhigh independent backlog-closure auditor",
+      "at": "2026-08-29T21:50:58Z",
+      "reason": "Fail closed: legacy runner_state changed after receipt sealing, so no R2 claim is signed; retained exact-parity rejection is non-reversing and later promoted successors resolve bounded Q8 utility, long-context, and concurrency."
     }
   ],
   "preregistration": {

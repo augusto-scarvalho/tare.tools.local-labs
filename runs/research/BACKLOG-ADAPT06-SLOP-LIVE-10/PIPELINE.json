@@ -1,0 +1,101 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT06-SLOP-LIVE-10",
+  "evidence_class": "artifact_requalification",
+  "executor": "Codex continuous executor",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T21:25:00Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T21:26:12Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T21:26:58Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-29T21:28:07Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T21:32:35Z",
+      "reason": "Immutable R7 rows independently recompute 72/72 route-correct outputs and controls, exact 30/30 schedule parity, and 29-to-2 requested route-label transitions; R10 changes only import/packet binding and supports a client-ordering claim with no speed, cache or server-scheduler interpretation."
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T21:32:36Z",
+      "reason": "Artifact-requalification evidence is independently verified and promotable only within the frozen retained-evidence client-ordering boundary."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-10/PRE_REGISTRATION.md",
+    "sha256": "17462d2a0be792dc48e4410deca2114da5456a9e8af014ecbd19585f7b14eaec"
+  },
+  "implementation": [
+    {
+      "path": "src/model_lifecycle/experiment_harness.py",
+      "sha256": "fee8f3251cdbfc1b1543cbb65697bd51dfd19012a1e6b6007b25e1120e2a49c3"
+    },
+    {
+      "path": "tests/test_adapt06_forensic_rebind_r10.py",
+      "sha256": "93657303cc76cdf6b65b580b470069449f4d040c450596523f3d1f2a81b15869"
+    },
+    {
+      "path": "tests/test_adapt06_forensic_rebind_r8.py",
+      "sha256": "65a66d7ebc1d71e34b253a8a2f16cd5cf3da64750aa5c5ad7685d283f6e9078c"
+    },
+    {
+      "path": "tests/test_adapt06_forensic_rebind_r9.py",
+      "sha256": "ab6a686ab221d857aefecd7102605aba224289867c92b809222216c8a0b21924"
+    },
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/run_adapt06_forensic_rebind_r10.py",
+      "sha256": "92aa38028e6f044958c79251c41d31f3bb4976f993bd969515ca1c8f9c8b8807"
+    },
+    {
+      "path": "tools/research/run_adapt06_forensic_rebind_r8.py",
+      "sha256": "c4efef978abfa35b0cbc384506ece6be5ed3c2cd2612f94925b17d5891c18607"
+    },
+    {
+      "path": "tools/research/run_adapt06_forensic_rebind_r9.py",
+      "sha256": "c972779c9fb3d00b92431ef932fe1b940679b023a9a47e298cfdc5c40c1aadeb"
+    }
+  ],
+  "implementation_digest": "2199c5ae7f6c9db51120f8912a1b57904fb03587b885d2792fdde02d4c4dc9bf",
+  "execution": {
+    "path": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-10/raw/receipt.json",
+    "sha256": "467744737561752f091ddce95aa659ea8425e99aa7220c3b51818789db5884fd"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-10/RESULT.md",
+    "sha256": "fd73e0b5c357c59c246cce1e75628e867c8d6bcc742bd736259e7468a46a3755"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-10/REVIEW.json",
+    "sha256": "adf228ef5a0d528cdd560c722ca5b16afabe10e2f8b651c2b380d309cee58180"
+  },
+  "claim_codes": [
+    "ADAPT06_CLIENT_AFFINITY_FORENSIC_REBOUND_R10"
+  ]
+}

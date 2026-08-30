@@ -1,0 +1,162 @@
+{
+  "schema": "local-labs-experiment-watch-status-v1",
+  "watch_id": "SLX08-RELEVANCE-R9-2026-08-30",
+  "updated_at": "2026-08-30T13:50:13Z",
+  "experiments": [
+    {
+      "task_id": "BACKLOG-SLX08-RELEVANCE-PREFILL-09",
+      "pid": 45756,
+      "process_alive": false,
+      "progress": 0,
+      "progress_mode": "jsonl_lines",
+      "expected_progress": 192,
+      "pipeline_stage": "IMPLEMENTED",
+      "watch_status": "failed_worker_exit",
+      "harness_terminal": {
+        "present": true,
+        "valid": true,
+        "status": "ABORTED",
+        "task_id": "BACKLOG-SLX08-RELEVANCE-PREFILL-09",
+        "sample_count": 0,
+        "errors": []
+      },
+      "worker_exit": {
+        "present": true,
+        "valid": true,
+        "returncode": 1,
+        "timed_out": false,
+        "errors": []
+      },
+      "managed_backlog": true
+    }
+  ],
+  "gpu": {
+    "memory_used_mib": 19594,
+    "memory_free_mib": 4729,
+    "utilization_percent": 0,
+    "temperature_c": 38,
+    "power_w": 123.44
+  },
+  "health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "states": {
+    "BACKLOG-SLX08-RELEVANCE-PREFILL-09": {
+      "status": "failed_worker_exit",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-30T13:50:11Z",
+        "receipt_exists": false,
+        "result_exists": false,
+        "stage_before": "IMPLEMENTED",
+        "progress": 0,
+        "progress_mode": "jsonl_lines",
+        "expected_progress": 192,
+        "harness_terminal": {
+          "present": true,
+          "valid": true,
+          "status": "ABORTED",
+          "task_id": "BACKLOG-SLX08-RELEVANCE-PREFILL-09",
+          "sample_count": 0,
+          "errors": []
+        },
+        "worker_exit": {
+          "present": true,
+          "valid": true,
+          "returncode": 1,
+          "timed_out": false,
+          "errors": []
+        },
+        "managed_backlog": true,
+        "status": "failed_worker_exit"
+      }
+    }
+  },
+  "final": {
+    "schema": "local-labs-experiment-watch-final-v1",
+    "watch_id": "SLX08-RELEVANCE-R9-2026-08-30",
+    "finished_at": "2026-08-30T13:50:13Z",
+    "status": "complete_with_alert",
+    "experiment_mode": true,
+    "states": {
+      "BACKLOG-SLX08-RELEVANCE-PREFILL-09": {
+        "status": "failed_worker_exit",
+        "was_seen_alive": true,
+        "finalization": {
+          "at": "2026-08-30T13:50:11Z",
+          "receipt_exists": false,
+          "result_exists": false,
+          "stage_before": "IMPLEMENTED",
+          "progress": 0,
+          "progress_mode": "jsonl_lines",
+          "expected_progress": 192,
+          "harness_terminal": {
+            "present": true,
+            "valid": true,
+            "status": "ABORTED",
+            "task_id": "BACKLOG-SLX08-RELEVANCE-PREFILL-09",
+            "sample_count": 0,
+            "errors": []
+          },
+          "worker_exit": {
+            "present": true,
+            "valid": true,
+            "returncode": 1,
+            "timed_out": false,
+            "errors": []
+          },
+          "managed_backlog": true,
+          "status": "failed_worker_exit"
+        }
+      }
+    },
+    "pipeline_gate": {
+      "returncode": 0,
+      "stdout": "BACKLOG PIPELINE: PASS",
+      "stderr": ""
+    },
+    "backlog_queue": {
+      "refreshed_at": "2026-08-30T13:50:13Z",
+      "status_returncode": 0,
+      "next_returncode": 0,
+      "valid": true,
+      "priority_rebalance": {
+        "requested": false,
+        "returncode": null,
+        "valid": null,
+        "report": null
+      },
+      "state_counts": {
+        "BLOCKED": 52,
+        "EXECUTED": 13,
+        "IMPLEMENTED": 7,
+        "PROMOTED": 33,
+        "REJECTED": 28,
+        "VERIFIED": 1
+      },
+      "next_candidate": null,
+      "continuation_candidate": {
+        "id": "BACKLOG-SLX08-RELEVANCE-PREFILL-09",
+        "state": "IMPLEMENTED",
+        "priority": 0,
+        "priority_score": 94,
+        "title": "Resume relevance-selected prefill with corrected source digest",
+        "next_action": "Repeat the unchanged R8 continuation with the exact programmatically copied R7 source digest."
+      }
+    },
+    "completion_action": "inspect_alert_before_dispatch",
+    "audit_ready_ids": [],
+    "final_health": {
+      "http://127.0.0.1:8080/health": 200,
+      "http://127.0.0.1:8081/health": 200
+    },
+    "final_gpu": {
+      "memory_used_mib": 19594,
+      "memory_free_mib": 4729,
+      "utilization_percent": 0,
+      "temperature_c": 38,
+      "power_w": 123.44
+    }
+  }
+}

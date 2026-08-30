@@ -1,0 +1,16 @@
+{
+  "id":"BACKLOG-SLX08-RELEVANCE-PREFILL-09","priority":0,"priority_score":94,
+  "title":"Resume relevance-selected prefill with corrected source digest",
+  "evidence_class":"serving_runtime","packet_dir":"runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-09","depends_on":[],
+  "source_artifacts":["runs/autonomous/SLX08-RELEVANCE-R8-2026-08-30/FINAL.json","runs/autonomous/SLX08-RELEVANCE-R8-2026-08-30/WORKER_EXIT.json","tools/research/run_slx08_relevance_prefill_r8.py"],
+  "required_evidence":["acceptance_gates","actual_scores","artifact_hashes","dataset_hashes","effective_route","failure_reproduction","falsifiable_hypothesis","hardware_metrics","independent_evaluation","invalidation_rules","invariant_controls","paired_baseline","physical_route_telemetry","provenance","raw_samples","real_implementation","receipt_fingerprint","recovery_state","semantic_parity","service_identity","service_maintenance","source_execution_receipt","treatment_materiality"],
+  "acceptance_gates":[
+    {"id":"dense_control","metric":"dense_requests","operator":"ge","threshold":64},{"id":"naive_control","metric":"naive_requests","operator":"ge","threshold":64},{"id":"relevance_treatment","metric":"relevance_requests","operator":"ge","threshold":64},
+    {"id":"route_observation","metric":"relevance_route_observation_rate","operator":"eq","threshold":1.0},{"id":"evidence_retention","metric":"relevance_evidence_retention_rate","operator":"eq","threshold":1.0},{"id":"retained_fraction","metric":"relevance_median_retained_fraction","operator":"eq","threshold":0.5},
+    {"id":"dense_semantic_floor","metric":"dense_accuracy","operator":"ge","threshold":0.9},{"id":"relevance_semantic_floor","metric":"relevance_accuracy","operator":"ge","threshold":0.9},{"id":"semantic_noninferiority","metric":"relevance_vs_dense_accuracy_delta_ci95_low","operator":"ge","threshold":-0.03},{"id":"selector_value","metric":"relevance_vs_naive_accuracy_delta","operator":"ge","threshold":0.2},
+    {"id":"ttft_gain","metric":"relevance_vs_dense_p50_ttft_speedup","operator":"ge","threshold":1.1},{"id":"tail_safety","metric":"relevance_vs_dense_p95_ttft_speedup","operator":"ge","threshold":1.0},{"id":"service_restore","metric":"original_service_restored","operator":"eq","threshold":1},{"id":"embedding_integrity","metric":"embedding_health","operator":"eq","threshold":200}
+  ],
+  "allowed_claim_codes":["SLX08_RELEVANCE_SELECTED_PREFILL_QUALIFIED_R9","SLX08_RELEVANCE_SELECTED_PREFILL_REJECTED_R9"],
+  "forbidden_claims":["generic sparse attention","production deployment","server-side semantic selector","quality beyond the frozen retrieval panel","generalization to other models or context lengths"],
+  "next_action":"Repeat the unchanged R8 continuation with the exact programmatically copied R7 source digest.","supersedes":"BACKLOG-SLX08-RELEVANCE-PREFILL-08"
+}

@@ -1,0 +1,83 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-HYPER01-FACTORIZED-02",
+  "evidence_class": "proxy_realization",
+  "executor": "Codex continuous executor",
+  "stage": "REJECTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T20:57:17Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T20:59:35Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T21:02:20Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-29T21:04:39Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "REJECTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T21:09:12Z",
+      "reason": "Retained-state replay confirms the scorer mismatch is cross-device numerical error, but canonical worst-seed fidelity 0.479803936 decisively fails the frozen >=0.95 conjunction."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-HYPER01-FACTORIZED-02/PRE_REGISTRATION.md",
+    "sha256": "fa76b374e8b904686a224b1b7c2f663872d679295e7431b1062f545fcc6e4342"
+  },
+  "implementation": [
+    {
+      "path": "tests/test_hyper01_factorized_worker_r2.py",
+      "sha256": "d27a25d26ee58d08ef159e72b735835536c95527b509963e35c8d461eefde910"
+    },
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/hyper01_factorized_scorer_r2.py",
+      "sha256": "702094345965426a305eeb76fe3a103d5a281b3ff6a27d0b0f96404f221e99d0"
+    },
+    {
+      "path": "tools/research/hyper01_factorized_worker_r2.py",
+      "sha256": "326dbf7069958de4663a3d5edb59a9633565c80d42660ab7e3a5d5a14d7ba44a"
+    },
+    {
+      "path": "tools/research/run_adapter_requalification_r2.py",
+      "sha256": "bb4d2b1ce5b7eebcf3a72791cce875f460178e4f245ffdecd89c06be9b6291f6"
+    },
+    {
+      "path": "tools/research/run_hyper01_factorized_r2.py",
+      "sha256": "a43fb4e25443b78dab96f992bd08b2bc4bb9b8fe73198581c23bdba97feb83ae"
+    }
+  ],
+  "implementation_digest": "9022fbadf03727961c22ee0138d83aeb5f9bb839a0ffa3268a70333650bf9044",
+  "execution": {
+    "path": "runs/research/BACKLOG-HYPER01-FACTORIZED-02/raw/receipt.json",
+    "sha256": "0662336e28e49661f56920470bf0c5a5fb06572362d5890f23659f6359d54028"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-HYPER01-FACTORIZED-02/RESULT.md",
+    "sha256": "460081774a6019af3242c23a5d3e7a97480893bc64ef1f144ce34345c9e1a319"
+  },
+  "review": {},
+  "claim_codes": [
+    "HYPER01_COMPACT_NEGATIVE_R2"
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "schema": "local-labs-experiment-watch-final-v1",
+  "watch_id": "POST-AUDIT-VALUE-WAVE-2026-08-29-ADAPT06-R7",
+  "finished_at": "2026-08-29T20:28:13Z",
+  "status": "complete",
+  "experiment_mode": true,
+  "states": {
+    "BACKLOG-ADAPT06-SLOP-LIVE-07": {
+      "status": "executed_valid",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-29T20:28:09Z",
+        "receipt_exists": true,
+        "result_exists": true,
+        "stage_before": "IMPLEMENTED",
+        "progress": 1,
+        "progress_mode": "files",
+        "expected_progress": 1,
+        "harness_terminal": {
+          "present": true,
+          "valid": true,
+          "status": "SEALED",
+          "task_id": "BACKLOG-ADAPT06-SLOP-LIVE-07",
+          "sample_count": 72,
+          "errors": []
+        },
+        "worker_exit": {
+          "present": true,
+          "valid": true,
+          "returncode": 0,
+          "timed_out": false,
+          "errors": []
+        },
+        "managed_backlog": true,
+        "advance": {
+          "returncode": 0,
+          "stdout": "BACKLOG-ADAPT06-SLOP-LIVE-07: advanced to EXECUTED",
+          "stderr": ""
+        },
+        "stage_after": "EXECUTED",
+        "gate": {
+          "returncode": 0,
+          "stdout": "BACKLOG PIPELINE: PASS",
+          "stderr": ""
+        },
+        "status": "executed_valid"
+      }
+    }
+  },
+  "pipeline_gate": {
+    "returncode": 0,
+    "stdout": "BACKLOG PIPELINE: PASS",
+    "stderr": ""
+  },
+  "backlog_queue": {
+    "refreshed_at": "2026-08-29T20:28:13Z",
+    "status_returncode": 0,
+    "next_returncode": 0,
+    "valid": true,
+    "priority_rebalance": {
+      "requested": true,
+      "returncode": 0,
+      "valid": true,
+      "report": {
+        "mode": "apply",
+        "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200",
+        "assessed_count": 22,
+        "change_count": 0,
+        "applied_ids": []
+      }
+    },
+    "state_counts": {
+      "BLOCKED": 42,
+      "EXECUTED": 23,
+      "IMPLEMENTED": 3,
+      "PREREGISTERED": 1,
+      "PROMOTED": 30,
+      "REJECTED": 22,
+      "VERIFIED": 1
+    },
+    "next_candidate": null
+  },
+  "completion_action": "notify_queue_empty",
+  "audit_ready_ids": [
+    "BACKLOG-ADAPT06-SLOP-LIVE-07"
+  ],
+  "final_health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "final_gpu": {
+    "memory_used_mib": 19506,
+    "memory_free_mib": 4817,
+    "utilization_percent": 2,
+    "temperature_c": 36,
+    "power_w": 39.32
+  }
+}

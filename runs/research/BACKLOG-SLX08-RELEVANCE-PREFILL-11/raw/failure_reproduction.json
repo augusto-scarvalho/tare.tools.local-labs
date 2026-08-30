@@ -1,0 +1,42 @@
+{
+  "indices_without_route": {
+    "status": 400,
+    "response": {
+      "error": {
+        "code": 400,
+        "message": "slx08_selected_block_indices requires slx08_selected_block_prefill=true",
+        "type": "invalid_request_error"
+      }
+    }
+  },
+  "wrong_count": {
+    "status": 400,
+    "response": {
+      "error": {
+        "code": 400,
+        "message": "slx08 explicit selection must retain exactly half of the prompt blocks",
+        "type": "invalid_request_error"
+      }
+    }
+  },
+  "duplicate": {
+    "status": 400,
+    "response": {
+      "error": {
+        "code": 400,
+        "message": "slx08 explicit selection block indices must be strictly increasing",
+        "type": "invalid_request_error"
+      }
+    }
+  },
+  "missing_endpoint": {
+    "status": 400,
+    "response": {
+      "error": {
+        "code": 400,
+        "message": "slx08 explicit selection must retain the first and final prompt blocks",
+        "type": "invalid_request_error"
+      }
+    }
+  }
+}

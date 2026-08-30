@@ -1,0 +1,48 @@
+{
+  "id": "BACKLOG-SLX08-PHYSICAL-PREFILL-05",
+  "priority": 0,
+  "priority_score": 90,
+  "title": "Repeat physical selected-block prefill with real TTFT and absolute semantic floors",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-05",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-04/raw/run.terminal.json",
+    "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-04/raw/samples.jsonl",
+    "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-04/raw/service_identity.json",
+    "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-04/raw/actual_scores.json",
+    "tools/research/run_slx08_physical_prefill_r4.py"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "dataset_hashes",
+    "effective_route", "failure_reproduction", "falsifiable_hypothesis",
+    "hardware_metrics", "independent_evaluation", "invalidation_rules",
+    "invariant_controls", "paired_baseline", "physical_route_telemetry",
+    "provenance", "raw_samples", "real_implementation", "receipt_fingerprint",
+    "recovery_state", "semantic_parity", "service_identity", "service_maintenance",
+    "source_execution_receipt", "treatment_materiality"
+  ],
+  "acceptance_gates": [
+    {"id": "physical_treatment", "metric": "physical_selected_block_prefill_requests", "operator": "ge", "threshold": 64},
+    {"id": "dense_control", "metric": "physical_dense_prefill_requests", "operator": "ge", "threshold": 64},
+    {"id": "route_observation", "metric": "selected_block_route_observation_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "retained_fraction", "metric": "median_retained_attention_fraction", "operator": "eq", "threshold": 0.5},
+    {"id": "dense_semantic_floor", "metric": "dense_accuracy", "operator": "ge", "threshold": 0.9},
+    {"id": "treatment_semantic_floor", "metric": "selected_block_accuracy", "operator": "ge", "threshold": 0.9},
+    {"id": "semantic_noninferiority", "metric": "paired_accuracy_delta_ci95_low", "operator": "ge", "threshold": -0.03},
+    {"id": "ttft_gain", "metric": "paired_p50_ttft_speedup", "operator": "ge", "threshold": 1.10},
+    {"id": "tail_safety", "metric": "paired_p95_ttft_speedup", "operator": "ge", "threshold": 1.0},
+    {"id": "service_restore", "metric": "original_service_restored", "operator": "eq", "threshold": 1},
+    {"id": "embedding_integrity", "metric": "embedding_health", "operator": "eq", "threshold": 200}
+  ],
+  "allowed_claim_codes": [
+    "SLX08_PHYSICAL_SELECTED_BLOCK_PREFILL_QUALIFIED_R5",
+    "SLX08_PHYSICAL_SELECTED_BLOCK_PREFILL_REJECTED_R5"
+  ],
+  "forbidden_claims": [
+    "generic block-sparse attention", "historical 1.40x inheritance", "production deployment",
+    "quality beyond the frozen panel", "generalization to other models or context lengths"
+  ],
+  "next_action": "Repeat 64 streamed OFF/ON pairs with n_predict=8, real first-content TTFT, absolute semantic floors and stable service-command restoration identity.",
+  "supersedes": "BACKLOG-SLX08-PHYSICAL-PREFILL-04"
+}

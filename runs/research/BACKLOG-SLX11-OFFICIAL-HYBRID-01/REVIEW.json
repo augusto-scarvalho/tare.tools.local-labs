@@ -1,0 +1,21 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol independent fail-closed audit",
+  "verdict": "HOLD_FAIL_CLOSED",
+  "decision": "BLOCKED",
+  "receipt_sha256": "d539dda7fb419ae390be32eb82e1d2c34ac44a44845c5992d505da35cdc28caf",
+  "receipt_fingerprint": "891737c603030a0ca60d5f8acf1ab7c810dff13719a06587baa70e34e9501304",
+  "implementation_digest": "1707de733474da9d3023abed179fc852cb0568c05aac916f794db74b41365d47",
+  "allowed_claim_code": null,
+  "findings": [
+    "Receipt SHA-256, canonical receipt fingerprint, implementation digest, all three implementation hashes and all 23 frozen provenance inputs independently reproduce. The focused implementation test passes and the receipt-bound topology records consistently identify 24 layers split into 18 recurrent and six full-attention layers, with 24 unique prompt and logits hashes and unchanged serving controls.",
+    "The decisive finite-output gate is not independently recomputable from the R1 raw evidence. Each forward retains only a derived finite=true boolean, argmax token and hash of the logits; it retains neither the logits nor a value-level projection such as nonfinite count and extrema. Reaggregating executor booleans would not be independent review, and generating the logits again would be a new inference run outside this audit.",
+    "Directed false-positive review therefore finds a real auditability gap in the positive all-gates claim, not evidence that the topology records are false. Directed false-negative review finds no basis to reject the artifact: the already-terminal R2 successor retained and independently rescored all 24 full logits tensors and is PROMOTED, resolving this exact blocker without changing R1 evidence.",
+    "This R1 packet is superseded by BACKLOG-SLX11-OFFICIAL-HYBRID-02 and must remain historical. It neither needs nor permits duplicate qualification, and the R2 result cannot retroactively repair the preregistered R1 evidence contract."
+  ],
+  "limitations": [
+    "No new inference was run, so the missing R1 value-level finite-output evidence remains irrecoverable inside this packet.",
+    "All argmax tokens are 271; even a qualified finite forward would remain only a topology/load smoke test."
+  ],
+  "claim_boundary": "No R1 claim code is authorized. The evidence supports a strong topology indication only; speed, recall, quality, dense-model superiority, production readiness and behavior beyond the frozen panel are excluded. The terminal R2 successor is the sole promotable qualification artifact."
+}

@@ -1,0 +1,72 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX08-PHYSICAL-PREFILL-04",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex continuous executor",
+  "stage": "IMPLEMENTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex post-audit portfolio review",
+      "at": "2026-08-29T20:02:04Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T20:15:57Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "BLOCKED",
+      "actor": "Codex physical implementation preflight",
+      "at": "2026-08-29T20:29:12Z",
+      "reason": "Clean slop.cpp commit 34b3dac7c has DFlash and dense prefill but no callable selected-block prefill control or per-request route telemetry. No treatment can be launched without fabricating ON. Unblock after a separately reviewed physical implementation and fixture/build evidence exist; see packet IMPLEMENTATION_BLOCKER.md."
+    },
+    {
+      "from": "BLOCKED",
+      "to": "PROPOSED",
+      "actor": "Codex SLX08 executor",
+      "at": "2026-08-30T00:52:36Z",
+      "reason": "User authorized the bounded private-fork server implementation and the immutable CUDA build is available."
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex SLX08 executor",
+      "at": "2026-08-30T00:52:36Z",
+      "reason": "Existing preregistration hash revalidated before physical execution."
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex SLX08 executor",
+      "at": "2026-08-30T00:52:37Z",
+      "reason": "Experimental OFF/ON route compiled successfully and fixture tests passed 8/8."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-04/PRE_REGISTRATION.md",
+    "sha256": "a8fdb75d58c8d02f0a9865bfb2c7e9538747b725c2192321960c6e626bff94db"
+  },
+  "implementation": [
+    {
+      "path": "runs/research/BACKLOG-SLX08-PHYSICAL-PREFILL-04/IMPLEMENTATION.md",
+      "sha256": "54c1a6f21ec69f1a2bd7bb82bcbc76035c6c8c54d011ca887e78f613ce44fa46"
+    },
+    {
+      "path": "tests/test_slx08_physical_prefill_r4.py",
+      "sha256": "3e2478009e54c75cbf27108778e9127093f33f6a283e66ad7aba7234af79f3f4"
+    },
+    {
+      "path": "tools/research/run_slx08_physical_prefill_r4.py",
+      "sha256": "42141bffd6c51635f1b0ec6e1ff3b531f4c7ee2b8eca933ee3371b673b86bf6d"
+    }
+  ],
+  "implementation_digest": "d84076c90582e0f616bb3e2769d07b5fbb8036a69c2e4a0bde75c0eb8e8522b9",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

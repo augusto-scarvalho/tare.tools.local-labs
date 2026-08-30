@@ -1,0 +1,84 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-NEGATIVE-KV-REAL-SCREEN-03",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "r2_audit_bound": {
+      "metric": "blocked_r2_review_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "activation_coverage": {
+      "metric": "actual_model_activation_cells",
+      "operator": "ge",
+      "threshold": 18,
+      "actual": null,
+      "pass": null
+    },
+    "weight_coverage": {
+      "metric": "actual_model_weight_matrices",
+      "operator": "ge",
+      "threshold": 12,
+      "actual": null,
+      "pass": null
+    },
+    "candidate_coverage": {
+      "metric": "candidate_hypotheses_evaluated",
+      "operator": "eq",
+      "threshold": 5,
+      "actual": null,
+      "pass": null
+    },
+    "sample_retention": {
+      "metric": "retained_candidate_cells",
+      "operator": "eq",
+      "threshold": 78,
+      "actual": null,
+      "pass": null
+    },
+    "tensor_retention": {
+      "metric": "retained_decisive_tensor_files",
+      "operator": "eq",
+      "threshold": 39,
+      "actual": null,
+      "pass": null
+    },
+    "tensor_hashes": {
+      "metric": "retained_tensor_hashes_verified",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "service_recovery": {
+      "metric": "service_and_embedding_restored",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "model_hash": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "real_implementation": null,
+    "receipt_fingerprint": null,
+    "scorer_hashes": null,
+    "service_maintenance": null,
+    "tensor_identity": null,
+    "retained_tensors": null
+  },
+  "receipt_fingerprint": null
+}

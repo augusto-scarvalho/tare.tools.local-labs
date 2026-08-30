@@ -1,0 +1,69 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT06-SLOP-LIVE-09",
+  "evidence_class": "artifact_requalification",
+  "executor": "Codex continuous executor",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T21:19:50Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T21:20:16Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T21:22:23Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T21:24:23Z",
+      "reason": "R9 worker failed before evidence: file-path invocation could not resolve the tools namespace (ModuleNotFoundError); immutable launch logs retained; successor must use module invocation or seed repository root before import."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-09/PRE_REGISTRATION.md",
+    "sha256": "87440f2ed267fff82fdd492b78b370cc02fcd958b875b52116681345ba86901a"
+  },
+  "implementation": [
+    {
+      "path": "src/model_lifecycle/experiment_harness.py",
+      "sha256": "fee8f3251cdbfc1b1543cbb65697bd51dfd19012a1e6b6007b25e1120e2a49c3"
+    },
+    {
+      "path": "tests/test_adapt06_forensic_rebind_r8.py",
+      "sha256": "65a66d7ebc1d71e34b253a8a2f16cd5cf3da64750aa5c5ad7685d283f6e9078c"
+    },
+    {
+      "path": "tests/test_adapt06_forensic_rebind_r9.py",
+      "sha256": "ab6a686ab221d857aefecd7102605aba224289867c92b809222216c8a0b21924"
+    },
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/run_adapt06_forensic_rebind_r8.py",
+      "sha256": "c4efef978abfa35b0cbc384506ece6be5ed3c2cd2612f94925b17d5891c18607"
+    },
+    {
+      "path": "tools/research/run_adapt06_forensic_rebind_r9.py",
+      "sha256": "c972779c9fb3d00b92431ef932fe1b940679b023a9a47e298cfdc5c40c1aadeb"
+    }
+  ],
+  "implementation_digest": "081e5e66465f9df241a7ef8660a6c6f7590f04ebc5de3ed868a1658bf0c19256",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

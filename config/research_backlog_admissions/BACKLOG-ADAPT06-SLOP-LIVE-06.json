@@ -1,0 +1,48 @@
+{
+  "id": "BACKLOG-ADAPT06-SLOP-LIVE-06",
+  "priority": 0,
+  "title": "Qualify two-adapter client affinity with bound schedules and route counterfactuals",
+  "evidence_class": "serving_runtime",
+  "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-06",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-05/raw/receipt.json",
+    "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-05/raw/live_rows.json",
+    "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md",
+    "tools/research/run_adapt06_slop_live_r5.py",
+    "runs/research/BACKLOG-ADAPT-TRAIN-01/raw/checkpoint_seed_20260824/adapter_model.safetensors",
+    "runs/research/BACKLOG-ADAPT-TRACE-DISTILL-03/raw/checkpoints/seed_20260824_full_trace/adapter_model.safetensors"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "cache_schedule_rows",
+    "counterfactual_baselines", "dataset_hashes", "effective_route", "failure_reproduction",
+    "falsifiable_hypothesis", "hardware_metrics", "independent_evaluation",
+    "invalidation_rules", "invariant_controls", "paired_baseline", "provenance",
+    "raw_samples", "real_implementation", "receipt_fingerprint", "recovery_state",
+    "route_logs", "semantic_parity", "service_identity", "service_maintenance",
+    "source_execution_receipt"
+  ],
+  "acceptance_gates": [
+    {"id": "adapter_conversion", "metric": "converted_adapters", "operator": "eq", "threshold": 2},
+    {"id": "adapter_loading", "metric": "loaded_adapters", "operator": "eq", "threshold": 2},
+    {"id": "behavioral_materiality", "metric": "prompts_with_distinct_route_outputs", "operator": "ge", "threshold": 4},
+    {"id": "bound_live_rows", "metric": "digest_bound_live_rows", "operator": "eq", "threshold": true},
+    {"id": "isolated_counterfactuals", "metric": "route_correct_counterfactual_match_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "route_isolation", "metric": "routed_exact_match_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "cross_route_isolation", "metric": "cross_route_contamination_count", "operator": "eq", "threshold": 0},
+    {"id": "affinity_switch_reduction", "metric": "requested_route_switch_reduction", "operator": "ge", "threshold": 0.90},
+    {"id": "affinity_parity", "metric": "schedule_semantic_parity", "operator": "eq", "threshold": 1.0},
+    {"id": "service_restore", "metric": "original_service_restored", "operator": "eq", "threshold": 1},
+    {"id": "embedding_integrity", "metric": "embedding_health", "operator": "eq", "threshold": 200}
+  ],
+  "allowed_claim_codes": [
+    "ADAPT06_TWO_ADAPTER_CLIENT_AFFINITY_QUALIFIED_R6",
+    "ADAPT06_TWO_ADAPTER_CLIENT_AFFINITY_REJECTED_R6"
+  ],
+  "forbidden_claims": [
+    "server-native affinity scheduler", "fused multi-adapter GEMM", "production deployment",
+    "cache correctness without route-correct counterfactuals", "generalization beyond two frozen adapters"
+  ],
+  "next_action": "Repeat the bounded two-adapter live route with final cache/schedule rows and logs receipt-bound before finalization, and compare every switched output to an isolated route-correct baseline.",
+  "supersedes": "BACKLOG-ADAPT06-SLOP-LIVE-05"
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent backlog-closure auditor",
+  "verdict": "HOLD_FAIL_CLOSED",
+  "decision": "BLOCKED",
+  "receipt_sha256": "aba1cc2685f5b74ab01a16937b13d7c063898e9cf2df6ac97bb30564a4074bd7",
+  "receipt_fingerprint": "326386bba401ce61baa21799c863c959561011a6cf7d7c0edfa27a4d569152e4",
+  "implementation_digest": "f02b392add6f904130fc4bec421b39d6ea3fd3be6150a8a6f5e78bee914e5394",
+  "allowed_claim_code": null,
+  "findings": [
+    "The receipt SHA-256, canonical fingerprint, preregistration SHA-256 and two-file implementation digest independently recompute. Every source, implementation and decisive raw-evidence hash is current. Of 27 receipt provenance inputs, 26 remain byte-identical; raw/samples.jsonl remains exact at SHA-256 24151e0077e34172f25eafdba5ea24377cb4293ae225bca1b90b85edd10be10a.",
+    "Direct reconstruction finds exactly 128 unique rows: four fresh-process 32-task blocks in frozen F16, Q8_0, Q8_0, F16 order. The retained process argv binds F16/F16 or Q8_0/Q8_0 cache controls as declared, with four distinct PIDs and the frozen llama-server/model identities. All 128 responses are HTTP 200, bind the qwen38-kv-precision alias, retain request prompt equal to response.prompt, use temperature 0, top-k 1 and seed 20260826, and report no truncation.",
+    "An independent last-hash-or-last-number scorer reproduces every stored extraction and correctness label. Both F16 and Q8 are exactly repeatable across their two processes at 32/32. Cross-precision string equality is 54/64 = 0.84375, reproducing the receipt and failing the frozen 0.95 gate. The five unique task divergences repeat in both process pairs.",
+    "Directed false-negative review finds that gsm8k/27 differs only as 16.00 versus 16.0. Numerically normalizing that formatting mismatch raises parity to 56/64 = 0.875, still decisively below 0.95. The remaining eight pair-level mismatches are four repeatable task-level answer divergences. Therefore the scorer's string comparison understates parity by 0.03125 but does not reverse the preregistered rejection.",
+    "The favorable measurements also recompute: F16 and Q8 accuracy are both 0.25, median decode rates are 84.20429 and 84.1754635 tokens/s for a ratio of 0.9996576599600805, and the retained post-warmup global GPU snapshots differ by 872 MiB. These observations reject exact cross-precision answer equivalence, not bounded utility; interpreting the single failed parity gate as a general Q8 utility failure would be a false positive.",
+    "One provenance record is no longer byte-identical: raw/runner_state.json was bound at 2,999 bytes/SHA-256 5d5822f40ccc13309a6a943cfc7ada59968369416ac4abefd7a1491be252ed42 and is now the executor's completed state at 2,968 bytes/SHA-256 3e4c3605d982b25f5770628b878fa4374b62c985cfafe5d2302b12cf434dedc6. The legacy finalizer writes the receipt before adding claim and failed_gates to runner_state. This post-receipt mutation prevents signing the R2 receipt even though it cannot repair the parity failure.",
+    "Watcher evidence records the worker alive, receipt and result present, legal IMPLEMENTED-to-EXECUTED advancement, pipeline PASS, restored qwen38 route and final gateway/embedding HTTP 200. Later semantically related promoted successors resolve the deployment question without contradicting R2: BACKLOG-QWEN38-Q8-KV-UTILITY-04 finds F16 40/128 versus Q8 39/128 with paired Q8-minus-F16 CI [-0.0390625, 0.015625], BACKLOG-QWEN38-Q8-KV-LONGCONTEXT-02 finds 24/24 exact recall pairs per precision at 8k/16k, and BACKLOG-QWEN38-Q8-KV-CONCURRENCY-01 qualifies the two-slot bounded regime. R2 remains the negative exact-parity result and does not need another run merely for backlog closure."
+  ],
+  "limitations": [
+    "No R2 claim code is authorized because the current packet is not byte-complete against its own provenance ledger.",
+    "The raw evidence supports rejection only of the preregistered conjunction and exact extracted-answer parity on the first 32 frozen GSM8K tasks. It does not reject Q8 utility, long-context retrieval, concurrency or production deployment in the later qualified envelopes.",
+    "The 872 MiB figures are same-host global GPU snapshots rather than per-process accounting, and all performance and semantic observations are limited to the retained Qwen3.8 runtime and prompt cap."
+  ],
+  "claim_boundary": "No BACKLOG-QWEN38-KV-PRECISION-02 claim code is signed. Its exact string-parity gate fails at 0.84375 and still fails at 0.875 after numeric normalization, while later promoted successors carry the bounded utility, long-context and concurrency claims."
+}

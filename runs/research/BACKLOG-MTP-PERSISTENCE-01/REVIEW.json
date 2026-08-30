@@ -1,0 +1,24 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol xhigh independent backlog-closure auditor",
+  "verdict": "HOLD_FAIL_CLOSED",
+  "decision": "BLOCKED",
+  "receipt_sha256": "6a52f8690b9f20c6583bdfa80e947ca4f7469e3297b24e046195a799c4116079",
+  "receipt_fingerprint": "2aac0f35c30ca507a74acda0e3448d3f37368786cc757c6861daac7ca56c86df",
+  "implementation_digest": "fea5a0c29cf9cf2ffbeadb66d1207f213c80e9dbf75ed807836eb129c61d1073",
+  "allowed_claim_code": null,
+  "findings": [
+    "The receipt SHA-256, canonical receipt fingerprint and implementation digest independently recompute. The preregistration and implementation hashes remain exact. Of 108 provenance inputs, 107 still match their recorded bytes and SHA-256 values; raw/samples.jsonl remains exact at SHA-256 ae235a397007db32e6c5adc4228f26023fd0a7a5efa4a93cab8d7ba9e6b1b34d.",
+    "Direct reconstruction from all 44 retained physical rows finds four no-spec controls, twenty cold MTP observations and twenty warm MTP observations, each under a distinct fresh transient unit and PID. All 44 save/restore API lifecycles succeed, all save and restore responses report 5,039 tokens, every retained slot identity reports 249,894,552 bytes, all cold/restored continuations are byte-identical and all 44 oracle checks return MAGNOLIA.",
+    "Treatment materiality is present: every one of the twenty warm rows records accepted draft tokens before erase, with a minimum of 88. Nevertheless all 44 restored completions report cache_n=0 and reevaluate the full 5,033-token prompt. Therefore zero of four controls, zero of twenty cold rows and zero of twenty warm rows satisfy the frozen functional-cache invariant. The warmup does not rescue the frozen mechanism, but the failed no-spec controls prevent attributing the failure specifically to an MTP first-instance lifecycle defect.",
+    "The executor's four gates recompute: original_failure=false, invariant_controls_pass=false, successful_fixed_path_repeats=0 and post_fix_mismatch_rate=0. The hypothesis is not root-caused. Exact continuation is deterministic output parity and the save/restore token counts and nonempty slot files establish serialization only; treating any of them as functional restored-prefix reuse would be a false positive.",
+    "One provenance record is no longer byte-identical: raw/runner_state.json was bound at 3,380 bytes/SHA-256 9dd8ebf1a9bc18d8f8fe2bb79fdfe1116d9e11f35d388121feb77a0934a8663f and is now the executor's completed state at 3,523 bytes/SHA-256 221c23815194a35e0f2a8ff12bdac8129e64cb790523655d745b83d852b001e4. Source inspection shows that the legacy runner created the receipt and then wrote claim/failed_gates into runner_state. This post-receipt mutation prevents signing the R1 receipt even though it does not reverse the row-level negative result.",
+    "The semantically related terminal successor BACKLOG-MTP-PERSISTENCE-FUNCTIONAL-03 binds this R1 receipt and samples, uses a stricter functional-reuse design and is independently REJECTED as MTP_PERSISTENCE_FUNCTIONAL_REUSE_REJECTED_R3. Its retained sixteen cycles independently show cache_n=0, full 6,739-token reevaluation and zero prefill reduction. That successor resolves the practical question for the exact frozen runtime without retroactively repairing R1 provenance or establishing a general MTP root cause. No new inference is warranted solely to close this legacy leaf."
+  ],
+  "limitations": [
+    "No R1 claim code is authorized because the current packet is not byte-complete against its own provenance ledger.",
+    "The retained evidence rejects only the proposed one-warmup repair under the exact Qwen3.8, q4_0 KV, draft-mtp depth-3, fresh-process construction. It does not establish cross-process durability, crash recovery, a causal MTP-only defect or general cache-persistence failure.",
+    "BACKLOG-MTP-PERSISTENCE-FUNCTIONAL-03 is the terminal bounded functional-reuse result; R1 should not be rerun unless a new runtime signal changes the mechanism under test."
+  ],
+  "claim_boundary": "No BACKLOG-MTP-PERSISTENCE-01 claim code is signed. The retained rows support only that the frozen discarded accepted-draft warmup did not produce functional restored-prefix reuse and that the controls also failed. The terminal bounded conclusion is carried by BACKLOG-MTP-PERSISTENCE-FUNCTIONAL-03."
+}

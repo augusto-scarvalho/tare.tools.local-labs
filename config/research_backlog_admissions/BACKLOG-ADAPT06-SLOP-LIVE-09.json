@@ -1,0 +1,36 @@
+{
+  "id": "BACKLOG-ADAPT06-SLOP-LIVE-09",
+  "priority": 0,
+  "title": "Complete the retained two-adapter forensic rebind with verified terminal manifest access",
+  "evidence_class": "artifact_requalification",
+  "packet_dir": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-09",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-08/PIPELINE.json",
+    "tools/research/run_adapt06_forensic_rebind_r8.py",
+    "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/raw/run.terminal.json",
+    "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/REVIEW.json",
+    "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/raw/physical_r5/raw/live_rows.json"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "dataset_hashes", "independent_evaluation",
+    "invalidation_rules", "paired_baseline", "provenance", "raw_samples", "receipt_fingerprint",
+    "scorer_hashes", "semantic_parity", "service_maintenance", "source_execution_receipt"
+  ],
+  "acceptance_gates": [
+    {"id": "sealed_source", "metric": "sealed_r7_source", "operator": "eq", "threshold": true},
+    {"id": "baseline_hashes", "metric": "recomputed_baseline_hashes", "operator": "eq", "threshold": 36},
+    {"id": "routed_hashes", "metric": "recomputed_routed_hashes", "operator": "eq", "threshold": 72},
+    {"id": "route_counterfactual", "metric": "route_correct_counterfactual_match_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "route_controls", "metric": "physical_route_control_match_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "materiality", "metric": "prompts_with_distinct_route_outputs", "operator": "ge", "threshold": 4},
+    {"id": "schedule_parity", "metric": "schedule_semantic_parity", "operator": "eq", "threshold": 1.0},
+    {"id": "switch_reduction", "metric": "requested_route_switch_reduction", "operator": "ge", "threshold": 0.8},
+    {"id": "wrapper_binding", "metric": "r8_and_r7_wrappers_provenance_bound", "operator": "eq", "threshold": true},
+    {"id": "service_health", "metric": "gateway_and_embedding_healthy", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": ["ADAPT06_CLIENT_AFFINITY_FORENSIC_REBOUND_R9", "ADAPT06_CLIENT_AFFINITY_REJECTED_R9"],
+  "forbidden_claims": ["server-native scheduler", "cache isolation", "latency speedup", "fused multi-adapter GEMM", "production deployment"],
+  "next_action": "Repeat only the R8 retained-evidence scorer with the verified terminal manifest read from run.terminal.json.",
+  "supersedes": "BACKLOG-ADAPT06-SLOP-LIVE-08"
+}

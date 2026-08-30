@@ -1,0 +1,112 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT06-SLOP-LIVE-06",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "adapter_conversion": {
+      "metric": "converted_adapters",
+      "operator": "eq",
+      "threshold": 2,
+      "actual": null,
+      "pass": null
+    },
+    "adapter_loading": {
+      "metric": "loaded_adapters",
+      "operator": "eq",
+      "threshold": 2,
+      "actual": null,
+      "pass": null
+    },
+    "behavioral_materiality": {
+      "metric": "prompts_with_distinct_route_outputs",
+      "operator": "ge",
+      "threshold": 4,
+      "actual": null,
+      "pass": null
+    },
+    "bound_live_rows": {
+      "metric": "digest_bound_live_rows",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "isolated_counterfactuals": {
+      "metric": "route_correct_counterfactual_match_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "route_isolation": {
+      "metric": "routed_exact_match_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "cross_route_isolation": {
+      "metric": "cross_route_contamination_count",
+      "operator": "eq",
+      "threshold": 0,
+      "actual": null,
+      "pass": null
+    },
+    "affinity_switch_reduction": {
+      "metric": "requested_route_switch_reduction",
+      "operator": "ge",
+      "threshold": 0.9,
+      "actual": null,
+      "pass": null
+    },
+    "affinity_parity": {
+      "metric": "schedule_semantic_parity",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "service_restore": {
+      "metric": "original_service_restored",
+      "operator": "eq",
+      "threshold": 1,
+      "actual": null,
+      "pass": null
+    },
+    "embedding_integrity": {
+      "metric": "embedding_health",
+      "operator": "eq",
+      "threshold": 200,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "cache_schedule_rows": null,
+    "counterfactual_baselines": null,
+    "dataset_hashes": null,
+    "effective_route": null,
+    "failure_reproduction": null,
+    "falsifiable_hypothesis": null,
+    "hardware_metrics": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "invariant_controls": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "real_implementation": null,
+    "receipt_fingerprint": null,
+    "recovery_state": null,
+    "route_logs": null,
+    "semantic_parity": null,
+    "service_identity": null,
+    "service_maintenance": null,
+    "source_execution_receipt": null
+  },
+  "receipt_fingerprint": null
+}

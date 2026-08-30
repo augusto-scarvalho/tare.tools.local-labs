@@ -1,0 +1,40 @@
+{
+  "RSH-01": {
+    "pass": false,
+    "rules": [
+      "mse_ratio<=0.70",
+      "sqnr_gain_db>=2.5",
+      "cosine>=0.995"
+    ]
+  },
+  "REP-03": {
+    "pass": false,
+    "rules": [
+      "mse_reduction>=0.50",
+      "attention_cosine>=0.99"
+    ]
+  },
+  "RSH-03": {
+    "pass": false,
+    "rules": [
+      "mse_recovery>=0.50",
+      "output_cosine>=0.998",
+      "parameter_overhead<=0.01"
+    ]
+  },
+  "RSH-04": {
+    "pass": false,
+    "rules": [
+      "top_block_recall>=0.90",
+      "retained_fraction<=0.30"
+    ]
+  },
+  "REP-06": {
+    "pass": false,
+    "rules": [
+      "average_bits<=7.0",
+      "attention_cosine>=0.992",
+      "beats_static_int4=true"
+    ]
+  }
+}

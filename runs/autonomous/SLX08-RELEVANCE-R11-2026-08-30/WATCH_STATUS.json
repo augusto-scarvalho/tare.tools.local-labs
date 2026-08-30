@@ -1,0 +1,192 @@
+{
+  "schema": "local-labs-experiment-watch-status-v1",
+  "watch_id": "SLX08-RELEVANCE-R11-2026-08-30",
+  "updated_at": "2026-08-30T14:30:21Z",
+  "experiments": [
+    {
+      "task_id": "BACKLOG-SLX08-RELEVANCE-PREFILL-11",
+      "pid": 35728,
+      "process_alive": false,
+      "progress": 378,
+      "progress_mode": "jsonl_lines",
+      "expected_progress": 378,
+      "pipeline_stage": "EXECUTED",
+      "watch_status": "executed_valid",
+      "harness_terminal": {
+        "present": true,
+        "valid": true,
+        "status": "SEALED",
+        "task_id": "BACKLOG-SLX08-RELEVANCE-PREFILL-11",
+        "sample_count": 378,
+        "errors": []
+      },
+      "worker_exit": {
+        "present": true,
+        "valid": true,
+        "returncode": 0,
+        "timed_out": false,
+        "errors": []
+      },
+      "managed_backlog": true
+    }
+  ],
+  "gpu": {
+    "memory_used_mib": 19494,
+    "memory_free_mib": 4829,
+    "utilization_percent": 7,
+    "temperature_c": 47,
+    "power_w": 44.01
+  },
+  "health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "states": {
+    "BACKLOG-SLX08-RELEVANCE-PREFILL-11": {
+      "status": "executed_valid",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-30T14:30:18Z",
+        "receipt_exists": true,
+        "result_exists": true,
+        "stage_before": "IMPLEMENTED",
+        "progress": 378,
+        "progress_mode": "jsonl_lines",
+        "expected_progress": 378,
+        "harness_terminal": {
+          "present": true,
+          "valid": true,
+          "status": "SEALED",
+          "task_id": "BACKLOG-SLX08-RELEVANCE-PREFILL-11",
+          "sample_count": 378,
+          "errors": []
+        },
+        "worker_exit": {
+          "present": true,
+          "valid": true,
+          "returncode": 0,
+          "timed_out": false,
+          "errors": []
+        },
+        "managed_backlog": true,
+        "advance": {
+          "returncode": 0,
+          "stdout": "BACKLOG-SLX08-RELEVANCE-PREFILL-11: advanced to EXECUTED",
+          "stderr": ""
+        },
+        "stage_after": "EXECUTED",
+        "gate": {
+          "returncode": 0,
+          "stdout": "BACKLOG PIPELINE: PASS",
+          "stderr": ""
+        },
+        "status": "executed_valid"
+      }
+    }
+  },
+  "final": {
+    "schema": "local-labs-experiment-watch-final-v1",
+    "watch_id": "SLX08-RELEVANCE-R11-2026-08-30",
+    "finished_at": "2026-08-30T14:30:21Z",
+    "status": "complete",
+    "experiment_mode": true,
+    "states": {
+      "BACKLOG-SLX08-RELEVANCE-PREFILL-11": {
+        "status": "executed_valid",
+        "was_seen_alive": true,
+        "finalization": {
+          "at": "2026-08-30T14:30:18Z",
+          "receipt_exists": true,
+          "result_exists": true,
+          "stage_before": "IMPLEMENTED",
+          "progress": 378,
+          "progress_mode": "jsonl_lines",
+          "expected_progress": 378,
+          "harness_terminal": {
+            "present": true,
+            "valid": true,
+            "status": "SEALED",
+            "task_id": "BACKLOG-SLX08-RELEVANCE-PREFILL-11",
+            "sample_count": 378,
+            "errors": []
+          },
+          "worker_exit": {
+            "present": true,
+            "valid": true,
+            "returncode": 0,
+            "timed_out": false,
+            "errors": []
+          },
+          "managed_backlog": true,
+          "advance": {
+            "returncode": 0,
+            "stdout": "BACKLOG-SLX08-RELEVANCE-PREFILL-11: advanced to EXECUTED",
+            "stderr": ""
+          },
+          "stage_after": "EXECUTED",
+          "gate": {
+            "returncode": 0,
+            "stdout": "BACKLOG PIPELINE: PASS",
+            "stderr": ""
+          },
+          "status": "executed_valid"
+        }
+      }
+    },
+    "pipeline_gate": {
+      "returncode": 0,
+      "stdout": "BACKLOG PIPELINE: PASS",
+      "stderr": ""
+    },
+    "backlog_queue": {
+      "refreshed_at": "2026-08-30T14:30:21Z",
+      "status_returncode": 0,
+      "next_returncode": 0,
+      "valid": true,
+      "priority_rebalance": {
+        "requested": true,
+        "returncode": 0,
+        "valid": true,
+        "report": {
+          "mode": "apply",
+          "policy_sha256": "9999b71518e49e2a638b8d83febe96d6c3eb1debe1cfdd61a815bd6d3cbc6200",
+          "assessed_count": 20,
+          "change_count": 0,
+          "applied_ids": []
+        }
+      },
+      "state_counts": {
+        "BLOCKED": 53,
+        "EXECUTED": 14,
+        "IMPLEMENTED": 7,
+        "PROMOTED": 33,
+        "REJECTED": 28,
+        "VERIFIED": 1
+      },
+      "next_candidate": null,
+      "continuation_candidate": {
+        "id": "BACKLOG-SLX08-RELEVANCE-PREFILL-11",
+        "state": "EXECUTED",
+        "priority": 0,
+        "priority_score": 96,
+        "title": "Confirm relevance-selected prefill with exact noninferiority and balanced sample",
+        "next_action": "Run 126 fresh balanced three-arm fixtures with a one-sided exact binomial noninferiority bound and a fully bound R11-to-R6 code path."
+      }
+    },
+    "completion_action": "dispatch_audit_candidate",
+    "audit_ready_ids": [
+      "BACKLOG-SLX08-RELEVANCE-PREFILL-11"
+    ],
+    "final_health": {
+      "http://127.0.0.1:8080/health": 200,
+      "http://127.0.0.1:8081/health": 200
+    },
+    "final_gpu": {
+      "memory_used_mib": 19494,
+      "memory_free_mib": 4829,
+      "utilization_percent": 7,
+      "temperature_c": 47,
+      "power_w": 43.6
+    }
+  }
+}

@@ -529,6 +529,28 @@ def test_completion_action_matrix(experiment_mode, status, candidate, expected):
     assert watcher.completion_action(experiment_mode, status, candidate) == expected
 
 
+@pytest.mark.parametrize(
+    ("state", "expected"),
+    [
+        ("IMPLEMENTED", "dispatch_implemented_candidate"),
+        ("EXECUTED", "dispatch_audit_candidate"),
+        ("BLOCKED", "resolve_blocked_candidate"),
+    ],
+)
+def test_completion_action_surfaces_unresolved_leaf(state, expected):
+    candidate = {"id": "BACKLOG-LEAF", "state": state}
+    assert watcher.completion_action(True, "complete", None, candidate) == expected
+
+
+def test_unresolved_leaf_candidate_ignores_superseded_predecessors():
+    items = [
+        {"id": "OLD", "state": "BLOCKED", "priority": 0, "priority_score": 99},
+        {"id": "DONE", "state": "PROMOTED", "priority": 1, "supersedes": "OLD"},
+        {"id": "LIVE", "state": "BLOCKED", "priority": 1, "priority_score": 50},
+    ]
+    assert watcher.unresolved_leaf_candidate(items)["id"] == "LIVE"
+
+
 def test_clean_completion_advances_packet_and_dispatches_candidate(
     packet_factory, pipeline_stub, run_watcher, watcher_repo
 ):
@@ -546,10 +568,30 @@ def test_clean_completion_advances_packet_and_dispatches_candidate(
     assert any(event["event"] == "watcher_finished" for event in result.events)
 
 
-def test_clean_completion_reports_empty_queue(packet_factory, run_watcher):
+def test_clean_completion_reports_empty_queue(
+    packet_factory, pipeline_stub, run_watcher
+):
+    pipeline_stub.status_items = []
     result = run_watcher([packet_factory()])
     assert result.returncode == 0
     assert result.final["completion_action"] == "notify_queue_empty"
+
+
+def test_clean_completion_surfaces_blocked_leaf(
+    packet_factory, pipeline_stub, run_watcher
+):
+    pipeline_stub.status_items = [{
+        "id": "BACKLOG-BLOCKED",
+        "state": "BLOCKED",
+        "priority": 0,
+        "priority_score": 80,
+        "title": "Physical implementation",
+        "next_action": "Implement and rerun",
+    }]
+    result = run_watcher([packet_factory()])
+    assert result.returncode == 0
+    assert result.final["completion_action"] == "resolve_blocked_candidate"
+    assert result.final["backlog_queue"]["continuation_candidate"]["id"] == "BACKLOG-BLOCKED"
 
 
 def test_non_experiment_mode_only_notifies(packet_factory, pipeline_stub, run_watcher):

@@ -1,0 +1,95 @@
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT06-SLOP-LIVE-10",
+  "provenance": {},
+  "provenance_complete": false,
+  "gates": {
+    "sealed_source": {
+      "metric": "sealed_r7_source",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "baseline_hashes": {
+      "metric": "recomputed_baseline_hashes",
+      "operator": "eq",
+      "threshold": 36,
+      "actual": null,
+      "pass": null
+    },
+    "routed_hashes": {
+      "metric": "recomputed_routed_hashes",
+      "operator": "eq",
+      "threshold": 72,
+      "actual": null,
+      "pass": null
+    },
+    "route_counterfactual": {
+      "metric": "route_correct_counterfactual_match_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "route_controls": {
+      "metric": "physical_route_control_match_rate",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "materiality": {
+      "metric": "prompts_with_distinct_route_outputs",
+      "operator": "ge",
+      "threshold": 4,
+      "actual": null,
+      "pass": null
+    },
+    "schedule_parity": {
+      "metric": "schedule_semantic_parity",
+      "operator": "eq",
+      "threshold": 1.0,
+      "actual": null,
+      "pass": null
+    },
+    "switch_reduction": {
+      "metric": "requested_route_switch_reduction",
+      "operator": "ge",
+      "threshold": 0.8,
+      "actual": null,
+      "pass": null
+    },
+    "wrapper_binding": {
+      "metric": "r8_and_r7_wrappers_provenance_bound",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    },
+    "service_health": {
+      "metric": "gateway_and_embedding_healthy",
+      "operator": "eq",
+      "threshold": true,
+      "actual": null,
+      "pass": null
+    }
+  },
+  "evidence": {
+    "acceptance_gates": null,
+    "actual_scores": null,
+    "artifact_hashes": null,
+    "dataset_hashes": null,
+    "independent_evaluation": null,
+    "invalidation_rules": null,
+    "paired_baseline": null,
+    "provenance": null,
+    "raw_samples": null,
+    "receipt_fingerprint": null,
+    "scorer_hashes": null,
+    "semantic_parity": null,
+    "service_maintenance": null,
+    "source_execution_receipt": null
+  },
+  "receipt_fingerprint": null
+}

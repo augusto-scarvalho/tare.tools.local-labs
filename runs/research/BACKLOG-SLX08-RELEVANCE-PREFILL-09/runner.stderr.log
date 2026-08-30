@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx08_relevance_prefill_r9.py", line 57, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx08_relevance_prefill_r9.py", line 41, in main
+    receipt, metrics = execute(args.outdir.resolve())
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx08_relevance_prefill_r9.py", line 34, in execute
+    return r8.execute(outdir)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx08_relevance_prefill_r8.py", line 30, in execute
+    return r7.execute(outdir)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx08_relevance_prefill_r7.py", line 76, in execute
+    return r6.execute(outdir)
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx08_relevance_prefill_r6.py", line 236, in execute
+    base.write_json(raw / "failure_reproduction.json", invalid_results)
+  File "C:\projects\tare.tools.local-labs\tools\research\run_slx08_relevance_prefill_r7.py", line 64, in write_json_with_failure_receipt
+    "worker_exit": SOURCE_HASHES["runs/autonomous/SLX08-RELEVANCE-R6-2026-08-30/WORKER_EXIT.json"],
+                   ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'runs/autonomous/SLX08-RELEVANCE-R6-2026-08-30/WORKER_EXIT.json'

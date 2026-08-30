@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-MTP-PERSISTENCE-01",
   "evidence_class": "mechanism_research",
   "executor": "Codex executor",
-  "stage": "EXECUTED",
+  "stage": "BLOCKED",
   "state_history": [
     {
       "from": null,
@@ -35,6 +35,13 @@
       "to": "EXECUTED",
       "actor": "Codex executor",
       "at": "2026-08-26T22:02:56Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "BLOCKED",
+      "actor": "GPT-5.6 Sol xhigh independent backlog-closure auditor",
+      "at": "2026-08-29T21:50:57Z",
+      "reason": "Fail closed: legacy runner_state changed after receipt sealing, so no R1 claim is signed; terminal functional successor BACKLOG-MTP-PERSISTENCE-FUNCTIONAL-03 already resolves bounded reuse negatively."
     }
   ],
   "preregistration": {

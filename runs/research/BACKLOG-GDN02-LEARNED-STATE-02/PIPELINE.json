@@ -1,0 +1,69 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-GDN02-LEARNED-STATE-02",
+  "evidence_class": "mechanism_research",
+  "executor": "Codex continuous executor",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex post-audit portfolio review",
+      "at": "2026-08-29T20:01:44Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T20:15:57Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T20:22:33Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "Codex watcher closeout",
+      "at": "2026-08-29T20:26:02Z",
+      "reason": "Attempt sealed ABORTED before model load: the Windows runner represented the absolute WSL model path as pathlib.Path, converting it to backslashes before argv handoff. Successor must freeze and pass the model path as a literal POSIX string."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-GDN02-LEARNED-STATE-02/PRE_REGISTRATION.md",
+    "sha256": "44f6a37087e039f2060cb7b9a884639e90af0800c8a6e30e1bf7ad578eb55b51"
+  },
+  "implementation": [
+    {
+      "path": "src/model_lifecycle/experiment_harness.py",
+      "sha256": "fee8f3251cdbfc1b1543cbb65697bd51dfd19012a1e6b6007b25e1120e2a49c3"
+    },
+    {
+      "path": "tests/test_gdn02_learned_state_r2.py",
+      "sha256": "fb3643657ab1ad4fdde6b1349de5a840c9cc15c53f5d840167a21ca2a1c80e31"
+    },
+    {
+      "path": "tests/test_gdn02_retained_scorer.py",
+      "sha256": "a934cc81546d56ed320365da9f9c19acd6e7e978f5e09559797f4b4733c916a3"
+    },
+    {
+      "path": "tools/research/gdn02_learned_state_worker_r2.py",
+      "sha256": "c89d21fa26c26197e6facac92cc13f175502e898c3eceffcb6313f839521f9e1"
+    },
+    {
+      "path": "tools/research/gdn02_retained_scorer.py",
+      "sha256": "a488bcd69196a3186a5ef2aeedb1427e80b409c77e8a9d753942c740f934f91e"
+    },
+    {
+      "path": "tools/research/run_gdn02_learned_state_r2.py",
+      "sha256": "da6520358d880ac8b4fd94265face19e0324a28dd538051d7f5a16fc9c378dc9"
+    }
+  ],
+  "implementation_digest": "a05e56c6da92d4cde4f9748c7e07b826fea30f6d19f94bd25a01186b323bf5ea",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

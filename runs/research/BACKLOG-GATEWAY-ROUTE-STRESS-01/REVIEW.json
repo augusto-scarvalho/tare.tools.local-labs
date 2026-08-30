@@ -1,0 +1,21 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol independent fail-closed audit",
+  "verdict": "HOLD_FAIL_CLOSED",
+  "decision": "BLOCKED",
+  "receipt_sha256": "527e308b2aa54fe96bb641f1d5380b04b42e7871245d173ee107cec0dabbfe41",
+  "receipt_fingerprint": "ec1403728b4877c5ea25e6c26c0080632102629d6c482c0583873a0cef19c1a4",
+  "implementation_digest": "66300a274e0b7b9a63a15b68a1b22f45e722bd505dfc684729bc571803b15506",
+  "allowed_claim_code": null,
+  "findings": [
+    "Receipt SHA-256, canonical fingerprint and implementation digest reproduce. Direct raw reconstruction finds 120 unique cycle-model-probe rows and 30 unique cycle-model switches, 120/120 HTTP-200/error-free responses, 120/120 response aliases matching the requested route, and all 24 model-probe groups byte-stable over five cycles. The recorded switch, gateway, embedding and restoration evidence consistently supports a narrow routing/transport indication.",
+    "Three of 19 receipt provenance inputs are not currently identical to their execution bindings: the consolidated handoff changed from 895fec3ac345bdf26350b4a97f513bf4f4b3bad9898d09701db07a985f8b7d55 to 4702f71cc7dde4ae5e51bfe909cc27312afedbb2c5a5542425a99f73c12bb300, runner.stdout.log from e70419c82c0b2e9cebf89847c1d529cdb109ccf7df6d7f44dcf664eedc8c45cf to 888da83bce1b6c9f70426daa19a6b5c08bf1df8b89f23171c876d52eae44d8ad, and runner_state.json from 0c30bc43399919ed86bdd8c9842db72d987ec0eafc7a540c5681644dbcf5103c to 0977382b08f9eecc447a0289139ff92510db5580a89d15f0e67e923edf33308d. The last two are terminal artifacts mutated after receipt creation.",
+    "Directed false-positive review identifies a semantic-success proxy defect: all 20 muse-vision probes return HTTP 200 and the requested alias but have empty content, finish_reason=length and reasoning-only output. Thus successful_response_rate=1.0 proves transport success, not successful task completion across all six aliases.",
+    "Directed false-negative review finds no route-misbinding or deterministic-drift failure in the retained records. The operational route/transport result is strong, but fail-closed provenance prevents signing R1. The already-PROMOTED R2 successor rebinds the immutable retained source set and explicitly separates 120/120 transport integrity from 80/80 non-empty content on eligible text aliases; it supersedes R1 without retroactively curing its provenance or broad success proxy."
+  ],
+  "limitations": [
+    "Artifact identity was recorded per route but was not freshly rehashed at every one of the 30 boundaries.",
+    "Text-only probes on vision aliases cannot establish vision capability, and empty muse-vision content cannot be interpreted as semantic success."
+  ],
+  "claim_boundary": "No R1 claim code is authorized. The packet indicates only bounded routing, HTTP transport, alias identity and repeatability for the retained campaign; it does not establish semantic task success for all routes, vision quality, production readiness or behavior beyond the probes. BACKLOG-GATEWAY-ROUTE-STRESS-02 is the terminal rebound claim."
+}

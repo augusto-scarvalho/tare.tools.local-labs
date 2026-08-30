@@ -1,0 +1,43 @@
+{
+  "id": "BACKLOG-GDN02-LEARNED-STATE-02",
+  "priority": 1,
+  "title": "Requalify learned GDN state editing with retained decisive tensors",
+  "evidence_class": "mechanism_research",
+  "packet_dir": "runs/research/BACKLOG-GDN02-LEARNED-STATE-02",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-GDN02-LEARNED-STATE-01/raw/receipt.json",
+    "docs/research/INDEPENDENT_AUDIT_LEDGER_2026-08-27_GPT56_SOL_XHIGH.md",
+    "tools/research/run_gdn02_learned_state.py",
+    "tools/research/gdn02_learned_state_worker.py",
+    "workloads/gsm8k.jsonl"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "dataset_hashes",
+    "failure_reproduction", "falsifiable_hypothesis", "hardware_metrics",
+    "independent_evaluation", "invalidation_rules", "invariant_controls",
+    "paired_baseline", "provenance", "raw_samples", "real_implementation",
+    "receipt_fingerprint", "retained_state_bundle", "semantic_parity",
+    "source_execution_receipt", "target_materiality"
+  ],
+  "acceptance_gates": [
+    {"id": "learned_states", "metric": "learned_gdn_layer_cells", "operator": "ge", "threshold": 3},
+    {"id": "retained_cells", "metric": "retained_decisive_layer_cells", "operator": "eq", "threshold": 3},
+    {"id": "retained_collateral", "metric": "retained_collateral_cosines", "operator": "eq", "threshold": 147},
+    {"id": "independent_recompute", "metric": "recomputed_metric_match_rate", "operator": "eq", "threshold": 1.0},
+    {"id": "target_leakage", "metric": "median_old_fact_leakage_pct", "operator": "le", "threshold": 5.0},
+    {"id": "collateral_retention", "metric": "median_collateral_retention_pct", "operator": "ge", "threshold": 90.0},
+    {"id": "update_fidelity", "metric": "median_updated_fact_fidelity_pct", "operator": "ge", "threshold": 95.0},
+    {"id": "state_materiality", "metric": "distinct_recurrent_state_conditions", "operator": "ge", "threshold": 3}
+  ],
+  "allowed_claim_codes": [
+    "GDN02_LEARNED_STATE_WITH_RETAINED_TENSORS_QUALIFIED_R2",
+    "GDN02_LEARNED_STATE_WITH_RETAINED_TENSORS_REJECTED_R2"
+  ],
+  "forbidden_claims": [
+    "full-model behavioral editing", "serving integration", "permanent knowledge erasure",
+    "generalization beyond frozen records/layers", "causal claims without retained vector recomputation"
+  ],
+  "next_action": "Repeat the frozen three learned-state cells while retaining output/state vectors and all 49 collateral cosines per layer in a digest-bound bundle for independent recomputation.",
+  "supersedes": "BACKLOG-GDN02-LEARNED-STATE-01"
+}

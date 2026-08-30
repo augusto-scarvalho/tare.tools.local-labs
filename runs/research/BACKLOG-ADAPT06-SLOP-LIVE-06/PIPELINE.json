@@ -1,0 +1,61 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT06-SLOP-LIVE-06",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex continuous executor",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex post-audit portfolio review",
+      "at": "2026-08-29T20:02:04Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T20:15:56Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T20:18:21Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "Codex watcher closeout",
+      "at": "2026-08-29T20:22:27Z",
+      "reason": "Attempt sealed ABORTED before service mutation: R5 helper assumed systemd ExecStart was llama-server with -m, but port 8080 is now the qualified-model gateway. Successor must resolve a frozen physical llama-server binary independently of gateway ExecStart and restore the gateway identity."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-06/PRE_REGISTRATION.md",
+    "sha256": "c6e39de6a98cdab3a3b879c6ae1d1a23a8e53906fd03629e27c185b32614b4af"
+  },
+  "implementation": [
+    {
+      "path": "src/model_lifecycle/experiment_harness.py",
+      "sha256": "fee8f3251cdbfc1b1543cbb65697bd51dfd19012a1e6b6007b25e1120e2a49c3"
+    },
+    {
+      "path": "tests/test_adapt06_slop_live_r6.py",
+      "sha256": "06f222fbb5effcbb1d7c8c83820215416cfe79a3ac30d2551b0142c4adf1abfe"
+    },
+    {
+      "path": "tools/research/run_adapt06_slop_live_r5.py",
+      "sha256": "7fc57290cf59fb826f18306e3e861a1019680206027b771203fb5e5441269922"
+    },
+    {
+      "path": "tools/research/run_adapt06_slop_live_r6.py",
+      "sha256": "4f1c94b180366123e65e94e2ccd395e29108bbf92813417d6a02f4ad39d80e20"
+    }
+  ],
+  "implementation_digest": "404dd3cd4bece81561d12c53dbcd2f80501920e15d789df5154acd849c8f09f0",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

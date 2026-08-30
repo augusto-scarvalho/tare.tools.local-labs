@@ -1,0 +1,72 @@
+{
+  "temporary_args": [
+    "wsl",
+    "-d",
+    "Ubuntu-24.04",
+    "--",
+    "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
+    "-m",
+    "/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/raw/physical_r5/raw/qwen3.5-0.8b-base-f16.gguf",
+    "--alias",
+    "qwen3.5-0.8b-base",
+    "--host",
+    "0.0.0.0",
+    "--port",
+    "8080",
+    "-ngl",
+    "99",
+    "-fa",
+    "on",
+    "--ctx-size",
+    "8192",
+    "--parallel",
+    "4",
+    "--jinja",
+    "--metrics",
+    "--lora",
+    "/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/raw/physical_r5/raw/adapters/behavioral-f16.gguf,/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/raw/physical_r5/raw/adapters/trace-f16.gguf",
+    "--lora-init-without-apply"
+  ],
+  "loaded": [
+    {
+      "id": 0,
+      "path": "/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/raw/physical_r5/raw/adapters/behavioral-f16.gguf",
+      "scale": 1.0,
+      "task_name": "",
+      "prompt_prefix": ""
+    },
+    {
+      "id": 1,
+      "path": "/mnt/c/projects/tare.tools.local-labs/runs/research/BACKLOG-ADAPT06-SLOP-LIVE-07/raw/physical_r5/raw/adapters/trace-f16.gguf",
+      "scale": 1.0,
+      "task_name": "",
+      "prompt_prefix": ""
+    }
+  ],
+  "slots": [
+    {
+      "id": 0,
+      "n_ctx": 2048,
+      "speculative": false,
+      "is_processing": false
+    },
+    {
+      "id": 1,
+      "n_ctx": 2048,
+      "speculative": false,
+      "is_processing": false
+    },
+    {
+      "id": 2,
+      "n_ctx": 2048,
+      "speculative": false,
+      "is_processing": false
+    },
+    {
+      "id": 3,
+      "n_ctx": 2048,
+      "speculative": false,
+      "is_processing": false
+    }
+  ]
+}

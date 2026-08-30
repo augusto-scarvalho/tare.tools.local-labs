@@ -1,0 +1,26 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol independent fail-closed audit",
+  "verdict": "REJECTED",
+  "decision": "REJECTED",
+  "receipt_sha256": "4c6b16dd0b3dd6efe85cd3abfa9301a6188d7f887288753610faec97d69fd4c3",
+  "receipt_fingerprint": "d10091af04fc70ca509f07d22ee47bdbf3451ea94e6cbe6bcd96b70070e2ef62",
+  "implementation_digest": "7e91504a0c201437538be8bfae7aa9e8a3ca5ea18d73aab967852ae2a3355552",
+  "claim_codes_permitted": [
+    "BEE_L5_FALSE_POSITIVE_CONFIRMED_R4"
+  ],
+  "findings": [
+    "Receipt SHA-256, canonical fingerprint, implementation digest, all three implementation hashes and all 32 receipt-bound provenance inputs independently reproduce. The focused byte-piece and guard tests pass. The source teacher set has 128 unique tasks and its frozen semantic digest reproduces with the repository helper.",
+    "Direct raw reconstruction finds 178 rows: 128 teacher summaries, 25 full-budget live baselines and 25 streamed interventions. Every baseline independently satisfies the preregistered pathology rule. Replaying the unchanged historical guard over every retained intervention chunk reproduces 25/25 triggers at token eight and nominal median unreceived-budget fraction 0.9375.",
+    "The strict overhead gate conclusively fails without relying on executor aggregation: 16,811 receipt-bound token timings have median 5.9 and preregistered p95 7.8 microseconds/token versus the 2.0 ceiling; 15,789/16,811, or 93.9206%, exceed the ceiling. This is a broad distributional miss, not a single outlier. Because all nine gates are conjunctive, this independently establishes the preregistered negative R4 result.",
+    "Directed false-positive review identifies two overclaims in the positive-looking fields. Teacher rows omit the actual tokenizer pieces, so the zero-false-alarm specificity result cannot be independently replayed without a fresh tokenizer call. In the bound intervention rows abort_confirmed is defined solely as trigger_token is not null, while token_savings assumes every unreceived token was physically avoided.",
+    "The post-receipt service_logs.json contains 25 server cancel/release sequences consistent with the interventions, but it was created after receipt construction and is absent from the 32 bound inputs. It is corroborative only and cannot repair the physical-intervention gate. The final bound slot snapshot has four non-processing slots, but every slot still reports has_next_token=true and 107-112 tokens remaining; it proves availability, not a per-request cancellation join.",
+    "Directed false-negative review therefore does not generalize the rejection to the guard mechanism. The trigger sensitivity on these constructed loops appears reproducible and the unbound journal strongly suggests physical cancellation. The rejection is only of the frozen all-gates R4 qualification, conclusively due to the Python-client overhead budget; specificity, effective physical savings and answer preservation remain unsigned rather than failed."
+  ],
+  "limitations": [
+    "No fresh tokenization or inference was run; teacher specificity cannot be independently replayed from the receipt-bound summaries.",
+    "The 25 prompts are deliberately pathological and do not estimate natural loop prevalence.",
+    "The intervention is client-side SSE closure, not server-integrated guard logic, and final-answer preservation was not measured."
+  ],
+  "claim_boundary": "BEE_L5_FALSE_POSITIVE_CONFIRMED_R4 is authorized only as a bounded rejection of the preregistered conjunctive live-guard qualification because its 2.0 microseconds/token overhead gate fails. It does not assert that loop detection is ineffective, that server cancellation did not occur, or that token savings, answer quality, deployment safety, natural prevalence or out-of-panel behavior are known."
+}

@@ -1,0 +1,91 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-FLEET-REGRESSION-SCREEN-03",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex continuous executor",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-30T00:06:48Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-30T00:07:19Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-30T00:08:50Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-30T00:29:00Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent longitudinal-fleet auditor",
+      "at": "2026-08-30T00:33:57Z"
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent longitudinal-fleet auditor",
+      "at": "2026-08-30T00:33:58Z"
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-03/PRE_REGISTRATION.md",
+    "sha256": "1d6a63c372846402718ee93f2bdf97ab26e6caa8b3b16eeb711c407da64ac852"
+  },
+  "implementation": [
+    {
+      "path": "src/model_lifecycle/experiment_harness.py",
+      "sha256": "fee8f3251cdbfc1b1543cbb65697bd51dfd19012a1e6b6007b25e1120e2a49c3"
+    },
+    {
+      "path": "tests/test_fleet_regression_screen_r3.py",
+      "sha256": "bf4b9b4471d8e942ca010ea62ae95ea7ea5c8317e2064ac0487df7a52e21842d"
+    },
+    {
+      "path": "tests/test_fleet_successor_binding.py",
+      "sha256": "85924aa4af2cae79c936a8f627b2ebaff46ac76af1c463c456d502ac228c7b90"
+    },
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/run_fleet_regression_screen.py",
+      "sha256": "7cbf942375c120970ac78fb40f7f15050ebddb7ec5372cb40bd721009faf1de3"
+    },
+    {
+      "path": "tools/research/run_fleet_regression_screen_r3.py",
+      "sha256": "244ac9710a184858266d8b925e2fd83e3d33ac33cf0787d267f75b0d077a13db"
+    }
+  ],
+  "implementation_digest": "82e89e6c63e9deead3d13651c475f5521ff3664699598c551b0fbde1d5930a9c",
+  "execution": {
+    "path": "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-03/raw/receipt.json",
+    "sha256": "90d38ab08c7811861c49078511cb48e04d1d764433a007b3e0da696220324644"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-03/RESULT.md",
+    "sha256": "e42e5ec3a40a0bacab17a6f8745b5e80b23af11044816079de5301499429f703"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-FLEET-REGRESSION-SCREEN-03/REVIEW.json",
+    "sha256": "260d06408c0f866fc5f1829be57b6b84171a6f9bbb550de369d71c6e24a51513"
+  },
+  "claim_codes": [
+    "QUALIFIED_TEXT_FLEET_LONGITUDINAL_REPLICATION_R3"
+  ]
+}

@@ -6,6 +6,25 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Materialized SLX08 selected-block prefill in the physical `slop.cpp` serving
+  path behind `SLOP_EXPERIMENTAL_SLX08=1`, including fail-closed explicit block
+  indices and response telemetry for route, selection mode and retained blocks.
+- Added the independently promoted R11 confirmation packet: 126 fresh balanced
+  dense/naive/relevance triples, exact one-sided noninferiority, 378 physical
+  streamed responses, complete active-code binding and immutable R6-R10
+  operational predecessors.
+- Added a GitHub-facing SLX08 report documenting the R5 quality failure, the R10
+  statistical false positive caught by audit, the corrected R11 promotion,
+  operational limits and the next productization gates.
+- Executed the post-audit value wave through the persistent watcher and frugal
+  harness. ADAPT06 R7 sealed 72 physical route comparisons behind the qualified
+  gateway; GDN02 R3 sealed three decisive vector cells and 147 collateral
+  cosines with an independent retained-evidence scorer. Their immutable aborted
+  predecessors and a two-packet independent-audit queue are preserved.
+- Admitted three frugal post-audit successors: an artifact-bound live LoRA
+  route comparison, a physical OFF/ON selected-block prefill test, and a GDN02
+  learned-state rerun retaining every decisive vector and collateral cosine for
+  independent recomputation.
 - Added an SLX11 official-hybrid successor that retains all 24 next-token
   logits vectors in a provenance-bound safetensors bundle and independently
   reopens them to rescore finiteness, argmax, shape and tensor hashes.
@@ -128,6 +147,26 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 - Added a seven-geometry PEFT screen plus a codec-independent full-distribution KV qualification scorer and staged BeeLlama-inspired qualification contract.
 
 ### Changed
+
+- Promoted `BACKLOG-SLX08-RELEVANCE-PREFILL-11` after independent reconstruction
+  of 378/378 rows. Exact-key relevance selection preserved 126/126 answers while
+  halving evaluated prompt tokens, versus 54/126 for the position-only control;
+  p50 TTFT improved 1.798x and the exact 95% lower delta bound was -2.350%.
+- Preserved R6-R9 as zero-measurement operational failures and R10 as a blocked
+  statistical false positive. No failed receipt or frozen gate was rewritten;
+  the R11 successor uses new prompt IDs, 126 pairs and a short fully bound code
+  path.
+- Closed the dependency-ready queue after watcher-supervised recovery from two
+  pre-measurement integration aborts. ADAPT06 passed its frozen routing gates
+  but measured no latency benefit (0.988x); GDN02 reproducibly failed leakage
+  and fidelity; SLX08 moved to a precise implementation block because the clean
+  slop.cpp tree exposes DFlash but no selected-block prefill treatment.
+- Rebalanced the consolidated 120-item research portfolio using 23 explicit
+  value assessments and 22 nonterminal priority updates. The ready order is
+  now ADAPT06 live R6, SLX08 physical
+  prefill R4 and GDN02 retained-state R2; blocked human calibration remains a
+  high-value dependency, while superseded attempts and frozen-stop families
+  moved to P3 without changing scientific state or deleting evidence.
 
 - Canonically rescored the immutable SLX08 R2 context bundle twice with a
   fixed-order `math.fsum` float64 metric. An independent binary parser matched

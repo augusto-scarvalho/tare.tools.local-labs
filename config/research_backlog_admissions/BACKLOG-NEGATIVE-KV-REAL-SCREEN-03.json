@@ -1,0 +1,43 @@
+{
+  "id": "BACKLOG-NEGATIVE-KV-REAL-SCREEN-03",
+  "priority": 1,
+  "title": "Repeat the five-candidate real Qwen KV screen with decisive tensor retention",
+  "evidence_class": "artifact_requalification",
+  "packet_dir": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-03",
+  "depends_on": [],
+  "source_artifacts": [
+    "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-02/raw/receipt.json",
+    "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-02/REVIEW.json",
+    "tools/research/run_negative_kv_real_screen_r2.py",
+    "tools/research/run_negative_kv_real_screen.py",
+    "tools/research/negative_kv_real_worker.py",
+    "workloads/gsm8k.jsonl"
+  ],
+  "required_evidence": [
+    "acceptance_gates", "actual_scores", "artifact_hashes", "dataset_hashes",
+    "hardware_metrics", "independent_evaluation", "invalidation_rules", "model_hash",
+    "paired_baseline", "provenance", "raw_samples", "real_implementation",
+    "receipt_fingerprint", "scorer_hashes", "service_maintenance", "tensor_identity", "retained_tensors"
+  ],
+  "acceptance_gates": [
+    {"id": "r2_audit_bound", "metric": "blocked_r2_review_verified", "operator": "eq", "threshold": true},
+    {"id": "activation_coverage", "metric": "actual_model_activation_cells", "operator": "ge", "threshold": 18},
+    {"id": "weight_coverage", "metric": "actual_model_weight_matrices", "operator": "ge", "threshold": 12},
+    {"id": "candidate_coverage", "metric": "candidate_hypotheses_evaluated", "operator": "eq", "threshold": 5},
+    {"id": "sample_retention", "metric": "retained_candidate_cells", "operator": "eq", "threshold": 78},
+    {"id": "tensor_retention", "metric": "retained_decisive_tensor_files", "operator": "eq", "threshold": 39},
+    {"id": "tensor_hashes", "metric": "retained_tensor_hashes_verified", "operator": "eq", "threshold": true},
+    {"id": "service_recovery", "metric": "service_and_embedding_restored", "operator": "eq", "threshold": true}
+  ],
+  "allowed_claim_codes": [
+    "NEGATIVE_KV_REAL_SCREEN_VERIFIED_R3", "RSH01_FALSE_NEGATIVE_CANDIDATE_R3",
+    "REP03_FALSE_NEGATIVE_CANDIDATE_R3", "RSH03_FALSE_NEGATIVE_CANDIDATE_R3",
+    "RSH04_FALSE_NEGATIVE_CANDIDATE_R3", "REP06_FALSE_NEGATIVE_CANDIDATE_R3"
+  ],
+  "forbidden_claims": [
+    "packed bytes", "realized VRAM savings", "native kernel latency",
+    "serving throughput", "production deployment", "out-of-panel generalization"
+  ],
+  "next_action": "Repeat the frozen R2 physical screen and retain every decisive activation, entropy vector, weight slice and input matrix for independent replay.",
+  "supersedes": "BACKLOG-NEGATIVE-KV-REAL-SCREEN-02"
+}

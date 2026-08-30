@@ -1,0 +1,43 @@
+{
+  "schema": "local-labs-post-audit-value-wave-review-v1",
+  "snapshot_date": "2026-08-29",
+  "manifest": "config/research_backlog.json",
+  "required_reviewer": "A genuinely independent actor that did not implement or execute these packets",
+  "policy": {
+    "inspect_aborted_predecessor_first": true,
+    "recompute_from_retained_evidence": true,
+    "search_for_false_positives_and_false_negatives": true,
+    "executor_must_not_self_review": true,
+    "claim_expansion_forbidden": true
+  },
+  "items": [
+    {
+      "order": 1,
+      "id": "BACKLOG-ADAPT06-SLOP-LIVE-07",
+      "state": "EXECUTED",
+      "aborted_predecessor": "BACKLOG-ADAPT06-SLOP-LIVE-06",
+      "receipt_sha256": "161ffd9b970fcb41791c70e876a75fb301db2c5fdf1aba6de345ec8fcf020552",
+      "receipt_fingerprint": "3d56e85e4a13b68d623ed431e0634ce00d683c7e2d0715603f2512d50c437ff3",
+      "implementation_digest": "db64f637ae76a08bfd3e6fef54b8ecfa0186045702cb852c0e40d7d803f81cfb",
+      "terminal_sha256": "5437e2bcded18d2b5f32a0dbc83812cbcfb38bddd54cd2f10dd0d44a5e1b23cf",
+      "watcher_final_sha256": "156f8a7628f4bea9fd320a77415217fd004d7c84b0a12354399fa5f54dab3487",
+      "expected_focus": "Reopen all 72 routed rows and route-correct baselines, verify gateway command restoration and challenge whether switch reduction without latency speedup supports only the narrow client-ordering claim."
+    },
+    {
+      "order": 2,
+      "id": "BACKLOG-GDN02-LEARNED-STATE-03",
+      "state": "EXECUTED",
+      "aborted_predecessor": "BACKLOG-GDN02-LEARNED-STATE-02",
+      "receipt_sha256": "4a863e712b6f389c61e5b2beb8cd5ac4a7bd30ac8c75c702534d390816eb69d2",
+      "receipt_fingerprint": "dacc166350b98c01bf016b27ae70eabf22ab27657236ef68fe9ae697c3a16600",
+      "implementation_digest": "233a0a1b8ef6df1df3c7ea8cae93b8dd716e8ba6875dc5c7e81533201d447a3e",
+      "terminal_sha256": "86a2265b17345c98432251f8f6958fd37d546476c731e74e59e968f165ac3ed4",
+      "watcher_final_sha256": "a75f0595c051f44291800233982be398e76cf8417566e05eb8932cce80686f7f",
+      "expected_focus": "Independently reopen all nine target vectors and 147 retained collateral cosines, reproduce both failed scientific gates, and challenge tolerance and aggregation choices."
+    }
+  ],
+  "blocked_not_audit_ready": {
+    "id": "BACKLOG-SLX08-PHYSICAL-PREFILL-04",
+    "reason": "No callable selected-block prefill treatment or per-request physical telemetry exists at clean slop.cpp commit 34b3dac7c; no inference was launched."
+  }
+}

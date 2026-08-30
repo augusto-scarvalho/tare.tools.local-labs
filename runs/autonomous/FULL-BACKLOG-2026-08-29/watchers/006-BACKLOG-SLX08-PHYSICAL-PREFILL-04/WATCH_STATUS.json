@@ -1,0 +1,162 @@
+{
+  "schema": "local-labs-experiment-watch-status-v1",
+  "watch_id": "SLX08-PHYSICAL-R4-2026-08-29",
+  "updated_at": "2026-08-30T01:02:58Z",
+  "experiments": [
+    {
+      "task_id": "BACKLOG-SLX08-PHYSICAL-PREFILL-04",
+      "pid": 49660,
+      "process_alive": false,
+      "progress": 0,
+      "progress_mode": "files",
+      "expected_progress": 128,
+      "pipeline_stage": "IMPLEMENTED",
+      "watch_status": "failed_worker_exit",
+      "harness_terminal": {
+        "present": true,
+        "valid": true,
+        "status": "ABORTED",
+        "task_id": "BACKLOG-SLX08-PHYSICAL-PREFILL-04",
+        "sample_count": 128,
+        "errors": []
+      },
+      "worker_exit": {
+        "present": true,
+        "valid": true,
+        "returncode": 1,
+        "timed_out": false,
+        "errors": []
+      },
+      "managed_backlog": true
+    }
+  ],
+  "gpu": {
+    "memory_used_mib": 19531,
+    "memory_free_mib": 4792,
+    "utilization_percent": 2,
+    "temperature_c": 38,
+    "power_w": 35.79
+  },
+  "health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "states": {
+    "BACKLOG-SLX08-PHYSICAL-PREFILL-04": {
+      "status": "failed_worker_exit",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-30T01:02:57Z",
+        "receipt_exists": false,
+        "result_exists": false,
+        "stage_before": "IMPLEMENTED",
+        "progress": 0,
+        "progress_mode": "files",
+        "expected_progress": 128,
+        "harness_terminal": {
+          "present": true,
+          "valid": true,
+          "status": "ABORTED",
+          "task_id": "BACKLOG-SLX08-PHYSICAL-PREFILL-04",
+          "sample_count": 128,
+          "errors": []
+        },
+        "worker_exit": {
+          "present": true,
+          "valid": true,
+          "returncode": 1,
+          "timed_out": false,
+          "errors": []
+        },
+        "managed_backlog": true,
+        "status": "failed_worker_exit"
+      }
+    }
+  },
+  "final": {
+    "schema": "local-labs-experiment-watch-final-v1",
+    "watch_id": "SLX08-PHYSICAL-R4-2026-08-29",
+    "finished_at": "2026-08-30T01:02:58Z",
+    "status": "complete_with_alert",
+    "experiment_mode": true,
+    "states": {
+      "BACKLOG-SLX08-PHYSICAL-PREFILL-04": {
+        "status": "failed_worker_exit",
+        "was_seen_alive": true,
+        "finalization": {
+          "at": "2026-08-30T01:02:57Z",
+          "receipt_exists": false,
+          "result_exists": false,
+          "stage_before": "IMPLEMENTED",
+          "progress": 0,
+          "progress_mode": "files",
+          "expected_progress": 128,
+          "harness_terminal": {
+            "present": true,
+            "valid": true,
+            "status": "ABORTED",
+            "task_id": "BACKLOG-SLX08-PHYSICAL-PREFILL-04",
+            "sample_count": 128,
+            "errors": []
+          },
+          "worker_exit": {
+            "present": true,
+            "valid": true,
+            "returncode": 1,
+            "timed_out": false,
+            "errors": []
+          },
+          "managed_backlog": true,
+          "status": "failed_worker_exit"
+        }
+      }
+    },
+    "pipeline_gate": {
+      "returncode": 0,
+      "stdout": "BACKLOG PIPELINE: PASS",
+      "stderr": ""
+    },
+    "backlog_queue": {
+      "refreshed_at": "2026-08-30T01:02:58Z",
+      "status_returncode": 0,
+      "next_returncode": 0,
+      "valid": true,
+      "priority_rebalance": {
+        "requested": false,
+        "returncode": null,
+        "valid": null,
+        "report": null
+      },
+      "state_counts": {
+        "BLOCKED": 52,
+        "EXECUTED": 13,
+        "IMPLEMENTED": 3,
+        "PROMOTED": 33,
+        "REJECTED": 27,
+        "VERIFIED": 1
+      },
+      "next_candidate": null,
+      "continuation_candidate": {
+        "id": "BACKLOG-SLX08-PHYSICAL-PREFILL-04",
+        "state": "IMPLEMENTED",
+        "priority": 0,
+        "priority_score": 80.0,
+        "title": "Materialize selected-block prefill in the physical serving runtime",
+        "next_action": "Implement an explicit OFF/ON selected-block prefill route in slop.cpp, instrument route use, and run 64 paired long-context requests per arm with frozen quality and TTFT gates."
+      }
+    },
+    "completion_action": "inspect_alert_before_dispatch",
+    "audit_ready_ids": [],
+    "final_health": {
+      "http://127.0.0.1:8080/health": 200,
+      "http://127.0.0.1:8081/health": 200
+    },
+    "final_gpu": {
+      "memory_used_mib": 19531,
+      "memory_free_mib": 4792,
+      "utilization_percent": 2,
+      "temperature_c": 38,
+      "power_w": 35.79
+    }
+  }
+}

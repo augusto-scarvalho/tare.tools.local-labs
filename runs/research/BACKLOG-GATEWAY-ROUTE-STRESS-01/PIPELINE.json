@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-GATEWAY-ROUTE-STRESS-01",
   "evidence_class": "serving_runtime",
   "executor": "Codex executor",
-  "stage": "EXECUTED",
+  "stage": "BLOCKED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,13 @@
       "to": "EXECUTED",
       "actor": "Codex executor",
       "at": "2026-08-26T23:53:30Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "BLOCKED",
+      "actor": "GPT-5.6 Sol independent fail-closed audit",
+      "at": "2026-08-29T21:09:32Z",
+      "reason": "R1 has three materialized provenance mismatches and conflates HTTP transport with semantic success; promoted R2 supersedes with bounded rebind"
     }
   ],
   "preregistration": {

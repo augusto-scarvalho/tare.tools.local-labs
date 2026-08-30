@@ -1,0 +1,61 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-ADAPT06-SLOP-LIVE-08",
+  "evidence_class": "artifact_requalification",
+  "executor": "Codex continuous executor",
+  "stage": "BLOCKED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T21:16:07Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T21:16:35Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T21:18:28Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "BLOCKED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T21:19:07Z",
+      "reason": "Pre-execution fixture check found verify_run does not expose a manifest key; successor changes only terminal-manifest counting and binds the corrected wrapper."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-ADAPT06-SLOP-LIVE-08/PRE_REGISTRATION.md",
+    "sha256": "56bc11e4566e8a342bfc4c1c02431ad1d00f47f7914c0fa9ae77e15c52e90b9e"
+  },
+  "implementation": [
+    {
+      "path": "src/model_lifecycle/experiment_harness.py",
+      "sha256": "fee8f3251cdbfc1b1543cbb65697bd51dfd19012a1e6b6007b25e1120e2a49c3"
+    },
+    {
+      "path": "tests/test_adapt06_forensic_rebind_r8.py",
+      "sha256": "65a66d7ebc1d71e34b253a8a2f16cd5cf3da64750aa5c5ad7685d283f6e9078c"
+    },
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/run_adapt06_forensic_rebind_r8.py",
+      "sha256": "c4efef978abfa35b0cbc384506ece6be5ed3c2cd2612f94925b17d5891c18607"
+    }
+  ],
+  "implementation_digest": "1dfdc4643c71b3a7b20dff0813300d576c83c29272300a3f74e4277bcc8bc438",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

@@ -1,0 +1,24 @@
+{
+  "schema": "local-labs-independent-review-v1",
+  "reviewer": "GPT-5.6 Sol independent fail-closed audit",
+  "verdict": "HOLD_FAIL_CLOSED",
+  "decision": "BLOCKED",
+  "receipt_sha256": "18fac16ec34a64258fec6e83f36aed713803eb0766fb4f4e382bacc1fc57fc4e",
+  "receipt_fingerprint": "0f7fcd5157c8e324e9325a084941c7ea417ef3add69a7dd28ad7de4500b478d1",
+  "implementation_digest": "c0995005c0386d73ff76b0d31275b5308a4539bf496c98eb97a5071c32ef722e",
+  "allowed_claim_code": null,
+  "findings": [
+    "Receipt SHA-256, canonical fingerprint, five-file implementation digest and all 32 receipt-bound provenance inputs independently reproduce. The three current checkpoint hashes match the frozen tensor, config and tokenizer identities. CPU-only reconstruction with that tokenizer reproduces all three 4,096-token context hashes and ordered task lists exactly. Four focused implementation tests pass.",
+    "Direct parsing finds 78 unique candidate-cell keys with exact coverage: REP-03, RSH-04 and REP-06 have 18 rows each; RSH-01 and RSH-03 have 12 each. Independent median/all reaggregation of the retained rows exactly reproduces every stored score and decision.",
+    "Directed false-negative search finds no near-threshold reversal in the retained cell metrics. Even the best RSH-01 cell has MSE ratio 1.4298, SQNR gain -1.5528 dB and cosine 0.992262; REP-03 MSE reduction peaks at 0.374873; RSH-03 recovery peaks at 0.057063; RSH-04 recall peaks at 0.65625; REP-06 bits bottom at 7.49121 and zero of 18 cells beats static INT4. Partial favorable gates, such as REP-03 attention cosine, RSH-03 cosine/overhead and RSH-04 retained fraction, do not satisfy their frozen conjunctions.",
+    "The claimed independent_metric_recompute_match is only a second aggregation of worker-reported scalar cell metrics. The packet retains tensor hashes, shapes and source labels but neither the 18 activation tensors nor the 12 weight slices needed to recompute quantization, attention, rank-4 recovery, projection recall or entropy precision. Therefore the decisive mechanism metrics cannot be independently regenerated without a forbidden fresh GPU execution.",
+    "raw/worker.json contains the same unprojected worker metrics but is not a receipt input and still contains no decisive tensors. Provenance.command names the R2 wrapper, while provenance.script and the receipt input ledger identify only the base R1 orchestrator. PIPELINE.json separately freezes the wrapper, so the entrypoint bytes are known, but the receipt itself does not bind its actual entrypoint as script.",
+    "Directed false-positive review consequently rejects promotion of NEGATIVE_KV_REAL_SCREEN_VERIFIED_R2: agreeing aggregate arithmetic does not verify the underlying tensor computations. Directed false-negative review likewise does not authorize any candidate code, because every retained scalar row is far from at least one mandatory candidate threshold. The evidence is a strong negative indication, but neither the broad verified-screen claim nor a candidate reversal is independently signable."
+  ],
+  "limitations": [
+    "No new inference or tensor capture was run; the missing decisive tensors cannot be recovered inside this audit.",
+    "The experiment is a proxy-realization screen and does not measure packed bytes, realized VRAM, native-kernel latency or serving throughput.",
+    "There is no terminal successor that repairs decisive-tensor retention; later packets consuming only model_hash.json do not cure this screen's auditability gap."
+  ],
+  "claim_boundary": "No claim code is authorized. The packet supports only a bounded, non-promoted indication that none of five frozen candidates reverses on the stored scalar cell metrics. A successor must retain digest-bound decisive tensors or independently sufficient projections and bind the R2 entrypoint; it may not infer codec, memory, kernel, throughput, deployment or out-of-panel performance."
+}

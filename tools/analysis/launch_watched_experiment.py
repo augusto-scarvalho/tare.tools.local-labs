@@ -416,12 +416,22 @@ def main() -> int:
         if isinstance(final, dict)
         else None
     )
+    continuation_candidate = (
+        final.get("backlog_queue", {}).get("continuation_candidate")
+        if isinstance(final, dict)
+        else None
+    )
     controller_final = {
         "event": "watcher_completed",
         "task_id": args.task_id,
         "status": final.get("status") if isinstance(final, dict) else None,
         "action": final.get("completion_action") if isinstance(final, dict) else None,
         "next_id": next_candidate.get("id") if isinstance(next_candidate, dict) else None,
+        "continuation_id": (
+            continuation_candidate.get("id")
+            if isinstance(continuation_candidate, dict)
+            else None
+        ),
         "audit_ready_ids": final.get("audit_ready_ids", []) if isinstance(final, dict) else [],
     }
     if args.verbose_controller_output:
@@ -435,6 +445,7 @@ def main() -> int:
                 else args.experiment_mode
             ),
             "next_candidate": next_candidate,
+            "continuation_candidate": continuation_candidate,
         }
     print(json.dumps(controller_final, separators=(",", ":")), flush=True)
     if final_error:

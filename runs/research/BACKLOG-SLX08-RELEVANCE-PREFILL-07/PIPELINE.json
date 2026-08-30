@@ -1,0 +1,52 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX08-RELEVANCE-PREFILL-07",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex R7 recovery",
+  "stage": "IMPLEMENTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex R7 recovery",
+      "at": "2026-08-30T13:39:53Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex R7 recovery",
+      "at": "2026-08-30T13:40:19Z",
+      "reason": "Unchanged R6 scientific protocol frozen with only pre-measurement tokenizer ordering corrected."
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex R7 recovery",
+      "at": "2026-08-30T13:41:25Z",
+      "reason": "Only tokenizer ordering changed; 25 focused R6/R7 fixtures pass."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-07/PRE_REGISTRATION.md",
+    "sha256": "039ae6af84c070e1b042c8883b767910ec304df0d5725fc42f7a76cc08469c2c"
+  },
+  "implementation": [
+    {
+      "path": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-07/IMPLEMENTATION.md",
+      "sha256": "56786340771b25df7aab229d9b5ac3195766427efd20d9354bd7c2a2b380d575"
+    },
+    {
+      "path": "tests/test_slx08_relevance_prefill_r7.py",
+      "sha256": "04d43c747bd0f0c36793dd4defaf381d0173dc4bf5998cea336a202fcac01dec"
+    },
+    {
+      "path": "tools/research/run_slx08_relevance_prefill_r7.py",
+      "sha256": "21edf4276875cbc6b36faae5f3109fb88c18a3a6ade92444fe70076cc905a196"
+    }
+  ],
+  "implementation_digest": "955834d9c39f5848dbecca348860bc442a2c2fe739ddb2e8f1aaaa435b48757a",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-MTP-PERSISTENCE-RESCORE-02",
   "evidence_class": "mechanism_research",
   "executor": "Codex executor",
-  "stage": "EXECUTED",
+  "stage": "BLOCKED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,13 @@
       "to": "EXECUTED",
       "actor": "Codex executor",
       "at": "2026-08-26T23:42:12Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "BLOCKED",
+      "actor": "Codex backlog reconciler",
+      "at": "2026-08-29T21:06:43Z",
+      "reason": "Independent review rejects the functional-persistence interpretation, but the frozen receipt has no failed syntactic gate; fail closed because the proxy cannot establish restored-prefix reuse."
     }
   ],
   "preregistration": {

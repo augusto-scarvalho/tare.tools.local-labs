@@ -3,7 +3,7 @@
   "task_id": "BACKLOG-NEGATIVE-KV-REAL-SCREEN-02",
   "evidence_class": "proxy_realization",
   "executor": "Codex executor",
-  "stage": "EXECUTED",
+  "stage": "BLOCKED",
   "state_history": [
     {
       "from": null,
@@ -28,6 +28,13 @@
       "to": "EXECUTED",
       "actor": "Codex executor",
       "at": "2026-08-26T00:14:30Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "BLOCKED",
+      "actor": "GPT-5.6 Sol independent fail-closed audit",
+      "at": "2026-08-29T21:13:45Z",
+      "reason": "Aggregate metrics reproduce and no candidate is near reversal, but decisive tensors are not retained so mechanism metrics cannot be independently recomputed; receipt also names base script rather than R2 entrypoint"
     }
   ],
   "preregistration": {

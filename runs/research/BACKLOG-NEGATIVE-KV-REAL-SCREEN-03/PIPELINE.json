@@ -1,0 +1,101 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-NEGATIVE-KV-REAL-SCREEN-03",
+  "evidence_class": "artifact_requalification",
+  "executor": "Codex continuous executor",
+  "stage": "PROMOTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T21:31:53Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T21:32:41Z"
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex continuous executor",
+      "at": "2026-08-29T21:35:19Z"
+    },
+    {
+      "from": "IMPLEMENTED",
+      "to": "EXECUTED",
+      "actor": "Codex executor watcher",
+      "at": "2026-08-29T21:37:27Z"
+    },
+    {
+      "from": "EXECUTED",
+      "to": "VERIFIED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T21:42:01Z",
+      "reason": "Independent direct replay of all 39 retained tensors regenerates all 78 cells exactly and confirms that none of the five frozen conjunctive candidate decisions reverses; claim remains limited to this offline physical-tensor panel."
+    },
+    {
+      "from": "VERIFIED",
+      "to": "PROMOTED",
+      "actor": "GPT-5.6 Sol xhigh independent audit instance",
+      "at": "2026-08-29T21:42:01Z",
+      "reason": "Artifact requalification is independently verified from decisive retained tensors; promotion excludes packed bytes, VRAM, native kernels, throughput, deployment and out-of-panel claims."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-03/PRE_REGISTRATION.md",
+    "sha256": "c99972053af918a38e8f367a6ceb6af7003ce8f34a45962d63cc39c5ef7f60ff"
+  },
+  "implementation": [
+    {
+      "path": "src/model_lifecycle/experiment_harness.py",
+      "sha256": "fee8f3251cdbfc1b1543cbb65697bd51dfd19012a1e6b6007b25e1120e2a49c3"
+    },
+    {
+      "path": "tests/test_negative_kv_real_screen_r3.py",
+      "sha256": "06516c6fe010daff31fb6add1696d74d6c96146553dcfa19a51e90bfb9120571"
+    },
+    {
+      "path": "tools/analysis/experiment_provenance.py",
+      "sha256": "230ae7266707f4469f9add33ca8a4e0ed9148760e8a85d81598915cc931d9fb9"
+    },
+    {
+      "path": "tools/research/negative_kv_real_worker.py",
+      "sha256": "a3d059da1f80592d4a0a3c35c6a8f36e3b9deb5118b3200dd0402505b08534c4"
+    },
+    {
+      "path": "tools/research/negative_kv_real_worker_r3.py",
+      "sha256": "ed9978014f287ca6bacbf6c7521b50a71b4f704401923fd42af9c741a2099d89"
+    },
+    {
+      "path": "tools/research/run_negative_kv_real_screen.py",
+      "sha256": "5295afff2c3f8e4fe0ce9f6c85c9409ffb1ae8285f54085d25a95beabdfec97a"
+    },
+    {
+      "path": "tools/research/run_negative_kv_real_screen_r2.py",
+      "sha256": "579e8225464fd0b8f9d21968c08fe9d7f6d12b86445b641ccb11b37d2c5d46b7"
+    },
+    {
+      "path": "tools/research/run_negative_kv_real_screen_r3.py",
+      "sha256": "5a5037dde5d691419dcba1191dfce0c9f85d4a9387ec4c6d1b3ca834834670f6"
+    }
+  ],
+  "implementation_digest": "1fb0c5ba810bfe8efb70668d23f4259329867a42c198d8ce25483a5c6b17fd4c",
+  "execution": {
+    "path": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-03/raw/receipt.json",
+    "sha256": "d8df9a70eecbb336d1c10a253a2db01c28563f6f65389152350f23e7babb8243"
+  },
+  "result": {
+    "path": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-03/RESULT.md",
+    "sha256": "fee3fd087bceb93e816b2a257fc5660a40385a7bcb48c356d788580067e77fdb"
+  },
+  "review": {
+    "path": "runs/research/BACKLOG-NEGATIVE-KV-REAL-SCREEN-03/REVIEW.json",
+    "sha256": "e250f3c3172c5571b4342674c2cdb5f18a48f8c18e1862b4c258e5f9383317e5"
+  },
+  "claim_codes": [
+    "NEGATIVE_KV_REAL_SCREEN_VERIFIED_R3"
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "task_id": "BACKLOG-FLEET-REGRESSION-SCREEN-03",
+  "started_at_utc": "2026-08-30T00:08:59Z",
+  "initial_service": {
+    "command": {
+      "argv": [
+        "wsl",
+        "-d",
+        "Ubuntu-24.04",
+        "--",
+        "systemctl",
+        "show",
+        "llm-inference.service",
+        "-p",
+        "ActiveState",
+        "-p",
+        "MainPID",
+        "-p",
+        "NRestarts",
+        "-p",
+        "ExecStart",
+        "--no-pager"
+      ],
+      "returncode": 0,
+      "stdout": "MainPID=160856\nNRestarts=0\nExecStart={ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/tools/serving/qualified_model_gateway.py --config /mnt/c/projects/tare.tools.local-labs/config/qualified_model_fleet.json --host 0.0.0.0 --port 8080 --backend-host 127.0.0.1 --backend-port 18080 --state-dir /home/augus/.local/state/tare-qualified-models --preload qwen38 ; ignore_errors=no ; start_time=[Sat 2026-08-29 18:35:41 -03] ; stop_time=[n/a] ; pid=160856 ; code=(null) ; status=0/0 }\nActiveState=active",
+      "stderr": ""
+    },
+    "active_state": "active",
+    "main_pid": 160856,
+    "n_restarts": 0,
+    "exec_start": "{ path=/usr/bin/python3 ; argv[]=/usr/bin/python3 /mnt/c/projects/tare.tools.local-labs/tools/serving/qualified_model_gateway.py --config /mnt/c/projects/tare.tools.local-labs/config/qualified_model_fleet.json --host 0.0.0.0 --port 8080 --backend-host 127.0.0.1 --backend-port 18080 --state-dir /home/augus/.local/state/tare-qualified-models --preload qwen38 ; ignore_errors=no ; start_time=[Sat 2026-08-29 18:35:41 -03] ; stop_time=[n/a] ; pid=160856 ; code=(null) ; status=0/0 }"
+  },
+  "initial_gateway": {
+    "status": "ok",
+    "role": "qualified-model-gateway",
+    "current_model": "qwen38",
+    "requested_name": "qwen38",
+    "backend_healthy": true,
+    "backend_pid": 160857,
+    "backend_port": 18080,
+    "last_switch_seconds": 11.545988360012416,
+    "last_error": null,
+    "max_resident_models": 1,
+    "available_models": [
+      "fable-tc",
+      "gemma-vision",
+      "hauhaucs",
+      "muse-vision",
+      "qwen36-moe",
+      "qwen38"
+    ]
+  },
+  "initial_model": "qwen38",
+  "completed_requests": 448,
+  "status": "completed",
+  "last_key": [
+    "qwen36-moe",
+    1,
+    "agent",
+    "irreversible_no_blind_retry"
+  ],
+  "last_http_status": 200,
+  "restoration": {
+    "status": {
+      "status": "ok",
+      "role": "qualified-model-gateway",
+      "current_model": "qwen38",
+      "requested_name": "qwen38",
+      "backend_healthy": true,
+      "backend_pid": 162592,
+      "backend_port": 18080,
+      "last_switch_seconds": 10.53567336301785,
+      "last_error": null,
+      "max_resident_models": 1,
+      "available_models": [
+        "fable-tc",
+        "gemma-vision",
+        "hauhaucs",
+        "muse-vision",
+        "qwen36-moe",
+        "qwen38"
+      ]
+    },
+    "gpu": {
+      "query": {
+        "argv": [
+          "nvidia-smi",
+          "--query-gpu=name,uuid,driver_version,memory.total,memory.used,memory.free,temperature.gpu,power.draw,utilization.gpu",
+          "--format=csv,noheader,nounits"
+        ],
+        "returncode": 0,
+        "stdout": "NVIDIA GeForce RTX 3090, GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a, 591.86, 24576, 19514, 4809, 55, 157.01, 26",
+        "stderr": ""
+      },
+      "values": {
+        "name": "NVIDIA GeForce RTX 3090",
+        "uuid": "GPU-4d32fb68-67ee-c1d7-3a24-524c3ffa493a",
+        "driver_version": "591.86",
+        "memory.total": "24576",
+        "memory.used": "19514",
+        "memory.free": "4809",
+        "temperature.gpu": "55",
+        "power.draw": "157.01",
+        "utilization.gpu": "26"
+      }
+    },
+    "embedding_health": 200
+  },
+  "claim": "QUALIFIED_TEXT_FLEET_SCREEN_COMPLETE_R1",
+  "failed_gates": []
+}

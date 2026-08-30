@@ -75,16 +75,18 @@ Its recorded source and test hashes matched the final audited worktree.
 
 ## Canonical backlog snapshot
 
-The backlog required no scientific state transition for this infrastructure
-change. Direct state edits remain forbidden. Live validation on 2026-08-29 found
-117 records:
+The post-audit portfolio review did not rewrite any scientific result. It
+admitted three bounded successors through the canonical pipeline and changed
+only priority metadata. The subsequent value-ordered watched wave added two
+minimal recovery successors. Direct state edits remain forbidden. Live
+validation on 2026-08-29 found 122 records:
 
 | State | Count |
 | --- | ---: |
 | `PROMOTED` | 30 |
 | `REJECTED` | 22 |
-| `EXECUTED` | 22 |
-| `BLOCKED` | 40 |
+| `EXECUTED` | 24 |
+| `BLOCKED` | 43 |
 | `IMPLEMENTED` | 2 |
 | `VERIFIED` | 1 |
 
@@ -103,6 +105,51 @@ unlock. It cannot change scientific state or make a blocked item executable.
 Items without a fresh assessment preserve their current priority. The watcher
 requests an atomic rebalance only when an `--experiment-mode` wave finishes and
 stores a compact result.
+
+Independent review created only the smallest set of new experiments that can
+materially change an ecosystem decision:
+
+1. `BACKLOG-ADAPT06-SLOP-LIVE-06` (`P0`, score 89) is the current dependency-ready
+   head. It repeats the positive live LoRA result with bound schedules, cache
+   and logs plus route-correct isolated baselines. Its maximum claim is client
+   affinity under the frozen route mix; it cannot establish server scheduling,
+   fused-GEMM or production benefit.
+2. `BACKLOG-SLX08-PHYSICAL-PREFILL-04` (`P0`, score 80) converts the independently
+   verified offline fidelity result into an actual runtime OFF/ON comparison.
+   It freezes 64 paired requests per arm, runtime telemetry, semantic
+   noninferiority and a 1.10x TTFT gate. It does not inherit the historical
+   1.40x proxy target.
+3. `BACKLOG-GDN02-LEARNED-STATE-02` (`P1`, score 76) retains the three decisive
+   vectors and all 147 collateral cosines so the negative learned-state result
+   can be recomputed independently instead of resting on summaries.
+
+`BACKLOG-HUMAN-JUDGE-CALIBRATION-01` scores 79 but remains `BLOCKED`: it has high
+ecosystem value and no executable path until a blind human-label packet exists.
+Lower-yield codec, guard, Hyper and negative-KV investigations remain behind
+the three ready successors. Superseded attempts and families with an explicit
+stop were moved to `P3`; no evidence or lifecycle state was deleted.
+
+The value-ordered watcher/harness wave consumed that dependency-ready queue:
+
+- ADAPT06 R6 aborted before service mutation because its inherited R5 helper
+  assumed systemd port 8080 was a direct llama-server. R7 resolved the physical
+  binary from the frozen fleet registry, bound the real gateway before/after,
+  sealed 72 routed comparisons and advanced to `EXECUTED`. It achieved 100%
+  route-correct parity and 93.10% requested-switch reduction, but its grouped
+  schedule was slightly slower (`0.988x`); only the narrow client-ordering claim
+  is audit-eligible.
+- GDN02 R2 aborted before model load because a Windows `pathlib.Path` converted
+  the WSL model path to backslashes. R3 used the literal POSIX path, retained
+  three decisive cells and 147 collateral cosines, and independently reproduced
+  every metric. It remains scientifically negative: leakage `12.24%` exceeded
+  `5%` and fidelity `86.62%` missed `95%`; collateral retention was `99.97%`.
+- SLX08 R4 is `BLOCKED`, not executed. Clean `slop.cpp` commit `34b3dac7c`
+  contains DFlash and dense prefill but no callable selected-block prefill route
+  or physical per-request telemetry. Labeling dense traffic as ON would be a
+  false treatment. The exact unblock contract is in its packet.
+
+The audit queue is
+`config/research_audit_queue_2026-08-29_post_audit_value_wave.json`.
 
 The 2026-08-29 execution wave consumed the dependency-ready queue. Independent
 review of the five-packet closeout queue is complete:
@@ -124,9 +171,9 @@ review of the five-packet closeout queue is complete:
    `HOLD_FAIL_CLOSED`: 192/192 seeded comparisons were exact, but the run did
    not bind the physical GGUF and runtime artifact used by each route.
 
-`backlog_pipeline.py next --json` currently returns `null`. This means no
-dependency-ready `PROPOSED` item, not that blocked, executed or audit-pending
-research disappeared.
+That closeout queue is historical context. After the post-audit watched wave,
+`backlog_pipeline.py next --json` returns `null`: no dependency-ready
+`PROPOSED` work remains.
 
 Two corrected successors completed the first real watched-wave dispatch and
 were independently promoted:
@@ -161,7 +208,9 @@ Expected next value:
 null
 ```
 
-Do not manufacture a next command from `EXECUTED` or `BLOCKED` items. The next
+Do not manufacture a next command from `EXECUTED` or `BLOCKED` items. ADAPT06
+R7 and GDN02 R3 are audit-ready; SLX08 needs a separately reviewed physical
+runtime implementation before it can re-enter the queue. The prior
 scientific repair candidate, `BACKLOG-FLEET-SEEDED-STABILITY-03`, is now
 `EXECUTED` and audit-ready. It captured 288 exact HTTP arguments, 192/192 exact
 seeded comparisons, and bound each route to the live backend PID, `/proc`
@@ -259,3 +308,40 @@ generalization and, as `proxy_realization`, can never become `PROMOTED`.
 - Legacy progress is typed: `files` counts marker files and `jsonl_lines` counts
   non-empty sample records. Never equate one JSONL file with its row count.
 - Commit and push remain separate maintainer actions.
+
+## 2026-08-30 SLX08 physical relevance-prefill closeout
+
+`BACKLOG-SLX08-RELEVANCE-PREFILL-11` is independently `PROMOTED` with claim
+`SLX08_RELEVANCE_SELECTED_PREFILL_QUALIFIED_R11`. It supersedes the blocked R10
+packet and the earlier physical attempts without rewriting them.
+
+The physical `slop.cpp` experiment route accepts an optional ordered list of
+block indices only when `slx08_selected_block_prefill=true` and the environment
+gate is active. It requires exactly half of the prompt blocks, strict increasing
+order, valid indices and retention of the first and final blocks. Responses bind
+the exact selected indices and selection mode. This is token deletion before
+ordinary dense prefill, not a sparse-attention kernel.
+
+R11 executed 126 new prompt IDs, balanced as nine cases at every one of 14
+evidence positions and 42 cases in each arm-order period. Its 378 physical rows
+recompute to dense/naive/relevance accuracy `126/54/126`; relevance retained the
+target in 126/126 and naive was correct exactly when its fixed positional policy
+retained the target. Relevance evaluated 2048 rather than 4096 prompt tokens,
+improved p50 TTFT `1.79838x`, improved marginal p95 `1.83200x`, and was faster in
+126/126 dense pairs. The one-sided exact 95% lower delta bound is
+`-0.0234952389`, passing the frozen `-0.03` margin.
+
+Independent review SHA-256 is
+`5088bbfc14919b09d0cf3d035cefc0fb6a77810aa3d9c4015d38dadba5d7f1d5`.
+The receipt SHA-256 is
+`2d32c1fce9149d9cee46eeea725a0065c009e1287ec51f45c098bd846af8071f`.
+The watcher sealed 378/378 rows, advanced only to `EXECUTED`, and the independent
+auditor performed `EXECUTED -> VERIFIED -> PROMOTED`. The full suite passed
+494 tests and the pipeline gate passed. Qwen3.8 was restored on port 8080 and
+embeddings remained healthy on 8081.
+
+Do not generalize the promotion to production, learned retrieval, server-side
+semantic selection, selector-inclusive latency, other models/context sizes,
+RAG quality or generic sparse attention. The next useful successor should
+measure selector cost and test a genuinely semantic selector on natural long
+documents; another exact-key panel is not warranted.

@@ -1,0 +1,52 @@
+{
+  "schema": "local-labs-backlog-packet-v1",
+  "task_id": "BACKLOG-SLX08-RELEVANCE-PREFILL-09",
+  "evidence_class": "serving_runtime",
+  "executor": "Codex R9 recovery",
+  "stage": "IMPLEMENTED",
+  "state_history": [
+    {
+      "from": null,
+      "to": "PROPOSED",
+      "actor": "Codex R9 recovery",
+      "at": "2026-08-30T13:48:22Z"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "PREREGISTERED",
+      "actor": "Codex R9 recovery",
+      "at": "2026-08-30T13:48:46Z",
+      "reason": "Unchanged R8 protocol with exact source digest correction only."
+    },
+    {
+      "from": "PREREGISTERED",
+      "to": "IMPLEMENTED",
+      "actor": "Codex R9 recovery",
+      "at": "2026-08-30T13:49:33Z",
+      "reason": "Exact source digests recomputed in tests; 28 focused fixtures pass."
+    }
+  ],
+  "preregistration": {
+    "path": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-09/PRE_REGISTRATION.md",
+    "sha256": "3a8a36330728d5101be56cdbbc50f9818404352b7b945fd152bfb0bcc76703de"
+  },
+  "implementation": [
+    {
+      "path": "runs/research/BACKLOG-SLX08-RELEVANCE-PREFILL-09/IMPLEMENTATION.md",
+      "sha256": "2765822594981bcc708f2a129481dc569cbf90059e3e8af7432cc1646fbb6b80"
+    },
+    {
+      "path": "tests/test_slx08_relevance_prefill_r9.py",
+      "sha256": "e703f61d1386a9ce0157f328b39ef5f5d75875d7edfbc283e2aef99024350dd8"
+    },
+    {
+      "path": "tools/research/run_slx08_relevance_prefill_r9.py",
+      "sha256": "451f4df230289ef4b436266cf4c2952d44e53db2e174a742fd9c227a4c48e5b5"
+    }
+  ],
+  "implementation_digest": "71fd00b2a47186407cb074e921359a6bd40567252674dd8b6e8f4e15ce1f4397",
+  "execution": {},
+  "result": {},
+  "review": {},
+  "claim_codes": []
+}

@@ -1,0 +1,155 @@
+{
+  "schema": "local-labs-experiment-watch-status-v1",
+  "watch_id": "POST-AUDIT-VALUE-WAVE-2026-08-29-GDN02-R2",
+  "updated_at": "2026-08-29T20:23:42Z",
+  "experiments": [
+    {
+      "task_id": "BACKLOG-GDN02-LEARNED-STATE-02",
+      "pid": 32296,
+      "process_alive": false,
+      "progress": 1,
+      "progress_mode": "files",
+      "expected_progress": 1,
+      "pipeline_stage": "IMPLEMENTED",
+      "watch_status": "failed_worker_exit",
+      "harness_terminal": {
+        "present": true,
+        "valid": true,
+        "status": "ABORTED",
+        "task_id": "BACKLOG-GDN02-LEARNED-STATE-02",
+        "sample_count": 0,
+        "errors": []
+      },
+      "worker_exit": {
+        "present": true,
+        "valid": true,
+        "returncode": 1,
+        "timed_out": false,
+        "errors": []
+      },
+      "managed_backlog": true
+    }
+  ],
+  "gpu": {
+    "memory_used_mib": 19506,
+    "memory_free_mib": 4817,
+    "utilization_percent": 15,
+    "temperature_c": 34,
+    "power_w": 38.17
+  },
+  "health": {
+    "http://127.0.0.1:8080/health": 200,
+    "http://127.0.0.1:8081/health": 200
+  },
+  "states": {
+    "BACKLOG-GDN02-LEARNED-STATE-02": {
+      "status": "failed_worker_exit",
+      "was_seen_alive": true,
+      "finalization": {
+        "at": "2026-08-29T20:23:41Z",
+        "receipt_exists": false,
+        "result_exists": false,
+        "stage_before": "IMPLEMENTED",
+        "progress": 1,
+        "progress_mode": "files",
+        "expected_progress": 1,
+        "harness_terminal": {
+          "present": true,
+          "valid": true,
+          "status": "ABORTED",
+          "task_id": "BACKLOG-GDN02-LEARNED-STATE-02",
+          "sample_count": 0,
+          "errors": []
+        },
+        "worker_exit": {
+          "present": true,
+          "valid": true,
+          "returncode": 1,
+          "timed_out": false,
+          "errors": []
+        },
+        "managed_backlog": true,
+        "status": "failed_worker_exit"
+      }
+    }
+  },
+  "final": {
+    "schema": "local-labs-experiment-watch-final-v1",
+    "watch_id": "POST-AUDIT-VALUE-WAVE-2026-08-29-GDN02-R2",
+    "finished_at": "2026-08-29T20:23:42Z",
+    "status": "complete_with_alert",
+    "experiment_mode": true,
+    "states": {
+      "BACKLOG-GDN02-LEARNED-STATE-02": {
+        "status": "failed_worker_exit",
+        "was_seen_alive": true,
+        "finalization": {
+          "at": "2026-08-29T20:23:41Z",
+          "receipt_exists": false,
+          "result_exists": false,
+          "stage_before": "IMPLEMENTED",
+          "progress": 1,
+          "progress_mode": "files",
+          "expected_progress": 1,
+          "harness_terminal": {
+            "present": true,
+            "valid": true,
+            "status": "ABORTED",
+            "task_id": "BACKLOG-GDN02-LEARNED-STATE-02",
+            "sample_count": 0,
+            "errors": []
+          },
+          "worker_exit": {
+            "present": true,
+            "valid": true,
+            "returncode": 1,
+            "timed_out": false,
+            "errors": []
+          },
+          "managed_backlog": true,
+          "status": "failed_worker_exit"
+        }
+      }
+    },
+    "pipeline_gate": {
+      "returncode": 0,
+      "stdout": "BACKLOG PIPELINE: PASS",
+      "stderr": ""
+    },
+    "backlog_queue": {
+      "refreshed_at": "2026-08-29T20:23:42Z",
+      "status_returncode": 0,
+      "next_returncode": 0,
+      "valid": true,
+      "priority_rebalance": {
+        "requested": false,
+        "returncode": null,
+        "valid": null,
+        "report": null
+      },
+      "state_counts": {
+        "BLOCKED": 41,
+        "EXECUTED": 22,
+        "IMPLEMENTED": 3,
+        "PREREGISTERED": 1,
+        "PROMOTED": 30,
+        "REJECTED": 22,
+        "VERIFIED": 1
+      },
+      "next_candidate": null
+    },
+    "completion_action": "inspect_alert_before_dispatch",
+    "audit_ready_ids": [],
+    "final_health": {
+      "http://127.0.0.1:8080/health": 200,
+      "http://127.0.0.1:8081/health": 200
+    },
+    "final_gpu": {
+      "memory_used_mib": 19506,
+      "memory_free_mib": 4817,
+      "utilization_percent": 15,
+      "temperature_c": 34,
+      "power_w": 38.17
+    }
+  }
+}
