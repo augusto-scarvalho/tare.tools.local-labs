@@ -42,6 +42,27 @@ python tools/agents/modelctl.py status
 The dated reports under `docs/` are preserved experimental evidence; they are
 not competing live runbooks.
 
+### slop.rs evidence intake
+
+Local Labs consumes the native `slop.rs/generate-run/1.0` manifest directly;
+there is no hand-written field translation between the runtime and the lab.
+The consumer revalidates the manifest, every physical receipt and the exact
+model/config/tokenizer bytes, then retains the untouched input under its file
+SHA-256 and emits a separately digested readback receipt:
+
+```powershell
+python tools/integrations/slop_manifest.py ingest `
+  --manifest C:\evidence\generate.json `
+  --retain-dir C:\evidence\retained `
+  --receipt C:\evidence\ingest-receipt.json
+python tools/integrations/slop_manifest.py query `
+  --receipt C:\evidence\ingest-receipt.json
+```
+
+Ingestion only records `qualification_status=UNASSESSED` and `authority=NONE`.
+A later, preregistered Local Labs experiment and independent review must create
+any actual qualification claim.
+
 ---
 
 ## 🔬 Why tare.tools.local-labs?

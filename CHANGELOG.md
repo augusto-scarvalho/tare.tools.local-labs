@@ -6,6 +6,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Added the fail-closed, separate-process `slop.rs/generate-run/1.0` consumer.
+  It rehashes all bound model artifacts and physical receipts, retains the raw
+  manifest by content identity, emits a queryable readback receipt, and cannot
+  grant qualification or runtime authority.
 - Added and activated a reproducible WSL CPU policy: 24 vCPUs online, a
   20-vCPU inherited ceiling for experiments and ordinary WSL work, and a
   24-vCPU exception only for the official inference gateway/backend. Added a
