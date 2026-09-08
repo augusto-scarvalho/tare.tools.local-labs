@@ -4,6 +4,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Preserve 25 byte-distinct research publications from original remote Library
+  refs with exact origins and an immutable recovery receipt. Archive old RNN
+  audits and proposed experiment protocols without changing live research state.
+
 - Preserve four historical recurrent-memory publication records from the
   Library with exact source hashes and a HISTORY_ONLY manifest. No experiment
   was rerun, qualification promoted or research backlog state changed.

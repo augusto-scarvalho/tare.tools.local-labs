@@ -40,6 +40,7 @@ health evidence.
 | Browse scientific findings | [Research knowledge base](research/README.md) |
 | Browse the broad taxonomy | [Research catalog](RESEARCH_CATALOG.md) |
 | Inspect recovered RNN publication history | [2026-08-12 archive](campaigns/rnn-mamba/history/2026-08-12-library-publication/README.md), HISTORY_ONLY; no current qualification or execution authority |
+| Inspect publications recovered from remote Library history | [25-document archive](history/2026-09-08-library-filtered-publications/README.md), HISTORY_ONLY; exact source refs and hashes, no current experiment authority |
 | Inspect engine-specific conclusions | [slop.cpp fork report](research/FORK.md) |
 
 ## Current control surfaces

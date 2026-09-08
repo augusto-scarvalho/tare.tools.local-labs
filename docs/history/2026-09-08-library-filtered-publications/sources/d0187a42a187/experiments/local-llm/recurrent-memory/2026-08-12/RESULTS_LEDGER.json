@@ -1,0 +1,141 @@
+{
+  "schema_version": "0.2-research",
+  "kind": "LocalLlmRecurrentMemoryExperimentalLedger",
+  "status": "EXPERIMENTAL",
+  "updated_at": "2026-08-12",
+  "authority": "RESEARCH_EXPERIMENTAL_ONLY",
+  "canonical_promotion": false,
+  "current_interpretation": {
+    "tested_tptt_configuration": "PARKED",
+    "coadaptation": "SUPPORTED",
+    "synthetic_dense_posthoc_memory_caching": "PARKED",
+    "rnn_06a_strict_lifecycle": "NOT_QUALIFIED_HISTORICAL",
+    "rnn_06a2_continuation_lifecycle": "QUALIFIED_EXACT_SUBSTRATE",
+    "rnn_06b3_controlled_unique_binding_load_forgetting": "QUALIFIED_EXACT_SUBSTRATE",
+    "rnn_06c_historical_state_information": "QUALIFIED_PRESENCE",
+    "rnn_06d0_recovery_ceiling": "QUALIFIED",
+    "rnn_06d1_preregistered_gate": "QUALIFIED_PARAMETER_FREE",
+    "historical_state_recovery_exact_synthetic_mamba": "SUPPORTED_STRONGLY",
+    "adaptive_selector_incremental_value_06d": "OPEN",
+    "official_mamba_fastpath_06t": "RUNNABLE_SUPPORTED",
+    "single_pass_historical_capture_06t": "SUPPORTED_STRONGLY",
+    "official_mamba_lifecycle_strict_prereg_06t": "NOT_QUALIFIED",
+    "rnn_06t_protocol_gate_ordering": "FAILED",
+    "rnn_06t_downstream": "EXPLORATORY_NON_LOAD_BEARING",
+    "rnn_06t2_train": "ACCEPTED_WITH_ECONOMICS_RECONCILIATION",
+    "official_mamba_fixed_batch_lifecycle_06t2": "QUALIFIED",
+    "batch_shape_numerical_portability_06t2": "OUT_OF_SCOPE_NOT_QUALIFIED",
+    "single_pass_historical_capture_06t2": "QUALIFIED",
+    "historical_recovery_narrow_06t2": "QUALIFIED",
+    "adaptive_selection_narrow_06t2": "DIRECTIONAL",
+    "wide_target_recovery_06t2": "QUALIFIED",
+    "adaptive_selection_wide_06t2": "QUALIFIED",
+    "end_to_end_recovery_utility_06t2_historical_mint": "RECONCILED_FALSE_GREEN",
+    "end_to_end_recovery_utility_06t2": "NOT_COMPARABLE",
+    "marginal_step_path_timing_signal_06t2": "POSITIVE_NON_LOAD_BEARING",
+    "run_id_canonical_uniqueness_06t2": "NOT_QUALIFIED",
+    "realistic_workload_discovery": "AUTHORIZED",
+    "rnn_07a": "PROPOSED_NOT_EXECUTED",
+    "qwen_transfer": "DEFER"
+  },
+  "experimental_subjects": {
+    "rnn_06d": {
+      "model": "AntonV/mamba2-1.3b-hf",
+      "revision": "703e19a43f397c70315244a3424d79456b54fb34",
+      "backend": "Transformers-native Mamba2ForCausalLM",
+      "dtype": "bf16",
+      "chunk_size": 32
+    },
+    "rnn_06t2": {
+      "model": "state-spaces/mamba2-1.3b",
+      "revision": "c5b59d00ec85d313adea86a08cad2a43c962dd3b",
+      "backend": "official mamba_ssm fast path",
+      "mamba_ssm": "2.2.4",
+      "causal_conv1d": "1.5.0.post8",
+      "triton": "3.2.0",
+      "torch": "2.6.0+cu124",
+      "dtype": "bf16",
+      "chunk_size": 256,
+      "state_bytes_per_sequence": 52002816
+    }
+  },
+  "selected_results": {
+    "rnn_06b3": {
+      "paired_loss_u1_to_u176": 0.417,
+      "reported_ci95": [0.349, 0.490]
+    },
+    "rnn_06c": {
+      "historical_direct_accuracy": 0.849,
+      "same_aged_repeated_sentinel_accuracy": 1.0,
+      "high_load_accuracy": 0.547,
+      "primary_delta_n_minus_l": 0.453125,
+      "reported_ci95": [0.385, 0.526]
+    },
+    "rnn_06d": {
+      "final_accuracy": 0.1302083,
+      "oracle_best_accuracy": 0.90625,
+      "fixed_slot76_accuracy": 0.7708333,
+      "max_confidence_accuracy": 0.8333333,
+      "max_confidence_recovered": 135,
+      "max_confidence_harmed": 0
+    },
+    "rnn_06t2_narrow": {
+      "final_accuracy": 0.1614583,
+      "fixed_slot76_accuracy": 0.734375,
+      "max_confidence_accuracy": 0.8385417,
+      "fixed76_delta_vs_final": 0.5729167,
+      "fixed76_ci95": [0.5052083, 0.6458333],
+      "max_confidence_delta_vs_fixed76": 0.1041667,
+      "max_confidence_vs_fixed76_ci95": [0.046875, 0.1614583],
+      "adaptive_robust_strata": "2/4",
+      "classification": "NARROW_RECOVERY_QUALIFIED_ADAPTIVE_DIRECTIONAL"
+    },
+    "rnn_06t2_wide": {
+      "final_accuracy": 0.2708333,
+      "fixed_slot38_accuracy": 0.21875,
+      "fixed_slot76_accuracy": 0.3697917,
+      "fixed_slot115_accuracy": 0.4427083,
+      "fixed_slot153_accuracy": 0.5,
+      "max_confidence_accuracy": 0.8125,
+      "max_confidence_delta_vs_final": 0.5416667,
+      "max_confidence_vs_final_ci95": [0.4738281, 0.609375],
+      "max_confidence_delta_vs_preregistered_fixed153": 0.3125,
+      "max_confidence_vs_fixed153_ci95": [0.2395833, 0.3751302],
+      "recovered_vs_final": 106,
+      "harmed_vs_final": 2,
+      "net_recovery": 104,
+      "adaptive_robust_strata": "3/4",
+      "classification": "WIDE_RECOVERY_AND_ADAPTIVE_SELECTION_QUALIFIED"
+    },
+    "rnn_06t2_economics": {
+      "historical_mint": "QUALIFIED",
+      "audit_reconciliation": "NOT_COMPARABLE",
+      "bug": "RECOVERY returned scored-vocabulary column index while FINAL arms returned token IDs",
+      "fused_median_ms": 37.73,
+      "fused_p95_ms": 38.80,
+      "step_median_ms": 976.66,
+      "step_p95_ms": 1064.45,
+      "recovery_median_ms": 1010.25,
+      "recovery_p95_ms": 1121.26,
+      "reported_recovery_minus_step_p95_ms": 192.70,
+      "interpretation": "timing signal preserved as non-load-bearing until semantic output-domain closure"
+    }
+  },
+  "qualification_set_sha256": {
+    "t0r": "ca92cfad0d0aac4ae20aa8612f259c559ad592415a71797561b3e5909103cafe",
+    "narrow_qual": "34d276ced58eddd34332ad3a17ea658edc488b8f9896fb3e1635c200b73316cc",
+    "wide_calib": "dc4010f15f0d56228693d3fefea92b8dadf8ddd24e245eef285fb31d37e18614",
+    "wide_qual": "97f303a2573cd07716054752fb4529e2ceabf69582a971f214c250082ddeab3f"
+  },
+  "source_sha256": {
+    "audit_06d": "c84283642298f80f36273be079c56eafdecc515275ed2aa13a6a1db4baebcc6b",
+    "audit_06t": "4c0e8fdd362bd1250dcedd2b9df50519f1cd06d682a1e5d6a74bfb89c3f4623c",
+    "protocol_06t2": "3cd04d0ca56bdc3ff2c980fff1cb806534114fe1dade6b288f134c40ea1de5b4",
+    "bundle_06d": "9bd4df8a1f4a63b532f923e50b28deb55b25894978912f603caa3745e26b8a75",
+    "bundle_06t": "cf4ecc0b02452dbba6e184b067f61003553139e8e06d99148b82ae85a134d370",
+    "bundle_06t2": "52fcf4d00430bb8b24da3c2cfd8b5a4c1c2473c701b2939acbd0f633e4a35426",
+    "handoff_06t2": "d6d409f7f1a7db00f01af9f6b005d467487969f4a2a94dc2ae9ba464b59cbc53",
+    "audit_06t2": "72fab88e53391692e80803e0bddb8fecde85c309f7d02f33560e9d001aa69b48",
+    "protocol_rnn_07a": "63941f9af9205635c1f10b8b27ce751fc17207e18d927f4bf6b3ba1cd1d09e65"
+  }
+}
