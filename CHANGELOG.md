@@ -4,6 +4,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Preserve four historical recurrent-memory publication records from the
+  Library with exact source hashes and a HISTORY_ONLY manifest. No experiment
+  was rerun, qualification promoted or research backlog state changed.
+
 ### Added
 
 - Integrated the pending embedding deployment report and wrapper with stale-PID
