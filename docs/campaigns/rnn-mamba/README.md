@@ -4,6 +4,7 @@
 Comprehensive empirical research into stateful linear-time architectures (Mamba-2, TTT, LaCT, Growing Memory, TPTT), investigating deterministic state capture, in-process state replay, and long-context needle retrieval.
 
 ## Key Files & Canonical Documentation
+- [2026-08-12 publication archive](history/2026-08-12-library-publication/README.md): **HISTORY_ONLY** — four exact Library records with source hashes; no present qualification or authority to execute their historical next steps.
 - [`REPLICATION_CATALOG_AND_PRELIMINARY_RESULTS.md`](REPLICATION_CATALOG_AND_PRELIMINARY_RESULTS.md): **Master Replication Ledger** — upstream code, Hugging Face checkpoints, published claims vs local lab measurements.
 - [`COMPREHENSIVE_AUDIT_HYBRID_MEMORY_AND_ROADMAP_2026.md`](COMPREHENSIVE_AUDIT_HYBRID_MEMORY_AND_ROADMAP_2026.md): **Comprehensive Audit** — root cause analysis of abandoned lines, mathematical formulations, and engineering roadmap.
 - [`HYBRID_RECURRENT_ECOSYSTEM_2026.md`](HYBRID_RECURRENT_ECOSYSTEM_2026.md): **Global 2026 Ecosystem Overview** — Llama.cpp PRs (Mamba2 #9126, Stateful API #23817), bug analyses, FLA, and Hugging Face hubs.
