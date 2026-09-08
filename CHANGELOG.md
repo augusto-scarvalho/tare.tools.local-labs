@@ -6,10 +6,19 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Integrated the pending embedding deployment report and wrapper with stale-PID
+  protection, serialized control, failed-start cleanup and CPU fallback when GPU
+  telemetry is unavailable; offline process tests require no model or live service.
+
 - Added the fail-closed, separate-process `slop.rs/generate-run/1.0` consumer.
   It rehashes all bound model artifacts and physical receipts, retains the raw
   manifest by content identity, emits a queryable readback receipt, and cannot
   grant qualification or runtime authority.
+- Embedding service re-based on Qwen3-Embedding-4B: resident Q4_K_M hybrid server on
+  8081 (enabled at boot, P-core affinity) and an on-demand Q8_0 reindex server on 8082
+  (`ops/qualified-model-fleet/embedding_reindex_server.sh`, mode chosen by free VRAM).
+  Tailnet exposure fixed (stale 8081 portproxy removed, Hyper-V rules for 8081/8082).
+  See `docs/EMBEDDING_SERVICE.md`.
 - Added and activated a reproducible WSL CPU policy: 24 vCPUs online, a
   20-vCPU inherited ceiling for experiments and ordinary WSL work, and a
   24-vCPU exception only for the official inference gateway/backend. Added a
