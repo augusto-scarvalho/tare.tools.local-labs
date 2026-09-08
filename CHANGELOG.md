@@ -6,6 +6,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Integrated the pending embedding deployment report and wrapper with stale-PID
+  protection, serialized control, failed-start cleanup and CPU fallback when GPU
+  telemetry is unavailable; offline process tests require no model or live service.
+
 - Added the fail-closed, separate-process `slop.rs/generate-run/1.0` consumer.
   It rehashes all bound model artifacts and physical receipts, retains the raw
   manifest by content identity, emits a queryable readback receipt, and cannot
