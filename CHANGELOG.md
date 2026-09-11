@@ -14,6 +14,11 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Extend the public fleet count binding to streamed Chat responses. Verify the
+  same counted request under the existing selection lock, emit a separate SSE
+  route receipt, and forward available chunks without waiting for a large block.
+  Preserve the earlier public-count implementation in this qualified owner change.
+
 - Integrated the pending embedding deployment report and wrapper with stale-PID
   protection, serialized control, failed-start cleanup and CPU fallback when GPU
   telemetry is unavailable; offline process tests require no model or live service.
