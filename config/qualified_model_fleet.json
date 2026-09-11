@@ -44,7 +44,7 @@
       "runtime": {
         "binary": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin/llama-server",
         "environment": {"LD_LIBRARY_PATH": "/home/augus/opt/slop.cpp/b10165-71676e46c/bin"},
-        "args": ["--ctx-size", "32768", "--flash-attn", "on", "--gpu-layers", "all", "--metrics", "--jinja", "--no-mmproj", "--cache-type-k", "q4_0", "--cache-type-v", "q4_0", "--parallel", "1", "--batch-size", "2048", "--ubatch-size", "512", "--ctx-checkpoints", "32", "--spec-type", "draft-mtp", "--spec-draft-n-max", "3"]
+        "args": ["--ctx-size", "32768", "--flash-attn", "on", "--gpu-layers", "all", "--metrics", "--jinja", "--chat-template-file", "/mnt/c/projects/tare.tools.local-labs/ops/qwen38-bringup/qwen38-json-arguments.jinja", "--no-mmproj", "--cache-type-k", "q4_0", "--cache-type-v", "q4_0", "--parallel", "1", "--batch-size", "2048", "--ubatch-size", "512", "--ctx-checkpoints", "32", "--spec-type", "draft-mtp", "--spec-draft-n-max", "3"]
       }
     },
     "qwen36-moe": {

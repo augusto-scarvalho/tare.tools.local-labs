@@ -4,6 +4,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Preserve Qwen tool argument types with a versioned JSON-argument template
+  selected by the fleet card and single-model fallback. Qualify nullable values
+  through the real parser and a bounded native creation canary with thinking on.
+
 - Preserve 25 byte-distinct research publications from original remote Library
   refs with exact origins and an immutable recovery receipt. Archive old RNN
   audits and proposed experiment protocols without changing live research state.
