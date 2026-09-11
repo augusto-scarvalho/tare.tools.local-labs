@@ -4,6 +4,8 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Exclude local credential files, private work folders, agent-local settings and SQLite sidecars from future Git additions.
+
 - Preserve Qwen tool argument types with a versioned JSON-argument template
   selected by the fleet card and single-model fallback. Qualify nullable values
   through the real parser and a bounded native creation canary with thinking on.
