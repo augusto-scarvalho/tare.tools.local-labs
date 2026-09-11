@@ -35,6 +35,9 @@ from model_lifecycle.qualified_fleet import (  # noqa: E402
     public_card,
     resolve_model,
 )
+from model_lifecycle.fleet_count import (  # noqa: E402
+    BINDING_FIELD, BindingMismatch, check_binding, count_request, effective_profile,
+)
 
 LOG = logging.getLogger("qualified-model-gateway")
 HOP_HEADERS = {
@@ -44,6 +47,7 @@ HOP_HEADERS = {
 ALLOWED_POST = {
     "/v1/chat/completions", "/v1/completions", "/completion", "/infill",
 }
+FLEET_POST = {'/v1/fleet/count', '/v1/fleet/profile'}
 
 
 class FleetRuntime:
@@ -196,7 +200,7 @@ def send_json(handler: BaseHTTPRequestHandler, status: int, payload: Any) -> Non
     handler.wfile.write(raw)
 
 
-def proxy_request(handler: BaseHTTPRequestHandler, body: bytes) -> None:
+def proxy_request(handler: BaseHTTPRequestHandler, body: bytes, *, fleet_observation=None) -> None:
     connection = http.client.HTTPConnection(
         RUNTIME.backend_host, RUNTIME.backend_port, timeout=3600
     )
@@ -208,6 +212,18 @@ def proxy_request(handler: BaseHTTPRequestHandler, body: bytes) -> None:
     headers["Content-Length"] = str(len(body))
     connection.request(handler.command, handler.path, body=body, headers=headers)
     response = connection.getresponse()
+    streaming = response.getheader('Content-Type','').split(';',1)[0].strip() == 'text/event-stream'
+    if fleet_observation is not None and not streaming:
+        try:
+            raw = response.read(8*1024*1024+1)
+            if len(raw) > 8*1024*1024:
+                raise ValueError('fleet_generation_response_over_budget')
+            payload = json.loads(raw)
+            payload['tare_fleet_observation'] = fleet_observation
+            send_json(handler, response.status, payload)
+            return
+        finally:
+            connection.close()
     handler.send_response(response.status)
     for key, value in response.getheaders():
         if key.lower() not in HOP_HEADERS and key.lower() != "content-length":
@@ -215,8 +231,14 @@ def proxy_request(handler: BaseHTTPRequestHandler, body: bytes) -> None:
     handler.send_header("Connection", "close")
     handler.end_headers()
     try:
+        if fleet_observation is not None:
+            # The same request lock covers binding verification and forwarding.
+            # This is route evidence, not completion or token usage.
+            handler.wfile.write(b'data: '+json.dumps({'choices':[],
+                'tare_fleet_observation':fleet_observation}).encode()+b'\n\n')
+            handler.wfile.flush()
         while True:
-            chunk = response.read(64 * 1024)
+            chunk = response.read1(4096)
             if not chunk:
                 break
             handler.wfile.write(chunk)
@@ -255,21 +277,25 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:  # noqa: N802
         path = self.path.split("?", 1)[0].rstrip("/") or "/"
-        if path not in ALLOWED_POST:
+        if path not in ALLOWED_POST | FLEET_POST:
             send_json(self, 404, {"error": {"message": "not found", "type": "not_found"}})
             return
         try:
             length = int(self.headers.get("Content-Length", "0"))
         except ValueError:
             length = 0
-        if length <= 0 or length > 128 * 1024 * 1024:
+        if length <= 0 or length > (1024*1024 if path in FLEET_POST else 128*1024*1024):
             send_json(self, 400, {"error": {"message": "invalid body length"}})
             return
         try:
             payload = json.loads(self.rfile.read(length))
             requested = payload.get("model") or RUNTIME.config["fleet"]["default_model"]
+            if path in FLEET_POST and (not isinstance(payload.get('model'), str) or not payload['model']):
+                raise ValueError('explicit_fleet_model_required')
+            if not isinstance(requested, str):
+                raise ValueError('model_must_be_string')
             model_id, _ = resolve_model(RUNTIME.config, requested)
-        except (json.JSONDecodeError, AttributeError):
+        except (ValueError, AttributeError):
             send_json(self, 400, {"error": {"message": "body must be a JSON object"}})
             return
         except KeyError:
@@ -279,12 +305,41 @@ class Handler(BaseHTTPRequestHandler):
             }})
             return
 
-        payload["model"] = model_id
-        body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+        binding = payload.pop(BINDING_FIELD, None)
         with RUNTIME.request_lock:
             try:
-                RUNTIME.ensure_model(str(requested))
-                proxy_request(self, body)
+                operations = []
+                if path == '/v1/fleet/count':
+                    if set(payload) != {'model', 'request'} or binding is not None:
+                        raise ValueError('fleet_count_envelope_invalid')
+                    value = count_request(RUNTIME, requested, payload['request'], operations)
+                    send_json(self, 200, value)
+                    return
+                if path == '/v1/fleet/profile':
+                    if set(payload) != {'model'} or binding is not None:
+                        raise ValueError('fleet_profile_envelope_invalid')
+                    RUNTIME.ensure_model(requested)
+                    send_json(self, 200, {'profile': effective_profile(RUNTIME, model_id, operations),
+                                          'backend_operations': operations})
+                    return
+                if binding is not None:
+                    if path != '/v1/chat/completions' or type(payload.get('stream',False)) is not bool:
+                        raise ValueError('fleet_binding_requires_chat_and_boolean_stream')
+                    profile = check_binding(RUNTIME, requested, payload, binding, operations)
+                    observed = {'binding': binding, 'profile': profile, 'backend_operations': operations,
+                        'backend_operation_coverage': 'binding_checks_only_excludes_health_loading_and_generation'}
+                else:
+                    RUNTIME.ensure_model(str(requested))
+                    observed = None
+                payload['model'] = model_id
+                body = json.dumps(payload, ensure_ascii=False).encode('utf-8')
+                proxy_request(self, body, fleet_observation=observed)
+            except BindingMismatch as exc:
+                send_json(self, 409, {'error': {'message': str(exc), 'type': 'fleet_binding_mismatch'},
+                                     'backend_operations': operations})
+            except ValueError as exc:
+                send_json(self, 400, {'error': {'message': str(exc), 'type': 'invalid_fleet_request'},
+                                     'backend_operations': operations})
             except Exception as exc:
                 RUNTIME.last_error = str(exc)
                 LOG.exception("request failed for model=%s", requested)

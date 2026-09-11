@@ -6,6 +6,11 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Extend the public fleet count binding to streamed Chat responses. Verify the
+  same counted request under the existing selection lock, emit a separate SSE
+  route receipt, and forward available chunks without waiting for a large block.
+  Preserve the earlier public-count implementation in this qualified owner change.
+
 - Embedding service re-based on Qwen3-Embedding-4B: resident Q4_K_M hybrid server on
   8081 (enabled at boot, P-core affinity) and an on-demand Q8_0 reindex server on 8082
   (`ops/qualified-model-fleet/embedding_reindex_server.sh`, mode chosen by free VRAM).
