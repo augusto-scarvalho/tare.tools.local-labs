@@ -18,6 +18,10 @@ runs/research/**/raw/*.json binary
 # original bytes while retaining ordinary textual diffs.
 runs/research/**/REVIEW.json -text
 
+# Recovered publication records keep their exact historical source bytes.
+docs/campaigns/rnn-mamba/history/**/sources/** -text -eol
+docs/history/**/sources/** -text -eol
+
 # Packet results and declared stderr inputs can be SHA-256-bound by receipts.
 # Preserve their authored bytes so a Linux checkout validates the same object
 # that the Windows research host validated.

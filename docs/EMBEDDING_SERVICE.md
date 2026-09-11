@@ -6,6 +6,11 @@ Qwen3 family has the best retrieval among the models evaluated, and the 4B score
 on MTEB multilingual against 64.33 for the 0.6B. The 8B (70.58) costs twice the time, RAM
 and index size for one point; both GGUFs are kept under `/home/augus/models/embedding/`.
 
+> Integration note (2026-09-08): this is the recorded 2026-09-07 deployment report.
+> This merge does not re-run its measurements, deploy services, or establish a new
+> cross-quantization retrieval qualification. Select `LOCAL_EMBED_ENDPOINT` explicitly
+> for the remote node; consult the current Library configuration for its default.
+
 ## Two servers, one model family, one vector namespace
 
 | Server | Port | Quant | Mode | Why |
@@ -36,8 +41,7 @@ address `100.107.245.30`. Each port needs a Hyper-V firewall rule scoped to the 
 creator id (`WSL-8080`, `WSL-8081`, `WSL-8082`) plus the ordinary inbound rule. The old
 `netsh portproxy` for 8081 (`100.107.245.30:8081 -> 127.0.0.1:8081`) was removed: with
 mirrored networking it shadowed the WSL listener and the port answered nothing from the
-tailnet. Clients use `LOCAL_EMBED_ENDPOINT` (Library `LocalInferenceClient` defaults to
-`http://100.107.245.30:8081`).
+tailnet. Clients select `LOCAL_EMBED_ENDPOINT=http://100.107.245.30:8081` explicitly.
 
 ## Operations
 
@@ -57,3 +61,10 @@ paragraphs at 1,200 characters and the client never disguises a rejected chunk a
 
 Source of the ops script: `ops/qualified-model-fleet/embedding_reindex_server.sh` in this
 repository (installed at `/home/augus/ops/` on the node).
+
+The wrapper stores its PID and log under `${XDG_RUNTIME_DIR:-/tmp}/llm-embedding-reindex-$UID`,
+serializes control operations, and checks the configured server/model in `/proc` before
+stopping a recorded PID. A stale PID never authorizes stopping an unrelated process.
+`REINDEX_MODEL`, `REINDEX_SERVER`, and `REINDEX_RUNTIME_DIR` allow explicit installation
+paths. Missing GPU telemetry selects CPU mode; startup failure removes the PID record.
+Offline tests cover these boundaries without starting an embedding service.

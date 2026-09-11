@@ -4,6 +4,14 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Preserve 25 byte-distinct research publications from original remote Library
+  refs with exact origins and an immutable recovery receipt. Archive old RNN
+  audits and proposed experiment protocols without changing live research state.
+
+- Preserve four historical recurrent-memory publication records from the
+  Library with exact source hashes and a HISTORY_ONLY manifest. No experiment
+  was rerun, qualification promoted or research backlog state changed.
+
 ### Added
 
 - Extend the public fleet count binding to streamed Chat responses. Verify the
@@ -11,6 +19,14 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
   route receipt, and forward available chunks without waiting for a large block.
   Preserve the earlier public-count implementation in this qualified owner change.
 
+- Integrated the pending embedding deployment report and wrapper with stale-PID
+  protection, serialized control, failed-start cleanup and CPU fallback when GPU
+  telemetry is unavailable; offline process tests require no model or live service.
+
+- Added the fail-closed, separate-process `slop.rs/generate-run/1.0` consumer.
+  It rehashes all bound model artifacts and physical receipts, retains the raw
+  manifest by content identity, emits a queryable readback receipt, and cannot
+  grant qualification or runtime authority.
 - Embedding service re-based on Qwen3-Embedding-4B: resident Q4_K_M hybrid server on
   8081 (enabled at boot, P-core affinity) and an on-demand Q8_0 reindex server on 8082
   (`ops/qualified-model-fleet/embedding_reindex_server.sh`, mode chosen by free VRAM).
