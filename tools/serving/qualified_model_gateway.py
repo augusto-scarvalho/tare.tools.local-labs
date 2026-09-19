@@ -11,10 +11,12 @@ from __future__ import annotations
 import argparse
 import contextlib
 import http.client
+import ipaddress
 import json
 import logging
 import os
 from pathlib import Path
+import secrets
 import signal
 import socket
 import subprocess
@@ -38,6 +40,25 @@ from model_lifecycle.qualified_fleet import (  # noqa: E402
 from model_lifecycle.fleet_count import (  # noqa: E402
     BINDING_FIELD, BindingMismatch, check_binding, count_request, effective_profile,
 )
+from model_lifecycle.gpu_lease import SharedGpuLease  # noqa: E402
+from model_lifecycle.comfy_routes import (  # noqa: E402
+    ComfyBackendError,
+    ComfyRouteError,
+    CoordinationError,
+    ImageValidationError,
+    OutputNotFoundError,
+    UncertainSubmissionError,
+    cancel_image_job,
+    get_image_job_status,
+    get_image_model_catalog,
+    get_image_public_cards,
+    get_job_output_image,
+    load_image_routes,
+    submit_image_job,
+    validate_comfy_url,
+)
+
+DEFAULT_IMAGE_ROUTES = REPO_ROOT / "config" / "comfy_image_routes.json"
 
 LOG = logging.getLogger("qualified-model-gateway")
 HOP_HEADERS = {
@@ -48,6 +69,7 @@ ALLOWED_POST = {
     "/v1/chat/completions", "/v1/completions", "/completion", "/infill",
 }
 FLEET_POST = {'/v1/fleet/count', '/v1/fleet/profile'}
+INTERNAL_POST = {'/internal/gpu/yield'}
 
 
 class FleetRuntime:
@@ -60,6 +82,11 @@ class FleetRuntime:
         state_dir: Path,
         load_timeout: float,
         stop_timeout: float,
+        gpu_lock: Path | str | None = None,
+        route_timeout: float = 60.0,
+        gpu_lease: SharedGpuLease | None = None,
+        comfy_url: str | None = None,
+        image_routes_path: Path | str | None = None,
     ) -> None:
         self.config = config
         self.backend_host = backend_host
@@ -67,12 +94,26 @@ class FleetRuntime:
         self.state_dir = state_dir
         self.load_timeout = load_timeout
         self.stop_timeout = stop_timeout
+        self.route_timeout = route_timeout
+        if gpu_lease is not None:
+            self.gpu_lease = gpu_lease
+        elif gpu_lock is not None:
+            self.gpu_lease = SharedGpuLease(Path(gpu_lock), timeout=route_timeout)
+        else:
+            self.gpu_lease = SharedGpuLease(None, timeout=route_timeout)
         self.request_lock = threading.RLock()
         self.process: subprocess.Popen[bytes] | None = None
         self.model_id: str | None = None
         self.requested_name: str | None = None
         self.last_switch_seconds: float | None = None
         self.last_error: str | None = None
+        if comfy_url is not None:
+            self.comfy_url: str | None = validate_comfy_url(comfy_url)
+            routes_file = Path(image_routes_path) if image_routes_path else DEFAULT_IMAGE_ROUTES
+            self.image_routes: dict[str, Any] | None = load_image_routes(routes_file)
+        else:
+            self.comfy_url = None
+            self.image_routes = None
 
     def backend_url(self, path: str) -> str:
         return f"http://{self.backend_host}:{self.backend_port}{path}"
@@ -98,10 +139,10 @@ class FleetRuntime:
 
     def stop_backend(self) -> None:
         process = self.process
-        self.process = None
-        self.model_id = None
-        self.requested_name = None
         if process is None or process.poll() is not None:
+            self.process = None
+            self.model_id = None
+            self.requested_name = None
             return
         LOG.info("stopping backend pid=%s", process.pid)
         try:
@@ -111,13 +152,23 @@ class FleetRuntime:
                 process.terminate()
         deadline = time.monotonic() + self.stop_timeout
         while process.poll() is None and time.monotonic() < deadline:
-            time.sleep(0.2)
+            time.sleep(0.1)
         if process.poll() is None:
             LOG.warning("backend pid=%s exceeded graceful timeout; killing", process.pid)
-            with contextlib.suppress(Exception):
+            try:
                 os.killpg(os.getpgid(process.pid), signal.SIGKILL)
-            with contextlib.suppress(Exception):
-                process.wait(timeout=5)
+            except Exception:
+                with contextlib.suppress(Exception):
+                    process.kill()
+            kill_deadline = time.monotonic() + 5.0
+            while process.poll() is None and time.monotonic() < kill_deadline:
+                time.sleep(0.1)
+        if process.poll() is None:
+            self.last_error = f"failed to stop backend pid={process.pid}"
+            raise RuntimeError(f"backend process {process.pid} could not be stopped")
+        self.process = None
+        self.model_id = None
+        self.requested_name = None
 
     def ensure_model(self, requested: str | None) -> tuple[str, float]:
         model_id, card = resolve_model(self.config, requested)
@@ -173,6 +224,8 @@ class FleetRuntime:
         raise TimeoutError(f"{model_id} did not become healthy in {self.load_timeout:.0f}s")
 
     def status(self) -> dict[str, Any]:
+        lease = getattr(self, "gpu_lease", None)
+        coord = lease.status() if lease is not None else {"enabled": False}
         return {
             "status": "ok",
             "role": "qualified-model-gateway",
@@ -185,6 +238,7 @@ class FleetRuntime:
             "last_error": self.last_error,
             "max_resident_models": 1,
             "available_models": sorted(self.config["models"]),
+            "gpu_coordination": coord,
         }
 
 
@@ -264,6 +318,9 @@ class Handler(BaseHTTPRequestHandler):
                 item = public_card(model_id, card)
                 item.update({"object": "model", "owned_by": "tare.tools.local-labs"})
                 payload.append(item)
+            image_routes = getattr(RUNTIME, "image_routes", None)
+            if image_routes is not None:
+                payload.extend(get_image_public_cards(image_routes))
             send_json(self, 200, {"object": "list", "data": payload})
             return
         if path == "/props":
@@ -273,10 +330,199 @@ class Handler(BaseHTTPRequestHandler):
                 status["model"] = public_card(RUNTIME.model_id, card)
             send_json(self, 200, status)
             return
+        if path in {"/images/models", "/v1/images/models"}:
+            comfy_url = getattr(RUNTIME, "comfy_url", None)
+            image_routes = getattr(RUNTIME, "image_routes", None)
+            if not comfy_url or not image_routes:
+                send_json(self, 404, {"error": {"message": "image routing not configured", "type": "not_found"}})
+                return
+            catalog = get_image_model_catalog(comfy_url, image_routes)
+            send_json(self, 200, catalog)
+            return
+        if path.startswith("/v1/images/jobs/") or path.startswith("/images/jobs/"):
+            comfy_url = getattr(RUNTIME, "comfy_url", None)
+            if not comfy_url:
+                send_json(self, 404, {"error": {"message": "image routing not configured", "type": "not_found"}})
+                return
+            rel = path.split("/images/jobs/", 1)[1].strip("/")
+            if "/outputs/" in rel:
+                parts = rel.split("/outputs/", 1)
+                job_id, index_str = parts[0], parts[1]
+                try:
+                    index = int(index_str)
+                    content, mime_type = get_job_output_image(comfy_url, job_id, index)
+                except OutputNotFoundError as exc:
+                    send_json(self, 404, {"error": {"message": str(exc), "type": "output_not_found"}})
+                    return
+                except (ImageValidationError, ValueError) as exc:
+                    send_json(self, 400, {"error": {"message": str(exc), "type": "invalid_request"}})
+                    return
+                except (CoordinationError, ComfyBackendError, TimeoutError, ConnectionError, OSError):
+                    LOG.exception("failed to get output for job %s index %s", job_id, index_str)
+                    send_json(self, 503, {"error": {"message": "Image retrieval from backend failed", "type": "backend_error"}})
+                    return
+                except Exception:
+                    LOG.exception("unexpected error retrieving output for job %s index %s", job_id, index_str)
+                    send_json(self, 503, {"error": {"message": "Unexpected error retrieving output", "type": "internal_error"}})
+                    return
+
+                try:
+                    self.send_response(200)
+                    self.send_header("Content-Type", mime_type)
+                    self.send_header("Content-Length", str(len(content)))
+                    self.send_header("X-Content-Type-Options", "nosniff")
+                    self.send_header("Connection", "close")
+                    self.end_headers()
+                    self.wfile.write(content)
+                except (ConnectionResetError, BrokenPipeError, OSError):
+                    pass
+                return
+            else:
+                job_id = rel
+                try:
+                    status_info = get_image_job_status(comfy_url, job_id)
+                    send_json(self, 200, status_info)
+                except (ImageValidationError, ValueError) as exc:
+                    send_json(self, 400, {"error": {"message": str(exc), "type": "invalid_request"}})
+                except (CoordinationError, ComfyBackendError, TimeoutError, ConnectionError, OSError):
+                    LOG.exception("failed to get status for job %s", job_id)
+                    send_json(self, 503, {"error": {"message": "Job status check failed on backend", "type": "backend_error"}})
+                except Exception:
+                    LOG.exception("unexpected error getting status for job %s", job_id)
+                    send_json(self, 503, {"error": {"message": "Unexpected error checking job status", "type": "internal_error"}})
+                return
         send_json(self, 404, {"error": {"message": "not found", "type": "not_found"}})
 
     def do_POST(self) -> None:  # noqa: N802
         path = self.path.split("?", 1)[0].rstrip("/") or "/"
+        if path == "/internal/gpu/yield":
+            client_ip = self.client_address[0]
+            is_loopback = False
+            try:
+                is_loopback = ipaddress.ip_address(client_ip).is_loopback
+            except ValueError:
+                is_loopback = client_ip in {"127.0.0.1", "::1", "localhost"}
+            if not is_loopback:
+                send_json(self, 403, {"error": {"message": "forbidden: loopback client required", "type": "forbidden"}})
+                return
+
+            lease = getattr(RUNTIME, "gpu_lease", None)
+            if lease is None or not lease.is_enabled:
+                send_json(self, 400, {"error": {"message": "GPU coordination is not enabled", "type": "gpu_coordination_disabled"}})
+                return
+
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+            except ValueError:
+                length = 0
+            if length <= 0 or length > 4096:
+                send_json(self, 400, {"error": {"message": "invalid body length"}})
+                return
+
+            try:
+                payload = json.loads(self.rfile.read(length))
+            except Exception:
+                send_json(self, 400, {"error": {"message": "body must be a JSON object"}})
+                return
+
+            if (not isinstance(payload, dict) or set(payload.keys()) != {"nonce"}
+                    or not isinstance(payload.get("nonce"), str) or not payload["nonce"]):
+                send_json(self, 400, {"error": {"message": "yield request must contain strictly {'nonce': '<string>'}", "type": "invalid_request"}})
+                return
+
+            if not lease.validate_image_lease(payload["nonce"]):
+                send_json(self, 403, {"error": {"message": "invalid or unheld image lease proof", "type": "invalid_lease_proof"}})
+                return
+
+            with RUNTIME.request_lock:
+                try:
+                    # The holder may have exited while this handler waited.
+                    if not lease.validate_image_lease(payload["nonce"]):
+                        send_json(self, 403, {"error": {"message": "image lease is no longer held"}})
+                        return
+                    RUNTIME.stop_backend()
+                    send_json(self, 200, {"status": "released", "backend_pid": None})
+                except Exception as exc:
+                    RUNTIME.last_error = str(exc)
+                    send_json(self, 503, {"error": {"message": str(exc), "type": "backend_stop_failed"}})
+            return
+
+        if path in {"/v1/images/jobs", "/images/jobs"}:
+            comfy_url = getattr(RUNTIME, "comfy_url", None)
+            image_routes = getattr(RUNTIME, "image_routes", None)
+            if not comfy_url or not image_routes:
+                send_json(self, 404, {"error": {"message": "image routing not configured", "type": "not_found"}})
+                return
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+            except ValueError:
+                length = 0
+            if length <= 0 or length > 4 * 1024 * 1024:
+                send_json(self, 400, {"error": {"message": "invalid body length", "type": "invalid_request"}})
+                return
+            try:
+                payload = json.loads(self.rfile.read(length))
+                if not isinstance(payload, dict):
+                    raise ValueError("body must be a JSON object")
+            except Exception as exc:
+                send_json(self, 400, {"error": {"message": str(exc), "type": "invalid_json"}})
+                return
+
+            lease = getattr(RUNTIME, "gpu_lease", None)
+            try:
+                job_id, status = submit_image_job(comfy_url, lease, image_routes, payload)
+                send_json(self, 200, {
+                    "id": job_id,
+                    "status": status,
+                    "model": payload.get("model"),
+                    "backend": "comfyui",
+                })
+            except UncertainSubmissionError as exc:
+                LOG.warning("uncertain image job submission: %s", exc)
+                send_json(self, 503, {
+                    "error": {
+                        "message": str(exc),
+                        "type": "uncertain_submission",
+                        "job_id": exc.job_id,
+                    }
+                })
+            except (ImageValidationError, ValueError) as exc:
+                send_json(self, 400, {"error": {"message": str(exc), "type": "invalid_image_request"}})
+            except CoordinationError as exc:
+                LOG.warning("GPU coordinator check failed: %s", exc)
+                send_json(self, 503, {"error": {"message": str(exc), "type": "gpu_coordination_error"}})
+            except (ComfyBackendError, TimeoutError, ConnectionError, OSError):
+                LOG.warning("ComfyUI backend submission error")
+                send_json(self, 503, {"error": {"message": "Image generation backend unavailable", "type": "backend_error"}})
+            except Exception:
+                LOG.exception("unexpected error submitting image job")
+                send_json(self, 503, {"error": {"message": "Unexpected error submitting image job", "type": "internal_error"}})
+            return
+
+        if (path.startswith("/v1/images/jobs/") or path.startswith("/images/jobs/")) and path.endswith("/cancel"):
+            comfy_url = getattr(RUNTIME, "comfy_url", None)
+            if not comfy_url:
+                send_json(self, 404, {"error": {"message": "image routing not configured", "type": "not_found"}})
+                return
+            rel = path.split("/images/jobs/", 1)[1]
+            job_id = rel[: -len("/cancel")].strip("/")
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+                if length > 0:
+                    self.rfile.read(min(length, 4096))
+            except Exception:
+                pass
+            try:
+                res = cancel_image_job(comfy_url, job_id)
+                send_json(self, 200, res)
+            except (ImageValidationError, ValueError) as exc:
+                send_json(self, 400, {"error": {"message": str(exc), "type": "invalid_request"}})
+            except (CoordinationError, ComfyBackendError, TimeoutError, ConnectionError, OSError):
+                send_json(self, 503, {"error": {"message": "Cancellation failed on backend", "type": "cancel_failed"}})
+            except Exception:
+                send_json(self, 503, {"error": {"message": "Unexpected error cancelling job", "type": "internal_error"}})
+            return
+
         if path not in ALLOWED_POST | FLEET_POST:
             send_json(self, 404, {"error": {"message": "not found", "type": "not_found"}})
             return
@@ -295,8 +541,8 @@ class Handler(BaseHTTPRequestHandler):
             if not isinstance(requested, str):
                 raise ValueError('model_must_be_string')
             model_id, _ = resolve_model(RUNTIME.config, requested)
-        except (ValueError, AttributeError):
-            send_json(self, 400, {"error": {"message": "body must be a JSON object"}})
+        except (ValueError, AttributeError) as exc:
+            send_json(self, 400, {"error": {"message": str(exc) if str(exc) else "body must be a JSON object"}})
             return
         except KeyError:
             send_json(self, 404, {"error": {
@@ -306,48 +552,78 @@ class Handler(BaseHTTPRequestHandler):
             return
 
         binding = payload.pop(BINDING_FIELD, None)
-        with RUNTIME.request_lock:
-            try:
-                operations = []
-                if path == '/v1/fleet/count':
-                    if set(payload) != {'model', 'request'} or binding is not None:
-                        raise ValueError('fleet_count_envelope_invalid')
-                    value = count_request(RUNTIME, requested, payload['request'], operations)
-                    send_json(self, 200, value)
-                    return
-                if path == '/v1/fleet/profile':
-                    if set(payload) != {'model'} or binding is not None:
-                        raise ValueError('fleet_profile_envelope_invalid')
-                    RUNTIME.ensure_model(requested)
-                    send_json(self, 200, {'profile': effective_profile(RUNTIME, model_id, operations),
-                                          'backend_operations': operations})
-                    return
-                if binding is not None:
-                    if path != '/v1/chat/completions' or type(payload.get('stream',False)) is not bool:
-                        raise ValueError('fleet_binding_requires_chat_and_boolean_stream')
-                    profile = check_binding(RUNTIME, requested, payload, binding, operations)
-                    observed = {'binding': binding, 'profile': profile, 'backend_operations': operations,
-                        'backend_operation_coverage': 'binding_checks_only_excludes_health_loading_and_generation'}
-                else:
-                    RUNTIME.ensure_model(str(requested))
-                    observed = None
-                payload['model'] = model_id
-                body = json.dumps(payload, ensure_ascii=False).encode('utf-8')
-                proxy_request(self, body, fleet_observation=observed)
-            except BindingMismatch as exc:
-                send_json(self, 409, {'error': {'message': str(exc), 'type': 'fleet_binding_mismatch'},
-                                     'backend_operations': operations})
-            except ValueError as exc:
-                send_json(self, 400, {'error': {'message': str(exc), 'type': 'invalid_fleet_request'},
-                                     'backend_operations': operations})
-            except Exception as exc:
-                RUNTIME.last_error = str(exc)
-                LOG.exception("request failed for model=%s", requested)
-                send_json(self, 503, {"error": {
-                    "message": str(exc),
-                    "type": "qualified_model_gateway_error",
+        lease = getattr(RUNTIME, "gpu_lease", None) or SharedGpuLease(None)
+        route_timeout = getattr(RUNTIME, "route_timeout", 60.0)
+        request_id = str(secrets.token_hex(8))
+
+        try:
+            with lease.hold("text", request_id, timeout=route_timeout):
+                with RUNTIME.request_lock:
+                    try:
+                        operations = []
+                        if path == '/v1/fleet/count':
+                            if set(payload) != {'model', 'request'} or binding is not None:
+                                raise ValueError('fleet_count_envelope_invalid')
+                            value = count_request(RUNTIME, requested, payload['request'], operations)
+                            send_json(self, 200, value)
+                            return
+                        if path == '/v1/fleet/profile':
+                            if set(payload) != {'model'} or binding is not None:
+                                raise ValueError('fleet_profile_envelope_invalid')
+                            RUNTIME.ensure_model(requested)
+                            send_json(self, 200, {'profile': effective_profile(RUNTIME, model_id, operations),
+                                                  'backend_operations': operations})
+                            return
+                        if binding is not None:
+                            if path != '/v1/chat/completions' or type(payload.get('stream',False)) is not bool:
+                                raise ValueError('fleet_binding_requires_chat_and_boolean_stream')
+                            profile = check_binding(RUNTIME, requested, payload, binding, operations)
+                            observed = {'binding': binding, 'profile': profile, 'backend_operations': operations,
+                                'backend_operation_coverage': 'binding_checks_only_excludes_health_loading_and_generation'}
+                        else:
+                            RUNTIME.ensure_model(str(requested))
+                            observed = None
+                        payload['model'] = model_id
+                        body = json.dumps(payload, ensure_ascii=False).encode('utf-8')
+                        try:
+                            proxy_request(self, body, fleet_observation=observed)
+                        except (ConnectionError, http.client.HTTPException, socket.error, OSError) as exc:
+                            if lease.is_enabled:
+                                LOG.warning("transport error during proxy; stopping backend under GPU lease: %s", exc)
+                                RUNTIME.stop_backend()
+                            raise
+                    except BindingMismatch as exc:
+                        send_json(self, 409, {'error': {'message': str(exc), 'type': 'fleet_binding_mismatch'},
+                                             'backend_operations': operations})
+                    except ValueError as exc:
+                        send_json(self, 400, {'error': {'message': str(exc), 'type': 'invalid_fleet_request'},
+                                             'backend_operations': operations})
+                    except Exception as exc:
+                        RUNTIME.last_error = str(exc)
+                        LOG.exception("request failed for model=%s", requested)
+                        send_json(self, 503, {"error": {
+                            "message": str(exc),
+                            "type": "qualified_model_gateway_error",
+                            "model": requested,
+                        }})
+        except TimeoutError as exc:
+            LOG.warning("GPU lease timeout for model=%s: %s", requested, exc)
+            send_json(self, 503, {
+                "error": {
+                    "message": f"timed out waiting for GPU lease ({route_timeout:.0f}s)",
+                    "type": "gpu_lease_timeout",
                     "model": requested,
-                }})
+                }
+            })
+        except InterruptedError as exc:
+            LOG.warning("GPU lease cancelled for model=%s: %s", requested, exc)
+            send_json(self, 503, {
+                "error": {
+                    "message": "GPU lease acquisition cancelled",
+                    "type": "gpu_lease_cancelled",
+                    "model": requested,
+                }
+            })
 
 
 def port_is_free(host: str, port: int) -> bool:
@@ -366,6 +642,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--preload", default=None, help="model or alias to load before listening")
     parser.add_argument("--load-timeout", type=float, default=600)
     parser.add_argument("--stop-timeout", type=float, default=90)
+    parser.add_argument("--gpu-lock", default=None, help="path to cross-process shared GPU lock file")
+    parser.add_argument("--route-timeout", type=float, default=60.0, help="seconds to wait for GPU lease")
+    parser.add_argument("--comfy-url", default=None, help="loopback HTTP URL for managed ComfyUI instance")
+    parser.add_argument("--image-routes", default=None, help="path to image routes JSON configuration")
     parser.add_argument("--log-level", default="INFO")
     args = parser.parse_args(argv)
 
@@ -385,10 +665,15 @@ def main(argv: list[str] | None = None) -> int:
         state_dir=Path(args.state_dir),
         load_timeout=args.load_timeout,
         stop_timeout=args.stop_timeout,
+        gpu_lock=args.gpu_lock,
+        route_timeout=args.route_timeout,
+        comfy_url=args.comfy_url,
+        image_routes_path=args.image_routes,
     )
     if args.preload:
-        with RUNTIME.request_lock:
-            RUNTIME.ensure_model(args.preload)
+        with RUNTIME.gpu_lease.hold("text", "preload", timeout=args.load_timeout):
+            with RUNTIME.request_lock:
+                RUNTIME.ensure_model(args.preload)
 
     server = ThreadingHTTPServer((args.host, args.port), Handler)
 
@@ -398,8 +683,8 @@ def main(argv: list[str] | None = None) -> int:
 
     signal.signal(signal.SIGTERM, shutdown)
     signal.signal(signal.SIGINT, shutdown)
-    LOG.info("gateway listening on %s:%s; backend=%s:%s", args.host, args.port,
-             args.backend_host, args.backend_port)
+    LOG.info("gateway listening on %s:%s; backend=%s:%s; gpu_lock=%s; comfy_url=%s", args.host, args.port,
+             args.backend_host, args.backend_port, args.gpu_lock, args.comfy_url)
     try:
         server.serve_forever(poll_interval=0.25)
     finally:
