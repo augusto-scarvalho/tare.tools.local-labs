@@ -20,6 +20,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ### Added
 
+- Add a training command wrapper that shares the gateway/ComfyUI GPU lease.
+  It waits for confirmed text-backend exit, forwards stop signals, and retains
+  ownership until the training process and orphaned workers are reaped.
+
 - Extend the public fleet count binding to streamed Chat responses. Verify the
   same counted request under the existing selection lock, emit a separate SSE
   route receipt, and forward available chunks without waiting for a large block.

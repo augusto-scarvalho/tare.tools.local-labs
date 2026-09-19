@@ -61,6 +61,74 @@ and Krea, plus supporting encoders/VAEs. Browser workflows retain their chosen
 assets. Z-Image and Krea require explicit compatible workflows; inventory is
 not proof that every model works or meets a quality threshold.
 
+## Training commands
+
+Run musubi-tuner under the same lease, **on aaaaa in WSL as `augus`**:
+
+```bash
+python3 tools/serving/gpu_lease_run.py -- \
+  bash /mnt/c/projects/imagen/train_yoshida_v2_lokr.sh
+```
+
+The wrapper defaults to the serving lock at
+`~/.local/state/tare-qualified-models/gpu.lock` and loopback gateway on 8080.
+Use the Local Labs checkout containing this utility, or its installed
+`~/.local/bin/gpu-lease-run` launcher. Running an ordinary training script directly
+still bypasses coordination.
+
+- `--gpu-wait 3600` is the default acquisition limit in seconds. Increase it
+  explicitly for queued training, for example `--gpu-wait 32400` for nine hours.
+  It must remain finite and positive. This deadline does **not** expire an acquired
+  lease; no heartbeat is needed during a five-to-eight-hour training run.
+- The wrapper acquires `kind=image`, authenticates its nonce with the gateway,
+  and starts the command only after the gateway confirms its text backend exited.
+  It holds the lease for the entire command, including sample generation and
+  checkpoint conversion. It does not alter training arguments or outputs.
+- SIGINT, SIGTERM and SIGHUP request shutdown of the child process group and
+  detached descendants. `--stop-grace 30` allows cleanup before SIGKILL escalation.
+  A Linux child subreaper tracks and reaps orphaned workers. The wrapper releases
+  the lease only after observing that every descendant exited; elapsed grace
+  alone is not evidence. Unconfirmed cleanup leaves the supervisor holding the
+  lease and reporting the problem.
+- Normal child exit codes are preserved; signal deaths use `128 + signal`.
+  Acquisition timeout returns 124, coordination failure 125, and a missing
+  executable 127. Diagnostics go to stderr; child input/output is inherited.
+- Gateway requests and ComfyUI jobs do not preempt training. Their existing
+  **600-second** acquisition limits remain in effect: they wait, then report a
+  timeout if training is still running. Retrying later is explicit. A second
+  training wrapper likewise waits up to its own limit and never starts concurrently.
+  The next admitted text request reloads its model after training releases the GPU.
+
+Process-exit evidence covers workers supervised by this wrapper. It is not a
+GPU sandbox: unrelated processes and external services remain outside the lease.
+Send signals to the wrapper, rather than force-killing it with SIGKILL. SIGKILL
+cannot be handled; terminating the supervisor itself can drop its lock while
+workers survive. Do not delete the lock file or forcibly stop the supervisor to
+bypass an unconfirmed cleanup. Inspect and stop the remaining training workers.
+
+### Training qualification, 2026-09-19
+
+The installed launcher points to release `6c88e3f1cc88180314e1`. Registered
+execution 415 passed **47 Linux tests** covering the wrapper, existing shared
+lease, gateway admission and ComfyUI coordinator. Tests include SIGINT/SIGTERM,
+detached workers, kill escalation, cleanup uncertainty, broken diagnostics,
+competing trainers and unchanged lease ownership after the acquisition deadline.
+
+Live execution 418 used the existing musubi-tuner LoKr configuration with a
+two-step limit, disabled sampling and isolated output paths. It observed
+**23,526 MiB free before training**, completed the first training step, and then
+requested SIGTERM. A second trainer timed out with code 124 without starting;
+a queued text request did not reload Qwen while training held the lease. The
+wrapper reaped its process tree and exited 143 before releasing ownership;
+Qwen reloaded and answered `READY`. The three serving service PIDs and restart
+counts were unchanged. Existing training scripts and outputs were untouched.
+
+Execution 417 preserves an earlier canary argument-expansion error that occurred
+before any wrapper or training process started. Evidence and reviewed source
+hashes are retained under the external `training-gpu/` report alongside the
+shared-GPU evidence. This qualifies admission and cancellation, not a full
+five-to-eight-hour run, sample-generation peaks or LoKr model quality.
+
 ## Image API
 
 The configured gateway advertises the `comfyui` workflow engine and two SDXL
