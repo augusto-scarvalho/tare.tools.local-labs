@@ -63,6 +63,64 @@ not proof that every model works or meets a quality threshold.
 
 ## Training commands
 
+### Reusable entrypoint (installed 2026-09-20)
+
+In aaaaa's WSL shell as `augus`, use the same command for any training script:
+
+```bash
+gpu-run /mnt/c/projects/imagen/train_yoshida_v2_lokr.sh
+gpu-run ./another-training.sh --max_train_epochs 12
+gpu-run -- python train.py --config experiment.toml
+gpu-run --gpu-wait 32400 ./another-training.sh
+```
+
+`.sh` commands run through Bash, including scripts without executable permission.
+Other commands use the current environment, so activate the intended Python
+environment first when invoking Python/Accelerate directly. Arguments and exit
+codes are preserved. The original `gpu-lease-run -- command ...` remains valid.
+The installed executable is `~/.local/bin/gpu-run` if the shell lacks that PATH
+entry. No changes to Accelerate or musubi-tuner are required.
+
+For a Bash script that should also be protected when launched directly, add this
+shared guard near the top, before environment activation or training:
+
+```bash
+source "$HOME/.local/share/tare-gpu-training/guard.sh" || exit $?
+```
+
+The guard re-executes the whole script under the supervisor. A protected command
+inside an already protected job reuses its parent reservation after checking the
+kernel lock, nonce, owner PID and process ancestry. An environment flag alone is
+insufficient. This avoids recursive acquisition while keeping one owner through
+training, samples, checkpoint conversion and descendant cleanup. Nested work is
+part of the same supervised job; the lease is not a scheduler for its children.
+
+All three existing `train_yoshida*.sh` entrypoints in `/mnt/c/projects/imagen`
+now source this guard. Their remaining bytes, training arguments and output
+paths were preserved, with originals and SHA-256 receipts backed up in
+`~/.local/state/tare-gpu-training/entrypoint-1789948189850484140`.
+New scripts need either `gpu-run script.sh` or the shared guard; arbitrary
+unmanaged processes cannot be intercepted by this cooperative protocol.
+
+Qualification: **55 Linux fixture tests passed**, including existing gateway,
+ComfyUI, signals and process cleanup tests, plus nested reuse, inherited-proof
+rejection, argument preservation and direct guarded-script execution. The
+installed content-addressed release is `482d4c0b4f8d5cf7202b`. Gateway and ComfyUI
+services do not need a restart for this training-entrypoint update.
+
+A live harmless guarded script then acquired the real lease, unloaded resident
+Qwen, verified the absent text backend from both its normal and nested command,
+and exited with the lease released. It completed in 2.38 seconds and observed
+23,487 MiB free afterward. No training or image inference was launched. The
+backup directory contains `smoke.json`; portable deployment and fixture receipts
+are under the external `gpu-training-entrypoint-20260920` evidence report.
+
+SpecGraph reconciliation remains partial because the existing
+`src/model_lifecycle/analysis/promotion.py` starts with a BOM rejected by its AST
+extractor. That unrelated file was not changed by this delivery.
+
+### Low-level launcher and lifetime
+
 Run musubi-tuner under the same lease, **on aaaaa in WSL as `augus`**:
 
 ```bash
@@ -73,8 +131,8 @@ python3 tools/serving/gpu_lease_run.py -- \
 The wrapper defaults to the serving lock at
 `~/.local/state/tare-qualified-models/gpu.lock` and loopback gateway on 8080.
 Use the Local Labs checkout containing this utility, or its installed
-`~/.local/bin/gpu-lease-run` launcher. Running an ordinary training script directly
-still bypasses coordination.
+`~/.local/bin/gpu-lease-run` launcher. Running an ordinary training script without
+the shared guard directly still bypasses coordination.
 
 - `--gpu-wait 3600` is the default acquisition limit in seconds. Increase it
   explicitly for queued training, for example `--gpu-wait 32400` for nine hours.

@@ -4,6 +4,11 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Add the reusable `gpu-run` training entrypoint and shared Bash guard. Accept
+  shell scripts directly, preserve arguments, and reuse an ancestor's lease only
+  after verifying the live lock, nonce and owner. Keep one supervisor responsible
+  for the entire job; stale or forged inherited context fails before execution.
+
 - Exclude local credential files, private work folders, agent-local settings and SQLite sidecars from future Git additions.
 
 - Preserve Qwen tool argument types with a versioned JSON-argument template
