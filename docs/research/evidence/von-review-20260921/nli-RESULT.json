@@ -1,0 +1,1031 @@
+{
+  "status": "COMPLETED",
+  "backend": "nli",
+  "authority": "NONE",
+  "protocol_sha256": "f6ec65834b0f608b1fd59ce6bacbe7219ad3f7277cd625393942020b2a3ed552",
+  "cases": [
+    {
+      "id": "effort-cost-0",
+      "suite": "plain-strategy",
+      "expected": "claude-opus-5@low+gpt-6-astra@high",
+      "input_lengths": [
+        290,
+        290,
+        248
+      ],
+      "status": "OBSERVED",
+      "observed": "claude-opus-5@low+gpt-6-astra@high",
+      "correct": true,
+      "answer": {
+        "type": "choice",
+        "choice": "strategy_1",
+        "probabilities": {
+          "strategy_1": 0.6364,
+          "strategy_2": 0.088,
+          "insufficient": 0.2756
+        },
+        "confidence": 0.361
+      },
+      "elapsed_ms": 8538.424
+    },
+    {
+      "id": "quality-floor-1",
+      "suite": "plain-strategy",
+      "expected": "claude-sonnet-5@medium+fable-5.1@high",
+      "input_lengths": [
+        295,
+        297,
+        253
+      ],
+      "status": "OBSERVED",
+      "observed": "insufficient",
+      "correct": false,
+      "answer": {
+        "type": "choice",
+        "choice": "insufficient",
+        "probabilities": {
+          "strategy_1": 0.2638,
+          "strategy_2": 0.3024,
+          "insufficient": 0.4338
+        },
+        "confidence": 0.131
+      },
+      "elapsed_ms": 9380.603
+    },
+    {
+      "id": "total-cost-1",
+      "suite": "plain-strategy",
+      "expected": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+      "input_lengths": [
+        299,
+        305,
+        258
+      ],
+      "status": "OBSERVED",
+      "observed": "insufficient",
+      "correct": false,
+      "answer": {
+        "type": "choice",
+        "choice": "insufficient",
+        "probabilities": {
+          "strategy_1": 0.1619,
+          "strategy_2": 0.2078,
+          "insufficient": 0.6303
+        },
+        "confidence": 0.422
+      },
+      "elapsed_ms": 12018.727
+    },
+    {
+      "id": "total-cost-0",
+      "suite": "plain-strategy",
+      "expected": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+      "input_lengths": [
+        305,
+        299,
+        258
+      ],
+      "status": "OBSERVED",
+      "observed": "insufficient",
+      "correct": false,
+      "answer": {
+        "type": "choice",
+        "choice": "insufficient",
+        "probabilities": {
+          "strategy_1": 0.3482,
+          "strategy_2": 0.2009,
+          "insufficient": 0.4509
+        },
+        "confidence": 0.103
+      },
+      "elapsed_ms": 10515.345
+    },
+    {
+      "id": "quality-floor-0",
+      "suite": "plain-strategy",
+      "expected": "claude-sonnet-5@medium+fable-5.1@high",
+      "input_lengths": [
+        297,
+        295,
+        253
+      ],
+      "status": "OBSERVED",
+      "observed": "insufficient",
+      "correct": false,
+      "answer": {
+        "type": "choice",
+        "choice": "insufficient",
+        "probabilities": {
+          "strategy_1": 0.3342,
+          "strategy_2": 0.127,
+          "insufficient": 0.5388
+        },
+        "confidence": 0.205
+      },
+      "elapsed_ms": 10976.984
+    },
+    {
+      "id": "effort-cost-1",
+      "suite": "plain-strategy",
+      "expected": "claude-opus-5@low+gpt-6-astra@high",
+      "input_lengths": [
+        290,
+        290,
+        248
+      ],
+      "status": "OBSERVED",
+      "observed": "claude-opus-5@high+gpt-6-astra@high",
+      "correct": false,
+      "answer": {
+        "type": "choice",
+        "choice": "strategy_1",
+        "probabilities": {
+          "strategy_1": 0.4318,
+          "strategy_2": 0.3593,
+          "insufficient": 0.2089
+        },
+        "confidence": 0.073
+      },
+      "elapsed_ms": 8529.716
+    },
+    {
+      "id": "unknown-cost-0",
+      "suite": "plain-boundary",
+      "expected": "insufficient",
+      "input_lengths": [
+        177,
+        180,
+        168
+      ],
+      "status": "OBSERVED",
+      "observed": "insufficient",
+      "correct": true,
+      "answer": {
+        "type": "choice",
+        "choice": "insufficient",
+        "probabilities": {
+          "A": 0.2542,
+          "B": 0.1961,
+          "insufficient": 0.5497
+        },
+        "confidence": 0.295
+      },
+      "elapsed_ms": 5072.833
+    },
+    {
+      "id": "unknown-cost-1",
+      "suite": "plain-boundary",
+      "expected": "insufficient",
+      "input_lengths": [
+        180,
+        177,
+        168
+      ],
+      "status": "OBSERVED",
+      "observed": "insufficient",
+      "correct": true,
+      "answer": {
+        "type": "choice",
+        "choice": "insufficient",
+        "probabilities": {
+          "B": 0.0845,
+          "A": 0.1945,
+          "insufficient": 0.7209
+        },
+        "confidence": 0.526
+      },
+      "elapsed_ms": 5640.766
+    },
+    {
+      "id": "unmatched-cohorts-0",
+      "suite": "plain-boundary",
+      "expected": "insufficient",
+      "input_lengths": [
+        159,
+        160,
+        153
+      ],
+      "status": "OBSERVED",
+      "observed": "A",
+      "correct": false,
+      "answer": {
+        "type": "choice",
+        "choice": "A",
+        "probabilities": {
+          "A": 0.6582,
+          "B": 0.0067,
+          "insufficient": 0.3351
+        },
+        "confidence": 0.323
+      },
+      "elapsed_ms": 5087.422
+    },
+    {
+      "id": "unmatched-cohorts-1",
+      "suite": "plain-boundary",
+      "expected": "insufficient",
+      "input_lengths": [
+        160,
+        159,
+        153
+      ],
+      "status": "OBSERVED",
+      "observed": "A",
+      "correct": false,
+      "answer": {
+        "type": "choice",
+        "choice": "A",
+        "probabilities": {
+          "B": 0.0141,
+          "A": 0.5015,
+          "insufficient": 0.4844
+        },
+        "confidence": 0.017
+      },
+      "elapsed_ms": 4648.363
+    },
+    {
+      "id": "equal-quality-cost-time-0",
+      "suite": "plain-boundary",
+      "expected": "B",
+      "input_lengths": [
+        176,
+        176,
+        166
+      ],
+      "status": "OBSERVED",
+      "observed": "B",
+      "correct": true,
+      "answer": {
+        "type": "choice",
+        "choice": "B",
+        "probabilities": {
+          "A": 0.0343,
+          "B": 0.7872,
+          "insufficient": 0.1786
+        },
+        "confidence": 0.609
+      },
+      "elapsed_ms": 5252.575
+    },
+    {
+      "id": "equal-quality-cost-time-1",
+      "suite": "plain-boundary",
+      "expected": "B",
+      "input_lengths": [
+        176,
+        176,
+        166
+      ],
+      "status": "OBSERVED",
+      "observed": "B",
+      "correct": true,
+      "answer": {
+        "type": "choice",
+        "choice": "B",
+        "probabilities": {
+          "B": 0.5884,
+          "A": 0.1075,
+          "insufficient": 0.3041
+        },
+        "confidence": 0.284
+      },
+      "elapsed_ms": 4942.626
+    },
+    {
+      "id": "english-mechanical",
+      "suite": "plain-demand",
+      "expected": "bounded",
+      "input_lengths": [
+        69,
+        73,
+        72
+      ],
+      "status": "OBSERVED",
+      "observed": "insufficient",
+      "correct": false,
+      "answer": {
+        "type": "choice",
+        "choice": "insufficient",
+        "probabilities": {
+          "bounded": 0.0733,
+          "reasoning": 0.0003,
+          "insufficient": 0.9264
+        },
+        "confidence": 0.853
+      },
+      "elapsed_ms": 2009.195
+    },
+    {
+      "id": "portuguese-concurrency",
+      "suite": "plain-demand",
+      "expected": "reasoning",
+      "input_lengths": [
+        126,
+        130,
+        129
+      ],
+      "status": "OBSERVED",
+      "observed": "insufficient",
+      "correct": false,
+      "answer": {
+        "type": "choice",
+        "choice": "insufficient",
+        "probabilities": {
+          "bounded": 0.0049,
+          "reasoning": 0.0358,
+          "insufficient": 0.9593
+        },
+        "confidence": 0.923
+      },
+      "elapsed_ms": 4119.952
+    },
+    {
+      "id": "missing-scope",
+      "suite": "plain-demand",
+      "expected": "insufficient",
+      "input_lengths": [
+        43,
+        47,
+        46
+      ],
+      "status": "OBSERVED",
+      "observed": "insufficient",
+      "correct": true,
+      "answer": {
+        "type": "choice",
+        "choice": "insufficient",
+        "probabilities": {
+          "bounded": 0.0002,
+          "reasoning": 0.0003,
+          "insufficient": 0.9995
+        },
+        "confidence": 0.999
+      },
+      "elapsed_ms": 1245.097
+    },
+    {
+      "id": "support_department-0",
+      "suite": "public-control",
+      "expected": "billing",
+      "input_lengths": [
+        46,
+        45,
+        47,
+        46,
+        40
+      ],
+      "status": "OBSERVED",
+      "observed": "billing",
+      "correct": true,
+      "answer": {
+        "type": "choice",
+        "choice": "billing",
+        "probabilities": {
+          "billing": 0.9985,
+          "tech": 0.0003,
+          "sales": 0.0002,
+          "account": 0.0001,
+          "other": 0.0009
+        },
+        "confidence": 0.998
+      },
+      "elapsed_ms": 2364.024
+    },
+    {
+      "id": "support_department-1",
+      "suite": "public-control",
+      "expected": "tech",
+      "input_lengths": [
+        39,
+        38,
+        40,
+        39,
+        33
+      ],
+      "status": "OBSERVED",
+      "observed": "tech",
+      "correct": true,
+      "answer": {
+        "type": "choice",
+        "choice": "tech",
+        "probabilities": {
+          "billing": 0.0015,
+          "tech": 0.9817,
+          "sales": 0.0009,
+          "account": 0.0012,
+          "other": 0.0147
+        },
+        "confidence": 0.967
+      },
+      "elapsed_ms": 2243.67
+    },
+    {
+      "id": "support_department-2",
+      "suite": "public-control",
+      "expected": "sales",
+      "input_lengths": [
+        39,
+        38,
+        40,
+        39,
+        33
+      ],
+      "status": "OBSERVED",
+      "observed": "sales",
+      "correct": true,
+      "answer": {
+        "type": "choice",
+        "choice": "sales",
+        "probabilities": {
+          "billing": 0.0759,
+          "tech": 0.0378,
+          "sales": 0.5385,
+          "account": 0.0431,
+          "other": 0.3047
+        },
+        "confidence": 0.234
+      },
+      "elapsed_ms": 2107.532
+    },
+    {
+      "id": "support_department-3",
+      "suite": "public-control",
+      "expected": "account",
+      "input_lengths": [
+        36,
+        35,
+        37,
+        36,
+        30
+      ],
+      "status": "OBSERVED",
+      "observed": "account",
+      "correct": true,
+      "answer": {
+        "type": "choice",
+        "choice": "account",
+        "probabilities": {
+          "billing": 0.0003,
+          "tech": 0.0003,
+          "sales": 0.0002,
+          "account": 0.9943,
+          "other": 0.005
+        },
+        "confidence": 0.989
+      },
+      "elapsed_ms": 1732.942
+    },
+    {
+      "id": "support_department-9",
+      "suite": "public-control",
+      "expected": "other",
+      "input_lengths": [
+        36,
+        35,
+        37,
+        36,
+        30
+      ],
+      "status": "OBSERVED",
+      "observed": "other",
+      "correct": true,
+      "answer": {
+        "type": "choice",
+        "choice": "other",
+        "probabilities": {
+          "billing": 0.0254,
+          "tech": 0.0517,
+          "sales": 0.0833,
+          "account": 0.0184,
+          "other": 0.8211
+        },
+        "confidence": 0.738
+      },
+      "elapsed_ms": 2088.573
+    },
+    {
+      "id": "email_intent-0",
+      "suite": "public-control",
+      "expected": "meeting_request",
+      "input_lengths": [
+        34,
+        35,
+        36,
+        32,
+        35
+      ],
+      "status": "OBSERVED",
+      "observed": "meeting_request",
+      "correct": true,
+      "answer": {
+        "type": "choice",
+        "choice": "meeting_request",
+        "probabilities": {
+          "meeting_request": 0.9954,
+          "question": 0.0046,
+          "complaint": 0.0,
+          "thanks": 0.0,
+          "fyi": 0.0
+        },
+        "confidence": 0.991
+      },
+      "elapsed_ms": 1996.684
+    },
+    {
+      "id": "email_intent-1",
+      "suite": "public-control",
+      "expected": "question",
+      "input_lengths": [
+        36,
+        37,
+        38,
+        34,
+        37
+      ],
+      "status": "OBSERVED",
+      "observed": "question",
+      "correct": true,
+      "answer": {
+        "type": "choice",
+        "choice": "question",
+        "probabilities": {
+          "meeting_request": 0.0,
+          "question": 1.0,
+          "complaint": 0.0,
+          "thanks": 0.0,
+          "fyi": 0.0
+        },
+        "confidence": 1.0
+      },
+      "elapsed_ms": 2047.679
+    },
+    {
+      "id": "email_intent-2",
+      "suite": "public-control",
+      "expected": "complaint",
+      "input_lengths": [
+        39,
+        40,
+        41,
+        37,
+        40
+      ],
+      "status": "OBSERVED",
+      "observed": "complaint",
+      "correct": true,
+      "answer": {
+        "type": "choice",
+        "choice": "complaint",
+        "probabilities": {
+          "meeting_request": 0.0004,
+          "question": 0.0,
+          "complaint": 0.9996,
+          "thanks": 0.0,
+          "fyi": 0.0
+        },
+        "confidence": 0.999
+      },
+      "elapsed_ms": 2388.826
+    },
+    {
+      "id": "email_intent-3",
+      "suite": "public-control",
+      "expected": "thanks",
+      "input_lengths": [
+        37,
+        38,
+        39,
+        35,
+        38
+      ],
+      "status": "OBSERVED",
+      "observed": "thanks",
+      "correct": true,
+      "answer": {
+        "type": "choice",
+        "choice": "thanks",
+        "probabilities": {
+          "meeting_request": 0.0,
+          "question": 0.0,
+          "complaint": 0.0,
+          "thanks": 0.9998,
+          "fyi": 0.0002
+        },
+        "confidence": 1.0
+      },
+      "elapsed_ms": 2349.465
+    },
+    {
+      "id": "email_intent-4",
+      "suite": "public-control",
+      "expected": "fyi",
+      "input_lengths": [
+        36,
+        37,
+        38,
+        34,
+        37
+      ],
+      "status": "OBSERVED",
+      "observed": "fyi",
+      "correct": true,
+      "answer": {
+        "type": "choice",
+        "choice": "fyi",
+        "probabilities": {
+          "meeting_request": 0.0,
+          "question": 0.0001,
+          "complaint": 0.0004,
+          "thanks": 0.0,
+          "fyi": 0.9995
+        },
+        "confidence": 0.999
+      },
+      "elapsed_ms": 2403.263
+    }
+  ],
+  "versions": {
+    "torch": "2.8.0+cpu",
+    "transformers": "5.17.0",
+    "tokenizers": "0.23.2",
+    "safetensors": "0.8.0",
+    "numpy": "2.5.3"
+  },
+  "load_ms": 13577.001,
+  "device": "cpu",
+  "temperature_metadata": 1.1692,
+  "encoder_config": {
+    "transformers_version": "5.17.0",
+    "architectures": [
+      "ModernBertForSequenceClassification"
+    ],
+    "output_hidden_states": false,
+    "return_dict": true,
+    "dtype": "float32",
+    "chunk_size_feed_forward": 0,
+    "is_encoder_decoder": false,
+    "id2label": {
+      "0": "entailment",
+      "1": "neutral",
+      "2": "contradiction"
+    },
+    "label2id": {
+      "contradiction": 2,
+      "entailment": 0,
+      "neutral": 1
+    },
+    "problem_type": "single_label_classification",
+    "vocab_size": 50368,
+    "hidden_size": 1024,
+    "intermediate_size": 2624,
+    "num_hidden_layers": 28,
+    "num_attention_heads": 16,
+    "hidden_activation": "gelu",
+    "max_position_embeddings": 2048,
+    "initializer_range": 0.02,
+    "initializer_cutoff_factor": 2.0,
+    "norm_eps": 1e-05,
+    "norm_bias": false,
+    "pad_token_id": 50283,
+    "eos_token_id": 50282,
+    "bos_token_id": 50281,
+    "cls_token_id": 50281,
+    "sep_token_id": 50282,
+    "attention_bias": false,
+    "attention_dropout": 0.0,
+    "layer_types": [
+      "full_attention",
+      "sliding_attention",
+      "sliding_attention",
+      "full_attention",
+      "sliding_attention",
+      "sliding_attention",
+      "full_attention",
+      "sliding_attention",
+      "sliding_attention",
+      "full_attention",
+      "sliding_attention",
+      "sliding_attention",
+      "full_attention",
+      "sliding_attention",
+      "sliding_attention",
+      "full_attention",
+      "sliding_attention",
+      "sliding_attention",
+      "full_attention",
+      "sliding_attention",
+      "sliding_attention",
+      "full_attention",
+      "sliding_attention",
+      "sliding_attention",
+      "full_attention",
+      "sliding_attention",
+      "sliding_attention",
+      "full_attention"
+    ],
+    "rope_parameters": {
+      "full_attention": {
+        "rope_theta": 160000.0,
+        "rope_type": "default"
+      },
+      "sliding_attention": {
+        "rope_theta": 10000.0,
+        "rope_type": "default"
+      }
+    },
+    "local_attention": 128,
+    "embedding_dropout": 0.0,
+    "mlp_bias": false,
+    "mlp_dropout": 0.0,
+    "decoder_bias": true,
+    "classifier_pooling": "mean",
+    "classifier_dropout": 0.0,
+    "classifier_bias": false,
+    "classifier_activation": "gelu",
+    "deterministic_flash_attn": false,
+    "sparse_prediction": false,
+    "sparse_pred_ignore_index": -100,
+    "tie_word_embeddings": true,
+    "_name_or_path": "C:\\Users\\augus\\AppData\\Local\\tare.tools\\assessment-models\\von-aa2fdc96",
+    "classifiers_size": [
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      1,
+      2,
+      3,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      2,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      6,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      16,
+      100,
+      13,
+      100,
+      8,
+      3,
+      3,
+      2,
+      3,
+      2,
+      4,
+      3,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      2,
+      3,
+      2,
+      4,
+      3,
+      3,
+      3,
+      2,
+      3,
+      1,
+      2,
+      2,
+      3,
+      13,
+      2,
+      2,
+      3,
+      2,
+      2,
+      3,
+      3,
+      3,
+      3,
+      2,
+      3,
+      2,
+      3,
+      2,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      4,
+      3,
+      3,
+      2,
+      2,
+      3,
+      3,
+      2,
+      2,
+      2,
+      2,
+      2,
+      4,
+      3,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      2,
+      3
+    ],
+    "global_attn_every_n_layers": 3,
+    "gradient_checkpointing": false,
+    "layer_norm_eps": 1e-05,
+    "model_type": "modernbert",
+    "position_embedding_type": "absolute",
+    "tasks": [
+      "glue/mnli",
+      "glue/qnli",
+      "glue/rte",
+      "glue/wnli",
+      "glue/mrpc",
+      "glue/qqp",
+      "glue/stsb",
+      "super_glue/boolq",
+      "super_glue/cb",
+      "super_glue/multirc",
+      "super_glue/wic",
+      "super_glue/axg",
+      "anli/a1",
+      "anli/a2",
+      "anli/a3",
+      "sick/label",
+      "sick/entailment_AB",
+      "snli",
+      "scitail/snli_format",
+      "hans",
+      "WANLI",
+      "recast/recast_ner",
+      "recast/recast_sentiment",
+      "recast/recast_verbnet",
+      "recast/recast_megaveridicality",
+      "recast/recast_verbcorner",
+      "recast/recast_kg_relations",
+      "recast/recast_factuality",
+      "recast/recast_puns",
+      "probability_words_nli/reasoning_1hop",
+      "probability_words_nli/usnli",
+      "probability_words_nli/reasoning_2hop",
+      "nan-nli",
+      "nli_fever",
+      "breaking_nli",
+      "conj_nli",
+      "fracas",
+      "dialogue_nli",
+      "mpe",
+      "dnc",
+      "recast_white/fnplus",
+      "recast_white/sprl",
+      "recast_white/dpr",
+      "robust_nli/IS_CS",
+      "robust_nli/LI_LI",
+      "robust_nli/ST_WO",
+      "robust_nli/PI_SP",
+      "robust_nli/PI_CD",
+      "robust_nli/ST_SE",
+      "robust_nli/ST_NE",
+      "robust_nli/ST_LM",
+      "robust_nli_is_sd",
+      "robust_nli_li_ts",
+      "add_one_rte",
+      "paws/labeled_final",
+      "glue/cola",
+      "glue/sst2",
+      "pragmeval/pdtb",
+      "lex_glue/eurlex",
+      "lex_glue/scotus",
+      "lex_glue/ledgar",
+      "lex_glue/unfair_tos",
+      "dynasent/dynabench.dynasent.r1.all/r1",
+      "dynasent/dynabench.dynasent.r2.all/r2",
+      "cycic_classification",
+      "lingnli",
+      "monotonicity-entailment",
+      "scinli",
+      "naturallogic",
+      "dynahate",
+      "syntactic-augmentation-nli",
+      "autotnli",
+      "defeasible-nli/atomic",
+      "defeasible-nli/snli",
+      "help-nli",
+      "nli-veridicality-transitivity",
+      "lonli",
+      "dadc-limit-nli",
+      "folio",
+      "tomi-nli",
+      "puzzte",
+      "temporal-nli",
+      "counterfactually-augmented-snli",
+      "cnli",
+      "boolq-natural-perturbations",
+      "equate",
+      "chaos-mnli-ambiguity",
+      "logiqa-2.0-nli",
+      "mindgames",
+      "ConTRoL-nli",
+      "logical-fallacy",
+      "cladder",
+      "conceptrules_v2",
+      "zero-shot-label-nli",
+      "scone",
+      "monli",
+      "SpaceNLI",
+      "propsegment/nli",
+      "FLD.v2/default",
+      "FLD.v2/star",
+      "SDOH-NLI",
+      "scifact_entailment",
+      "feasibilityQA",
+      "AdjectiveScaleProbe-nli",
+      "resnli",
+      "semantic_fragments_nli",
+      "dataset_train_nli",
+      "nlgraph",
+      "ruletaker",
+      "PARARULE-Plus",
+      "logical-entailment",
+      "nope",
+      "LogicNLI",
+      "contract-nli/contractnli_a/seg",
+      "contract-nli/contractnli_b/full",
+      "nli4ct_semeval2024",
+      "biosift-nli",
+      "SIGA-nli",
+      "FOL-nli",
+      "doc-nli",
+      "mctest-nli",
+      "natural-language-satisfiability",
+      "idioms-nli",
+      "lifecycle-entailment",
+      "MSciNLI",
+      "hover-3way/nli",
+      "seahorse_summarization_evaluation",
+      "missing-item-prediction/contrastive",
+      "Pol_NLI",
+      "synthetic-retrieval-NLI/count",
+      "synthetic-retrieval-NLI/position",
+      "synthetic-retrieval-NLI/binary",
+      "babi_nli",
+      "gen_debiased_nli"
+    ],
+    "output_attentions": false
+  },
+  "total_ms": 133376.048
+}

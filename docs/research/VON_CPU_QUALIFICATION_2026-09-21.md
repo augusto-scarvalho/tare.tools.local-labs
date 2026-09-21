@@ -1,5 +1,11 @@
 # Von 1.0: CPU qualification screen
 
+Follow-up: [SDK and input-contract review](VON_INPUT_CONTRACT_REVIEW_2026-09-21.md)
+confirms parity with the official Option-Marker implementation on these requests
+and evaluates the separate SDK-default NLI path and descriptive inputs. This
+original screen is specific to Option-Marker and our routing inputs; it is not
+a general capability ranking. Original receipts below remain unchanged.
+
 **Disposition: usable through an optional experimental Kernel worker; rejected
 for automatic model/effort or flow routing on this screen.** Existing evaluator
 configuration, GPU services and production routes were not changed.

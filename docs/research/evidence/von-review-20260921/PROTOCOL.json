@@ -1,0 +1,1397 @@
+{
+  "schema": "tare.local-labs/von-documentation-audit/1",
+  "original_protocol_sha256": "d0872a0e2feb24ad17d825144ce8f57d24f20d5ffa73540c89038fa87f4643d6",
+  "marker_cases": [
+    {
+      "id": "effort-cost-0",
+      "group": "effort-cost",
+      "request": {
+        "state": "{\"task\":{\"title\":\"Select implementation effort for a bounded parser repair.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. Equal acceptance permits the cheaper complete strategy.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":93,\"attempted\":100,\"usd_per_accepted_delivery\":0.8,\"seconds_per_accepted_delivery\":107.52688172043011,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":93,\"attempted\":100,\"usd_per_accepted_delivery\":1.4,\"seconds_per_accepted_delivery\":107.52688172043011,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "claude-opus-5@low + gpt-6-astra@high; accepted 93/100; USD 0.8/delivery",
+          "strategy_2": "claude-opus-5@high + gpt-6-astra@high; accepted 93/100; USD 1.4/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "claude-opus-5@low+gpt-6-astra@high",
+        "strategy_2": "claude-opus-5@high+gpt-6-astra@high"
+      },
+      "expected_identity": "claude-opus-5@low+gpt-6-astra@high",
+      "order": [
+        0,
+        1
+      ],
+      "suite": "strategy"
+    },
+    {
+      "id": "quality-floor-1",
+      "group": "quality-floor",
+      "request": {
+        "state": "{\"task\":{\"title\":\"Repair a concurrency defect with independent frontier review.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. A cheaper pair below this floor is inadequate.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"claude-sonnet-5\",\"effort\":\"medium\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"fable-5.1\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":95,\"attempted\":100,\"usd_per_accepted_delivery\":1.0,\"seconds_per_accepted_delivery\":105.26315789473684,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"gemini-3.8-flash-high\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":81,\"attempted\":100,\"usd_per_accepted_delivery\":0.5,\"seconds_per_accepted_delivery\":123.45679012345678,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "claude-sonnet-5@medium + fable-5.1@high; accepted 95/100; USD 1/delivery",
+          "strategy_2": "gemini-3.8-flash-high@high + gpt-6-astra@high; accepted 81/100; USD 0.5/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "claude-sonnet-5@medium+fable-5.1@high",
+        "strategy_2": "gemini-3.8-flash-high@high+gpt-6-astra@high"
+      },
+      "expected_identity": "claude-sonnet-5@medium+fable-5.1@high",
+      "order": [
+        1,
+        0
+      ],
+      "suite": "strategy"
+    },
+    {
+      "id": "total-cost-1",
+      "group": "total-cost",
+      "request": {
+        "state": "{\"task\":{\"title\":\"Choose an economical complete implementation and frontier review pair.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. Then minimize total cost per accepted delivery including audit and rework.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"fable-5.1\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":94,\"attempted\":100,\"usd_per_accepted_delivery\":1.5,\"seconds_per_accepted_delivery\":106.38297872340425,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"deepseek/deepseek-v4.1-flash\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":94,\"attempted\":100,\"usd_per_accepted_delivery\":0.5,\"seconds_per_accepted_delivery\":106.38297872340425,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "claude-opus-5@low + fable-5.1@high; accepted 94/100; USD 1.5/delivery",
+          "strategy_2": "deepseek/deepseek-v4.1-flash@low + gpt-6-astra@high; accepted 94/100; USD 0.5/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "claude-opus-5@low+fable-5.1@high",
+        "strategy_2": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high"
+      },
+      "expected_identity": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+      "order": [
+        1,
+        0
+      ],
+      "suite": "strategy"
+    },
+    {
+      "id": "total-cost-0",
+      "group": "total-cost",
+      "request": {
+        "state": "{\"task\":{\"title\":\"Choose an economical complete implementation and frontier review pair.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. Then minimize total cost per accepted delivery including audit and rework.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"deepseek/deepseek-v4.1-flash\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":94,\"attempted\":100,\"usd_per_accepted_delivery\":0.5,\"seconds_per_accepted_delivery\":106.38297872340425,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"fable-5.1\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":94,\"attempted\":100,\"usd_per_accepted_delivery\":1.5,\"seconds_per_accepted_delivery\":106.38297872340425,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "deepseek/deepseek-v4.1-flash@low + gpt-6-astra@high; accepted 94/100; USD 0.5/delivery",
+          "strategy_2": "claude-opus-5@low + fable-5.1@high; accepted 94/100; USD 1.5/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+        "strategy_2": "claude-opus-5@low+fable-5.1@high"
+      },
+      "expected_identity": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+      "order": [
+        0,
+        1
+      ],
+      "suite": "strategy"
+    },
+    {
+      "id": "quality-floor-0",
+      "group": "quality-floor",
+      "request": {
+        "state": "{\"task\":{\"title\":\"Repair a concurrency defect with independent frontier review.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. A cheaper pair below this floor is inadequate.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"gemini-3.8-flash-high\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":81,\"attempted\":100,\"usd_per_accepted_delivery\":0.5,\"seconds_per_accepted_delivery\":123.45679012345678,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"claude-sonnet-5\",\"effort\":\"medium\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"fable-5.1\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":95,\"attempted\":100,\"usd_per_accepted_delivery\":1.0,\"seconds_per_accepted_delivery\":105.26315789473684,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "gemini-3.8-flash-high@high + gpt-6-astra@high; accepted 81/100; USD 0.5/delivery",
+          "strategy_2": "claude-sonnet-5@medium + fable-5.1@high; accepted 95/100; USD 1/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "gemini-3.8-flash-high@high+gpt-6-astra@high",
+        "strategy_2": "claude-sonnet-5@medium+fable-5.1@high"
+      },
+      "expected_identity": "claude-sonnet-5@medium+fable-5.1@high",
+      "order": [
+        0,
+        1
+      ],
+      "suite": "strategy"
+    },
+    {
+      "id": "effort-cost-1",
+      "group": "effort-cost",
+      "request": {
+        "state": "{\"task\":{\"title\":\"Select implementation effort for a bounded parser repair.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. Equal acceptance permits the cheaper complete strategy.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":93,\"attempted\":100,\"usd_per_accepted_delivery\":1.4,\"seconds_per_accepted_delivery\":107.52688172043011,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":93,\"attempted\":100,\"usd_per_accepted_delivery\":0.8,\"seconds_per_accepted_delivery\":107.52688172043011,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "claude-opus-5@high + gpt-6-astra@high; accepted 93/100; USD 1.4/delivery",
+          "strategy_2": "claude-opus-5@low + gpt-6-astra@high; accepted 93/100; USD 0.8/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "claude-opus-5@high+gpt-6-astra@high",
+        "strategy_2": "claude-opus-5@low+gpt-6-astra@high"
+      },
+      "expected_identity": "claude-opus-5@low+gpt-6-astra@high",
+      "order": [
+        1,
+        0
+      ],
+      "suite": "strategy"
+    },
+    {
+      "id": "unknown-cost-0",
+      "request": {
+        "state": "{\"task\":\"Choose the least expensive adequate implementation and audit pair. Require at least 90 accepted deliveries per 100.\",\"strategies\":[{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":null,\"seconds_per_accepted_delivery\":100},{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1.2,\"seconds_per_accepted_delivery\":100}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "A": "{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":null,\"seconds_per_accepted_delivery\":100}",
+          "B": "{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1.2,\"seconds_per_accepted_delivery\":100}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient",
+      "suite": "boundary"
+    },
+    {
+      "id": "unknown-cost-1",
+      "request": {
+        "state": "{\"task\":\"Choose the least expensive adequate implementation and audit pair. Require at least 90 accepted deliveries per 100.\",\"strategies\":[{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1.2,\"seconds_per_accepted_delivery\":100},{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":null,\"seconds_per_accepted_delivery\":100}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "B": "{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1.2,\"seconds_per_accepted_delivery\":100}",
+          "A": "{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":null,\"seconds_per_accepted_delivery\":100}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient",
+      "suite": "boundary"
+    },
+    {
+      "id": "unmatched-cohorts-0",
+      "request": {
+        "state": "{\"task\":\"Compare complete implementation and audit pairs only on matching evaluation cohorts.\",\"strategies\":[{\"identity\":\"A\",\"accepted\":99,\"attempted\":100,\"cohort\":\"easy-doc-edits\",\"usd_per_accepted_delivery\":0.2},{\"identity\":\"B\",\"accepted\":91,\"attempted\":100,\"cohort\":\"hard-concurrency-repairs\",\"usd_per_accepted_delivery\":1.4}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "A": "{\"identity\":\"A\",\"accepted\":99,\"attempted\":100,\"cohort\":\"easy-doc-edits\",\"usd_per_accepted_delivery\":0.2}",
+          "B": "{\"identity\":\"B\",\"accepted\":91,\"attempted\":100,\"cohort\":\"hard-concurrency-repairs\",\"usd_per_accepted_delivery\":1.4}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient",
+      "suite": "boundary"
+    },
+    {
+      "id": "unmatched-cohorts-1",
+      "request": {
+        "state": "{\"task\":\"Compare complete implementation and audit pairs only on matching evaluation cohorts.\",\"strategies\":[{\"identity\":\"B\",\"accepted\":91,\"attempted\":100,\"cohort\":\"hard-concurrency-repairs\",\"usd_per_accepted_delivery\":1.4},{\"identity\":\"A\",\"accepted\":99,\"attempted\":100,\"cohort\":\"easy-doc-edits\",\"usd_per_accepted_delivery\":0.2}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "B": "{\"identity\":\"B\",\"accepted\":91,\"attempted\":100,\"cohort\":\"hard-concurrency-repairs\",\"usd_per_accepted_delivery\":1.4}",
+          "A": "{\"identity\":\"A\",\"accepted\":99,\"attempted\":100,\"cohort\":\"easy-doc-edits\",\"usd_per_accepted_delivery\":0.2}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient",
+      "suite": "boundary"
+    },
+    {
+      "id": "equal-quality-cost-time-0",
+      "request": {
+        "state": "{\"task\":\"Require at least 90 accepted deliveries per 100; equal acceptance and cost permit faster complete delivery.\",\"strategies\":[{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":200},{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":60}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "A": "{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":200}",
+          "B": "{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":60}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "B",
+      "suite": "boundary"
+    },
+    {
+      "id": "equal-quality-cost-time-1",
+      "request": {
+        "state": "{\"task\":\"Require at least 90 accepted deliveries per 100; equal acceptance and cost permit faster complete delivery.\",\"strategies\":[{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":60},{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":200}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "B": "{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":60}",
+          "A": "{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":200}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "B",
+      "suite": "boundary"
+    },
+    {
+      "id": "english-mechanical",
+      "suite": "demand",
+      "request": {
+        "state": "Fix a spelling mistake in one CLI help string: change 'recieve' to 'receive'. Only cli/help.py may change. An existing test asserts the exact corrected text. No behavior or API changes are requested.",
+        "question": "What kind of implementation or review does this task require?",
+        "options": {
+          "bounded": "A localized mechanical change with explicit executable checks.",
+          "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+          "insufficient": "The supplied task does not establish the required scope or checks."
+        }
+      },
+      "expected_identity": "bounded",
+      "choice_identity": {
+        "bounded": "bounded",
+        "reasoning": "reasoning",
+        "insufficient": "insufficient"
+      }
+    },
+    {
+      "id": "portuguese-concurrency",
+      "suite": "demand",
+      "request": {
+        "state": "Corrigir uma corrida entre o gateway de modelos e um treino LoRA. SIGTERM pode chegar enquanto o filho inicia; subprocessos destacados podem manter VRAM ocupada. Preservar exclusividade da GPU durante toda a \u00e1rvore de processos e comprovar libera\u00e7\u00e3o antes de carregar o LLM. Os testes devem cobrir concorr\u00eancia, cancelamento e processos descendentes.",
+        "question": "What kind of implementation or review does this task require?",
+        "options": {
+          "bounded": "A localized mechanical change with explicit executable checks.",
+          "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+          "insufficient": "The supplied task does not establish the required scope or checks."
+        }
+      },
+      "expected_identity": "reasoning",
+      "choice_identity": {
+        "bounded": "bounded",
+        "reasoning": "reasoning",
+        "insufficient": "insufficient"
+      }
+    },
+    {
+      "id": "missing-scope",
+      "suite": "demand",
+      "request": {
+        "state": "Make the system better. There is no selected project, task scope, acceptance criterion or verification command.",
+        "question": "What kind of implementation or review does this task require?",
+        "options": {
+          "bounded": "A localized mechanical change with explicit executable checks.",
+          "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+          "insufficient": "The supplied task does not establish the required scope or checks."
+        }
+      },
+      "expected_identity": "insufficient",
+      "choice_identity": {
+        "bounded": "bounded",
+        "reasoning": "reasoning",
+        "insufficient": "insufficient"
+      }
+    },
+    {
+      "id": "effort-cost-0",
+      "group": "effort-cost",
+      "request": {
+        "state": "Select implementation effort for a bounded parser repair. At least 90 accepted deliveries in the same 100-task cohort. Equal acceptance permits the cheaper complete strategy.\nstrategy_1: claude-opus-5 at low effort, audited by gpt-6-astra at high effort. Accepted 93 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.8 USD. Total time per accepted delivery: 107.52688172043011 seconds.\nstrategy_2: claude-opus-5 at high effort, audited by gpt-6-astra at high effort. Accepted 93 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.4 USD. Total time per accepted delivery: 107.52688172043011 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "strategy_1": "Choose claude-opus-5 at low effort, audited by gpt-6-astra at high effort. Accepted 93 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.8 USD. Total time per accepted delivery: 107.52688172043011 seconds.",
+          "strategy_2": "Choose claude-opus-5 at high effort, audited by gpt-6-astra at high effort. Accepted 93 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.4 USD. Total time per accepted delivery: 107.52688172043011 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "claude-opus-5@low+gpt-6-astra@high",
+        "strategy_2": "claude-opus-5@high+gpt-6-astra@high"
+      },
+      "expected_identity": "claude-opus-5@low+gpt-6-astra@high",
+      "order": [
+        0,
+        1
+      ],
+      "suite": "plain-strategy"
+    },
+    {
+      "id": "quality-floor-1",
+      "group": "quality-floor",
+      "request": {
+        "state": "Repair a concurrency defect with independent frontier review. At least 90 accepted deliveries in the same 100-task cohort. A cheaper pair below this floor is inadequate.\nstrategy_1: claude-sonnet-5 at medium effort, audited by fable-5.1 at high effort. Accepted 95 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.0 USD. Total time per accepted delivery: 105.26315789473684 seconds.\nstrategy_2: gemini-3.8-flash-high at high effort, audited by gpt-6-astra at high effort. Accepted 81 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.5 USD. Total time per accepted delivery: 123.45679012345678 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "strategy_1": "Choose claude-sonnet-5 at medium effort, audited by fable-5.1 at high effort. Accepted 95 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.0 USD. Total time per accepted delivery: 105.26315789473684 seconds.",
+          "strategy_2": "Choose gemini-3.8-flash-high at high effort, audited by gpt-6-astra at high effort. Accepted 81 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.5 USD. Total time per accepted delivery: 123.45679012345678 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "claude-sonnet-5@medium+fable-5.1@high",
+        "strategy_2": "gemini-3.8-flash-high@high+gpt-6-astra@high"
+      },
+      "expected_identity": "claude-sonnet-5@medium+fable-5.1@high",
+      "order": [
+        1,
+        0
+      ],
+      "suite": "plain-strategy"
+    },
+    {
+      "id": "total-cost-1",
+      "group": "total-cost",
+      "request": {
+        "state": "Choose an economical complete implementation and frontier review pair. At least 90 accepted deliveries in the same 100-task cohort. Then minimize total cost per accepted delivery including audit and rework.\nstrategy_1: claude-opus-5 at low effort, audited by fable-5.1 at high effort. Accepted 94 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.5 USD. Total time per accepted delivery: 106.38297872340425 seconds.\nstrategy_2: deepseek/deepseek-v4.1-flash at low effort, audited by gpt-6-astra at high effort. Accepted 94 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.5 USD. Total time per accepted delivery: 106.38297872340425 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "strategy_1": "Choose claude-opus-5 at low effort, audited by fable-5.1 at high effort. Accepted 94 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.5 USD. Total time per accepted delivery: 106.38297872340425 seconds.",
+          "strategy_2": "Choose deepseek/deepseek-v4.1-flash at low effort, audited by gpt-6-astra at high effort. Accepted 94 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.5 USD. Total time per accepted delivery: 106.38297872340425 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "claude-opus-5@low+fable-5.1@high",
+        "strategy_2": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high"
+      },
+      "expected_identity": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+      "order": [
+        1,
+        0
+      ],
+      "suite": "plain-strategy"
+    },
+    {
+      "id": "total-cost-0",
+      "group": "total-cost",
+      "request": {
+        "state": "Choose an economical complete implementation and frontier review pair. At least 90 accepted deliveries in the same 100-task cohort. Then minimize total cost per accepted delivery including audit and rework.\nstrategy_1: deepseek/deepseek-v4.1-flash at low effort, audited by gpt-6-astra at high effort. Accepted 94 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.5 USD. Total time per accepted delivery: 106.38297872340425 seconds.\nstrategy_2: claude-opus-5 at low effort, audited by fable-5.1 at high effort. Accepted 94 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.5 USD. Total time per accepted delivery: 106.38297872340425 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "strategy_1": "Choose deepseek/deepseek-v4.1-flash at low effort, audited by gpt-6-astra at high effort. Accepted 94 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.5 USD. Total time per accepted delivery: 106.38297872340425 seconds.",
+          "strategy_2": "Choose claude-opus-5 at low effort, audited by fable-5.1 at high effort. Accepted 94 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.5 USD. Total time per accepted delivery: 106.38297872340425 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+        "strategy_2": "claude-opus-5@low+fable-5.1@high"
+      },
+      "expected_identity": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+      "order": [
+        0,
+        1
+      ],
+      "suite": "plain-strategy"
+    },
+    {
+      "id": "quality-floor-0",
+      "group": "quality-floor",
+      "request": {
+        "state": "Repair a concurrency defect with independent frontier review. At least 90 accepted deliveries in the same 100-task cohort. A cheaper pair below this floor is inadequate.\nstrategy_1: gemini-3.8-flash-high at high effort, audited by gpt-6-astra at high effort. Accepted 81 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.5 USD. Total time per accepted delivery: 123.45679012345678 seconds.\nstrategy_2: claude-sonnet-5 at medium effort, audited by fable-5.1 at high effort. Accepted 95 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.0 USD. Total time per accepted delivery: 105.26315789473684 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "strategy_1": "Choose gemini-3.8-flash-high at high effort, audited by gpt-6-astra at high effort. Accepted 81 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.5 USD. Total time per accepted delivery: 123.45679012345678 seconds.",
+          "strategy_2": "Choose claude-sonnet-5 at medium effort, audited by fable-5.1 at high effort. Accepted 95 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.0 USD. Total time per accepted delivery: 105.26315789473684 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "gemini-3.8-flash-high@high+gpt-6-astra@high",
+        "strategy_2": "claude-sonnet-5@medium+fable-5.1@high"
+      },
+      "expected_identity": "claude-sonnet-5@medium+fable-5.1@high",
+      "order": [
+        0,
+        1
+      ],
+      "suite": "plain-strategy"
+    },
+    {
+      "id": "effort-cost-1",
+      "group": "effort-cost",
+      "request": {
+        "state": "Select implementation effort for a bounded parser repair. At least 90 accepted deliveries in the same 100-task cohort. Equal acceptance permits the cheaper complete strategy.\nstrategy_1: claude-opus-5 at high effort, audited by gpt-6-astra at high effort. Accepted 93 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.4 USD. Total time per accepted delivery: 107.52688172043011 seconds.\nstrategy_2: claude-opus-5 at low effort, audited by gpt-6-astra at high effort. Accepted 93 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.8 USD. Total time per accepted delivery: 107.52688172043011 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "strategy_1": "Choose claude-opus-5 at high effort, audited by gpt-6-astra at high effort. Accepted 93 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.4 USD. Total time per accepted delivery: 107.52688172043011 seconds.",
+          "strategy_2": "Choose claude-opus-5 at low effort, audited by gpt-6-astra at high effort. Accepted 93 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.8 USD. Total time per accepted delivery: 107.52688172043011 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "claude-opus-5@high+gpt-6-astra@high",
+        "strategy_2": "claude-opus-5@low+gpt-6-astra@high"
+      },
+      "expected_identity": "claude-opus-5@low+gpt-6-astra@high",
+      "order": [
+        1,
+        0
+      ],
+      "suite": "plain-strategy"
+    },
+    {
+      "id": "unknown-cost-0",
+      "request": {
+        "state": "Choose the least expensive adequate implementation and audit pair. Require at least 90 accepted deliveries per 100.\nA: implementation and audit pair A. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: unknown. Total time per accepted delivery: 100 seconds.\nB: implementation and audit pair B. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1.2 USD. Total time per accepted delivery: 100 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "A": "Choose implementation and audit pair A. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: unknown. Total time per accepted delivery: 100 seconds.",
+          "B": "Choose implementation and audit pair B. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1.2 USD. Total time per accepted delivery: 100 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient",
+      "suite": "plain-boundary"
+    },
+    {
+      "id": "unknown-cost-1",
+      "request": {
+        "state": "Choose the least expensive adequate implementation and audit pair. Require at least 90 accepted deliveries per 100.\nB: implementation and audit pair B. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1.2 USD. Total time per accepted delivery: 100 seconds.\nA: implementation and audit pair A. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: unknown. Total time per accepted delivery: 100 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "B": "Choose implementation and audit pair B. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1.2 USD. Total time per accepted delivery: 100 seconds.",
+          "A": "Choose implementation and audit pair A. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: unknown. Total time per accepted delivery: 100 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient",
+      "suite": "plain-boundary"
+    },
+    {
+      "id": "unmatched-cohorts-0",
+      "request": {
+        "state": "Compare complete implementation and audit pairs only on matching evaluation cohorts.\nA: implementation and audit pair A. Accepted 99 of 100 deliveries in cohort easy-doc-edits. Total cost per accepted delivery: 0.2 USD.\nB: implementation and audit pair B. Accepted 91 of 100 deliveries in cohort hard-concurrency-repairs. Total cost per accepted delivery: 1.4 USD.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "A": "Choose implementation and audit pair A. Accepted 99 of 100 deliveries in cohort easy-doc-edits. Total cost per accepted delivery: 0.2 USD.",
+          "B": "Choose implementation and audit pair B. Accepted 91 of 100 deliveries in cohort hard-concurrency-repairs. Total cost per accepted delivery: 1.4 USD.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient",
+      "suite": "plain-boundary"
+    },
+    {
+      "id": "unmatched-cohorts-1",
+      "request": {
+        "state": "Compare complete implementation and audit pairs only on matching evaluation cohorts.\nB: implementation and audit pair B. Accepted 91 of 100 deliveries in cohort hard-concurrency-repairs. Total cost per accepted delivery: 1.4 USD.\nA: implementation and audit pair A. Accepted 99 of 100 deliveries in cohort easy-doc-edits. Total cost per accepted delivery: 0.2 USD.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "B": "Choose implementation and audit pair B. Accepted 91 of 100 deliveries in cohort hard-concurrency-repairs. Total cost per accepted delivery: 1.4 USD.",
+          "A": "Choose implementation and audit pair A. Accepted 99 of 100 deliveries in cohort easy-doc-edits. Total cost per accepted delivery: 0.2 USD.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient",
+      "suite": "plain-boundary"
+    },
+    {
+      "id": "equal-quality-cost-time-0",
+      "request": {
+        "state": "Require at least 90 accepted deliveries per 100; equal acceptance and cost permit faster complete delivery.\nA: implementation and audit pair A. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1 USD. Total time per accepted delivery: 200 seconds.\nB: implementation and audit pair B. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1 USD. Total time per accepted delivery: 60 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "A": "Choose implementation and audit pair A. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1 USD. Total time per accepted delivery: 200 seconds.",
+          "B": "Choose implementation and audit pair B. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1 USD. Total time per accepted delivery: 60 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "B",
+      "suite": "plain-boundary"
+    },
+    {
+      "id": "equal-quality-cost-time-1",
+      "request": {
+        "state": "Require at least 90 accepted deliveries per 100; equal acceptance and cost permit faster complete delivery.\nB: implementation and audit pair B. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1 USD. Total time per accepted delivery: 60 seconds.\nA: implementation and audit pair A. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1 USD. Total time per accepted delivery: 200 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "B": "Choose implementation and audit pair B. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1 USD. Total time per accepted delivery: 60 seconds.",
+          "A": "Choose implementation and audit pair A. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1 USD. Total time per accepted delivery: 200 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "B",
+      "suite": "plain-boundary"
+    },
+    {
+      "id": "english-mechanical",
+      "suite": "plain-demand",
+      "request": {
+        "state": "Fix a spelling mistake in one CLI help string: change 'recieve' to 'receive'. Only cli/help.py may change. An existing test asserts the exact corrected text. No behavior or API changes are requested.",
+        "question": "What kind of implementation or review does this task require?",
+        "options": {
+          "bounded": "A localized mechanical change with explicit executable checks.",
+          "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+          "insufficient": "The supplied task does not establish the required scope or checks."
+        }
+      },
+      "expected_identity": "bounded",
+      "choice_identity": {
+        "bounded": "bounded",
+        "reasoning": "reasoning",
+        "insufficient": "insufficient"
+      }
+    },
+    {
+      "id": "portuguese-concurrency",
+      "suite": "plain-demand",
+      "request": {
+        "state": "Corrigir uma corrida entre o gateway de modelos e um treino LoRA. SIGTERM pode chegar enquanto o filho inicia; subprocessos destacados podem manter VRAM ocupada. Preservar exclusividade da GPU durante toda a \u00e1rvore de processos e comprovar libera\u00e7\u00e3o antes de carregar o LLM. Os testes devem cobrir concorr\u00eancia, cancelamento e processos descendentes.",
+        "question": "What kind of implementation or review does this task require?",
+        "options": {
+          "bounded": "A localized mechanical change with explicit executable checks.",
+          "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+          "insufficient": "The supplied task does not establish the required scope or checks."
+        }
+      },
+      "expected_identity": "reasoning",
+      "choice_identity": {
+        "bounded": "bounded",
+        "reasoning": "reasoning",
+        "insufficient": "insufficient"
+      }
+    },
+    {
+      "id": "missing-scope",
+      "suite": "plain-demand",
+      "request": {
+        "state": "Make the system better. There is no selected project, task scope, acceptance criterion or verification command.",
+        "question": "What kind of implementation or review does this task require?",
+        "options": {
+          "bounded": "A localized mechanical change with explicit executable checks.",
+          "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+          "insufficient": "The supplied task does not establish the required scope or checks."
+        }
+      },
+      "expected_identity": "insufficient",
+      "choice_identity": {
+        "bounded": "bounded",
+        "reasoning": "reasoning",
+        "insufficient": "insufficient"
+      }
+    },
+    {
+      "id": "support_department-0",
+      "suite": "public-control",
+      "request": {
+        "state": "I was charged twice on my card this month for the same subscription, how do I get that fixed?",
+        "question": "Which team should handle this support message?",
+        "options": {
+          "billing": "Refunds, payments, invoices, subscriptions, or unexpected charges",
+          "tech": "Bugs, errors, crashes, downtime, or integration failures",
+          "sales": "Pricing questions, quotes, upgrades, demos, or new purchases",
+          "account": "Login issues, password resets, profile changes, or data deletion requests",
+          "other": "Anything that does not match the other categories"
+        }
+      },
+      "expected_identity": "billing",
+      "choice_identity": {
+        "billing": "billing",
+        "tech": "tech",
+        "sales": "sales",
+        "account": "account",
+        "other": "other"
+      }
+    },
+    {
+      "id": "support_department-1",
+      "suite": "public-control",
+      "request": {
+        "state": "The iOS app crashes immediately every time I try to open a report.",
+        "question": "Which team should handle this support message?",
+        "options": {
+          "billing": "Refunds, payments, invoices, subscriptions, or unexpected charges",
+          "tech": "Bugs, errors, crashes, downtime, or integration failures",
+          "sales": "Pricing questions, quotes, upgrades, demos, or new purchases",
+          "account": "Login issues, password resets, profile changes, or data deletion requests",
+          "other": "Anything that does not match the other categories"
+        }
+      },
+      "expected_identity": "tech",
+      "choice_identity": {
+        "billing": "billing",
+        "tech": "tech",
+        "sales": "sales",
+        "account": "account",
+        "other": "other"
+      }
+    },
+    {
+      "id": "support_department-2",
+      "suite": "public-control",
+      "request": {
+        "state": "Do you offer a discount if we buy 50 seats for our team?",
+        "question": "Which team should handle this support message?",
+        "options": {
+          "billing": "Refunds, payments, invoices, subscriptions, or unexpected charges",
+          "tech": "Bugs, errors, crashes, downtime, or integration failures",
+          "sales": "Pricing questions, quotes, upgrades, demos, or new purchases",
+          "account": "Login issues, password resets, profile changes, or data deletion requests",
+          "other": "Anything that does not match the other categories"
+        }
+      },
+      "expected_identity": "sales",
+      "choice_identity": {
+        "billing": "billing",
+        "tech": "tech",
+        "sales": "sales",
+        "account": "account",
+        "other": "other"
+      }
+    },
+    {
+      "id": "support_department-3",
+      "suite": "public-control",
+      "request": {
+        "state": "I forgot my password and the reset email never arrives.",
+        "question": "Which team should handle this support message?",
+        "options": {
+          "billing": "Refunds, payments, invoices, subscriptions, or unexpected charges",
+          "tech": "Bugs, errors, crashes, downtime, or integration failures",
+          "sales": "Pricing questions, quotes, upgrades, demos, or new purchases",
+          "account": "Login issues, password resets, profile changes, or data deletion requests",
+          "other": "Anything that does not match the other categories"
+        }
+      },
+      "expected_identity": "account",
+      "choice_identity": {
+        "billing": "billing",
+        "tech": "tech",
+        "sales": "sales",
+        "account": "account",
+        "other": "other"
+      }
+    },
+    {
+      "id": "support_department-9",
+      "suite": "public-control",
+      "request": {
+        "state": "I just want to say the new dashboard looks amazing.",
+        "question": "Which team should handle this support message?",
+        "options": {
+          "billing": "Refunds, payments, invoices, subscriptions, or unexpected charges",
+          "tech": "Bugs, errors, crashes, downtime, or integration failures",
+          "sales": "Pricing questions, quotes, upgrades, demos, or new purchases",
+          "account": "Login issues, password resets, profile changes, or data deletion requests",
+          "other": "Anything that does not match the other categories"
+        }
+      },
+      "expected_identity": "other",
+      "choice_identity": {
+        "billing": "billing",
+        "tech": "tech",
+        "sales": "sales",
+        "account": "account",
+        "other": "other"
+      }
+    },
+    {
+      "id": "email_intent-0",
+      "suite": "public-control",
+      "request": {
+        "state": "Can we grab 30 minutes on Thursday to go over the migration plan?",
+        "question": "What is the main intent of this email?",
+        "options": {
+          "meeting_request": "They want to schedule a meeting or call",
+          "question": "They are asking a question that needs an answer",
+          "complaint": "They are complaining about a problem or expressing dissatisfaction",
+          "thanks": "They are expressing gratitude or appreciation",
+          "fyi": "They are just sharing information without asking for anything"
+        }
+      },
+      "expected_identity": "meeting_request",
+      "choice_identity": {
+        "meeting_request": "meeting_request",
+        "question": "question",
+        "complaint": "complaint",
+        "thanks": "thanks",
+        "fyi": "fyi"
+      }
+    },
+    {
+      "id": "email_intent-1",
+      "suite": "public-control",
+      "request": {
+        "state": "Quick one: is the invoice due on the 1st or the 15th?",
+        "question": "What is the main intent of this email?",
+        "options": {
+          "meeting_request": "They want to schedule a meeting or call",
+          "question": "They are asking a question that needs an answer",
+          "complaint": "They are complaining about a problem or expressing dissatisfaction",
+          "thanks": "They are expressing gratitude or appreciation",
+          "fyi": "They are just sharing information without asking for anything"
+        }
+      },
+      "expected_identity": "question",
+      "choice_identity": {
+        "meeting_request": "meeting_request",
+        "question": "question",
+        "complaint": "complaint",
+        "thanks": "thanks",
+        "fyi": "fyi"
+      }
+    },
+    {
+      "id": "email_intent-2",
+      "suite": "public-control",
+      "request": {
+        "state": "This is the second time the booking widget broke right before a demo. Not happy at all.",
+        "question": "What is the main intent of this email?",
+        "options": {
+          "meeting_request": "They want to schedule a meeting or call",
+          "question": "They are asking a question that needs an answer",
+          "complaint": "They are complaining about a problem or expressing dissatisfaction",
+          "thanks": "They are expressing gratitude or appreciation",
+          "fyi": "They are just sharing information without asking for anything"
+        }
+      },
+      "expected_identity": "complaint",
+      "choice_identity": {
+        "meeting_request": "meeting_request",
+        "question": "question",
+        "complaint": "complaint",
+        "thanks": "thanks",
+        "fyi": "fyi"
+      }
+    },
+    {
+      "id": "email_intent-3",
+      "suite": "public-control",
+      "request": {
+        "state": "Huge thanks to the whole team for turning that fix around so fast last night!",
+        "question": "What is the main intent of this email?",
+        "options": {
+          "meeting_request": "They want to schedule a meeting or call",
+          "question": "They are asking a question that needs an answer",
+          "complaint": "They are complaining about a problem or expressing dissatisfaction",
+          "thanks": "They are expressing gratitude or appreciation",
+          "fyi": "They are just sharing information without asking for anything"
+        }
+      },
+      "expected_identity": "thanks",
+      "choice_identity": {
+        "meeting_request": "meeting_request",
+        "question": "question",
+        "complaint": "complaint",
+        "thanks": "thanks",
+        "fyi": "fyi"
+      }
+    },
+    {
+      "id": "email_intent-4",
+      "suite": "public-control",
+      "request": {
+        "state": "Heads up: the staging cluster will be offline this weekend for scheduled maintenance.",
+        "question": "What is the main intent of this email?",
+        "options": {
+          "meeting_request": "They want to schedule a meeting or call",
+          "question": "They are asking a question that needs an answer",
+          "complaint": "They are complaining about a problem or expressing dissatisfaction",
+          "thanks": "They are expressing gratitude or appreciation",
+          "fyi": "They are just sharing information without asking for anything"
+        }
+      },
+      "expected_identity": "fyi",
+      "choice_identity": {
+        "meeting_request": "meeting_request",
+        "question": "question",
+        "complaint": "complaint",
+        "thanks": "thanks",
+        "fyi": "fyi"
+      }
+    }
+  ],
+  "nli_cases": [
+    {
+      "id": "effort-cost-0",
+      "group": "effort-cost",
+      "request": {
+        "state": "Select implementation effort for a bounded parser repair. At least 90 accepted deliveries in the same 100-task cohort. Equal acceptance permits the cheaper complete strategy.\nstrategy_1: claude-opus-5 at low effort, audited by gpt-6-astra at high effort. Accepted 93 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.8 USD. Total time per accepted delivery: 107.52688172043011 seconds.\nstrategy_2: claude-opus-5 at high effort, audited by gpt-6-astra at high effort. Accepted 93 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.4 USD. Total time per accepted delivery: 107.52688172043011 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "strategy_1": "Choose claude-opus-5 at low effort, audited by gpt-6-astra at high effort. Accepted 93 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.8 USD. Total time per accepted delivery: 107.52688172043011 seconds.",
+          "strategy_2": "Choose claude-opus-5 at high effort, audited by gpt-6-astra at high effort. Accepted 93 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.4 USD. Total time per accepted delivery: 107.52688172043011 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "claude-opus-5@low+gpt-6-astra@high",
+        "strategy_2": "claude-opus-5@high+gpt-6-astra@high"
+      },
+      "expected_identity": "claude-opus-5@low+gpt-6-astra@high",
+      "order": [
+        0,
+        1
+      ],
+      "suite": "plain-strategy"
+    },
+    {
+      "id": "quality-floor-1",
+      "group": "quality-floor",
+      "request": {
+        "state": "Repair a concurrency defect with independent frontier review. At least 90 accepted deliveries in the same 100-task cohort. A cheaper pair below this floor is inadequate.\nstrategy_1: claude-sonnet-5 at medium effort, audited by fable-5.1 at high effort. Accepted 95 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.0 USD. Total time per accepted delivery: 105.26315789473684 seconds.\nstrategy_2: gemini-3.8-flash-high at high effort, audited by gpt-6-astra at high effort. Accepted 81 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.5 USD. Total time per accepted delivery: 123.45679012345678 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "strategy_1": "Choose claude-sonnet-5 at medium effort, audited by fable-5.1 at high effort. Accepted 95 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.0 USD. Total time per accepted delivery: 105.26315789473684 seconds.",
+          "strategy_2": "Choose gemini-3.8-flash-high at high effort, audited by gpt-6-astra at high effort. Accepted 81 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.5 USD. Total time per accepted delivery: 123.45679012345678 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "claude-sonnet-5@medium+fable-5.1@high",
+        "strategy_2": "gemini-3.8-flash-high@high+gpt-6-astra@high"
+      },
+      "expected_identity": "claude-sonnet-5@medium+fable-5.1@high",
+      "order": [
+        1,
+        0
+      ],
+      "suite": "plain-strategy"
+    },
+    {
+      "id": "total-cost-1",
+      "group": "total-cost",
+      "request": {
+        "state": "Choose an economical complete implementation and frontier review pair. At least 90 accepted deliveries in the same 100-task cohort. Then minimize total cost per accepted delivery including audit and rework.\nstrategy_1: claude-opus-5 at low effort, audited by fable-5.1 at high effort. Accepted 94 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.5 USD. Total time per accepted delivery: 106.38297872340425 seconds.\nstrategy_2: deepseek/deepseek-v4.1-flash at low effort, audited by gpt-6-astra at high effort. Accepted 94 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.5 USD. Total time per accepted delivery: 106.38297872340425 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "strategy_1": "Choose claude-opus-5 at low effort, audited by fable-5.1 at high effort. Accepted 94 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.5 USD. Total time per accepted delivery: 106.38297872340425 seconds.",
+          "strategy_2": "Choose deepseek/deepseek-v4.1-flash at low effort, audited by gpt-6-astra at high effort. Accepted 94 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.5 USD. Total time per accepted delivery: 106.38297872340425 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "claude-opus-5@low+fable-5.1@high",
+        "strategy_2": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high"
+      },
+      "expected_identity": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+      "order": [
+        1,
+        0
+      ],
+      "suite": "plain-strategy"
+    },
+    {
+      "id": "total-cost-0",
+      "group": "total-cost",
+      "request": {
+        "state": "Choose an economical complete implementation and frontier review pair. At least 90 accepted deliveries in the same 100-task cohort. Then minimize total cost per accepted delivery including audit and rework.\nstrategy_1: deepseek/deepseek-v4.1-flash at low effort, audited by gpt-6-astra at high effort. Accepted 94 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.5 USD. Total time per accepted delivery: 106.38297872340425 seconds.\nstrategy_2: claude-opus-5 at low effort, audited by fable-5.1 at high effort. Accepted 94 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.5 USD. Total time per accepted delivery: 106.38297872340425 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "strategy_1": "Choose deepseek/deepseek-v4.1-flash at low effort, audited by gpt-6-astra at high effort. Accepted 94 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.5 USD. Total time per accepted delivery: 106.38297872340425 seconds.",
+          "strategy_2": "Choose claude-opus-5 at low effort, audited by fable-5.1 at high effort. Accepted 94 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.5 USD. Total time per accepted delivery: 106.38297872340425 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+        "strategy_2": "claude-opus-5@low+fable-5.1@high"
+      },
+      "expected_identity": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+      "order": [
+        0,
+        1
+      ],
+      "suite": "plain-strategy"
+    },
+    {
+      "id": "quality-floor-0",
+      "group": "quality-floor",
+      "request": {
+        "state": "Repair a concurrency defect with independent frontier review. At least 90 accepted deliveries in the same 100-task cohort. A cheaper pair below this floor is inadequate.\nstrategy_1: gemini-3.8-flash-high at high effort, audited by gpt-6-astra at high effort. Accepted 81 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.5 USD. Total time per accepted delivery: 123.45679012345678 seconds.\nstrategy_2: claude-sonnet-5 at medium effort, audited by fable-5.1 at high effort. Accepted 95 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.0 USD. Total time per accepted delivery: 105.26315789473684 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "strategy_1": "Choose gemini-3.8-flash-high at high effort, audited by gpt-6-astra at high effort. Accepted 81 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.5 USD. Total time per accepted delivery: 123.45679012345678 seconds.",
+          "strategy_2": "Choose claude-sonnet-5 at medium effort, audited by fable-5.1 at high effort. Accepted 95 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.0 USD. Total time per accepted delivery: 105.26315789473684 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "gemini-3.8-flash-high@high+gpt-6-astra@high",
+        "strategy_2": "claude-sonnet-5@medium+fable-5.1@high"
+      },
+      "expected_identity": "claude-sonnet-5@medium+fable-5.1@high",
+      "order": [
+        0,
+        1
+      ],
+      "suite": "plain-strategy"
+    },
+    {
+      "id": "effort-cost-1",
+      "group": "effort-cost",
+      "request": {
+        "state": "Select implementation effort for a bounded parser repair. At least 90 accepted deliveries in the same 100-task cohort. Equal acceptance permits the cheaper complete strategy.\nstrategy_1: claude-opus-5 at high effort, audited by gpt-6-astra at high effort. Accepted 93 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.4 USD. Total time per accepted delivery: 107.52688172043011 seconds.\nstrategy_2: claude-opus-5 at low effort, audited by gpt-6-astra at high effort. Accepted 93 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.8 USD. Total time per accepted delivery: 107.52688172043011 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "strategy_1": "Choose claude-opus-5 at high effort, audited by gpt-6-astra at high effort. Accepted 93 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 1.4 USD. Total time per accepted delivery: 107.52688172043011 seconds.",
+          "strategy_2": "Choose claude-opus-5 at low effort, audited by gpt-6-astra at high effort. Accepted 93 of 100 deliveries in cohort synthetic-100-task-suite. Total cost per accepted delivery: 0.8 USD. Total time per accepted delivery: 107.52688172043011 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "claude-opus-5@high+gpt-6-astra@high",
+        "strategy_2": "claude-opus-5@low+gpt-6-astra@high"
+      },
+      "expected_identity": "claude-opus-5@low+gpt-6-astra@high",
+      "order": [
+        1,
+        0
+      ],
+      "suite": "plain-strategy"
+    },
+    {
+      "id": "unknown-cost-0",
+      "request": {
+        "state": "Choose the least expensive adequate implementation and audit pair. Require at least 90 accepted deliveries per 100.\nA: implementation and audit pair A. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: unknown. Total time per accepted delivery: 100 seconds.\nB: implementation and audit pair B. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1.2 USD. Total time per accepted delivery: 100 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "A": "Choose implementation and audit pair A. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: unknown. Total time per accepted delivery: 100 seconds.",
+          "B": "Choose implementation and audit pair B. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1.2 USD. Total time per accepted delivery: 100 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient",
+      "suite": "plain-boundary"
+    },
+    {
+      "id": "unknown-cost-1",
+      "request": {
+        "state": "Choose the least expensive adequate implementation and audit pair. Require at least 90 accepted deliveries per 100.\nB: implementation and audit pair B. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1.2 USD. Total time per accepted delivery: 100 seconds.\nA: implementation and audit pair A. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: unknown. Total time per accepted delivery: 100 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "B": "Choose implementation and audit pair B. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1.2 USD. Total time per accepted delivery: 100 seconds.",
+          "A": "Choose implementation and audit pair A. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: unknown. Total time per accepted delivery: 100 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient",
+      "suite": "plain-boundary"
+    },
+    {
+      "id": "unmatched-cohorts-0",
+      "request": {
+        "state": "Compare complete implementation and audit pairs only on matching evaluation cohorts.\nA: implementation and audit pair A. Accepted 99 of 100 deliveries in cohort easy-doc-edits. Total cost per accepted delivery: 0.2 USD.\nB: implementation and audit pair B. Accepted 91 of 100 deliveries in cohort hard-concurrency-repairs. Total cost per accepted delivery: 1.4 USD.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "A": "Choose implementation and audit pair A. Accepted 99 of 100 deliveries in cohort easy-doc-edits. Total cost per accepted delivery: 0.2 USD.",
+          "B": "Choose implementation and audit pair B. Accepted 91 of 100 deliveries in cohort hard-concurrency-repairs. Total cost per accepted delivery: 1.4 USD.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient",
+      "suite": "plain-boundary"
+    },
+    {
+      "id": "unmatched-cohorts-1",
+      "request": {
+        "state": "Compare complete implementation and audit pairs only on matching evaluation cohorts.\nB: implementation and audit pair B. Accepted 91 of 100 deliveries in cohort hard-concurrency-repairs. Total cost per accepted delivery: 1.4 USD.\nA: implementation and audit pair A. Accepted 99 of 100 deliveries in cohort easy-doc-edits. Total cost per accepted delivery: 0.2 USD.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "B": "Choose implementation and audit pair B. Accepted 91 of 100 deliveries in cohort hard-concurrency-repairs. Total cost per accepted delivery: 1.4 USD.",
+          "A": "Choose implementation and audit pair A. Accepted 99 of 100 deliveries in cohort easy-doc-edits. Total cost per accepted delivery: 0.2 USD.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient",
+      "suite": "plain-boundary"
+    },
+    {
+      "id": "equal-quality-cost-time-0",
+      "request": {
+        "state": "Require at least 90 accepted deliveries per 100; equal acceptance and cost permit faster complete delivery.\nA: implementation and audit pair A. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1 USD. Total time per accepted delivery: 200 seconds.\nB: implementation and audit pair B. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1 USD. Total time per accepted delivery: 60 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "A": "Choose implementation and audit pair A. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1 USD. Total time per accepted delivery: 200 seconds.",
+          "B": "Choose implementation and audit pair B. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1 USD. Total time per accepted delivery: 60 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "B",
+      "suite": "plain-boundary"
+    },
+    {
+      "id": "equal-quality-cost-time-1",
+      "request": {
+        "state": "Require at least 90 accepted deliveries per 100; equal acceptance and cost permit faster complete delivery.\nB: implementation and audit pair B. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1 USD. Total time per accepted delivery: 60 seconds.\nA: implementation and audit pair A. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1 USD. Total time per accepted delivery: 200 seconds.",
+        "question": "Which complete strategy meets the required quality and has the lowest total cost per accepted delivery? Compare matching cohorts only. Unknown costs prevent a cost comparison; if quality and cost tie, prefer lower total time.",
+        "options": {
+          "B": "Choose implementation and audit pair B. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1 USD. Total time per accepted delivery: 60 seconds.",
+          "A": "Choose implementation and audit pair A. Accepted 94 of 100 deliveries in cohort same-suite. Total cost per accepted delivery: 1 USD. Total time per accepted delivery: 200 seconds.",
+          "insufficient": "The evidence does not establish a supported winner: the evaluation cohorts differ, required costs are unknown, or no strategy meets the required quality."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "B",
+      "suite": "plain-boundary"
+    },
+    {
+      "id": "english-mechanical",
+      "suite": "plain-demand",
+      "request": {
+        "state": "Fix a spelling mistake in one CLI help string: change 'recieve' to 'receive'. Only cli/help.py may change. An existing test asserts the exact corrected text. No behavior or API changes are requested.",
+        "question": "What kind of implementation or review does this task require?",
+        "options": {
+          "bounded": "A localized mechanical change with explicit executable checks.",
+          "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+          "insufficient": "The supplied task does not establish the required scope or checks."
+        }
+      },
+      "expected_identity": "bounded",
+      "choice_identity": {
+        "bounded": "bounded",
+        "reasoning": "reasoning",
+        "insufficient": "insufficient"
+      }
+    },
+    {
+      "id": "portuguese-concurrency",
+      "suite": "plain-demand",
+      "request": {
+        "state": "Corrigir uma corrida entre o gateway de modelos e um treino LoRA. SIGTERM pode chegar enquanto o filho inicia; subprocessos destacados podem manter VRAM ocupada. Preservar exclusividade da GPU durante toda a \u00e1rvore de processos e comprovar libera\u00e7\u00e3o antes de carregar o LLM. Os testes devem cobrir concorr\u00eancia, cancelamento e processos descendentes.",
+        "question": "What kind of implementation or review does this task require?",
+        "options": {
+          "bounded": "A localized mechanical change with explicit executable checks.",
+          "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+          "insufficient": "The supplied task does not establish the required scope or checks."
+        }
+      },
+      "expected_identity": "reasoning",
+      "choice_identity": {
+        "bounded": "bounded",
+        "reasoning": "reasoning",
+        "insufficient": "insufficient"
+      }
+    },
+    {
+      "id": "missing-scope",
+      "suite": "plain-demand",
+      "request": {
+        "state": "Make the system better. There is no selected project, task scope, acceptance criterion or verification command.",
+        "question": "What kind of implementation or review does this task require?",
+        "options": {
+          "bounded": "A localized mechanical change with explicit executable checks.",
+          "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+          "insufficient": "The supplied task does not establish the required scope or checks."
+        }
+      },
+      "expected_identity": "insufficient",
+      "choice_identity": {
+        "bounded": "bounded",
+        "reasoning": "reasoning",
+        "insufficient": "insufficient"
+      }
+    },
+    {
+      "id": "support_department-0",
+      "suite": "public-control",
+      "request": {
+        "state": "I was charged twice on my card this month for the same subscription, how do I get that fixed?",
+        "question": "Which team should handle this support message?",
+        "options": {
+          "billing": "Refunds, payments, invoices, subscriptions, or unexpected charges",
+          "tech": "Bugs, errors, crashes, downtime, or integration failures",
+          "sales": "Pricing questions, quotes, upgrades, demos, or new purchases",
+          "account": "Login issues, password resets, profile changes, or data deletion requests",
+          "other": "Anything that does not match the other categories"
+        }
+      },
+      "expected_identity": "billing",
+      "choice_identity": {
+        "billing": "billing",
+        "tech": "tech",
+        "sales": "sales",
+        "account": "account",
+        "other": "other"
+      }
+    },
+    {
+      "id": "support_department-1",
+      "suite": "public-control",
+      "request": {
+        "state": "The iOS app crashes immediately every time I try to open a report.",
+        "question": "Which team should handle this support message?",
+        "options": {
+          "billing": "Refunds, payments, invoices, subscriptions, or unexpected charges",
+          "tech": "Bugs, errors, crashes, downtime, or integration failures",
+          "sales": "Pricing questions, quotes, upgrades, demos, or new purchases",
+          "account": "Login issues, password resets, profile changes, or data deletion requests",
+          "other": "Anything that does not match the other categories"
+        }
+      },
+      "expected_identity": "tech",
+      "choice_identity": {
+        "billing": "billing",
+        "tech": "tech",
+        "sales": "sales",
+        "account": "account",
+        "other": "other"
+      }
+    },
+    {
+      "id": "support_department-2",
+      "suite": "public-control",
+      "request": {
+        "state": "Do you offer a discount if we buy 50 seats for our team?",
+        "question": "Which team should handle this support message?",
+        "options": {
+          "billing": "Refunds, payments, invoices, subscriptions, or unexpected charges",
+          "tech": "Bugs, errors, crashes, downtime, or integration failures",
+          "sales": "Pricing questions, quotes, upgrades, demos, or new purchases",
+          "account": "Login issues, password resets, profile changes, or data deletion requests",
+          "other": "Anything that does not match the other categories"
+        }
+      },
+      "expected_identity": "sales",
+      "choice_identity": {
+        "billing": "billing",
+        "tech": "tech",
+        "sales": "sales",
+        "account": "account",
+        "other": "other"
+      }
+    },
+    {
+      "id": "support_department-3",
+      "suite": "public-control",
+      "request": {
+        "state": "I forgot my password and the reset email never arrives.",
+        "question": "Which team should handle this support message?",
+        "options": {
+          "billing": "Refunds, payments, invoices, subscriptions, or unexpected charges",
+          "tech": "Bugs, errors, crashes, downtime, or integration failures",
+          "sales": "Pricing questions, quotes, upgrades, demos, or new purchases",
+          "account": "Login issues, password resets, profile changes, or data deletion requests",
+          "other": "Anything that does not match the other categories"
+        }
+      },
+      "expected_identity": "account",
+      "choice_identity": {
+        "billing": "billing",
+        "tech": "tech",
+        "sales": "sales",
+        "account": "account",
+        "other": "other"
+      }
+    },
+    {
+      "id": "support_department-9",
+      "suite": "public-control",
+      "request": {
+        "state": "I just want to say the new dashboard looks amazing.",
+        "question": "Which team should handle this support message?",
+        "options": {
+          "billing": "Refunds, payments, invoices, subscriptions, or unexpected charges",
+          "tech": "Bugs, errors, crashes, downtime, or integration failures",
+          "sales": "Pricing questions, quotes, upgrades, demos, or new purchases",
+          "account": "Login issues, password resets, profile changes, or data deletion requests",
+          "other": "Anything that does not match the other categories"
+        }
+      },
+      "expected_identity": "other",
+      "choice_identity": {
+        "billing": "billing",
+        "tech": "tech",
+        "sales": "sales",
+        "account": "account",
+        "other": "other"
+      }
+    },
+    {
+      "id": "email_intent-0",
+      "suite": "public-control",
+      "request": {
+        "state": "Can we grab 30 minutes on Thursday to go over the migration plan?",
+        "question": "What is the main intent of this email?",
+        "options": {
+          "meeting_request": "They want to schedule a meeting or call",
+          "question": "They are asking a question that needs an answer",
+          "complaint": "They are complaining about a problem or expressing dissatisfaction",
+          "thanks": "They are expressing gratitude or appreciation",
+          "fyi": "They are just sharing information without asking for anything"
+        }
+      },
+      "expected_identity": "meeting_request",
+      "choice_identity": {
+        "meeting_request": "meeting_request",
+        "question": "question",
+        "complaint": "complaint",
+        "thanks": "thanks",
+        "fyi": "fyi"
+      }
+    },
+    {
+      "id": "email_intent-1",
+      "suite": "public-control",
+      "request": {
+        "state": "Quick one: is the invoice due on the 1st or the 15th?",
+        "question": "What is the main intent of this email?",
+        "options": {
+          "meeting_request": "They want to schedule a meeting or call",
+          "question": "They are asking a question that needs an answer",
+          "complaint": "They are complaining about a problem or expressing dissatisfaction",
+          "thanks": "They are expressing gratitude or appreciation",
+          "fyi": "They are just sharing information without asking for anything"
+        }
+      },
+      "expected_identity": "question",
+      "choice_identity": {
+        "meeting_request": "meeting_request",
+        "question": "question",
+        "complaint": "complaint",
+        "thanks": "thanks",
+        "fyi": "fyi"
+      }
+    },
+    {
+      "id": "email_intent-2",
+      "suite": "public-control",
+      "request": {
+        "state": "This is the second time the booking widget broke right before a demo. Not happy at all.",
+        "question": "What is the main intent of this email?",
+        "options": {
+          "meeting_request": "They want to schedule a meeting or call",
+          "question": "They are asking a question that needs an answer",
+          "complaint": "They are complaining about a problem or expressing dissatisfaction",
+          "thanks": "They are expressing gratitude or appreciation",
+          "fyi": "They are just sharing information without asking for anything"
+        }
+      },
+      "expected_identity": "complaint",
+      "choice_identity": {
+        "meeting_request": "meeting_request",
+        "question": "question",
+        "complaint": "complaint",
+        "thanks": "thanks",
+        "fyi": "fyi"
+      }
+    },
+    {
+      "id": "email_intent-3",
+      "suite": "public-control",
+      "request": {
+        "state": "Huge thanks to the whole team for turning that fix around so fast last night!",
+        "question": "What is the main intent of this email?",
+        "options": {
+          "meeting_request": "They want to schedule a meeting or call",
+          "question": "They are asking a question that needs an answer",
+          "complaint": "They are complaining about a problem or expressing dissatisfaction",
+          "thanks": "They are expressing gratitude or appreciation",
+          "fyi": "They are just sharing information without asking for anything"
+        }
+      },
+      "expected_identity": "thanks",
+      "choice_identity": {
+        "meeting_request": "meeting_request",
+        "question": "question",
+        "complaint": "complaint",
+        "thanks": "thanks",
+        "fyi": "fyi"
+      }
+    },
+    {
+      "id": "email_intent-4",
+      "suite": "public-control",
+      "request": {
+        "state": "Heads up: the staging cluster will be offline this weekend for scheduled maintenance.",
+        "question": "What is the main intent of this email?",
+        "options": {
+          "meeting_request": "They want to schedule a meeting or call",
+          "question": "They are asking a question that needs an answer",
+          "complaint": "They are complaining about a problem or expressing dissatisfaction",
+          "thanks": "They are expressing gratitude or appreciation",
+          "fyi": "They are just sharing information without asking for anything"
+        }
+      },
+      "expected_identity": "fyi",
+      "choice_identity": {
+        "meeting_request": "meeting_request",
+        "question": "question",
+        "complaint": "complaint",
+        "thanks": "thanks",
+        "fyi": "fyi"
+      }
+    }
+  ],
+  "max_calls": 65,
+  "no_production_promotion": true
+}
