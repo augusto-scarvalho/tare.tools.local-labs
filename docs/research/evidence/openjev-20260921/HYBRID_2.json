@@ -1,0 +1,940 @@
+{
+  "schema": "tare.local-labs/openjev-probe/1",
+  "status": "MEASURED",
+  "authority": "NONE",
+  "qualification": "UNQUALIFIED",
+  "device": "hybrid",
+  "pid": 915166,
+  "protocol_sha256": "52e0608985cc054389682fdc5bc528ffa275cce8c8b4fd0f576b47be728d8803",
+  "runner_sha256": "4a9a81150d3e5a347041d71fa68c945a2989006b90554da9293d7142f0f433ed",
+  "cases": [
+    {
+      "id": "effort-cost-0",
+      "answer": {
+        "choice": "strategy_1",
+        "probabilities": {
+          "strategy_1": 0.5895552360640671,
+          "strategy_2": 0.39482028037260103,
+          "insufficient": 0.015624483563331841
+        },
+        "usage": {
+          "input_tokens": 2051,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "AlexWortega/openjev",
+          "revision": "f004f37e52695d6ddfb914a64dbf93942839ba1e",
+          "subfolder": "qwen3.5-4b-nli-v2",
+          "transformers_version": "5.17.0",
+          "torch_version": "2.14.0+cu126",
+          "device": "hybrid",
+          "dtype": "torch.bfloat16",
+          "threads": 4,
+          "cuda_layers": 4,
+          "manifest_sha256": "e107a73311b15fa5d6b06838f8a4fa86b5cff8218a3d63d55ea751669ab9a6b1",
+          "score_semantics": "normalized-entailment-not-calibrated-success",
+          "max_pair_tokens": 4096,
+          "batching": "sequential-pairs-no-prefix-cache",
+          "hybrid_semantics": "cpu-weight-offload-gpu-execution"
+        }
+      },
+      "request": {
+        "state": "{\"task\":{\"title\":\"Select implementation effort for a bounded parser repair.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. Equal acceptance permits the cheaper complete strategy.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":93,\"attempted\":100,\"usd_per_accepted_delivery\":0.8,\"seconds_per_accepted_delivery\":107.52688172043011,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":93,\"attempted\":100,\"usd_per_accepted_delivery\":1.4,\"seconds_per_accepted_delivery\":107.52688172043011,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "claude-opus-5@low + gpt-6-astra@high; accepted 93/100; USD 0.8/delivery",
+          "strategy_2": "claude-opus-5@high + gpt-6-astra@high; accepted 93/100; USD 1.4/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "nli": [
+        {
+          "logits": [
+            1.6484375,
+            4.125,
+            -2.15625
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.0773840899824329,
+            "entailment": 0.9208928639333551,
+            "neutral": 0.0017230460842118565
+          },
+          "input_tokens": 692,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            2.609375,
+            3.09375,
+            -2.125
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.379946693723951,
+            "entailment": 0.6167143576887573,
+            "neutral": 0.003338948587291833
+          },
+          "input_tokens": 692,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            4.78125,
+            1.09375,
+            -2.4375
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.9748800437437153,
+            "entailment": 0.024405644350095634,
+            "neutral": 0.000714311906188962
+          },
+          "input_tokens": 667,
+          "output_tokens": 0
+        }
+      ],
+      "seconds": 4.2076094030053355,
+      "correct": true,
+      "chosen_identity": "claude-opus-5@low+gpt-6-astra@high"
+    },
+    {
+      "id": "quality-floor-1",
+      "answer": {
+        "choice": "strategy_1",
+        "probabilities": {
+          "strategy_1": 0.5323571613570331,
+          "strategy_2": 0.45506535759007816,
+          "insufficient": 0.012577481052888754
+        },
+        "usage": {
+          "input_tokens": 2067,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "AlexWortega/openjev",
+          "revision": "f004f37e52695d6ddfb914a64dbf93942839ba1e",
+          "subfolder": "qwen3.5-4b-nli-v2",
+          "transformers_version": "5.17.0",
+          "torch_version": "2.14.0+cu126",
+          "device": "hybrid",
+          "dtype": "torch.bfloat16",
+          "threads": 4,
+          "cuda_layers": 4,
+          "manifest_sha256": "e107a73311b15fa5d6b06838f8a4fa86b5cff8218a3d63d55ea751669ab9a6b1",
+          "score_semantics": "normalized-entailment-not-calibrated-success",
+          "max_pair_tokens": 4096,
+          "batching": "sequential-pairs-no-prefix-cache",
+          "hybrid_semantics": "cpu-weight-offload-gpu-execution"
+        }
+      },
+      "request": {
+        "state": "{\"task\":{\"title\":\"Repair a concurrency defect with independent frontier review.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. A cheaper pair below this floor is inadequate.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"claude-sonnet-5\",\"effort\":\"medium\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"fable-5.1\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":95,\"attempted\":100,\"usd_per_accepted_delivery\":1.0,\"seconds_per_accepted_delivery\":105.26315789473684,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"gemini-3.8-flash-high\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":81,\"attempted\":100,\"usd_per_accepted_delivery\":0.5,\"seconds_per_accepted_delivery\":123.45679012345678,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "claude-sonnet-5@medium + fable-5.1@high; accepted 95/100; USD 1/delivery",
+          "strategy_2": "gemini-3.8-flash-high@high + gpt-6-astra@high; accepted 81/100; USD 0.5/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "nli": [
+        {
+          "logits": [
+            1.4375,
+            4.5625,
+            -2.5625
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.04205530900761838,
+            "entailment": 0.9571744211392439,
+            "neutral": 0.000770269853137668
+          },
+          "input_tokens": 696,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            2.09375,
+            3.609375,
+            -2.375
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.1797356328262458,
+            "entailment": 0.818204303143919,
+            "neutral": 0.0020600640298352128
+          },
+          "input_tokens": 699,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            4.8125,
+            1.046875,
+            -2.484375
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.9767238977699879,
+            "entailment": 0.022614222217844034,
+            "neutral": 0.0006618800121679906
+          },
+          "input_tokens": 672,
+          "output_tokens": 0
+        }
+      ],
+      "seconds": 4.108812662947457,
+      "correct": true,
+      "chosen_identity": "claude-sonnet-5@medium+fable-5.1@high"
+    },
+    {
+      "id": "total-cost-1",
+      "answer": {
+        "choice": "strategy_2",
+        "probabilities": {
+          "strategy_1": 0.2736855422480246,
+          "strategy_2": 0.7178667780664998,
+          "insufficient": 0.008447679685475653
+        },
+        "usage": {
+          "input_tokens": 2097,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "AlexWortega/openjev",
+          "revision": "f004f37e52695d6ddfb914a64dbf93942839ba1e",
+          "subfolder": "qwen3.5-4b-nli-v2",
+          "transformers_version": "5.17.0",
+          "torch_version": "2.14.0+cu126",
+          "device": "hybrid",
+          "dtype": "torch.bfloat16",
+          "threads": 4,
+          "cuda_layers": 4,
+          "manifest_sha256": "e107a73311b15fa5d6b06838f8a4fa86b5cff8218a3d63d55ea751669ab9a6b1",
+          "score_semantics": "normalized-entailment-not-calibrated-success",
+          "max_pair_tokens": 4096,
+          "batching": "sequential-pairs-no-prefix-cache",
+          "hybrid_semantics": "cpu-weight-offload-gpu-execution"
+        }
+      },
+      "request": {
+        "state": "{\"task\":{\"title\":\"Choose an economical complete implementation and frontier review pair.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. Then minimize total cost per accepted delivery including audit and rework.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"fable-5.1\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":94,\"attempted\":100,\"usd_per_accepted_delivery\":1.5,\"seconds_per_accepted_delivery\":106.38297872340425,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"deepseek/deepseek-v4.1-flash\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":94,\"attempted\":100,\"usd_per_accepted_delivery\":0.5,\"seconds_per_accepted_delivery\":106.38297872340425,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "claude-opus-5@low + fable-5.1@high; accepted 94/100; USD 1.5/delivery",
+          "strategy_2": "deepseek/deepseek-v4.1-flash@low + gpt-6-astra@high; accepted 94/100; USD 0.5/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "nli": [
+        {
+          "logits": [
+            2.984375,
+            2.484375,
+            -1.7578125
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.6190991297747725,
+            "entailment": 0.3755026036098101,
+            "neutral": 0.005398266615417403
+          },
+          "input_tokens": 706,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            0.73828125,
+            4.96875,
+            -2.21875
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.014326355308818699,
+            "entailment": 0.9849290612679485,
+            "neutral": 0.0007445834232327614
+          },
+          "input_tokens": 710,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            5.09375,
+            0.6484375,
+            -2.3125
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.9878095577197408,
+            "entailment": 0.011590402950416372,
+            "neutral": 0.0006000393298428347
+          },
+          "input_tokens": 681,
+          "output_tokens": 0
+        }
+      ],
+      "seconds": 4.079725137038622,
+      "correct": true,
+      "chosen_identity": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high"
+    },
+    {
+      "id": "total-cost-0",
+      "answer": {
+        "choice": "strategy_1",
+        "probabilities": {
+          "strategy_1": 0.7652156652307888,
+          "strategy_2": 0.22487394331114838,
+          "insufficient": 0.009910391458062759
+        },
+        "usage": {
+          "input_tokens": 2097,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "AlexWortega/openjev",
+          "revision": "f004f37e52695d6ddfb914a64dbf93942839ba1e",
+          "subfolder": "qwen3.5-4b-nli-v2",
+          "transformers_version": "5.17.0",
+          "torch_version": "2.14.0+cu126",
+          "device": "hybrid",
+          "dtype": "torch.bfloat16",
+          "threads": 4,
+          "cuda_layers": 4,
+          "manifest_sha256": "e107a73311b15fa5d6b06838f8a4fa86b5cff8218a3d63d55ea751669ab9a6b1",
+          "score_semantics": "normalized-entailment-not-calibrated-success",
+          "max_pair_tokens": 4096,
+          "batching": "sequential-pairs-no-prefix-cache",
+          "hybrid_semantics": "cpu-weight-offload-gpu-execution"
+        }
+      },
+      "request": {
+        "state": "{\"task\":{\"title\":\"Choose an economical complete implementation and frontier review pair.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. Then minimize total cost per accepted delivery including audit and rework.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"deepseek/deepseek-v4.1-flash\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":94,\"attempted\":100,\"usd_per_accepted_delivery\":0.5,\"seconds_per_accepted_delivery\":106.38297872340425,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"fable-5.1\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":94,\"attempted\":100,\"usd_per_accepted_delivery\":1.5,\"seconds_per_accepted_delivery\":106.38297872340425,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "deepseek/deepseek-v4.1-flash@low + gpt-6-astra@high; accepted 94/100; USD 0.5/delivery",
+          "strategy_2": "claude-opus-5@low + fable-5.1@high; accepted 94/100; USD 1.5/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "nli": [
+        {
+          "logits": [
+            0.75,
+            5.03125,
+            -2.125
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.013626352016450611,
+            "entailment": 0.9856049018072617,
+            "neutral": 0.0007687461762876555
+          },
+          "input_tokens": 710,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            3.15625,
+            2.265625,
+            -1.875
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.7057512582699714,
+            "entailment": 0.2896397328057189,
+            "neutral": 0.004609008924309587
+          },
+          "input_tokens": 706,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            5.09375,
+            0.74609375,
+            -2.375
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.9866722877139041,
+            "entailment": 0.012764676474506739,
+            "neutral": 0.0005630358115891514
+          },
+          "input_tokens": 681,
+          "output_tokens": 0
+        }
+      ],
+      "seconds": 4.033365042007063,
+      "correct": true,
+      "chosen_identity": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high"
+    },
+    {
+      "id": "quality-floor-0",
+      "answer": {
+        "choice": "strategy_2",
+        "probabilities": {
+          "strategy_1": 0.30357503448881973,
+          "strategy_2": 0.6810553272288502,
+          "insufficient": 0.01536963828233005
+        },
+        "usage": {
+          "input_tokens": 2067,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "AlexWortega/openjev",
+          "revision": "f004f37e52695d6ddfb914a64dbf93942839ba1e",
+          "subfolder": "qwen3.5-4b-nli-v2",
+          "transformers_version": "5.17.0",
+          "torch_version": "2.14.0+cu126",
+          "device": "hybrid",
+          "dtype": "torch.bfloat16",
+          "threads": 4,
+          "cuda_layers": 4,
+          "manifest_sha256": "e107a73311b15fa5d6b06838f8a4fa86b5cff8218a3d63d55ea751669ab9a6b1",
+          "score_semantics": "normalized-entailment-not-calibrated-success",
+          "max_pair_tokens": 4096,
+          "batching": "sequential-pairs-no-prefix-cache",
+          "hybrid_semantics": "cpu-weight-offload-gpu-execution"
+        }
+      },
+      "request": {
+        "state": "{\"task\":{\"title\":\"Repair a concurrency defect with independent frontier review.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. A cheaper pair below this floor is inadequate.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"gemini-3.8-flash-high\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":81,\"attempted\":100,\"usd_per_accepted_delivery\":0.5,\"seconds_per_accepted_delivery\":123.45679012345678,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"claude-sonnet-5\",\"effort\":\"medium\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"fable-5.1\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":95,\"attempted\":100,\"usd_per_accepted_delivery\":1.0,\"seconds_per_accepted_delivery\":105.26315789473684,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "gemini-3.8-flash-high@high + gpt-6-astra@high; accepted 81/100; USD 0.5/delivery",
+          "strategy_2": "claude-sonnet-5@medium + fable-5.1@high; accepted 95/100; USD 1/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "nli": [
+        {
+          "logits": [
+            3.0625,
+            2.8125,
+            -2.234375
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.5605984500235585,
+            "entailment": 0.43659451186696313,
+            "neutral": 0.0028070381094784437
+          },
+          "input_tokens": 699,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            1.015625,
+            4.90625,
+            -2.65625
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.020013251122187766,
+            "entailment": 0.9794778369919795,
+            "neutral": 0.0005089118858328164
+          },
+          "input_tokens": 696,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            4.90625,
+            1.1171875,
+            -2.5625
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.977338036521533,
+            "entailment": 0.022104254174737846,
+            "neutral": 0.0005577093037292311
+          },
+          "input_tokens": 672,
+          "output_tokens": 0
+        }
+      ],
+      "seconds": 4.112136473006103,
+      "correct": true,
+      "chosen_identity": "claude-sonnet-5@medium+fable-5.1@high"
+    },
+    {
+      "id": "effort-cost-1",
+      "answer": {
+        "choice": "strategy_2",
+        "probabilities": {
+          "strategy_1": 0.33343101887221194,
+          "strategy_2": 0.6524128113221886,
+          "insufficient": 0.014156169805599446
+        },
+        "usage": {
+          "input_tokens": 2051,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "AlexWortega/openjev",
+          "revision": "f004f37e52695d6ddfb914a64dbf93942839ba1e",
+          "subfolder": "qwen3.5-4b-nli-v2",
+          "transformers_version": "5.17.0",
+          "torch_version": "2.14.0+cu126",
+          "device": "hybrid",
+          "dtype": "torch.bfloat16",
+          "threads": 4,
+          "cuda_layers": 4,
+          "manifest_sha256": "e107a73311b15fa5d6b06838f8a4fa86b5cff8218a3d63d55ea751669ab9a6b1",
+          "score_semantics": "normalized-entailment-not-calibrated-success",
+          "max_pair_tokens": 4096,
+          "batching": "sequential-pairs-no-prefix-cache",
+          "hybrid_semantics": "cpu-weight-offload-gpu-execution"
+        }
+      },
+      "request": {
+        "state": "{\"task\":{\"title\":\"Select implementation effort for a bounded parser repair.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. Equal acceptance permits the cheaper complete strategy.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":93,\"attempted\":100,\"usd_per_accepted_delivery\":1.4,\"seconds_per_accepted_delivery\":107.52688172043011,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":93,\"attempted\":100,\"usd_per_accepted_delivery\":0.8,\"seconds_per_accepted_delivery\":107.52688172043011,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "claude-opus-5@high + gpt-6-astra@high; accepted 93/100; USD 1.4/delivery",
+          "strategy_2": "claude-opus-5@low + gpt-6-astra@high; accepted 93/100; USD 0.8/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "nli": [
+        {
+          "logits": [
+            3.015625,
+            2.90625,
+            -2.203125
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.5258153518666129,
+            "entailment": 0.4713378351730549,
+            "neutral": 0.002846812960332334
+          },
+          "input_tokens": 692,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            1.6953125,
+            4.1875,
+            -2.265625
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.07629665618875175,
+            "entailment": 0.9222502548439252,
+            "neutral": 0.0014530889673230218
+          },
+          "input_tokens": 692,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            4.90625,
+            1.015625,
+            -2.46875
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.979375048617872,
+            "entailment": 0.02001115089136501,
+            "neutral": 0.0006138004907630765
+          },
+          "input_tokens": 667,
+          "output_tokens": 0
+        }
+      ],
+      "seconds": 3.872457896010019,
+      "correct": true,
+      "chosen_identity": "claude-opus-5@low+gpt-6-astra@high"
+    }
+  ],
+  "nli_controls": [
+    {
+      "premise": "The server is running.",
+      "hypothesis": "The server is running.",
+      "expected": "entailment",
+      "actual": "entailment",
+      "seconds": 1.8650648920447566,
+      "logits": [
+        -2.59375,
+        4.90625,
+        -0.337890625
+      ],
+      "nli_probabilities": {
+        "contradiction": 0.0005498777906923066,
+        "entailment": 0.9942023683390837,
+        "neutral": 0.005247753870224095
+      },
+      "input_tokens": 18,
+      "output_tokens": 0
+    },
+    {
+      "premise": "The server is running.",
+      "hypothesis": "The server is stopped.",
+      "expected": "contradiction",
+      "actual": "contradiction",
+      "seconds": 1.0919661980005912,
+      "logits": [
+        5.03125,
+        -0.8203125,
+        -1.0078125
+      ],
+      "nli_probabilities": {
+        "contradiction": 0.9947683189322019,
+        "entailment": 0.0028603596387808804,
+        "neutral": 0.002371321429017322
+      },
+      "input_tokens": 18,
+      "output_tokens": 0
+    },
+    {
+      "premise": "The server is running.",
+      "hypothesis": "The server is hosted in Berlin.",
+      "expected": "neutral",
+      "actual": "neutral",
+      "seconds": 1.0810190819902346,
+      "logits": [
+        -0.75390625,
+        -2.109375,
+        5.21875
+      ],
+      "nli_probabilities": {
+        "contradiction": 0.0025393290232422583,
+        "entailment": 0.000654706085851196,
+        "neutral": 0.9968059648909064
+      },
+      "input_tokens": 20,
+      "output_tokens": 0
+    }
+  ],
+  "memory": [
+    {
+      "seconds": 0.00011856498895213008,
+      "rss_bytes": 23568384,
+      "available_ram_bytes": 44882583552,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    },
+    {
+      "seconds": 1.0245519219897687,
+      "rss_bytes": 32542720,
+      "available_ram_bytes": 44874596352,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    },
+    {
+      "seconds": 2.048068422009237,
+      "rss_bytes": 32542720,
+      "available_ram_bytes": 44874403840,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    },
+    {
+      "seconds": 3.072148517007008,
+      "rss_bytes": 32542720,
+      "available_ram_bytes": 44874801152,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    },
+    {
+      "seconds": 4.095231841958594,
+      "rss_bytes": 32542720,
+      "available_ram_bytes": 44874919936,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    },
+    {
+      "seconds": 5.134025242005009,
+      "rss_bytes": 538447872,
+      "available_ram_bytes": 44604973056,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    },
+    {
+      "seconds": 6.233820927969646,
+      "rss_bytes": 848883712,
+      "available_ram_bytes": 44324450304,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    },
+    {
+      "seconds": 7.582415731973015,
+      "rss_bytes": 3414519808,
+      "available_ram_bytes": 44046966784,
+      "gpu": {
+        "used_mib": 2948.0,
+        "free_mib": 21375.0
+      }
+    },
+    {
+      "seconds": 8.609056661953218,
+      "rss_bytes": 6839353344,
+      "available_ram_bytes": 43443830784,
+      "gpu": {
+        "used_mib": 1810.0,
+        "free_mib": 22513.0
+      }
+    },
+    {
+      "seconds": 9.641580284980591,
+      "rss_bytes": 10293420032,
+      "available_ram_bytes": 43431727104,
+      "gpu": {
+        "used_mib": 1816.0,
+        "free_mib": 22507.0
+      }
+    },
+    {
+      "seconds": 10.66914369695587,
+      "rss_bytes": 10293448704,
+      "available_ram_bytes": 43432325120,
+      "gpu": {
+        "used_mib": 1818.0,
+        "free_mib": 22505.0
+      }
+    },
+    {
+      "seconds": 11.693709637969732,
+      "rss_bytes": 10294419456,
+      "available_ram_bytes": 43431284736,
+      "gpu": {
+        "used_mib": 1916.0,
+        "free_mib": 22407.0
+      }
+    },
+    {
+      "seconds": 12.720362160005607,
+      "rss_bytes": 10295492608,
+      "available_ram_bytes": 43431079936,
+      "gpu": {
+        "used_mib": 1856.0,
+        "free_mib": 22467.0
+      }
+    },
+    {
+      "seconds": 13.747623134986497,
+      "rss_bytes": 10295521280,
+      "available_ram_bytes": 43431219200,
+      "gpu": {
+        "used_mib": 1840.0,
+        "free_mib": 22483.0
+      }
+    },
+    {
+      "seconds": 14.7766137800063,
+      "rss_bytes": 10295607296,
+      "available_ram_bytes": 43431624704,
+      "gpu": {
+        "used_mib": 1958.0,
+        "free_mib": 22365.0
+      }
+    },
+    {
+      "seconds": 15.803638454002794,
+      "rss_bytes": 10295922688,
+      "available_ram_bytes": 43430973440,
+      "gpu": {
+        "used_mib": 1946.0,
+        "free_mib": 22377.0
+      }
+    },
+    {
+      "seconds": 16.82970404298976,
+      "rss_bytes": 10295926784,
+      "available_ram_bytes": 43431608320,
+      "gpu": {
+        "used_mib": 1900.0,
+        "free_mib": 22423.0
+      }
+    },
+    {
+      "seconds": 17.858800293004606,
+      "rss_bytes": 10295926784,
+      "available_ram_bytes": 43430699008,
+      "gpu": {
+        "used_mib": 1874.0,
+        "free_mib": 22449.0
+      }
+    },
+    {
+      "seconds": 18.88630536198616,
+      "rss_bytes": 10295934976,
+      "available_ram_bytes": 43430817792,
+      "gpu": {
+        "used_mib": 1898.0,
+        "free_mib": 22425.0
+      }
+    },
+    {
+      "seconds": 19.911997783987317,
+      "rss_bytes": 10296176640,
+      "available_ram_bytes": 43430428672,
+      "gpu": {
+        "used_mib": 1794.0,
+        "free_mib": 22529.0
+      }
+    },
+    {
+      "seconds": 20.93886048696004,
+      "rss_bytes": 10296176640,
+      "available_ram_bytes": 43430662144,
+      "gpu": {
+        "used_mib": 1900.0,
+        "free_mib": 22423.0
+      }
+    },
+    {
+      "seconds": 21.96646632399643,
+      "rss_bytes": 10296176640,
+      "available_ram_bytes": 43430682624,
+      "gpu": {
+        "used_mib": 1840.0,
+        "free_mib": 22483.0
+      }
+    },
+    {
+      "seconds": 22.995630936988164,
+      "rss_bytes": 10296176640,
+      "available_ram_bytes": 43430653952,
+      "gpu": {
+        "used_mib": 1834.0,
+        "free_mib": 22489.0
+      }
+    },
+    {
+      "seconds": 24.018934850988444,
+      "rss_bytes": 10296225792,
+      "available_ram_bytes": 43431350272,
+      "gpu": {
+        "used_mib": 1794.0,
+        "free_mib": 22529.0
+      }
+    },
+    {
+      "seconds": 25.0484847589978,
+      "rss_bytes": 10296225792,
+      "available_ram_bytes": 43431440384,
+      "gpu": {
+        "used_mib": 1886.0,
+        "free_mib": 22437.0
+      }
+    },
+    {
+      "seconds": 26.07280174596235,
+      "rss_bytes": 10296225792,
+      "available_ram_bytes": 43431911424,
+      "gpu": {
+        "used_mib": 1886.0,
+        "free_mib": 22437.0
+      }
+    },
+    {
+      "seconds": 27.098938135954086,
+      "rss_bytes": 10296225792,
+      "available_ram_bytes": 43432701952,
+      "gpu": {
+        "used_mib": 1834.0,
+        "free_mib": 22489.0
+      }
+    },
+    {
+      "seconds": 28.127579181978945,
+      "rss_bytes": 10296242176,
+      "available_ram_bytes": 43432534016,
+      "gpu": {
+        "used_mib": 1834.0,
+        "free_mib": 22489.0
+      }
+    },
+    {
+      "seconds": 29.15350578899961,
+      "rss_bytes": 10296242176,
+      "available_ram_bytes": 43432157184,
+      "gpu": {
+        "used_mib": 1856.0,
+        "free_mib": 22467.0
+      }
+    },
+    {
+      "seconds": 30.178518863976933,
+      "rss_bytes": 10296242176,
+      "available_ram_bytes": 43433508864,
+      "gpu": {
+        "used_mib": 1902.0,
+        "free_mib": 22421.0
+      }
+    },
+    {
+      "seconds": 31.205839832953643,
+      "rss_bytes": 10296246272,
+      "available_ram_bytes": 43433644032,
+      "gpu": {
+        "used_mib": 1900.0,
+        "free_mib": 22423.0
+      }
+    },
+    {
+      "seconds": 32.229587306967005,
+      "rss_bytes": 10296262656,
+      "available_ram_bytes": 43427237888,
+      "gpu": {
+        "used_mib": 1916.0,
+        "free_mib": 22407.0
+      }
+    },
+    {
+      "seconds": 33.25918713497231,
+      "rss_bytes": 10296266752,
+      "available_ram_bytes": 43433046016,
+      "gpu": {
+        "used_mib": 3118.0,
+        "free_mib": 21205.0
+      }
+    },
+    {
+      "seconds": 34.304034936008975,
+      "rss_bytes": 10296266752,
+      "available_ram_bytes": 43433332736,
+      "gpu": {
+        "used_mib": 1870.0,
+        "free_mib": 22453.0
+      }
+    },
+    {
+      "seconds": 35.44299551798031,
+      "rss_bytes": 10296266752,
+      "available_ram_bytes": 43432452096,
+      "gpu": {
+        "used_mib": 1854.0,
+        "free_mib": 22469.0
+      }
+    }
+  ],
+  "load_seconds": 7.34573769295821,
+  "model_identity": {
+    "model": "AlexWortega/openjev",
+    "revision": "f004f37e52695d6ddfb914a64dbf93942839ba1e",
+    "subfolder": "qwen3.5-4b-nli-v2",
+    "transformers_version": "5.17.0",
+    "torch_version": "2.14.0+cu126",
+    "device": "hybrid",
+    "dtype": "torch.bfloat16",
+    "threads": 4,
+    "cuda_layers": 4,
+    "manifest_sha256": "e107a73311b15fa5d6b06838f8a4fa86b5cff8218a3d63d55ea751669ab9a6b1",
+    "score_semantics": "normalized-entailment-not-calibrated-success",
+    "max_pair_tokens": 4096,
+    "batching": "sequential-pairs-no-prefix-cache",
+    "hybrid_semantics": "cpu-weight-offload-gpu-execution"
+  },
+  "parameter_bytes": 9078546432,
+  "parameters_by_device": {
+    "meta": 8186013568,
+    "cuda:0": 892532864
+  },
+  "cuda_memory": {
+    "allocated_bytes": 901058048,
+    "reserved_bytes": 1117782016,
+    "peak_allocated_bytes": 2176103936,
+    "peak_reserved_bytes": 2405433344
+  },
+  "correct": 6,
+  "total_seconds": 35.804614260967355
+}

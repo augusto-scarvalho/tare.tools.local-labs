@@ -1,0 +1,2443 @@
+{
+  "schema": "tare.local-labs/openjev-probe/1",
+  "status": "MEASURED",
+  "authority": "NONE",
+  "qualification": "UNQUALIFIED",
+  "device": "cpu",
+  "pid": 914276,
+  "protocol_sha256": "52e0608985cc054389682fdc5bc528ffa275cce8c8b4fd0f576b47be728d8803",
+  "runner_sha256": "4a9a81150d3e5a347041d71fa68c945a2989006b90554da9293d7142f0f433ed",
+  "cases": [
+    {
+      "id": "effort-cost-0",
+      "answer": {
+        "choice": "strategy_1",
+        "probabilities": {
+          "strategy_1": 0.5875765058129276,
+          "strategy_2": 0.396921223191526,
+          "insufficient": 0.015502270995546304
+        },
+        "usage": {
+          "input_tokens": 2051,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "AlexWortega/openjev",
+          "revision": "f004f37e52695d6ddfb914a64dbf93942839ba1e",
+          "subfolder": "qwen3.5-4b-nli-v2",
+          "transformers_version": "5.17.0",
+          "torch_version": "2.14.0+cu126",
+          "device": "cpu",
+          "dtype": "torch.float32",
+          "threads": 4,
+          "cuda_layers": 0,
+          "manifest_sha256": "e107a73311b15fa5d6b06838f8a4fa86b5cff8218a3d63d55ea751669ab9a6b1",
+          "score_semantics": "normalized-entailment-not-calibrated-success",
+          "max_pair_tokens": 4096,
+          "batching": "sequential-pairs-no-prefix-cache"
+        }
+      },
+      "request": {
+        "state": "{\"task\":{\"title\":\"Select implementation effort for a bounded parser repair.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. Equal acceptance permits the cheaper complete strategy.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":93,\"attempted\":100,\"usd_per_accepted_delivery\":0.8,\"seconds_per_accepted_delivery\":107.52688172043011,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":93,\"attempted\":100,\"usd_per_accepted_delivery\":1.4,\"seconds_per_accepted_delivery\":107.52688172043011,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "claude-opus-5@low + gpt-6-astra@high; accepted 93/100; USD 0.8/delivery",
+          "strategy_2": "claude-opus-5@high + gpt-6-astra@high; accepted 93/100; USD 1.4/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "nli": [
+        {
+          "logits": [
+            1.6440658569335938,
+            4.123478889465332,
+            -2.164085626602173
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.07718165625796007,
+            "entailment": 0.9211057477693654,
+            "neutral": 0.00171259597267453
+          },
+          "input_tokens": 692,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            2.593994617462158,
+            3.1019020080566406,
+            -2.1240899562835693
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.3744277378674073,
+            "entailment": 0.6222277720031292,
+            "neutral": 0.003344490129463463
+          },
+          "input_tokens": 692,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            4.789206504821777,
+            1.097327470779419,
+            -2.4477293491363525
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.9749965679745877,
+            "entailment": 0.024301909242814813,
+            "neutral": 0.0007015227825975731
+          },
+          "input_tokens": 667,
+          "output_tokens": 0
+        }
+      ],
+      "seconds": 28.96449893101817,
+      "correct": true,
+      "chosen_identity": "claude-opus-5@low+gpt-6-astra@high"
+    },
+    {
+      "id": "quality-floor-1",
+      "answer": {
+        "choice": "strategy_1",
+        "probabilities": {
+          "strategy_1": 0.535400194663171,
+          "strategy_2": 0.45193754498929434,
+          "insufficient": 0.012662260347534673
+        },
+        "usage": {
+          "input_tokens": 2067,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "AlexWortega/openjev",
+          "revision": "f004f37e52695d6ddfb914a64dbf93942839ba1e",
+          "subfolder": "qwen3.5-4b-nli-v2",
+          "transformers_version": "5.17.0",
+          "torch_version": "2.14.0+cu126",
+          "device": "cpu",
+          "dtype": "torch.float32",
+          "threads": 4,
+          "cuda_layers": 0,
+          "manifest_sha256": "e107a73311b15fa5d6b06838f8a4fa86b5cff8218a3d63d55ea751669ab9a6b1",
+          "score_semantics": "normalized-entailment-not-calibrated-success",
+          "max_pair_tokens": 4096,
+          "batching": "sequential-pairs-no-prefix-cache"
+        }
+      },
+      "request": {
+        "state": "{\"task\":{\"title\":\"Repair a concurrency defect with independent frontier review.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. A cheaper pair below this floor is inadequate.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"claude-sonnet-5\",\"effort\":\"medium\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"fable-5.1\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":95,\"attempted\":100,\"usd_per_accepted_delivery\":1.0,\"seconds_per_accepted_delivery\":105.26315789473684,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"gemini-3.8-flash-high\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":81,\"attempted\":100,\"usd_per_accepted_delivery\":0.5,\"seconds_per_accepted_delivery\":123.45679012345678,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "claude-sonnet-5@medium + fable-5.1@high; accepted 95/100; USD 1/delivery",
+          "strategy_2": "gemini-3.8-flash-high@high + gpt-6-astra@high; accepted 81/100; USD 0.5/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "nli": [
+        {
+          "logits": [
+            1.4430259466171265,
+            4.559389114379883,
+            -2.5477113723754883
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.042404047928830235,
+            "entailment": 0.9568120674930783,
+            "neutral": 0.0007838845780914199
+          },
+          "input_tokens": 696,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            2.1398391723632812,
+            3.5856170654296875,
+            -2.371330976486206
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.19025373016693367,
+            "entailment": 0.807656218860725,
+            "neutral": 0.0020900509723413858
+          },
+          "input_tokens": 699,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            4.818324089050293,
+            1.0533562898635864,
+            -2.4741790294647217
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.9767065446584461,
+            "entailment": 0.0226286871447297,
+            "neutral": 0.0006647681968242297
+          },
+          "input_tokens": 672,
+          "output_tokens": 0
+        }
+      ],
+      "seconds": 29.191523029003292,
+      "correct": true,
+      "chosen_identity": "claude-sonnet-5@medium+fable-5.1@high"
+    },
+    {
+      "id": "total-cost-1",
+      "answer": {
+        "choice": "strategy_2",
+        "probabilities": {
+          "strategy_1": 0.2675988249885173,
+          "strategy_2": 0.724038746097256,
+          "insufficient": 0.008362428914226554
+        },
+        "usage": {
+          "input_tokens": 2097,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "AlexWortega/openjev",
+          "revision": "f004f37e52695d6ddfb914a64dbf93942839ba1e",
+          "subfolder": "qwen3.5-4b-nli-v2",
+          "transformers_version": "5.17.0",
+          "torch_version": "2.14.0+cu126",
+          "device": "cpu",
+          "dtype": "torch.float32",
+          "threads": 4,
+          "cuda_layers": 0,
+          "manifest_sha256": "e107a73311b15fa5d6b06838f8a4fa86b5cff8218a3d63d55ea751669ab9a6b1",
+          "score_semantics": "normalized-entailment-not-calibrated-success",
+          "max_pair_tokens": 4096,
+          "batching": "sequential-pairs-no-prefix-cache"
+        }
+      },
+      "request": {
+        "state": "{\"task\":{\"title\":\"Choose an economical complete implementation and frontier review pair.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. Then minimize total cost per accepted delivery including audit and rework.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"fable-5.1\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":94,\"attempted\":100,\"usd_per_accepted_delivery\":1.5,\"seconds_per_accepted_delivery\":106.38297872340425,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"deepseek/deepseek-v4.1-flash\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":94,\"attempted\":100,\"usd_per_accepted_delivery\":0.5,\"seconds_per_accepted_delivery\":106.38297872340425,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "claude-opus-5@low + fable-5.1@high; accepted 94/100; USD 1.5/delivery",
+          "strategy_2": "deepseek/deepseek-v4.1-flash@low + gpt-6-astra@high; accepted 94/100; USD 0.5/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "nli": [
+        {
+          "logits": [
+            3.010331153869629,
+            2.462306022644043,
+            -1.7691694498062134
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.6303220734836609,
+            "entailment": 0.3643830994811711,
+            "neutral": 0.005294827035168046
+          },
+          "input_tokens": 706,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            0.7183501720428467,
+            5.016840934753418,
+            -2.2395119667053223
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.013397538457914741,
+            "entailment": 0.9859067298172914,
+            "neutral": 0.0006957317247938063
+          },
+          "input_tokens": 710,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            5.1104736328125,
+            0.6472187638282776,
+            -2.3376145362854004
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.9880374894558545,
+            "entailment": 0.011386925062498271,
+            "neutral": 0.0005755854816472358
+          },
+          "input_tokens": 681,
+          "output_tokens": 0
+        }
+      ],
+      "seconds": 29.473590782959945,
+      "correct": true,
+      "chosen_identity": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high"
+    },
+    {
+      "id": "total-cost-0",
+      "answer": {
+        "choice": "strategy_1",
+        "probabilities": {
+          "strategy_1": 0.7742725047198543,
+          "strategy_2": 0.2157428822939894,
+          "insufficient": 0.009984612986156313
+        },
+        "usage": {
+          "input_tokens": 2097,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "AlexWortega/openjev",
+          "revision": "f004f37e52695d6ddfb914a64dbf93942839ba1e",
+          "subfolder": "qwen3.5-4b-nli-v2",
+          "transformers_version": "5.17.0",
+          "torch_version": "2.14.0+cu126",
+          "device": "cpu",
+          "dtype": "torch.float32",
+          "threads": 4,
+          "cuda_layers": 0,
+          "manifest_sha256": "e107a73311b15fa5d6b06838f8a4fa86b5cff8218a3d63d55ea751669ab9a6b1",
+          "score_semantics": "normalized-entailment-not-calibrated-success",
+          "max_pair_tokens": 4096,
+          "batching": "sequential-pairs-no-prefix-cache"
+        }
+      },
+      "request": {
+        "state": "{\"task\":{\"title\":\"Choose an economical complete implementation and frontier review pair.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. Then minimize total cost per accepted delivery including audit and rework.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"deepseek/deepseek-v4.1-flash\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":94,\"attempted\":100,\"usd_per_accepted_delivery\":0.5,\"seconds_per_accepted_delivery\":106.38297872340425,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"fable-5.1\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":94,\"attempted\":100,\"usd_per_accepted_delivery\":1.5,\"seconds_per_accepted_delivery\":106.38297872340425,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "deepseek/deepseek-v4.1-flash@low + gpt-6-astra@high; accepted 94/100; USD 0.5/delivery",
+          "strategy_2": "claude-opus-5@low + fable-5.1@high; accepted 94/100; USD 1.5/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "nli": [
+        {
+          "logits": [
+            0.7524941563606262,
+            5.026218891143799,
+            -2.1282200813293457
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.01372784860724128,
+            "entailment": 0.9855020920688251,
+            "neutral": 0.0007700593239336528
+          },
+          "input_tokens": 710,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            3.211258888244629,
+            2.2460076808929443,
+            -1.8757264614105225
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.7209472056212258,
+            "entailment": 0.2745997830913714,
+            "neutral": 0.004453011287402651
+          },
+          "input_tokens": 706,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            5.103438377380371,
+            0.7513055801391602,
+            -2.3839492797851562
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.9867388042242925,
+            "entailment": 0.01270851919236735,
+            "neutral": 0.000552676583340061
+          },
+          "input_tokens": 681,
+          "output_tokens": 0
+        }
+      ],
+      "seconds": 30.651717171014752,
+      "correct": true,
+      "chosen_identity": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high"
+    },
+    {
+      "id": "quality-floor-0",
+      "answer": {
+        "choice": "strategy_2",
+        "probabilities": {
+          "strategy_1": 0.30455214900316796,
+          "strategy_2": 0.6799271078089592,
+          "insufficient": 0.015520743187872962
+        },
+        "usage": {
+          "input_tokens": 2067,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "AlexWortega/openjev",
+          "revision": "f004f37e52695d6ddfb914a64dbf93942839ba1e",
+          "subfolder": "qwen3.5-4b-nli-v2",
+          "transformers_version": "5.17.0",
+          "torch_version": "2.14.0+cu126",
+          "device": "cpu",
+          "dtype": "torch.float32",
+          "threads": 4,
+          "cuda_layers": 0,
+          "manifest_sha256": "e107a73311b15fa5d6b06838f8a4fa86b5cff8218a3d63d55ea751669ab9a6b1",
+          "score_semantics": "normalized-entailment-not-calibrated-success",
+          "max_pair_tokens": 4096,
+          "batching": "sequential-pairs-no-prefix-cache"
+        }
+      },
+      "request": {
+        "state": "{\"task\":{\"title\":\"Repair a concurrency defect with independent frontier review.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. A cheaper pair below this floor is inadequate.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"gemini-3.8-flash-high\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":81,\"attempted\":100,\"usd_per_accepted_delivery\":0.5,\"seconds_per_accepted_delivery\":123.45679012345678,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"claude-sonnet-5\",\"effort\":\"medium\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"fable-5.1\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":95,\"attempted\":100,\"usd_per_accepted_delivery\":1.0,\"seconds_per_accepted_delivery\":105.26315789473684,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "gemini-3.8-flash-high@high + gpt-6-astra@high; accepted 81/100; USD 0.5/delivery",
+          "strategy_2": "claude-sonnet-5@medium + fable-5.1@high; accepted 95/100; USD 1/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "nli": [
+        {
+          "logits": [
+            3.0380055904388428,
+            2.796891212463379,
+            -2.2047481536865234
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.5583356234193814,
+            "entailment": 0.4387131923818807,
+            "neutral": 0.0029511841987378967
+          },
+          "input_tokens": 699,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            1.026445746421814,
+            4.914943218231201,
+            -2.6717350482940674
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.020055264179590127,
+            "entailment": 0.9794479961155841,
+            "neutral": 0.0004967397048258412
+          },
+          "input_tokens": 696,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            4.903846740722656,
+            1.1264536380767822,
+            -2.56648588180542
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.9770853893316164,
+            "entailment": 0.02235792725278142,
+            "neutral": 0.0005566834156022642
+          },
+          "input_tokens": 672,
+          "output_tokens": 0
+        }
+      ],
+      "seconds": 29.30227038898738,
+      "correct": true,
+      "chosen_identity": "claude-sonnet-5@medium+fable-5.1@high"
+    },
+    {
+      "id": "effort-cost-1",
+      "answer": {
+        "choice": "strategy_2",
+        "probabilities": {
+          "strategy_1": 0.34244204160149194,
+          "strategy_2": 0.6436293276531514,
+          "insufficient": 0.01392863074535675
+        },
+        "usage": {
+          "input_tokens": 2051,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "AlexWortega/openjev",
+          "revision": "f004f37e52695d6ddfb914a64dbf93942839ba1e",
+          "subfolder": "qwen3.5-4b-nli-v2",
+          "transformers_version": "5.17.0",
+          "torch_version": "2.14.0+cu126",
+          "device": "cpu",
+          "dtype": "torch.float32",
+          "threads": 4,
+          "cuda_layers": 0,
+          "manifest_sha256": "e107a73311b15fa5d6b06838f8a4fa86b5cff8218a3d63d55ea751669ab9a6b1",
+          "score_semantics": "normalized-entailment-not-calibrated-success",
+          "max_pair_tokens": 4096,
+          "batching": "sequential-pairs-no-prefix-cache"
+        }
+      },
+      "request": {
+        "state": "{\"task\":{\"title\":\"Select implementation effort for a bounded parser repair.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. Equal acceptance permits the cheaper complete strategy.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":93,\"attempted\":100,\"usd_per_accepted_delivery\":1.4,\"seconds_per_accepted_delivery\":107.52688172043011,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":93,\"attempted\":100,\"usd_per_accepted_delivery\":0.8,\"seconds_per_accepted_delivery\":107.52688172043011,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "claude-opus-5@high + gpt-6-astra@high; accepted 93/100; USD 1.4/delivery",
+          "strategy_2": "claude-opus-5@low + gpt-6-astra@high; accepted 93/100; USD 0.8/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "nli": [
+        {
+          "logits": [
+            2.9725818634033203,
+            2.935215473175049,
+            -2.196540355682373
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.5078687458452741,
+            "entailment": 0.4892417040387675,
+            "neutral": 0.0028895501159583513
+          },
+          "input_tokens": 692,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            1.7110239267349243,
+            4.165955543518066,
+            -2.254927396774292
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.07896033148845355,
+            "entailment": 0.9195433701940122,
+            "neutral": 0.0014962983175342876
+          },
+          "input_tokens": 692,
+          "output_tokens": 0
+        },
+        {
+          "logits": [
+            4.915722846984863,
+            1.0193805694580078,
+            -2.4827487468719482
+          ],
+          "nli_probabilities": {
+            "contradiction": 0.9795007400977073,
+            "entailment": 0.019899621579511736,
+            "neutral": 0.000599638322780943
+          },
+          "input_tokens": 667,
+          "output_tokens": 0
+        }
+      ],
+      "seconds": 29.167295449995436,
+      "correct": true,
+      "chosen_identity": "claude-opus-5@low+gpt-6-astra@high"
+    }
+  ],
+  "nli_controls": [
+    {
+      "premise": "The server is running.",
+      "hypothesis": "The server is running.",
+      "expected": "entailment",
+      "actual": "entailment",
+      "seconds": 0.7247483239625581,
+      "logits": [
+        -2.598302125930786,
+        4.928575038909912,
+        -0.34164726734161377
+      ],
+      "nli_probabilities": {
+        "contradiction": 0.0005353756147678458,
+        "entailment": 0.9943512058806214,
+        "neutral": 0.0051134185046107184
+      },
+      "input_tokens": 18,
+      "output_tokens": 0
+    },
+    {
+      "premise": "The server is running.",
+      "hypothesis": "The server is stopped.",
+      "expected": "contradiction",
+      "actual": "contradiction",
+      "seconds": 0.5060996999964118,
+      "logits": [
+        5.027799606323242,
+        -0.8289503455162048,
+        -0.9972947835922241
+      ],
+      "nli_probabilities": {
+        "contradiction": 0.9947498606194324,
+        "entailment": 0.002845507279624537,
+        "neutral": 0.0024046321009430762
+      },
+      "input_tokens": 18,
+      "output_tokens": 0
+    },
+    {
+      "premise": "The server is running.",
+      "hypothesis": "The server is hosted in Berlin.",
+      "expected": "neutral",
+      "actual": "neutral",
+      "seconds": 0.505584707017988,
+      "logits": [
+        -0.7603697776794434,
+        -2.1056466102600098,
+        5.217400550842285
+      ],
+      "nli_probabilities": {
+        "contradiction": 0.002526400149793984,
+        "entailment": 0.0006580453633512564,
+        "neutral": 0.9968155544868548
+      },
+      "input_tokens": 20,
+      "output_tokens": 0
+    }
+  ],
+  "memory": [
+    {
+      "seconds": 0.00011257699225097895,
+      "rss_bytes": 21934080,
+      "available_ram_bytes": 44860125184,
+      "gpu": {
+        "used_mib": 588.0,
+        "free_mib": 23735.0
+      }
+    },
+    {
+      "seconds": 1.2799007619614713,
+      "rss_bytes": 30453760,
+      "available_ram_bytes": 44851531776,
+      "gpu": {
+        "used_mib": 588.0,
+        "free_mib": 23735.0
+      }
+    },
+    {
+      "seconds": 2.3056749450042844,
+      "rss_bytes": 30466048,
+      "available_ram_bytes": 44852654080,
+      "gpu": {
+        "used_mib": 588.0,
+        "free_mib": 23735.0
+      }
+    },
+    {
+      "seconds": 3.3298364899819717,
+      "rss_bytes": 30466048,
+      "available_ram_bytes": 44852609024,
+      "gpu": {
+        "used_mib": 588.0,
+        "free_mib": 23735.0
+      }
+    },
+    {
+      "seconds": 4.37547613796778,
+      "rss_bytes": 452575232,
+      "available_ram_bytes": 44664647680,
+      "gpu": {
+        "used_mib": 588.0,
+        "free_mib": 23735.0
+      }
+    },
+    {
+      "seconds": 5.401184907997958,
+      "rss_bytes": 557584384,
+      "available_ram_bytes": 44566802432,
+      "gpu": {
+        "used_mib": 588.0,
+        "free_mib": 23735.0
+      }
+    },
+    {
+      "seconds": 6.495079813001212,
+      "rss_bytes": 983502848,
+      "available_ram_bytes": 44214083584,
+      "gpu": {
+        "used_mib": 588.0,
+        "free_mib": 23735.0
+      }
+    },
+    {
+      "seconds": 7.529706574976444,
+      "rss_bytes": 15433531392,
+      "available_ram_bytes": 34594881536,
+      "gpu": {
+        "used_mib": 588.0,
+        "free_mib": 23735.0
+      }
+    },
+    {
+      "seconds": 8.645498386991676,
+      "rss_bytes": 19111272448,
+      "available_ram_bytes": 26065846272,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    },
+    {
+      "seconds": 9.72612222895259,
+      "rss_bytes": 19160494080,
+      "available_ram_bytes": 26054496256,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    },
+    {
+      "seconds": 10.769633263000287,
+      "rss_bytes": 19161194496,
+      "available_ram_bytes": 25926623232,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    },
+    {
+      "seconds": 11.798086580995005,
+      "rss_bytes": 19161194496,
+      "available_ram_bytes": 25748422656,
+      "gpu": {
+        "used_mib": 838.0,
+        "free_mib": 23485.0
+      }
+    },
+    {
+      "seconds": 12.827540106954984,
+      "rss_bytes": 19161194496,
+      "available_ram_bytes": 25743495168,
+      "gpu": {
+        "used_mib": 838.0,
+        "free_mib": 23485.0
+      }
+    },
+    {
+      "seconds": 13.856707715953235,
+      "rss_bytes": 19161194496,
+      "available_ram_bytes": 25737428992,
+      "gpu": {
+        "used_mib": 838.0,
+        "free_mib": 23485.0
+      }
+    },
+    {
+      "seconds": 14.886247291986365,
+      "rss_bytes": 19161194496,
+      "available_ram_bytes": 25732784128,
+      "gpu": {
+        "used_mib": 838.0,
+        "free_mib": 23485.0
+      }
+    },
+    {
+      "seconds": 15.914002501987852,
+      "rss_bytes": 19161194496,
+      "available_ram_bytes": 25727819776,
+      "gpu": {
+        "used_mib": 838.0,
+        "free_mib": 23485.0
+      }
+    },
+    {
+      "seconds": 16.94306607200997,
+      "rss_bytes": 19161194496,
+      "available_ram_bytes": 25723437056,
+      "gpu": {
+        "used_mib": 838.0,
+        "free_mib": 23485.0
+      }
+    },
+    {
+      "seconds": 17.9716681939899,
+      "rss_bytes": 19161194496,
+      "available_ram_bytes": 25714614272,
+      "gpu": {
+        "used_mib": 838.0,
+        "free_mib": 23485.0
+      }
+    },
+    {
+      "seconds": 19.0096946869744,
+      "rss_bytes": 19014574080,
+      "available_ram_bytes": 25758269440,
+      "gpu": {
+        "used_mib": 838.0,
+        "free_mib": 23485.0
+      }
+    },
+    {
+      "seconds": 20.051211996003985,
+      "rss_bytes": 19014852608,
+      "available_ram_bytes": 25750155264,
+      "gpu": {
+        "used_mib": 838.0,
+        "free_mib": 23485.0
+      }
+    },
+    {
+      "seconds": 21.075700912973844,
+      "rss_bytes": 19014852608,
+      "available_ram_bytes": 25748533248,
+      "gpu": {
+        "used_mib": 7366.0,
+        "free_mib": 16957.0
+      }
+    },
+    {
+      "seconds": 22.123296685982496,
+      "rss_bytes": 19014725632,
+      "available_ram_bytes": 25752547328,
+      "gpu": {
+        "used_mib": 17240.0,
+        "free_mib": 7083.0
+      }
+    },
+    {
+      "seconds": 23.147743480978534,
+      "rss_bytes": 19014725632,
+      "available_ram_bytes": 25753395200,
+      "gpu": {
+        "used_mib": 17240.0,
+        "free_mib": 7083.0
+      }
+    },
+    {
+      "seconds": 24.17676300398307,
+      "rss_bytes": 19014725632,
+      "available_ram_bytes": 25753026560,
+      "gpu": {
+        "used_mib": 17240.0,
+        "free_mib": 7083.0
+      }
+    },
+    {
+      "seconds": 25.201913265977055,
+      "rss_bytes": 19014639616,
+      "available_ram_bytes": 25304240128,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 26.378918592003174,
+      "rss_bytes": 19099795456,
+      "available_ram_bytes": 25212706816,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 27.40338694496313,
+      "rss_bytes": 19141218304,
+      "available_ram_bytes": 25171402752,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 28.43483704299433,
+      "rss_bytes": 19093028864,
+      "available_ram_bytes": 25220407296,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 29.461186715983786,
+      "rss_bytes": 19183734784,
+      "available_ram_bytes": 25128742912,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 30.48721069097519,
+      "rss_bytes": 19208712192,
+      "available_ram_bytes": 25102389248,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 31.511108673992567,
+      "rss_bytes": 19191705600,
+      "available_ram_bytes": 25119969280,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 32.538584241003264,
+      "rss_bytes": 19141218304,
+      "available_ram_bytes": 25171734528,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 33.56324224098353,
+      "rss_bytes": 19141152768,
+      "available_ram_bytes": 25171238912,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 34.592159738997,
+      "rss_bytes": 19161059328,
+      "available_ram_bytes": 25152364544,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 35.616798106988426,
+      "rss_bytes": 19172433920,
+      "available_ram_bytes": 25139851264,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 36.64145546895452,
+      "rss_bytes": 19093065728,
+      "available_ram_bytes": 25219719168,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 37.67449437500909,
+      "rss_bytes": 19171901440,
+      "available_ram_bytes": 25141596160,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 38.7003555749543,
+      "rss_bytes": 19154010112,
+      "available_ram_bytes": 25159200768,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 39.72497756697703,
+      "rss_bytes": 19093065728,
+      "available_ram_bytes": 25221251072,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 40.75106413499452,
+      "rss_bytes": 19154010112,
+      "available_ram_bytes": 25160908800,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 41.78128989099059,
+      "rss_bytes": 19235053568,
+      "available_ram_bytes": 25079848960,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 42.821431647986174,
+      "rss_bytes": 19179520000,
+      "available_ram_bytes": 25135316992,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 43.844460332999006,
+      "rss_bytes": 19174866944,
+      "available_ram_bytes": 25138499584,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 44.870322178991046,
+      "rss_bytes": 19171901440,
+      "available_ram_bytes": 25143169024,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 45.89481009199517,
+      "rss_bytes": 19169144832,
+      "available_ram_bytes": 25141510144,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 46.91876923700329,
+      "rss_bytes": 19187101696,
+      "available_ram_bytes": 25122533376,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 47.94647214200813,
+      "rss_bytes": 19174608896,
+      "available_ram_bytes": 25136545792,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 48.97069137595827,
+      "rss_bytes": 19182804992,
+      "available_ram_bytes": 25125855232,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 49.99569525098195,
+      "rss_bytes": 19092647936,
+      "available_ram_bytes": 25217228800,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 51.02065134496661,
+      "rss_bytes": 19136360448,
+      "available_ram_bytes": 25174200320,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 52.05590035795467,
+      "rss_bytes": 19107459072,
+      "available_ram_bytes": 25167642624,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 53.08066677098395,
+      "rss_bytes": 19098243072,
+      "available_ram_bytes": 25209651200,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 54.10658930300269,
+      "rss_bytes": 19099475968,
+      "available_ram_bytes": 25211289600,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 55.23833716096124,
+      "rss_bytes": 19262685184,
+      "available_ram_bytes": 25047527424,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 56.27918163698632,
+      "rss_bytes": 19262697472,
+      "available_ram_bytes": 25046867968,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 57.3092797829886,
+      "rss_bytes": 19113783296,
+      "available_ram_bytes": 25179795456,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 58.33753379795235,
+      "rss_bytes": 19185745920,
+      "available_ram_bytes": 25121460224,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 59.36785792495357,
+      "rss_bytes": 19163295744,
+      "available_ram_bytes": 25147629568,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 60.40472065896029,
+      "rss_bytes": 19177095168,
+      "available_ram_bytes": 25132163072,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 61.43061655800557,
+      "rss_bytes": 19178975232,
+      "available_ram_bytes": 25131540480,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 62.457976203993894,
+      "rss_bytes": 19211292672,
+      "available_ram_bytes": 25098821632,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 63.48780969798099,
+      "rss_bytes": 19156168704,
+      "available_ram_bytes": 25154674688,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 64.5134356750059,
+      "rss_bytes": 19102097408,
+      "available_ram_bytes": 25208594432,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 65.5378010449931,
+      "rss_bytes": 19109269504,
+      "available_ram_bytes": 25200996352,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 66.59750752698164,
+      "rss_bytes": 19189448704,
+      "available_ram_bytes": 25120624640,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 67.62286426097853,
+      "rss_bytes": 19182292992,
+      "available_ram_bytes": 25129361408,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 68.64854341000319,
+      "rss_bytes": 19218915328,
+      "available_ram_bytes": 25091735552,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 69.6816061050049,
+      "rss_bytes": 19156525056,
+      "available_ram_bytes": 25154023424,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 70.70811566198245,
+      "rss_bytes": 19263115264,
+      "available_ram_bytes": 25047957504,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 71.73386958497576,
+      "rss_bytes": 19207835648,
+      "available_ram_bytes": 25102819328,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 72.7590420889901,
+      "rss_bytes": 19213660160,
+      "available_ram_bytes": 25096888320,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 73.78542460297467,
+      "rss_bytes": 19112144896,
+      "available_ram_bytes": 25200140288,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 74.80929355800617,
+      "rss_bytes": 19178323968,
+      "available_ram_bytes": 25134292992,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 75.83552105899435,
+      "rss_bytes": 19112259584,
+      "available_ram_bytes": 25200599040,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 76.86033206596039,
+      "rss_bytes": 19153551360,
+      "available_ram_bytes": 25158848512,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 77.8849907029653,
+      "rss_bytes": 19176816640,
+      "available_ram_bytes": 25135403008,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 78.91110064898385,
+      "rss_bytes": 19198967808,
+      "available_ram_bytes": 25113903104,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 79.93624169297982,
+      "rss_bytes": 19209977856,
+      "available_ram_bytes": 25101283328,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 80.96225050796056,
+      "rss_bytes": 19185205248,
+      "available_ram_bytes": 25126752256,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 81.98456265497953,
+      "rss_bytes": 19104002048,
+      "available_ram_bytes": 25209102336,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 83.00790955196135,
+      "rss_bytes": 19093123072,
+      "available_ram_bytes": 25218297856,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 84.03186512296088,
+      "rss_bytes": 19272445952,
+      "available_ram_bytes": 25039757312,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 85.05869580199942,
+      "rss_bytes": 19190591488,
+      "available_ram_bytes": 25117638656,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 86.0831094259629,
+      "rss_bytes": 19180560384,
+      "available_ram_bytes": 25129959424,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 87.10888559598243,
+      "rss_bytes": 19166011392,
+      "available_ram_bytes": 25143504896,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 88.14680151600624,
+      "rss_bytes": 19194929152,
+      "available_ram_bytes": 25115312128,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 89.1749968509539,
+      "rss_bytes": 19190591488,
+      "available_ram_bytes": 25119928320,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 90.19844620296499,
+      "rss_bytes": 19214753792,
+      "available_ram_bytes": 25096581120,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 91.22655392100569,
+      "rss_bytes": 19180470272,
+      "available_ram_bytes": 25131773952,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 92.25712497596396,
+      "rss_bytes": 19102388224,
+      "available_ram_bytes": 25209700352,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 93.2815964850015,
+      "rss_bytes": 19210924032,
+      "available_ram_bytes": 25100312576,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 94.31218769797124,
+      "rss_bytes": 19272994816,
+      "available_ram_bytes": 25038319616,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 95.35053053597221,
+      "rss_bytes": 19119996928,
+      "available_ram_bytes": 25190887424,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 96.37470808398211,
+      "rss_bytes": 19183976448,
+      "available_ram_bytes": 25127178240,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 97.39825781196123,
+      "rss_bytes": 19102543872,
+      "available_ram_bytes": 25208221696,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 98.42724973196164,
+      "rss_bytes": 19181338624,
+      "available_ram_bytes": 25129607168,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 99.45189956395188,
+      "rss_bytes": 19157803008,
+      "available_ram_bytes": 25153069056,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 100.47794858500129,
+      "rss_bytes": 19109814272,
+      "available_ram_bytes": 25202421760,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 101.51622749795206,
+      "rss_bytes": 19112722432,
+      "available_ram_bytes": 25200680960,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 102.54602134000743,
+      "rss_bytes": 19183976448,
+      "available_ram_bytes": 25129046016,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 103.57249734696234,
+      "rss_bytes": 19090436096,
+      "available_ram_bytes": 25222623232,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 104.59825325099519,
+      "rss_bytes": 19101736960,
+      "available_ram_bytes": 25207889920,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 105.62612921197433,
+      "rss_bytes": 19101736960,
+      "available_ram_bytes": 25207934976,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 106.66325709800003,
+      "rss_bytes": 19147632640,
+      "available_ram_bytes": 25163186176,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 107.6871314609889,
+      "rss_bytes": 19115552768,
+      "available_ram_bytes": 25197039616,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 108.71136799000669,
+      "rss_bytes": 19147632640,
+      "available_ram_bytes": 25165512704,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 109.73591360996943,
+      "rss_bytes": 19172737024,
+      "available_ram_bytes": 25139687424,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 110.76022341096541,
+      "rss_bytes": 19164377088,
+      "available_ram_bytes": 25146241024,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 111.79260239796713,
+      "rss_bytes": 19212963840,
+      "available_ram_bytes": 25099026432,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 112.81741918198531,
+      "rss_bytes": 19168555008,
+      "available_ram_bytes": 25143451648,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 113.84248820698122,
+      "rss_bytes": 19209633792,
+      "available_ram_bytes": 25102131200,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 114.87040211295243,
+      "rss_bytes": 19284180992,
+      "available_ram_bytes": 25026387968,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 115.89570364000974,
+      "rss_bytes": 19123900416,
+      "available_ram_bytes": 25187012608,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 116.9216964909574,
+      "rss_bytes": 19192512512,
+      "available_ram_bytes": 25117278208,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 117.94847299996763,
+      "rss_bytes": 19123900416,
+      "available_ram_bytes": 25187344384,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 119.07582100498257,
+      "rss_bytes": 19113717760,
+      "available_ram_bytes": 25197203456,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 120.10265734000131,
+      "rss_bytes": 19125067776,
+      "available_ram_bytes": 25184395264,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 121.13327910698717,
+      "rss_bytes": 19179155456,
+      "available_ram_bytes": 25125810176,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 122.15913505799836,
+      "rss_bytes": 19183788032,
+      "available_ram_bytes": 25122115584,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 123.18944752198877,
+      "rss_bytes": 19123351552,
+      "available_ram_bytes": 25184264192,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 124.21525464195292,
+      "rss_bytes": 19194560512,
+      "available_ram_bytes": 25109794816,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 125.24107308097882,
+      "rss_bytes": 19116478464,
+      "available_ram_bytes": 25190322176,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 126.26638502196874,
+      "rss_bytes": 19212181504,
+      "available_ram_bytes": 25095098368,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 127.29564822098473,
+      "rss_bytes": 19194560512,
+      "available_ram_bytes": 25111941120,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 128.320597953978,
+      "rss_bytes": 19113586688,
+      "available_ram_bytes": 25195245568,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 129.3589422199875,
+      "rss_bytes": 19116478464,
+      "available_ram_bytes": 25190711296,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 130.3873740339768,
+      "rss_bytes": 19201789952,
+      "available_ram_bytes": 25106825216,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 131.41064925398678,
+      "rss_bytes": 19097812992,
+      "available_ram_bytes": 25208090624,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 132.4373629919719,
+      "rss_bytes": 19212181504,
+      "available_ram_bytes": 25096077312,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 133.46514323097654,
+      "rss_bytes": 19165646848,
+      "available_ram_bytes": 25142259712,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 134.49292793800123,
+      "rss_bytes": 19165769728,
+      "available_ram_bytes": 25141641216,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 135.5186529039638,
+      "rss_bytes": 19147636736,
+      "available_ram_bytes": 25159786496,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 136.54495934798615,
+      "rss_bytes": 19177168896,
+      "available_ram_bytes": 25130364928,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 137.56975022598635,
+      "rss_bytes": 19201810432,
+      "available_ram_bytes": 25106448384,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 138.60276616795454,
+      "rss_bytes": 19090583552,
+      "available_ram_bytes": 25215369216,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 139.63711976795457,
+      "rss_bytes": 19115556864,
+      "available_ram_bytes": 25191534592,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 140.66026728897123,
+      "rss_bytes": 19090583552,
+      "available_ram_bytes": 25214803968,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 141.79703799600247,
+      "rss_bytes": 19190874112,
+      "available_ram_bytes": 25118015488,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 142.82266255497234,
+      "rss_bytes": 19146244096,
+      "available_ram_bytes": 25162616832,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 143.8539442049805,
+      "rss_bytes": 19170623488,
+      "available_ram_bytes": 25138044928,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 144.88702174497303,
+      "rss_bytes": 19210035200,
+      "available_ram_bytes": 25098244096,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 145.9219798449776,
+      "rss_bytes": 19116220416,
+      "available_ram_bytes": 25191346176,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 146.95219080598326,
+      "rss_bytes": 19177779200,
+      "available_ram_bytes": 25127800832,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 147.98151086695725,
+      "rss_bytes": 19113357312,
+      "available_ram_bytes": 25195593728,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 149.01444522995735,
+      "rss_bytes": 19123380224,
+      "available_ram_bytes": 25185644544,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 150.03978733200347,
+      "rss_bytes": 19218624512,
+      "available_ram_bytes": 25086775296,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 151.0648916339851,
+      "rss_bytes": 19142332416,
+      "available_ram_bytes": 25162592256,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 152.09037297795294,
+      "rss_bytes": 19116220416,
+      "available_ram_bytes": 25189232640,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 153.11506364500383,
+      "rss_bytes": 19193528320,
+      "available_ram_bytes": 25110867968,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 154.13942795299226,
+      "rss_bytes": 19113259008,
+      "available_ram_bytes": 25190985728,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 155.16708064300474,
+      "rss_bytes": 19113259008,
+      "available_ram_bytes": 25190793216,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 156.19104098400567,
+      "rss_bytes": 19209121792,
+      "available_ram_bytes": 25096015872,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 157.21562556596473,
+      "rss_bytes": 19167428608,
+      "available_ram_bytes": 25137750016,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 158.23989158897894,
+      "rss_bytes": 19113259008,
+      "available_ram_bytes": 25191870464,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 159.26396776095498,
+      "rss_bytes": 19113390080,
+      "available_ram_bytes": 25185968128,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 160.29025757900672,
+      "rss_bytes": 19113390080,
+      "available_ram_bytes": 25186271232,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 161.31439972500084,
+      "rss_bytes": 19138920448,
+      "available_ram_bytes": 25161924608,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 162.3386500820052,
+      "rss_bytes": 19217674240,
+      "available_ram_bytes": 25083289600,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 163.36726574297063,
+      "rss_bytes": 19136069632,
+      "available_ram_bytes": 25163972608,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 164.3921353899641,
+      "rss_bytes": 19254558720,
+      "available_ram_bytes": 25046831104,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 165.41911783395335,
+      "rss_bytes": 19164774400,
+      "available_ram_bytes": 25137012736,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 166.44445116695715,
+      "rss_bytes": 19254558720,
+      "available_ram_bytes": 25046810624,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 167.47067869198509,
+      "rss_bytes": 19122110464,
+      "available_ram_bytes": 25183752192,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 168.49424371798523,
+      "rss_bytes": 19261440000,
+      "available_ram_bytes": 25044180992,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 169.51924364699516,
+      "rss_bytes": 19097464832,
+      "available_ram_bytes": 25207533568,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 170.58920126000885,
+      "rss_bytes": 19199180800,
+      "available_ram_bytes": 25106100224,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 171.620451906987,
+      "rss_bytes": 19199180800,
+      "available_ram_bytes": 25105567744,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 172.64470968197566,
+      "rss_bytes": 19164774400,
+      "available_ram_bytes": 25140752384,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 173.67279079300351,
+      "rss_bytes": 19192496128,
+      "available_ram_bytes": 25113513984,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 174.70674434996909,
+      "rss_bytes": 19159498752,
+      "available_ram_bytes": 25145057280,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 175.73376169498079,
+      "rss_bytes": 19166519296,
+      "available_ram_bytes": 25138798592,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 176.758141830971,
+      "rss_bytes": 19146743808,
+      "available_ram_bytes": 25157353472,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 177.78321277699433,
+      "rss_bytes": 19207905280,
+      "available_ram_bytes": 25097109504,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 178.80836751696188,
+      "rss_bytes": 19192496128,
+      "available_ram_bytes": 25113681920,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 179.8332397469785,
+      "rss_bytes": 19262095360,
+      "available_ram_bytes": 25045319680,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 180.86017086799257,
+      "rss_bytes": 19166986240,
+      "available_ram_bytes": 25140170752,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 181.88732241798425,
+      "rss_bytes": 19113127936,
+      "available_ram_bytes": 25194762240,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 182.91413961199578,
+      "rss_bytes": 19250954240,
+      "available_ram_bytes": 25056133120,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 183.9409360769787,
+      "rss_bytes": 19097669632,
+      "available_ram_bytes": 25208766464,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 184.9666664779652,
+      "rss_bytes": 19233259520,
+      "available_ram_bytes": 25075105792,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 186.02263635600684,
+      "rss_bytes": 19115962368,
+      "available_ram_bytes": 25192480768,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 187.04869382898323,
+      "rss_bytes": 19166986240,
+      "available_ram_bytes": 25141260288,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 188.07466211699648,
+      "rss_bytes": 19146743808,
+      "available_ram_bytes": 25160089600,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 189.10022217099322,
+      "rss_bytes": 19223142400,
+      "available_ram_bytes": 25084559360,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 190.12270778795937,
+      "rss_bytes": 19113127936,
+      "available_ram_bytes": 25193897984,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 191.14793043100508,
+      "rss_bytes": 19115962368,
+      "available_ram_bytes": 25193164800,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 192.17190338298678,
+      "rss_bytes": 19090583552,
+      "available_ram_bytes": 25215598592,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 193.19638880499406,
+      "rss_bytes": 19219464192,
+      "available_ram_bytes": 25090830336,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 194.2286336319521,
+      "rss_bytes": 19097415680,
+      "available_ram_bytes": 25211559936,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 195.25128816399956,
+      "rss_bytes": 19097415680,
+      "available_ram_bytes": 25210605568,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 196.291534510965,
+      "rss_bytes": 19197730816,
+      "available_ram_bytes": 25113391104,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 197.32044421997853,
+      "rss_bytes": 19090583552,
+      "available_ram_bytes": 25221021696,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 198.3452833229676,
+      "rss_bytes": 19164221440,
+      "available_ram_bytes": 25146875904,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 199.3706739509944,
+      "rss_bytes": 19259834368,
+      "available_ram_bytes": 25051283456,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 200.39581563096726,
+      "rss_bytes": 19090583552,
+      "available_ram_bytes": 25219760128,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    },
+    {
+      "seconds": 201.42059686296852,
+      "rss_bytes": 19115040768,
+      "available_ram_bytes": 25195810816,
+      "gpu": {
+        "used_mib": 18978.0,
+        "free_mib": 5345.0
+      }
+    }
+  ],
+  "load_seconds": 8.668791844975203,
+  "model_identity": {
+    "model": "AlexWortega/openjev",
+    "revision": "f004f37e52695d6ddfb914a64dbf93942839ba1e",
+    "subfolder": "qwen3.5-4b-nli-v2",
+    "transformers_version": "5.17.0",
+    "torch_version": "2.14.0+cu126",
+    "device": "cpu",
+    "dtype": "torch.float32",
+    "threads": 4,
+    "cuda_layers": 0,
+    "manifest_sha256": "e107a73311b15fa5d6b06838f8a4fa86b5cff8218a3d63d55ea751669ab9a6b1",
+    "score_semantics": "normalized-entailment-not-calibrated-success",
+    "max_pair_tokens": 4096,
+    "batching": "sequential-pairs-no-prefix-cache"
+  },
+  "parameter_bytes": 18157092864,
+  "parameters_by_device": {
+    "cpu": 18157092864
+  },
+  "qwen_coexist": {
+    "before": {
+      "status": "ok",
+      "role": "qualified-model-gateway",
+      "current_model": null,
+      "requested_name": null,
+      "backend_healthy": false,
+      "backend_pid": null,
+      "backend_port": 18080,
+      "last_switch_seconds": 14.607206302986015,
+      "last_error": null,
+      "max_resident_models": 1,
+      "available_models": [
+        "fable-tc",
+        "gemma-vision",
+        "hauhaucs",
+        "muse-vision",
+        "qwen36-moe",
+        "qwen38"
+      ],
+      "gpu_coordination": {
+        "enabled": true,
+        "path": "/home/augus/.local/state/tare-qualified-models/gpu.lock",
+        "held": false,
+        "owner": null
+      }
+    },
+    "seconds": 14.88320969796041,
+    "model": "qwen38",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 16,
+      "total_tokens": 18,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "after": {
+      "status": "ok",
+      "role": "qualified-model-gateway",
+      "current_model": "qwen38",
+      "requested_name": "qwen38",
+      "backend_healthy": true,
+      "backend_pid": 914385,
+      "backend_port": 18080,
+      "last_switch_seconds": 14.591945933992974,
+      "last_error": null,
+      "max_resident_models": 1,
+      "available_models": [
+        "fable-tc",
+        "gemma-vision",
+        "hauhaucs",
+        "muse-vision",
+        "qwen36-moe",
+        "qwen38"
+      ],
+      "gpu_coordination": {
+        "enabled": true,
+        "path": "/home/augus/.local/state/tare-qualified-models/gpu.lock",
+        "held": false,
+        "owner": null
+      }
+    },
+    "gpu": {
+      "used_mib": 18978.0,
+      "free_mib": 5345.0
+    }
+  },
+  "correct": 6,
+  "total_seconds": 202.13967803196283
+}

@@ -4,6 +4,11 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Add a bounded OpenJEV NLI and joint-routing resource probe: CPU, supervised
+  CUDA and four-layer hybrid placements; preserve logits, memory samples,
+  exact checkpoint identity, cold-load timing and Qwen coexistence receipts.
+  Measurements cannot promote a model or enable automatic routing.
+
 - Add a three-call CPU smoke harness for structured task-demand assessments.
   Record pinned Laya typed-decisions results in English and Portuguese, including
   cold-load overhead, full distributions and measured usage. Keep semantic

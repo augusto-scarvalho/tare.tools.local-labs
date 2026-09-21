@@ -1,0 +1,101 @@
+{
+  "schema": "tare.local-labs/openjev-probe/1",
+  "status": "FAILED",
+  "authority": "NONE",
+  "qualification": "UNQUALIFIED",
+  "device": "hybrid",
+  "pid": 915014,
+  "protocol_sha256": "52e0608985cc054389682fdc5bc528ffa275cce8c8b4fd0f576b47be728d8803",
+  "runner_sha256": "4a9a81150d3e5a347041d71fa68c945a2989006b90554da9293d7142f0f433ed",
+  "cases": [],
+  "nli_controls": [],
+  "memory": [
+    {
+      "seconds": 0.00015996803995221853,
+      "rss_bytes": 23576576,
+      "available_ram_bytes": 44893356032,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    },
+    {
+      "seconds": 1.0252379610319622,
+      "rss_bytes": 31928320,
+      "available_ram_bytes": 44884717568,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    },
+    {
+      "seconds": 2.0509197130450048,
+      "rss_bytes": 31936512,
+      "available_ram_bytes": 44881502208,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    },
+    {
+      "seconds": 3.0746074930066243,
+      "rss_bytes": 31936512,
+      "available_ram_bytes": 44880334848,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    },
+    {
+      "seconds": 4.104380652017426,
+      "rss_bytes": 417271808,
+      "available_ram_bytes": 44718948352,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    },
+    {
+      "seconds": 5.161360599042382,
+      "rss_bytes": 541380608,
+      "available_ram_bytes": 44607090688,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    },
+    {
+      "seconds": 6.2926421370357275,
+      "rss_bytes": 988340224,
+      "available_ram_bytes": 44239818752,
+      "gpu": {
+        "used_mib": 579.0,
+        "free_mib": 23744.0
+      }
+    }
+  ],
+  "load_seconds": 7.138574950047769,
+  "model_identity": {
+    "model": "AlexWortega/openjev",
+    "revision": "f004f37e52695d6ddfb914a64dbf93942839ba1e",
+    "subfolder": "qwen3.5-4b-nli-v2",
+    "transformers_version": "5.17.0",
+    "torch_version": "2.14.0+cu126",
+    "device": "hybrid",
+    "dtype": "torch.bfloat16",
+    "threads": 4,
+    "cuda_layers": 4,
+    "manifest_sha256": "e107a73311b15fa5d6b06838f8a4fa86b5cff8218a3d63d55ea751669ab9a6b1",
+    "score_semantics": "normalized-entailment-not-calibrated-success",
+    "max_pair_tokens": 4096,
+    "batching": "sequential-pairs-no-prefix-cache"
+  },
+  "parameter_bytes": 9078546432,
+  "parameters_by_device": {
+    "meta": 8186013568,
+    "cuda:0": 892532864
+  },
+  "reason": "NotImplementedError",
+  "detail": "Cannot copy out of meta tensor; no data!",
+  "total_seconds": 7.148651043011341
+}

@@ -1,0 +1,1 @@
+Hybrid attempt 1 failed before NLI inference: meta placeholder selected as input device. Attempt 2 changes only real input placement and records CPU weight offload/GPU execution. Same checkpoint, prompts, budgets and gates. CPU/CUDA receipts remain immutable.
