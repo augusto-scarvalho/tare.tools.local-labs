@@ -37,6 +37,39 @@ def test_semantic_abstention_never_shops_for_another_answer(calls, monkeypatch):
     assert not calls
 
 
+@pytest.mark.parametrize('reason', ['GPU_LEASE_BUSY', 'RESIDENT_QWEN_UNAVAILABLE',
+    'GPU_STATE_UNAVAILABLE', 'RESIDENT_ADMISSION_CHANGED'])
+def test_interactive_refusal_never_loads_cpu(calls, monkeypatch, reason):
+    def gpu(*_): raise worker.Unavailable(reason)
+    monkeypatch.setattr(worker, 'gpu_assess', gpu)
+    with pytest.raises(ValueError, match='^ASSESSMENT_CPU_NOT_ADMITTED$'):
+        worker.evaluate({}, {'cpu_fallback_enabled': False})
+    assert not calls
+
+
+def test_interactive_still_uses_resident_local_choice(calls, monkeypatch):
+    answer = {'choice': 'explore'}
+    monkeypatch.setattr(worker, 'gpu_assess', lambda *_: answer)
+    assert worker.evaluate({}, {'cpu_fallback_enabled': False}) is answer
+    assert not calls
+
+
+def test_interactive_uncertain_submission_retains_original_failure(calls, monkeypatch):
+    def gpu(*_): raise ValueError('ASSESSMENT_RESOURCE_UNAVAILABLE')
+    monkeypatch.setattr(worker, 'gpu_assess', gpu)
+    with pytest.raises(ValueError, match='^ASSESSMENT_RESOURCE_UNAVAILABLE$'):
+        worker.evaluate({}, {'cpu_fallback_enabled': False})
+    assert not calls
+
+
+@pytest.mark.parametrize('invalid', ['false', 0, None])
+def test_cpu_admission_rejects_non_boolean_before_any_resource(calls, monkeypatch, invalid):
+    monkeypatch.setattr(worker, 'gpu_assess', lambda *_: pytest.fail('GPU admission attempted'))
+    with pytest.raises(ValueError, match='EXECUTION_CONFIG_INVALID'):
+        worker.evaluate({}, {'cpu_fallback_enabled': invalid})
+    assert not calls
+
+
 def test_inference_failure_does_not_launch_second_evaluator(calls, monkeypatch):
     def gpu(*_): raise ValueError('ASSESSMENT_MISSING_CANDIDATE')
     monkeypatch.setattr(worker, 'gpu_assess', gpu)

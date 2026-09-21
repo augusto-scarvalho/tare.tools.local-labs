@@ -136,9 +136,16 @@ def cpu_assess(request, config):
 def evaluate(request, config):
     from compute_plane.choice_assessment import validate_request
     validate_request(request)
+    cpu_enabled = config.get('cpu_fallback_enabled', True)
+    if type(cpu_enabled) is not bool:
+        raise ValueError('ASSESSMENT_EXECUTION_CONFIG_INVALID')
     try:
         return gpu_assess(request, config)
     except Unavailable as exc:
+        if not cpu_enabled:
+            # A known resident admission refusal permits the caller's vendor
+            # fallback. Never cold-load the CPU model for this boundary.
+            raise ValueError('ASSESSMENT_CPU_NOT_ADMITTED') from None
         answer = cpu_assess(request, config)
         answer['model_identity']['fallback_reason'] = str(exc)
         return answer
@@ -159,6 +166,7 @@ def main():
             'ASSESSMENT_CHECKPOINT_CHANGED', 'ASSESSMENT_INSUFFICIENT_RAM',
             'ASSESSMENT_ENVIRONMENT_CHANGED', 'ASSESSMENT_RESOURCE_BUSY',
             'ASSESSMENT_CAPACITY_EXCEEDED', 'ASSESSMENT_EXECUTION_CONFIG_INVALID',
+            'ASSESSMENT_CPU_NOT_ADMITTED',
             'ASSESSMENT_RESOURCE_UNAVAILABLE'} else 'ASSESSMENT_RESOURCE_UNAVAILABLE'}
         if reason == 'ASSESSMENT_CAPACITY_EXCEEDED':
             answer['stage'] = 'CPU_INPUT_PREFLIGHT'
