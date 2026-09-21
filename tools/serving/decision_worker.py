@@ -14,6 +14,20 @@ class Unavailable(Exception):
     pass
 
 
+def exit_with_failure(reason, stage, exit_code):
+    """Retain a small protocol receipt before a hard stop, including in Torch.
+
+    stdout is redirected to stderr during evaluation; descriptor 1 remains the
+    protocol channel. Do not raise through native inference or wait for cleanup.
+    The process exit releases the CPU flock and the OS reclaims its memory.
+    """
+    payload = json.dumps({'failure': reason, 'stage': stage}).encode() + b'\n'
+    try:
+        os.write(1, payload)
+    finally:
+        os._exit(exit_code)
+
+
 def http(port, path, data=None, timeout=5):
     request = Request(f'http://127.0.0.1:{port}{path}',
         data=None if data is None else json.dumps(data).encode(),
@@ -85,28 +99,38 @@ def gpu_assess(request, config):
 def cpu_assess(request, config):
     import fcntl
     import psutil
-    from compute_plane.openjev_choice_worker import OpenJevChoiceModel
+    from compute_plane.openjev_choice_worker import OpenJevChoiceModel, preflight_cpu_tokens
     lock = Path(config['cpu_lock'])
     lock.parent.mkdir(parents=True, exist_ok=True)
     with lock.open('a') as handle:
         try:
             fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
-            raise ValueError('ASSESSMENT_RESOURCE_UNAVAILABLE') from None
+            raise ValueError('ASSESSMENT_RESOURCE_BUSY') from None
         if psutil.virtual_memory().available < 36*1024**3:
             raise ValueError('ASSESSMENT_INSUFFICIENT_RAM')
-        def expired(*_):
-            os._exit(124)
-        signal.signal(signal.SIGALRM, expired)
-        signal.signal(signal.SIGTERM, expired)
-        signal.signal(signal.SIGINT, expired)
+        stage = 'CPU_INPUT_PREFLIGHT'
+        def stopped(signum, _frame):
+            if signum == signal.SIGALRM:
+                exit_with_failure('ASSESSMENT_TIMEOUT', stage, 124)
+            exit_with_failure('ASSESSMENT_CANCELLED', stage, 128 + signum)
+        handlers = {number: signal.signal(number, stopped)
+                    for number in (signal.SIGALRM, signal.SIGTERM, signal.SIGINT)}
         signal.alarm(52)
         try:
-            answer = OpenJevChoiceModel(config['checkpoint']).assess(request)
+            # Six short hypotheses can be cheap; six long ones repeat the full
+            # premise and exceed the interactive CPU budget. Never truncate it.
+            preflight_cpu_tokens(config['checkpoint'], request, config.get('cpu_max_total_tokens'))
+            stage = 'CPU_MODEL_LOAD'
+            model = OpenJevChoiceModel(config['checkpoint'])
+            stage = 'CPU_SCORING'
+            answer = model.assess(request)
             answer['model_identity'].update(fallback_used=True)
             return answer
         finally:
             signal.alarm(0)
+            for number, handler in handlers.items():
+                signal.signal(number, handler)
 
 
 def evaluate(request, config):
@@ -133,7 +157,11 @@ def main():
         reason = str(exc)
         answer = {'failure': reason if reason in {'ASSESSMENT_INPUT_OVERFLOW',
             'ASSESSMENT_CHECKPOINT_CHANGED', 'ASSESSMENT_INSUFFICIENT_RAM',
+            'ASSESSMENT_ENVIRONMENT_CHANGED', 'ASSESSMENT_RESOURCE_BUSY',
+            'ASSESSMENT_CAPACITY_EXCEEDED', 'ASSESSMENT_EXECUTION_CONFIG_INVALID',
             'ASSESSMENT_RESOURCE_UNAVAILABLE'} else 'ASSESSMENT_RESOURCE_UNAVAILABLE'}
+        if reason == 'ASSESSMENT_CAPACITY_EXCEEDED':
+            answer['stage'] = 'CPU_INPUT_PREFLIGHT'
     print(json.dumps(answer, allow_nan=False))
 
 

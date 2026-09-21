@@ -4,6 +4,11 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Reject oversized OpenJEV CPU choice requests before loading weights using a
+  pinned-tokenizer aggregate input cap. Preserve timeout, cancellation, CPU
+  contention and environment failure reasons, including the interrupted stage.
+  Keep resident-Qwen admission and GPU ownership unchanged.
+
 - Add a resident-Qwen decision worker under the canonical GPU lease, with serialized, RAM-admitted OpenJEV CPU fallback and bounded worker lifetime.
 
 - Add a bounded OpenJEV NLI and joint-routing resource probe: CPU, supervised
