@@ -1,0 +1,1 @@
+Repeat the same two bounded worker canaries after moving GPU inference ownership to the gateway. This is a changed implementation, not a prompt or gold-label retry. Original v1 evidence remains unchanged. Verify one necessary idle gateway restart, unchanged ComfyUI/embedding services, and gateway-owned lease admission. No training or image generation.

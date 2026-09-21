@@ -1,0 +1,41 @@
+{
+  "old_release": "/home/augus/.local/share/tare-qualified-models/releases/2d718355cc48e552e549",
+  "new_release": "/home/augus/.local/share/tare-qualified-models/releases/resident-abab824d4bda813d3178",
+  "gateway_sha256": "abab824d4bda813d31788c497bdbcad1bbe01abf0013ea5ec453cecf5efb4367",
+  "previous_override_base64": "W1NlcnZpY2VdCkV4ZWNTdGFydD0KRXhlY1N0YXJ0PSIvdXNyL2Jpbi9weXRob24zIiAiL2hvbWUvYXVndXMvLmxvY2FsL3NoYXJlL3RhcmUtcXVhbGlmaWVkLW1vZGVscy9yZWxlYXNlcy8yZDcxODM1NWNjNDhlNTUyZTU0OS90b29scy9zZXJ2aW5nL3F1YWxpZmllZF9tb2RlbF9nYXRld2F5LnB5IiAiLS1jb25maWciICIvbW50L2MvcHJvamVjdHMvdGFyZS50b29scy5sb2NhbC1sYWJzL2NvbmZpZy9xdWFsaWZpZWRfbW9kZWxfZmxlZXQuanNvbiIgIi0taG9zdCIgIjAuMC4wLjAiICItLXBvcnQiICI4MDgwIiAiLS1iYWNrZW5kLWhvc3QiICIxMjcuMC4wLjEiICItLWJhY2tlbmQtcG9ydCIgIjE4MDgwIiAiLS1zdGF0ZS1kaXIiICIvaG9tZS9hdWd1cy8ubG9jYWwvc3RhdGUvdGFyZS1xdWFsaWZpZWQtbW9kZWxzIiAiLS1ncHUtbG9jayIgIi9ob21lL2F1Z3VzLy5sb2NhbC9zdGF0ZS90YXJlLXF1YWxpZmllZC1tb2RlbHMvZ3B1LmxvY2siICItLXJvdXRlLXRpbWVvdXQiICI2MDAiICItLWNvbWZ5LXVybCIgImh0dHA6Ly8xMjcuMC4wLjE6ODE4OCIgIi0taW1hZ2Utcm91dGVzIiAiL2hvbWUvYXVndXMvLmxvY2FsL3NoYXJlL3RhcmUtcXVhbGlmaWVkLW1vZGVscy9yZWxlYXNlcy8yZDcxODM1NWNjNDhlNTUyZTU0OS9jb25maWcvY29tZnlfaW1hZ2Vfcm91dGVzLmpzb24iCg==",
+  "status": "INSTALLED",
+  "services_before": "MainPID=381697\nNRestarts=0\nId=llm-inference.service\nActiveState=active\n\nMainPID=0\nNRestarts=0\nId=llm-embedding.service\nActiveState=inactive\n\nMainPID=381700\nNRestarts=0\nId=comfyui.service\nActiveState=active\n",
+  "health_after": {
+    "status": "ok",
+    "role": "qualified-model-gateway",
+    "current_model": null,
+    "requested_name": null,
+    "backend_healthy": false,
+    "backend_pid": null,
+    "backend_port": 18080,
+    "last_switch_seconds": null,
+    "last_error": null,
+    "max_resident_models": 1,
+    "available_models": [
+      "fable-tc",
+      "gemma-vision",
+      "hauhaucs",
+      "muse-vision",
+      "qwen36-moe",
+      "qwen38"
+    ],
+    "gpu_coordination": {
+      "enabled": true,
+      "path": "/home/augus/.local/state/tare-qualified-models/gpu.lock",
+      "held": true,
+      "owner": {
+        "kind": "text",
+        "request_id": "resident-gateway-update",
+        "pid": 916385,
+        "acquired_at": 1790006224.6307173
+      }
+    },
+    "resident_readout": "pid-bound-v1"
+  },
+  "services_after": "MainPID=916433\nNRestarts=0\nId=llm-inference.service\nActiveState=active\n\nMainPID=0\nNRestarts=0\nId=llm-embedding.service\nActiveState=inactive\n\nMainPID=381700\nNRestarts=0\nId=comfyui.service\nActiveState=active\n"
+}

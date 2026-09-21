@@ -4,6 +4,8 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Add a resident-Qwen decision worker under the canonical GPU lease, with serialized, RAM-admitted OpenJEV CPU fallback and bounded worker lifetime.
+
 - Add a bounded OpenJEV NLI and joint-routing resource probe: CPU, supervised
   CUDA and four-layer hybrid placements; preserve logits, memory samples,
   exact checkpoint identity, cold-load timing and Qwen coexistence receipts.

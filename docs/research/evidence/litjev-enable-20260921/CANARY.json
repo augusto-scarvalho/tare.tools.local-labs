@@ -1,0 +1,188 @@
+{
+  "schema": "tare.local-labs/decision-worker-canary/1",
+  "qualification": "UNQUALIFIED",
+  "authority": "NONE",
+  "before": {
+    "status": "ok",
+    "role": "qualified-model-gateway",
+    "current_model": null,
+    "requested_name": null,
+    "backend_healthy": false,
+    "backend_pid": null,
+    "backend_port": 18080,
+    "last_switch_seconds": 12.0565941859968,
+    "last_error": null,
+    "max_resident_models": 1,
+    "available_models": [
+      "fable-tc",
+      "gemma-vision",
+      "hauhaucs",
+      "muse-vision",
+      "qwen36-moe",
+      "qwen38"
+    ],
+    "gpu_coordination": {
+      "enabled": true,
+      "path": "/home/augus/.local/state/tare-qualified-models/gpu.lock",
+      "held": false,
+      "owner": null
+    }
+  },
+  "services_before": "MainPID=381697\nNRestarts=0\nId=llm-inference.service\nActiveState=active\n\nMainPID=0\nNRestarts=0\nId=llm-embedding.service\nActiveState=inactive\n\nMainPID=381700\nNRestarts=0\nId=comfyui.service\nActiveState=active\n",
+  "profile": {
+    "profile": {
+      "model": "qwen38",
+      "context_window": 32768,
+      "slot_windows": [
+        32768
+      ],
+      "template_sha256": "bf6686a32ad4e999feafb1031e8f84191541953be0ca6363657831e227966efe",
+      "build_info": "b10165-71676e46c",
+      "artifact_sha256": "bee238bbeb3dc0a34bde4d0dedbaee1f98c009e8bb4226f03070054c12fb1372",
+      "artifact_identity_source": "qualified_registry_and_live_model_path_not_fresh_gguf_hash",
+      "runtime_configuration_sha256": "11247025d333b6b34e32f3cad330891fdc5a82cc5a1fccee9b0155f645c4c9a3",
+      "fingerprint": "aac38da0e8c2ba9e164f79561a90b3b0276c83a6fcb6abfd83180a764f8c2971"
+    },
+    "backend_operations": [
+      {
+        "path": "/props",
+        "method": "GET",
+        "status": "ok",
+        "duration_ms": 1.812
+      },
+      {
+        "path": "/slots",
+        "method": "GET",
+        "status": "ok",
+        "duration_ms": 0.928
+      }
+    ]
+  },
+  "gpu": {
+    "seconds": 0.8320929399924353,
+    "returncode": 0,
+    "answer": {
+      "choice": "strategy_1",
+      "probabilities": {
+        "strategy_1": 0.9954239897100329,
+        "strategy_2": 0.003228738722205578,
+        "insufficient": 0.0013472715677614099
+      },
+      "usage": {
+        "input_tokens": 742,
+        "output_tokens": 1
+      },
+      "model_identity": {
+        "model": "qwen38",
+        "backend_pid": 916166,
+        "artifact_sha256": "bee238bbeb3dc0a34bde4d0dedbaee1f98c009e8bb4226f03070054c12fb1372",
+        "artifact_identity_source": "configured-artifact-and-live-path",
+        "placement": "resident-gpu",
+        "fallback_used": false,
+        "method": "litjev-native-first-token-v1",
+        "upstream": "https://github.com/zhengxuyu/litjev/tree/e7fb109a7466da9709028eb9c4e9f16eaeb4e2a3",
+        "score_semantics": "restricted-next-token-not-calibrated-success"
+      }
+    },
+    "stderr": ""
+  },
+  "cpu": {
+    "seconds": 43.26429702603491,
+    "returncode": 0,
+    "answer": {
+      "choice": "strategy_1",
+      "probabilities": {
+        "strategy_1": 0.5875765058129276,
+        "strategy_2": 0.396921223191526,
+        "insufficient": 0.015502270995546304
+      },
+      "usage": {
+        "input_tokens": 2051,
+        "output_tokens": 0
+      },
+      "model_identity": {
+        "model": "AlexWortega/openjev",
+        "revision": "f004f37e52695d6ddfb914a64dbf93942839ba1e",
+        "subfolder": "qwen3.5-4b-nli-v2",
+        "transformers_version": "5.17.0",
+        "torch_version": "2.14.0+cu126",
+        "device": "cpu",
+        "dtype": "torch.float32",
+        "threads": 4,
+        "cuda_layers": 0,
+        "manifest_sha256": "e107a73311b15fa5d6b06838f8a4fa86b5cff8218a3d63d55ea751669ab9a6b1",
+        "score_semantics": "normalized-entailment-not-calibrated-success",
+        "max_pair_tokens": 4096,
+        "batching": "sequential-pairs-no-prefix-cache",
+        "hybrid_semantics": null,
+        "fallback_used": true,
+        "fallback_reason": "GPU_LEASE_BUSY"
+      }
+    },
+    "stderr": "\nLoading weights:   0%|          | 0/724 [00:00<?, ?it/s]\nLoading weights:   0%|          | 1/724 [00:00<05:49,  2.07it/s]\nLoading weights:  30%|\u2588\u2588\u2588       | 220/724 [00:00<00:01, 499.24it/s]\nLoading weights:  48%|\u2588\u2588\u2588\u2588\u258a     | 347/724 [00:01<00:00, 380.94it/s]\nLoading weights:  59%|\u2588\u2588\u2588\u2588\u2588\u2589    | 430/724 [00:01<00:01, 269.83it/s]\nLoading weights:  86%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258c | 624/724 [00:01<00:00, 470.18it/s]\nLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 724/724 [00:01<00:00, 420.93it/s]\n[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.\n[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.\n"
+  },
+  "during_cpu": {
+    "status": "ok",
+    "role": "qualified-model-gateway",
+    "current_model": null,
+    "requested_name": null,
+    "backend_healthy": false,
+    "backend_pid": null,
+    "backend_port": 18080,
+    "last_switch_seconds": 8.52560974197695,
+    "last_error": null,
+    "max_resident_models": 1,
+    "available_models": [
+      "fable-tc",
+      "gemma-vision",
+      "hauhaucs",
+      "muse-vision",
+      "qwen36-moe",
+      "qwen38"
+    ],
+    "gpu_coordination": {
+      "enabled": true,
+      "path": "/home/augus/.local/state/tare-qualified-models/gpu.lock",
+      "held": true,
+      "owner": {
+        "kind": "image",
+        "request_id": "decision-fallback-canary",
+        "pid": 916158,
+        "acquired_at": 1790005779.9891822
+      }
+    }
+  },
+  "status": "PASS",
+  "after": {
+    "status": "ok",
+    "role": "qualified-model-gateway",
+    "current_model": null,
+    "requested_name": null,
+    "backend_healthy": false,
+    "backend_pid": null,
+    "backend_port": 18080,
+    "last_switch_seconds": 8.52560974197695,
+    "last_error": null,
+    "max_resident_models": 1,
+    "available_models": [
+      "fable-tc",
+      "gemma-vision",
+      "hauhaucs",
+      "muse-vision",
+      "qwen36-moe",
+      "qwen38"
+    ],
+    "gpu_coordination": {
+      "enabled": true,
+      "path": "/home/augus/.local/state/tare-qualified-models/gpu.lock",
+      "held": false,
+      "owner": null
+    }
+  },
+  "queue_after": {
+    "queue_running": [],
+    "queue_pending": []
+  },
+  "services_after": "MainPID=381697\nNRestarts=0\nId=llm-inference.service\nActiveState=active\n\nMainPID=0\nNRestarts=0\nId=llm-embedding.service\nActiveState=inactive\n\nMainPID=381700\nNRestarts=0\nId=comfyui.service\nActiveState=active\n",
+  "gpu_final": "601 MiB, 23722 MiB\n"
+}

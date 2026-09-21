@@ -239,6 +239,7 @@ class FleetRuntime:
             "max_resident_models": 1,
             "available_models": sorted(self.config["models"]),
             "gpu_coordination": coord,
+            "resident_readout": "pid-bound-v1",
         }
 
 
@@ -254,9 +255,9 @@ def send_json(handler: BaseHTTPRequestHandler, status: int, payload: Any) -> Non
     handler.wfile.write(raw)
 
 
-def proxy_request(handler: BaseHTTPRequestHandler, body: bytes, *, fleet_observation=None) -> None:
+def proxy_request(handler: BaseHTTPRequestHandler, body: bytes, *, fleet_observation=None, timeout=3600) -> None:
     connection = http.client.HTTPConnection(
-        RUNTIME.backend_host, RUNTIME.backend_port, timeout=3600
+        RUNTIME.backend_host, RUNTIME.backend_port, timeout=timeout
     )
     headers = {
         key: value for key, value in handler.headers.items()
@@ -552,14 +553,27 @@ class Handler(BaseHTTPRequestHandler):
             return
 
         binding = payload.pop(BINDING_FIELD, None)
+        resident_pid = payload.pop('_tare_resident_backend_pid', None)
+        if resident_pid is not None and (path != '/completion' or binding is not None
+                or type(resident_pid) is not int or resident_pid <= 0
+                or payload.get('n_predict') != 1 or payload.get('stream', False) is not False):
+            send_json(self, 400, {'error': {'type': 'invalid_resident_readout', 'message': 'invalid resident-only request'}})
+            return
         lease = getattr(RUNTIME, "gpu_lease", None) or SharedGpuLease(None)
-        route_timeout = getattr(RUNTIME, "route_timeout", 60.0)
+        route_timeout = .15 if resident_pid is not None else getattr(RUNTIME, "route_timeout", 60.0)
         request_id = str(secrets.token_hex(8))
 
         try:
             with lease.hold("text", request_id, timeout=route_timeout):
                 with RUNTIME.request_lock:
                     try:
+                        if resident_pid is not None and (not lease.is_enabled
+                                or RUNTIME.model_id != model_id or RUNTIME.process is None
+                                or RUNTIME.process.pid != resident_pid or RUNTIME.process.poll() is not None
+                                or not RUNTIME.backend_health()):
+                            send_json(self, 409, {'error': {'type': 'resident_backend_unavailable',
+                                'message': 'resident backend changed; no model was loaded'}})
+                            return
                         operations = []
                         if path == '/v1/fleet/count':
                             if set(payload) != {'model', 'request'} or binding is not None:
@@ -580,13 +594,18 @@ class Handler(BaseHTTPRequestHandler):
                             profile = check_binding(RUNTIME, requested, payload, binding, operations)
                             observed = {'binding': binding, 'profile': profile, 'backend_operations': operations,
                                 'backend_operation_coverage': 'binding_checks_only_excludes_health_loading_and_generation'}
-                        else:
+                        elif resident_pid is None:
                             RUNTIME.ensure_model(str(requested))
+                            observed = None
+                        else:
                             observed = None
                         payload['model'] = model_id
                         body = json.dumps(payload, ensure_ascii=False).encode('utf-8')
                         try:
-                            proxy_request(self, body, fleet_observation=observed)
+                            if resident_pid is not None:
+                                proxy_request(self, body, timeout=15)
+                            else:
+                                proxy_request(self, body, fleet_observation=observed)
                         except (ConnectionError, http.client.HTTPException, socket.error, OSError) as exc:
                             if lease.is_enabled:
                                 LOG.warning("transport error during proxy; stopping backend under GPU lease: %s", exc)

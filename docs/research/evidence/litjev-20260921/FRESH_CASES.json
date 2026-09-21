@@ -1,0 +1,113 @@
+{
+  "scope": "Fresh synthetic boundary diagnostics, not production held-out tasks",
+  "cases": [
+    {
+      "id": "unknown-cost-0",
+      "request": {
+        "state": "{\"task\":\"Choose the least expensive adequate implementation and audit pair. Require at least 90 accepted deliveries per 100.\",\"strategies\":[{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":null,\"seconds_per_accepted_delivery\":100},{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1.2,\"seconds_per_accepted_delivery\":100}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "A": "{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":null,\"seconds_per_accepted_delivery\":100}",
+          "B": "{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1.2,\"seconds_per_accepted_delivery\":100}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient"
+    },
+    {
+      "id": "unknown-cost-1",
+      "request": {
+        "state": "{\"task\":\"Choose the least expensive adequate implementation and audit pair. Require at least 90 accepted deliveries per 100.\",\"strategies\":[{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1.2,\"seconds_per_accepted_delivery\":100},{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":null,\"seconds_per_accepted_delivery\":100}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "B": "{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1.2,\"seconds_per_accepted_delivery\":100}",
+          "A": "{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":null,\"seconds_per_accepted_delivery\":100}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient"
+    },
+    {
+      "id": "unmatched-cohorts-0",
+      "request": {
+        "state": "{\"task\":\"Compare complete implementation and audit pairs only on matching evaluation cohorts.\",\"strategies\":[{\"identity\":\"A\",\"accepted\":99,\"attempted\":100,\"cohort\":\"easy-doc-edits\",\"usd_per_accepted_delivery\":0.2},{\"identity\":\"B\",\"accepted\":91,\"attempted\":100,\"cohort\":\"hard-concurrency-repairs\",\"usd_per_accepted_delivery\":1.4}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "A": "{\"identity\":\"A\",\"accepted\":99,\"attempted\":100,\"cohort\":\"easy-doc-edits\",\"usd_per_accepted_delivery\":0.2}",
+          "B": "{\"identity\":\"B\",\"accepted\":91,\"attempted\":100,\"cohort\":\"hard-concurrency-repairs\",\"usd_per_accepted_delivery\":1.4}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient"
+    },
+    {
+      "id": "unmatched-cohorts-1",
+      "request": {
+        "state": "{\"task\":\"Compare complete implementation and audit pairs only on matching evaluation cohorts.\",\"strategies\":[{\"identity\":\"B\",\"accepted\":91,\"attempted\":100,\"cohort\":\"hard-concurrency-repairs\",\"usd_per_accepted_delivery\":1.4},{\"identity\":\"A\",\"accepted\":99,\"attempted\":100,\"cohort\":\"easy-doc-edits\",\"usd_per_accepted_delivery\":0.2}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "B": "{\"identity\":\"B\",\"accepted\":91,\"attempted\":100,\"cohort\":\"hard-concurrency-repairs\",\"usd_per_accepted_delivery\":1.4}",
+          "A": "{\"identity\":\"A\",\"accepted\":99,\"attempted\":100,\"cohort\":\"easy-doc-edits\",\"usd_per_accepted_delivery\":0.2}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient"
+    },
+    {
+      "id": "equal-quality-cost-time-0",
+      "request": {
+        "state": "{\"task\":\"Require at least 90 accepted deliveries per 100; equal acceptance and cost permit faster complete delivery.\",\"strategies\":[{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":200},{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":60}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "A": "{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":200}",
+          "B": "{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":60}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "B"
+    },
+    {
+      "id": "equal-quality-cost-time-1",
+      "request": {
+        "state": "{\"task\":\"Require at least 90 accepted deliveries per 100; equal acceptance and cost permit faster complete delivery.\",\"strategies\":[{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":60},{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":200}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "B": "{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":60}",
+          "A": "{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":200}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "B"
+    }
+  ]
+}

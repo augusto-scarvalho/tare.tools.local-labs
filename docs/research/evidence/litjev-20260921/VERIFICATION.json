@@ -1,0 +1,18 @@
+{
+  "receipt_sha256": "a2c7c744febd55d0aa8cf3604abc8cc64d39066097c0492190ada0798c519a95",
+  "status": "PASS",
+  "checks": [
+    "immutable input and executable hashes",
+    "12 complete nontruncated valid distributions",
+    "restricted softmax independently recomputed",
+    "one output token per call",
+    "expected control",
+    "lease and residency recovery",
+    "Comfy and embedding service identity unchanged"
+  ],
+  "screen_status": "FAIL_NEW_UNKNOWN_COST_ABSTENTION",
+  "original_correct": 6,
+  "new_correct": 4,
+  "all_six_groups_order_stable": true,
+  "verification_note": "Initial all-files hash snapshot includes probe.log, created empty by shell redirection. Its initial empty hash was verified; runtime log growth is excluded from immutable-input comparison. The first verifier incorrectly treated that log as immutable, then this verifier corrected that check. No inference repeated or evidence overwritten."
+}
