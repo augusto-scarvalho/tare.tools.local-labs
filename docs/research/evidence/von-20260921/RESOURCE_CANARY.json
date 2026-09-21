@@ -1,0 +1,54 @@
+{
+  "scope": "Single repeated transport/resource canary; excluded from quality counts",
+  "exit_code": 0,
+  "reason": null,
+  "elapsed_seconds": 21.98499999998603,
+  "processes": [
+    {
+      "pid": 16960,
+      "created": 1790031874.4962134,
+      "peak_wset": 4382720
+    },
+    {
+      "pid": 9928,
+      "created": 1790031874.5135028,
+      "peak_wset": 3275030528
+    }
+  ],
+  "sampled_tree_peak_rss_bytes": 3224956928,
+  "unreaped_processes": [],
+  "answer": {
+    "choice": "bounded",
+    "probabilities": {
+      "bounded": 0.9829400777816772,
+      "reasoning": 0.0007693975931033492,
+      "insufficient": 0.01629060134291649
+    },
+    "usage": {
+      "input_tokens": 98,
+      "output_tokens": 0
+    },
+    "model_identity": {
+      "model": "wfzyx/von-1.0",
+      "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+      "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+      "device": "cpu",
+      "threads": 2,
+      "method": "von-option-marker-cpu-v1",
+      "temperature": 2.2,
+      "max_tokens": 2048,
+      "torch": "2.8.0+cpu",
+      "transformers": "4.57.6",
+      "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+    }
+  },
+  "request": {
+    "state": "Fix a spelling mistake in one CLI help string: change 'recieve' to 'receive'. Only cli/help.py may change. An existing test asserts the exact corrected text. No behavior or API changes are requested.",
+    "question": "What kind of implementation or review does this task require?",
+    "options": {
+      "bounded": "A localized mechanical change with explicit executable checks.",
+      "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+      "insufficient": "The supplied task does not establish the required scope or checks."
+    }
+  }
+}

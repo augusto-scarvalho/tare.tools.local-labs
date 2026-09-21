@@ -1,0 +1,540 @@
+{
+  "status": "COMPLETED",
+  "protocol_sha256": "d0872a0e2feb24ad17d825144ce8f57d24f20d5ffa73540c89038fa87f4643d6",
+  "schema": "tare.local-labs/von-screen-result/1",
+  "authority": "NONE",
+  "qualification": "UNQUALIFIED",
+  "correct": 6,
+  "count": 15,
+  "order_stable_groups": 0,
+  "order_group_count": 6,
+  "median_ms": 3062.0,
+  "p95_ms": 8750.0,
+  "cases": [
+    {
+      "id": "effort-cost-0",
+      "suite": "strategy",
+      "expected": "claude-opus-5@low+gpt-6-astra@high",
+      "correct": true,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "strategy_1",
+        "probabilities": {
+          "strategy_1": 0.7950182557106018,
+          "strategy_2": 0.17207911610603333,
+          "insufficient": 0.032902657985687256
+        },
+        "usage": {
+          "input_tokens": 682,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "wfzyx/von-1.0",
+          "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+          "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+          "device": "cpu",
+          "threads": 2,
+          "method": "von-option-marker-cpu-v1",
+          "temperature": 2.2,
+          "max_tokens": 2048,
+          "torch": "2.8.0+cpu",
+          "transformers": "4.57.6",
+          "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+        }
+      },
+      "observed": "claude-opus-5@low+gpt-6-astra@high",
+      "elapsed_ms": 7844.0
+    },
+    {
+      "id": "quality-floor-1",
+      "suite": "strategy",
+      "expected": "claude-sonnet-5@medium+fable-5.1@high",
+      "correct": true,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "strategy_1",
+        "probabilities": {
+          "strategy_1": 0.9451746344566345,
+          "strategy_2": 0.05370346084237099,
+          "insufficient": 0.0011218547588214278
+        },
+        "usage": {
+          "input_tokens": 688,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "wfzyx/von-1.0",
+          "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+          "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+          "device": "cpu",
+          "threads": 2,
+          "method": "von-option-marker-cpu-v1",
+          "temperature": 2.2,
+          "max_tokens": 2048,
+          "torch": "2.8.0+cpu",
+          "transformers": "4.57.6",
+          "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+        }
+      },
+      "observed": "claude-sonnet-5@medium+fable-5.1@high",
+      "elapsed_ms": 6687.0
+    },
+    {
+      "id": "total-cost-1",
+      "suite": "strategy",
+      "expected": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+      "correct": false,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "strategy_1",
+        "probabilities": {
+          "strategy_1": 0.5260641574859619,
+          "strategy_2": 0.47004085779190063,
+          "insufficient": 0.003894984256476164
+        },
+        "usage": {
+          "input_tokens": 696,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "wfzyx/von-1.0",
+          "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+          "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+          "device": "cpu",
+          "threads": 2,
+          "method": "von-option-marker-cpu-v1",
+          "temperature": 2.2,
+          "max_tokens": 2048,
+          "torch": "2.8.0+cpu",
+          "transformers": "4.57.6",
+          "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+        }
+      },
+      "observed": "claude-opus-5@low+fable-5.1@high",
+      "elapsed_ms": 6282.0
+    },
+    {
+      "id": "total-cost-0",
+      "suite": "strategy",
+      "expected": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+      "correct": true,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "strategy_1",
+        "probabilities": {
+          "strategy_1": 0.9295011758804321,
+          "strategy_2": 0.06760834157466888,
+          "insufficient": 0.002890470903366804
+        },
+        "usage": {
+          "input_tokens": 696,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "wfzyx/von-1.0",
+          "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+          "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+          "device": "cpu",
+          "threads": 2,
+          "method": "von-option-marker-cpu-v1",
+          "temperature": 2.2,
+          "max_tokens": 2048,
+          "torch": "2.8.0+cpu",
+          "transformers": "4.57.6",
+          "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+        }
+      },
+      "observed": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+      "elapsed_ms": 6140.0
+    },
+    {
+      "id": "quality-floor-0",
+      "suite": "strategy",
+      "expected": "claude-sonnet-5@medium+fable-5.1@high",
+      "correct": false,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "strategy_1",
+        "probabilities": {
+          "strategy_1": 0.9342001080513,
+          "strategy_2": 0.0601295605301857,
+          "insufficient": 0.005670247599482536
+        },
+        "usage": {
+          "input_tokens": 688,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "wfzyx/von-1.0",
+          "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+          "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+          "device": "cpu",
+          "threads": 2,
+          "method": "von-option-marker-cpu-v1",
+          "temperature": 2.2,
+          "max_tokens": 2048,
+          "torch": "2.8.0+cpu",
+          "transformers": "4.57.6",
+          "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+        }
+      },
+      "observed": "gemini-3.8-flash-high@high+gpt-6-astra@high",
+      "elapsed_ms": 8547.0
+    },
+    {
+      "id": "effort-cost-1",
+      "suite": "strategy",
+      "expected": "claude-opus-5@low+gpt-6-astra@high",
+      "correct": false,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "strategy_1",
+        "probabilities": {
+          "strategy_1": 0.980872392654419,
+          "strategy_2": 0.015215493738651276,
+          "insufficient": 0.003912101034075022
+        },
+        "usage": {
+          "input_tokens": 682,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "wfzyx/von-1.0",
+          "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+          "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+          "device": "cpu",
+          "threads": 2,
+          "method": "von-option-marker-cpu-v1",
+          "temperature": 2.2,
+          "max_tokens": 2048,
+          "torch": "2.8.0+cpu",
+          "transformers": "4.57.6",
+          "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+        }
+      },
+      "observed": "claude-opus-5@high+gpt-6-astra@high",
+      "elapsed_ms": 8750.0
+    },
+    {
+      "id": "unknown-cost-0",
+      "suite": "boundary",
+      "expected": "insufficient",
+      "correct": false,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "B",
+        "probabilities": {
+          "A": 0.37221941351890564,
+          "B": 0.5647884607315063,
+          "insufficient": 0.06299207359552383
+        },
+        "usage": {
+          "input_tokens": 292,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "wfzyx/von-1.0",
+          "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+          "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+          "device": "cpu",
+          "threads": 2,
+          "method": "von-option-marker-cpu-v1",
+          "temperature": 2.2,
+          "max_tokens": 2048,
+          "torch": "2.8.0+cpu",
+          "transformers": "4.57.6",
+          "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+        }
+      },
+      "observed": "B",
+      "elapsed_ms": 3313.0
+    },
+    {
+      "id": "unknown-cost-1",
+      "suite": "boundary",
+      "expected": "insufficient",
+      "correct": false,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "A",
+        "probabilities": {
+          "B": 0.40212687849998474,
+          "A": 0.46986642479896545,
+          "insufficient": 0.12800666689872742
+        },
+        "usage": {
+          "input_tokens": 292,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "wfzyx/von-1.0",
+          "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+          "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+          "device": "cpu",
+          "threads": 2,
+          "method": "von-option-marker-cpu-v1",
+          "temperature": 2.2,
+          "max_tokens": 2048,
+          "torch": "2.8.0+cpu",
+          "transformers": "4.57.6",
+          "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+        }
+      },
+      "observed": "A",
+      "elapsed_ms": 3062.0
+    },
+    {
+      "id": "unmatched-cohorts-0",
+      "suite": "boundary",
+      "expected": "insufficient",
+      "correct": false,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "B",
+        "probabilities": {
+          "A": 0.38168030977249146,
+          "B": 0.500054657459259,
+          "insufficient": 0.11826501786708832
+        },
+        "usage": {
+          "input_tokens": 255,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "wfzyx/von-1.0",
+          "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+          "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+          "device": "cpu",
+          "threads": 2,
+          "method": "von-option-marker-cpu-v1",
+          "temperature": 2.2,
+          "max_tokens": 2048,
+          "torch": "2.8.0+cpu",
+          "transformers": "4.57.6",
+          "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+        }
+      },
+      "observed": "B",
+      "elapsed_ms": 2172.0
+    },
+    {
+      "id": "unmatched-cohorts-1",
+      "suite": "boundary",
+      "expected": "insufficient",
+      "correct": false,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "A",
+        "probabilities": {
+          "B": 0.2187991440296173,
+          "A": 0.6322017908096313,
+          "insufficient": 0.14899902045726776
+        },
+        "usage": {
+          "input_tokens": 255,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "wfzyx/von-1.0",
+          "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+          "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+          "device": "cpu",
+          "threads": 2,
+          "method": "von-option-marker-cpu-v1",
+          "temperature": 2.2,
+          "max_tokens": 2048,
+          "torch": "2.8.0+cpu",
+          "transformers": "4.57.6",
+          "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+        }
+      },
+      "observed": "A",
+      "elapsed_ms": 2266.0
+    },
+    {
+      "id": "equal-quality-cost-time-0",
+      "suite": "boundary",
+      "expected": "B",
+      "correct": true,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "B",
+        "probabilities": {
+          "A": 0.3127647638320923,
+          "B": 0.5600822567939758,
+          "insufficient": 0.12715297937393188
+        },
+        "usage": {
+          "input_tokens": 287,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "wfzyx/von-1.0",
+          "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+          "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+          "device": "cpu",
+          "threads": 2,
+          "method": "von-option-marker-cpu-v1",
+          "temperature": 2.2,
+          "max_tokens": 2048,
+          "torch": "2.8.0+cpu",
+          "transformers": "4.57.6",
+          "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+        }
+      },
+      "observed": "B",
+      "elapsed_ms": 2921.0
+    },
+    {
+      "id": "equal-quality-cost-time-1",
+      "suite": "boundary",
+      "expected": "B",
+      "correct": false,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "A",
+        "probabilities": {
+          "B": 0.41062384843826294,
+          "A": 0.4603581130504608,
+          "insufficient": 0.12901800870895386
+        },
+        "usage": {
+          "input_tokens": 287,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "wfzyx/von-1.0",
+          "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+          "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+          "device": "cpu",
+          "threads": 2,
+          "method": "von-option-marker-cpu-v1",
+          "temperature": 2.2,
+          "max_tokens": 2048,
+          "torch": "2.8.0+cpu",
+          "transformers": "4.57.6",
+          "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+        }
+      },
+      "observed": "A",
+      "elapsed_ms": 2469.0
+    },
+    {
+      "id": "english-mechanical",
+      "suite": "demand",
+      "expected": "bounded",
+      "correct": true,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "bounded",
+        "probabilities": {
+          "bounded": 0.9829400777816772,
+          "reasoning": 0.0007693975931033492,
+          "insufficient": 0.01629060134291649
+        },
+        "usage": {
+          "input_tokens": 98,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "wfzyx/von-1.0",
+          "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+          "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+          "device": "cpu",
+          "threads": 2,
+          "method": "von-option-marker-cpu-v1",
+          "temperature": 2.2,
+          "max_tokens": 2048,
+          "torch": "2.8.0+cpu",
+          "transformers": "4.57.6",
+          "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+        }
+      },
+      "observed": "bounded",
+      "elapsed_ms": 1063.0
+    },
+    {
+      "id": "portuguese-concurrency",
+      "suite": "demand",
+      "expected": "reasoning",
+      "correct": false,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "insufficient",
+        "probabilities": {
+          "bounded": 0.029041297733783722,
+          "reasoning": 0.11475451290607452,
+          "insufficient": 0.8562041521072388
+        },
+        "usage": {
+          "input_tokens": 155,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "wfzyx/von-1.0",
+          "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+          "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+          "device": "cpu",
+          "threads": 2,
+          "method": "von-option-marker-cpu-v1",
+          "temperature": 2.2,
+          "max_tokens": 2048,
+          "torch": "2.8.0+cpu",
+          "transformers": "4.57.6",
+          "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+        }
+      },
+      "observed": "insufficient",
+      "elapsed_ms": 1515.0
+    },
+    {
+      "id": "missing-scope",
+      "suite": "demand",
+      "expected": "insufficient",
+      "correct": true,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "insufficient",
+        "probabilities": {
+          "bounded": 0.004185554571449757,
+          "reasoning": 0.004517608787864447,
+          "insufficient": 0.9912968873977661
+        },
+        "usage": {
+          "input_tokens": 72,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "wfzyx/von-1.0",
+          "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+          "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+          "device": "cpu",
+          "threads": 2,
+          "method": "von-option-marker-cpu-v1",
+          "temperature": 2.2,
+          "max_tokens": 2048,
+          "torch": "2.8.0+cpu",
+          "transformers": "4.57.6",
+          "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+        }
+      },
+      "observed": "insufficient",
+      "elapsed_ms": 844.0
+    }
+  ],
+  "load_ms": 19516.0,
+  "model_identity": {
+    "model": "wfzyx/von-1.0",
+    "revision": "aa2fdc9630ecdadef32c56073553b3a69bed38bf",
+    "source_revision": "2656a69be2ef0ebf2f3058302e52791f99cbd8de",
+    "device": "cpu",
+    "threads": 2,
+    "method": "von-option-marker-cpu-v1",
+    "temperature": 2.2,
+    "max_tokens": 2048,
+    "torch": "2.8.0+cpu",
+    "transformers": "4.57.6",
+    "manifest_sha256": "bceb0948e36bb628af45c98bf47ac511f83f8dc7e40d1e1164fe2aa8cbe6b9c5"
+  },
+  "total_ms": 83391.0
+}

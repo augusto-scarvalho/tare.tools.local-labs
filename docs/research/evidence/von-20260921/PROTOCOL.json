@@ -1,0 +1,315 @@
+{
+  "schema": "tare.local-labs/von-screen/1",
+  "max_calls": 15,
+  "cases": [
+    {
+      "id": "effort-cost-0",
+      "group": "effort-cost",
+      "request": {
+        "state": "{\"task\":{\"title\":\"Select implementation effort for a bounded parser repair.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. Equal acceptance permits the cheaper complete strategy.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":93,\"attempted\":100,\"usd_per_accepted_delivery\":0.8,\"seconds_per_accepted_delivery\":107.52688172043011,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":93,\"attempted\":100,\"usd_per_accepted_delivery\":1.4,\"seconds_per_accepted_delivery\":107.52688172043011,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "claude-opus-5@low + gpt-6-astra@high; accepted 93/100; USD 0.8/delivery",
+          "strategy_2": "claude-opus-5@high + gpt-6-astra@high; accepted 93/100; USD 1.4/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "claude-opus-5@low+gpt-6-astra@high",
+        "strategy_2": "claude-opus-5@high+gpt-6-astra@high"
+      },
+      "expected_identity": "claude-opus-5@low+gpt-6-astra@high",
+      "order": [
+        0,
+        1
+      ],
+      "suite": "strategy"
+    },
+    {
+      "id": "quality-floor-1",
+      "group": "quality-floor",
+      "request": {
+        "state": "{\"task\":{\"title\":\"Repair a concurrency defect with independent frontier review.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. A cheaper pair below this floor is inadequate.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"claude-sonnet-5\",\"effort\":\"medium\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"fable-5.1\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":95,\"attempted\":100,\"usd_per_accepted_delivery\":1.0,\"seconds_per_accepted_delivery\":105.26315789473684,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"gemini-3.8-flash-high\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":81,\"attempted\":100,\"usd_per_accepted_delivery\":0.5,\"seconds_per_accepted_delivery\":123.45679012345678,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "claude-sonnet-5@medium + fable-5.1@high; accepted 95/100; USD 1/delivery",
+          "strategy_2": "gemini-3.8-flash-high@high + gpt-6-astra@high; accepted 81/100; USD 0.5/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "claude-sonnet-5@medium+fable-5.1@high",
+        "strategy_2": "gemini-3.8-flash-high@high+gpt-6-astra@high"
+      },
+      "expected_identity": "claude-sonnet-5@medium+fable-5.1@high",
+      "order": [
+        1,
+        0
+      ],
+      "suite": "strategy"
+    },
+    {
+      "id": "total-cost-1",
+      "group": "total-cost",
+      "request": {
+        "state": "{\"task\":{\"title\":\"Choose an economical complete implementation and frontier review pair.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. Then minimize total cost per accepted delivery including audit and rework.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"fable-5.1\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":94,\"attempted\":100,\"usd_per_accepted_delivery\":1.5,\"seconds_per_accepted_delivery\":106.38297872340425,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"deepseek/deepseek-v4.1-flash\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":94,\"attempted\":100,\"usd_per_accepted_delivery\":0.5,\"seconds_per_accepted_delivery\":106.38297872340425,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "claude-opus-5@low + fable-5.1@high; accepted 94/100; USD 1.5/delivery",
+          "strategy_2": "deepseek/deepseek-v4.1-flash@low + gpt-6-astra@high; accepted 94/100; USD 0.5/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "claude-opus-5@low+fable-5.1@high",
+        "strategy_2": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high"
+      },
+      "expected_identity": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+      "order": [
+        1,
+        0
+      ],
+      "suite": "strategy"
+    },
+    {
+      "id": "total-cost-0",
+      "group": "total-cost",
+      "request": {
+        "state": "{\"task\":{\"title\":\"Choose an economical complete implementation and frontier review pair.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. Then minimize total cost per accepted delivery including audit and rework.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"deepseek/deepseek-v4.1-flash\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":94,\"attempted\":100,\"usd_per_accepted_delivery\":0.5,\"seconds_per_accepted_delivery\":106.38297872340425,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"fable-5.1\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":94,\"attempted\":100,\"usd_per_accepted_delivery\":1.5,\"seconds_per_accepted_delivery\":106.38297872340425,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "deepseek/deepseek-v4.1-flash@low + gpt-6-astra@high; accepted 94/100; USD 0.5/delivery",
+          "strategy_2": "claude-opus-5@low + fable-5.1@high; accepted 94/100; USD 1.5/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+        "strategy_2": "claude-opus-5@low+fable-5.1@high"
+      },
+      "expected_identity": "deepseek/deepseek-v4.1-flash@low+gpt-6-astra@high",
+      "order": [
+        0,
+        1
+      ],
+      "suite": "strategy"
+    },
+    {
+      "id": "quality-floor-0",
+      "group": "quality-floor",
+      "request": {
+        "state": "{\"task\":{\"title\":\"Repair a concurrency defect with independent frontier review.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. A cheaper pair below this floor is inadequate.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"gemini-3.8-flash-high\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":81,\"attempted\":100,\"usd_per_accepted_delivery\":0.5,\"seconds_per_accepted_delivery\":123.45679012345678,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"claude-sonnet-5\",\"effort\":\"medium\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"fable-5.1\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":95,\"attempted\":100,\"usd_per_accepted_delivery\":1.0,\"seconds_per_accepted_delivery\":105.26315789473684,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "gemini-3.8-flash-high@high + gpt-6-astra@high; accepted 81/100; USD 0.5/delivery",
+          "strategy_2": "claude-sonnet-5@medium + fable-5.1@high; accepted 95/100; USD 1/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "gemini-3.8-flash-high@high+gpt-6-astra@high",
+        "strategy_2": "claude-sonnet-5@medium+fable-5.1@high"
+      },
+      "expected_identity": "claude-sonnet-5@medium+fable-5.1@high",
+      "order": [
+        0,
+        1
+      ],
+      "suite": "strategy"
+    },
+    {
+      "id": "effort-cost-1",
+      "group": "effort-cost",
+      "request": {
+        "state": "{\"task\":{\"title\":\"Select implementation effort for a bounded parser repair.\",\"exit_criteria\":[\"At least 90 accepted deliveries in the same 100-task cohort. Equal acceptance permits the cheaper complete strategy.\"]},\"strategies\":[{\"key\":\"strategy_1\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":93,\"attempted\":100,\"usd_per_accepted_delivery\":1.4,\"seconds_per_accepted_delivery\":107.52688172043011,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}},{\"key\":\"strategy_2\",\"implementer\":{\"model\":\"claude-opus-5\",\"effort\":\"low\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"auditor\":{\"model\":\"gpt-6-astra\",\"effort\":\"high\",\"quality\":{\"status\":\"SUPPLIED_EVIDENCE\",\"records\":[{\"metric\":\"synthetic-admission\",\"value\":\"passed\",\"scope\":\"Authored test fixture, not vendor evidence.\"}]},\"price\":{\"status\":\"UNKNOWN\"},\"quota\":{\"status\":\"UNKNOWN\"}},\"delivery\":{\"status\":\"SUPPLIED_COHORT\",\"cohort\":\"synthetic-100-task-suite\",\"accepted\":93,\"attempted\":100,\"usd_per_accepted_delivery\":0.8,\"seconds_per_accepted_delivery\":107.52688172043011,\"scope\":\"implementation+audit+rework\",\"source_ref\":\"evidence\"}}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "strategy_1": "claude-opus-5@high + gpt-6-astra@high; accepted 93/100; USD 1.4/delivery",
+          "strategy_2": "claude-opus-5@low + gpt-6-astra@high; accepted 93/100; USD 0.8/delivery",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "strategy_1": "claude-opus-5@high+gpt-6-astra@high",
+        "strategy_2": "claude-opus-5@low+gpt-6-astra@high"
+      },
+      "expected_identity": "claude-opus-5@low+gpt-6-astra@high",
+      "order": [
+        1,
+        0
+      ],
+      "suite": "strategy"
+    },
+    {
+      "id": "unknown-cost-0",
+      "request": {
+        "state": "{\"task\":\"Choose the least expensive adequate implementation and audit pair. Require at least 90 accepted deliveries per 100.\",\"strategies\":[{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":null,\"seconds_per_accepted_delivery\":100},{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1.2,\"seconds_per_accepted_delivery\":100}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "A": "{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":null,\"seconds_per_accepted_delivery\":100}",
+          "B": "{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1.2,\"seconds_per_accepted_delivery\":100}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient",
+      "suite": "boundary"
+    },
+    {
+      "id": "unknown-cost-1",
+      "request": {
+        "state": "{\"task\":\"Choose the least expensive adequate implementation and audit pair. Require at least 90 accepted deliveries per 100.\",\"strategies\":[{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1.2,\"seconds_per_accepted_delivery\":100},{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":null,\"seconds_per_accepted_delivery\":100}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "B": "{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1.2,\"seconds_per_accepted_delivery\":100}",
+          "A": "{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":null,\"seconds_per_accepted_delivery\":100}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient",
+      "suite": "boundary"
+    },
+    {
+      "id": "unmatched-cohorts-0",
+      "request": {
+        "state": "{\"task\":\"Compare complete implementation and audit pairs only on matching evaluation cohorts.\",\"strategies\":[{\"identity\":\"A\",\"accepted\":99,\"attempted\":100,\"cohort\":\"easy-doc-edits\",\"usd_per_accepted_delivery\":0.2},{\"identity\":\"B\",\"accepted\":91,\"attempted\":100,\"cohort\":\"hard-concurrency-repairs\",\"usd_per_accepted_delivery\":1.4}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "A": "{\"identity\":\"A\",\"accepted\":99,\"attempted\":100,\"cohort\":\"easy-doc-edits\",\"usd_per_accepted_delivery\":0.2}",
+          "B": "{\"identity\":\"B\",\"accepted\":91,\"attempted\":100,\"cohort\":\"hard-concurrency-repairs\",\"usd_per_accepted_delivery\":1.4}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient",
+      "suite": "boundary"
+    },
+    {
+      "id": "unmatched-cohorts-1",
+      "request": {
+        "state": "{\"task\":\"Compare complete implementation and audit pairs only on matching evaluation cohorts.\",\"strategies\":[{\"identity\":\"B\",\"accepted\":91,\"attempted\":100,\"cohort\":\"hard-concurrency-repairs\",\"usd_per_accepted_delivery\":1.4},{\"identity\":\"A\",\"accepted\":99,\"attempted\":100,\"cohort\":\"easy-doc-edits\",\"usd_per_accepted_delivery\":0.2}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "B": "{\"identity\":\"B\",\"accepted\":91,\"attempted\":100,\"cohort\":\"hard-concurrency-repairs\",\"usd_per_accepted_delivery\":1.4}",
+          "A": "{\"identity\":\"A\",\"accepted\":99,\"attempted\":100,\"cohort\":\"easy-doc-edits\",\"usd_per_accepted_delivery\":0.2}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "insufficient",
+      "suite": "boundary"
+    },
+    {
+      "id": "equal-quality-cost-time-0",
+      "request": {
+        "state": "{\"task\":\"Require at least 90 accepted deliveries per 100; equal acceptance and cost permit faster complete delivery.\",\"strategies\":[{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":200},{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":60}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "A": "{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":200}",
+          "B": "{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":60}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "B",
+      "suite": "boundary"
+    },
+    {
+      "id": "equal-quality-cost-time-1",
+      "request": {
+        "state": "{\"task\":\"Require at least 90 accepted deliveries per 100; equal acceptance and cost permit faster complete delivery.\",\"strategies\":[{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":60},{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":200}]}",
+        "question": "Choose a complete implementation and audit strategy. OS has admitted the roles. Prefer adequate quality, then lower cost and time per accepted delivery, including audit and rework. Compare only matching cohorts or benchmark setups. Unknown cost is not zero. These are suggestions, not execution authority.",
+        "options": {
+          "B": "{\"identity\":\"B\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":60}",
+          "A": "{\"identity\":\"A\",\"accepted\":94,\"attempted\":100,\"cohort\":\"same-suite\",\"usd_per_accepted_delivery\":1,\"seconds_per_accepted_delivery\":200}",
+          "insufficient": "Keep the existing route; no supported preference."
+        }
+      },
+      "choice_identity": {
+        "A": "A",
+        "B": "B",
+        "insufficient": "insufficient"
+      },
+      "expected_identity": "B",
+      "suite": "boundary"
+    },
+    {
+      "id": "english-mechanical",
+      "suite": "demand",
+      "request": {
+        "state": "Fix a spelling mistake in one CLI help string: change 'recieve' to 'receive'. Only cli/help.py may change. An existing test asserts the exact corrected text. No behavior or API changes are requested.",
+        "question": "What kind of implementation or review does this task require?",
+        "options": {
+          "bounded": "A localized mechanical change with explicit executable checks.",
+          "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+          "insufficient": "The supplied task does not establish the required scope or checks."
+        }
+      },
+      "expected_identity": "bounded",
+      "choice_identity": {
+        "bounded": "bounded",
+        "reasoning": "reasoning",
+        "insufficient": "insufficient"
+      }
+    },
+    {
+      "id": "portuguese-concurrency",
+      "suite": "demand",
+      "request": {
+        "state": "Corrigir uma corrida entre o gateway de modelos e um treino LoRA. SIGTERM pode chegar enquanto o filho inicia; subprocessos destacados podem manter VRAM ocupada. Preservar exclusividade da GPU durante toda a \u00e1rvore de processos e comprovar libera\u00e7\u00e3o antes de carregar o LLM. Os testes devem cobrir concorr\u00eancia, cancelamento e processos descendentes.",
+        "question": "What kind of implementation or review does this task require?",
+        "options": {
+          "bounded": "A localized mechanical change with explicit executable checks.",
+          "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+          "insufficient": "The supplied task does not establish the required scope or checks."
+        }
+      },
+      "expected_identity": "reasoning",
+      "choice_identity": {
+        "bounded": "bounded",
+        "reasoning": "reasoning",
+        "insufficient": "insufficient"
+      }
+    },
+    {
+      "id": "missing-scope",
+      "suite": "demand",
+      "request": {
+        "state": "Make the system better. There is no selected project, task scope, acceptance criterion or verification command.",
+        "question": "What kind of implementation or review does this task require?",
+        "options": {
+          "bounded": "A localized mechanical change with explicit executable checks.",
+          "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+          "insufficient": "The supplied task does not establish the required scope or checks."
+        }
+      },
+      "expected_identity": "insufficient",
+      "choice_identity": {
+        "bounded": "bounded",
+        "reasoning": "reasoning",
+        "insufficient": "insufficient"
+      }
+    }
+  ]
+}
