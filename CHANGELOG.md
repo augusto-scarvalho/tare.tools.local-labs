@@ -4,6 +4,9 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Document removal of stale same-port loopback proxies on the mirrored WSL
+  workstation after they exhausted Windows sockets and broke repository CI.
+
 - Reject oversized OpenJEV CPU choice requests before loading weights using a
   pinned-tokenizer aggregate input cap. Preserve timeout, cancellation, CPU
   contention and environment failure reasons, including the interrupted stage.

@@ -227,7 +227,23 @@ readiness fails. It preserves the embedding service's process identity.
 Windows mirrored WSL networking has a separate Hyper-V firewall. The scoped
 [`allow_shared_gpu_tailscale.ps1`](../ops/qualified-model-fleet/allow_shared_gpu_tailscale.ps1)
 rule permits TCP 8080 and 8188 from Tailscale addresses without changing the
-global inbound policy. Existing port-proxy and Windows firewall rules are kept.
+global inbound policy. Windows firewall rules are kept. Mirrored networking
+does not need a Windows port proxy for these WSL listeners.
+
+On 2026-09-23, four stale `v4tov4` rules on `aaaaa` were removed: listen addresses
+`0.0.0.0` and `100.107.245.30`, ports 8080 and 8188, each forwarding to
+`127.0.0.1` on the same port. The wildcard rule caught its own forwarded
+connections while the WSL service was absent. Windows accumulated roughly
+24,000 established sockets and CI HTTP fixtures failed with `WinError 10055`.
+Removing these four rules reduced established sockets to 99 without restarting
+WSL, services or the machine. The original rules are backed up on that host at
+`C:\Users\augus\portproxy-before-ci-repair-20260923.txt`.
+
+When diagnosing recurrence, inspect `netsh interface portproxy show all`,
+`Get-NetTCPConnection | Group-Object State` and the actual WSL listeners with
+`wsl -d Ubuntu-24.04 -- ss -ltnp`. Do not restore same-port loopback proxies
+while using mirrored networking. A missing application listener should be
+diagnosed in its service; this network repair did not start any GPU workload.
 
 Fixture qualification: execution 330 passed 71 cases; execution 332 passed 17
 final ComfyUI/history/migration cases. All wrappers verified cleanup. Execution
