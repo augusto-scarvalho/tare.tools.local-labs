@@ -4,6 +4,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- The gateway waits until the backend port can be bound again before starting the next model.
+  NInfer closes connections itself, leaving the port in TIME_WAIT for about a minute; llama-server
+  binds without SO_REUSEADDR and failed to start qwen38 right after qwen38-ninfer.
+
 - Fleet cards may declare `runtime.kind: "ninfer"`: the gateway starts NInfer-3090 with the artifact
   and `--model-id`, verifies identity through `/v1/models`, moves thinking controls out of
   `chat_template_kwargs`, and refuses fleet counting/bindings it cannot serve. Adds `qwen38-ninfer`

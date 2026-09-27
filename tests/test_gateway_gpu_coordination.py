@@ -438,3 +438,16 @@ def test_status_reports_coordination_without_leaking_nonce(tmp_path):
         assert "gpu_coordination" in data
         assert data["gpu_coordination"]["enabled"] is True
         assert "nonce" not in json.dumps(data)
+
+
+def test_backend_port_waits_until_bindable_again():
+    import socket
+    listener = socket.socket()
+    listener.bind(("127.0.0.1", 0))
+    listener.listen(1)
+    port = listener.getsockname()[1]
+    assert gateway.port_is_bindable("127.0.0.1", port) is False
+    with pytest.raises(RuntimeError, match="still unavailable"):
+        gateway.wait_until_bindable("127.0.0.1", port, timeout=0.2)
+    listener.close()
+    gateway.wait_until_bindable("127.0.0.1", port, timeout=5)

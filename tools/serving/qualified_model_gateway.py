@@ -184,6 +184,7 @@ class FleetRuntime:
             return model_id, 0.0
 
         self.stop_backend()
+        wait_until_bindable(self.backend_host, self.backend_port)
         self.state_dir.mkdir(parents=True, exist_ok=True)
         log_path = self.state_dir / f"{model_id}.log"
         command = build_backend_command(
@@ -659,6 +660,25 @@ class Handler(BaseHTTPRequestHandler):
 def port_is_free(host: str, port: int) -> bool:
     with socket.socket() as sock:
         return sock.connect_ex((host, port)) != 0
+
+
+def port_is_bindable(host: str, port: int) -> bool:
+    """Bind like llama-server does (no SO_REUSEADDR): server-side TIME_WAIT blocks it too."""
+    with socket.socket() as sock:
+        try:
+            sock.bind((host, port))
+            return True
+        except OSError:
+            return False
+
+
+def wait_until_bindable(host: str, port: int, timeout: float = 90.0) -> None:
+    # NInfer closes connections itself, leaving the port in TIME_WAIT for ~60 s after it exits.
+    deadline = time.monotonic() + timeout
+    while not port_is_bindable(host, port):
+        if time.monotonic() >= deadline:
+            raise RuntimeError(f"backend port {port} still unavailable after {timeout:.0f}s")
+        time.sleep(0.5)
 
 
 def main(argv: list[str] | None = None) -> int:
