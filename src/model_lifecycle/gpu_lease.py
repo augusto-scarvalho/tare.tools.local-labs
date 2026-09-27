@@ -136,22 +136,27 @@ class SharedGpuLease:
 
         fd = None
         flock_acquired = False
+        ticket = None
         try:
             fd = self._open_lock_file()
+            ticket = self._take_ticket(fcntl_mod)
             while True:
                 if cancelled is not None and cancelled():
                     raise InterruptedError("GPU lease acquisition cancelled while waiting for file lock")
-                try:
-                    fcntl_mod.flock(fd, fcntl_mod.LOCK_EX | fcntl_mod.LOCK_NB)
-                    flock_acquired = True
-                    break
-                except (BlockingIOError, OSError) as exc:
-                    if exc.errno not in (errno.EWOULDBLOCK, errno.EAGAIN):
-                        raise
+                if self._first_in_line(fcntl_mod, ticket[0]):
+                    try:
+                        fcntl_mod.flock(fd, fcntl_mod.LOCK_EX | fcntl_mod.LOCK_NB)
+                        flock_acquired = True
+                        break
+                    except (BlockingIOError, OSError) as exc:
+                        if exc.errno not in (errno.EWOULDBLOCK, errno.EAGAIN):
+                            raise
                 remaining = deadline - time.monotonic()
                 if remaining <= 0:
                     raise TimeoutError(f"Timed out waiting for GPU lease ({effective_timeout}s)")
                 time.sleep(min(poll_interval, max(0.001, remaining)))
+            self._drop_ticket(ticket)
+            ticket = None
 
             nonce = secrets.token_hex(16)
             acquired_at = time.time()
@@ -181,6 +186,8 @@ class SharedGpuLease:
             yield receipt
 
         finally:
+            if ticket is not None:
+                self._drop_ticket(ticket)
             try:
                 if flock_acquired and fd is not None:
                     with contextlib.suppress(Exception):
@@ -195,6 +202,60 @@ class SharedGpuLease:
                         os.close(fd)
                 if acquired_thread_lock:
                     self._thread_lock.release()
+
+    # First-come queue in front of the lease. Waiters hold an flock on their ticket, so a
+    # ticket whose lock can be taken belongs to a dead process and is discarded. Tickets are
+    # locked before they are renamed into the queue, so a visible ticket is never unlocked
+    # by a live owner. Processes running older code skip the queue but still take the same
+    # lease flock, so exclusion never depends on the queue.
+    @property
+    def _queue_dir(self) -> Path:
+        assert self.path is not None
+        return self.path.with_name(self.path.name + ".queue")
+
+    def _take_ticket(self, fcntl_mod) -> tuple[str, int]:
+        queue = self._queue_dir
+        queue.mkdir(mode=0o700, exist_ok=True)
+        name = f"{time.time_ns():020d}-{os.getpid()}-{secrets.token_hex(4)}"
+        staging = queue / ("." + name)
+        fd = os.open(staging, os.O_RDWR | os.O_CREAT | os.O_EXCL | getattr(os, "O_NOFOLLOW", 0), 0o600)
+        try:
+            fcntl_mod.flock(fd, fcntl_mod.LOCK_EX | fcntl_mod.LOCK_NB)
+            os.rename(staging, queue / name)
+        except BaseException:
+            os.close(fd)
+            with contextlib.suppress(OSError):
+                os.unlink(staging)
+            raise
+        return name, fd
+
+    def _drop_ticket(self, ticket: tuple[str, int]) -> None:
+        with contextlib.suppress(OSError):
+            os.unlink(self._queue_dir / ticket[0])
+        with contextlib.suppress(OSError):
+            os.close(ticket[1])
+
+    def _live_tickets(self, fcntl_mod) -> list[str]:
+        live = []
+        for name in sorted(n for n in os.listdir(self._queue_dir) if not n.startswith(".")):
+            try:
+                fd = os.open(self._queue_dir / name, os.O_RDWR | getattr(os, "O_NOFOLLOW", 0))
+            except OSError:
+                continue  # removed by its owner meanwhile
+            try:
+                fcntl_mod.flock(fd, fcntl_mod.LOCK_EX | fcntl_mod.LOCK_NB)
+            except (BlockingIOError, OSError):
+                live.append(name)
+            else:
+                with contextlib.suppress(OSError):
+                    os.unlink(self._queue_dir / name)  # owner died while waiting
+            finally:
+                os.close(fd)
+        return live
+
+    def _first_in_line(self, fcntl_mod, name: str) -> bool:
+        ahead = [n for n in self._live_tickets(fcntl_mod) if n < name]
+        return not ahead
 
     def status(self) -> dict[str, Any]:
         """Report GPU lease status.

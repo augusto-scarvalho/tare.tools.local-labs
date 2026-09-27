@@ -4,6 +4,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- GPU lease waiters now queue in arrival order (tickets beside the lock file) instead of racing
+  every 50 ms; a dead waiter's ticket is discarded. Exclusion is still the same flock, so
+  processes running older code stay safe and only skip the queue until restarted.
+
 - Document removal of stale same-port loopback proxies on the mirrored WSL
   workstation after they exhausted Windows sockets and broke repository CI.
 

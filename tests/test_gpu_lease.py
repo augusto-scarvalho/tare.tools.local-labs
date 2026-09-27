@@ -337,3 +337,59 @@ def test_request_identifier_is_bounded(tmp_path):
     with pytest.raises(ValueError, match='128'):
         with lease.hold('image','x'*129):
             pytest.fail('unbounded metadata admitted')
+
+
+def _waiter(lock_path, name, order_file, exit_file, hold_seconds=0.0):
+    code = f"""
+import sys, time
+from pathlib import Path
+sys.path.insert(0, {str(ROOT / 'src')!r})
+from model_lifecycle.gpu_lease import SharedGpuLease
+with SharedGpuLease({str(lock_path)!r}, timeout=30).hold("text", {name!r}):
+    with open({str(order_file)!r}, "a") as f:
+        f.write({name!r} + "\\n")
+    while {hold_seconds!r} == 0 and not Path({str(exit_file)!r}).exists():
+        time.sleep(0.05)
+    time.sleep({hold_seconds!r})
+"""
+    return subprocess.Popen([sys.executable, "-c", code])
+
+
+def _queued(lock_path):
+    queue = Path(str(lock_path) + ".queue")
+    return [n for n in queue.iterdir() if not n.name.startswith(".")] if queue.exists() else []
+
+
+@requires_linux_flock
+def test_waiters_get_the_gpu_in_arrival_order(tmp_path):
+    lock_path, order, release = tmp_path / "gpu.lock", tmp_path / "order", tmp_path / "release"
+    procs = [_waiter(lock_path, "first", order, release)]
+    try:
+        deadline = time.monotonic() + 5
+        while not order.exists() and time.monotonic() < deadline:
+            time.sleep(0.05)
+        for i, name in enumerate(["second", "third", "fourth"], start=1):
+            procs.append(_waiter(lock_path, name, order, release, hold_seconds=0.2))
+            while len(_queued(lock_path)) < i and time.monotonic() < deadline + 5:
+                time.sleep(0.02)
+        release.write_text("go")
+        for proc in procs:
+            proc.wait(timeout=20)
+        assert order.read_text().split() == ["first", "second", "third", "fourth"]
+        assert _queued(lock_path) == []
+    finally:
+        release.write_text("go")
+        for proc in procs:
+            with contextlib.suppress(Exception):
+                proc.kill()
+
+
+@requires_linux_flock
+def test_ticket_of_a_dead_waiter_does_not_block_the_queue(tmp_path):
+    lock_path = tmp_path / "gpu.lock"
+    queue = Path(str(lock_path) + ".queue")
+    queue.mkdir()
+    (queue / f"{0:020d}-1-dead").write_text("")  # earlier ticket with no live lock holder
+    with SharedGpuLease(lock_path).hold("text", "after-dead", timeout=2) as receipt:
+        assert receipt["request_id"] == "after-dead"
+    assert _queued(lock_path) == []
