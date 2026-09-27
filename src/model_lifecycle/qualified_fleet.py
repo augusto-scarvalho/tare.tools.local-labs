@@ -9,6 +9,30 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_REGISTRY = REPO_ROOT / "config" / "qualified_model_fleet.json"
 ROUTABLE_QUALIFICATIONS = {"promoted", "qualified_role"}
+BACKEND_BINARIES = {"llama": "/llama-server", "ninfer": "/ninfer-serve"}
+# NInfer 0.6.1 rejects these inside chat_template_kwargs but reads them at top level.
+NINFER_TOP_LEVEL_TEMPLATE_KWARGS = ("enable_thinking", "reasoning_effort", "preserve_thinking")
+
+
+def backend_kind(card: dict[str, Any]) -> str:
+    return card["runtime"].get("kind", "llama")
+
+
+def ninfer_chat_request(payload: dict[str, Any]) -> dict[str, Any]:
+    """Move thinking controls from chat_template_kwargs to the top level NInfer accepts."""
+    kwargs = payload.get("chat_template_kwargs")
+    if not isinstance(kwargs, dict):
+        return payload
+    result, rest = dict(payload), dict(kwargs)
+    for key in NINFER_TOP_LEVEL_TEMPLATE_KWARGS:
+        if key in rest:
+            value = rest.pop(key)
+            result.setdefault(key, value)
+    if rest:
+        result["chat_template_kwargs"] = rest
+    else:
+        result.pop("chat_template_kwargs")
+    return result
 
 
 class FleetConfigError(ValueError):
@@ -61,13 +85,16 @@ def validate_registry(data: dict[str, Any], *, repo_root: Path = REPO_ROOT) -> N
             raise FleetConfigError(f"{model_id}: a 64-character artifact sha256 is required")
         if not str(artifact.get("path", "")).startswith("/home/augus/models/"):
             raise FleetConfigError(f"{model_id}: artifact path is outside the model store")
-        if not str(runtime.get("binary", "")).endswith("/llama-server"):
-            raise FleetConfigError(f"{model_id}: runtime binary must be llama-server")
+        kind = runtime.get("kind", "llama")
+        if kind not in BACKEND_BINARIES:
+            raise FleetConfigError(f"{model_id}: runtime.kind must be one of {sorted(BACKEND_BINARIES)}")
+        if not str(runtime.get("binary", "")).endswith(BACKEND_BINARIES[kind]):
+            raise FleetConfigError(f"{model_id}: runtime binary must be {BACKEND_BINARIES[kind].lstrip('/')}")
         if not isinstance(runtime.get("args"), list):
             raise FleetConfigError(f"{model_id}: runtime.args must be a list")
         if "example_overrides" in card and not isinstance(card["example_overrides"], dict):
             raise FleetConfigError(f"{model_id}: example_overrides must be an object")
-        if any(token in runtime["args"] for token in ("--host", "--port", "--alias", "-m", "--model")):
+        if any(token in runtime["args"] for token in ("--host", "--port", "--alias", "-m", "--model", "--model-id")):
             raise FleetConfigError(f"{model_id}: gateway-owned flags found in runtime.args")
         for evidence in card["evidence"]:
             evidence_path = repo_root / evidence
@@ -116,6 +143,9 @@ def build_backend_command(
     host: str,
     port: int,
 ) -> list[str]:
+    if backend_kind(card) == "ninfer":
+        return [card["runtime"]["binary"], card["artifact"]["path"], "--host", host, "--port", str(port),
+                "--model-id", model_id, *[str(token) for token in card["runtime"]["args"]]]
     return [
         card["runtime"]["binary"],
         "-m",

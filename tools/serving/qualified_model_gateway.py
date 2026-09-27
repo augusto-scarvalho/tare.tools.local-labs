@@ -32,8 +32,10 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from model_lifecycle.qualified_fleet import (  # noqa: E402
     DEFAULT_REGISTRY,
+    backend_kind,
     build_backend_command,
     load_registry,
+    ninfer_chat_request,
     public_card,
     resolve_model,
 )
@@ -129,11 +131,15 @@ class FleetRuntime:
         except Exception:
             return False
 
-    def _verify_identity(self, expected_path: str) -> bool:
+    def _verify_identity(self, model_id: str, card: dict[str, Any]) -> bool:
         try:
+            if backend_kind(card) == "ninfer":
+                # NInfer has no /props; it serves the artifact the gateway started under --model-id.
+                with urllib_request.urlopen(self.backend_url("/v1/models"), timeout=3) as response:
+                    return [m.get("id") for m in json.load(response).get("data", [])] == [model_id]
             with urllib_request.urlopen(self.backend_url("/props"), timeout=3) as response:
                 props = json.load(response)
-            return props.get("model_path") == expected_path
+            return props.get("model_path") == card["artifact"]["path"]
         except Exception:
             return False
 
@@ -212,7 +218,7 @@ class FleetRuntime:
                 with contextlib.suppress(Exception):
                     tail = "\n".join(log_path.read_text(errors="replace").splitlines()[-40:])
                 raise RuntimeError(f"{model_id} exited while loading ({process.returncode})\n{tail}")
-            if self.backend_health(timeout=2) and self._verify_identity(card["artifact"]["path"]):
+            if self.backend_health(timeout=2) and self._verify_identity(model_id, card):
                 elapsed = time.monotonic() - started
                 self.last_switch_seconds = elapsed
                 self.last_error = None
@@ -541,7 +547,12 @@ class Handler(BaseHTTPRequestHandler):
                 raise ValueError('explicit_fleet_model_required')
             if not isinstance(requested, str):
                 raise ValueError('model_must_be_string')
-            model_id, _ = resolve_model(RUNTIME.config, requested)
+            model_id, card = resolve_model(RUNTIME.config, requested)
+            if backend_kind(card) == 'ninfer' and (path in FLEET_POST or BINDING_FIELD in payload):
+                # Fleet counting/binding read llama.cpp /props, /apply-template and /tokenize.
+                raise ValueError('fleet_count_unavailable_for_ninfer_backend')
+            if backend_kind(card) == 'ninfer' and path == '/v1/chat/completions':
+                payload = ninfer_chat_request(payload)
         except (ValueError, AttributeError) as exc:
             send_json(self, 400, {"error": {"message": str(exc) if str(exc) else "body must be a JSON object"}})
             return

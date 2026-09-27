@@ -4,6 +4,11 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Fleet cards may declare `runtime.kind: "ninfer"`: the gateway starts NInfer-3090 with the artifact
+  and `--model-id`, verifies identity through `/v1/models`, moves thinking controls out of
+  `chat_template_kwargs`, and refuses fleet counting/bindings it cannot serve. Adds `qwen38-ninfer`
+  beside the slop.cpp `qwen38`, with its paired-cohort evidence.
+
 - GPU lease waiters now queue in arrival order (tickets beside the lock file) instead of racing
   every 50 ms; a dead waiter's ticket is discarded. Exclusion is still the same flock, so
   processes running older code stay safe and only skip the queue until restarted.

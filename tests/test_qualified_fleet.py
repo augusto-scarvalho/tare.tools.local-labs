@@ -12,6 +12,7 @@ from model_lifecycle.qualified_fleet import (  # noqa: E402
     FleetConfigError,
     build_backend_command,
     load_registry,
+    ninfer_chat_request,
     recommend,
     resolve_model,
     validate_registry,
@@ -25,7 +26,7 @@ class QualifiedFleetTests(unittest.TestCase):
     def test_only_role_qualified_models_are_routable(self) -> None:
         self.assertEqual(
             set(self.registry["models"]),
-            {"qwen38", "qwen36-moe", "fable-tc", "hauhaucs", "gemma-vision", "muse-vision"},
+            {"qwen38", "qwen38-ninfer", "qwen36-moe", "fable-tc", "hauhaucs", "gemma-vision", "muse-vision"},
         )
         self.assertTrue(all(
             card["qualification"] in {"promoted", "qualified_role"}
@@ -58,6 +59,42 @@ class QualifiedFleetTests(unittest.TestCase):
         self.assertEqual(command[command.index("--alias") + 1], "qwen38")
         self.assertEqual(command[command.index("--port") + 1], "18080")
         self.assertEqual(command[command.index("-m") + 1], card["artifact"]["path"])
+
+    def _ninfer_card(self) -> dict:
+        card = copy.deepcopy(self.registry["models"]["qwen38"])
+        card["runtime"] = {"kind": "ninfer", "binary": "/home/augus/opt/ninfer/v0.6.1-rtx3090/ninfer-serve",
+                           "environment": {}, "args": ["--max-context", "32768", "--spec", "mtp"]}
+        card["artifact"]["path"] = "/home/augus/models/qwen38-27b/ninfer/qwen3_8_27b.ninfer"
+        return card
+
+    def test_ninfer_backend_takes_artifact_positionally_and_gateway_owns_its_identity(self) -> None:
+        registry = copy.deepcopy(self.registry)
+        registry["models"]["qwen38-ninfer"] = self._ninfer_card()
+        validate_registry(registry)
+        command = build_backend_command("qwen38-ninfer", registry["models"]["qwen38-ninfer"],
+                                        host="127.0.0.1", port=18080)
+        self.assertEqual(command[1], "/home/augus/models/qwen38-27b/ninfer/qwen3_8_27b.ninfer")
+        self.assertEqual(command[command.index("--model-id") + 1], "qwen38-ninfer")
+        self.assertNotIn("-m", command)
+        wrong = copy.deepcopy(registry)
+        wrong["models"]["qwen38-ninfer"]["runtime"]["binary"] = "/home/augus/opt/slop/bin/llama-server"
+        with self.assertRaisesRegex(FleetConfigError, "ninfer-serve"):
+            validate_registry(wrong)
+        owned = copy.deepcopy(registry)
+        owned["models"]["qwen38-ninfer"]["runtime"]["args"] += ["--model-id", "other"]
+        with self.assertRaisesRegex(FleetConfigError, "gateway-owned"):
+            validate_registry(owned)
+
+    def test_ninfer_request_moves_thinking_controls_to_top_level(self) -> None:
+        body = {"model": "m", "temperature": 1.0, "reasoning_effort": "high",
+                "chat_template_kwargs": {"enable_thinking": True, "reasoning_effort": "low", "other": 1}}
+        out = ninfer_chat_request(body)
+        self.assertEqual(out["enable_thinking"], True)
+        self.assertEqual(out["reasoning_effort"], "high")  # an explicit top-level value wins
+        self.assertEqual(out["chat_template_kwargs"], {"other": 1})
+        self.assertEqual(ninfer_chat_request({"chat_template_kwargs": {"enable_thinking": False}}),
+                         {"enable_thinking": False})
+        self.assertIn("chat_template_kwargs", body)  # input is not mutated
 
 
 if __name__ == "__main__":
