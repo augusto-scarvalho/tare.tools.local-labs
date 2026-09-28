@@ -85,7 +85,7 @@
       "qualified_for": ["agent-tools", "coding-baseline"],
       "not_for": ["fleet-count-binding"],
       "modalities": ["text"],
-      "summary": "Qwen3.8 27B (ISTA GSQ-RCO IQ3_S, near-BF16 perplexity) on the RTX 3090 NInfer 0.11 line: 128K context, ~107-134 tok/s decode with MTP; fixed 12/12 in two paired runs at about half the agent time and GPU energy of slop.cpp production.",
+      "summary": "Qwen3.8 27B (ISTA GSQ-RCO IQ3_S, near-BF16 perplexity) on the RTX 3090 NInfer 0.11 line: 128K context, ~107-134 tok/s decode with MTP; fixed 12/12 in two paired runs at about half the agent time and GPU energy of slop.cpp production, and 50/52 on the 26-case set.",
       "limits": "No /tokenize: fleet counting is refused and clients estimate tokens (use the 128K window); ~18 GB VRAM and 8.6 GB pinned host RAM with 128K reserved; built from source, unqualified upstream on Linux.",
       "evidence": [
         "runs/requalification/NINFER-011-COHORT-2026-09-28/RESULT.md"
@@ -109,7 +109,7 @@
       "qualified_for": ["agent-tools"],
       "not_for": ["fleet-count-binding", "vision"],
       "modalities": ["text"],
-      "summary": "UkisAI's reasoning-efficient Qwen3.8 27B on NInfer 0.11 at its default xhigh effort without a thinking budget: fixed 11/12 in two paired runs, fastest single run (388 s); less consistent than qwen38-gsq.",
+      "summary": "UkisAI's reasoning-efficient Qwen3.8 27B on NInfer 0.11 at its default xhigh effort without a thinking budget: fixed 11/12 in two paired runs and 52/52 on the 26-case set once tare kept its long replies (Kernel bf8a26b).",
       "limits": "Weaker at low effort with a thinking budget (4-5/6); ~1.7x the output tokens of Qwen3.8 at low; no /tokenize (clients estimate tokens; use 128K); no vision; Swift Open License 1.0.",
       "evidence": [
         "runs/requalification/NINFER-011-COHORT-2026-09-28/RESULT.md"

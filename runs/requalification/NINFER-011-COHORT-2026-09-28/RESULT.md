@@ -49,6 +49,29 @@ UkisAI benchmarks Swift at `xhigh` (its template default) without a thinking bud
 "keep your thinking brief" instruction. At `xhigh` Swift used ~1.7x the output tokens of Qwen3.8
 at `low`.
 
+## 26-case run
+
+All 26 mined SpecGraph regressions that still apply (each reproduced and verified failing before
+the run), same instruction, verifier and limits; each session explores with its own model (tare OS
+8184c1f). "Guided" appends: "Start by running the verifier and reading the traceback. Before
+writing new code, search all of src/ for existing code you can reuse." Case repositories are rebuilt
+per run without ~233 MB of unread evidence (the suite's failures are identical).
+
+| Arm | Kernel | Fixed | Agent time | Calls | Output tokens |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Qwen3.8 GSQ-RCO, plain | b2816e8 | 25/26 | 2,245 s | 307 | 141 k |
+| Qwen3.8 GSQ-RCO, guided | b2816e8 | 25/26 | 1,535 s | 227 | 79 k |
+| Swift 1.5 27B, xhigh, plain | bf8a26b | 26/26 | 2,128 s | 296 | 135 k |
+| Swift 1.5 27B, xhigh, guided | bf8a26b | 26/26 | 2,484 s | 238 | 154 k |
+
+Qwen's misses: one NO_PROGRESS stop (plain) and one delivery with a test still failing (guided).
+Two Swift sessions first crashed tare, not the model: a reply is one journal event and Swift's
+xhigh replies exceeded the 64 KiB event limit (largest stored 63.9 KiB). Kernel bf8a26b raises it
+to 256 KiB and both cases were rerun and fixed. Eight Qwen results lost to a node restart and one
+Swift arm stopped by the server's 3-hour cap were rerun; the harness now stops an arm when the
+server is unreachable instead of recording failures. The guidance cut Qwen's time by ~32% and its
+output by ~44% at the same fix rate; it did not help Swift.
+
 ## Limits
 
 - No `/tokenize`: fleet counting and bindings are refused; clients estimate tokens. Use the 128K
