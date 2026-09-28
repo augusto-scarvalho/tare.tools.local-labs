@@ -34,6 +34,7 @@ from model_lifecycle.qualified_fleet import (  # noqa: E402
     DEFAULT_REGISTRY,
     backend_kind,
     build_backend_command,
+    host_mode,
     load_registry,
     ninfer_chat_request,
     public_card,
@@ -341,6 +342,16 @@ class Handler(BaseHTTPRequestHandler):
         path = self.path.split("?", 1)[0].rstrip("/") or "/"
         if path in {"/health", "/v1/health", "/fleet/status", "/v1/fleet/status"}:
             send_json(self, 200, RUNTIME.status())
+            return
+        if path == "/v1/fleet/recommend":
+            if "host_modes" not in RUNTIME.config["fleet"]:
+                send_json(self, 404, {"error": {"message": "host modes not configured", "type": "not_found"}})
+                return
+            try:
+                status = json.loads(Path(RUNTIME.config["fleet"]["host_modes"]["status_path"]).read_text())
+            except (OSError, ValueError):
+                status = None
+            send_json(self, 200, host_mode(RUNTIME.config, status, time.time()))
             return
         if path in {"/models", "/v1/models"}:
             payload = []

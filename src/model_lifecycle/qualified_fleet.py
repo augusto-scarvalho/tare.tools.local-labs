@@ -65,6 +65,16 @@ def validate_registry(data: dict[str, Any], *, repo_root: Path = REPO_ROOT) -> N
     if fleet.get("default_model") not in models:
         raise FleetConfigError("fleet.default_model must name a registered model")
 
+    modes = fleet.get("host_modes")
+    if modes is not None and not (
+        isinstance(modes, dict) and modes.get("shared") in models and modes.get("solo") in models
+        and str(modes.get("status_path", "")).endswith(".json")
+        and all(type(modes.get(key)) is int and modes[key] > 0
+                for key in ("idle_seconds", "max_status_age_seconds"))
+    ):
+        raise FleetConfigError("fleet.host_modes needs shared/solo models, status_path, idle_seconds, "
+                               "max_status_age_seconds")
+
     for alias, target in aliases.items():
         if not alias or target not in models:
             raise FleetConfigError(f"alias {alias!r} points to unknown model {target!r}")
@@ -143,6 +153,27 @@ def recommend(data: dict[str, Any], role: str) -> tuple[str, dict[str, Any]]:
         pair[0],
     ))
     return candidates[0]
+
+
+def host_mode(data: dict[str, Any], status: dict[str, Any] | None, now: float) -> dict[str, Any]:
+    """Pick the solo model only when the Windows desktop has been idle long enough; otherwise the shared one.
+
+    Missing or stale host status counts as "in use": the shared model is the safe side.
+    """
+    modes = data["fleet"]["host_modes"]
+    if not isinstance(status, dict) or not isinstance(status.get("ts"), (int, float)):
+        reason = "host_status_missing"
+    elif now - status["ts"] > modes["max_status_age_seconds"]:
+        reason = "host_status_stale"
+    elif not isinstance(status.get("desktop_idle_seconds"), (int, float)):
+        reason = "host_status_missing"
+    elif status["desktop_idle_seconds"] < modes["idle_seconds"]:
+        reason = "desktop_in_use"
+    else:
+        reason = "desktop_idle"
+    mode = "solo" if reason == "desktop_idle" else "shared"
+    return {"mode": mode, "model": modes[mode], "reason": reason, "idle_seconds_required": modes["idle_seconds"],
+            "host": status if isinstance(status, dict) else None}
 
 
 def build_backend_command(

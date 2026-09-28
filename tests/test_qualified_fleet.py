@@ -11,6 +11,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from model_lifecycle.qualified_fleet import (  # noqa: E402
     FleetConfigError,
     build_backend_command,
+    host_mode,
     load_registry,
     ninfer_chat_request,
     recommend,
@@ -105,6 +106,24 @@ class QualifiedFleetTests(unittest.TestCase):
             bad["models"]["swift-next"]["runtime"].update(broken)
             with self.assertRaises(FleetConfigError):
                 validate_registry(bad)
+
+    def test_solo_model_only_after_the_desktop_has_been_idle_for_its_window(self) -> None:
+        modes = self.registry["fleet"]["host_modes"]
+        now = 1_000_000
+        idle = {"ts": now - 60, "desktop_idle_seconds": modes["idle_seconds"]}
+        self.assertEqual(host_mode(self.registry, idle, now)["model"], "swift-next")
+        cases = {
+            "desktop_in_use": {**idle, "desktop_idle_seconds": modes["idle_seconds"] - 1},
+            "host_status_stale": {**idle, "ts": now - modes["max_status_age_seconds"] - 1},
+            "host_status_missing": None,
+        }
+        for reason, status in cases.items():
+            result = host_mode(self.registry, status, now)
+            self.assertEqual((result["mode"], result["model"], result["reason"]), ("shared", "qwen38", reason))
+        broken = copy.deepcopy(self.registry)
+        broken["fleet"]["host_modes"]["solo"] = "unknown"
+        with self.assertRaisesRegex(FleetConfigError, "host_modes"):
+            validate_registry(broken)
 
     def test_ninfer_request_moves_thinking_controls_to_top_level(self) -> None:
         body = {"model": "m", "temperature": 1.0, "reasoning_effort": "high",

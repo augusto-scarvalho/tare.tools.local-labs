@@ -7,7 +7,15 @@
     "embedding_api_base": "http://127.0.0.1:8081/v1",
     "default_model": "qwen38",
     "max_resident_models": 1,
-    "selection_field": "model"
+    "selection_field": "model",
+    "host_modes": {
+      "description": "Solo (Flash-Next, ~43 GB host RAM) only after the Windows desktop has been idle for 30 minutes; otherwise the dense 27B that leaves the desktop its memory.",
+      "shared": "qwen38",
+      "solo": "swift-next",
+      "idle_seconds": 1800,
+      "status_path": "/mnt/c/ProgramData/tare/host-status.json",
+      "max_status_age_seconds": 300
+    }
   },
   "aliases": {
     "default": "qwen38",

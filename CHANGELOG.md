@@ -4,6 +4,11 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- `GET /v1/fleet/recommend` picks the local model from how the Windows host is being used:
+  `fleet.host_modes.solo` (`swift-next`) only after 30 minutes without desktop input, otherwise
+  `fleet.host_modes.shared` (`qwen38`); missing or stale host status counts as "in use". The status
+  comes from `ops/windows-host/host-status.ps1`, a per-minute task in the desktop session.
+
 - Strata backends in the gateway (`runtime.kind: "strata"`, started from their config on the gateway port,
   identity through `/v1/models`) and idle unloading per card (`runtime.idle_unload_seconds`, checked every
   30 s, never mid-request). Adds `swift-next` (Swift 1.5 Qwen3.8-Flash-Next IQ3_XXS, unloads after 15 idle
