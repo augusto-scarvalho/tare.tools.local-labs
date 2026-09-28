@@ -109,6 +109,7 @@ class FleetRuntime:
         self.requested_name: str | None = None
         self.last_switch_seconds: float | None = None
         self.last_error: str | None = None
+        self.last_used = time.monotonic()
         if comfy_url is not None:
             self.comfy_url: str | None = validate_comfy_url(comfy_url)
             routes_file = Path(image_routes_path) if image_routes_path else DEFAULT_IMAGE_ROUTES
@@ -133,10 +134,12 @@ class FleetRuntime:
 
     def _verify_identity(self, model_id: str, card: dict[str, Any]) -> bool:
         try:
-            if backend_kind(card) == "ninfer":
-                # NInfer has no /props; it serves the artifact the gateway started under --model-id.
+            if backend_kind(card) in ("ninfer", "strata"):
+                # No /props: the backend serves what the gateway started; NInfer under --model-id,
+                # Strata under the model_name its config declares.
+                expected = model_id if backend_kind(card) == "ninfer" else card["runtime"]["model_name"]
                 with urllib_request.urlopen(self.backend_url("/v1/models"), timeout=3) as response:
-                    return [m.get("id") for m in json.load(response).get("data", [])] == [model_id]
+                    return [m.get("id") for m in json.load(response).get("data", [])] == [expected]
             with urllib_request.urlopen(self.backend_url("/props"), timeout=3) as response:
                 props = json.load(response)
             return props.get("model_path") == card["artifact"]["path"]
@@ -176,6 +179,24 @@ class FleetRuntime:
         self.model_id = None
         self.requested_name = None
 
+    def unload_if_idle(self) -> bool:
+        """Stop a resident backend whose card sets idle_unload_seconds once it has been idle that long."""
+        card = self.config["models"].get(self.model_id) if self.model_id else None
+        limit = card and card["runtime"].get("idle_unload_seconds")
+        if not limit or self.process is None or time.monotonic() - self.last_used < limit:
+            return False
+        if not self.request_lock.acquire(blocking=False):   # a request is running: not idle
+            return False
+        try:
+            idle = time.monotonic() - self.last_used
+            if self.model_id is None or idle < limit:
+                return False
+            LOG.info("unloading %s after %.0fs idle (limit %ss)", self.model_id, idle, limit)
+            self.stop_backend()
+            return True
+        finally:
+            self.request_lock.release()
+
     def ensure_model(self, requested: str | None) -> tuple[str, float]:
         model_id, card = resolve_model(self.config, requested)
         requested_name = requested or model_id
@@ -207,6 +228,7 @@ class FleetRuntime:
         )
         log_handle.close()
         self.process = process
+        self.last_used = time.monotonic()
         self.model_id = model_id
         self.requested_name = requested_name
 
@@ -549,9 +571,9 @@ class Handler(BaseHTTPRequestHandler):
             if not isinstance(requested, str):
                 raise ValueError('model_must_be_string')
             model_id, card = resolve_model(RUNTIME.config, requested)
-            if backend_kind(card) == 'ninfer' and (path in FLEET_POST or BINDING_FIELD in payload):
+            if backend_kind(card) != 'llama' and (path in FLEET_POST or BINDING_FIELD in payload):
                 # Fleet counting/binding read llama.cpp /props, /apply-template and /tokenize.
-                raise ValueError('fleet_count_unavailable_for_ninfer_backend')
+                raise ValueError(f'fleet_count_unavailable_for_{backend_kind(card)}_backend')
             if backend_kind(card) == 'ninfer' and path == '/v1/chat/completions':
                 payload = ninfer_chat_request(payload)
         except (ValueError, AttributeError) as exc:
@@ -618,6 +640,7 @@ class Handler(BaseHTTPRequestHandler):
                                 proxy_request(self, body, timeout=15)
                             else:
                                 proxy_request(self, body, fleet_observation=observed)
+                            RUNTIME.last_used = time.monotonic()
                         except (ConnectionError, http.client.HTTPException, socket.error, OSError) as exc:
                             if lease.is_enabled:
                                 LOG.warning("transport error during proxy; stopping backend under GPU lease: %s", exc)
@@ -726,6 +749,14 @@ def main(argv: list[str] | None = None) -> int:
                 RUNTIME.ensure_model(args.preload)
 
     server = ThreadingHTTPServer((args.host, args.port), Handler)
+
+    def idle_watch() -> None:
+        while True:
+            time.sleep(30)
+            with contextlib.suppress(Exception):
+                RUNTIME.unload_if_idle()
+
+    threading.Thread(target=idle_watch, name="idle-unload", daemon=True).start()
 
     def shutdown(signum: int, _frame: Any) -> None:
         LOG.info("received signal %s", signum)

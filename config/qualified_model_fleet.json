@@ -71,6 +71,34 @@
         "args": ["--max-context", "32768", "--kv-capacity", "32768", "--max-concurrency", "1", "--max-pending-requests", "16", "--prefill-chunk", "1024", "--kv-dtype", "int8", "--spec", "mtp", "--draft-tokens", "3", "--lm-head-draft"]
       }
     },
+    "swift-next": {
+      "display_name": "Swift 1.5 Qwen3.8-Flash-Next IQ3_XXS on Strata",
+      "qualification": "qualified_role",
+      "qualified_for": ["agent-tools", "coding"],
+      "not_for": ["shared-desktop-ram", "concurrent-image-pipeline", "fleet-count-binding"],
+      "modalities": ["text"],
+      "summary": "177B MoE fine-tune on Strata (experts pinned in RAM, 8,000 cached in VRAM); fixed 6/6 real regressions with 128K context.",
+      "limits": "Holds ~43 GB of RAM while loaded; unloads after 15 idle minutes; ~45 tok/s decode, ~490 tok/s prefill; clients estimate tokens.",
+      "evidence": [
+        "runs/requalification/SWIFT-FLASH-NEXT-STRATA-2026-09-28/RESULT.md"
+      ],
+      "artifact": {
+        "path": "/mnt/wsl/models/flash-next/swift-IQ3_XXS/Swift-Qwen3.8-Flash-Next-GSQ-RCO-IQ3_XXS-00001-of-00002.gguf",
+        "bytes": 39785790560,
+        "sha256": "3bddaa667c750f63baca766df9433e1afd35a139f401c5ca5e7ff560ceff3d23",
+        "quant": "GSQ-RCO IQ3_XXS"
+      },
+      "runtime": {
+        "kind": "strata",
+        "binary": "/mnt/wsl/models/strata/.venv/bin/python",
+        "server": "/mnt/wsl/models/strata/serve/server.py",
+        "config": "/mnt/wsl/models/strata/strata-swift-iq3_xxs.json",
+        "model_name": "swift-1.5-iq3_xxs",
+        "environment": {},
+        "args": [],
+        "idle_unload_seconds": 900
+      }
+    },
     "qwen36-moe": {
       "display_name": "Qwen3.6 35B-A3B MTP Q4_K_M",
       "qualification": "qualified_role",

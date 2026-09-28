@@ -26,7 +26,7 @@ class QualifiedFleetTests(unittest.TestCase):
     def test_only_role_qualified_models_are_routable(self) -> None:
         self.assertEqual(
             set(self.registry["models"]),
-            {"qwen38", "qwen38-ninfer", "qwen36-moe", "fable-tc", "hauhaucs", "gemma-vision", "muse-vision"},
+            {"qwen38", "qwen38-ninfer", "swift-next", "qwen36-moe", "fable-tc", "hauhaucs", "gemma-vision", "muse-vision"},
         )
         self.assertTrue(all(
             card["qualification"] in {"promoted", "qualified_role"}
@@ -84,6 +84,27 @@ class QualifiedFleetTests(unittest.TestCase):
         owned["models"]["qwen38-ninfer"]["runtime"]["args"] += ["--model-id", "other"]
         with self.assertRaisesRegex(FleetConfigError, "gateway-owned"):
             validate_registry(owned)
+
+    def test_strata_backend_is_started_from_its_config_on_the_gateway_port(self) -> None:
+        registry = copy.deepcopy(self.registry)
+        card = copy.deepcopy(self.registry["models"]["qwen38"])
+        card["artifact"]["path"] = "/mnt/wsl/models/flash-next/swift-IQ3_XXS/shard-1.gguf"
+        card["runtime"] = {"kind": "strata", "binary": "/mnt/wsl/models/strata/.venv/bin/python",
+                           "server": "/mnt/wsl/models/strata/serve/server.py",
+                           "config": "/mnt/wsl/models/strata/strata-swift-iq3_xxs.json",
+                           "model_name": "swift-1.5-iq3_xxs", "environment": {}, "args": [],
+                           "idle_unload_seconds": 900}
+        registry["models"]["swift-next"] = card
+        validate_registry(registry)
+        command = build_backend_command("swift-next", card, host="127.0.0.1", port=18080)
+        self.assertEqual(command[1:3], ["/mnt/wsl/models/strata/serve/server.py", "--engine"])
+        self.assertEqual(command[command.index("--port") + 1], "18080")
+        self.assertEqual(command[command.index("--config") + 1], card["runtime"]["config"])
+        for broken in ({"model_name": ""}, {"idle_unload_seconds": 10}, {"args": ["--port", "1"]}):
+            bad = copy.deepcopy(registry)
+            bad["models"]["swift-next"]["runtime"].update(broken)
+            with self.assertRaises(FleetConfigError):
+                validate_registry(bad)
 
     def test_ninfer_request_moves_thinking_controls_to_top_level(self) -> None:
         body = {"model": "m", "temperature": 1.0, "reasoning_effort": "high",

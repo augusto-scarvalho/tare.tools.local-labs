@@ -4,6 +4,11 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Strata backends in the gateway (`runtime.kind: "strata"`, started from their config on the gateway port,
+  identity through `/v1/models`) and idle unloading per card (`runtime.idle_unload_seconds`, checked every
+  30 s, never mid-request). Adds `swift-next` (Swift 1.5 Qwen3.8-Flash-Next IQ3_XXS, unloads after 15 idle
+  minutes) and accepts artifacts under `/mnt/wsl/models/`.
+
 - The gateway waits until the backend port can be bound again before starting the next model.
   NInfer closes connections itself, leaving the port in TIME_WAIT for about a minute; llama-server
   binds without SO_REUSEADDR and failed to start qwen38 right after qwen38-ninfer.

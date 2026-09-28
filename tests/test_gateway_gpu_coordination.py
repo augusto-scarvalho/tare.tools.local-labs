@@ -451,3 +451,27 @@ def test_backend_port_waits_until_bindable_again():
         gateway.wait_until_bindable("127.0.0.1", port, timeout=0.2)
     listener.close()
     gateway.wait_until_bindable("127.0.0.1", port, timeout=5)
+
+
+def test_idle_backend_is_unloaded_only_after_its_limit_and_never_mid_request():
+    import time as _time
+    stopped = []
+    runtime = gateway.FleetRuntime.__new__(gateway.FleetRuntime)
+    runtime.config = {"models": {"big": {"runtime": {"idle_unload_seconds": 900}}, "small": {"runtime": {}}}}
+    runtime.request_lock = gateway.threading.RLock()
+    runtime.process = object()
+    runtime.model_id = "big"
+    runtime.stop_backend = lambda: stopped.append(runtime.model_id)
+    runtime.last_used = _time.monotonic() - 60
+    assert runtime.unload_if_idle() is False and stopped == []
+    runtime.last_used = _time.monotonic() - 901
+    held = gateway.threading.Event(); release = gateway.threading.Event()
+    def busy():
+        with runtime.request_lock:
+            held.set(); release.wait(5)
+    t = gateway.threading.Thread(target=busy); t.start(); held.wait(5)
+    assert runtime.unload_if_idle() is False and stopped == []     # a request holds the lock
+    release.set(); t.join()
+    assert runtime.unload_if_idle() is True and stopped == ["big"]
+    runtime.model_id = "small"
+    assert runtime.unload_if_idle() is False                      # no limit on this card

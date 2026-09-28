@@ -9,7 +9,8 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_REGISTRY = REPO_ROOT / "config" / "qualified_model_fleet.json"
 ROUTABLE_QUALIFICATIONS = {"promoted", "qualified_role"}
-BACKEND_BINARIES = {"llama": "/llama-server", "ninfer": "/ninfer-serve"}
+BACKEND_BINARIES = {"llama": "/llama-server", "ninfer": "/ninfer-serve", "strata": "/python"}
+MODEL_STORES = ("/home/augus/models/", "/mnt/wsl/models/")
 # NInfer 0.6.1 rejects these inside chat_template_kwargs but reads them at top level.
 NINFER_TOP_LEVEL_TEMPLATE_KWARGS = ("enable_thinking", "reasoning_effort", "preserve_thinking")
 
@@ -83,7 +84,7 @@ def validate_registry(data: dict[str, Any], *, repo_root: Path = REPO_ROOT) -> N
         digest = artifact.get("sha256", "")
         if not isinstance(digest, str) or len(digest) != 64:
             raise FleetConfigError(f"{model_id}: a 64-character artifact sha256 is required")
-        if not str(artifact.get("path", "")).startswith("/home/augus/models/"):
+        if not str(artifact.get("path", "")).startswith(MODEL_STORES):
             raise FleetConfigError(f"{model_id}: artifact path is outside the model store")
         kind = runtime.get("kind", "llama")
         if kind not in BACKEND_BINARIES:
@@ -94,8 +95,16 @@ def validate_registry(data: dict[str, Any], *, repo_root: Path = REPO_ROOT) -> N
             raise FleetConfigError(f"{model_id}: runtime.args must be a list")
         if "example_overrides" in card and not isinstance(card["example_overrides"], dict):
             raise FleetConfigError(f"{model_id}: example_overrides must be an object")
-        if any(token in runtime["args"] for token in ("--host", "--port", "--alias", "-m", "--model", "--model-id")):
+        if any(token in runtime["args"] for token in ("--host", "--port", "--alias", "-m", "--model", "--model-id",
+                                                      "--config", "--engine")):
             raise FleetConfigError(f"{model_id}: gateway-owned flags found in runtime.args")
+        if kind == "strata" and not (str(runtime.get("server", "")).endswith("/serve/server.py")
+                                     and str(runtime.get("config", "")).endswith(".json")
+                                     and isinstance(runtime.get("model_name"), str) and runtime["model_name"]):
+            raise FleetConfigError(f"{model_id}: strata needs runtime.server, runtime.config and runtime.model_name")
+        idle = runtime.get("idle_unload_seconds")
+        if idle is not None and (type(idle) is not int or idle < 60):
+            raise FleetConfigError(f"{model_id}: runtime.idle_unload_seconds must be an integer >= 60")
         for evidence in card["evidence"]:
             evidence_path = repo_root / evidence
             if not evidence_path.is_file():
@@ -143,9 +152,14 @@ def build_backend_command(
     host: str,
     port: int,
 ) -> list[str]:
+    runtime = card["runtime"]
     if backend_kind(card) == "ninfer":
-        return [card["runtime"]["binary"], card["artifact"]["path"], "--host", host, "--port", str(port),
-                "--model-id", model_id, *[str(token) for token in card["runtime"]["args"]]]
+        return [runtime["binary"], card["artifact"]["path"], "--host", host, "--port", str(port),
+                "--model-id", model_id, *[str(token) for token in runtime["args"]]]
+    if backend_kind(card) == "strata":
+        # The Strata config (engine args, pack, shards) is written by its setup; the gateway owns the address.
+        return [runtime["binary"], runtime["server"], "--engine", "strata", "--config", runtime["config"],
+                "--host", host, "--port", str(port), *[str(token) for token in runtime["args"]]]
     return [
         card["runtime"]["binary"],
         "-m",
