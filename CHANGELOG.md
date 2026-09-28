@@ -4,6 +4,11 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Adds `qwen38-gsq` (Qwen3.8 27B GSQ-RCO IQ3_S) and `swift27b` (Swift 1.5 27B GSQ-RCO IQ3_S) on
+  NInfer-3090 0.11 (`iamwavecut/ninfer-all` f118551, built for sm_86): 128K context, rk8v4 KV, MTP 3.
+  `qwen38-gsq` fixed 12/12 in two paired runs at about half the agent time and GPU energy of the
+  slop.cpp production `qwen38`; `swift27b` fixed 11/12 at its default xhigh effort.
+
 - `GET /v1/fleet/recommend` picks the local model from how the Windows host is being used:
   `fleet.host_modes.solo` (`swift-next`) only after 30 minutes without desktop input, otherwise
   `fleet.host_modes.shared` (`qwen38`); missing or stale host status counts as "in use". The status

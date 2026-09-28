@@ -27,7 +27,8 @@ class QualifiedFleetTests(unittest.TestCase):
     def test_only_role_qualified_models_are_routable(self) -> None:
         self.assertEqual(
             set(self.registry["models"]),
-            {"qwen38", "qwen38-ninfer", "swift-next", "qwen36-moe", "fable-tc", "hauhaucs", "gemma-vision", "muse-vision"},
+            {"qwen38", "qwen38-ninfer", "qwen38-gsq", "swift27b", "swift-next", "qwen36-moe", "fable-tc", "hauhaucs",
+             "gemma-vision", "muse-vision"},
         )
         self.assertTrue(all(
             card["qualification"] in {"promoted", "qualified_role"}

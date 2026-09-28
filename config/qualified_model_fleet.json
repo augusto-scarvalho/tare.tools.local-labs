@@ -79,6 +79,54 @@
         "args": ["--max-context", "32768", "--kv-capacity", "32768", "--max-concurrency", "1", "--max-pending-requests", "16", "--prefill-chunk", "1024", "--kv-dtype", "int8", "--spec", "mtp", "--draft-tokens", "3", "--lm-head-draft"]
       }
     },
+    "qwen38-gsq": {
+      "display_name": "Qwen3.8 27B GSQ-RCO IQ3_S on NInfer 0.11",
+      "qualification": "qualified_role",
+      "qualified_for": ["agent-tools", "coding-baseline"],
+      "not_for": ["fleet-count-binding"],
+      "modalities": ["text"],
+      "summary": "Qwen3.8 27B (ISTA GSQ-RCO IQ3_S, near-BF16 perplexity) on the RTX 3090 NInfer 0.11 line: 128K context, ~107-134 tok/s decode with MTP; fixed 12/12 in two paired runs at about half the agent time and GPU energy of slop.cpp production.",
+      "limits": "No /tokenize: fleet counting is refused and clients estimate tokens (use the 128K window); ~18 GB VRAM and 8.6 GB pinned host RAM with 128K reserved; built from source, unqualified upstream on Linux.",
+      "evidence": [
+        "runs/requalification/NINFER-011-COHORT-2026-09-28/RESULT.md"
+      ],
+      "artifact": {
+        "path": "/mnt/wsl/models/qwen38-gsq/Qwen3.8-27B-GSQ-RCO-IQ3_S-ninfer-v3.ninfer",
+        "bytes": 15017456896,
+        "sha256": "29e54467ca0ddae7e9aac04439f72ad20dbf6dc8fb5e84833b41ec7de9c46750",
+        "quant": "GSQ-RCO IQ3_S"
+      },
+      "runtime": {
+        "kind": "ninfer",
+        "binary": "/home/augus/opt/ninfer/v0.11.0-rtx3090-f118551/ninfer-serve",
+        "environment": {},
+        "args": ["--max-context", "131072", "--kv-capacity", "auto", "--max-concurrency", "1", "--kv-dtype", "rk8v4", "--gdn-state-fp16", "--spec", "mtp", "--draft-tokens", "3", "--lm-head-draft", "--default-thinking-budget", "2048"]
+      }
+    },
+    "swift27b": {
+      "display_name": "Swift 1.5 Qwen3.8 27B GSQ-RCO IQ3_S on NInfer 0.11",
+      "qualification": "qualified_role",
+      "qualified_for": ["agent-tools"],
+      "not_for": ["fleet-count-binding", "vision"],
+      "modalities": ["text"],
+      "summary": "UkisAI's reasoning-efficient Qwen3.8 27B on NInfer 0.11 at its default xhigh effort without a thinking budget: fixed 11/12 in two paired runs, fastest single run (388 s); less consistent than qwen38-gsq.",
+      "limits": "Weaker at low effort with a thinking budget (4-5/6); ~1.7x the output tokens of Qwen3.8 at low; no /tokenize (clients estimate tokens; use 128K); no vision; Swift Open License 1.0.",
+      "evidence": [
+        "runs/requalification/NINFER-011-COHORT-2026-09-28/RESULT.md"
+      ],
+      "artifact": {
+        "path": "/mnt/wsl/models/swift27b-gsq/swift15_27b_gsq_rco_iq3_s.ninfer",
+        "bytes": 12494820864,
+        "sha256": "3ff2a5d1af7f764133282a4b8c2993367cb2c60d2f40983958a723751c00c21b",
+        "quant": "GSQ-RCO IQ3_S"
+      },
+      "runtime": {
+        "kind": "ninfer",
+        "binary": "/home/augus/opt/ninfer/v0.11.0-rtx3090-f118551/ninfer-serve",
+        "environment": {},
+        "args": ["--max-context", "131072", "--kv-capacity", "auto", "--max-concurrency", "1", "--kv-dtype", "rk8v4", "--gdn-state-fp16", "--spec", "mtp", "--draft-tokens", "3", "--lm-head-draft"]
+      }
+    },
     "swift-next": {
       "display_name": "Swift 1.5 Qwen3.8-Flash-Next IQ3_XXS on Strata",
       "qualification": "qualified_role",
