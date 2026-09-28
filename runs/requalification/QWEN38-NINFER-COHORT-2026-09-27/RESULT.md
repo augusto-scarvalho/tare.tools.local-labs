@@ -24,9 +24,10 @@ engine comparison. Against the production configuration, NInfer used ~23% less a
 COMPACTION_TARGET_NOT_REACHED, which exact token counting and a reasoning budget address.
 
 Every unfinished case stopped on tare context management at 32K or on a truncated reply,
-not on the engine itself. Speed on identical requests: decode ~66 vs ~54 tok/s, prefill of an
-~8K prompt ~1,020 vs ~1,235 tok/s (NInfer vs slop.cpp); NInfer reuses the prior turn with
-MTP active (`restore_turn_checkpoint`), slop.cpp runs with its prompt cache off.
+not on the engine itself. Server-side decode medians with MTP 3: NInfer ~78 tok/s, slop.cpp
+~62 tok/s (Qwen3.8) and ~64 tok/s (Swift-1.5); prefill of an ~8K prompt ~1,020 vs ~1,235 tok/s.
+Both production engines reuse prefixes: NInfer restores the prior turn checkpoint with MTP
+(`restore_turn_checkpoint`), slop.cpp uses its qualified prompt cache.
 
 ## Limits
 
