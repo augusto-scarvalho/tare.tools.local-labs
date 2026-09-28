@@ -13,12 +13,18 @@ Six real SpecGraph regressions, same instruction, verifier, limits (24 calls, 90
 
 | Arm | Fixed | Agent time | GPU busy | Marginal energy |
 | --- | ---: | ---: | ---: | ---: |
-| NInfer + Qwen3.8 (prefix reuse on) | 4/6 | 711 s | 7.2 min | ~51 Wh |
-| slop.cpp + Swift-1.5 Q4_K_L | 4/6 | 1,014 s | 11.8 min | ~78 Wh |
-| slop.cpp + Qwen3.8 UD-Q4_K_XL | 3/6 | 1,064 s | 12.7 min | ~87 Wh |
+| slop.cpp + Qwen3.8, production config (prompt cache, 2048-token reasoning budget, exact fleet counting) | 6/6 | 919 s | 8.6 min | ~59 Wh |
+| NInfer + Qwen3.8 (prefix reuse, estimate counting, no reasoning budget) | 4/6 | 711 s | 7.2 min | ~51 Wh |
+| slop.cpp + Swift-1.5 Q4_K_L (cache off, estimate counting) | 4/6 | 1,014 s | 11.8 min | ~78 Wh |
+| slop.cpp + Qwen3.8 (cache off, estimate counting) | 3/6 | 1,064 s | 12.7 min | ~87 Wh |
+
+The last two rows ran without the production prompt cache by mistake and are not a fair
+engine comparison. Against the production configuration, NInfer used ~23% less agent time,
+~17% less GPU time and ~14% less energy, and fixed 4/6 against 6/6: both misses were
+COMPACTION_TARGET_NOT_REACHED, which exact token counting and a reasoning budget address.
 
 Every unfinished case stopped on tare context management at 32K or on a truncated reply,
-not on the engine. Speed on identical requests: decode ~66 vs ~54 tok/s, prefill of an
+not on the engine itself. Speed on identical requests: decode ~66 vs ~54 tok/s, prefill of an
 ~8K prompt ~1,020 vs ~1,235 tok/s (NInfer vs slop.cpp); NInfer reuses the prior turn with
 MTP active (`restore_turn_checkpoint`), slop.cpp runs with its prompt cache off.
 

@@ -53,7 +53,7 @@
       "qualified_for": ["agent-tools", "coding-baseline"],
       "not_for": ["fleet-count-binding", "reasoning-token-budget"],
       "modalities": ["text"],
-      "summary": "Same Qwen3.8 model on the RTX 3090-specific NInfer engine: faster decode, prefix reuse with MTP, about 40% less GPU time than slop.cpp in paired runs.",
+      "summary": "Same Qwen3.8 model on the RTX 3090-specific NInfer engine: about 25% faster decode and prefix reuse with MTP; ~17% less GPU time than slop.cpp production in paired runs, 4/6 vs 6/6 fixed until exact counting and a reasoning budget exist.",
       "limits": "No /props, /apply-template or /tokenize, so fleet counting is refused and clients estimate tokens; no reasoning budget in v0.6.1; Linux build unqualified upstream.",
       "evidence": [
         "runs/requalification/QWEN38-NINFER-COHORT-2026-09-27/RESULT.md"
