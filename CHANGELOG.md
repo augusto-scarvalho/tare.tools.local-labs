@@ -4,6 +4,15 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- `qwen38-gsq` replaces the slop Qwen3.8 Q4_K_XL as default model, shared host mode and the `default`/`general`
+  aliases (it also takes the `general` and `long-context` roles). The `qwen38` card stays only as a retired
+  record, with no role, so the August runs that read it still reproduce; its artifact is deleted.
+  `qwen38-gsq` and `swift27b` artifacts move from the `models.vhdx` mount (`/mnt/wsl/models`, lost whenever WSL
+  restarts without a Windows logon) to `/home/augus/models`.
+
+- `/v1/fleet/status` reports `backend_load` (admitted/running/waiting) from a NInfer backend's lock-free
+  `/v1/load`, so a client can ask the resident model a short question only while it is idle.
+
 - `qwen38-gsq` serves `--first-token-logprobs`, so a LitJEV-style probe can read the resident model:
   on the frozen routing screens Qwen3.8 passed all three (Jev 1.13 failed qualification), ~0.5 s per
   question. The fork's recommended 3090 flags do not help this artifact: cuBLAS prefill and a fresh

@@ -40,7 +40,7 @@ class QualifiedFleetTests(unittest.TestCase):
         self.assertEqual(resolve_model(self.registry, "vision-hard")[0], "muse-vision")
         self.assertEqual(resolve_model(self.registry, "throughput")[0], "qwen36-moe")
         self.assertEqual(recommend(self.registry, "math")[0], "fable-tc")
-        self.assertEqual(recommend(self.registry, "agent-tools")[0], "qwen38")
+        self.assertEqual(recommend(self.registry, "agent-tools")[0], "qwen38-gsq")
 
     def test_one_resident_model_is_fail_closed(self) -> None:
         invalid = copy.deepcopy(self.registry)
@@ -50,20 +50,20 @@ class QualifiedFleetTests(unittest.TestCase):
 
     def test_hold_model_cannot_be_added(self) -> None:
         invalid = copy.deepcopy(self.registry)
-        invalid["models"]["qwen38"]["qualification"] = "hold"
+        invalid["models"]["hauhaucs"]["qualification"] = "hold"
         with self.assertRaisesRegex(FleetConfigError, "promoted/qualified_role"):
             validate_registry(invalid)
 
     def test_gateway_owns_identity_and_network_flags(self) -> None:
-        card = self.registry["models"]["qwen38"]
-        command = build_backend_command("qwen38", card, host="127.0.0.1", port=18080)
+        card = self.registry["models"]["hauhaucs"]
+        command = build_backend_command("hauhaucs", card, host="127.0.0.1", port=18080)
         self.assertEqual(command[0], card["runtime"]["binary"])
-        self.assertEqual(command[command.index("--alias") + 1], "qwen38")
+        self.assertEqual(command[command.index("--alias") + 1], "hauhaucs")
         self.assertEqual(command[command.index("--port") + 1], "18080")
         self.assertEqual(command[command.index("-m") + 1], card["artifact"]["path"])
 
     def _ninfer_card(self) -> dict:
-        card = copy.deepcopy(self.registry["models"]["qwen38"])
+        card = copy.deepcopy(self.registry["models"]["hauhaucs"])
         card["runtime"] = {"kind": "ninfer", "binary": "/home/augus/opt/ninfer/v0.6.1-rtx3090/ninfer-serve",
                            "environment": {}, "args": ["--max-context", "32768", "--spec", "mtp"]}
         card["artifact"]["path"] = "/home/augus/models/qwen38-27b/ninfer/qwen3_8_27b.ninfer"
@@ -89,7 +89,7 @@ class QualifiedFleetTests(unittest.TestCase):
 
     def test_strata_backend_is_started_from_its_config_on_the_gateway_port(self) -> None:
         registry = copy.deepcopy(self.registry)
-        card = copy.deepcopy(self.registry["models"]["qwen38"])
+        card = copy.deepcopy(self.registry["models"]["hauhaucs"])
         card["artifact"]["path"] = "/mnt/wsl/models/flash-next/swift-IQ3_XXS/shard-1.gguf"
         card["runtime"] = {"kind": "strata", "binary": "/mnt/wsl/models/strata/.venv/bin/python",
                            "server": "/mnt/wsl/models/strata/serve/server.py",
@@ -124,7 +124,7 @@ class QualifiedFleetTests(unittest.TestCase):
         }
         for reason, status in cases.items():
             result = host_mode(self.registry, status, now)
-            self.assertEqual((result["mode"], result["model"], result["reason"]), ("shared", "qwen38", reason))
+            self.assertEqual((result["mode"], result["model"], result["reason"]), ("shared", "qwen38-gsq", reason))
         broken = copy.deepcopy(self.registry)
         broken["fleet"]["host_modes"]["solo"] = "unknown"
         with self.assertRaisesRegex(FleetConfigError, "host_modes"):

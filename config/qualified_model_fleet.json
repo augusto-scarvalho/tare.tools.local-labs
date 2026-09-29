@@ -5,12 +5,12 @@
     "description": "Role-qualified local models with on-demand single-GPU swapping.",
     "api_base": "http://127.0.0.1:8080/v1",
     "embedding_api_base": "http://127.0.0.1:8081/v1",
-    "default_model": "qwen38",
+    "default_model": "qwen38-gsq",
     "max_resident_models": 1,
     "selection_field": "model",
     "host_modes": {
-      "description": "Solo (Flash-Next, ~43 GB host RAM) when that RAM plus the margin is free on Windows right now; otherwise the dense 27B that leaves the desktop its memory.",
-      "shared": "qwen38",
+      "description": "Solo (Flash-Next, ~43 GB host RAM) when that RAM plus the margin is free on Windows right now; otherwise Qwen3.8 GSQ on NInfer, which needs little host RAM.",
+      "shared": "qwen38-gsq",
       "solo": "swift-next",
       "solo_host_ram_gb": 43,
       "ram_margin_gb": 4,
@@ -19,8 +19,8 @@
     }
   },
   "aliases": {
-    "default": "qwen38",
-    "general": "qwen38",
+    "default": "qwen38-gsq",
+    "general": "qwen38-gsq",
     "throughput": "qwen36-moe",
     "concurrency": "qwen36-moe",
     "coding": "hauhaucs",
@@ -32,12 +32,12 @@
   },
   "models": {
     "qwen38": {
-      "display_name": "Qwen3.8 27B Vanilla Q4_K_XL",
+      "display_name": "Qwen3.8 27B Vanilla Q4_K_XL (retired)",
       "qualification": "qualified_role",
-      "qualified_for": ["general", "long-context", "agent-tools", "coding-baseline"],
+      "qualified_for": ["retired-2026-09-29"],
       "not_for": ["bounded-512-token-math-default"],
       "modalities": ["text"],
-      "summary": "Current vanilla Qwen3.8 route; strong agent/tool baseline and long-context option.",
+      "summary": "Retired 2026-09-29 for qwen38-gsq; its artifact was deleted. Kept only so the August runs that used this card still reproduce; no alias, role or host mode routes here.",
       "limits": "On the frozen GSM8K-200 512-token contract it scored 188/200 with nine truncations; use Fable for terse bounded math.",
       "evidence": [
         "runs/requalification/QWEN38-AGENT-REGRESSION-2026-08-24/RESULT.md",
@@ -83,7 +83,7 @@
     "qwen38-gsq": {
       "display_name": "Qwen3.8 27B GSQ-RCO IQ3_S on NInfer 0.11",
       "qualification": "qualified_role",
-      "qualified_for": ["agent-tools", "coding-baseline"],
+      "qualified_for": ["general", "long-context", "agent-tools", "coding-baseline"],
       "not_for": ["fleet-count-binding"],
       "modalities": ["text"],
       "summary": "Qwen3.8 27B (ISTA GSQ-RCO IQ3_S, near-BF16 perplexity) on the RTX 3090 NInfer 0.11 line: 128K context, ~107-134 tok/s decode with MTP; fixed 12/12 in two paired runs at about half the agent time and GPU energy of slop.cpp production, and 50/52 on the 26-case set.",
@@ -92,7 +92,7 @@
         "runs/requalification/NINFER-011-COHORT-2026-09-28/RESULT.md"
       ],
       "artifact": {
-        "path": "/mnt/wsl/models/qwen38-gsq/Qwen3.8-27B-GSQ-RCO-IQ3_S-ninfer-v3.ninfer",
+        "path": "/home/augus/models/qwen38-gsq/Qwen3.8-27B-GSQ-RCO-IQ3_S-ninfer-v3.ninfer",
         "bytes": 15017456896,
         "sha256": "29e54467ca0ddae7e9aac04439f72ad20dbf6dc8fb5e84833b41ec7de9c46750",
         "quant": "GSQ-RCO IQ3_S"
@@ -116,7 +116,7 @@
         "runs/requalification/NINFER-011-COHORT-2026-09-28/RESULT.md"
       ],
       "artifact": {
-        "path": "/mnt/wsl/models/swift27b-gsq/swift15_27b_gsq_rco_iq3_s.ninfer",
+        "path": "/home/augus/models/swift27b-gsq/swift15_27b_gsq_rco_iq3_s.ninfer",
         "bytes": 12494820864,
         "sha256": "3ff2a5d1af7f764133282a4b8c2993367cb2c60d2f40983958a723751c00c21b",
         "quant": "GSQ-RCO IQ3_S"

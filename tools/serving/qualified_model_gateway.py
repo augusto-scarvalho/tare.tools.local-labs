@@ -133,6 +133,22 @@ class FleetRuntime:
         except Exception:
             return False
 
+    def backend_load(self, timeout: float = 1.0) -> dict[str, Any] | None:
+        """Admitted/running/waiting requests from a NInfer backend's lock-free /v1/load, else None.
+
+        Lets a client ask the resident model a short question only while it is idle.
+        """
+        card = self.config["models"].get(self.model_id) if self.model_id else None
+        process = self.process
+        if card is None or backend_kind(card) != "ninfer" or process is None or process.poll() is not None:
+            return None
+        try:
+            with urllib_request.urlopen(self.backend_url("/v1/load"), timeout=timeout) as response:
+                requests = json.load(response)["requests"]
+            return {key: requests[key] for key in ("admitted", "running", "waiting") if key in requests}
+        except Exception:
+            return None
+
     def _verify_identity(self, model_id: str, card: dict[str, Any]) -> bool:
         try:
             if backend_kind(card) in ("ninfer", "strata"):
@@ -262,6 +278,7 @@ class FleetRuntime:
             "current_model": self.model_id,
             "requested_name": self.requested_name,
             "backend_healthy": self.backend_health(),
+            "backend_load": self.backend_load(),
             "backend_pid": self.process.pid if self.process and self.process.poll() is None else None,
             "backend_port": self.backend_port,
             "last_switch_seconds": self.last_switch_seconds,
