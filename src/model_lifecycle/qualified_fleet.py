@@ -69,11 +69,12 @@ def validate_registry(data: dict[str, Any], *, repo_root: Path = REPO_ROOT) -> N
     if modes is not None and not (
         isinstance(modes, dict) and modes.get("shared") in models and modes.get("solo") in models
         and str(modes.get("status_path", "")).endswith(".json")
-        and all(type(modes.get(key)) is int and modes[key] > 0
-                for key in ("idle_seconds", "max_status_age_seconds"))
+        and type(modes.get("max_status_age_seconds")) is int and modes["max_status_age_seconds"] > 0
+        and type(modes.get("solo_host_ram_gb")) in (int, float) and modes["solo_host_ram_gb"] > 0
+        and type(modes.get("ram_margin_gb")) in (int, float) and modes["ram_margin_gb"] >= 0
     ):
-        raise FleetConfigError("fleet.host_modes needs shared/solo models, status_path, idle_seconds, "
-                               "max_status_age_seconds")
+        raise FleetConfigError("fleet.host_modes needs shared/solo models, status_path, max_status_age_seconds, "
+                               "solo_host_ram_gb, ram_margin_gb")
 
     for alias, target in aliases.items():
         if not alias or target not in models:
@@ -155,25 +156,30 @@ def recommend(data: dict[str, Any], role: str) -> tuple[str, dict[str, Any]]:
     return candidates[0]
 
 
-def host_mode(data: dict[str, Any], status: dict[str, Any] | None, now: float) -> dict[str, Any]:
-    """Pick the solo model only when the Windows desktop has been idle long enough; otherwise the shared one.
+def host_mode(data: dict[str, Any], status: dict[str, Any] | None, now: float,
+              resident: str | None = None) -> dict[str, Any]:
+    """Pick the solo model when it fits what the host has free right now; otherwise the shared one.
 
-    Missing or stale host status counts as "in use": the shared model is the safe side.
+    Solo is "nobody else needs this memory": the solo model's host RAM plus a margin must be free on
+    Windows. A resident solo model already holds its share, so it keeps fitting. Missing or stale host
+    status does not fit: the shared model is the safe side. The GPU itself is the shared lease's job.
     """
     modes = data["fleet"]["host_modes"]
+    needed = modes["solo_host_ram_gb"] + modes["ram_margin_gb"]
+    free = status.get("windows_free_gb") if isinstance(status, dict) else None
     if not isinstance(status, dict) or not isinstance(status.get("ts"), (int, float)):
         reason = "host_status_missing"
     elif now - status["ts"] > modes["max_status_age_seconds"]:
         reason = "host_status_stale"
-    elif not isinstance(status.get("desktop_idle_seconds"), (int, float)):
+    elif not isinstance(free, (int, float)):
         reason = "host_status_missing"
-    elif status["desktop_idle_seconds"] < modes["idle_seconds"]:
-        reason = "desktop_in_use"
+    elif free + (modes["solo_host_ram_gb"] if resident == modes["solo"] else 0) >= needed:
+        reason = "solo_fits"
     else:
-        reason = "desktop_idle"
-    mode = "solo" if reason == "desktop_idle" else "shared"
-    return {"mode": mode, "model": modes[mode], "reason": reason, "idle_seconds_required": modes["idle_seconds"],
-            "host": status if isinstance(status, dict) else None}
+        reason = "host_ram_short"
+    mode = "solo" if reason == "solo_fits" else "shared"
+    return {"mode": mode, "model": modes[mode], "reason": reason, "needed_free_gb": needed,
+            "resident": resident, "host": status if isinstance(status, dict) else None}
 
 
 def build_backend_command(

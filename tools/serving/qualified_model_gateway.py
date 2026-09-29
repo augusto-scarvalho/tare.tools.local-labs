@@ -351,7 +351,7 @@ class Handler(BaseHTTPRequestHandler):
                 status = json.loads(Path(RUNTIME.config["fleet"]["host_modes"]["status_path"]).read_text())
             except (OSError, ValueError):
                 status = None
-            send_json(self, 200, host_mode(RUNTIME.config, status, time.time()))
+            send_json(self, 200, host_mode(RUNTIME.config, status, time.time(), RUNTIME.model_id))
             return
         if path in {"/models", "/v1/models"}:
             payload = []

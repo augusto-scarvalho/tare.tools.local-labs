@@ -9,10 +9,11 @@
     "max_resident_models": 1,
     "selection_field": "model",
     "host_modes": {
-      "description": "Solo (Flash-Next, ~43 GB host RAM) only after the Windows desktop has been idle for 30 minutes; otherwise the dense 27B that leaves the desktop its memory.",
+      "description": "Solo (Flash-Next, ~43 GB host RAM) when that RAM plus the margin is free on Windows right now; otherwise the dense 27B that leaves the desktop its memory.",
       "shared": "qwen38",
       "solo": "swift-next",
-      "idle_seconds": 1800,
+      "solo_host_ram_gb": 43,
+      "ram_margin_gb": 4,
       "status_path": "/mnt/c/ProgramData/tare/host-status.json",
       "max_status_age_seconds": 300
     }

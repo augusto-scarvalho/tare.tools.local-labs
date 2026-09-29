@@ -4,6 +4,11 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Solo mode follows what fits, not desktop idleness: `/v1/fleet/recommend` picks the solo model
+  (swift-next, ~43 GB host RAM) when Windows has that RAM plus a 4 GB margin free right now
+  (`solo_host_ram_gb`, `ram_margin_gb`); a resident solo model counts its own share. Someone at the
+  desktop no longer forces shared mode; an idle desktop with busy RAM no longer picks solo.
+
 - NInfer 0.11 cohort extended to the 26-case set: `qwen38-gsq` 50/52 and `swift27b` 52/52 (Swift
   once tare stores its full-size replies, Kernel bf8a26b). Card summaries and evidence updated.
 

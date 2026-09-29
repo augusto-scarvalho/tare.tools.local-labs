@@ -108,14 +108,18 @@ class QualifiedFleetTests(unittest.TestCase):
             with self.assertRaises(FleetConfigError):
                 validate_registry(bad)
 
-    def test_solo_model_only_after_the_desktop_has_been_idle_for_its_window(self) -> None:
+    def test_solo_model_only_when_its_host_ram_is_free_now(self) -> None:
         modes = self.registry["fleet"]["host_modes"]
         now = 1_000_000
-        idle = {"ts": now - 60, "desktop_idle_seconds": modes["idle_seconds"]}
-        self.assertEqual(host_mode(self.registry, idle, now)["model"], "swift-next")
+        needed = modes["solo_host_ram_gb"] + modes["ram_margin_gb"]
+        fits = {"ts": now - 60, "windows_free_gb": needed, "desktop_idle_seconds": 5}  # someone at the desk is fine
+        self.assertEqual(host_mode(self.registry, fits, now)["model"], "swift-next")
+        # A resident solo model already holds its RAM: it keeps fitting instead of flapping.
+        held = {**fits, "windows_free_gb": needed - modes["solo_host_ram_gb"]}
+        self.assertEqual(host_mode(self.registry, held, now, "swift-next")["mode"], "solo")
         cases = {
-            "desktop_in_use": {**idle, "desktop_idle_seconds": modes["idle_seconds"] - 1},
-            "host_status_stale": {**idle, "ts": now - modes["max_status_age_seconds"] - 1},
+            "host_ram_short": {**fits, "windows_free_gb": needed - 0.5},
+            "host_status_stale": {**fits, "ts": now - modes["max_status_age_seconds"] - 1},
             "host_status_missing": None,
         }
         for reason, status in cases.items():
