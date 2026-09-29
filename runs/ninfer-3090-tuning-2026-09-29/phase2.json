@@ -1,0 +1,761 @@
+{
+ "started": "2026-09-29T08:47:43",
+ "configs": {
+  "D2-calibrated": {
+   "flags": [
+    "--max-context",
+    "131072",
+    "--kv-capacity",
+    "auto",
+    "--max-concurrency",
+    "1",
+    "--kv-dtype",
+    "rk8v4",
+    "--gdn-state-fp16",
+    "--default-thinking-budget",
+    "2048",
+    "--first-token-logprobs",
+    "--spec",
+    "mtp",
+    "--draft-tokens",
+    "3",
+    "--lm-head-draft",
+    "--device-profile",
+    "calibrate"
+   ],
+   "load_s": 52.4,
+   "gpu_used_mib": 18615,
+   "prefill": [
+    {
+     "wall_s": 11.36,
+     "cache_n": 0,
+     "draft_n": 53,
+     "draft_n_accepted": 28,
+     "predicted_ms": 510.818395,
+     "predicted_n": 48,
+     "predicted_per_second": 92.00921591713626,
+     "predicted_per_token_ms": 10.868476489361703,
+     "prompt_ms": 13304.708225,
+     "prompt_n": 19898,
+     "prompt_per_second": 1495.5607942315473,
+     "prompt_per_token_ms": 0.6686455033169163
+    },
+    {
+     "wall_s": 13.81,
+     "cache_n": 0,
+     "draft_n": 64,
+     "draft_n_accepted": 25,
+     "predicted_ms": 596.0041550000001,
+     "predicted_n": 48,
+     "predicted_per_second": 78.85851064242999,
+     "predicted_per_token_ms": 12.680939468085109,
+     "prompt_ms": 13175.046904,
+     "prompt_n": 19898,
+     "prompt_per_second": 1510.2792532722508,
+     "prompt_per_token_ms": 0.6621292041411198
+    },
+    {
+     "wall_s": 11.36,
+     "cache_n": 0,
+     "draft_n": 53,
+     "draft_n_accepted": 28,
+     "predicted_ms": 514.4756179999999,
+     "predicted_n": 48,
+     "predicted_per_second": 91.35515533799311,
+     "predicted_per_token_ms": 10.94628974468085,
+     "prompt_ms": 13327.215377,
+     "prompt_n": 19898,
+     "prompt_per_second": 1493.0350742541316,
+     "prompt_per_token_ms": 0.6697766296612725
+    }
+   ],
+   "decode": [
+    {
+     "wall_s": 3.73,
+     "cache_n": 0,
+     "draft_n": 507,
+     "draft_n_accepted": 426,
+     "predicted_ms": 3600.952027,
+     "predicted_n": 557,
+     "predicted_per_second": 154.40361210899297,
+     "predicted_per_token_ms": 6.476532422661871,
+     "prompt_ms": 112.693935,
+     "prompt_n": 42,
+     "prompt_per_second": 372.690863975954,
+     "prompt_per_token_ms": 2.6831889285714285
+    },
+    {
+     "wall_s": 3.27,
+     "cache_n": 0,
+     "draft_n": 453,
+     "draft_n_accepted": 353,
+     "predicted_ms": 3134.1785130000003,
+     "predicted_n": 466,
+     "predicted_per_second": 148.36423581849755,
+     "predicted_per_token_ms": 6.740168845161291,
+     "prompt_ms": 113.688094,
+     "prompt_n": 42,
+     "prompt_per_second": 369.4318245849033,
+     "prompt_per_token_ms": 2.7068593809523813
+    },
+    {
+     "wall_s": 3.76,
+     "cache_n": 0,
+     "draft_n": 510,
+     "draft_n_accepted": 425,
+     "predicted_ms": 3625.742597,
+     "predicted_n": 557,
+     "predicted_per_second": 153.34789636198767,
+     "predicted_per_token_ms": 6.521119778776979,
+     "prompt_ms": 113.784876,
+     "prompt_n": 42,
+     "prompt_per_second": 369.11759696429255,
+     "prompt_per_token_ms": 2.7091637142857143
+    }
+   ],
+   "texts": [
+    "```python\nclass LRUCache:\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.cache = {}\n        self.order = []\n\n    def get(self, key: int) -> int:\n        if key not in self.cache:\n            return -1\n        self._move_to_front(key)\n        return self.cache[key]\n\n    def put(self, key: int, value: int) -> None:\n        if key in self.cache:\n            self.cache[key] = value\n            self._move_to_front(key)\n        else:\n            if len(self.cache) >= self.capacity:\n                lru_key = self.order.pop()\n                del self.cache[lru_key]\n            self.cache[key] = value\n            self.order.insert(0, key)\n\n    def _move_to_front(self, key: int) -> None:\n        if key in self.order:\n            self.order.remove(key)\n            self.order.insert(0, key)\n\n\nimport pytest\n\ndef test_put_and_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    assert cache.get(1) == 1\n\ndef test_eviction():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(3, 3)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n    assert cache.get(3) == 3\n\ndef test_update_existing_key():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(1, 10)\n    assert cache.get(1) == 10\n    assert cache.get(2) == 2\n\ndef test_capacity_one():\n    cache = LRUCache(1)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n\ndef test_lru_order_after_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.get(1)\n    cache.put(3, 3)\n    assert cache.get(2) == -1\n    assert cache.get(1) == 1\n    assert cache.get(3) == 3\n```",
+    "```python\nfrom collections import OrderedDict\n\n\nclass LRUCache:\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.cache = OrderedDict()\n\n    def get(self, key: int) -> int:\n        if key not in self.cache:\n            return -1\n        self.cache.move_to_end(key)\n        return self.cache[key]\n\n    def put(self, key: int, value: int) -> None:\n        if key in self.cache:\n            self.cache.move_to_end(key)\n        self.cache[key] = value\n        if len(self.cache) > self.capacity:\n            self.cache.popitem(last=False)\n\n\nimport pytest\n\n\ndef test_put_and_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    assert cache.get(1) == 1\n\n\ndef test_eviction_when_full():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(3, 3)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n    assert cache.get(3) == 3\n\n\ndef test_update_existing_key():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(1, 2)\n    assert cache.get(1) == 2\n\n\ndef test_lru_order_maintained_on_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.get(1)\n    cache.put(3, 3)\n    assert cache.get(2) == -1\n    assert cache.get(1) == 1\n    assert cache.get(3) == 3\n\n\ndef test_capacity_one():\n    cache = LRUCache(1)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n```",
+    "```python\nclass LRUCache:\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.cache = {}\n        self.order = []\n\n    def get(self, key: int) -> int:\n        if key not in self.cache:\n            return -1\n        self._move_to_front(key)\n        return self.cache[key]\n\n    def put(self, key: int, value: int) -> None:\n        if key in self.cache:\n            self.cache[key] = value\n            self._move_to_front(key)\n        else:\n            if len(self.cache) >= self.capacity:\n                lru_key = self.order.pop()\n                del self.cache[lru_key]\n            self.cache[key] = value\n            self.order.insert(0, key)\n\n    def _move_to_front(self, key: int) -> None:\n        if key in self.order:\n            self.order.remove(key)\n        self.order.insert(0, key)\n\n\nimport pytest\n\ndef test_put_and_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    assert cache.get(1) == 1\n\ndef test_eviction():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(3, 3)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n    assert cache.get(3) == 3\n\ndef test_update_existing_key():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(1, 10)\n    assert cache.get(1) == 10\n    assert cache.get(2) == 2\n\ndef test_capacity_one():\n    cache = LRUCache(1)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n\ndef test_lru_order_after_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.get(1)\n    cache.put(3, 3)\n    assert cache.get(2) == -1\n    assert cache.get(1) == 1\n    assert cache.get(3) == 3\n```"
+   ]
+  },
+  "E2-dflash2": {
+   "flags": [
+    "--max-context",
+    "131072",
+    "--kv-capacity",
+    "auto",
+    "--max-concurrency",
+    "1",
+    "--kv-dtype",
+    "rk8v4",
+    "--gdn-state-fp16",
+    "--default-thinking-budget",
+    "2048",
+    "--first-token-logprobs",
+    "--spec",
+    "dflash2",
+    "--draft-tokens",
+    "7",
+    "--lm-head-draft"
+   ],
+   "load_s": 9.5,
+   "gpu_used_mib": 20303,
+   "prefill": [
+    {
+     "wall_s": 14.58,
+     "cache_n": 0,
+     "draft_n": 118,
+     "draft_n_accepted": 28,
+     "predicted_ms": 744.692487,
+     "predicted_n": 48,
+     "predicted_per_second": 63.113299543735025,
+     "predicted_per_token_ms": 15.844521,
+     "prompt_ms": 13804.305071,
+     "prompt_n": 19899,
+     "prompt_per_second": 1441.5068268669095,
+     "prompt_per_token_ms": 0.6937185321372934
+    },
+    {
+     "wall_s": 11.81,
+     "cache_n": 0,
+     "draft_n": 132,
+     "draft_n_accepted": 26,
+     "predicted_ms": 829.238998,
+     "predicted_n": 48,
+     "predicted_per_second": 56.6784728086317,
+     "predicted_per_token_ms": 17.643382936170212,
+     "prompt_ms": 13451.65402,
+     "prompt_n": 19899,
+     "prompt_per_second": 1479.2976365890802,
+     "prompt_per_token_ms": 0.6759964832403639
+    },
+    {
+     "wall_s": 14.43,
+     "cache_n": 0,
+     "draft_n": 132,
+     "draft_n_accepted": 26,
+     "predicted_ms": 832.3183819999999,
+     "predicted_n": 48,
+     "predicted_per_second": 56.46877567099077,
+     "predicted_per_token_ms": 17.70890174468085,
+     "prompt_ms": 13565.446486,
+     "prompt_n": 19899,
+     "prompt_per_second": 1466.888688148705,
+     "prompt_per_token_ms": 0.6817149849741193
+    }
+   ],
+   "decode": [
+    {
+     "wall_s": 3.21,
+     "cache_n": 0,
+     "draft_n": 624,
+     "draft_n_accepted": 477,
+     "predicted_ms": 3081.815356,
+     "predicted_n": 557,
+     "predicted_per_second": 180.41314477764578,
+     "predicted_per_token_ms": 5.542833374100719,
+     "prompt_ms": 113.63569799999999,
+     "prompt_n": 42,
+     "prompt_per_second": 369.60216498164164,
+     "prompt_per_token_ms": 2.705611857142857
+    },
+    {
+     "wall_s": 2.83,
+     "cache_n": 0,
+     "draft_n": 546,
+     "draft_n_accepted": 419,
+     "predicted_ms": 2695.454484,
+     "predicted_n": 489,
+     "predicted_per_second": 181.04553532501794,
+     "predicted_per_token_ms": 5.523472303278688,
+     "prompt_ms": 112.807303,
+     "prompt_n": 42,
+     "prompt_per_second": 372.31632069069144,
+     "prompt_per_token_ms": 2.685888166666667
+    },
+    {
+     "wall_s": 3.6,
+     "cache_n": 0,
+     "draft_n": 702,
+     "draft_n_accepted": 527,
+     "predicted_ms": 3464.3556009999998,
+     "predicted_n": 617,
+     "predicted_per_second": 177.81084592534012,
+     "predicted_per_token_ms": 5.623953897727272,
+     "prompt_ms": 113.66738099999999,
+     "prompt_n": 42,
+     "prompt_per_second": 369.49914417400015,
+     "prompt_per_token_ms": 2.706366214285714
+    }
+   ],
+   "texts": [
+    "```python\nclass LRUCache:\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.cache = {}\n        self.order = []\n\n    def get(self, key: int) -> int:\n        if key not in self.cache:\n            return -1\n        self._move_to_front(key)\n        return self.cache[key]\n\n    def put(self, key: int, value: int) -> None:\n        if key in self.cache:\n            self.cache[key] = value\n            self._move_to_front(key)\n        else:\n            if len(self.cache) >= self.capacity:\n                lru_key = self.order.pop()\n                del self.cache[lru_key]\n            self.cache[key] = value\n            self.order.insert(0, key)\n\n    def _move_to_front(self, key: int) -> None:\n        if key in self.order:\n            self.order.remove(key)\n            self.order.insert(0, key)\n\n\nimport pytest\n\ndef test_put_and_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    assert cache.get(1) == 1\n\ndef test_eviction():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(3, 3)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n    assert cache.get(3) == 3\n\ndef test_update_existing_key():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(1, 10)\n    assert cache.get(1) == 10\n    assert cache.get(2) == 2\n\ndef test_capacity_one():\n    cache = LRUCache(1)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n\ndef test_lru_order_after_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.get(1)\n    cache.put(3, 3)\n    assert cache.get(2) == -1\n    assert cache.get(1) == 1\n    assert cache.get(3) == 3\n```",
+    "```python\nfrom collections import OrderedDict\n\n\nclass LRUCache:\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.cache = OrderedDict()\n\n    def get(self, key: int) -> int:\n        if key not in self.cache:\n            return -1\n        self.cache.move_to_end(key)\n        return self.cache[key]\n\n    def put(self, key: int, value: int) -> None:\n        if key in self.cache:\n            self.cache.move_to_end(key)\n        self.cache[key] = value\n        if len(self.cache) > self.capacity:\n            self.cache.popitem(last=False)\n\n\nimport pytest\n\n\ndef test_put_and_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    assert cache.get(1) == 1\n\n\ndef test_eviction_when_full():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(3, 3)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n    assert cache.get(3) == 3\n\n\ndef test_update_existing_key():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(1, 10)\n    assert cache.get(1) == 10\n    assert cache.get(2) == 2\n\n\ndef test_lru_order_maintained_on_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.get(1)\n    cache.put(3, 3)\n    assert cache.get(2) == -1\n    assert cache.get(1) == 1\n    assert cache.get(3) == 3\n\n\ndef test_capacity_one():\n    cache = LRUCache(1)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n```",
+    "```python\nclass LRUCache:\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.cache = {}\n        self.order = []\n\n    def get(self, key: int) -> int:\n        if key not in self.cache:\n            return -1\n        # Move to end (most recently used)\n        self.order.remove(key)\n        self.order.append(key)\n        return self.cache[key]\n\n    def put(self, key: int, value: int) -> None:\n        if key in self.cache:\n            self.cache[key] = value\n            self.order.remove(key)\n            self.order.append(key)\n        else:\n            if len(self.cache) >= self.capacity:\n                lru_key = self.order.pop(0)\n                del self.cache[lru_key]\n            self.cache[key] = value\n            self.order.append(key)\n\n\nimport pytest\n\ndef test_put_and_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    assert cache.get(1) == 1\n\ndef test_eviction():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(3, 3)  # Evicts key 1\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n    assert cache.get(3) == 3\n\ndef test_update_existing_key():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(1, 10)  # Update key 1, makes it most recent\n    cache.put(3, 3)  # Evicts key 2\n    assert cache.get(1) == 10\n    assert cache.get(2) == -1\n    assert cache.get(3) == 3\n\ndef test_capacity_one():\n    cache = LRUCache(1)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n\ndef test_multiple_operations():\n    cache = LRUCache(3)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(3, 3)\n    assert cache.get(1) == 1  # Makes 1 most recent\n    cache.put(4, 4)  # Evicts 2\n    assert cache.get(2) == -1\n    assert cache.get(3) == 3\n    assert cache.get(4) == 4\n    assert cache.get(1) == 1\n```"
+   ]
+  },
+  "A2-current-litjev": {
+   "flags": [
+    "--max-context",
+    "131072",
+    "--kv-capacity",
+    "auto",
+    "--max-concurrency",
+    "1",
+    "--kv-dtype",
+    "rk8v4",
+    "--gdn-state-fp16",
+    "--default-thinking-budget",
+    "2048",
+    "--first-token-logprobs",
+    "--spec",
+    "mtp",
+    "--draft-tokens",
+    "3",
+    "--lm-head-draft"
+   ],
+   "load_s": 9.6,
+   "gpu_used_mib": 18579,
+   "prefill": [
+    {
+     "wall_s": 14.16,
+     "cache_n": 0,
+     "draft_n": 68,
+     "draft_n_accepted": 24,
+     "predicted_ms": 622.5730609999999,
+     "predicted_n": 48,
+     "predicted_per_second": 75.49314762271733,
+     "predicted_per_token_ms": 13.24623534042553,
+     "prompt_ms": 13507.92215,
+     "prompt_n": 19900,
+     "prompt_per_second": 1473.209556511991,
+     "prompt_per_token_ms": 0.6787900577889447
+    },
+    {
+     "wall_s": 11.37,
+     "cache_n": 0,
+     "draft_n": 47,
+     "draft_n_accepted": 30,
+     "predicted_ms": 461.202144,
+     "predicted_n": 48,
+     "predicted_per_second": 101.9075921728586,
+     "predicted_per_token_ms": 9.812811574468084,
+     "prompt_ms": 13356.097281,
+     "prompt_n": 19900,
+     "prompt_per_second": 1489.9562036216348,
+     "prompt_per_token_ms": 0.6711606673869347
+    },
+    {
+     "wall_s": 13.95,
+     "cache_n": 0,
+     "draft_n": 47,
+     "draft_n_accepted": 30,
+     "predicted_ms": 462.32775,
+     "predicted_n": 48,
+     "predicted_per_second": 101.65948291012167,
+     "predicted_per_token_ms": 9.836760638297871,
+     "prompt_ms": 13459.573613,
+     "prompt_n": 19900,
+     "prompt_per_second": 1478.5015166289875,
+     "prompt_per_token_ms": 0.6763604830653267
+    }
+   ],
+   "decode": [
+    {
+     "wall_s": 3.75,
+     "cache_n": 0,
+     "draft_n": 507,
+     "draft_n_accepted": 426,
+     "predicted_ms": 3612.625527,
+     "predicted_n": 557,
+     "predicted_per_second": 153.90468672841217,
+     "predicted_per_token_ms": 6.497527926258993,
+     "prompt_ms": 114.578008,
+     "prompt_n": 42,
+     "prompt_per_second": 366.56249077048017,
+     "prompt_per_token_ms": 2.7280478095238094
+    },
+    {
+     "wall_s": 3.26,
+     "cache_n": 0,
+     "draft_n": 453,
+     "draft_n_accepted": 353,
+     "predicted_ms": 3137.1388530000004,
+     "predicted_n": 466,
+     "predicted_per_second": 148.22423290423606,
+     "predicted_per_token_ms": 6.7465351677419365,
+     "prompt_ms": 114.205486,
+     "prompt_n": 42,
+     "prompt_per_second": 367.7581653126541,
+     "prompt_per_token_ms": 2.719178238095238
+    },
+    {
+     "wall_s": 3.76,
+     "cache_n": 0,
+     "draft_n": 510,
+     "draft_n_accepted": 425,
+     "predicted_ms": 3626.342705,
+     "predicted_n": 557,
+     "predicted_per_second": 153.32251947213578,
+     "predicted_per_token_ms": 6.52219910971223,
+     "prompt_ms": 113.621822,
+     "prompt_n": 42,
+     "prompt_per_second": 369.6473024345623,
+     "prompt_per_token_ms": 2.705281476190476
+    }
+   ],
+   "texts": [
+    "```python\nclass LRUCache:\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.cache = {}\n        self.order = []\n\n    def get(self, key: int) -> int:\n        if key not in self.cache:\n            return -1\n        self._move_to_front(key)\n        return self.cache[key]\n\n    def put(self, key: int, value: int) -> None:\n        if key in self.cache:\n            self.cache[key] = value\n            self._move_to_front(key)\n        else:\n            if len(self.cache) >= self.capacity:\n                lru_key = self.order.pop()\n                del self.cache[lru_key]\n            self.cache[key] = value\n            self.order.insert(0, key)\n\n    def _move_to_front(self, key: int) -> None:\n        if key in self.order:\n            self.order.remove(key)\n            self.order.insert(0, key)\n\n\nimport pytest\n\ndef test_put_and_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    assert cache.get(1) == 1\n\ndef test_eviction():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(3, 3)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n    assert cache.get(3) == 3\n\ndef test_update_existing_key():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(1, 10)\n    assert cache.get(1) == 10\n    assert cache.get(2) == 2\n\ndef test_capacity_one():\n    cache = LRUCache(1)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n\ndef test_lru_order_after_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.get(1)\n    cache.put(3, 3)\n    assert cache.get(2) == -1\n    assert cache.get(1) == 1\n    assert cache.get(3) == 3\n```",
+    "```python\nfrom collections import OrderedDict\n\n\nclass LRUCache:\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.cache = OrderedDict()\n\n    def get(self, key: int) -> int:\n        if key not in self.cache:\n            return -1\n        self.cache.move_to_end(key)\n        return self.cache[key]\n\n    def put(self, key: int, value: int) -> None:\n        if key in self.cache:\n            self.cache.move_to_end(key)\n        self.cache[key] = value\n        if len(self.cache) > self.capacity:\n            self.cache.popitem(last=False)\n\n\nimport pytest\n\n\ndef test_put_and_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    assert cache.get(1) == 1\n\n\ndef test_eviction_when_full():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(3, 3)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n    assert cache.get(3) == 3\n\n\ndef test_update_existing_key():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(1, 2)\n    assert cache.get(1) == 2\n\n\ndef test_lru_order_maintained_on_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.get(1)\n    cache.put(3, 3)\n    assert cache.get(2) == -1\n    assert cache.get(1) == 1\n    assert cache.get(3) == 3\n\n\ndef test_capacity_one():\n    cache = LRUCache(1)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n```",
+    "```python\nclass LRUCache:\n    def __init__(self, capacity: int):\n        self.capacity = capacity\n        self.cache = {}\n        self.order = []\n\n    def get(self, key: int) -> int:\n        if key not in self.cache:\n            return -1\n        self._move_to_front(key)\n        return self.cache[key]\n\n    def put(self, key: int, value: int) -> None:\n        if key in self.cache:\n            self.cache[key] = value\n            self._move_to_front(key)\n        else:\n            if len(self.cache) >= self.capacity:\n                lru_key = self.order.pop()\n                del self.cache[lru_key]\n            self.cache[key] = value\n            self.order.insert(0, key)\n\n    def _move_to_front(self, key: int) -> None:\n        if key in self.order:\n            self.order.remove(key)\n        self.order.insert(0, key)\n\n\nimport pytest\n\ndef test_put_and_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    assert cache.get(1) == 1\n\ndef test_eviction():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(3, 3)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n    assert cache.get(3) == 3\n\ndef test_update_existing_key():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.put(1, 10)\n    assert cache.get(1) == 10\n    assert cache.get(2) == 2\n\ndef test_capacity_one():\n    cache = LRUCache(1)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    assert cache.get(1) == -1\n    assert cache.get(2) == 2\n\ndef test_lru_order_after_get():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    cache.get(1)\n    cache.put(3, 3)\n    assert cache.get(2) == -1\n    assert cache.get(1) == 1\n    assert cache.get(3) == 3\n```"
+   ],
+   "litjev": {
+    "LAYA_FEWSHOT_PROTOCOL_2026-09-21": [
+     {
+      "id": "generic_zero-abstention-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "generic_few-effort-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "descriptive_few-effort-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "descriptive_zero-cost-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "descriptive_few-abstention-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "descriptive_few-quality-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "descriptive_few-effort-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "generic_few-abstention-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "generic_few-effort-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "descriptive_zero-effort-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "generic_zero-abstention-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "descriptive_zero-cost-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "descriptive_zero-quality-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "generic_zero-effort-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "generic_few-cost-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "generic_zero-quality-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "generic_zero-effort-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "descriptive_zero-effort-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "generic_zero-cost-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "descriptive_zero-abstention-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "generic_few-abstention-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "descriptive_few-cost-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "generic_few-quality-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "descriptive_few-quality-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "descriptive_zero-quality-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "generic_few-cost-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "generic_zero-cost-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "descriptive_zero-abstention-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "descriptive_few-abstention-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "generic_zero-quality-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "descriptive_few-cost-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "generic_few-quality-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     }
+    ],
+    "LAYA_QUALIFICATION_PROTOCOL_2026-09-21": [
+     {
+      "id": "real_concurrency-4",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "cost_1-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "quality_0-2",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "real_label-2",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "unknown-2",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "real_concurrency-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "real_label-5",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "effort_1-2",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "unknown-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "real_label-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "real_concurrency-5",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "cost_1-2",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "quality_0-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "cost_0-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "effort_0-2",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "quality_1-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "real_concurrency-3",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "real_label-6",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "incomparable-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "cost_0-2",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "real_concurrency-2",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "real_label-3",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "incomparable-2",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "real_concurrency-6",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "real_label-4",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "effort_1-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "quality_1-2",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "effort_0-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     }
+    ],
+    "LAYA_STRATEGY_PROTOCOL_2026-09-21": [
+     {
+      "id": "effort-cost-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "quality-floor-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "total-cost-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "total-cost-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "quality-floor-0",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     },
+     {
+      "id": "effort-cost-1",
+      "status": "FAILED",
+      "error": "HTTPError: HTTP Error 400: Bad Request",
+      "seconds": 0.001
+     }
+    ]
+   }
+  }
+ },
+ "gpu_used_after_yield_mib": 1366,
+ "finished": "2026-09-29T08:51:38"
+}

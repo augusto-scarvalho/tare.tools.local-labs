@@ -4,6 +4,12 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- `qwen38-gsq` serves `--first-token-logprobs`, so a LitJEV-style probe can read the resident model:
+  on the frozen routing screens Qwen3.8 passed all three (Jev 1.13 failed qualification), ~0.5 s per
+  question. The fork's recommended 3090 flags do not help this artifact: cuBLAS prefill and a fresh
+  calibration are slower than the built-in profile, the head/embedding trades do not load, and DFlash2
+  decodes 18% faster but changes greedy output (runs/ninfer-3090-tuning-2026-09-29).
+
 - Solo mode follows what fits, not desktop idleness: `/v1/fleet/recommend` picks the solo model
   (swift-next, ~43 GB host RAM) when Windows has that RAM plus a 4 GB margin free right now
   (`solo_host_ram_gb`, `ram_margin_gb`); a resident solo model counts its own share. Someone at the
