@@ -4,6 +4,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- The pre-push hook also starts a detached `tare ci watch` for each pushed commit (from tare.tools.os). A red
+  GitHub run becomes an alert that agents see before they can end a turn, plus a Windows notification.
+  Machines without the tare product skip it.
+
 - Lighter GPU lease. A `gpu` command (`status`, `run`, `hold`) wraps the `gpu-run` supervisor:
   - Named tasks learn their usual duration, and a late run is flagged; `--kill-after` is the only cutoff.
   - `hold` is an interactive shell with a mandatory deadline.

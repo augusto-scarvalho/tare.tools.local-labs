@@ -36,7 +36,18 @@ while read -r local_ref local_sha remote_ref remote_sha; do
     fi
 
     "$python_bin" "$checker" "$base_sha" "$local_sha" --repo "$repo_root" || result=1
+    pushed="${pushed:-} $local_sha"
 done
+
+# Every pushed commit gets a detached CI watcher (`tare ci watch`): a red run becomes an alert that agents
+# are shown before they can end a turn, plus a Windows notification. Machines without the product skip it.
+tare_cmd="${LOCALAPPDATA:-}/tare.tools/product/tare.cmd"
+if [ "$result" = 0 ] && [ -n "${LOCALAPPDATA:-}" ] && [ -f "$tare_cmd" ] && command -v powershell.exe >/dev/null 2>&1; then
+    for sha in ${pushed:-}; do
+        powershell.exe -NoProfile -Command "Start-Process -WindowStyle Hidden -FilePath '$tare_cmd' \
+-ArgumentList 'ci','watch','$repo_root','$sha'" >/dev/null 2>&1 || true
+    done
+fi
 
 if [ "$result" -eq 0 ]; then
     echo "PUSH_REMINDER=review docs, handoff, backlog, and changelog when applicable; after push, watch GitHub Actions to a terminal result" >&2
