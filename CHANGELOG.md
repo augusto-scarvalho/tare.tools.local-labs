@@ -4,6 +4,15 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Lighter GPU lease. A `gpu` command (`status`, `run`, `hold`) wraps the `gpu-run` supervisor:
+  - Named tasks learn their usual duration, and a late run is flagged; `--kill-after` is the only cutoff.
+  - `hold` is an interactive shell with a mandatory deadline.
+  - Nested jobs keep their supervision.
+  - An idle watch reports average board power, and releases the GPU only with `--idle-release`.
+
+  Lease tickets carry kind, reason and pid, and `status()` lists them. A text request gives way to an image job
+  holding or waiting for the GPU with `503 gpu_busy` after 5 s, instead of waiting the whole route timeout.
+  `qwen38-gsq` unloads after 600 s idle.
 - `qwen38-gsq` replaces the slop Qwen3.8 Q4_K_XL as default model, shared host mode and the `default`/`general`
   aliases (it also takes the `general` and `long-context` roles). The `qwen38` card stays only as a retired
   record, with no role, so the August runs that read it still reproduce; its artifact is deleted.

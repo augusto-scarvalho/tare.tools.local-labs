@@ -43,7 +43,7 @@ from model_lifecycle.qualified_fleet import (  # noqa: E402
 from model_lifecycle.fleet_count import (  # noqa: E402
     BINDING_FIELD, BindingMismatch, check_binding, count_request, effective_profile,
 )
-from model_lifecycle.gpu_lease import SharedGpuLease  # noqa: E402
+from model_lifecycle.gpu_lease import GpuBusy, SharedGpuLease  # noqa: E402
 from model_lifecycle.comfy_routes import (  # noqa: E402
     ComfyBackendError,
     ComfyRouteError,
@@ -73,6 +73,7 @@ ALLOWED_POST = {
 }
 FLEET_POST = {'/v1/fleet/count', '/v1/fleet/profile'}
 INTERNAL_POST = {'/internal/gpu/yield'}
+TEXT_YIELDS_TO_IMAGE_SECONDS = 5.0
 
 
 class FleetRuntime:
@@ -626,7 +627,9 @@ class Handler(BaseHTTPRequestHandler):
         request_id = str(secrets.token_hex(8))
 
         try:
-            with lease.hold("text", request_id, timeout=route_timeout):
+            # Text gives way to an image job within seconds; callers escalate instead of queueing.
+            with lease.hold("text", request_id, timeout=route_timeout, reason=model_id,
+                            yield_to_image=TEXT_YIELDS_TO_IMAGE_SECONDS):
                 with RUNTIME.request_lock:
                     try:
                         if resident_pid is not None and (not lease.is_enabled
@@ -688,6 +691,13 @@ class Handler(BaseHTTPRequestHandler):
                             "type": "qualified_model_gateway_error",
                             "model": requested,
                         }})
+        except GpuBusy:
+            LOG.info("GPU busy with an image job; text request for model=%s refused", requested)
+            send_json(self, 503, {"error": {
+                "message": "GPU busy with an image job; retry elsewhere or later",
+                "type": "gpu_busy",
+                "model": requested,
+            }})
         except TimeoutError as exc:
             LOG.warning("GPU lease timeout for model=%s: %s", requested, exc)
             send_json(self, 503, {

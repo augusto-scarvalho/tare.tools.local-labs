@@ -20,6 +20,10 @@ import time
 from typing import Any, Callable, Iterator
 
 
+class GpuBusy(TimeoutError):
+    """A text request gave way to an image job holding or waiting for the GPU."""
+
+
 def _get_fcntl():
     try:
         import fcntl
@@ -94,11 +98,15 @@ class SharedGpuLease:
         *,
         timeout: float | None = None,
         cancelled: Callable[[], bool] | None = None,
+        reason: str = "",
+        yield_to_image: float | None = None,
     ) -> Iterator[dict[str, Any] | None]:
         """Acquire exclusive GPU lease for 'text' or 'image'.
 
         Yields a receipt containing the secret nonce.
         Raises TimeoutError if deadline expires, or InterruptedError if cancelled.
+        With yield_to_image, gives up with GpuBusy once an image job has held or
+        waited ahead of this request for that many seconds, instead of queueing.
         """
         if not self.is_enabled:
             yield None
@@ -108,6 +116,8 @@ class SharedGpuLease:
             raise ValueError(f"Invalid lease kind: {kind!r} (expected 'text' or 'image')")
         if not isinstance(request_id, str) or not request_id or len(request_id.encode()) > 128:
             raise ValueError("request_id must be a non-empty string of at most 128 UTF-8 bytes")
+        if not isinstance(reason, str) or len(reason) > 200:
+            raise ValueError("reason must be a string of at most 200 characters")
 
         fcntl_mod = _get_fcntl()
         if fcntl_mod is None:
@@ -122,11 +132,24 @@ class SharedGpuLease:
         if cancelled is not None and cancelled():
             raise InterruptedError("GPU lease acquisition cancelled before wait")
 
+        busy_since = None
+        def give_way(ticket_name=None):
+            nonlocal busy_since
+            if yield_to_image is None:
+                return
+            if not self._image_ahead(fcntl_mod, ticket_name):
+                busy_since = None
+                return
+            busy_since = busy_since or time.monotonic()
+            if time.monotonic() - busy_since >= yield_to_image:
+                raise GpuBusy("GPU busy with an image job")
+
         # First serialize threads in the same process
         acquired_thread_lock = False
         while True:
             if cancelled is not None and cancelled():
                 raise InterruptedError("GPU lease acquisition cancelled while waiting for thread lock")
+            give_way()
             remaining = deadline - time.monotonic()
             if remaining <= 0:
                 raise TimeoutError(f"Timed out waiting for GPU lease thread lock ({effective_timeout}s)")
@@ -139,10 +162,13 @@ class SharedGpuLease:
         ticket = None
         try:
             fd = self._open_lock_file()
-            ticket = self._take_ticket(fcntl_mod)
+            ticket = self._take_ticket(fcntl_mod, {
+                "kind": kind, "request_id": request_id, "reason": reason,
+                "pid": os.getpid(), "since": time.time()})
             while True:
                 if cancelled is not None and cancelled():
                     raise InterruptedError("GPU lease acquisition cancelled while waiting for file lock")
+                give_way(ticket[0])
                 if self._first_in_line(fcntl_mod, ticket[0]):
                     try:
                         fcntl_mod.flock(fd, fcntl_mod.LOCK_EX | fcntl_mod.LOCK_NB)
@@ -163,6 +189,7 @@ class SharedGpuLease:
             metadata = {
                 "kind": kind,
                 "request_id": request_id,
+                "reason": reason,
                 "pid": os.getpid(),
                 "nonce": nonce,
                 "acquired_at": acquired_at,
@@ -176,6 +203,7 @@ class SharedGpuLease:
             receipt = {
                 "kind": kind,
                 "request_id": request_id,
+                "reason": reason,
                 "pid": os.getpid(),
                 "nonce": nonce,
                 "path": str(self.path),
@@ -206,14 +234,16 @@ class SharedGpuLease:
     # First-come queue in front of the lease. Waiters hold an flock on their ticket, so a
     # ticket whose lock can be taken belongs to a dead process and is discarded. Tickets are
     # locked before they are renamed into the queue, so a visible ticket is never unlocked
-    # by a live owner. Processes running older code skip the queue but still take the same
-    # lease flock, so exclusion never depends on the queue.
+    # by a live owner. A ticket carries its waiter's kind, request_id, reason, pid and since,
+    # written before it becomes visible (tickets from older code are empty). Processes running
+    # older code skip the queue but still take the same lease flock, so exclusion never
+    # depends on the queue.
     @property
     def _queue_dir(self) -> Path:
         assert self.path is not None
         return self.path.with_name(self.path.name + ".queue")
 
-    def _take_ticket(self, fcntl_mod) -> tuple[str, int]:
+    def _take_ticket(self, fcntl_mod, meta: dict[str, Any]) -> tuple[str, int]:
         queue = self._queue_dir
         queue.mkdir(mode=0o700, exist_ok=True)
         name = f"{time.time_ns():020d}-{os.getpid()}-{secrets.token_hex(4)}"
@@ -221,6 +251,7 @@ class SharedGpuLease:
         fd = os.open(staging, os.O_RDWR | os.O_CREAT | os.O_EXCL | getattr(os, "O_NOFOLLOW", 0), 0o600)
         try:
             fcntl_mod.flock(fd, fcntl_mod.LOCK_EX | fcntl_mod.LOCK_NB)
+            os.write(fd, json.dumps(meta, separators=(",", ":")).encode("utf-8"))
             os.rename(staging, queue / name)
         except BaseException:
             os.close(fd)
@@ -235,8 +266,10 @@ class SharedGpuLease:
         with contextlib.suppress(OSError):
             os.close(ticket[1])
 
-    def _live_tickets(self, fcntl_mod) -> list[str]:
+    def _live_tickets(self, fcntl_mod) -> list[tuple[str, dict[str, Any]]]:
         live = []
+        if not self._queue_dir.is_dir():
+            return live
         for name in sorted(n for n in os.listdir(self._queue_dir) if not n.startswith(".")):
             try:
                 fd = os.open(self._queue_dir / name, os.O_RDWR | getattr(os, "O_NOFOLLOW", 0))
@@ -245,7 +278,10 @@ class SharedGpuLease:
             try:
                 fcntl_mod.flock(fd, fcntl_mod.LOCK_EX | fcntl_mod.LOCK_NB)
             except (BlockingIOError, OSError):
-                live.append(name)
+                meta: dict[str, Any] = {}
+                with contextlib.suppress(Exception):
+                    meta = json.loads(os.read(fd, 4096).decode("utf-8"))  # empty from older code
+                live.append((name, meta if isinstance(meta, dict) else {}))
             else:
                 with contextlib.suppress(OSError):
                     os.unlink(self._queue_dir / name)  # owner died while waiting
@@ -254,11 +290,22 @@ class SharedGpuLease:
         return live
 
     def _first_in_line(self, fcntl_mod, name: str) -> bool:
-        ahead = [n for n in self._live_tickets(fcntl_mod) if n < name]
+        ahead = [n for n, _ in self._live_tickets(fcntl_mod) if n < name]
         return not ahead
 
+    def _image_ahead(self, fcntl_mod, ticket_name: str | None) -> bool:
+        """An image job holds the lease or waits ahead of ticket_name (anywhere when None)."""
+        if any(meta.get("kind") == "image" and (ticket_name is None or name < ticket_name)
+               for name, meta in self._live_tickets(fcntl_mod)):
+            return True
+        return (self.status().get("owner") or {}).get("kind") == "image"
+
+    def _queue(self, fcntl_mod) -> list[dict[str, Any]]:
+        fields = ("kind", "request_id", "reason", "pid", "since")
+        return [{k: meta.get(k) for k in fields} for _, meta in self._live_tickets(fcntl_mod)]
+
     def status(self) -> dict[str, Any]:
-        """Report GPU lease status.
+        """Report GPU lease status and the requests waiting for it.
 
         Only reports held if confirmed by flock. Stale metadata without flock
         is never reported as held. Does not leak nonce.
@@ -276,28 +323,16 @@ class SharedGpuLease:
                 "error": "fcntl_unavailable",
             }
 
+        fields = ("kind", "request_id", "reason", "pid", "acquired_at")
+        free = {"enabled": True, "path": str(self.path), "held": False, "owner": None}
+        queue = self._queue(fcntl_mod)
         active = self._active_receipt
         if active is not None:
-            return {
-                "enabled": True,
-                "path": str(self.path),
-                "held": True,
-                "owner": {
-                    "kind": active["kind"],
-                    "request_id": active["request_id"],
-                    "pid": active["pid"],
-                    "acquired_at": active["acquired_at"],
-                },
-            }
+            return {**free, "held": True, "owner": {k: active[k] for k in fields}, "queue": queue}
 
         assert self.path is not None
         if not self.path.exists():
-            return {
-                "enabled": True,
-                "path": str(self.path),
-                "held": False,
-                "owner": None,
-            }
+            return {**free, "queue": queue}
 
         if os.path.islink(self.path):
             raise ValueError(f"GPU lock path must not be a symlink: {self.path}")
@@ -308,12 +343,7 @@ class SharedGpuLease:
             try:
                 fcntl_mod.flock(fd, fcntl_mod.LOCK_EX | fcntl_mod.LOCK_NB)
                 fcntl_mod.flock(fd, fcntl_mod.LOCK_UN)
-                return {
-                    "enabled": True,
-                    "path": str(self.path),
-                    "held": False,
-                    "owner": None,
-                }
+                return {**free, "queue": queue}
             except (BlockingIOError, OSError) as exc:
                 if exc.errno not in (errno.EWOULDBLOCK, errno.EAGAIN):
                     raise
@@ -326,18 +356,8 @@ class SharedGpuLease:
                     with contextlib.suppress(Exception):
                         meta = json.loads(raw.decode("utf-8"))
                         if isinstance(meta, dict):
-                            owner_info = {
-                                "kind": meta.get("kind"),
-                                "request_id": meta.get("request_id"),
-                                "pid": meta.get("pid"),
-                                "acquired_at": meta.get("acquired_at"),
-                            }
-                return {
-                    "enabled": True,
-                    "path": str(self.path),
-                    "held": True,
-                    "owner": owner_info,
-                }
+                            owner_info = {k: meta.get(k) for k in fields}
+                return {**free, "held": True, "owner": owner_info, "queue": queue}
         finally:
             if fd is not None:
                 os.close(fd)

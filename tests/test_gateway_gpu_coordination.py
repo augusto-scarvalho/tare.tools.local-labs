@@ -365,6 +365,23 @@ def test_text_request_waits_behind_image_lease(tmp_path):
 
 
 @requires_linux_flock
+def test_text_gives_way_to_a_lasting_image_job_with_gpu_busy(tmp_path, monkeypatch):
+    lock_file = tmp_path / "gpu.lock"
+    monkeypatch.setattr(gateway, "TEXT_YIELDS_TO_IMAGE_SECONDS", 0.3)
+    with serving(lock_path=lock_file, route_timeout=30.0) as rt:
+        with SharedGpuLease(lock_file).hold("image", "training", reason="cohort-26"):
+            started = time.monotonic()
+            code, resp = post(rt.endpoint, "/v1/chat/completions",
+                              {"model": "coding", "messages": [{"role": "user", "content": "Hi"}]})
+            assert code == 503 and resp["error"]["type"] == "gpu_busy"
+            assert time.monotonic() - started < 5  # not the 30 s route timeout
+            assert SharedGpuLease(lock_file).status()["queue"] == []
+        code, _ = post(rt.endpoint, "/v1/chat/completions",
+                       {"model": "coding", "messages": [{"role": "user", "content": "Hi"}]})
+        assert code == 200
+
+
+@requires_linux_flock
 def test_stream_retains_lease_until_done(tmp_path):
     lock_file = tmp_path / "gpu.lock"
     with serving(lock_path=lock_file, route_timeout=5.0) as rt:

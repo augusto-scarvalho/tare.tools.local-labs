@@ -63,6 +63,31 @@ not proof that every model works or meets a quality threshold.
 
 ## Training commands
 
+### Renting the GPU: `gpu` (any agent or person)
+
+One command in aaaaa's WSL wraps the lease below (`~/.local/bin/gpu`; from the other machine,
+`ssh aaaaa "wsl -e bash -lc 'gpu status'"`):
+
+```bash
+gpu status                                   # holder, reason, how long, running jobs, who is waiting
+gpu run --task cohort-26 -- ./cohort.sh      # supervised job; the task name learns its usual duration
+gpu run --task flux-batch --kill-after 2h -- python batch.py
+gpu hold --reason "debug flux workflow" 30m  # interactive shell holding the GPU; exit it to give it back
+```
+
+- `run` has no deadline. With `--task`, the median of that task's last ten successful runs (lease wait
+  excluded, `~/.local/state/tare-gpu-training/runs.jsonl`) becomes its estimate, and `status` flags a run past
+  1.5x of it as late; with no history it says "no estimate". Only `--kill-after` stops a job.
+- `hold` needs a terminal (`ssh -t`) and a duration; five minutes before it ends it warns, then it stops the
+  shell and its children and only then releases the lease. Agents without a terminal use `run`.
+- A `gpu run` inside a hold or another job reuses the held lease and keeps its own task name, limits and log.
+- Idle watch: every 30 s the supervisor reads board power; after ten minutes averaging under 80 W (2x the idle
+  floor measured on this 3090) `status` shows the job as idle. A failed reading is "unknown", never idle. It
+  only acts with `--idle-release 15m`, because 30 s samples miss short recurring bursts.
+- While an image job (these, ComfyUI) holds or waits for the lease, the gateway answers text requests with
+  `503 gpu_busy` within about 5 s instead of queueing them for the route timeout, and callers such as tare
+  escalate elsewhere. Text behind text still queues. `qwen38-gsq` unloads after 10 idle minutes.
+
 ### Reusable entrypoint (installed 2026-09-20)
 
 In aaaaa's WSL shell as `augus`, use the same command for any training script:

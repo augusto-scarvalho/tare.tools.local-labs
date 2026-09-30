@@ -15,7 +15,7 @@ class Lease:
     timeout_seen = None
 
     @contextlib.contextmanager
-    def hold(self, *args, timeout=None):
+    def hold(self, *args, timeout=None, **_):
         self.timeout_seen = timeout
         self.held = True
         try: yield {}
