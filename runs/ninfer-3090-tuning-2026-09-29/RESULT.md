@@ -39,3 +39,21 @@ and hosted Jev (2026-09-28), graded by `tare.tools.os/scripts/qualify_laya_route
 All 66 answers valid; no option code was missing from the top 20. This is a screen on an idle,
 resident model, not a routing qualification: a probe waits behind a running generation
 (`--max-concurrency 1`), and its effect on the agent's cached prefix is not measured yet.
+
+## DFlash2 vs MTP3 on the agent cohort (26 SpecGraph regressions, same tare)
+
+Both arms ran the current tare (default guidance, verified-delivery gate) against a test server with the
+production flags, changing only the speculation. Decode and prefill are GPU work from the server's
+5-second request log, so they do not include the Acer-side verifier runs.
+
+| Arm | Fixed | Decode | Prefill | Output tokens |
+|---|---|---:|---:|---:|
+| MTP3 (`--spec mtp --draft-tokens 3`) | **26/26** | **112.4 tok/s** | 1,325 tok/s | 85,307 |
+| DFlash2 (`--spec dflash2 --draft-tokens 7`) | 25/26 | 109.5 tok/s | 1,343 tok/s | 107,234 |
+
+The 18% decode gain of the synthetic A/B (long thinking-off code) does not survive agent turns (thinking
+on, short tool calls); DFlash2 also produced 26% more tokens and needs 1.7 GB more VRAM. MTP3 stays.
+DFlash2's first run exposed a bare edit refusal: Qwen3.8 mistyped an escaped regex and, told only
+`exact_unique_search_required`, added context three times until NO_PROGRESS. Kernel b467215 now says
+whether the text is missing (with the closest lines as written) or repeated; the rerun recovered that
+case in one call. DFlash2's remaining miss broke a test outside the case verifier's scope.
