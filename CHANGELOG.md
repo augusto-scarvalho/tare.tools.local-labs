@@ -4,6 +4,10 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- The pre-push hook checks and watches a push by the branch it updates: a push from a detached HEAD
+  (`git push origin HEAD:master`) skipped the changelog guard and the CI watcher. Its Python lookup now runs each candidate:
+  Windows' Store alias `python3` exists but only prints an install hint.
+
 - The pre-push hook also starts a detached `tare ci watch` for each pushed commit (from tare.tools.os). A red
   GitHub run becomes an alert that agents see before they can end a turn, plus a Windows notification.
   Machines without the tare product skip it.
