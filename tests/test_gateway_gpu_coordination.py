@@ -492,3 +492,35 @@ def test_idle_backend_is_unloaded_only_after_its_limit_and_never_mid_request():
     assert runtime.unload_if_idle() is True and stopped == ["big"]
     runtime.model_id = "small"
     assert runtime.unload_if_idle() is False                      # no limit on this card
+
+
+@requires_linux_flock
+def test_an_agent_turn_keeps_its_model_when_an_image_job_arrives_between_calls(tmp_path):
+    lock_file = tmp_path / "gpu.lock"
+    chat = {"model": "coding", "messages": [{"role": "user", "content": "Hi"}]}
+    with serving(lock_path=lock_file, route_timeout=5.0) as rt:
+        rt.text_idle_grace, rt.image_max_wait = 0.6, 300.0
+        code, _ = post(rt.endpoint, "/v1/chat/completions", chat)
+        assert code == 200
+        pid = rt.process.pid
+        yielded = []
+
+        def image_job():
+            with SharedGpuLease(lock_file, timeout=10).hold("image", "comfy-job", reason="test") as receipt:
+                yielded.append(post(rt.endpoint, "/internal/gpu/yield", {"nonce": receipt["nonce"]}))
+
+        job = Thread(target=image_job, daemon=True)
+        job.start()
+        queue = Path(str(lock_file) + ".queue")
+        deadline = time.monotonic() + 5
+        while time.monotonic() < deadline and not (
+                queue.exists() and any(not n.name.startswith(".") for n in queue.iterdir())):
+            time.sleep(0.02)
+        time.sleep(0.1)  # the agent runs a tool between two calls of one turn
+        code, resp = post(rt.endpoint, "/v1/chat/completions", chat)
+        assert code == 200 and resp["choices"][0]["message"]["content"] == "OK"
+        assert yielded == []
+        assert rt.process is not None and rt.process.pid == pid  # the model was not stopped mid-turn
+        job.join(timeout=5)
+        assert yielded and yielded[0][0] == 200  # after the grace the image job takes the GPU
+        assert rt.process is None

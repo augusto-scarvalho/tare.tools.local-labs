@@ -10,6 +10,7 @@ import contextlib
 import errno
 import hmac
 import json
+import logging
 import math
 import os
 from pathlib import Path
@@ -18,6 +19,8 @@ import stat
 import threading
 import time
 from typing import Any, Callable, Iterator
+
+LOG = logging.getLogger(__name__)
 
 
 class GpuBusy(TimeoutError):
@@ -47,6 +50,9 @@ class SharedGpuLease:
             raise ValueError("GPU wait timeout must be finite and positive")
         self._thread_lock = threading.Lock()
         self._active_receipt: dict[str, Any] | None = None
+        # A finished text lease kept during its idle grace: {"fd", "token", "idle_since"}.
+        # Guarded by _thread_lock; the flock stays held on fd until the grace ends.
+        self._linger: dict[str, Any] | None = None
 
     @property
     def is_enabled(self) -> bool:
@@ -100,6 +106,8 @@ class SharedGpuLease:
         cancelled: Callable[[], bool] | None = None,
         reason: str = "",
         yield_to_image: float | None = None,
+        linger: float = 0.0,
+        image_max_wait: float | None = None,
     ) -> Iterator[dict[str, Any] | None]:
         """Acquire exclusive GPU lease for 'text' or 'image'.
 
@@ -107,7 +115,18 @@ class SharedGpuLease:
         Raises TimeoutError if deadline expires, or InterruptedError if cancelled.
         With yield_to_image, gives up with GpuBusy once an image job has held or
         waited ahead of this request for that many seconds, instead of queueing.
+        With linger, the flock is kept for that many idle seconds after the request
+        ends, and the next text request of this lease object reuses it without
+        queueing. Once an image job has waited image_max_wait seconds, the grace
+        is skipped or cut short (never during a running request).
         """
+        linger = float(linger)
+        if not math.isfinite(linger) or linger < 0:
+            raise ValueError("GPU idle grace must be finite and non-negative")
+        if image_max_wait is not None:
+            image_max_wait = float(image_max_wait)
+            if not math.isfinite(image_max_wait) or image_max_wait <= 0:
+                raise ValueError("image max wait must be finite and positive")
         if not self.is_enabled:
             yield None
             return
@@ -160,12 +179,17 @@ class SharedGpuLease:
         fd = None
         flock_acquired = False
         ticket = None
+        inherited_until = None  # deadline of a reused grace; this request never shortens it
         try:
-            fd = self._open_lock_file()
-            ticket = self._take_ticket(fcntl_mod, {
-                "kind": kind, "request_id": request_id, "reason": reason,
-                "pid": os.getpid(), "since": time.time()})
-            while True:
+            # A text lease still in its idle grace is reused at once: no queue, no giving way.
+            fd, inherited_until = self._reuse_linger(fcntl_mod, kind, image_max_wait)
+            flock_acquired = fd is not None
+            if not flock_acquired:
+                fd = self._open_lock_file()
+                ticket = self._take_ticket(fcntl_mod, {
+                    "kind": kind, "request_id": request_id, "reason": reason,
+                    "pid": os.getpid(), "since": time.time()})
+            while ticket is not None:
                 if cancelled is not None and cancelled():
                     raise InterruptedError("GPU lease acquisition cancelled while waiting for file lock")
                 give_way(ticket[0])
@@ -181,8 +205,9 @@ class SharedGpuLease:
                 if remaining <= 0:
                     raise TimeoutError(f"Timed out waiting for GPU lease ({effective_timeout}s)")
                 time.sleep(min(poll_interval, max(0.001, remaining)))
-            self._drop_ticket(ticket)
-            ticket = None
+            if ticket is not None:
+                self._drop_ticket(ticket)
+                ticket = None
 
             nonce = secrets.token_hex(16)
             acquired_at = time.time()
@@ -218,11 +243,18 @@ class SharedGpuLease:
                 self._drop_ticket(ticket)
             try:
                 if flock_acquired and fd is not None:
-                    with contextlib.suppress(Exception):
-                        os.lseek(fd, 0, os.SEEK_SET)
-                        os.ftruncate(fd, 0)
-                        os.fsync(fd)
-                    fcntl_mod.flock(fd, fcntl_mod.LOCK_UN)
+                    held = self._active_receipt
+                    # Keep the later of this request's own grace and the one it reused, so a
+                    # request without grace (a resident-model probe) never shortens another's.
+                    now = time.monotonic()
+                    until = max((d for d in (now + linger if linger else None, inherited_until)
+                                 if d is not None), default=None)
+                    if (until is not None and until > now and held is not None
+                            and not self._image_overdue(fcntl_mod, image_max_wait, log=True)):
+                        self._start_linger(fcntl_mod, fd, until, image_max_wait, held)
+                        fd = None  # the grace owns the descriptor and its flock now
+                    else:
+                        self._unlock(fcntl_mod, fd)
             finally:
                 self._active_receipt = None
                 if fd is not None:
@@ -230,6 +262,81 @@ class SharedGpuLease:
                         os.close(fd)
                 if acquired_thread_lock:
                     self._thread_lock.release()
+
+    # Idle grace for text. Only a thread holding _thread_lock touches _linger, so a grace is
+    # either reused by the next text request or released by its watcher, never both.
+    def _unlock(self, fcntl_mod, fd: int) -> None:
+        """Clear the owner metadata and drop the flock; the caller closes fd."""
+        with contextlib.suppress(Exception):
+            os.lseek(fd, 0, os.SEEK_SET)
+            os.ftruncate(fd, 0)
+            os.fsync(fd)
+        fcntl_mod.flock(fd, fcntl_mod.LOCK_UN)
+
+    def _close_held(self, fcntl_mod, fd: int) -> None:
+        try:
+            self._unlock(fcntl_mod, fd)
+        finally:
+            with contextlib.suppress(OSError):
+                os.close(fd)
+
+    def _image_overdue(self, fcntl_mod, max_wait: float | None, *, log: bool = False) -> bool:
+        """An image job has waited at least max_wait seconds (never when max_wait is None)."""
+        if max_wait is None:
+            return False
+        try:
+            now = time.time()
+            for _, meta in self._live_tickets(fcntl_mod):
+                since = meta.get("since")
+                if meta.get("kind") == "image" and isinstance(since, (int, float)) and now - since >= max_wait:
+                    if log:
+                        LOG.warning("image job %s (%s) waited %.0fs, over the %.0fs limit: "
+                                    "text releases the GPU without idle grace",
+                                    meta.get("request_id"), meta.get("reason"), now - since, max_wait)
+                    return True
+            return False
+        except Exception:
+            return True  # an unreadable queue never extends text's hold
+
+    def _reuse_linger(self, fcntl_mod, kind: str,
+                      image_max_wait: float | None) -> tuple[int | None, float | None]:
+        """Take over the lingering text lease with its grace deadline (monotonic), or release it
+        when this request may not reuse it. The deadline lets the reusing request keep the grace."""
+        lingering, self._linger = self._linger, None
+        if lingering is None:
+            return None, None
+        if kind == "text" and not self._image_overdue(fcntl_mod, image_max_wait, log=True):
+            return lingering["fd"], lingering["until"]
+        self._close_held(fcntl_mod, lingering["fd"])
+        return None, None
+
+    def _start_linger(self, fcntl_mod, fd: int, until: float, image_max_wait: float | None,
+                      receipt: dict[str, Any]) -> None:
+        """Keep fd's flock until the monotonic deadline until, or until an image job is overdue."""
+        token = object()
+
+        def watch() -> None:
+            while True:
+                time.sleep(0.1)
+                if not self._thread_lock.acquire(timeout=0.1):
+                    continue  # a request is running
+                try:
+                    current = self._linger
+                    if current is None or current["token"] is not token:
+                        return  # reused by the next request
+                    if (time.monotonic() < current["until"]
+                            and not self._image_overdue(fcntl_mod, image_max_wait, log=True)):
+                        continue
+                    self._linger = None
+                    with contextlib.suppress(Exception):
+                        self._close_held(fcntl_mod, fd)
+                    return
+                finally:
+                    self._thread_lock.release()
+
+        threading.Thread(target=watch, name="gpu-lease-grace", daemon=True).start()
+        self._linger = {"fd": fd, "token": token, "receipt": receipt, "until": until,
+                        "idle_since": time.monotonic(), "idle_since_wall": time.time()}
 
     # First-come queue in front of the lease. Waiters hold an flock on their ticket, so a
     # ticket whose lock can be taken belongs to a dead process and is discarded. Tickets are
@@ -329,6 +436,11 @@ class SharedGpuLease:
         active = self._active_receipt
         if active is not None:
             return {**free, "held": True, "owner": {k: active[k] for k in fields}, "queue": queue}
+        lingering = self._linger
+        if lingering is not None:
+            owner = {k: lingering["receipt"][k] for k in fields}
+            return {**free, "held": True, "owner": owner,
+                    "idle_since": lingering["idle_since_wall"], "queue": queue}
 
         assert self.path is not None
         if not self.path.exists():

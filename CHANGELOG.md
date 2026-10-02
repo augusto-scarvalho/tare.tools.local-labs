@@ -4,6 +4,14 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Text keeps the GPU through an agent's turn. After a text request the gateway holds the GPU lease for
+  `--text-idle-grace` seconds (default 20; 0 restores the old behaviour), and the next text request reuses it
+  without queueing. An image or training job can no longer take the GPU, and stop the text model, in the
+  milliseconds between two calls: it waits for the grace. Once an image job has waited `--image-max-wait`
+  seconds (default 300) the grace ends after the running request, with a warning in the log. A text request
+  arriving after the grace still gives way with `503 gpu_busy` as before. `status()` shows `idle_since`
+  while the grace runs.
+
 - The pre-push hook checks and watches a push by the branch it updates: a push from a detached HEAD
   (`git push origin HEAD:master`) skipped the changelog guard and the CI watcher. Its Python lookup now runs each candidate:
   Windows' Store alias `python3` exists but only prints an install hint.

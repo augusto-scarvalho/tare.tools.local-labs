@@ -393,3 +393,123 @@ def test_ticket_of_a_dead_waiter_does_not_block_the_queue(tmp_path):
     with SharedGpuLease(lock_path).hold("text", "after-dead", timeout=2) as receipt:
         assert receipt["request_id"] == "after-dead"
     assert _queued(lock_path) == []
+
+
+def _image_job(lock_path, got, hold_seconds=0.0):
+    """Hold an image lease from another lease object in a thread; records when it got the GPU."""
+    import threading
+
+    def run():
+        with SharedGpuLease(lock_path, timeout=30).hold("image", "image-job", reason="test"):
+            got.append(time.monotonic())
+            time.sleep(hold_seconds)
+
+    thread = threading.Thread(target=run, daemon=True)
+    thread.start()
+    deadline = time.monotonic() + 5
+    while not _queued(lock_path) and not got and time.monotonic() < deadline:
+        time.sleep(0.02)
+    return thread
+
+
+@requires_linux_flock
+def test_text_keeps_the_gpu_between_back_to_back_calls(tmp_path):
+    lock_path = tmp_path / "gpu.lock"
+    text, got = SharedGpuLease(lock_path), []
+    with text.hold("text", "call-1", linger=0.6):
+        image = _image_job(lock_path, got)
+    time.sleep(0.1)  # the agent runs a tool between two calls of one turn
+    assert got == []
+    status = text.status()
+    assert status["held"] is True and status["owner"]["request_id"] == "call-1"
+    assert isinstance(status["idle_since"], float)
+    assert "nonce" not in json.dumps(status)
+    with text.hold("text", "call-2", timeout=1, yield_to_image=0.3, linger=0.6) as receipt:
+        assert receipt["request_id"] == "call-2" and got == []
+    ended = time.monotonic()
+    image.join(timeout=5)
+    assert got and got[0] - ended >= 0.5  # the image job got the GPU only after the grace
+    assert text.status()["held"] is False
+
+
+@requires_linux_flock
+def test_an_image_job_past_its_wait_limit_ends_the_grace_after_the_running_request(tmp_path, caplog):
+    import logging
+    from model_lifecycle.gpu_lease import GpuBusy
+
+    lock_path = tmp_path / "gpu.lock"
+    text, got = SharedGpuLease(lock_path), []
+    with caplog.at_level(logging.WARNING, logger="model_lifecycle.gpu_lease"):
+        with text.hold("text", "long-call", linger=30, image_max_wait=0.3):
+            image = _image_job(lock_path, got, hold_seconds=1.0)
+            time.sleep(0.5)  # past the limit while the request still runs
+            assert got == []  # a running request is never cut
+        deadline = time.monotonic() + 5
+        while not got and time.monotonic() < deadline:
+            time.sleep(0.02)
+        assert got  # no 30 s grace
+        assert "over the" in caplog.text
+        with pytest.raises(GpuBusy):
+            with text.hold("text", "next-call", timeout=5, yield_to_image=0.2,
+                           linger=30, image_max_wait=0.3):
+                pass
+    image.join(timeout=5)
+
+
+@requires_linux_flock
+def test_process_exit_during_the_grace_releases_the_gpu(tmp_path):
+    lock_path = tmp_path / "gpu.lock"
+    code = f"""
+import os, sys
+sys.path.insert(0, {str(ROOT / 'src')!r})
+from model_lifecycle.gpu_lease import SharedGpuLease
+lease = SharedGpuLease({str(lock_path)!r})
+with lease.hold("text", "dying", linger=30):
+    pass
+assert lease.status()["held"] is True
+os._exit(0)
+"""
+    proc = subprocess.run([sys.executable, "-c", code], timeout=10)
+    assert proc.returncode == 0
+    with SharedGpuLease(lock_path).hold("image", "after-exit", timeout=1.0) as receipt:
+        assert receipt["kind"] == "image"
+
+
+@requires_linux_flock
+def test_without_grace_text_releases_at_once(tmp_path):
+    lease = SharedGpuLease(tmp_path / "gpu.lock")
+    with lease.hold("text", "plain", linger=0, image_max_wait=300):
+        pass
+    status = lease.status()
+    assert status["held"] is False and "idle_since" not in status
+
+
+@pytest.mark.parametrize("options", [{"linger": -1}, {"linger": float("nan")}, {"linger": float("inf")},
+                                     {"image_max_wait": 0}, {"image_max_wait": float("nan")}])
+def test_grace_and_image_limit_are_validated(tmp_path, options):
+    with pytest.raises(ValueError):
+        with SharedGpuLease(tmp_path / "gpu.lock").hold("text", "bad", **options):
+            pytest.fail("invalid grace admitted")
+
+
+@requires_linux_flock
+def test_a_probe_reusing_the_grace_never_shortens_it(tmp_path):
+    lock_path = tmp_path / "gpu.lock"
+    lease, got = SharedGpuLease(lock_path), []
+    with lease.hold("text", "turn-call", linger=1.0, image_max_wait=300):
+        pass
+    ended = time.monotonic()
+    image = _image_job(lock_path, got)
+    # The local judge probes the resident model with no grace of its own, during another turn's grace.
+    with lease.hold("text", "judge-probe", timeout=0.15, yield_to_image=5, linger=0, image_max_wait=300):
+        pass
+    time.sleep(0.3)
+    assert got == []  # the probe kept the turn's grace instead of releasing the GPU
+    assert lease.status()["held"] is True
+    image.join(timeout=5)
+    assert got and got[0] - ended >= 0.9  # the image job waited the whole original grace
+    # A probe that finds the GPU free starts no grace of its own.
+    with lease.hold("text", "free-probe", timeout=0.15, linger=0, image_max_wait=300):
+        pass
+    status = lease.status()
+    assert status["held"] is False and "idle_since" not in status

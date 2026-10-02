@@ -74,6 +74,11 @@ ALLOWED_POST = {
 FLEET_POST = {'/v1/fleet/count', '/v1/fleet/profile'}
 INTERNAL_POST = {'/internal/gpu/yield'}
 TEXT_YIELDS_TO_IMAGE_SECONDS = 5.0
+# Text keeps the GPU this long after a request, so an agent's back-to-back calls are never split by an
+# image or training job (--text-idle-grace; 0 releases at once). The grace ends early, after the running
+# request, once an image job has waited IMAGE_MAX_WAIT_SECONDS (--image-max-wait).
+TEXT_IDLE_GRACE_SECONDS = 20.0
+IMAGE_MAX_WAIT_SECONDS = 300.0
 
 
 class FleetRuntime:
@@ -91,8 +96,16 @@ class FleetRuntime:
         gpu_lease: SharedGpuLease | None = None,
         comfy_url: str | None = None,
         image_routes_path: Path | str | None = None,
+        text_idle_grace: float = TEXT_IDLE_GRACE_SECONDS,
+        image_max_wait: float = IMAGE_MAX_WAIT_SECONDS,
     ) -> None:
         self.config = config
+        self.text_idle_grace = float(text_idle_grace)
+        self.image_max_wait = float(image_max_wait)
+        if not 0 <= self.text_idle_grace < float("inf"):
+            raise ValueError("text idle grace must be finite and non-negative")
+        if not 0 < self.image_max_wait < float("inf"):
+            raise ValueError("image max wait must be finite and positive")
         self.backend_host = backend_host
         self.backend_port = backend_port
         self.state_dir = state_dir
@@ -628,8 +641,12 @@ class Handler(BaseHTTPRequestHandler):
 
         try:
             # Text gives way to an image job within seconds; callers escalate instead of queueing.
+            # The idle grace keeps the GPU between the calls of one turn (0 when the runtime sets none;
+            # resident-only probes never hold it).
+            grace = 0.0 if resident_pid is not None else getattr(RUNTIME, "text_idle_grace", 0.0)
             with lease.hold("text", request_id, timeout=route_timeout, reason=model_id,
-                            yield_to_image=TEXT_YIELDS_TO_IMAGE_SECONDS):
+                            yield_to_image=TEXT_YIELDS_TO_IMAGE_SECONDS, linger=grace,
+                            image_max_wait=getattr(RUNTIME, "image_max_wait", IMAGE_MAX_WAIT_SECONDS)):
                 with RUNTIME.request_lock:
                     try:
                         if resident_pid is not None and (not lease.is_enabled
@@ -755,6 +772,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--stop-timeout", type=float, default=90)
     parser.add_argument("--gpu-lock", default=None, help="path to cross-process shared GPU lock file")
     parser.add_argument("--route-timeout", type=float, default=60.0, help="seconds to wait for GPU lease")
+    parser.add_argument("--text-idle-grace", type=float, default=TEXT_IDLE_GRACE_SECONDS,
+                        help="seconds text keeps the GPU after a request, so back-to-back calls are never split "
+                             "by an image or training job (0 releases at once)")
+    parser.add_argument("--image-max-wait", type=float, default=IMAGE_MAX_WAIT_SECONDS,
+                        help="seconds an image or training job may wait before text stops renewing its idle grace")
     parser.add_argument("--comfy-url", default=None, help="loopback HTTP URL for managed ComfyUI instance")
     parser.add_argument("--image-routes", default=None, help="path to image routes JSON configuration")
     parser.add_argument("--log-level", default="INFO")
@@ -780,6 +802,8 @@ def main(argv: list[str] | None = None) -> int:
         route_timeout=args.route_timeout,
         comfy_url=args.comfy_url,
         image_routes_path=args.image_routes,
+        text_idle_grace=args.text_idle_grace,
+        image_max_wait=args.image_max_wait,
     )
     if args.preload:
         with RUNTIME.gpu_lease.hold("text", "preload", timeout=args.load_timeout):
