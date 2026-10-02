@@ -87,6 +87,10 @@ gpu hold --reason "debug flux workflow" 30m  # interactive shell holding the GPU
 - While an image job (these, ComfyUI) holds or waits for the lease, the gateway answers text requests with
   `503 gpu_busy` within about 5 s instead of queueing them for the route timeout, and callers such as tare
   escalate elsewhere. Text behind text still queues. `qwen38-gsq` unloads after 10 idle minutes.
+- Text keeps the lease for an idle grace after each request (`--text-idle-grace`, 20 s), so an agent's
+  back-to-back calls are never split: an image or training job arriving mid-turn waits until text has been idle
+  that long (`gpu status` shows the text owner with `idle_since`). Once a job has waited `--image-max-wait`
+  (300 s) the grace ends after the running request, and the gateway logs a warning.
 
 ### Reusable entrypoint (installed 2026-09-20)
 
