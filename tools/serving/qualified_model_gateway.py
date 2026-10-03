@@ -12,6 +12,7 @@ import argparse
 import contextlib
 import http.client
 import ipaddress
+import itertools
 import json
 import logging
 import os
@@ -301,9 +302,65 @@ class FleetRuntime:
             "available_models": sorted(self.config["models"]),
             "gpu_coordination": coord,
             "resident_readout": "pid-bound-v1",
+            "text_queue": TEXT_QUEUE.status(),
         }
 
 
+class TextQueue:
+    """Text requests run one at a time, the smallest waiting first, and each is logged with its caller.
+
+    Waiters used to race for the GPU lease every 50 ms, so a few-kB interactive turn could wait behind a batch
+    client's ~121k-token prompts until route_timeout sent it to another route. A running request is never
+    interrupted, and the wait counts against the caller's route_timeout as before.
+    ponytail: smallest-first can starve a large request under steady small traffic; it then times out and its
+    caller escalates, as for a busy GPU. Age the key by waiting time if that ever happens.
+    """
+
+    def __init__(self) -> None:
+        self._cond = threading.Condition()
+        self._order = itertools.count()
+        self._waiting: dict[tuple[int, int], dict[str, Any]] = {}
+        self._running: dict[str, Any] | None = None
+
+    @contextlib.contextmanager
+    def turn(self, size: int, timeout: float, caller: dict[str, Any]):
+        """Wait for this request's turn; yields the seconds it waited. TimeoutError past timeout."""
+        ticket, deadline = (size, next(self._order)), time.monotonic() + timeout
+        with self._cond:
+            self._waiting[ticket] = {**caller, "bytes": size, "since": time.monotonic()}
+            try:
+                while self._running is not None or min(self._waiting) != ticket:
+                    remaining = deadline - time.monotonic()
+                    if remaining <= 0:
+                        raise TimeoutError(f"timed out after {timeout:.0f}s waiting behind other text requests")
+                    self._cond.wait(remaining)
+            except BaseException:
+                del self._waiting[ticket]
+                self._cond.notify_all()
+                raise
+            self._running = {**self._waiting.pop(ticket), "started": time.monotonic()}
+            waited = self._running["started"] - self._running["since"]
+        try:
+            yield waited
+        finally:
+            with self._cond:
+                running, self._running = self._running, None
+                self._cond.notify_all()
+            LOG.info("text %s from %s (%s): %d bytes, waited %.1fs, ran %.1fs", running.get("model"),
+                     running["address"], running["client"], size, waited, time.monotonic() - running["started"])
+
+    def status(self) -> dict[str, Any]:
+        now = time.monotonic()
+
+        def view(item: dict[str, Any], since: str) -> dict[str, Any]:
+            return {"address": item["address"], "client": item["client"], "model": item.get("model"),
+                    "bytes": item["bytes"], since + "_seconds": round(now - item[since], 1)}
+        with self._cond:
+            return {"running": view(self._running, "started") if self._running else None,
+                    "waiting": [view(item, "since") for _, item in sorted(self._waiting.items())]}
+
+
+TEXT_QUEUE = TextQueue()
 RUNTIME: FleetRuntime
 
 
@@ -644,9 +701,12 @@ class Handler(BaseHTTPRequestHandler):
             # The idle grace keeps the GPU between the calls of one turn (0 when the runtime sets none;
             # resident-only probes never hold it).
             grace = 0.0 if resident_pid is not None else getattr(RUNTIME, "text_idle_grace", 0.0)
-            with lease.hold("text", request_id, timeout=route_timeout, reason=model_id,
-                            yield_to_image=TEXT_YIELDS_TO_IMAGE_SECONDS, linger=grace,
-                            image_max_wait=getattr(RUNTIME, "image_max_wait", IMAGE_MAX_WAIT_SECONDS)):
+            caller = {"address": self.client_address[0], "model": model_id,
+                      "client": (self.headers.get("User-Agent") or "unknown")[:120]}
+            with TEXT_QUEUE.turn(0 if resident_pid is not None else length, route_timeout, caller) as waited, \
+                    lease.hold("text", request_id, timeout=max(.001, route_timeout - waited), reason=model_id,
+                               yield_to_image=TEXT_YIELDS_TO_IMAGE_SECONDS, linger=grace,
+                               image_max_wait=getattr(RUNTIME, "image_max_wait", IMAGE_MAX_WAIT_SECONDS)):
                 with RUNTIME.request_lock:
                     try:
                         if resident_pid is not None and (not lease.is_enabled

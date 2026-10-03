@@ -4,6 +4,14 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- The gateway runs text requests one at a time, the smallest waiting first, and records who called. Waiters
+  used to race for the GPU lease every 50 ms, so an interactive turn of a few kB could wait behind a client's
+  ~121k-token prompts until `--route-timeout` sent it to another route (a Copilot turn fell to a cloud model
+  that way). Now a short request goes right after the one running; a running request is never interrupted, and
+  time in the queue counts against the same route timeout (`503 gpu_lease_timeout` as before). Each request
+  logs its address, `User-Agent` (tare sends its frontend: `tare.tools TUI`, `tare.tools serve`), model, size,
+  wait and run time, and `/v1/fleet/status` shows `text_queue` (running and waiting, with those fields).
+
 - Text keeps the GPU through an agent's turn. After a text request the gateway holds the GPU lease for
   `--text-idle-grace` seconds (default 20; 0 restores the old behaviour), and the next text request reuses it
   without queueing. An image or training job can no longer take the GPU, and stop the text model, in the
