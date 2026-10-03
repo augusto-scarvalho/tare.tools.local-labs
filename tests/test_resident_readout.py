@@ -39,7 +39,7 @@ def test_exact_resident_is_not_reloaded_and_internal_field_is_removed(monkeypatc
         monkeypatch.setattr(gateway, 'proxy_request', proxy)
         code, value = post(rt.endpoint, '/completion', payload(pid))
         assert code == 200 and value['ok']
-        assert rt.gpu_lease.timeout_seen == .15
+        assert rt.gpu_lease.timeout_seen == pytest.approx(.15, abs=.01)  # less the time in the text queue
 
 
 @pytest.mark.parametrize('change', ['pid', 'model', 'dead', 'coordination'])
