@@ -4,6 +4,9 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- The resident-probe test expects the probe's lease timeout less its time in the text queue (0.15 s minus
+  microseconds), not exactly 0.15 s.
+
 - The gateway runs text requests one at a time, the smallest waiting first, and records who called. Waiters
   used to race for the GPU lease every 50 ms, so an interactive turn of a few kB could wait behind a client's
   ~121k-token prompts until `--route-timeout` sent it to another route (a Copilot turn fell to a cloud model
