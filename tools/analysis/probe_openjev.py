@@ -37,8 +37,7 @@ def main():
     parser.add_argument('--qwen-coexist', action='store_true')
     args = parser.parse_args()
     if args.device != 'cpu':
-        sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'serving'))
-        from gpu_lease_run import inherited_lease
+        from tare_node.gpu_lease_run import inherited_lease
         if inherited_lease() is None:
             raise ValueError('GPU_PROBE_REQUIRES_SUPERVISING_LEASE')
     if args.qwen_coexist and args.device != 'cpu':

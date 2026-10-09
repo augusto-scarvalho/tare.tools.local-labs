@@ -4,16 +4,12 @@ from __future__ import annotations
 
 import argparse
 import json
-from pathlib import Path
 import sys
 from typing import Any
 from urllib import error as urllib_error
 from urllib import request as urllib_request
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(REPO_ROOT / "src"))
-
-from model_lifecycle.qualified_fleet import (  # noqa: E402
+from tare_node.qualified_fleet import (  # the fleet registry ships with tare.tools.node
     DEFAULT_REGISTRY,
     FleetConfigError,
     load_registry,
