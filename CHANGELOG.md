@@ -4,6 +4,13 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- The gateway says how long text waits for the GPU (contract `gpu-lease/1`): `gpu_coordination.eta_seconds` in
+  `/v1/fleet/status`, from what the holding `gpu run` job has left of its learned duration plus the learned
+  durations of the image jobs waiting (each queue ticket now carries `expected_seconds`), null when one has
+  none; every `503` refusal (`gpu_busy`, `gpu_lease_timeout`, `gpu_lease_cancelled`) carries `Retry-After` and
+  `error.retry_after_seconds` (5 s to 10 min, 60 s without an estimate). `gpu status` shows each job's time
+  left and when text gets the GPU. tare reads both to decide where a request goes without waiting.
+
 - The resident-probe test expects the probe's lease timeout less its time in the text queue (0.15 s minus
   microseconds), not exactly 0.15 s.
 

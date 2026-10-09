@@ -44,7 +44,7 @@ from model_lifecycle.qualified_fleet import (  # noqa: E402
 from model_lifecycle.fleet_count import (  # noqa: E402
     BINDING_FIELD, BindingMismatch, check_binding, count_request, effective_profile,
 )
-from model_lifecycle.gpu_lease import GpuBusy, SharedGpuLease  # noqa: E402
+from model_lifecycle.gpu_lease import GpuBusy, SharedGpuLease, eta_seconds  # noqa: E402
 from model_lifecycle.comfy_routes import (  # noqa: E402
     ComfyBackendError,
     ComfyRouteError,
@@ -287,6 +287,8 @@ class FleetRuntime:
     def status(self) -> dict[str, Any]:
         lease = getattr(self, "gpu_lease", None)
         coord = lease.status() if lease is not None else {"enabled": False}
+        if coord.get("enabled"):
+            coord["eta_seconds"] = eta_seconds(coord)  # contract gpu-lease/1: until text gets the GPU
         return {
             "status": "ok",
             "role": "qualified-model-gateway",
@@ -364,13 +366,24 @@ TEXT_QUEUE = TextQueue()
 RUNTIME: FleetRuntime
 
 
-def send_json(handler: BaseHTTPRequestHandler, status: int, payload: Any) -> None:
+def send_json(handler: BaseHTTPRequestHandler, status: int, payload: Any, headers: dict | None = None) -> None:
     raw = json.dumps(payload, ensure_ascii=False).encode("utf-8")
     handler.send_response(status)
     handler.send_header("Content-Type", "application/json; charset=utf-8")
     handler.send_header("Content-Length", str(len(raw)))
+    for name, value in (headers or {}).items():
+        handler.send_header(name, value)
     handler.end_headers()
     handler.wfile.write(raw)
+
+
+def gpu_refusal(lease, kind: str, message: str, model: Any) -> tuple[dict, dict]:
+    """A text request refused for the GPU (contract gpu-lease/1): the body and the Retry-After header, both from the
+    node's estimate of when text gets the GPU (5 s to 10 min), 60 s without one."""
+    eta = eta_seconds(lease.status()) if lease is not None and lease.is_enabled else None
+    seconds = min(600, max(5, eta)) if eta else 60
+    return ({"error": {"message": message, "type": kind, "model": model, "retry_after_seconds": seconds}},
+            {"Retry-After": str(seconds)})
 
 
 def proxy_request(handler: BaseHTTPRequestHandler, body: bytes, *, fleet_observation=None, timeout=3600) -> None:
@@ -770,29 +783,15 @@ class Handler(BaseHTTPRequestHandler):
                         }})
         except GpuBusy:
             LOG.info("GPU busy with an image job; text request for model=%s refused", requested)
-            send_json(self, 503, {"error": {
-                "message": "GPU busy with an image job; retry elsewhere or later",
-                "type": "gpu_busy",
-                "model": requested,
-            }})
+            send_json(self, 503, *gpu_refusal(lease, "gpu_busy", "GPU busy with an image job; retry elsewhere or later",
+                                              requested))
         except TimeoutError as exc:
             LOG.warning("GPU lease timeout for model=%s: %s", requested, exc)
-            send_json(self, 503, {
-                "error": {
-                    "message": f"timed out waiting for GPU lease ({route_timeout:.0f}s)",
-                    "type": "gpu_lease_timeout",
-                    "model": requested,
-                }
-            })
+            send_json(self, 503, *gpu_refusal(lease, "gpu_lease_timeout",
+                                              f"timed out waiting for GPU lease ({route_timeout:.0f}s)", requested))
         except InterruptedError as exc:
             LOG.warning("GPU lease cancelled for model=%s: %s", requested, exc)
-            send_json(self, 503, {
-                "error": {
-                    "message": "GPU lease acquisition cancelled",
-                    "type": "gpu_lease_cancelled",
-                    "model": requested,
-                }
-            })
+            send_json(self, 503, *gpu_refusal(lease, "gpu_lease_cancelled", "GPU lease acquisition cancelled", requested))
 
 
 def port_is_free(host: str, port: int) -> bool:

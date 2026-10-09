@@ -21,11 +21,11 @@ from uuid import uuid4
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'src'))
 from model_lifecycle.comfy_gpu import yield_text_backend
-from model_lifecycle.gpu_lease import SharedGpuLease
+from model_lifecycle.gpu_lease import SharedGpuLease, TRAINING_STATE_DIR
 
 LEASE_CONTEXT = 'TARE_GPU_TRAINING_LEASE'
 # Running jobs (active-<pid>.json) and finished task durations (runs.jsonl) live here.
-STATE_DIR = Path(os.environ.get('TARE_GPU_STATE') or Path.home()/'.local/state/tare-gpu-training')
+STATE_DIR = TRAINING_STATE_DIR
 # Twice the RTX 3090 idle floor measured 2026-09-30 (38-45 W at 0%; generating draws 310-360 W).
 IDLE_WATTS = float(os.environ.get('TARE_GPU_IDLE_WATTS') or 80)
 IDLE_WINDOW, SAMPLE_EVERY, LATE_FACTOR = 600.0, 30.0, 1.5
@@ -399,7 +399,8 @@ def main(argv=None):
         subreaper(True)
         lease = SharedGpuLease(args.gpu_lock, timeout=args.gpu_wait)
         report('waiting', request_id=request_id, timeout_seconds=args.gpu_wait, lock=str(args.gpu_lock))
-        with lease.hold('image', request_id, cancelled=lambda: bool(pending_signals), reason=reason) as receipt:
+        with lease.hold('image', request_id, cancelled=lambda: bool(pending_signals), reason=reason,
+                        expected_seconds=estimate(job['task']) if job.get('task') else None) as receipt:
             report('acquired', request_id=request_id)
             yield_text_backend(args.gateway, receipt['nonce'])
             report('text_backend_released', request_id=request_id)
