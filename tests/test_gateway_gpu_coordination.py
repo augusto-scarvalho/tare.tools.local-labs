@@ -528,7 +528,8 @@ def test_an_agent_turn_keeps_its_model_when_an_image_job_arrives_between_calls(t
 
 
 def test_a_refusal_says_how_long_text_waits_from_the_nodes_estimate():
-    # Contract gpu-lease/1: Retry-After and retry_after_seconds, from the estimate, kept between 5 s and 10 min.
+    # Contract gpu-lease/1: Retry-After and retry_after_seconds, from the estimate as it is: a 12 h training run
+    # says 12 h (43200 s), not 10 min; kept between 5 s and 24 h.
     class Lease:
         is_enabled = True
         def __init__(self, eta):
@@ -536,7 +537,7 @@ def test_a_refusal_says_how_long_text_waits_from_the_nodes_estimate():
         def status(self):
             return {"held": True, "owner": {"kind": "text"}, "queue": [
                 {"kind": "image", "expected_seconds": self.eta}]}
-    for eta, seconds in ((240, 240), (1, 5), (5000, 600), (None, 60)):
+    for eta, seconds in ((240, 240), (1, 5), (43200, 43200), (10**6, 86400), (None, 60)):
         body, headers = gateway.gpu_refusal(Lease(eta) if eta else None, "gpu_busy", "busy", "coding")
         assert body["error"]["retry_after_seconds"] == seconds and headers == {"Retry-After": str(seconds)}
         assert body["error"]["type"] == "gpu_busy" and body["error"]["model"] == "coding"

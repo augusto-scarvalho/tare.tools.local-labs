@@ -377,11 +377,15 @@ def send_json(handler: BaseHTTPRequestHandler, status: int, payload: Any, header
     handler.wfile.write(raw)
 
 
+MAX_RETRY_AFTER = 24 * 3600  # the kernel's ceiling too (compute_plane/native_http_worker.py)
+
+
 def gpu_refusal(lease, kind: str, message: str, model: Any) -> tuple[dict, dict]:
     """A text request refused for the GPU (contract gpu-lease/1): the body and the Retry-After header, both from the
-    node's estimate of when text gets the GPU (5 s to 10 min), 60 s without one."""
+    node's estimate of when text gets the GPU, as it is (5 s to 24 h: a 12-hour training run says so, it does not
+    claim 10 minutes), 60 s without one."""
     eta = eta_seconds(lease.status()) if lease is not None and lease.is_enabled else None
-    seconds = min(600, max(5, eta)) if eta else 60
+    seconds = min(MAX_RETRY_AFTER, max(5, eta)) if eta else 60
     return ({"error": {"message": message, "type": kind, "model": model, "retry_after_seconds": seconds}},
             {"Retry-After": str(seconds)})
 

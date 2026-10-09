@@ -4,6 +4,9 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- A refusal's `Retry-After` and `retry_after_seconds` carry the estimate as it is, up to 24 h, not capped at
+  10 minutes: during a 12-hour training run the gateway said text would be back in 10 minutes.
+
 - The gateway says how long text waits for the GPU (contract `gpu-lease/1`): `gpu_coordination.eta_seconds` in
   `/v1/fleet/status`, from what the holding `gpu run` job has left of its learned duration plus the learned
   durations of the image jobs waiting (each queue ticket now carries `expected_seconds`), null when one has
