@@ -4,6 +4,11 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- The node service moved to tare.tools.node: the model gateway, the GPU lease and `gpu` command, the ComfyUI hook,
+  the fleet registry loader and fleet count, their tests and the systemd drop-ins and installers are gone from
+  here; BACKLOG-GATEWAY-ROUTE-STRESS-01 keeps the gateway as an external source receipt (last hash, 2a0d8c3). `modelctl`, the OpenJEV probe and the decision worker import `tare_node`; the probe tests fake it.
+  `config/qualified_model_fleet.json` stays as the registry the research cites; the live one ships with the node.
+
 - A refusal's `Retry-After` and `retry_after_seconds` carry the estimate as it is, up to 24 h, not capped at
   10 minutes: during a 12-hour training run the gateway said text would be back in 10 minutes.
 

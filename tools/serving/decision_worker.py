@@ -40,7 +40,7 @@ def http(port, path, data=None, timeout=5):
 
 
 def gpu_assess(request, config):
-    from model_lifecycle.gpu_lease import SharedGpuLease
+    from tare_node.gpu_lease import SharedGpuLease
     from compute_plane.litjev_choice import assess
     lease = SharedGpuLease(config['gpu_lock'], timeout=.15)
     deadline = time.monotonic()+12
