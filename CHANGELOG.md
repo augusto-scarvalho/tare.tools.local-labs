@@ -4,6 +4,9 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- `docs/QUALIFIED_MODEL_FLEET.md`: a model qualified here enters tare.tools.node's catalog by a pull request
+  there; which models a node serves is its owner's fleet (`tare fleet`, `/fleet`), no longer this repository's.
+
 - The node service moved to tare.tools.node: the model gateway, the GPU lease and `gpu` command, the ComfyUI hook,
   the fleet registry loader and fleet count, their tests and the systemd drop-ins and installers are gone from
   here; BACKLOG-GATEWAY-ROUTE-STRESS-01 keeps the gateway as an external source receipt (last hash, 2a0d8c3). `modelctl`, the OpenJEV probe and the decision worker import `tare_node`; the probe tests fake it.
