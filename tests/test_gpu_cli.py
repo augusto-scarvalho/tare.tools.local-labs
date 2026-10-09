@@ -176,3 +176,24 @@ def test_status_shows_the_running_job_and_kill_after_stops_it(tmp_path):
             assert wrapper.wait_for_event('kill_after')
     assert not SharedGpuLease(lock).status()['held']
     assert supervisor.estimate('sleepy', tmp_path/'state/runs.jsonl') is None  # a killed run teaches nothing
+
+
+def test_text_gets_an_estimate_only_when_every_image_job_ahead_has_one(tmp_path, capsys):
+    # Contract gpu-lease/1: tare decides to wait or go elsewhere from it, so no estimate beats a made-up one.
+    from model_lifecycle.gpu_lease import eta_seconds
+    import gpu
+    (tmp_path/'active-41.json').write_text(json.dumps({'started_at': 100, 'expected_seconds': 300}), encoding='utf-8')
+    held = {'held': True, 'owner': {'kind': 'image', 'pid': 41}, 'queue': [
+        {'kind': 'text'}, {'kind': 'image', 'expected_seconds': 120}]}
+    assert eta_seconds(held, now=200, state_dir=tmp_path) == 200 + 120
+    assert eta_seconds(held, now=500, state_dir=tmp_path) is None  # the run is past its estimate
+    comfy = {'held': True, 'owner': {'kind': 'image', 'pid': 99}, 'queue': []}  # no job description
+    assert eta_seconds(comfy, now=200, state_dir=tmp_path) is None
+    unknown = {'held': False, 'owner': None, 'queue': [{'kind': 'image', 'expected_seconds': None}]}
+    assert eta_seconds(unknown, now=200, state_dir=tmp_path) is None
+    assert eta_seconds({'held': True, 'owner': {'kind': 'text'}, 'queue': []}, state_dir=tmp_path) is None
+    gpu.show({'held': True, 'owner': {'kind': 'image', 'reason': 'lora'}, 'eta_seconds': 320,
+              'jobs': [{'kind': 'run', 'task': 'lora', 'elapsed_seconds': 100, 'expected_seconds': 300, 'late': False}],
+              'queue': [{'kind': 'image', 'reason': 'batch', 'since': time.time(), 'expected_seconds': 120}]})
+    shown = capsys.readouterr().out
+    assert 'about 3m20s left' in shown and 'usually 2m00s' in shown and 'text gets the GPU in about 5m20s' in shown

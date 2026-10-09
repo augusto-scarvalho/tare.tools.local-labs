@@ -87,6 +87,13 @@ gpu hold --reason "debug flux workflow" 30m  # interactive shell holding the GPU
 - While an image job (these, ComfyUI) holds or waits for the lease, the gateway answers text requests with
   `503 gpu_busy` within about 5 s instead of queueing them for the route timeout, and callers such as tare
   escalate elsewhere. Text behind text still queues. `qwen38-gsq` unloads after 10 idle minutes.
+- How long text waits (contract `gpu-lease/1`, the kernel's `docs/GPU_LEASE_CONTRACT.md`): `/v1/fleet/status`
+  gives `gpu_coordination.eta_seconds`, the time the holding `gpu run` job has left of its estimate plus the
+  estimates of the image jobs waiting (each ticket carries its task's `expected_seconds`); null when one of
+  them has no estimate (ComfyUI, a task without history, a run already late). Every `503` refusal carries
+  `Retry-After` and `error.retry_after_seconds`: that estimate as it is, from 5 s up to 24 h (a 12-hour
+  training run says 12 h), 60 s without one. `gpu status` shows each job's time left and when text gets the GPU. What tare does with it:
+  tare.tools.os `docs/guides/SHARED_GPU.md`.
 - Text keeps the lease for an idle grace after each request (`--text-idle-grace`, 20 s), so an agent's
   back-to-back calls are never split: an image or training job arriving mid-turn waits until text has been idle
   that long (`gpu status` shows the text owner with `idle_since`). Once a job has waited `--image-max-wait`

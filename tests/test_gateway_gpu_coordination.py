@@ -374,6 +374,7 @@ def test_text_gives_way_to_a_lasting_image_job_with_gpu_busy(tmp_path, monkeypat
             code, resp = post(rt.endpoint, "/v1/chat/completions",
                               {"model": "coding", "messages": [{"role": "user", "content": "Hi"}]})
             assert code == 503 and resp["error"]["type"] == "gpu_busy"
+            assert resp["error"]["retry_after_seconds"] == 60  # no estimate for this job: a minute
             assert time.monotonic() - started < 5  # not the 30 s route timeout
             assert SharedGpuLease(lock_file).status()["queue"] == []
         code, _ = post(rt.endpoint, "/v1/chat/completions",
@@ -524,3 +525,19 @@ def test_an_agent_turn_keeps_its_model_when_an_image_job_arrives_between_calls(t
         job.join(timeout=5)
         assert yielded and yielded[0][0] == 200  # after the grace the image job takes the GPU
         assert rt.process is None
+
+
+def test_a_refusal_says_how_long_text_waits_from_the_nodes_estimate():
+    # Contract gpu-lease/1: Retry-After and retry_after_seconds, from the estimate as it is: a 12 h training run
+    # says 12 h (43200 s), not 10 min; kept between 5 s and 24 h.
+    class Lease:
+        is_enabled = True
+        def __init__(self, eta):
+            self.eta = eta
+        def status(self):
+            return {"held": True, "owner": {"kind": "text"}, "queue": [
+                {"kind": "image", "expected_seconds": self.eta}]}
+    for eta, seconds in ((240, 240), (1, 5), (43200, 43200), (10**6, 86400), (None, 60)):
+        body, headers = gateway.gpu_refusal(Lease(eta) if eta else None, "gpu_busy", "busy", "coding")
+        assert body["error"]["retry_after_seconds"] == seconds and headers == {"Retry-After": str(seconds)}
+        assert body["error"]["type"] == "gpu_busy" and body["error"]["model"] == "coding"

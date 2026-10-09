@@ -21,6 +21,33 @@ import time
 from typing import Any, Callable, Iterator
 
 LOG = logging.getLogger(__name__)
+# Supervised GPU jobs (`gpu run`, `gpu hold`) describe themselves here: active-<pid>.json, runs.jsonl.
+TRAINING_STATE_DIR = Path(os.environ.get("TARE_GPU_STATE") or Path.home() / ".local/state/tare-gpu-training")
+
+
+def eta_seconds(state: dict[str, Any], now: float | None = None, state_dir: Path | None = None) -> int | None:
+    """Seconds until text gets the GPU (contract gpu-lease/1): what the image job holding it has left of its learned
+    duration plus the learned durations of the image jobs waiting; None when one of them has no estimate (ComfyUI, a
+    task without history, a run already past its estimate) or no image job is in the way."""
+    now, state_dir = now or time.time(), state_dir or TRAINING_STATE_DIR
+    owner, ahead = state.get("owner") or {}, []
+    if state.get("held") and owner.get("kind") == "image":
+        try:
+            pid = int(owner.get("pid"))
+            job = json.loads((state_dir / f"active-{pid}.json").read_text(encoding="utf-8"))
+            left = job["started_at"] + job["expected_seconds"] - now
+        except (OSError, ValueError, KeyError, TypeError):
+            return None
+        if left <= 0:
+            return None
+        ahead.append(left)
+    for ticket in state.get("queue") or []:
+        if ticket.get("kind") == "image":
+            expected = ticket.get("expected_seconds")
+            if not isinstance(expected, (int, float)) or expected <= 0:
+                return None
+            ahead.append(expected)
+    return round(sum(ahead)) if ahead else None
 
 
 class GpuBusy(TimeoutError):
@@ -108,6 +135,7 @@ class SharedGpuLease:
         yield_to_image: float | None = None,
         linger: float = 0.0,
         image_max_wait: float | None = None,
+        expected_seconds: float | None = None,
     ) -> Iterator[dict[str, Any] | None]:
         """Acquire exclusive GPU lease for 'text' or 'image'.
 
@@ -119,6 +147,8 @@ class SharedGpuLease:
         ends, and the next text request of this lease object reuses it without
         queueing. Once an image job has waited image_max_wait seconds, the grace
         is skipped or cut short (never during a running request).
+        expected_seconds, the job's learned duration, rides on its queue ticket so status
+        can estimate when text gets the GPU (contract gpu-lease/1).
         """
         linger = float(linger)
         if not math.isfinite(linger) or linger < 0:
@@ -188,7 +218,7 @@ class SharedGpuLease:
                 fd = self._open_lock_file()
                 ticket = self._take_ticket(fcntl_mod, {
                     "kind": kind, "request_id": request_id, "reason": reason,
-                    "pid": os.getpid(), "since": time.time()})
+                    "pid": os.getpid(), "since": time.time(), "expected_seconds": expected_seconds})
             while ticket is not None:
                 if cancelled is not None and cancelled():
                     raise InterruptedError("GPU lease acquisition cancelled while waiting for file lock")
@@ -408,7 +438,7 @@ class SharedGpuLease:
         return (self.status().get("owner") or {}).get("kind") == "image"
 
     def _queue(self, fcntl_mod) -> list[dict[str, Any]]:
-        fields = ("kind", "request_id", "reason", "pid", "since")
+        fields = ("kind", "request_id", "reason", "pid", "since", "expected_seconds")
         return [{k: meta.get(k) for k in fields} for _, meta in self._live_tickets(fcntl_mod)]
 
     def status(self) -> dict[str, Any]:

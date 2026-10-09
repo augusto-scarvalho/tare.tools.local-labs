@@ -16,6 +16,7 @@ import time
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import gpu_lease_run as supervisor  # noqa: E402
 from gpu_lease_run import LATE_FACTOR, STATE_DIR, SharedGpuLease  # noqa: E402
+from model_lifecycle.gpu_lease import eta_seconds  # noqa: E402
 
 LOCK = Path.home()/'.local/state/tare-qualified-models/gpu.lock'
 
@@ -46,7 +47,8 @@ def jobs():
 
 
 def status(lock=LOCK):
-    return {**SharedGpuLease(lock).status(), 'jobs': jobs()}
+    state = SharedGpuLease(lock).status()
+    return {**state, 'eta_seconds': eta_seconds(state, state_dir=STATE_DIR), 'jobs': jobs()}
 
 
 def show(state):
@@ -63,7 +65,10 @@ def show(state):
         expected = job.get('expected_seconds')
         line = f"  {job['kind']} {job.get('task') or job.get('reason')}: {ago(job['elapsed_seconds'])}"
         line += f", usually {ago(expected)}" if expected else ', no estimate'
-        line += ' - LATE' if job['late'] else ''
+        if job['late']:
+            line += ' - LATE'
+        elif expected and expected > job['elapsed_seconds']:
+            line += f", about {ago(expected - job['elapsed_seconds'])} left"
         if job.get('kill_at'):
             line += f", ends in {ago(job['kill_at'] - now)}"
         idle = job.get('idle') or {}
@@ -71,7 +76,10 @@ def show(state):
         print(line)
     for ticket in state.get('queue') or []:
         print(f"  waiting: {ticket.get('kind')} \"{ticket.get('reason') or ticket.get('request_id')}\" "
-              f"for {ago(now - (ticket.get('since') or now))}")
+              f"for {ago(now - (ticket.get('since') or now))}"
+              + (f", usually {ago(ticket['expected_seconds'])}" if ticket.get('expected_seconds') else ''))
+    if state.get('eta_seconds'):
+        print(f"text gets the GPU in about {ago(state['eta_seconds'])}")
 
 
 def main(argv=None):
