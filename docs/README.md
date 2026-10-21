@@ -36,6 +36,7 @@ health evidence.
 | Run long experiment chains | [Experiment watcher](research/EXPERIMENT_WATCHER.md) |
 | Verify WSL CPU allocation | [WSL operations and CPU policy](../ops/wsl/README.md) |
 | Perform independent review | [Frugal independent audit](research/FRUGAL_INDEPENDENT_AUDIT.md) |
+| Measure existing local/cloud routes and loading cost | [EXP-3 bounded locality result](research/LOCALITY_COST_QUALIFICATION.md) and `python tools/analysis/locality_study.py STUDY.json` |
 | Discover qualified models | [Qualified model fleet](QUALIFIED_MODEL_FLEET.md) (moved to tare.tools.node) |
 | Browse scientific findings | [Research knowledge base](research/README.md) |
 | Browse the broad taxonomy | [Research catalog](RESEARCH_CATALOG.md) |
