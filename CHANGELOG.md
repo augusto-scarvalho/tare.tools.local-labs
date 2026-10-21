@@ -4,6 +4,8 @@ Notable changes to `tare.tools.local-labs` are recorded here, newest first. This
 
 ## Unreleased
 
+- Add `tools/analysis/locality_study.py`, a bounded stdlib-only EXP-3 offline analyzer with hashed native-session evidence, native Unix-epoch invocation timing, PID-bound cold/warm residency, externally bound quality checks, explicit cost gaps and synthetic tests; no live qualification, monetary winner or routing recommendation.
+
 - `docs/QUALIFIED_MODEL_FLEET.md`: a model qualified here enters tare.tools.node's catalog by a pull request
   there; which models a node serves is its owner's fleet (`tare fleet`, `/fleet`), no longer this repository's.
 
