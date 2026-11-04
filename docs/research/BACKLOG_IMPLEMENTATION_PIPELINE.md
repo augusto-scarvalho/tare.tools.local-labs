@@ -1,0 +1,246 @@
+# Backlog checking and implementation pipeline
+
+## Purpose
+
+The current remediation backlog is executable policy, not a prose checklist.
+The pipeline prevents the failure modes found in the historical execution wave: fabricated or
+random decisive fields, proxy results promoted as hardware evidence, missing
+provenance, mutable receipts, unregistered work, changed thresholds after a
+run, dependency bypass and self-review.
+
+The canonical machine-readable queue is
+`config/research_backlog.json`. The CLI is
+[`tools/analysis/backlog_pipeline.py`](../../tools/analysis/backlog_pipeline.py),
+and CI runs its repository-wide gate on every push and pull request.
+
+## Consolidated state on 2026-08-26
+
+The original 15-item queue below has now accumulated provenance-preserving
+successors and fail-closed abort packets. The canonical manifest contains 52
+operational records: 20 `EXECUTED`, 27 `BLOCKED`, three `PROMOTED`, and two
+`REJECTED`. A `BLOCKED` manifest record can be an aborted implementation
+attempt followed by a successful successor; it is not automatically a blocked
+scientific hypothesis.
+
+The human-facing reconciliation of the 36 AGY claims (the restart handoff, the per-rank rerun tracker
+and the full-rerun audit) is kept with the private working notes and is not published here.
+
+All 36 rows have a final disposition: 31 have at least one decisive physical
+successor and five remain exclusively blocked by an absent implementation.
+SLX-08 overlaps both groups because its fidelity gate was corrected while its
+selected-block TTFT route remains absent.
+
+## Initial 15-item queue
+
+| Priority | ID | Initial state | Entry condition |
+|---|---|---|---|
+| P0 | `BACKLOG-ADAPT-REQUAL-01` | `PROPOSED` | Freeze adapter/config, datasets and scorers |
+| P1 | `BACKLOG-ADAPT-TRAIN-01` | `BLOCKED` | P0 promotes a finalist |
+| P1 | `BACKLOG-DISTILL-REAL-01` | `PROPOSED` | Freeze real teacher/student generation and scoring |
+| P2 | `BACKLOG-CUDAGRAPH-SERVING-01` | `PROPOSED` | Identify the actual serving integration point |
+| P2 | `BACKLOG-PROXY-REALIZATION-01` | `BLOCKED` | Select exactly one real implementation target |
+| P3 | `BACKLOG-PACKED-HARDWARE-01` | `BLOCKED` | Produce an actual packed artifact/runtime |
+| P2 | `BACKLOG-ADAPT-TRACE-DISTILL-01` | `BLOCKED` | Promoted reproducible behavioral finalist plus a new hypothesis |
+| P1 | `BACKLOG-MTP-PERSISTENCE-01` | `BLOCKED` | Falsifiable cache-lifecycle mechanism hypothesis |
+| P2 | `BACKLOG-THINKINGCAP-QWEN38-01` | `BLOCKED` | Official Qwen3.8 ThinkingCap weights and 3090-fit artifact |
+| P3 | `BACKLOG-THINKINGCAP-MTP-IDENTITY-01` | `BLOCKED` | Publisher receipt for the exact legacy digest |
+| P3 | `BACKLOG-QUANTIZER-PROVENANCE-01` | `BLOCKED` | Exact publisher build receipts |
+| P2 | `BACKLOG-HUMAN-JUDGE-CALIBRATION-01` | `BLOCKED` | 50–100 genuine blind human labels |
+| P3 | `BACKLOG-RETNET-OFFICIAL-01` | `BLOCKED` | Official Microsoft/TorchScale pretrained checkpoint |
+| P3 | `BACKLOG-BEE-L2-KV-CODEC-01` | `BLOCKED` | Physical immutable codec and effective-route receipts |
+| P3 | `BACKLOG-APEX4-E2E-01` | `BLOCKED` | Corrected checkpoint shards and reproducible E2E package |
+
+`next` selects the lowest-priority-number ready item and will not cross an
+unmet dependency. This makes cheap, discriminating gates precede expensive
+training or hardware work.
+
+Portfolio priority can be reassessed independently of scientific state through
+the frugal policy documented in
+[`BACKLOG_PRIORITY_POLICY.md`](BACKLOG_PRIORITY_POLICY.md). `rank --explain` and
+`rebalance --dry-run` are read-only. `rebalance --apply --actor <identity>`
+atomically updates only explicitly assessed priority metadata; unassessed items
+keep their current P-band. Operational ranking excludes displaced predecessors
+by default; `rank --include-superseded` restores the complete lineage view. The
+harness does not own this policy.
+
+These 15 items reconcile the historical remediation queue with the residual trigger
+register from the 2026-08-24 closeout. Parked themes, cancelled soaks and closed
+`HOLD`/negative results are deliberately not executable manifest items.
+
+## State machine and authority
+
+```text
+PROPOSED -> PREREGISTERED -> IMPLEMENTED -> EXECUTED -> VERIFIED -> PROMOTED
+     |             |              |             |            |
+     +-------------+--------------+-------------+------------+-> BLOCKED
+                                               +-> REJECTED
+BLOCKED -> PROPOSED
+```
+
+- The designated executor may preregister, implement and execute.
+- The preregistration and implementation are SHA-256-bound before execution.
+- The receipt is bound to command, Git state, script, inputs and environment.
+- The gate engine compares every receipt metric/operator/threshold with the
+  frozen manifest and recomputes `pass` from `actual`.
+- `VERIFIED` and `PROMOTED` require a reviewer and transition actor independent
+  of the executor.
+- New v2 packets also require that independence for an executed result to become
+  `REJECTED` or `BLOCKED`, with a proved result-reversing decision impact.
+- `proxy_realization` is deliberately non-promotable. A proxy must become an
+  eligible real evidence class in a separately reviewed backlog change.
+- Original raw receipts are immutable. A correction gets a successor packet.
+
+## Executor workflow
+
+Start with a clean gate and select the task:
+
+```powershell
+python tools/analysis/backlog_pipeline.py gate
+python tools/analysis/backlog_pipeline.py status
+python tools/analysis/backlog_pipeline.py next
+python tools/analysis/backlog_pipeline.py scaffold BACKLOG-ADAPT-REQUAL-01 --actor "Experiment Executor"
+```
+
+Complete the generated `PRE_REGISTRATION.md`, including the exact executable
+command and no placeholders, then freeze it:
+
+```powershell
+python tools/analysis/backlog_pipeline.py advance BACKLOG-ADAPT-REQUAL-01 --to PREREGISTERED --actor "Experiment Executor"
+```
+
+After implementation and its deterministic tests pass, bind every relevant
+file. Repeat `--implementation` for each script, module or test:
+
+```powershell
+python tools/analysis/backlog_pipeline.py advance BACKLOG-ADAPT-REQUAL-01 --to IMPLEMENTED --actor "Experiment Executor" `
+  --implementation tools/research/run_adapter_requalification.py `
+  --implementation tests/test_adapter_requalification.py
+```
+
+Run only the preregistered command. It must write
+`runs/research/<ID>/raw/receipt.json`, then:
+
+```powershell
+python tools/analysis/backlog_pipeline.py advance BACKLOG-ADAPT-REQUAL-01 --to EXECUTED --actor "Experiment Executor"
+```
+
+At this point the executor writes `RESULT.md` but does not approve the work. It hands
+the packet to an independent reviewer.
+
+## Receipt contract
+
+The receipt uses `local-labs-backlog-receipt-v1` and contains:
+
+`scaffold` generates `RECEIPT.template.json` from the task's exact gates and
+evidence requirements. Copy that structure into `raw/receipt.json`; do not
+retype, remove or rename its keys. It also generates `REVIEW.template.json` for
+the independent reviewer.
+
+```json
+{
+  "schema": "local-labs-backlog-receipt-v1",
+  "task_id": "BACKLOG-ADAPT-REQUAL-01",
+  "provenance": {"schema": "local-labs-experiment-provenance-v1"},
+  "provenance_complete": true,
+  "gates": {
+    "base_control": {
+      "metric": "base_control_present",
+      "operator": "eq",
+      "threshold": true,
+      "actual": true,
+      "pass": true
+    }
+  },
+  "evidence": {
+    "artifact_hashes": "raw/artifact_hashes.json",
+    "raw_samples": "raw/samples.jsonl"
+  },
+  "receipt_fingerprint": "<canonical SHA-256 of the receipt without this field>"
+}
+```
+
+All gates and evidence keys required by the task must be present. Extra or
+renamed gates fail. The helper in `tools/analysis/experiment_provenance.py`
+should be used to construct provenance and the canonical fingerprint.
+
+## Portable large-artifact receipts
+
+Physical GGUF and codec derivatives can exceed GitHub's ordinary object limit.
+They remain local and immutable, while their byte count and SHA-256 are stored
+in committed packet evidence. If another manifest item declares such a file as
+a source, bind it through the canonical CLI before excluding the derivative:
+
+```powershell
+python tools/analysis/backlog_pipeline.py externalize-source `
+  BACKLOG-SLX10-PACKED-RUNTIME-02 `
+  runs/research/BACKLOG-ADAPT06-SLOP-LIVE-05/raw/qwen3.5-0.8b-base-f16.gguf `
+  --evidence runs/research/BACKLOG-SLX10-PACKED-RUNTIME-02/raw/artifact_hashes.json `
+  --actor "Codex portability consolidation"
+```
+
+The command verifies the live file against the committed evidence and writes
+an atomic `external_source_receipts` entry. On a portable checkout, `gate`
+accepts the absent derivative only when the evidence file contains the exact
+same path, digest, and byte count. Missing unbound inputs still fail closed.
+
+## Persistent watcher for background execution
+
+Every experiment launched as a detached or background process must have a
+persistent watcher launched in the same operational handoff. A background PID
+without a live watcher is not a complete launch.
+
+The watcher must record the experiment PID, packet directory, expected progress
+count, pipeline stage, GPU state, relevant endpoint health, and append-only
+progress events. When the process exits, it must require a canonical receipt,
+validate the repository gate, and may advance only `IMPLEMENTED -> EXECUTED` as
+the executor. It must never self-review, verify, reject, or promote a result.
+
+If the receipt is absent, validation fails, or the service baseline does not
+recover, the watcher records a fail-closed alert. Each launch reports clickable
+paths for the live status, event stream, and final record. The reusable watcher
+is `tools/analysis/watch_experiment_processes.py`.
+Its complete lifecycle, progress-marker contract, artifact schemas, controller
+handoff, failure matrix, fixtures and live-canary runbook are documented in
+[`EXPERIMENT_WATCHER.md`](EXPERIMENT_WATCHER.md).
+
+## Independent review and closeout
+
+The reviewer audits the bounded promise and its decision value, not technical
+perfection. Newly scaffolded packets use
+`local-labs-independent-review-v2`, which binds the exact receipt and
+implementation while requiring an evidence-backed falsification attempt, a
+false-negative search, materiality classification and the smallest sufficient
+remedy. The complete contract and compact reviewer prompt are in
+[`FRUGAL_INDEPENDENT_AUDIT.md`](FRUGAL_INDEPENDENT_AUDIT.md).
+
+A negative review must prove a result-reversing defect that changes the stated
+business or research decision. Claim limits and non-blocking technical debt do
+not justify a rerun. Full reruns are invalid while retained evidence can support
+a rescore, targeted patch or minimal missing-cell run. Historical v1 reviews
+remain valid and immutable.
+
+An approved independent actor may then run:
+
+```powershell
+python tools/analysis/backlog_pipeline.py advance BACKLOG-ADAPT-REQUAL-01 --to VERIFIED --actor Codex --claim-code ARTIFACT_REQUALIFIED
+python tools/analysis/backlog_pipeline.py advance BACKLOG-ADAPT-REQUAL-01 --to PROMOTED --actor Codex
+```
+
+If a decisive frozen gate fails under independent reconstruction, use
+`REJECTED` with the appropriate rejection claim. If an executed packet has a
+proved result-reversing evidence defect, use `BLOCKED --reason "smallest exact
+unblock condition"`. V2 packets require the independent `REVIEW.json` for both
+transitions. Never weaken a gate after seeing the result; create a reviewed
+successor only when the scientific question or treatment genuinely changes.
+
+## CI enforcement
+
+`gate` validates manifest schema, evidence classes, full required-evidence
+sets, source paths, packet registration, dependency cycles, legal state
+history, file hashes, receipt fingerprint/provenance, frozen gate calculations,
+claim codes, reviewer independence and the frugal v2 burden of proof. The unit
+suite also exercises a complete happy path and confirms that placeholders,
+malformed receipts, self-review, proxy promotion, non-material blocking and
+unjustified full reruns fail closed. CI runs the portable suite while the
+repository-wide gate continues to enforce committed path/SHA-256/byte receipts
+for locally materialized research evidence.

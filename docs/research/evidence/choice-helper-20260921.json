@@ -1,0 +1,134 @@
+{
+  "schema": "tare.local-labs/choice-helper-smoke-result/1",
+  "authority": "NONE",
+  "qualification": "UNQUALIFIED",
+  "case_count": 3,
+  "expected_matches": 3,
+  "cases": [
+    {
+      "case": "english-mechanical",
+      "expected": "bounded",
+      "request": {
+        "state": "Fix a spelling mistake in one CLI help string: change 'recieve' to 'receive'. Only cli/help.py may change. An existing test asserts the exact corrected text. No behavior or API changes are requested.",
+        "question": "What kind of implementation or review does this task require?",
+        "options": {
+          "bounded": "A localized mechanical change with explicit executable checks.",
+          "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+          "insufficient": "The supplied task does not establish the required scope or checks."
+        }
+      },
+      "elapsed_ms": 938.0,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "bounded",
+        "probabilities": {
+          "bounded": 0.5596,
+          "reasoning": 0.2011,
+          "insufficient": 0.2392
+        },
+        "usage": {
+          "input_tokens": 107,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "convaiinnovations/laya",
+          "revision": "1c5edc17a7acd8701df6fc341c0d179f1c62c982",
+          "subfolder": "typed-decisions",
+          "sdk_version": "0.3.4",
+          "device": "cpu",
+          "threads": 2,
+          "manifest_sha256": "da84781a80a6f76e5bc0ca5cab2ab1a09118921a0dc86b31fb5df9521579349f"
+        }
+      },
+      "expected_match": true
+    },
+    {
+      "case": "portuguese-concurrency",
+      "expected": "reasoning",
+      "request": {
+        "state": "Corrigir uma corrida entre o gateway de modelos e um treino LoRA. SIGTERM pode chegar enquanto o filho inicia; subprocessos destacados podem manter VRAM ocupada. Preservar exclusividade da GPU durante toda a árvore de processos e comprovar liberação antes de carregar o LLM. Os testes devem cobrir concorrência, cancelamento e processos descendentes.",
+        "question": "What kind of implementation or review does this task require?",
+        "options": {
+          "bounded": "A localized mechanical change with explicit executable checks.",
+          "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+          "insufficient": "The supplied task does not establish the required scope or checks."
+        }
+      },
+      "elapsed_ms": 1344.0,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "reasoning",
+        "probabilities": {
+          "bounded": 0.2919,
+          "reasoning": 0.5672,
+          "insufficient": 0.1409
+        },
+        "usage": {
+          "input_tokens": 164,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "convaiinnovations/laya",
+          "revision": "1c5edc17a7acd8701df6fc341c0d179f1c62c982",
+          "subfolder": "typed-decisions",
+          "sdk_version": "0.3.4",
+          "device": "cpu",
+          "threads": 2,
+          "manifest_sha256": "da84781a80a6f76e5bc0ca5cab2ab1a09118921a0dc86b31fb5df9521579349f"
+        }
+      },
+      "expected_match": true
+    },
+    {
+      "case": "missing-scope",
+      "expected": "insufficient",
+      "request": {
+        "state": "Make the system better. There is no selected project, task scope, acceptance criterion or verification command.",
+        "question": "What kind of implementation or review does this task require?",
+        "options": {
+          "bounded": "A localized mechanical change with explicit executable checks.",
+          "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+          "insufficient": "The supplied task does not establish the required scope or checks."
+        }
+      },
+      "elapsed_ms": 718.0,
+      "status": "OBSERVED",
+      "answer": {
+        "choice": "insufficient",
+        "probabilities": {
+          "bounded": 0.3184,
+          "reasoning": 0.2999,
+          "insufficient": 0.3817
+        },
+        "usage": {
+          "input_tokens": 81,
+          "output_tokens": 0
+        },
+        "model_identity": {
+          "model": "convaiinnovations/laya",
+          "revision": "1c5edc17a7acd8701df6fc341c0d179f1c62c982",
+          "subfolder": "typed-decisions",
+          "sdk_version": "0.3.4",
+          "device": "cpu",
+          "threads": 2,
+          "manifest_sha256": "da84781a80a6f76e5bc0ca5cab2ab1a09118921a0dc86b31fb5df9521579349f"
+        }
+      },
+      "expected_match": true
+    }
+  ],
+  "decision": "READY_FOR_BOUNDED_PILOT",
+  "limits": "Three authored smoke cases; no held-out quality, counterfactual executor performance or savings measured.",
+  "load_ms": 18187.0,
+  "total_ms": 21187.0,
+  "cases_sha256": "4a6bd7c418f2a2500d129f8ec677cafd6fc68834b6006a9dc8186b4d634ae408",
+  "model_identity": {
+    "model": "convaiinnovations/laya",
+    "revision": "1c5edc17a7acd8701df6fc341c0d179f1c62c982",
+    "subfolder": "typed-decisions",
+    "sdk_version": "0.3.4",
+    "device": "cpu",
+    "threads": 2,
+    "manifest_sha256": "da84781a80a6f76e5bc0ca5cab2ab1a09118921a0dc86b31fb5df9521579349f"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schema": "tare.local-labs/choice-helper-smoke/1",
+  "scope": "Three adapter smoke cases. Passing is not routing qualification or proof of savings.",
+  "question": "What kind of implementation or review does this task require?",
+  "options": {
+    "bounded": "A localized mechanical change with explicit executable checks.",
+    "reasoning": "Substantial reasoning about behavior, concurrency, security or architecture.",
+    "insufficient": "The supplied task does not establish the required scope or checks."
+  },
+  "cases": [
+    {
+      "id": "english-mechanical",
+      "state": "Fix a spelling mistake in one CLI help string: change 'recieve' to 'receive'. Only cli/help.py may change. An existing test asserts the exact corrected text. No behavior or API changes are requested.",
+      "expected": "bounded"
+    },
+    {
+      "id": "portuguese-concurrency",
+      "state": "Corrigir uma corrida entre o gateway de modelos e um treino LoRA. SIGTERM pode chegar enquanto o filho inicia; subprocessos destacados podem manter VRAM ocupada. Preservar exclusividade da GPU durante toda a árvore de processos e comprovar liberação antes de carregar o LLM. Os testes devem cobrir concorrência, cancelamento e processos descendentes.",
+      "expected": "reasoning"
+    },
+    {
+      "id": "missing-scope",
+      "state": "Make the system better. There is no selected project, task scope, acceptance criterion or verification command.",
+      "expected": "insufficient"
+    }
+  ]
+}

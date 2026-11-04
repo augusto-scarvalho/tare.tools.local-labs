@@ -1,0 +1,60 @@
+name: local-labs-ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Fetch changelog comparison base
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        shell: bash
+        run: |
+          zero=0000000000000000000000000000000000000000
+          if [ -n "$BASE_SHA" ] && [ "$BASE_SHA" != "$zero" ] && ! git cat-file -e "${BASE_SHA}^{commit}" 2>/dev/null; then
+            git fetch --no-tags --depth=1 origin "$BASE_SHA"
+          fi
+
+      - name: Enforce changelog policy
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+        run: python tools/analysis/changelog_guard.py "$BASE_SHA" "$HEAD_SHA"
+
+      - name: Install test dependencies
+        run: python -m pip install --disable-pip-version-check pytest==9.1.1 numpy==2.5.1
+
+      - name: Compile Python sources
+        run: python -m compileall -q src tools tests benchmark_harness_qa.py
+
+      - name: Gate research backlog pipeline
+        # The research backlog and its run packets are private and absent from public
+        # checkouts; the maintainer runs this gate locally where they exist.
+        shell: bash
+        run: |
+          if [ -f config/research_backlog.json ]; then
+            python tools/analysis/backlog_pipeline.py gate
+          else
+            echo "config/research_backlog.json is not in this checkout; gate skipped"
+          fi
+
+      - name: Run portable unit tests
+        run: python -m pytest -q
+
+      - name: Qualify benchmark harness
+        run: python tests/benchmark_harness/benchmark_harness_selftest.py

@@ -1,0 +1,1003 @@
+# STATUS — what this project has settled, and what it has not
+
+> **New here / post-context-reset? Read [`DEPLOY.md`](../campaigns/serving/DEPLOY.md) first** — the one-page consolidated
+> best config, the decode-lever stack (placement +268%, CUDA graphs +27%, MTP +27–83%), the safety
+> envelope, the machine baseline, and the remaining optional experiments.
+
+Referenced from `collectors/host.py` and implied across the experiment scripts; this is
+its actual home. Every number below was produced by `python analyze_ab.py` over the
+`runs/ab-*/records.json` directories, paired by `(round, ncmoe)`, using the project's own
+robust machinery (exact sign test, seeded percentile bootstrap, Cliff's delta). Medians,
+never means — this host produces cold-start outliers and a mean was trusted once already.
+
+Regenerate everything here with:
+
+    python analyze_ab.py            # human report, straight off disk
+    python analyze_ab.py --json     # provenance blob
+    python -m model_lifecycle.cli report -o reports/EVIDENCE.md   # same numbers, from the Store
+
+The number tables below are **authored prose citing regenerable evidence**. That evidence —
+the noise floor and every paired comparison — is regenerated into [`reports/EVIDENCE.md`](../../reports/EVIDENCE.md)
+by `model_lifecycle.reports.status`, reading the A/B records out of the Store (where the
+backfill unified them). The disk reader (`analyze_ab.py`) and the Store reader share one
+pairing core and produce byte-identical numbers, so this prose can be checked against the
+data at any time and can never again quietly drift from it.
+
+---
+
+## The instrument's resolution: the noise floor
+
+From `ab-null-qwen36-35b` — the same binary and the same environment in both arms, so the
+true delta is **zero by construction**. This is the single most important number in the
+project, because every published delta is read against it.
+
+| quantity | value | reading |
+|---|---|---|
+| null prefill Δ, median | **+0.29%** | the pair is unbiased |
+| null prefill Δ, median \|%\| | **~2.3%** | round-to-round paired scatter |
+| null order effect (sign_p) | 1.0000 | interleaving IS balanced |
+
+Two consequences, both load-bearing:
+
+1. **A prefill delta below ~2.3% is not evidence, however tidy its median.** The floor is
+   ~2.3%, NOT the sub-1% previously assumed offhand.
+2. `sign_p = 1.0` on the null means arm order does not bias the pair. This validates the
+   interleaving for *every* paired comparison below — without it, they would all inherit a
+   systematic bias invisible to replication.
+
+At n=6 the exact sign test bottoms out at **p = 0.0312** (every round agreeing). That is
+the strongest claim a 6-round paired run can make distribution-free, and where you see it
+below it means the effect was unanimous across rounds.
+
+---
+
+## SETTLED
+
+### 1. Pinning (`GGML_CUDA_REGISTER_HOST=1`) roughly doubles prefill — in three geometries
+
+`cudaHostRegister` on the model-loader's mmap is the fork's real value. Prefill delta of
+`pin - base`, paired:
+
+| model | experts | Δ prefill | sign_p | Cliff's δ |
+|---|---|---|---|---|
+| qwen36-35b | 256 | **+104.9%** | 0.031 | +1.00 |
+| qwen3-30b | 128 | **+123.3%** | 0.031 | +1.00 |
+| gpt-oss-20b | 32 | **+114.6%** | 0.031 | +1.00 |
+
+Three independent geometries, unanimous every round, ~50× the noise floor. This is the
+most solid result in the project. **Pinning is on by default in `serve.py`.**
+
+### 2. Adding the prefetch to an already-pinned baseline COSTS prefill
+
+The switches are not independent and there is no cheap middle. `pinpf - pin`, paired:
+
+| model | experts | Δ prefill | sign_p |
+|---|---|---|---|
+| qwen36-35b | 256 | **−22.1%** | 0.031 |
+| qwen3-30b | 128 | **−11.3%** | 0.031 |
+| gpt-oss-20b | 32 | **−8.6%** | 0.031 |
+
+The tax scales with expert count (256 > 128 > 32), unanimous every round, all above the
+floor. **Prefetch is off by default in `serve.py`.**
+
+### 3. The published "+58%" was one number hiding two effects
+
+`pinpf - base` on qwen36-35b = **+60.2%** (sign_p 0.031) — the headline, reproduced. It
+decomposes exactly: pinning (+105%) followed by prefetch (−22%). The fork's entire value
+is the `cudaHostRegister` call; its headline overlap is a tax, not a feature.
+
+### 4. Generation does not move — IN THE NEAR-RESIDENT REGIME
+
+Every `gen_tps` comparison lands inside the noise floor. `pin - base` generation:
+−0.15% / +0.24% / +0.04% across the three models (all sign_p ≥ 0.69); the dedicated
+`genpin` 35B run gives −0.18% (sign_p 1.0). Pinning buys prefill and nothing else here.
+
+> **SCOPE — do not overread.** All of this is the *near-resident* regime (35B at
+> ncmoe=24 generates at ~43 t/s, most weight near the card). The question pinning was
+> *supposed* to answer — does it help generation when generation is **transfer-bound** —
+> is NOT settled by this data. See OPEN §B1.
+
+### 5. The fork is worth its mechanism, and the rebase reproduces it exactly (n=18)
+
+| comparison | Δ prefill | sign_p | reading |
+|---|---|---|---|
+| fork − base | +59.3% | <0.0001 | the fork earns its keep |
+| rebased − base | +60.4% | <0.0001 | so does the patch on today's upstream |
+| rebased − fork | +0.48% | 0.096 (within floor) | **rebase ≡ fork** |
+
+(Cliff's δ is diluted here because this run spans ncmoe {8,24,40} and pools raw rates
+across doses; the *paired* sign test and median% are the trustworthy read.) **Actionable:
+the 3-week-stale fork can be dropped and the patch carried on current upstream with no
+measurable loss** — 266 commits of upstream work for free.
+
+### 6. `turbo-mma-decode` does nothing measurable — do not carry it
+
+`turbo - base`, both models, both metrics, all within the floor: generation −0.04% (35B)
+and +0.15% (30B), sign_p 1.0; prefill likewise. The fork author's fused-GQA decode path
+is inert on this hardware. n=6 here could detect roughly a >5% effect; this is <0.4%.
+
+### 7. Question 4 resolved: the L18 / A-B disagreement is NOT the build
+
+The 2×2 (`ab-stack`, BUILD × PREFETCH):
+
+| | prefetch off → on |
+|---|---|
+| **rebase build** | −22.1% (sign_p 0.031) |
+| **stack build** | −23.3% (sign_p 0.031) |
+
+The prefetch is a ~22% tax on *both* builds — essentially identical. Build alone
+(prefetch off) is +0.65%, within the floor. So the stack's prefill changes do **not**
+interact with the prefetch, and the L18's non-monotonic ordering was confounding (its
+`cache` factor was inert by construction), not a build×prefetch effect.
+
+---
+
+## TIER-1 — the speed pivot: §E1 placement is the biggest decode win in the project (2026-08-01)
+
+After §B1 closed, the pivot to engine/placement levers (`LANDSCAPE.md` §5) paid off on the
+first experiment. **Every A/B this project ran used *maximum* offload (`ncmoe=40`, all 40 expert
+layers on the CPU) — the single worst decode placement** — while **21.2 GB of the 24 GB card sat
+idle** (qwen36-35B-Q4 uses only ~2.8 GB at max offload). §E1 sweeps `ncmoe` DOWN, bringing
+experts back onto the GPU until the VRAM reserve binds. Stock llama.cpp, no fork, no build:
+
+| ncmoe | decode t/s (stock) | VRAM free | status |
+|---:|---:|---:|---|
+| **40** | **27.6** | 20.7 GB | the campaign's placement — worst case |
+| 28 | 40.8 | 15.1 GB | |
+| 16 | 70.4 | 9.5 GB | |
+| 8 | 93.1 | 5.8 GB | |
+| **6** | **101.7** | 4.9 GB | **← recommended optimum (respects the 4 GB VRAM reserve)** |
+| 4 | 113.4 | 3.9 GB | REJECTED — 3.9 GB free < 4 GB reserve |
+
+**Decode 27.6 → 101.7 t/s = +268% (3.7×), free**, purely by expert placement. The 4 GB VRAM
+reserve is the binding constraint (ncmoe=4 would give ~113 t/s but breaks it). Decode is
+near-deterministic here (CV ~0.006), so n=2 resolves the curve; the reserve boundary is sharp.
+
+**The KV-format factor (q4_0 vs q8_0) is a NULL lever at this context.** At ctx=8192, q4_0
+decode matches q8_0 within noise (±2%) and frees only **~46 MB** of VRAM — the KV cache is tiny
+relative to weights at 8 k, and Ampere's flash-attention fast path is already active for both.
+q4_0's payoff is reserved for **long context** (the 128 k agentic case, `[[agentic-local-model-plan]]`),
+where KV VRAM dominates and would otherwise force `ncmoe` back up. Untested here; flagged for §E4.
+
+**What this does to the pinning story.** The `pin` arm ran free alongside (genpin), giving the
+within-model dose-response: pin's gen benefit **rises with offload** (ncmoe8 ~0% → ncmoe40 +5%)
+and is **null at the optimal placement** (ncmoe≤8, near-resident). So *at the operating point you
+would actually use*, the fork's pinning is irrelevant — the win is 100% placement. Pinning earns
+its keep only in the **forced-heavy-offload** regime (a model too big to place well, or a smaller
+GPU), which is exactly the §B1 finding seen from the speed side. **The stock baseline every later
+Tier-1 A/B must beat is now ~102 t/s at ncmoe=6, not the 27 t/s at ncmoe=40 we had been citing.**
+Raw records: `runs/ab-genpin-qwen36-35b-e1-place-q8/` and `-e1-place-q4/`; the `--kv` flag and the
+placement axis are in `ab_isolate.py`.
+
+## §E2 — ik_llama.cpp vs stock: TIE on decode at the operating point; ik wins only where our envelope won't let it run (2026-08-02)
+
+The Tier-1 head-to-head: philosophy **(a) stream-to-GPU** (our stock llama.cpp) vs **(b)
+compute-on-CPU** (`ikawrakow/ik_llama.cpp`, fused-MoE + optional run-time-repack). Same GGUF
+(qwen36-35B-Q4), same KV (q8_0), `-fa on` both arms, matched placement. **Swept ncmoe** (per the
+sweep-first rule — the two philosophies converge at low offload and diverge as experts leave the
+GPU, so a single point would mislead). Envelope-clean via a new `--reset-between` (per-config WSL
+reset — ik's larger host footprint otherwise contaminates the next arm's load).
+
+**At the operating point (ncmoe=6, where a well-fitting model actually runs), n=4 clean:**
+
+| metric | stock (a) | ik (b) | Δ |
+|---|---:|---:|---|
+| decode | ~95.3 t/s | ~95.5 t/s | **+0.29% — within noise** (\|Δ\|<1.4%) |
+| prefill | ~568 t/s | ~992 t/s | **+75% — ik faster** |
+
+**The engine swap does NOT speed up decode where you would run.** ik's only decode-relevant win is
+prefill (compute-bound → its fast CPU/fused kernels help). Mechanically expected: at ncmoe=6, 34 of
+40 expert layers are already on the GPU for BOTH engines, so decode is nearly the same computation.
+
+**Sweeping ncmoe reveals ik's decode advantage GROWS with offload** (r0, single-shot — decode here
+is near-deterministic):
+
+| ncmoe | stock decode | ik decode | Δ decode | Δ prefill |
+|---:|---:|---:|---:|---:|
+| 6 | 93.5 | 95.3 | +2.0% | +64% |
+| 16 | 64.6 | 68.0 | **+5.3%** | +116% |
+| 28 | 39.7 | 43.5 | **+9.6%** | +122% |
+| 40 | 31.3† | 36.4† | **+16.5%** | +146%† |
+
+†ncmoe=40 re-measured 2026-08-02 with `swap=16GB` (see failure-mode §3 below); both arms ran in one
+session, so the **within-run Δ is clean**, but the absolute t/s are post-XMP (DDR5-5600) and ~13% above
+the pre-XMP 6/16/28 rows — expected, since offloaded experts compute on the CPU over RAM bandwidth. The
+**trend** (2.0→5.3→9.6→16.5%) is what carries, not the absolute rates across sessions.
+
+So philosophy (b) degrades **less** than (a) as experts move to the CPU — for a model FORCED into
+heavy offload (too big to place well; the 128 GB future), ik would win decode. **But ik cannot run
+cleanly there on this box, three ways:**
+
+1. **`-rtr` (ik's fast CPU-GEMM repack) OOMs at heavy offload** — repacking all 40 expert layers
+   (~18 GB) blows the WSL RAM cap and kills the load (reproduced twice). Its speed mode needs
+   *offline* `_R4` quants, not run-time repack, once offload is heavy.
+2. **ik's host-RAM footprint breaches the 16 GB Windows reserve** at moderate offload even without
+   `-rtr`: ncmoe16 → 15.3 GB free, ncmoe28 → 9.6 GB free (both REJECTED by the guard). Stream-to-GPU
+   keeps experts GPU-side and stays within the reserve.
+3. **ncmoe=40 is RAM-bound, not a hard crash — re-measured 2026-08-02.** The earlier "crashes
+   outright" was `swap=0` (no headroom). With `swap=16GB` added to `.wslconfig` (memory kept at 44 GB,
+   backup saved), ik at ncmoe=40 loads in 8 s and **completes generation at 36.4 t/s — +16.5% vs
+   stock's 31.3**, filling the offload curve's missing point and continuing its monotone growth. It is
+   still **REJECTED by the guard**: Windows-available fell to **11.3 GB, sustained under the 16 GB
+   reserve** (`reason: ram 11283MB < 16384MB for 3 samples`). So the RAM wall is *measured*, not
+   inferred from a crash — and severe enough that the sustained pressure OOM-killed the orchestrator
+   twice mid-run (the iGPU desktop-app move, which now renders from system RAM, compounds it). Net
+   unchanged: ik's heavy-offload decode edge is real but unreachable inside the 64 GB safety envelope.
+
+**Net for our hardware:** the engine swap is a **decode tie** at the placement we use and is
+**RAM-unsafe at the offload depths where it would help** — its advantage lives exactly in the
+regime our safety envelope forbids on 64 GB. Revisit ik when **128 GB RAM** lands (relieves the
+reserve breach) AND a model too big for GPU-placement is in play; then its +75% prefill and
+offload-scaling decode edge become reachable. **The `--defer-experts` squeeze FAILED to rescue it**
+(all 4 rounds at ncmoe16/28 still REJECTED on RAM — deferring load-time residency does not shrink
+the steady-state compute RSS): the RAM wall is hard, not a load-phase artifact. Raw:
+`runs/ab-e2ik-qwen36-35b-e2-ik-ncmoe6/` (clean n=4), `runs/ab-e2ikdef-qwen36-35b-e2-ikdef/`,
+`runs/ab-e2iknr-qwen36-35b-e2-iknr-sweep/` (the offload curve) and
+`runs/ab-e2iknr-qwen36-35b-e2-iknr-ncmoe40-swap/` (the ncmoe=40 point, `swap=16GB`). Arm-sets
+`e2ik`/`e2iknr`/`e2ikdef` and `--reset-between` in `ab_isolate.py`.
+
+## §E4 — MTP speculative decode: EXACT, ~80% accept, and it decouples decode from placement (2026-08-02)
+
+The Tier-2 lever, and the first that moves decode *without* touching placement. `--spec-type
+draft-mtp` self-drafts from the model's own multi-token-prediction head (no external draft model):
+the head proposes N tokens, the model verifies them in one forward pass, accepted tokens are free.
+**Quality-neutral, and NOT bit-identical to non-spec decode over long generations** (corrected 2026-08-02,
+§Q). The single-prompt byte-identity check below is real but prompt-specific: over 40 HumanEval thinking
+generations (against a *deterministic* base — base==base2, 40/40) MTP diverges on 24/40, and
+`verify_mtp_long.py` reproduces it (first diff by ~150 tok, e.g. base `l.copy()` vs mtp `l[:]` — lateral,
+equal-quality). Mechanism: the batched draft-VERIFY forward pass is not bit-identical on CUDA to the
+sequential base pass, so greedy near-ties flip. So MTP is "exact" relative to *its own* forward pass, and
+**quality-neutral (pass@1 unchanged, §Q) — but do NOT expect byte-identical output to non-spec decode.**
+
+Needed the MTP weights: our on-disk Q4 GGUFs ship no MTP head, so `unsloth/Qwen3.6-35B-A3B-MTP-GGUF`
+(22.7 GB, `qwen35moe.nextn_predict_layers=1`, `blk.40.nextn.*`) was downloaded to its own dir.
+MASTER_BIN (commit `720d7fa40`, carries the #25980 MTP infra) loads and runs it. Arm-set `e4mtp`:
+one model in both arms, differing only by `--spec-type draft-mtp --spec-draft-n-max 4`.
+
+**The clean A/B (ncmoe=8, n=4, both arms inside the envelope):**
+
+| metric | base | mtp | Δ |
+|---|---:|---:|---|
+| decode | ~92 t/s | ~116.5 t/s | **+26.75%** (Cliff δ +1.00, CI95 [+23.8,+25.3], 4/4) |
+| prefill | ~549 t/s | ~523 t/s | −4.5% (within noise; the draft processes the prompt too) |
+
+**Verification (greedy, temp=0, a structured coding prompt) — `verify_mtp.py`:**
+
+| quantity | value |
+|---|---|
+| token-identical **on this one prompt** | TRUE — 945 chars (but prompt-specific; MTP is NOT bit-exact in general — §Q, and the correction above) |
+| accept rate | **194/241 drafted = 80.5%** — matches upstream #25642's ~82% target |
+| decode on THIS prompt | base 90.4 → mtp **139.6 t/s = +54%** |
+
+**The speedup is content-dependent** (as spec-decode must be): +27% on the free-form reasoning
+benchmark, **+54% on structured code** where the head predicts well. The **accept rate is the
+invariant**; the t/s follows how predictable the text is.
+
+**MTP decouples decode from placement.** The `mtp` arm holds ~116 t/s at BOTH ncmoe=6 and ncmoe=8,
+while `base` falls 100→92 as experts move to CPU — MTP amortizes the forward pass, so the slower the
+pass, the more it saves. Envelope consequence: at the optimal ncmoe=6 mtp hits **116 t/s (+16% over
+base's 100)** but leaves only **3316 MB VRAM free < the 4 GB reserve** (the draft context costs
+~1.15 GB), so the guard REJECTS it; at ncmoe=8 both fit. **Net deployable: ~116 t/s with MTP inside
+the safe envelope (ncmoe=8) vs base's best safe 100 t/s (ncmoe=6) — +16% deployable, +27% at matched
+placement, +54% on code, quality-neutral (pass@1 unchanged; equivalent output, not byte-identical — §Q).** The biggest *safe* single-stream decode win since §E1's
+placement, and it **stacks on** placement rather than trading against it.
+
+**Beats the target where it counts:** #25642 is +30% t/s / ~82% accept; we match the accept (80.5%)
+and beat +30% on structured content, land just under (+27%) on reasoning. **Actionable: turn
+draft-mtp ON for the agentic long-context deployment** (tool-call-heavy, structured output is exactly
+the high-accept regime), at ncmoe=8 to seat the draft context. Raw:
+`runs/ab-e4mtp-qwen36-35b-mtp-e4-mtp-moe-ncmoe8/` (clean n=4) and `-ncmoe6/` (the +16%/rejected optimum).
+Arm-set `e4mtp`, models `qwen36-35b-mtp`/`qwen36-27b-mtp` in `models.py`; greedy check in `verify_mtp.py`.
+
+**The 27B "dense" (Gated Delta Net hybrid) — ANSWERED, the biggest MTP uplift in the project.**
+Qwen3.6-27B is a Gated Delta Net *hybrid*, not a plain dense transformer; this build DISABLES the fused
+delta-net kernel (`resolve_fused_ops: ... not supported, set to disabled`) — **non-fatal**: it loads and
+serves at `-ngl 65` (all layers on GPU), the warning only means the fused fast-path is off, so base
+decode is a modest 33 t/s. draft-mtp on the same GGUF, n=3 (one round dropped as a *transient* RAM-reserve
+breach — `ram 11948MB < 16384MB`: the 17 GB mmap + draft + iGPU RAM sit near the 16 GB reserve):
+
+| metric | base | mtp | Δ |
+|---|---:|---:|---|
+| decode (benchmark) | ~33.3 t/s | ~49.8 t/s | **+49.4%** (Cliff +1.0, CI95 [+16.40,+16.52], MAD 0.08) |
+| decode (greedy code) | 34.4 t/s | **63.0 t/s** | **+83%** |
+| accept rate | — | 190/258 = **73.6%** | quality-neutral (short-prompt check; not bit-exact over long gens — §Q) |
+
+**Bigger than the MoE's uplift despite a LOWER accept rate (73.6 vs 80.5%).** Mechanism: a 27B *dense*
+forward pass (all weights every token) is far more expensive than the MoE's 3B-active pass, so each
+amortized pass saves more absolute time. This is the §E4 thesis at its cleanest — **the MTP payoff
+scales with per-token forward-pass cost, not with accept rate.** It straddles the published +73% (under
+it on reasoning, over it on code). Both arms fit VRAM (base 7.0 / mtp 4.5 GB free); the binding
+constraint here is the **16 GB Windows RAM reserve, not VRAM**. A newer build with the fused Gated Delta
+Net kernel would raise base decode and likely shrink the ratio. Raw:
+`runs/ab-e4mtp-qwen36-27b-mtp-e4-mtp-dense-ngl65/`.
+
+## §A2 — ThinkingCap long-to-short on the dense-27B: STRONG WIN, both axes (2026-08-04) — full record `A2_THINKINGCAP.md`
+
+First positive A-tier lever. Paired A/B, full ThinkingCap GGUF vs base `qwen36-27b-dense`, both Q4_K_M
+matched-imatrix, decode-pure (spec OFF — draft-mtp not bit-exact on qwen35, corrupts the token count),
+`--reasoning-format deepseek` + `/tokenize` for exact reasoning-token counts. Fail-fast: n=12 pilot decided
+GO + killed the LoRA track in ~25 min. **GSM8K n=60:** reasoning **−59.9%** [50.1,64.8] (Wilcoxon p=1.8e-11),
+wall **−55.3%** (33→17.8s); accuracy-NEUTRAL (both-answered 100→98%, the +18pp overall is all starvation
+recovery — base starved 13/60 at 4096, cap 0). **HumanEval+ n=40:** reasoning **−53.0%** (p=5.5e-8), wall
+**−51.0%** (70→32s); pass@1 GENUINELY **+20pp** (both-answered 70→90%, 0 regressions, base-only-right=0) +
+recovers 8/10 starvations. Q4 does NOT wash the concision; code did NOT collapse to the literature's ~8% (base
+is an extreme over-thinker → huge headroom). Cut GROWS with difficulty (≤77%). Zero short-but-wrong (≤1 reg/100).
+**Reconstruction gate FAILED** (community rank-64 SVD LoRA: base+LoRA reasoning 968 vs cap 502, fidelity 0.26 vs
+0.65 to base) → LoRA/DavidAU transfer DEAD (concision outside rank-64 subspace; geometry was fine). **Deploy:
+ThinkingCap replaces base in the dense-27B slot** (~2× faster, equal/better acc, keeps MTP); scope = dense-27B
+only (shape-incompat with the 35B MoE worker; a concise MoE needs our own trace-distillation). Harness:
+`a2_concision_bench.py`/`a2_stats.py` (Wilcoxon+McNemar+bootstrap, cross-validated vs scipy)/`a2_reconstruct_gate.py`/
+`a2_score_humaneval.py`; raw `runs/a2/a2g0__*`, `runs/a2/a2h0__*`.
+
+## §A4 — spec-decode & benchmark instrumentation discipline: DONE, mostly already-captured — draft acceptance now in the standing harness (2026-08-04, deep-dived pre-implementation)
+
+> **Full consolidated record: `A4_INSTRUMENTATION.md`** (audit + source/empirical validation + corrections +
+> literature). Gate: `ops/a4_spec_metrics_probe.py` (**A4 PROBE OK**). Raw: `runs/a4-spec-metrics/`.
+
+**IDEAS_BACKLOG A4 (§63.4 mandatory spec metrics + §40 fractional-factorial). Verdict: an INSTRUMENTATION
+item, largely already-captured (the S2 pattern).** The one machine-readable §63.4 metric missing from the
+*standing* A/B harness was **draft acceptance**; it is now wired in, source- and empirically-validated, with
+three corrections. **No deploy change.**
+
+**What was added (additive, low-risk):** `collectors/request.py` captures `draft_n`/`draft_n_accepted` (raw)
+and exposes `accept_rate` (α = accepted/drafted) + `tpot_ms` (decode ms/tok); `workloads/throughput.py`
+aggregates them; `ab_isolate.py` grows a **SPEC-DECODE METRICS** block printing α, **τ**, TPOT and gen t/s per
+arm — so a spec win is never a bare tokens/s (the §63.4 anti-pattern). `ops/a4_spec_metrics_probe.py` is the
+standing gate.
+
+**Metric correctness — source + empirical (probe on deploy MoE MTP, ncmoe=8, -fa on, base 720d7fa40):**
+
+| arm | gen t/s | TPOT ms/tok | draft_n | accepted | α | τ = 1+γα |
+|---|---:|---:|---:|---:|---:|---:|
+| nospec | 92.2 | 10.85 | — (absent) | — | — | — |
+| mtp (γ=4) | 122.2 | 8.18 | 268 | 187 | **0.698** | **3.79** |
+
+- **α = draft_n_accepted/draft_n** == the server's logged `draft_ratio` **to 5 decimals** (0.69776). Absent
+  keys when spec is off → `accept_rate` stays **None, not 0** (a 0 would mean "spec ran, accepted nothing").
+- **τ (mean accept length, §63.4 "per verification")** is NOT derivable from the JSON alone (`n_verif_steps`
+  is log-only). **The probe caught the first implementation's `predicted_n`-based τ as wrong (3.75 vs the
+  server's 3.79).** The robust exact relation is **τ = 1 + γ·α** (γ = `--spec-draft-n-max`; the drafter
+  proposes γ/step so `n_verif_steps = draft_n/γ`): `1 + 4×0.69776 = 3.79`, matching the log to the decimal.
+  τ is computed where γ is known (the report), never persisted.
+
+**Three corrections banked:** (1) the backlog's "§40 factors map ~1:1 to our levers" is **false** — our L18
+(`taguchi_screen.py`) screens *build* knobs (pin/prefetch/ubatch/ncmoe/kv/cache), §40's matrix is
+*workload*-facing (speculation/context/deterministic/engine/concurrency); overlap is only kv+ncmoe. (2) the
+`e4mtp` "spec-decode is EXACT/token-identical" comment was wrong (draft-mtp is quality-neutral but **diverges**
+per §Q/A1/S3) and its `#25980` citation was the wrong PR (that's GLM-5.2 NextN); both fixed inline. (3) the
+first τ formula (fixed inline + gated).
+
+**Upstream corroboration:** `draft_n`/`draft_n_accepted` = #12603; `mean_acc_len` = #24536 (log-only, vLLM
+defs, in our base — the probe's authority). **`/metrics` has NO spec metric** (#25327 closed-no-merge) → we
+read per-request `timings`. **⚠ #26320** (merged after our base) fixes checkpoint-restore inflating
+acceptance +1/restore → pin-watch; triggers only on long-ctx slot save/restore, not batch-1 decode. **#26100**
+(open): repeated prompts inflate acceptance ~10× — the §63.4 anti-pattern, **our harness already defends**
+(`cache_prompt=False` + unique per-rep prefix). **Batch-1 α/τ/speedup are an upper bound** — "Performance or
+Illusion?" (arXiv:2601.11580) formalizes the batch-collapse we already measured (§CC: MTP OFF at N≈4).
+
+## §A3 — asymmetric K/V + better/sub-4-bit KV: CLOSED, negative — the KV axis is already at its optimum (2026-08-04, double-checked)
+
+> **Full consolidated record: `A3_KV_QUANT.md`** (arc + robust data + source mechanism + PR/paper corroboration +
+> corrections + re-open trigger). Gate: `ops/kv-quant-bench.sh`.
+
+**IDEAS_BACKLOG A3 (asymmetric K/V + SAW-INT4). Verdict: CLOSED — every direction is a measured throughput
+regression or a dominated null; keep symmetric q4_0 KV.** Double-checked at three independent levels (source, upstream
+issues/PRs on the same GPU class, peer-reviewed literature incl. the SAW-INT4 paper the doc pointed to) — all corroborate.
+
+**Robust measurement (deploy MoE Q4_K_M, ncmoe=8, -fa on, base 720d7fa40; 6 reps/arm, isolated process + 25s cooldown):**
+
+| type_k | type_v | tg64 @ d8192 (t/s) | 95% CI | vs q4_0 | on-GPU? |
+|---|---|---:|---|---:|---|
+| **q4_0** | **q4_0** | **88.55 ± 0.84** | [87.7, 89.4] | baseline; lossless (§Q) | ✅ fused FA |
+| q8_0 | q8_0 | 89.80 ± 3.30 | [86.3, 93.3] | ≈ 0 (lossless, more VRAM) | ✅ fused FA |
+| q8_0 | q4_0 | 38.42 ± 10.65 | [27.2, 49.6] | **−57%** | ❌ CPU offload |
+| iq4_nl | iq4_nl | 16.11 ± 0.55 | [15.5, 16.7] | **−82%** | ❌ CPU offload |
+| q4_0 @32k | q4_0 | 76.41 ± 2.09 | [74.0, 78.8] | graceful w/ depth | ✅ fused FA |
+
+(First pass: 3 reps, no cooldown → 87.4/33.2/33.6/18.5, same signs; the robust pass tightened iq4_nl CV 24%→3.4%.
+Even the noisy asym arm's CI ceiling 49.6 ≪ baseline floor 87.7 → penalty statistically unambiguous.)
+
+1. **Asymmetric K/V → −57%, and iq4_nl → −82%, because the CUDA FA op offloads to CPU** (source-verified in
+   `ggml-cuda/fattn.cu`): the default build compiles only **4 symmetric FA KV combos** (f16/f16, q4_0/q4_0, q8_0/q8_0,
+   bf16/bf16). K≠V, or an unwhitelisted type, → `BEST_FATTN_KERNEL_NONE` → attention op scheduled on CPU (a CPU KV
+   buffer is allocated; #20866 shows ~156 MiB). **Build-flag-gated:** `GGML_CUDA_FA_ALL_QUANTS=OFF` in our build; ON would
+   put asymmetric on-GPU (upstream ~25× prefill recovery) but it's still **dominated** (q4 already lossless → asymmetric =
+   more VRAM, zero quality). **iq4_nl has no FA kernel on ANY arch, flag or not** — universal, not sm_86-specific. The
+   CPU-offload penalty **grows with depth** (#20866: asym prefill 30.6 vs sym 1340 t/s, −98%), so our 8k numbers understate
+   the 128k penalty. Corroboration: Gäßler (#7527) *"quantized KV is a memory feature, not a speed feature"*; am17an
+   (#22411) *"mismatched K/V silently falls back to the non-fused path"*; FR #24485 to fix the footgun closed `not_planned`.
+2. **SAW-INT4 is a 4-bit method, not sub-4-bit** (CORRECTION: arXiv:2604.19157, Together AI). Block-diagonal-Hadamard +
+   token-wise INT4, near-lossless on **H100 + Triton + FA3 + forked SGLang** — its own thesis: *"more sophisticated
+   methods give only marginal gains once serving compatibility is considered."* Its value (quality-at-4-bit, low
+   integration cost) is **moot for us**: q4 is already lossless on this hybrid and SAW-INT4 isn't stock-llama.cpp-portable.
+3. **Genuinely sub-4-bit codecs (TurboQuant tq3_0, KVarN, OSCAR)** are **not upstream** (TurboQuant = discussion #20969; a
+   3090 fork `spiritbuun/llama-cpp-turboquant-cuda` exists but is unverified). Even a working one is dominated: MoE q4 KV
+   is ~6.5 MiB/1k → ~0.83 GB @128k, so a sub-4-bit codec frees < one `--n-cpu-moe` step (0.46 GB) and buys **zero
+   context** (q4 already reaches native 262k in VRAM, lossless, ~3 GB free). Physics: batch-1 decode is
+   weight-bandwidth-bound; **KV is ~3% of bytes moved** (arXiv:2605.30571) → sub-4-bit KV is wall-clock-invisible on
+   Ampere (same physics as S2). The **free monitor→iGPU replug (~1.4 GB ≈ 3 ncmoe steps)** strictly dominates this path.
+4. **Dense-27B can't be unblocked either** — Phase A #3: q4 *barely* shrinks dense VRAM at depth because the growing
+   component is the **full-precision Gated-DeltaNet recurrent state**, which **no `--cache-type` touches**.
+
+**Deploy takeaway:** keep **symmetric q4_0** for long context (fast + lossless); q8_0 symmetric if wanted (≈ same speed,
+more VRAM). **Never asymmetric on a default build (−57%); never iq4_nl (−82%).** Same pattern as S1/S2/S3/A1. **Re-open
+only** if a sub-4-bit *fused-FA* KV kernel lands **upstream** for sm_86, or a future served model becomes genuinely
+KV-bound (our GDN hybrids aren't). Raw: `runs/context/a3-kv-quant/`.
+
+## §A1 — windowed-MTP: right paper, unreachable regime — MTP's edge GROWS to native 256k → CUT (2026-08-04, double-checked)
+
+> **Full consolidated record: `A1_WINDOWED_MTP.md`** (arc + all data + literature + code verification + re-open trigger).
+
+**IDEAS_BACKLOG A1 (windowed / adaptive MTP). Verdict: CUT — no context we can serve benefits.** We measured to
+the model's native 262k ceiling and the MTP edge only grows (+75% @8k → +134% @128k → +176% @256k), accept
+pristine throughout; the draft-KV tax the lever removes only dominates near ~1M tokens, which we cannot reach.
+(Supersedes the first-pass "premise reversed/null" AND the interim "revisit ≥256k" framings; the double-check
+corrected two things — see the CORRECTION box.) The research doc (§22/§35) warns MTP's edge *drops* at long
+context because the draft pays a full-context KV tax, and points at `windowed-MTP` [ref-105] as the fix.
+
+**Measured — the MTP edge GROWS with depth on both GDN hybrids** (`ops/a1_mtp_depth_bench.py`; ncmoe=8, ub2048,
+q8_0 KV @8k / q4_0 @deep; isolated arms + cooldown; the GPU-A/B variance rule):
+
+| model | depth (prompt_n) | no-spec t/s | draft-mtp t/s | **MTP edge** | draft accept |
+|---|---|---:|---:|---:|---:|
+| MoE 35B-A3B | 8k (6.7k) | 84.9 | 148.4 | **+74.9%** | 99.2% (358/361) |
+| MoE 35B-A3B | 128k (122k) | 48.3 | 113.3 | **+134.2%** | 99.2% (358/361) |
+| dense 27B | 8k (6.3k) | 31.8 | 70.6 | **+121.8%** | 97.8% (357/365) |
+| dense 27B | 48k (44k) | 25.0 | 58.3 | **+133.1%** | 94.9% (355/374) |
+
+**Strengthened accept-vs-depth curves (A1-0b/0c, 2026-08-04 — closes the "2 depths / one high-accept task" gap):**
+- **T1 (context-independent, ~99% accept), MoE mtp across 6 depths to the model's NATIVE 262k ceiling:** t/s
+  151→142→132→122→115→**90** (8k→32k→64k→96k→128k→256k); **accept byte-identical 99.17% at ALL six.** The MTP
+  **edge keeps GROWING monotonically all the way to native 256k: +75% (8k) → +134% (128k) → +176% (256k)**
+  (256k: no-spec 32.7 → mtp 90.4 t/s). Smooth monotone falloff, no discontinuity → **rules out the KV-slot-
+  boundary acceptance-oscillation bug (#23658) on our base** (accept would dip at some ctx; it never does across
+  depths spanning ~125 2048-token boundaries). **256k runs and FITS VRAM** (ncmoe=8, q4 KV, ub1024) — the model's
+  native ceiling is reachable, and even there the draft-KV tax is invisible (accept pristine, edge at its max).
+- **T2 (free-form prose reasoning, realistic ~50% accept — real headroom to fall), MoE:** edge **+11.8% @8k →
+  +13.1% @64k → +41.4% @128k**; accept **51.2 → 52.7 → 48.1%** (±2pp, no collapse). **Rules out the SWA/hybrid
+  acceptance-collapse-at-depth report (#23322)** for our config: even the low-accept regime holds ~50% at 128k
+  and the edge still grows. So the growth is not an artifact of the near-ceiling 99% task.
+
+**Mechanism (corrected & literature-backed) — three distinct O(S) cost terms that dominate in sequence:**
+- **(A) target-forward cost** grows O(S) (our 10/40 full-attention layers + base): no-spec decode 85→48 (MoE),
+  32→25 (dense). MTP amortizes it over ~4 verified tokens/pass → the *relative* edge **widens with depth**.
+  This is textbook Leviathan (speedup `IF=(1−α^{γ+1})/[(1−α)(γc+1)]`, c=t_draft/t_target: a costlier target
+  lowers c and raises speedup at fixed α) and is empirically MagicDec (arXiv:2408.11049: 1.02×@4k→2.0×@32k, the
+  same shape as our curve). **This term dominates the entire 8k–128k range → our result is the expected one.**
+- **(A′) the draft's OWN attention cost** also grows O(S) (the nextn head is full-attention, see below), and this
+  is what `windowed-MTP` (arXiv:2607.21535, "…at Million-Token Context", NVIDIA single-author preprint, Jul-2026)
+  targets — but it shows the draft-KV tax only *"becomes exposed"* at **≥256k** (+27% per-step @261k, +43% @1M),
+  and *"vanishes at short context by construction"*. Worst on hybrids (cheap verify leaves the draft's full read
+  exposed). **We never reach that regime — our deploy ceiling is 128k.**
+- **(B) draft prediction quality over long-range deps** — small for *native jointly-trained* MTP heads (EAGLE-3.1
+  reports acceptance flat 1K→32K; DeepSeek-V3 MTP 85–90% stable; "Hidden States Drift" 2604.26412 finds the mild
+  decay is over draft *depth γ*, not context length). Our T2 accept-stability confirms B is negligible here.
+
+> **CORRECTION to the first-pass close (what the double-check overturned):**
+> 1. **"Windowing the draft can only lower accept" was WRONG.** Windowing the draft is **lossless by
+>    construction** — the full-attention *target* still verifies every token, so a window changes only which
+>    tokens are *proposed*, never which are *accepted* (Windowed-MTP: draft top-1 unchanged 86–94%; MagicDec &
+>    LongSpec window the draft with α held ≈0.8). It's a cost-saver, not an accept-killer.
+> 2. **The premise is not "reversed/null" — it's correct but OUT OF OUR REACHABLE REGIME.** [ref-105] is a *real*
+>    paper (verified on arxiv); the research doc's error is **regime-misattribution** — it dropped the paper's
+>    "million-token" scope and presented the draft-KV tax as biting at our depths. The paper's tax is +27% on the
+>    *draft phase* @261k rising to net-negative near 1M — but the draft phase is ~1 layer of ~41, a tiny slice of
+>    the step, so at 256k it is **swamped by term (A)**: we MEASURED native 256k and the MTP edge is at its
+>    MAXIMUM (+176%), accept pristine (99.17%). The tax only dominates approaching ~1M tokens, which is
+>    **unreachable for us** (native ceiling 262k; 1M needs YaRN far past training, where quality is already gone)
+>    **and unusable** even if reachable. → **CUT windowed-MTP** — there is no context we can serve where it would
+>    help. (If a future model shipped with a ≥512k *native* window AND a real use case, revisit — window the nextn
+>    head, StreamingLLM window+sink, lossless. Not our models, not now.)
+
+**Code / config verification (double-check):**
+- The `nextn` MTP head (blk 40) runs **full self-attention over the unified KV cache** — `build_attn_inp_kv()` +
+  `build_attn(...)` in `src/models/qwen35moe.cpp` (the block is "a full-attention Qwen3.5 decoder block with MoE
+  FFN"). So the "draft pays full-context KV" premise is mechanically real in the runtime — the question was only
+  the *regime*, and we settled it.
+- **Accept metric verified correct:** `tools/server/server-context.cpp` sets `draft_n = n_draft_total`,
+  `draft_n_accepted += ids.size()-1` (the −1 drops the target's always-correct bonus token) →
+  `accept = draft_n_accepted/draft_n` is the standard fraction-of-drafts-accepted. Deterministic under greedy
+  (so accept has zero rep-variance; a single value per (task,depth) is correct).
+- **Model is NOT SWA:** GGUF `qwen35moe.full_attention_interval=4`, no `sliding_window`/`n_swa` key → the 10
+  full-attn layers are *full* (not windowed), the other 30 are GDN recurrent. The #23322 SWA-window-invalidation
+  mechanism does not apply to us. **Base `720d7fa40` = 2026-07-25**, ~2 months newer than the May-2026 accept
+  bugs (#23322/#23658/#23302) — consistent with our clean accept curves.
+
+**Upstream:** NO PR/issue anywhere in ggml-org/llama.cpp proposes windowing the MTP/nextn draft attention (clean
+negative, two in-repo searches "0 results"); adaptive-draft-length is only an open, unanswered discussion
+(#23738, which does report n=2/n=3 curves *converging* ~80–100k — about optimal draft *length*, tangential to our
+edge-vs-no-spec claim). So windowed-MTP is un-built AND un-rejected upstream.
+
+**Deploy consequence (positive, unchanged):** draft-mtp is worth *more* at long context — **+134% at 128k (MoE);
++41% even on low-accept reasoning at 128k** — the exact regime the agentic deploy runs in. Keep `--spec-type
+draft-mtp` ON. **Stat/method note:** effect sizes (+12% to +134%) dwarf the <1% within-instance CV; reps reuse
+the cached prefix (measure decode jitter, not reload variance) but the huge, monotone, two-model, two-regime
+signal is far outside any plausible variance. Gate banked: `ops/a1_mtp_depth_bench.py` (`MODELSET/TASK/DEPTHS`
+knobs). Raw: `runs/a1-mtp-depth/a1_depth.csv` (extremes, both models) + `a1b_curve.csv` (5-depth curves).
+
+## §A5 — trained EAGLE-family draft (DFlash/DSpark/Eagle3) vs the native MTP head: CLOSED NEGATIVE — DSpark is dead for our fleet (2026-08-06, built + measured)
+
+**Question:** DeepSeek's DSpark (DFlash + a Markov head; llama.cpp PR #25173, merged after our pin) is the current
+best trained-draft variant. Can it beat our free in-model MTP head anywhere on this fleet? **Answer: no — it either
+crashes or loses badly.** Full record `runs/a5-dspark/RESULTS.md`; card `IDEAS_BACKLOG.md` §A5; drivers
+`ops/a5_dspark_{ab,qwen,dense}.py`.
+
+**Built it:** cherry-picked #25173 onto a probe branch `dspark-probe` (clean — the DFlash refactor #25110 it needs
+was already in-tree; binary then listed `draft-dspark`). Deploy `lifecycle` restored afterward (binary rebuilt,
+`draft-dspark` back out of the default enum; the cherry-pick is banked on the branch, inert).
+
+**Measured on 3 fronts:**
+- **qwen3-vl-8b (arch qwen3vl):** the converted draft LOADS (vocab 151936 + dims match Qwen3-8B exactly) but
+  **CRASHES on first decode** — `llama-graph.cpp:1247 GGML_ASSERT(t_layer_inp[il] != nullptr)`. EAGLE-family drafts
+  inject the target's internal hidden-states (n_extract=5 layers); the **vision graph doesn't expose them** → null.
+- **gemma-4-12b-vision:** incumbent MTP-assistant is already strong (nospec 83 → **228 t/s, +175%, accept 0.939** on
+  reasoning text). The public DSpark GGUF (ankk98) is **format-incompatible** (ft-dspark FORK arch `dspark` ≠ upstream
+  arch `dflash`); #25173's converter is Qwen-only.
+- **fable-tc dense (arch qwen35) — the decisive text test:** DSpark loads + runs (no crash) but is **−81.6%**:
+  nospec 43.2 → native-MTP 55.0 t/s (+27%, accept 0.444) → **DSpark 7.9 t/s, accept 0.212**. Two compounding killers:
+  (1) accept collapse (base-Qwen3.6-27B-trained draft vs our MERGED target → mispredicts); (2) a 3.73 GB **bf16**
+  drafter with 5 target-layer reads/step is ruinous on a **bandwidth-bound** 3090 vs the ~free in-model nextn head.
+
+**Verdict:** EAGLE-family spec-decode is target-feature-conditioned → **incompatible with VLM graphs, and dominated by
+the free native MTP on text** (batch-1, bandwidth-bound). Native MTP/ngram remain the right tools; DSpark buys nothing
+here. Same "already-captured / null" shape as S1/S2/S3/A3. **Do NOT revisit unless we ever run a *vanilla* Qwen3 text
+model** (then the banked #25173 cherry-pick + a matching released draft could apply). Sibling notes: §E4/§A1/§A4 (MTP),
+§S3 (drafter policy).
+
+## §B4 — CUDA-graph capture is a +27% decode lever, and llama.cpp already has it ON (2026-08-02)
+
+SGLang's Paged-Experts got 8→197 t/s "largely from CUDA-graph capture over the streamed decode path"
+(LANDSCAPE §4) — because its offload path had graphs OFF (#23664) and re-enabling them was the win.
+§B4 asked whether llama.cpp leaves the same lever on the table, and whether *pinning* is what enables
+graph capture (the fork's suspected hidden value). Source inspection said graphs are compiled in
+(`GGML_CUDA_GRAPHS=ON`), the 3090 (Ampere > Volta) is not arch-blocked, and the compatibility check
+keeps them ON for quantized MoE decode at batch=1 — so they should already be active. The A/B (one
+binary MASTER_BIN, toggled only by `GGML_CUDA_DISABLE_GRAPHS`, qwen36-35B at ncmoe=6, n=4) measures
+exactly what they buy:
+
+| CUDA graphs | decode |
+|---|---:|
+| OFF (`GGML_CUDA_DISABLE_GRAPHS=1`) | ~79 t/s |
+| ON (default) | ~100 t/s |
+| **Δ** | **+26.8%** (Cliff +1.0, CI95 [+20.5,+21.8], MAD 0.73) |
+
+**Two settled facts:**
+1. **CUDA graphs are a +27% decode lever here** — as big as MTP's benchmark gain, and the same kind of
+   win SGLang reported (killing per-kernel launch overhead matters a lot at batch=1 decode).
+2. **llama.cpp has them ON by default**, so every decode number in this project — §E1's ~102 t/s, §E4's
+   MTP ~116 t/s — ALREADY banks it. The SGLang-style graph win is **not an untapped lever here; it is
+   already captured.** The +27% is what you would LOSE by disabling graphs, not a gain waiting to be
+   claimed.
+
+**The pinning-enables-graphs hypothesis is FALSIFIED for llama.cpp.** Graphs delivered +27% on plain
+MASTER_BIN with **no pinning** (`GGML_CUDA_REGISTER_HOST` unset) — graph capture is gated by GPU arch
+and op-compatibility, not host-memory pinning; and pinning is null at ncmoe=6 anyway (§E1), so there
+is no pin×graph interaction to chase at the operating point. Prefill unmoved (−1.1%, within noise —
+compute-bound, large batch, nothing for graphs to save). This also reframes the engine race: part of
+why stock llama.cpp (stream-to-GPU) stays competitive is that **its CUDA graphs are already working at
+our placement** — a rival engine must beat a 100 t/s that already banks the graph win. Raw:
+`runs/ab-b4graph-qwen36-35b-b4-cudagraph-ncmoe6/`, arm-set `b4graph` in `ab_isolate.py`.
+
+---
+
+## §B3 — GPU-idle instrumentation: the placement penalty is a stall, and it's now a harness metric (2026-08-02)
+
+Every decode number in this project is a black box on WHY a placement costs what it does. §B3 adds the
+missing instrument: the harness now samples `utilization.gpu` every second during the serving window and
+reports mean **%busy** (idle% is its complement) alongside t/s, per config. Serving-window only — the
+accumulator is gated on `mark_healthy()`, so the load transient (card near-idle while 21 GB streams in)
+never dilutes the mean. One extra CSV column on the query the guard already runs; code in
+`collectors/host.py` (`HostSample.gpu_util_pct`), `control_plane/guard.py` (`Watch.gpu_util_mean`),
+`workloads/throughput.py` (`RunResult.gpu_util_mean`). Validated on a null-arms placement sweep
+(MASTER, ncmoe {6,24,40}, n=2), `runs/ab-null-qwen36-35b-b3idle/`:
+
+| ncmoe | GPU busy | GPU idle | decode |
+|---:|---:|---:|---:|
+| 6  | ~60% | ~40% | ~98 t/s |
+| 24 | ~37% | ~63% | ~53 t/s |
+| 40 | ~37% | ~63% | ~31 t/s |
+
+(base vs the identical `same` arm agree within ~1pp at every dose — the metric is reproducible.)
+
+**Three facts:**
+1. **Idle% tracks the placement transition.** Idle climbs 39%→63% as offload deepens 6→24, exactly
+   mirroring the 98→53 t/s halving. That **+24pp of idle is the PCIe expert-transfer stall** that §E1's
+   placement lever removes by bringing experts back onto the card — the mechanism, now measured, not
+   inferred.
+2. **Even at the OPTIMUM the 3090 sits ~40% idle.** Batch-1 A3B decode activates only ~3B params/token;
+   the card finishes each token's math and waits on memory. So ~40% of decode is intrinsic
+   bandwidth-bound idle present even at ncmoe=6 (little of it PCIe — most weights are resident there),
+   and the offload penalty stacks PCIe-stall idle ON TOP. This is why a prefetch that fills
+   *expert-transfer* idle can only ever recover a slice, and why it is a **tax at ncmoe=6**: at the good
+   placement there is barely any expert-transfer idle to fill, only VRAM/KV-bandwidth idle it cannot touch.
+3. **The metric floors in deep offload.** ~37% busy at BOTH ncmoe 24 and 40 though decode halves again
+   (53→31 t/s). `utilization.gpu` is a coarse "was a kernel resident this window" duty, not SM-occupancy,
+   so it resolves the **deploy-relevant** 6↔24 range cleanly but saturates in the heavy-offload tail —
+   finer resolution there needs DCGM/Nsight SM-activity counters, not the nvidia-smi field. Recorded as a
+   known limit of the instrument, not smoothed over.
+
+**Reconciles §B1's tax vs the 3060's win:** a 16 GB card is forced to ncmoe≥32, deep in the high-idle
+regime where the GPU genuinely stalls on expert transfers — prefetch has idle to fill, so it wins. Our
+3090 runs at ncmoe=6 with little fillable expert-idle — prefetch is a tax. Same mechanism, opposite sign,
+set by where on this curve the card operates.
+
+---
+
+## §B5 — `--pin-hot-experts`: N/A on this box, and the precondition is measured absent (2026-08-02)
+
+`--pin-hot-experts` is a proposed lever that `mlock()`s the hottest MoE experts so the OS page cache
+cannot evict mmap'd expert weights **to disk when the model exceeds RAM**. The PR's own summary: *minor
+benefit when the model fits in RAM; the value is disk-paging under over-capacity.* Two reasons it is a
+non-lever here, one structural and one measured:
+
+1. **Unmerged and experimental.** PR #25932 is **closed** (superseded); its successor **#26414 is open,
+   not merged**. No built binary in this project has the flag. Testing it means building an experimental
+   branch — justified only if the precondition holds.
+2. **The precondition does NOT hold on this box — measured, not assumed.** `probe_b5_spill.sh` launches
+   the deploy model at the **heaviest** placement (ncmoe=40, all ~18 GB of experts resident on the CPU,
+   VmRSS 21.2 GB) and counts major page faults across back-to-back steady-state decodes:
+
+   | decode | major faults |
+   |---:|---:|
+   | 1 (cold) | 23 |
+   | 2 | **0** |
+   | 3 | **0** |
+
+   The 23 first-pass faults are the one-time lazy-mmap fault-in tail (~0 against ~480k expert-accesses
+   per decode); decodes 2–3 take **zero** disk-backed faults. Experts fault in once and **stay resident**
+   — they never round-trip to disk. qwen36-35B fits in 64 GB with margin, so the eviction the flag
+   prevents simply does not occur.
+
+**Verdict:** no win available and no experimental build warranted. Revisit `--pin-hot-experts` (#26414)
+only for a MoE that **exceeds this box's RAM** (the too-big-to-place regime — same door as §E2's "revisit
+at 128 GB"). This is the §B3/§E2/§E3 thesis again from the RAM side: a box with abundant RAM and a strong
+GPU gets nothing from a lever built to survive RAM over-capacity. Probe: `probe_b5_spill.sh`.
+
+---
+
+## §B2 — pinning the KV cache in RAM: precondition CONFIRMED, and a patch that recovers up to +17% (2026-08-02)
+
+The only optional whose precondition holds, and the only one that produced a working patch. Two stages,
+in the §B5 discipline (measure the precondition before building):
+
+**§B2a — is KV-in-RAM a transfer-bound regime here?** YES, and it scales with context. `probe_b2_kvram.sh`
+compares default (KV offloaded to GPU VRAM) vs `--no-kv-offload` (KV in system RAM, read over PCIe each
+token) at the deploy placement (ncmoe=6, so expert-streaming is identical across arms and cancels — the
+delta is purely KV placement). Decode t/s vs context depth:
+
+| depth (tok) | base (KV on GPU) | nokv (KV in RAM) | penalty |
+|---:|---:|---:|---:|
+| ~800  | 99.1 t/s | 30.0 t/s | **−69.7%** |
+| ~4000 | 98.1 t/s | 25.9 t/s | **−73.6%** |
+| ~8000 | 94.2 t/s | 21.6 t/s | **−77.1%** |
+
+Base holds ~95 t/s; nokv is crushed to 22–30 t/s and **worsens monotonically with depth** (30→26→22) as
+the KV that must cross PCIe each token grows. This is the "second transfer-bound regime" the §B2 card
+predicted — the twin of §B1's expert streaming, on the KV side.
+
+**§B2b — does pinning the KV host buffer recover it?** YES, partially, and the recovery grows with depth.
+Source (`src/llama-kv-cache.cpp:212`) showed the no-offload KV lands in a **pageable**
+`ggml_backend_cpu_buffer_type()` — so the per-token host→GPU copy is bounce-buffered, exactly the
+condition pinning fixes. A small **env-gated patch** (`GGML_KV_PIN_HOST`, `patches/b2b-kv-host-pin.patch`)
+swaps it for the device host buffer (`ggml_backend_dev_host_buffer_type` = `cudaHostRegister`'d), so the
+copy is a direct DMA. Both arms are ONE binary (`--no-kv-offload`), differing only by the env var — the
+project's matched-control idiom; the patch is inert without the var, so the deploy binary's default is
+unchanged. **Verified engaged**: `--verbose` shows 20 of 80 KV tensors on `CUDA_Host(B2b)` in the pin arm
+(the layers whose device exposes a host buffer type), 0 in base. Decode, pin vs pageable:
+
+| depth (tok) | base (pageable) | pin (`CUDA_Host`) | recovery |
+|---:|---:|---:|---:|
+| ~800  | 30.3 t/s | 31.0 t/s | +2.5% |
+| ~4000 | 27.5 t/s | 30.2 t/s | +9.7% |
+| ~8000 | 24.1 t/s | 28.2 t/s | **+16.8%** |
+
+The recovery **rises with depth** (2.5→9.7→16.8%) — the pinned DMA's advantage grows with the KV volume
+moved per token, the dose-response §B2 pre-registered. And it is a **lower bound**: only 20/80 KV tensors
+were pinned (the patch uses `model.dev_layer(il)`, which returns a host-buffer-capable device for a
+subset); pinning all layers would recover more.
+
+**Practical framing — a lever held in reserve, not for the current deploy.** Even fully recovered,
+KV-in-RAM (~28 t/s at 8k) stays far below KV-on-GPU (~94 t/s): **keep the KV on the GPU whenever it fits**,
+which at the deploy's 8k ctx with q8_0 it easily does. The KV-host-pin matters only in the VRAM-starved
+**long-context** regime — the 128k agentic case where KV would spill and `--no-kv-offload` becomes forced.
+There, this patch is a **novel-for-llama.cpp** lever (no prior art) worth carrying: +up-to-17% and growing
+on a regime that is otherwise −77%. Probes: `probe_b2_kvram.sh` (§B2a), `probe_b2b_pin.sh` (§B2b),
+`confirm_b2b.sh` (buffer-flip verification); raw in `runs/b2-kvram/`.
+
+---
+
+## §E5 — MoE expert cache: redundant with static placement on this (load-balanced) model (2026-08-02)
+
+Surfaced during the build-consolidation due-diligence (LANDSCAPE §1b): the Fable author's post-snapshot
+work and upstream #20757 both propose a **hot-expert cache** — keep the N most-routed experts per layer
+resident in VRAM (dual hot/cold `mul_mat_id`), so hits skip the per-token H2D. Our `stack` build already
+carries an early version (`--moe-cache-slots N` + `--moe-cache-profile`, `llama-moe-trace`), never
+exercised. The one candidate lever that might have justified our own fork — so it was tested properly.
+
+**Precondition (routing skew), from a real trace.** `llama-moe-trace` on Qwen3.6-35B-A3B (400 decode
+tokens) → `analyze_moe_skew.py`. The cache's ceiling is the decode-access fraction the top-N experts
+capture per layer:
+
+| top-N / layer | hit% (mean) | vs uniform |
+|---:|---:|---:|
+| 8  | 28.4% | 9.1× |
+| 32 | 59.0% | 4.7× |
+| 64 | 78.8% | — |
+
+Skewed (9× at top-8) but NOT concentrated: you need top-64 to catch ~79%. That is the load-balancing
+aux-loss Qwen3-MoE trains with, working as designed — and it caps what a hot-expert cache can do.
+
+**The measurement (`probe_e5_cache.sh` + `probe_e5b_static.sh`, stack build, ncmoe=40, depth 256).**
+Cache slots vs static `--n-cpu-moe`, overlaid at matched VRAM — the fair comparison (same build, depth):
+
+| VRAM | cache (slots) | static (--n-cpu-moe) | winner |
+|---:|---|---|---|
+| ~4.7 GB | s8 → 35.9 t/s | ncmoe40 → 37.2 t/s | **static** |
+| ~6.3 GB | s32 → 38.5 t/s | ncmoe36 → 38.9 t/s | **static** |
+| ~8.8 GB | s64 → 45.8 t/s | ncmoe~31 → ~45.4 t/s | tie |
+
+**At every VRAM budget static placement equals or beats the cache.** The cache recovers heavy-offload
+decode only modestly (+22.9% at s64, to ~46 t/s — nowhere near resident ncmoe=6's ~98) and no more
+VRAM-efficiently than simply lowering `--n-cpu-moe`. **Verdict: NULL/redundant on this model.** It would
+only win with concentrated routing (a few dominant experts); Qwen3.6 is deliberately load-balanced. Not
+housed in the fork. (Same door as §E2/§B5: revisit only if a differently-routed model appears.) Raw:
+`runs/e5-moe-cache/`; the cache lives in the `stack` build, not carried forward.
+
+---
+
+## §Q — levers × quality: no lever costs quality; q4 KV is lossless; MTP is not bit-exact (2026-08-02)
+
+Do the speed/context levers cost output QUALITY? Benchmark: HumanEval+ (seeded 40-subset), **thinking,
+temp=0**, evalplus-scored (`~/evalplus-venv`, subset-padded so it scores <164), on the
+**lifecycle fork**. `quality_bench.py` gained lever knobs (`--spec`, `--moe-cache-slots/-profile`) and its
+budget was fixed (**1024→4096**: the thinking model spent 1024 entirely in `<think>` and never emitted
+code — 33/40 starved; at 4096 only ~5/40 still starve, which caps pass@1 near 33/40 = the ~5 empties
+count as fails). Scored via `score_subset.py` / `score_matrix.py`.
+
+**Determinism control first (the methodology fix):** `base` re-run identical (`base==base2`, **40/40
+byte-identical**, pass@1 33==33). So generation is DETERMINISTIC → every cross-config difference below is
+REAL, not run-to-run noise.
+
+| config (ncmoe=8, thinking) | pass@1 (HumanEval+) | completions ≠ base | verdict |
+|---|---:|---:|---|
+| base / base2 (q8_0) | 33/40 | 0/40 | deterministic reference |
+| **q4_0 KV** | 33/40 | 28/40 | **lossless** (== q8 == f16) |
+| f16 KV | 33/40 | 25/40 | reference |
+| **MoE expert cache** (slots 32) | 33/40 | 25/40 | quality-neutral (lateral) |
+| **MTP** (draft-mtp) | 34/40 | 24/40 | quality-neutral (+1), **NOT bit-exact** |
+
+**Three findings:**
+1. **No lever costs quality.** pass@1 is flat at 33–34/40 (±1 = the resolution of a 40-set). Every lever
+   changes *which* tokens are produced (completions differ 24–28/40) but **laterally** — different valid
+   output, same correctness. The speed/context levers are quality-free.
+2. **q4_0 KV is lossless here** (== f16 == q8 at 33/40) — confirms the hybrid-arch "linear layers absorb
+   KV-quant noise" claim (#21385). **Direct payoff for context: q4 KV ~doubles context at no quality
+   cost.** (Long-context depth still to test — CONTEXT_PLAN Phase C.)
+3. **MTP is quality-neutral but NOT bit-identical** to non-spec decode. Against the deterministic base it
+   diverges on 24/40; `verify_mtp_long.py` reproduces it (first diff by ~150 tok, e.g. `l.copy()` vs
+   `l[:]`). The batched draft-verify forward pass isn't bit-identical on CUDA to the sequential base pass,
+   so greedy near-ties flip. **Corrects the §E4 "token-identical/exact" claim** (true only for the one
+   short prompt tested): MTP is exact relative to its *own* forward pass, quality-neutral, but not
+   byte-for-byte equal to non-spec output.
+
+Caveat: pass@1 33/40 (82.5%) is dragged by the ~5 thinking-starved empties; of the ~35 answered, ~33 are
+correct (~94%). Raw: `runs/quality/qm-*`; tooling `quality_bench.py`, `score_subset.py`, `score_matrix.py`,
+`compare_base2.py`, `verify_mtp_long.py`.
+
+---
+
+## §PF — prefill / TTFT at long context: `--ubatch 2048` doubles it; cache reuse is 15× (2026-08-02)
+
+Enabling 128k context (CONTEXT_PLAN) exposed the real latency wall: **prefill**. A 128k prompt at the
+default `--ubatch 512` takes ~79 s (time-to-first-token). Swept the prefill levers (MoE, ncmoe=8, q4 KV,
+~41k-token prompt), `prefill_probe.py`:
+
+| config | prefill t/s | 128k TTFT | vs default |
+|---|---:|---:|---|
+| `--ubatch 512` (default) | 1663 | 78.8 s | — |
+| `--ubatch 1024` | 2578 | 50.8 s | +55% |
+| **`--ubatch 2048`** | **3441** | **38.1 s** | **+107%** |
+| 512 + Fable prefetch | 1737 | 75.5 s | +4.5% |
+| 2048 + Fable prefetch | 3372 | 38.9 s | (prefetch slightly HURTS) |
+
+1. **`--ubatch 2048` ~doubles prefill (+107%)** — the biggest free win for long-context TTFT (79→38 s at
+   128k). The default 512 under-utilises the GPU on the large prefill matmuls. Costs a bigger compute
+   buffer (fits at our contexts). This is now in the deploy config.
+2. **Fable prefetch is NULL for prefill at ncmoe=8** (+4.5%, and it *slightly hurts* with ub2048). The
+   "+58% prefill" only holds at HEAVY offload (many CPU-expert layers to overlap on the 2nd stream); at
+   light ncmoe=8 there is almost no H2D to hide. **The §B3/§E1 thesis once more: the prefetch is a
+   forced-heavy-offload lever, never a deploy lever — not even for prefill.**
+3. **Prompt-cache reuse = the dominant multi-turn win** (`cache_probe.py`): with `cache_prompt` on, a
+   follow-up query on a shared long prefix REUSES the prefix KV — measured **13.5 s → 0.88 s TTFT (15×)**,
+   only the 2051 new tokens re-prefilled (39364 reused). **Agentic pattern: prefill the long doc once
+   (~38 s), then every follow-up is sub-second.** Raw: `runs/prefill/`.
+
+**CORRECTION (2026-08-04):** the `128k TTFT` column above is a *linear extrapolation* (128k ÷ prefill_tps
+at ~41k tokens), **not a measurement** — it ignores the throughput falloff with sequence length. The **real
+measured 128k prefill is ~68 s** (server `/completion` and `llama-bench pp131072` agree at ~1900 t/s), not
+38 s. The prefill *throughput* and the **+100.8 % ub2048 doubling reproduce** on the deploy binary
+(`prefill_probe.py` re-run: ub512 1413, ub2048 2838 t/s = ~1.2× the 08-02 figures = prompt-length + ~7 %
+run-to-run variance, **no regression**). A paired clock-lock A/B confirmed the 1800-MHz cap costs **~0 %**
+on this MoE prefill (2387 locked @1800 vs 2311 unlocked @1905 t/s — transfer-bound, not core-clock-bound).
+An earlier "~1.8× regression" claim was a measurement confound (llama-bench@131k vs this table's 41k figure);
+retracted. Full trail in `DEPLOY.md` / `SERVING.md` prefill notes.
+
+---
+
+## §CC — concurrency / multi-slot: 2.5× aggregate ~free, and MTP flips at N≈4 (2026-08-02)
+
+Single-stream was the only mode measured until now; a real deploy serves N concurrent requests, which
+llama.cpp BATCHES (weights read once per batch). Swept `-np N` (each slot 4k ctx), MoE ncmoe=8 q4 KV
+ub2048, N streams × 200 decode tokens, `concurrency_probe.py`:
+
+| N slots | aggregate t/s | per-stream t/s | VRAM (no-MTP) | aggregate WITH MTP |
+|---:|---:|---:|---:|---:|
+| 1 | 85 | 92 | 18995 MiB | **112** (MTP +31%) |
+| 2 | 119 (1.4×) | 67 | 19083 | 125 |
+| 4 | 156 (1.8×) | 43 | 19291 | 157 (tie) |
+| 8 | **217 (2.54×)** | 30 | **19633** | **104** (MTP −52%) |
+
+1. **Aggregate scales 2.5× to N=8** (85→217 t/s) — batched decode amortizes weight reads. Per-stream drops
+   to ~30 t/s (8 users), still readable. Sub-linear (2.5×, not 8×): a MoE batch activates the **union** of
+   the N streams' expert routes → more expert compute per batch caps scaling (a dense model would scale
+   better).
+2. **Concurrency is nearly FREE on VRAM** (+638 MiB for 8 slots) — q4 KV per 4k slot is tiny on the hybrid
+   arch. So many slots fit without VRAM pressure.
+3. **MTP FLIPS at N≈4.** Spec-decode's draft-verify compute competes with batching: MTP wins single-stream
+   (N=1: 112 vs 85, +31% — its usual decode lever) but **HALVES aggregate at N=8** (104 vs 217) *and*
+   costs +2.4 GB VRAM (per-slot draft contexts). **Deploy rule: MTP ON for N≤2 (latency); MTP OFF for N≥4
+   (throughput).** Raw: `runs/concurrency/`.
+
+---
+
+## §QN — quant sweep: Q4_K_M is the sweet spot; bigger quant is strictly worse on 24 GB (2026-08-02)
+
+On a 24 GB card a bigger weight-quant must OFFLOAD more experts to CPU to fit → slower decode, for a
+quality gain that (measured) is zero. Swept the MoE at Q4/Q5/Q6/Q8 (`quant_probe.py` for placement/speed;
+`quality_bench` for pass@1). File sizes: Q4 21 GB · Q5 25 GB · Q6 28 GB · Q8 35 GB.
+
+| quant | file | min-fit ncmoe | decode | pass@1 (20-subset) | ctx headroom | verdict |
+|---|---:|---:|---:|---:|---:|---|
+| **Q4_K_M** | 21 GB | **8** | **97 t/s** | **17/20** | **~119k** | **★ sweet spot** |
+| Q5_K_M | 25 GB | 16 | 69 t/s (−29%) | — | ~204k* | worse decode |
+| Q6_K | 28 GB | (heavy) | — | — | — | worse |
+| Q8_0 | 35 GB | 40 (all experts CPU) | **24 t/s (−75%)** | **16/20** | least | strictly worse |
+
+**Verdict: Q4_K_M wins on every axis.** Q8 is **4× slower** (24 vs 97 t/s, forced to ncmoe=40) for **no
+quality gain** (16/20 vs Q4's 17/20 — Q4 nominally ahead, within ±1 noise). Consistent with §Q
+(everything quality-neutral) and K-quant lore (Q4_K_M ≈ Q8 for these models). Bigger quants only make sense
+if you had far more VRAM. (\*Q5's headroom looks larger only because more experts sit on CPU at ncmoe=16;
+`quant_probe.py`'s VRAM read glitched for Q6/Q8 — their decode came from the pass@1 run's timings instead.)
+Raw: `runs/quality/qn-*`, `runs/quality/quant_speed_placement.txt`.
+
+---
+
+## OPEN — as prominent as the answers, on purpose
+
+- **§B1 — transfer-bound generation — CLOSED as UNREACHABLE on this hardware (2026-07-31).**
+  The one regime that would test whether pinning helps *generation* is a big model whose
+  experts stream over PCIe (Nemotron-120B-A12B: 12B active/token, ~0.64 t/s at ncmoe=99).
+  It cannot be measured on this box, and this is now a *measured* fact rather than the
+  earlier `.wslconfig` guess:
+  - Nemotron-Q3 is **61.7 GB** — resident + the 16 GB Windows reserve alone exceeds the
+    63.8 GB of physical RAM. The old 12/12 REJECTED run was correct; the 0.64 t/s seen once
+    was **disk-thrash** (model > the 44 GB WSL cap, `swap=0`, mmap paging from the GGUF),
+    not clean PCIe transfer, and pinning cannot even be applied to a model larger than the cap.
+  - The smallest quant either quantiser publishes — bartowski **IQ1_S, 46.4 GB** — was
+    downloaded and probed. It loads **only at ncmoe=50**, and there leaves **594 MB VRAM free**
+    (reserve 4 GB) *and* **2.0 GB Windows free** (reserve 16 GB): both envelopes blown at once.
+    Raising ncmoe relieves VRAM but starves RAM; lowering it relieves RAM but OOMs VRAM. **No
+    ncmoe satisfies both** — the 46.4 GB model + 24 GB GPU + 64 GB RAM + a live desktop has no
+    room for the reserves.
+  - **Nemotron was discarded**: both quant files deleted, removed from the model registries.
+    Answering §B1 needs different hardware (128 GB RAM makes Nemotron-Q3 trivial), not a
+    tuning change here. The historical evidence is kept in `runs/ab-genpin-nemotron-120b/`
+    and `runs/residency_nemotron-120b.json`.
+
+  **The general constraint, found while chasing this (2026-08-01).** Testing pinning needs
+  mmap on, because the fork's `register_host()` only fires when mmap is in use. But mmap holds
+  the whole GGUF resident in RAM, so the *file* — not the offloaded slice — must fit under the
+  reserve: on a clean 44 GB baseline, `file <= ~26 GB` to keep Windows above the 16 GB reserve.
+  This was confirmed on **Laguna-S-2.1** (poolside, ~117B MoE, 6-7B active): its Q2_K_XL loads
+  but leaves Windows at **5.5 GB available** from a clean baseline — the whole 39.7 GB file sits
+  in RAM regardless of ncmoe. Every MoE quant that is *also* high-active (transfer-bound) is
+  larger than 26 GB; the ones that fit (Laguna-XS, qwen3-30b) are ~3B active, no more
+  transfer-bound than qwen36. **High-active and small-file are mutually exclusive here.**
+  Laguna-S was discarded (files deleted); Laguna-XS not worth downloading.
+
+  **The reachable proxy — ANSWERED (2026-08-01): pinning DOES move generation, but only when
+  transfer-bound, and only ~2%.** qwen36-35B-Q4 (22 GB, fits pinning+mmap) at maximum offload
+  (ncmoe=40), all 40 expert layers streaming over PCIe, genpin `pin - base`, n=12:
+
+  | metric | Δ median | sign_p | Cliff's δ | reading |
+  |---|---|---|---|---|
+  | gen_tps | **+0.58 t/s (+2.14%)** | **0.039** | +0.72 | CI95 [+0.28, +0.88], excludes zero |
+  | prompt_tps | +171.1 (+123.7%) | 0.000 | +1.00 | pinning still ~doubles prefill |
+
+  10 of 12 rounds favour pinning; the 2 that don't are r0/r1 (cold-start, base runs fast while
+  the machine warms) — from r2 on it is 10 straight positives. This is the project's **first
+  positive generation result**, and it settles the SHAPE of §B1: near-resident (ncmoe=24)
+  generation does not move (Δ ~0.2%, noise); transfer-bound (ncmoe=40) it moves +2.1%,
+  distribution-free significant. Two honest caveats: (1) the effect is SMALL — pinning's
+  headline value is still prefill; generation gets a modest transfer-bound bonus. (2) This is a
+  **lower bound**: at 3B active it cannot show the 12B-active severity of Nemotron/Laguna-S,
+  where ~4x the per-token transfer could make it larger — but that regime is unreachable here.
+  Raw records: `runs/ab-genpin-qwen36-35b-maxoff12/` (n=12) and `-maxoff/` (n=6, corroborating).
+
+  **The cross-architecture dose-response — mechanism confirmed, and a pre-registered reframe
+  FALSIFIED (2026-08-01).** To locate the dose variable we ran genpin across **5 MoE
+  architectures** (all at maximum offload, n=12 each) plus **3 dense controls** (n=4-12). The
+  dense controls are the clean negative: gen Δ ~0, prefill strongly positive — the generation
+  benefit is **expert-streaming-specific**, not a generic pin effect. The sharpest isolation is
+  same-architecture: **Qwen3.6-27B-dense (Δ +0.74%, CI crosses 0) vs Qwen3.6-35B-MoE (+2.1%)**.
+
+  | dense control | gen Δ | prefill Δ |
+  |---|---|---|
+  | Mistral-24B (ngl20, n=12) | −0.13% (\|Δ\|<0.04) | +90.1% |
+  | Qwen3.6-27B-dense (ngl40, n=4) | +0.74% (CI∋0) | +58.6% |
+  | ThinkingCap-27B (ngl40, n=4) | +0.23% (sign p=1.0) | +64.0% |
+
+  The 5 MoE, sorted by active-expert count:
+
+  | model | active | expert size | **bytes/token** | gen Δ | base tps |
+  |---|---:|---:|---:|---:|---:|
+  | gpt-oss | 4 | 13.2M | 1269M | +0.01% | 23.0 |
+  | ernie | 6 | 7.65M | 1239M | +0.84% | 23.7 |
+  | gemma | 8 | 3.35M | 803M | +1.99% | 25.2 |
+  | qwen36 | 8 | 1.90M | 608M | +1.95% | 27.1 |
+  | granite* | 10 | 6.12M | 2448M | −0.19% | 11.2 |
+
+  *granite = Granite-4.0-H, a Mamba-hybrid; base tps ~half the others → **compute-bound, not
+  transfer-bound**.
+
+  We had pre-registered a **"corrected dose = per-token expert-transfer bytes"** hypothesis
+  (built to explain why granite looked off-curve on the raw active-count axis). Recomputing the
+  bytes/token from GGUF geometry and correlating against the measured Δ **falsifies it**:
+
+  - Δ% vs **bytes/token**: Pearson **r = −0.84** — *wrong sign*. gpt-oss moves ~2× qwen's bytes
+    and is null; qwen moves the least and gains +2%. More bytes ⇒ **less** benefit. Dead.
+  - Δ% vs **active-expert count** (the original axis): clean monotone **4→6→8**, and the
+    decisive discriminator — **gemma and qwen share active=8 and give the same Δ (~1.97%)
+    despite experts differing 1.76× in size**. Same count → same gain, size-independent.
+
+  **Two conclusions.** (1) The benefit scales with the **number of discrete per-token expert
+  H2D transfers**, not the bytes moved — consistent with pinning removing **per-transfer
+  overhead/latency** (staging setup, sync), *not* bandwidth-time; at decode the bandwidth term
+  does not dominate. The original active-count axis was correct; the bytes "correction" is
+  discarded. (2) **Granite was never "off-curve by dose"** — it is off-curve because a
+  Mamba-hybrid is compute-bound (tps ~11 vs 23-27) and sits **outside the transfer-bound
+  regime** where pinning can act. Architectural exception, not a miscalibrated dose. The
+  headline is unchanged and now mechanistically grounded: transfer-bound-only, active-count-
+  scaled, ~2% ceiling on this hardware. Analysis: `scratchpad/dose_bytes.py`; raw records:
+  `runs/ab-genpin-{gpt-oss,ernie-4.5-21b,gemma-4-moe,granite-4.0-h,qwen36-35b}-*/` and the
+  dense controls `runs/ab-genpin-{mistral-24b,qwen36-27b-dense,thinkingcap-27b}-*/`.
+
+- **The −10.4% no-mmap residual.** One of the three historically disputed deltas. Not
+  covered by any `ab-*` directory here; **still open**, needs its own clean paired A/B.
+
+- **`stackpf − prefetch` = −1.57%, sign_p 0.031 but below the floor.** Sign-consistent
+  across all 6 rounds yet sub-2.3% in magnitude — a candidate real-but-tiny build effect
+  when prefetch is on. **Not promotable at n=6**; would need more rounds to separate from
+  noise. Recorded, not claimed.
+
+- **The quality axis is dark.** `quality_bench` starved on 33/40 HumanEval+ problems (the
+  thinking model spends the 1024-token budget reasoning before emitting code). No pass@1
+  is measurable until the budget/thinking issue is fixed.
+
+- **SGLang head-to-head on gpt-oss-20b.** New (2026-07-31). The only model both engines
+  can serve on this box; llama.cpp numbers exist (base 189 → pin 406 t/s prefill). Awaits
+  the SGLang setup now building in WSL.
+
+---
+
+## Stale markers found while writing this (fix in place)
+
+- `config/environment.yaml`: `transient_handling: UNRESOLVED` predates `guard.py`, which
+  now implements sustained-breach over K samples plus a load-phase exemption. The marker
+  lags the code.
+- `collectors/host.py:45`: "There is no Python on the Windows side of this desktop" — there
+  is, 3.12.10. The `.exe` collector suffix is still correct for a different reason (it
+  measures the Windows host, and the suffix also works when run natively), but the stated
+  premise is false.
+
+_Last regenerated: 2026-07-31 from `analyze_ab.py`._
